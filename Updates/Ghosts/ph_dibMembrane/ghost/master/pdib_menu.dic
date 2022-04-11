@@ -1,0 +1,615 @@
+﻿//---------------------------Menus--------------------------
+//This .dic file is primarily concerned with the double-click menus for each of your ghosts. If you don't want to have menus for your characters, you'd just have to delete the OnMouseDoubleClick functions near the end of mouse.dic and then ignore this file, as none of it will be called I believe. Menus can be cool though, since you can put stuff in them and create new functions if you know what you're doing. For example, I've added a lot of games and interactions and little linked icons to my Hunter Smoker ghost to keep track of their feelings and such. Much of that is pretty complicated though (and kind of messy, cough), so I won't go into it here, but I covered some of the concepts in the coding page of the walkthrough, and enterprising ghost makers can study the menu.dic file I set up for Hunter/Smoker and see how I put it together.
+
+//(http://www.ashido.com/ukagaka/)
+
+
+//--OpenSakuraMenu
+OpenSakuraMenu
+{
+		"\0\s[0]\i[91]\b2Yeah? What's up?"
+		"\0\s[0]\i[76]\b2Need something?"
+		"\0\s[2]\i[72]\i[65]\i[93]\b2(He's humming something to himself.)"
+		--
+		MenuRun
+}
+
+//--MenuRun
+//As you just saw above. This actually fills out the rest of the menu. If you're going to be adding or changing functions, this is where you'll be doing your edits.
+
+MenuRun
+ {	
+ 	wd = GetWeekDay
+ 	ap = GetAP
+	//These four statements basically get the day of the week, whether it's AM or PM, the hour, and the time. It's putting together the information to display the time at the bottom of the balloon. Pay it no mind.
+	--
+	"\n\n\_q\b2"
+	--
+	"(You want him to...)\n\n[half]"
+	--
+	if lastTalk != ""
+	{
+	  "\![*]\q[Repeat what he said,OnLastTalk]\n"
+	  "\![*]\q[Say that again,OnLastTalk]\n"
+	}
+	--
+ 	"\![*]\q[Say something,OnAiTalk]\n"
+	"\![*]\q[Talk to you,OnAiTalk]\n"
+	--
+	"\n(You could interact with him... \f[height,8]placeholder options\f[height,default])\n\n[half]"
+	--
+	"\![*]\q[Play some music,gotomusic]\n/
+	\![*]\q[Give me a fact,funfact]\n/
+	\![*]\q[Ask some questions,asktheboy]\n"
+	--
+	"\n(Or you could ask him to...)\n\n[half]"
+	--
+	"\![*]\q[Check your settings,configmenu]\n/
+	\![*]\q[Do something for you,dosomething]\n\n/
+ 	\![*]\q[Nevermind,CANCEL]\n\n[half]%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year)\e"
+	
+	//These three lead to the Config Menu, the Function menu, and Cancel. You can leave these alone if you like. All the envelopes at the end (see word.dic) basically display the year, month, day, weekday, and time.
+}
+
+//Leave this alone
+OnLastTalk 
+{
+"%(lastTalk)\e"
+}
+
+//This is figuring out what day of the week it is. Leave it alone.
+GetWeekDay
+{
+	if weekday == 0
+	{"Sun"}
+	elseif weekday == 1
+	{"Mon"}
+	elseif weekday == 2
+	{"Tue"}
+	elseif weekday == 3
+	{"Wed"}
+	elseif weekday == 4
+	{"Thu"}
+	elseif weekday == 5
+	{"Fri"}
+	else
+	{"Sat"}
+}
+
+//This is finding out whether it's AM or PM. Leave it alone.
+GetAP
+{
+ 	if hour >= 0 && hour <= 11
+ 		{"AM"}
+ 	else
+ 		{"PM"}
+}
+
+nowhour
+{
+	if hour12 == 0; "1"
+	else; "%(hour12)"
+}
+
+nowmin
+{
+	if minute >= 0 && minute <=9; "0%(minute)"
+	else; "%(minute)"
+}
+
+
+Select.BACKTOMENU
+	{
+		MenuRun
+	}
+
+//If someone selects configmenu, this will lead to TalkConfig.
+Select.configmenu
+	{
+		TalkConfig
+	}
+
+//*********************Advanced User Info*******************************
+//As a rule of thumb I'd probably put any complicated stuff in its own function, then use the Select.option to call the full function as you can see above. Simple dialogue responses to a choice can stay as a Select.option.
+//***********************************************************************
+
+//----------ASK THE MAGIC DIB!----------------------------------------------
+
+Select.asktheboy
+{
+	DibQuestions
+}
+
+DibQuestions
+{
+	"\b2"
+	--
+	"\0\s[0]Oh! I bet I can answer them."
+	"\0\s[0]And I have answers."
+	"\0\s[0]Yeah?"
+	--
+	
+}
+
+
+
+//----------FUN FACTS GALORE------------------------------------------------
+
+Select.funfact
+{
+	SelectFactTopic
+}
+
+SelectFactTopic
+{
+	"\_q"
+	--
+	"\![*]\q[Cryptids,factCryptid]\n"
+	--
+	"\![*]\q[Self-Care,factSelfcare]\n"
+	--
+	"\n\![*]\q[Back to the menu,BACKTOMENU]\e"
+}
+
+
+
+//----------OH BOY IT'S MUSIC TIME------------------------------------------
+
+Select.gotomusic
+{
+	"\0\s[0]ooh yeah music players are tough, figure this one out later\e"
+}
+
+//--TalkConfig
+//This menu allows the user to change their name and other information, as well as put in their birthday and change how often the ghost speaks. You can restructure how this looks if you want, but it's perfectly functional as is. You can of course change the dialogue though if you like.
+
+TalkConfig
+{
+	"\0\b[2]\_q\"
+	--
+	"f[bold,1]Your name:\f[bold,0] %(username) \f[sup,1](\q[Change it?,TEACHNAME])\f[sup,0]\n"
+	--
+	"\f[bold,1]Your pronouns:\f[bold,0] %(heshe)/%(himher)/%(hisher) \f[sup,1](\q[Change them?,TEACHPRONOUN])\f[sup,0]\n"
+	--
+	"\f[bold,1]Your birthday:\f[bold,0] %(birthdayprint) \f[sup,1](\q[Change it?,TEACHBDAY])\f[sup,0]\n\n"
+	--
+	"\f[bold,1]Talk Rate:\f[bold,0] - Every%(talktime). \f[sup,1](\q[Change it,talkinter])\f[sup,0]\n\n"
+	--
+	"\f[bold,1]Stats:\f[bold,0] Insert cool stats here\n\n"
+	--		
+		{
+		"\![*]Enable Uninstall? (NOW : %(deleteshitai))\n\q[ON,deleteon] \q[OFF,deleteoff]\n\n[half]\n"
+		}
+	--
+	"\![*]\q[Back to the menu,BACKTOMENU]\e"
+}
+
+//This and the next few set up the pronouns, as you can see by the linkedfunction names. You can replace "\0\s[0]What pronouns do you want?" with your own dialogue if you prefer, but leave the rest of it alone.
+
+Select.TEACHPRONOUN
+{
+	"\0\s[0]What pronouns do you want?\w5\n\n[half]\_q/
+		\![*]\q[He/Him,choicemasc]\n/
+		\![*]\q[She/Her,choicefem]\n/	
+		\![*]\q[They/Them,choiceneither]\e"
+}
+
+Select.choicemasc
+{
+	presuffix = "masculine"
+	himher = "him"
+	heshe = "he"
+	hisher = "his"
+	hesshes = "he's"
+	//---updated pronouns
+	their = "his"
+	theirs = "his"
+	they = "he"
+	them = "him"
+	theyre = "he's"
+	theywere = "he was"
+	--
+	"\0\s[0]\i[91]Alright, I'll remember.\e"
+}
+
+Select.choicefem
+{
+	presuffix = "feminine"
+	himher = "her"
+	heshe = "she"
+	hisher = "her"
+	hesshes = "she's"
+	//---updated pronouns
+	their = "her"
+	theirs = "hers"
+	they = "she"
+	them = "her"
+	theyre = "she's"
+	theywere = "she was"
+	--
+	"\0\s[0]\i[91]Alright, I'll remember.\e"
+}
+
+Select.choiceneither
+{
+	presuffix = "undefine"
+	himher = "them"
+	heshe = "they"
+	hisher = "their"
+	hesshes = "they're"
+	//---updated pronouns
+	their = "their"
+	theirs = "theirs"
+	they = "they"
+	them = "them"
+	theyre = "they're"
+	theywere = "they were"
+	--
+	"\0\s[0]\i[91]Alright, I'll remember.\e"
+}
+
+//Here are some examples of these envelopes in use.
+//"%(they) left that there."
+//"%(their) work is really cool."
+//"I'll ask %(them) later."
+//"%(theyre) really good at it."
+
+
+Select.deleteon
+{
+	deleteshitai = "ON"
+	TalkConfig
+}
+
+Select.deleteoff
+{
+	deleteshitai = "OFF"
+	TalkConfig
+}
+
+
+//This next set of functions handles inputting the user's birthday.
+
+Select.TEACHBDAY
+	{	
+		"\0\s[0]What month were you born? \w8Name or number is fine.\![open,inputbox,OnUserBornMonth,-1]\e"
+		
+		//You can replace the dialogue up to the \![open,inputbox,OnUserBornMonth,-1] tag, leave that alone. You'll need the input box to get the information.
+		
+		//*********************Advanced User Info*******************************
+		//I also touched on this in bootend.dic and explained it in the walkthrough page on coding, but I'll also go into it here. I'm going to break down the tag there at the end of the sentence so you know what it's doing. Basically, \! means a function is going to happen, open tells it to open something, inputbox tells it to open an input box, and OnUserBornMonth is the function the input box will be linked to, which is just below here. -1 means the input box should not time out. If you want to add input boxes to some new function for whatever reason, you should follow this basic format.
+		//On a related note, you can raise any function at the end of any piece of dialogue by using this format - \![raise,InsertFunctionName]. This can be handy for testing things if the function is hard to get to run otherwise.
+		//***********************************************************************
+	}
+
+//--OnUserBornMonth
+//This takes the value that the user put into the input box above and evaluates it. Most of this you won't have to touch, but I'll explain what it's doing anyway. I'll point out where you can change the dialogue.
+
+OnUserBornMonth
+{
+	_tempmonth = TOSTR(reference0) //this stores what the user put in as a variable called _tempmonth
+	_tempmonth = TOLOWER(_tempmonth) //changes it to lowercase
+	
+	//this is attaching the right value to the input from the user
+	if _tempmonth == "january" || _tempmonth == "1" {bornmonth = 1; bornmonthprint = "January"}
+	elseif _tempmonth == "february" || _tempmonth == "2" {bornmonth = 2; bornmonthprint = "February"}
+	elseif _tempmonth == "march" || _tempmonth == "3" {bornmonth = 3; bornmonthprint = "March"}
+	elseif _tempmonth == "april" || _tempmonth == "4" {bornmonth = 4; bornmonthprint = "April"}
+	elseif _tempmonth == "may" || _tempmonth == "5" {bornmonth = 5; bornmonthprint = "May"}
+	elseif _tempmonth == "june" || _tempmonth == "6" {bornmonth = 6; bornmonthprint = "June"}
+	elseif _tempmonth == "july" || _tempmonth == "7" {bornmonth = 7; bornmonthprint = "July"}
+	elseif _tempmonth == "august" || _tempmonth == "8" {bornmonth = 8; bornmonthprint = "August"}
+	elseif _tempmonth == "september" || _tempmonth == "9" {bornmonth = 9; bornmonthprint = "September"}
+	elseif _tempmonth == "october" || _tempmonth == "10" {bornmonth = 10; bornmonthprint = "October"}
+	elseif _tempmonth == "november" || _tempmonth == "11" {bornmonth = 11; bornmonthprint = "November"}
+	elseif _tempmonth == "december" || _tempmonth == "12" {bornmonth = 12; bornmonthprint = "December"}
+	
+	else //if the month isn't a valid month, like 32 or something.
+	{
+			"\0\s[0]That's not a valid month. Try again."
+			--
+			"\![open,inputbox,OnUserBornMonth,-1]\![set,balloontimeout,-1]\e"
+			
+			//You can replace this dialogue in the first line. You need to leave the tag for the input box so they can put in a correct month. That last tag there for ![set,balloontimeout,-1] makes it so the input box won't time out if the user takes too long.
+	}
+	--
+	"\0\s[0]So you were born in %(bornmonthprint).\n\w8What day was it?"
+	--
+	"\![open,inputbox,OnUserBornDay,-1]\![set,balloontimeout,-1]\e"
+	
+	//Here you can see the use of a bornmonthprint envelope to show the user what month they put in. Notice that it opens an inputbox at the end the same way the one above did. You can replace the dialogue in the first line just as with above.
+}
+
+//This adds an appropriate suffix to the number for the day. No need to mess with this.
+
+Printday
+{
+	if bornday == 1 || bornday == 21 || bornday == 31
+	{	"%(bornday)st"	}
+	elseif bornday == 2 || bornday == 22
+	{	"%(bornday)nd"	}
+	elseif bornday == 3 || bornday == 23
+	{	"%(bornday)rd"	}
+	else
+	{	"%(bornday)th"	}
+}	
+
+//--OnUserBornDay
+//This is much like the above function OnUserBornMonth. It'll take the value the user put in for the day and analyze it. Again, there'll be comments explaining how it works, but all you really need to do is change the dialogue appropriately. I'll point out where you can add new dates to check for.
+
+OnUserBornDay
+{
+	_tempday = reference0 //storing the input in _tempday
+	_tempday = TOLOWER(_tempday) //changes it to lowercase
+	_tempday = REPLACE(_tempday,"st","") //if the user types something like 2nd, 3rd, etc, this will make it just the number. It'll just add the suffix back later on the one that actually shows.
+	_tempday = REPLACE(_tempday,"nd","")
+	_tempday = REPLACE(_tempday,"rd","")
+	_tempday = REPLACE(_tempday,"th","")
+	_tempday = TOINT(_tempday) //Converts it to an integer
+	
+	if ((bornmonth == 1 || bornmonth == 3 || bornmonth == 5 || bornmonth == 7 || bornmonth == 8 || bornmonth == 10 || bornmonth == 12) && _tempday >= 1 && _tempday <= 31) || (bornmonth == 2 && _tempday >= 1 && _tempday <= 29) || ((bornmonth == 4 || bornmonth == 6 || bornmonth == 9 || bornmonth == 11) && _tempday >= 1 && _tempday <= 30) //This ugly function checks if the day falls into a valid range. If it does, we set some variables and continue down.
+	{
+		bornday = _tempday
+		borndayprint = Printday
+		userbirthday = "%(bornmonth)month %(bornday)day"
+		birthdayprint = "%(bornmonthprint) %(borndayprint)"
+		
+		"%(birthchecked)"
+		//Mostly defining envelopes and values in here. No need to touch any of this! Eagle-eyed readers will notice the new envelope birthchecked on its own line like a tiny king. We'll get to that momentarily, but pay it no mind for now.
+	}
+	else //If the day isn't valid, like the 10046th or something, this will open the input box again and have a \e so the dialogue below doesn't play. You can replace the dialogue in the first line here.
+	{
+		"\0\s[0]That's not a valid day. Try again."
+		--
+		"\![open,inputbox,OnUserBornDay,-1]\e"
+	}	
+}
+
+//--birthchecked
+//This is the new envelope you saw me point out above. As you can see here, you can actually call dialogue in a function with an envelope, even when it has if and else statements like here! Which can be pretty handy. Again, more on envelopes in word.dic. Creative ghostmakers can find handy ways to exploit this, I'm sure.
+
+birthchecked
+{
+	if userbirthday == dayslot //if today is the user's birthday
+		{
+			"\0\s[0]Hey, that's today! \w8Happy birthday, %(username).\e"
+		}
+	elseif userbirthday == "3month 30day"
+		{
+			"\0\s[0]Oh, hey! We were born on the same day, aparrently. I'll definitely remember.\e"
+		}
+	else //if the birthday is not listed above.
+		{
+			"\0\s[0]Your birthday is %(bornmonthprint) %(borndayprint). I'll remember.\e"
+			//note the use of envelopes to display the newly set birthday properly. You can replace this dialogue as well, and you can use %(bornmonthprint) and %(borndayprint) to display the month and day in the new dialogue, if you want.
+		}
+}
+
+//--Talk Rate
+//This is when the user chooses to adjust the talk rate in the config menu. The talk rate is how often the ghost will read some dialogue from aitalk.dic.
+
+Select.talkinter
+ 	{
+ 		"\0\s[0]\b2How often should I speak? \w8The interval is currently set to%(talktime)./
+		//note the new envelope here for %(talktime). You'll see it again in a second. You can replace the dialogue above with whatever you like, just make sure it ends with ./ and not \e.
+ 		\0\n\n[half]/
+ 		\![*]\q[Every 30 seconds,TALKMAX]\n/
+		\![*]\q[Every minute,TALKHIGH]\n/
+ 		\![*]\q[Every 3 minutes,TALKNORMAL]\n/
+		\![*]\q[Every 5 minutes,TALKPOOR]\n/
+ 		\![*]\q[Don't speak,TALKNONE]\n\n[half]/
+		\![*]\q[Don't change,TalksTill]\e"
+	}
+
+//If the user doesn't want to change the rate. You can change all of the dialogue in any of these options if you want to reflect the choice the user made. You TECHNICALLY could also change the value in talktime to reflect some other way of measuring time but I wouldn't recommend it, it'd just be confusing I'm sure.
+Select.TalksTill
+	{
+		"\0\s[0]Alright, I'll just... Keep doing \w2what I was doing.\e"
+	}
+
+//If the user chooses every 30 seconds.
+Select.TALKMAX
+	{
+ 		talktime = " 30 seconds" //this sets up the envelope properly
+		aitalkinterval = 30 //this changes the actual rate
+		
+ 		"\0\s[2]\i[91]Alright, I can do that! \w4\0\s[0]\i[26]\i[91]People say I talk too much, actually.\e"
+	}
+
+//If the user chooses every minute.
+Select.TALKHIGH
+	{
+ 		talktime = " minute"
+		aitalkinterval = 60
+		
+ 		"\0\s[0]\i[91]Got it, every minute.\e"
+	}
+
+//If the user chooses every three minutes.
+Select.TALKNORMAL
+	{
+ 		talktime = " 3 minutes."
+		aitalkinterval = 180
+		
+ 		"\0\s[0]\i[91]Sounds reasonable. Every three minutes, then.\e"
+	}
+
+//If the user chooses every five minutes. This is the default rate the ghost will start up in, as seen in bootend.dic.
+Select.TALKPOOR
+	{
+ 		talktime = " 5 minutes"
+		aitalkinterval = 300
+		
+ 		"\0\s[0]\i[91]Every five minutes, got it.\e"
+	}
+
+//If the user chooses to not have them speak. This is one case where you MIGHT want to make talktime equal something else, if you have a snappier way of saying the ghost won't talk. Make sure it flows well in your menus though, since it will be displayed in your config menu.
+Select.TALKNONE
+	{
+ 		talktime = "... Actually, I won't talk at all"
+		aitalkinterval = 0
+		
+		"\0\s[2]\i[77]...Okay, I'll try.\e"
+	}
+
+	
+//This is when the user chooses to change their name. It's linked to the functions outlined in nameteach.dic. Nothing to touch here.
+Select.TEACHNAME
+	{
+		OnTeachName	
+	}
+
+	
+//If the user selects cancel in a menu. Replace as you like, or just leave them blank.
+Select.CANCEL
+	{
+		
+ 	}
+
+	
+//Going back to the MenuRun function we finished above, this is if someone selects the Functions option, linked to dosomething. As you can see, it ends up as Select.dosomething.
+
+Select.dosomething
+{
+ 		"\0\s[0]\b2I mean, while I'm here, might as well.\n\n"
+ 		"\0\s[0]\b2Okay, sure.\n\n"
+		"\0\s[2]\b2An excuse to look around!\n\n"
+		--
+ 		"\![*]\q[Open Calendar,CALENDAR]\n/
+		\![*]\q[Check Email,MailCheck]\n/
+		\![*]\q[Open SSP Preferences,sspconfig]\n/
+		\![*]\q[Empty Recycle Bin,ChoiceGarbagecan]\n/
+		\![*]\q[System Information,ChoiceSystemInformation]\n\n/
+ 		\![*]\q[Back to main menu,BACKTOMENU]\e"
+}
+
+//When the user clicks Open Calender. This will open the calender function of SSP, an in-built feature that you don't have to worry about in the least.
+Select.CALENDAR
+{
+	"\0\s[0]Opening the calendar.\w8\![open,calendar]\e"
+	
+	//You can replace the dialogue here up to the \!.
+	//Advanced users, can you break it down yet? It's basically just using \! to open calender.exe or dll or whatever SSP uses to make it happen.
+}
+
+//When the user chooses SSP preferences. This will open the same window that shows up if you right click your ghost and go to Utilities - Preferences.
+Select.sspconfig
+{
+	"\0\s[0]Opening the SSP config menu.\w8\![open,configurationdialog]\e"
+	
+	//Again, you can replace up to the \! tag.
+}
+
+//If the user chooses to empty the recycle bin.
+Select.ChoiceGarbagecan
+{
+	_gomicheck = FUNCTIONEX("gomi.dll", "-n")	//Don't touch this line. for those curious, it's referencing a SAORI, which are optional user-made plug-in dlls you can download to enable different functions on your ghost. gomi.dll is one included with this template. All SAORI are in Japanese (maybe Korean or Chinese as well idk) and many have disappeared by now, so don't concern yourself very much with SAORI. They're for skilled developers, mostly.
+	
+	if _gomicheck == 0 //If the recycle bin is empty.
+	{
+		"\0\s[0]Let's see what stuff you've thrown out.\w8\w8\s[-1]\w8\w8\w8\w8\w8\0\s[0]\c\w4Nothing, apparently. It was empty.\e"
+		
+		//This isn't the usual flat template dialogue, mostly because I wanted to show that this is a good place to use s[-1], which I covered in the walkthrough file. You can have your ghost disappear momentarily like they're going to check your recycle bin, then come back. \c clears the ghost's balloon of text. Replace dialogue as you desire.
+	}
+	elseif _gomicheck >= 1 //If the recycle bin is full.
+	{
+		"\0\s[0]Emptying the recycle bin.\w8\w8\s[-1]\w8\w8\w8\w8\w8\![raise,OnGarbagecanEmpty]\w9\w9\w9\0\s[0]\cDone.\e"
+		
+		"\0\s[0]This is the second recycle bin emptying dialogue.\w8\w8\s[-1]\w8\w8\w8\w8\w8\![raise,OnGarbagecanEmpty]\w9\w9\w9\0\s[0]\cDone.\e"
+		
+		//Somewhat similar to the above, but notice the \![raise],OnGarbagecanEmpty] tag in there. That's what actually empties the recycle bin, so make sure you don't delete that tag. Otherwise, replace the dialogue as you want.
+		//As you can see, you can have multiple pieces of dialogue in here, just like you can for many other functions scattered through the .dic files. If you only want the one, just delete the others, or if you want to add more, just copy and paste and write new dialogue as it comes to you. This applies to when the recycle bin is empty as well.
+	}
+}
+
+
+//This is for the SAORI, don't touch it.
+OnGarbagecanEmpty
+{
+	_gomi = FUNCTIONEX("gomi.dll", "-f")
+}
+
+//This is when the user chooses System Information. Don't touch any of this either. For those curious though, note that this is done using another SAORI, this time saori_cpuid.dll.
+Select.ChoiceSystemInformation
+{
+	os_name = FUNCTIONEX("saori_cpuid.dll","os.name")
+	os_version = FUNCTIONEX("saori_cpuid.dll","os.version")
+	cpu_name = FUNCTIONEX("saori_cpuid.dll","cpu.name")
+	cpu_clockex = FUNCTIONEX("saori_cpuid.dll","cpu.clockex")
+	
+	"\b[2]\0\s[11]\i[93]Alright, \0\s[11]\i[94]\i[28]give me a sec.\w5\n\n"
+	--
+	"/
+	\0\s[11]\i[95]\w6\0\s[11]\i[94]\w2/
+	\_q\f[bold,1]OS:\f[bold,0] %(os_name) %(os_version)\n/
+	\f[bold,1]Memory Load:\f[bold,0] %(memoryload)%\n/
+	\f[bold,1]Physical Memory:\f[bold,0] %(memoryavailphys) KB\n/
+	\f[bold,1]CPU:\f[bold,0] %(cpu_name) %(cpu_clockex)MHz\n/
+	\f[bold,1]Ukagaka:\f[bold,0] %property[baseware.version]/
+	\e"
+}
+	
+Select.MailCheck
+	{
+		"\![biff]\e"
+	}
+
+
+	
+OnChoiceTimeout
+ {
+	"\0\s[0]...Uh, hello?\e"
+ }
+
+ 
+//---- Secondary Character Menu ---------------------------------------------------------
+//This section has to do with the menu for the second character. If you don't want your second character to have a menu, you can just delete this whole chunk.
+
+OpenKeroMenu
+ {
+	"\1\s[2000]\b[2]"
+	"\1\s[2001]\b[2]"
+	"\1\s[2002]\b[2]"
+ 	--
+	"This is a menu introduction dialogue."
+ 	"This is another menu introduction dialogue."
+ 	"This is the third menu introduction dialogue."
+ 	"This is the fourth menu introduction dialogue."
+ 	--
+	"\n\n[half]/
+	\![*]\q[Update,keroupdatecheck]\n/
+ 	\![*]\q[Bug report,bugreport]\n\n/
+	\![*]\q[Test variable,testvariable]\n\n/
+	\![*]\q[Nothing,keroCANCEL]\e"
+}
+
+//There are no real set things for the second character to do, really. You can mostly add whatever functions you want to them, their menu is totally free reign. In mine for example, Hunter has some games, a pseudo-FAQ for users, a bug report, an update option, and most importantly, a test variable. A lot of that is fairly complicated though, so I won't get into it here. Advanced Users can pick up Hunter and Smoker and study their menu.dic to see how I did it though, and those who read the coding page of the walkthrough and want to make their own functions can feel free to add them here. 
+//For the purposes of this simple template, I'll include two options that may come in handy - an update option and a bug report option, as well as the test variable.
+
+Select.keroCANCEL
+{
+	//"\1\s[2000]This is menu cancel dialogue.\e"
+}
+
+
+Select.bugreport
+{
+"\1\s[2003]This is the bug report dialogue. \w5Report bugs to WhatAPhantasia on any social! \w5We were downloaded from \_a[http://www.whereveryoupostedthem.com/]some place\_a.\e"
+}
+
+Select.keroupdatecheck
+{
+	"\1\s[2000]\![updatebymyself]\e"
+}
+
+//--Test Variable --------------------------------------------------------
+//I briefly mentioned the test variable in bootend.dic and possibly in etc.dic as well, I'm not sure. What exactly is the test variable? Basically, it's a place you can plug in anything you want to test out. While you can use Script Input to test most of your ghost's dialogue, there are some lines it just can't do, and it can't help you test choices. But the test variable can!
+//You can also use this to test functions as I mentioned above by adding \![raise,function] at the end of it, although you can do this with Script Input as well. Advanced Users, the test variable is also great for testing out any new stuff you may add to your ghost, like mode settings, item values, functions, raising or lowering numbers, what have you, particularly if you have a bunch you want to change all at once.
+
+//It is ALWAYS A GOOD IDEA to test your dialogue! If you won't check it with the test variable, at least test it with Script Input! It'll save you so much trouble!
+
+Select.testvariable
+{
+	"\1\s[2000]Dib, I'm going to call a friend over real quick.\w6\0\s[23]\i[27]A- \w2No, don't tell me its... \w8\1\s[2000]\n\n[half]Zim!!\p[3]\s[5000]ZIIIIIIIIIIIIIM!!\0\s[13]\i[72]\i[77]\i[80]\n\n[half]NOOOOOOOOOOOOOOOOO\e"
+	//\p[3] \s[-1]\0\s[0]\i[21]Oh no wait he's gone.\e"
+}
