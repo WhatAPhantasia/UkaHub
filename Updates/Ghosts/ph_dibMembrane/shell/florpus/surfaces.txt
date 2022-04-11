@@ -1,0 +1,900 @@
+//---------------------------Surfaces.txt--------------------------
+//http://www.ashido.com/ukagaka/
+
+//DIB FLORPUS SHELL
+
+//--------PLANNING----------
+//Dib 0-1000 (excluding 10)
+//---
+//idle body base 0-9
+//3/4 head 100-199
+//	base 100-104
+//	glasses 105-109
+//	eye direction 110-139
+//	eyelid 140-149
+//	mouths 150-169
+//	eyebrows 170-175
+//	sweat 190
+//	blush 195
+//profile head 200-200
+//	base 200-204
+//	glasses 205-209
+//	eye direction 210-239
+//	eyelid 240-249
+//	mouths 250-269
+//	eyebrows 270-275
+//	sweat 290
+//	blush 295
+//front head 300-399
+//	base 300-304
+//	glasses 305-309
+//	eye direction 310-339
+//	eyelid 340-349
+//	mouths 350-369
+//	eyebrows 370-375
+//	sweat 390
+//	blush 395
+//back arm 600-649
+//front arm 650-699
+//sitting down 700-799
+//static poses 800-1000
+
+//--------------------DIB MEMBRANE
+
+//--3/4 test neutral pose
+surface1
+{
+collision0,113,108,201,136,Head
+collision1,112,137,182,200,Face
+
+element0,overlay,surface600.png,0,0
+element1,overlay,surface50.png,0,0
+element2,overlay,surface110.png,0,0
+element3,overlayfast,surface115.png,124,158
+element4,overlay,surface100.png,0,0
+element5,overlay,surface170.png,0,0
+element6,overlay,surface150.png,0,0
+element7,overlay,surface650.png,0,0
+//--Blinking---------------------------------------------------------------------------
+//not entirely happy with how i handled the blinking, i want the left n right sides to be independent if that makes sense? but they should still play at the same time yk. also a few of the eye poses have the eyes slightly shifted like. ONE pixel to the left or right, so it doesn't line up... idk im having a Hard Time
+0interval,random,4
+0pattern0,-1,10,overlay,123,156
+0pattern1,140,8,overlayfast,123,156
+0pattern2,142,15,overlayfast,123,156
+0pattern3,-1,6,overlay,123,156
+//--Clothes----------------------------------------------------------------------------
+//Glasses
+910interval,bind
+910pattern0,105,0,add,0,0
+//--Talking----------------------------------------------------------------------------
+1interval,talk,4
+1pattern0,0,0,alternativestart,[2.3]
+
+2interval,never
+2pattern0,151,10,overlay,0,0
+2pattern1,-1,10,overlay,0,0
+
+3interval,never
+3pattern0,151,14,overlay,0,0
+3pattern1,-1,10,overlay,0,0
+}
+
+
+
+//--DIB 3/4 NEUTRAL
+surface0
+{
+element0,overlay,surface0.png,0,0
+
+//close
+60interval,always
+60pattern0,150,0,overlay,0,0
+//talk
+61interval,talk,4
+61pattern0,0,0,alternativestart,[62.63]
+62interval,never
+62pattern0,151,10,overlay,0,0
+62pattern1,-1,10,overlay,0,0
+63interval,never
+63pattern0,151,8,overlay,0,0
+63pattern1,-1,6,overlay,0,0
+//open
+64interval,never
+64pattern0,151,0,overlay,0,0
+//close 2
+65interval,never
+65pattern0,150,0,overlay,0,0
+}
+
+//--DIB 3/4 SMIRK
+surface2
+{
+element0,overlay,surface0.png,0,0
+//close
+60interval,always
+60pattern0,152,0,overlay,0,0
+//talk
+61interval,talk,4
+61pattern0,0,0,alternativestart,[62.63]
+62interval,never
+62pattern0,153,10,overlay,0,0
+62pattern1,-1,10,overlay,0,0
+63interval,never
+63pattern0,153,8,overlay,0,0
+63pattern1,-1,6,overlay,0,0
+//open
+64interval,never
+64pattern0,153,0,overlay,0,0
+//close 2
+65interval,never
+65pattern0,152,0,overlay,0,0
+}
+
+//--DIB 3/4 FROWN
+surface3
+{
+element0,overlay,surface0.png,0,0
+//close
+60interval,always
+60pattern0,154,0,overlay,0,0
+//talk
+61interval,talk,4
+61pattern0,0,0,alternativestart,[62.63]
+62interval,never
+62pattern0,155,10,overlay,0,0
+62pattern1,-1,10,overlay,0,0
+63interval,never
+63pattern0,155,8,overlay,0,0
+63pattern1,-1,6,overlay,0,0
+//open
+64interval,never
+64pattern0,155,0,overlay,0,0
+//close 2
+65interval,never
+65pattern0,154,0,overlay,0,0
+}
+
+//--DIB 3/4 POUT
+surface4
+{
+element0,overlay,surface0.png,0,0
+//close
+60interval,always
+60pattern0,156,0,overlay,0,0
+//talk
+61interval,talk,4
+61pattern0,0,0,alternativestart,[62.63]
+62interval,never
+62pattern0,151,10,overlay,0,0
+62pattern1,-1,10,overlay,0,0
+63interval,never
+63pattern0,151,8,overlay,0,0
+63pattern1,-1,6,overlay,0,0
+//close 2
+65interval,never
+65pattern0,156,0,overlay,0,0
+}
+
+//--DIB 3/4 APPEND
+surface.append0-9,!1
+{
+//--Collisions
+collision0,113,108,201,136,Head
+collision1,112,137,182,200,Face
+
+//--Head Base
+55interval,always
+55pattern0,100,0,overlay,0,0
+55pattern1,100,1,overlay,0,0
+
+//--Eeeyyyeees
+//---------TODO: FIX EYE COORDS
+//eyewhite
+15interval,always
+15pattern0,110,0,overlay,0,0
+//right
+20interval,never
+20pattern0,0,0,stop,24
+20pattern1,115,0,overlayfast,124,158
+//left
+21interval,never
+21pattern0,0,0,parallelstop,[24.71]
+21pattern1,115,0,overlayfast,109,158
+//up
+22interval,never
+22pattern0,0,0,parallelstop,[24.71]
+22pattern1,115,0,overlayfast,124,158
+//down
+23interval,never
+23pattern0,0,0,parallelstop,[24.71]
+23pattern1,115,0,overlay,124,158
+//middle
+24interval,parallelstop,[24.71]
+24pattern0,115,0,overlay,124,158
+//upright
+25interval,never
+25pattern0,0,0,parallelstop,[24.71]
+25pattern1,115,0,overlay,124,158
+//upleft
+26interval,never
+26pattern0,0,0,parallelstop,[24.71]
+26pattern1,115,0,overlay,124,158
+//downleft
+27interval,never
+27pattern0,0,0,parallelstop,[24.71]
+27pattern1,115,0,overlay,124,158
+//downright
+28interval,never
+28pattern0,0,0,parallelstop,[24.71]
+28pattern1,115,0,overlay,124,158
+//shockright
+29interval,never
+29pattern0,0,0,stop,24
+29pattern1,116,0,overlay,124,158
+//shockleft
+30interval,never
+30pattern0,0,0,parallelstop,[24.71]
+30pattern1,116,0,overlay,124,158
+//shockup
+31interval,never
+31pattern0,0,0,parallelstop,[24.71]
+31pattern1,116,0,overlay,124,158
+//shockdown
+32interval,never
+32pattern0,0,0,parallelstop,[24.71]
+32pattern1,116,0,overlay,124,158
+//shockmiddle
+33interval,never
+33pattern0,0,0,parallelstop,[24.71]
+33pattern1,116,0,overlay,124,158
+//shockdownright
+34interval,never
+34pattern0,0,0,parallelstop,[24.71]
+34pattern1,116,0,overlay,124,158
+//uhohright------------------i'm considering shaving down this section (and shock) since i barely use em
+35interval,never
+35pattern0,0,0,stop,24
+35pattern1,117,0,overlay,124,158
+//uhohleft
+36interval,never
+36pattern0,0,0,parallelstop,[24.71]
+36pattern1,117,0,overlay,124,158
+//uhohup
+37interval,never
+37pattern0,0,0,parallelstop,[24.71]
+37pattern1,117,0,overlay,124,158
+//uhohdown
+38interval,never
+38pattern0,0,0,parallelstop,[24.71]
+38pattern1,117,0,overlay,124,158
+//uhohmiddle
+38interval,never
+38pattern0,0,0,parallelstop,[24.71]
+38pattern1,117,0,overlay,124,158
+//uhohdownright
+39interval,never
+39pattern0,0,0,parallelstop,[24.71]
+39pattern1,117,0,overlay,124,158
+
+//Eyeline
+59interval,always
+59pattern,139,0,overlay,0
+59pattern1,139,1,overlay,0
+
+//--BlinkBlink
+71interval,random,4
+71pattern0,-1,10,overlay,123,157
+71pattern1,140,4,overlayfast,123,157
+71pattern2,142,8,overlayfast,123,157
+71pattern3,-1,6,overlay,123,157
+
+//call eyelid
+70interval,never
+70pattern0,0,0,parallelstop,[15.59]
+70pattern1,0,0,parallelstart,[74.16]
+//Eyelid Yasss
+74interval,never
+74pattern0,138,0,overlay,0
+16interval,never
+16pattern0,111,0,overlay,0
+//Closed
+72interval,never
+72pattern0,142,0,overlay,123,157
+//Happy
+73interval,never
+73pattern0,144,0,overlay,123,157
+
+//--Eyebrows, yasss
+//neutral
+75interval,always
+75pattern0,170,0,overlay,0
+75pattern0,170,1,overlay,0
+//question
+76interval,never
+76pattern0,0,0,stop,75
+76pattern1,171,0,overlay,0
+//sad
+77interval,never
+77pattern0,0,0,stop,75
+77pattern1,172,0,overlay,0
+//angry
+78interval,never
+78pattern0,0,0,stop,75
+78pattern1,173,0,overlay,0
+
+//--Extras lets gooooo
+//sweat
+80interval,never
+80pattern0,190,0,overlay,0
+//blush
+85interval,never
+85pattern0,195,0,overlay,0
+
+//--Clothes
+//Glasses
+910interval,bind
+910pattern0,105,0,add,0,0
+}
+
+//--------DIB'S FLORPUS SHELL DOESNT HAVE FRONT AND PROFILE FACES YET, SO THESE ARE ALL CARRIED OVER FROM HIS 3/4 SURFACES----------
+
+//--DIB FRONT NEUTRAL
+surface11
+{
+element0,overlay,surface0.png,0,0
+
+//close
+60interval,always
+60pattern0,150,0,overlay,0,0
+//talk
+61interval,talk,4
+61pattern0,0,0,alternativestart,[62.63]
+62interval,never
+62pattern0,151,10,overlay,0,0
+62pattern1,-1,10,overlay,0,0
+63interval,never
+63pattern0,151,8,overlay,0,0
+63pattern1,-1,6,overlay,0,0
+//open
+64interval,never
+64pattern0,151,0,overlay,0,0
+//close 2
+65interval,never
+65pattern0,150,0,overlay,0,0
+}
+
+//--DIB FRONT SMIRK
+surface12
+{
+element0,overlay,surface0.png,0,0
+//close
+60interval,always
+60pattern0,152,0,overlay,0,0
+//talk
+61interval,talk,4
+61pattern0,0,0,alternativestart,[62.63]
+62interval,never
+62pattern0,153,10,overlay,0,0
+62pattern1,-1,10,overlay,0,0
+63interval,never
+63pattern0,153,8,overlay,0,0
+63pattern1,-1,6,overlay,0,0
+//open
+64interval,never
+64pattern0,153,0,overlay,0,0
+//close 2
+65interval,never
+65pattern0,152,0,overlay,0,0
+}
+
+//--DIB FRONT FROWN
+surface13
+{
+element0,overlay,surface0.png,0,0
+//close
+60interval,always
+60pattern0,154,0,overlay,0,0
+//talk
+61interval,talk,4
+61pattern0,0,0,alternativestart,[62.63]
+62interval,never
+62pattern0,155,10,overlay,0,0
+62pattern1,-1,10,overlay,0,0
+63interval,never
+63pattern0,155,8,overlay,0,0
+63pattern1,-1,6,overlay,0,0
+//open
+64interval,never
+64pattern0,155,0,overlay,0,0
+//close 2
+65interval,never
+65pattern0,154,0,overlay,0,0
+}
+
+//--DIB FRONT POUT
+surface14
+{
+element0,overlay,surface0.png,0,0
+//close
+60interval,always
+60pattern0,156,0,overlay,0,0
+//talk
+61interval,talk,4
+61pattern0,0,0,alternativestart,[62.63]
+62interval,never
+62pattern0,151,10,overlay,0,0
+62pattern1,-1,10,overlay,0,0
+63interval,never
+63pattern0,151,8,overlay,0,0
+63pattern1,-1,6,overlay,0,0
+//close 2
+65interval,never
+65pattern0,156,0,overlay,0,0
+}
+
+
+//phone tappy time 1 - idle
+//theres no talking frames with this one, intended for idle
+surface18
+{
+//--Back Arm
+1interval,always
+1pattern0,600,0,overlay,0,0
+1pattern1,600,1,overlay,0,0
+
+//--Body
+//yass
+10interval,always
+10pattern0,50,0,overlay,0,0
+10pattern1,50,1,overlay,0,0
+
+//--Mouth moods...
+60interval,always
+60pattern0,150,0,overlay,0,0
+
+61interval,rarely
+61pattern0,152,0,overlay,0,0
+61pattern1,-1,800,overlay,0,0
+
+
+//--phone!!
+100interval,always
+100pattern0,654,0,overlay,0,0
+100pattern1,655,105,overlay,0,0
+100pattern2,654,10,overlay,0,0
+100pattern3,655,37,overlay,0,0
+100pattern4,654,9,overlay,0,0
+100pattern5,655,27,overlay,0,0
+100pattern6,654,13,overlay,0,0
+100pattern7,655,55,overlay,0,0
+}
+
+//phone tappy time 2 - idle
+//here i can use this during dialogue
+surface19
+{
+//--Back Arm
+1interval,always
+1pattern0,600,0,overlay,0,0
+1pattern1,600,1,overlay,0,0
+
+//--Body
+//yass
+10interval,always
+10pattern0,50,0,overlay,0,0
+10pattern1,50,1,overlay,0,0
+
+
+//--Mouth moods...
+60interval,always
+60pattern0,150,0,overlay,0,0
+
+//talking and stuff
+61interval,talk,4
+61pattern0,0,0,alternativestart,[62.63]
+62interval,never
+62pattern0,151,10,overlay,0,0
+62pattern1,-1,10,overlay,0,0
+63interval,never
+63pattern0,151,8,overlay,0,0
+63pattern1,-1,6,overlay,0,0
+//open
+64interval,never
+64pattern0,151,0,overlay,0,0
+//close but like... ye
+65interval,never
+65pattern0,150,0,overlay,0,0
+
+
+//--phone!!
+100interval,always
+100pattern0,654,0,overlay,0,0
+100pattern1,655,105,overlay,0,0
+100pattern2,654,10,overlay,0,0
+100pattern3,655,37,overlay,0,0
+100pattern4,654,9,overlay,0,0
+100pattern5,655,27,overlay,0,0
+100pattern6,654,13,overlay,0,0
+100pattern7,655,55,overlay,0,0
+}
+
+
+//DIB FRONT APPEND
+
+
+//--DIB PROFILE NEUTRAL
+surface21
+{
+element0,overlay,surface0.png,0,0
+
+//close
+60interval,always
+60pattern0,150,0,overlay,0,0
+//talk
+61interval,talk,4
+61pattern0,0,0,alternativestart,[62.63]
+62interval,never
+62pattern0,151,10,overlay,0,0
+62pattern1,-1,10,overlay,0,0
+63interval,never
+63pattern0,151,8,overlay,0,0
+63pattern1,-1,6,overlay,0,0
+//open
+64interval,never
+64pattern0,151,0,overlay,0,0
+//close 2
+65interval,never
+65pattern0,150,0,overlay,0,0
+}
+
+//--DIB PROFILE SMIRK
+surface22
+{
+element0,overlay,surface0.png,0,0
+//close
+60interval,always
+60pattern0,152,0,overlay,0,0
+//talk
+61interval,talk,4
+61pattern0,0,0,alternativestart,[62.63]
+62interval,never
+62pattern0,153,10,overlay,0,0
+62pattern1,-1,10,overlay,0,0
+63interval,never
+63pattern0,153,8,overlay,0,0
+63pattern1,-1,6,overlay,0,0
+//open
+64interval,never
+64pattern0,153,0,overlay,0,0
+//close 2
+65interval,never
+65pattern0,152,0,overlay,0,0
+}
+
+//--DIB PROFILE FROWN
+surface23
+{
+element0,overlay,surface0.png,0,0
+//close
+60interval,always
+60pattern0,154,0,overlay,0,0
+//talk
+61interval,talk,4
+61pattern0,0,0,alternativestart,[62.63]
+62interval,never
+62pattern0,155,10,overlay,0,0
+62pattern1,-1,10,overlay,0,0
+63interval,never
+63pattern0,155,8,overlay,0,0
+63pattern1,-1,6,overlay,0,0
+//open
+64interval,never
+64pattern0,155,0,overlay,0,0
+//close 2
+65interval,never
+65pattern0,154,0,overlay,0,0
+}
+
+//--DIB PROFILE POUT
+surface24
+{
+element0,overlay,surface0.png,0,0
+//close
+60interval,always
+60pattern0,156,0,overlay,0,0
+//talk
+61interval,talk,4
+61pattern0,0,0,alternativestart,[62.63]
+62interval,never
+62pattern0,151,10,overlay,0,0
+62pattern1,-1,10,overlay,0,0
+63interval,never
+63pattern0,151,8,overlay,0,0
+63pattern1,-1,6,overlay,0,0
+//close 2
+65interval,never
+65pattern0,156,0,overlay,0,0
+}
+
+
+//--DIB PROFILE APPEND
+
+//TEMP APPEND-----------------REMOVE THIS WHEN ADDING PROFILE/FRONT BECAUSE ITS COPY PASTED FROM HIS 3/4 APPEND
+surface.append11-24
+{
+//--Collisions
+//--Collisions
+collision0,113,108,201,136,Head
+collision1,112,137,182,200,Face
+
+//--Head Base
+55interval,always
+55pattern0,100,0,overlay,0,0
+55pattern1,100,1,overlay,0,0
+
+//--Eeeyyyeees
+//---------TODO: FIX EYE COORDS
+//eyewhite
+15interval,always
+15pattern0,110,0,overlay,0,0
+//right
+20interval,never
+20pattern0,0,0,stop,24
+20pattern1,115,0,overlay,124,158
+//left
+21interval,never
+21pattern0,0,0,stop,24
+21pattern1,115,0,overlay,124,158
+//up
+22interval,never
+22pattern0,0,0,stop,24
+22pattern1,115,0,overlay,124,158
+//down
+23interval,never
+23pattern0,0,0,stop,24
+23pattern1,115,0,overlay,124,158
+//middle
+24interval,always
+24pattern0,115,0,overlay,124,158
+//upright
+25interval,never
+25pattern0,0,0,stop,24
+25pattern1,115,0,overlay,124,158
+//upleft
+26interval,never
+26pattern0,0,0,stop,24
+26pattern1,115,0,overlay,124,158
+//downleft
+27interval,never
+27pattern0,0,0,stop,24
+27pattern1,115,0,overlay,124,158
+//downright
+28interval,never
+28pattern0,0,0,stop,24
+28pattern1,115,0,overlay,124,158
+//shockright
+29interval,never
+29pattern0,0,0,stop,24
+29pattern1,116,0,overlay,124,158
+//shockleft
+30interval,never
+30pattern0,0,0,stop,24
+30pattern1,116,0,overlay,124,158
+//shockup
+31interval,never
+31pattern0,0,0,stop,24
+31pattern1,116,0,overlay,124,158
+//shockdown
+32interval,never
+32pattern0,0,0,stop,24
+32pattern1,116,0,overlay,124,158
+//shockmiddle
+33interval,never
+33pattern0,0,0,stop,24
+33pattern1,116,0,overlay,124,158
+//shockdownright
+34interval,never
+34pattern0,0,0,stop,24
+34pattern1,116,0,overlay,124,158
+//uhohright------------------i'm considering shaving down this section (and shock) since i barely use em
+35interval,never
+35pattern0,0,0,stop,24
+35pattern1,117,0,overlay,124,158
+//uhohleft
+36interval,never
+36pattern0,0,0,stop,24
+36pattern1,117,0,overlay,124,158
+//uhohup
+37interval,never
+37pattern0,0,0,stop,24
+37pattern1,117,0,overlay,124,158
+//uhohdown
+38interval,never
+38pattern0,0,0,stop,24
+38pattern1,117,0,overlay,124,158
+//uhohmiddle
+38interval,never
+38pattern0,0,0,stop,24
+38pattern1,117,0,overlay,124,158
+//uhohdownright
+39interval,never
+39pattern0,0,0,stop,24
+39pattern1,117,0,overlay,124,158
+
+//Eyeline
+59interval,always
+59pattern,139,0,overlay,0
+59pattern1,139,1,overlay,0
+
+//--BlinkBlink
+71interval,random,4
+71pattern0,-1,10,overlay,123,156
+71pattern1,140,8,overlayfast,123,156
+71pattern2,142,15,overlayfast,123,156
+71pattern3,-1,6,overlay,123,156
+
+//call eyelid
+70interval,never
+70pattern0,0,0,parallelstop,[15.59]
+70pattern1,0,0,parallelstart,[74.16]
+//Eyelid Yasss
+74interval,never
+74pattern0,138,0,overlay,0
+16interval,never
+16pattern0,111,0,overlay,0
+//Closed
+72interval,never
+72pattern0,142,0,overlay,123,158
+//Happy
+73interval,never
+73pattern0,144,0,overlay,123,158
+
+//--Eyebrows, yasss
+//neutral
+75interval,always
+75pattern0,170,0,overlay,0
+75pattern0,170,1,overlay,0
+//question
+76interval,never
+76pattern0,0,0,stop,75
+76pattern1,171,0,overlay,0
+//sad
+77interval,never
+77pattern0,0,0,stop,75
+77pattern1,172,0,overlay,0
+//angry
+78interval,never
+78pattern0,0,0,stop,75
+78pattern1,173,0,overlay,0
+
+//--Extras lets gooooo
+//sweat
+80interval,never
+80pattern0,190,0,overlay,0
+//blush
+85interval,never
+85pattern0,195,0,overlay,0
+
+//--Clothes
+//Glasses
+910interval,bind
+910pattern0,105,0,add,0,0
+}
+
+//--------END OF COPY PASTE NIGHTMARE. DRAW HIS SHELL ALREADY DAMN IT------------------------------------------------
+
+//--APPEND ALL THE SURFACES. ALLLLLLLL OF IT!(This is for the idle body btw)
+surface.append0-50,!1,!10,!18,!19
+{
+//--Back Arm
+//Relax
+1interval,always
+1pattern0,600,0,overlay,0,0
+1pattern1,600,1,overlay,0,0
+//PointDown
+2interval,never
+2pattern0,0,0,stop,1
+2pattern1,601,0,overlay,0,0
+//Behind
+3interval,never
+3pattern0,0,0,stop,1
+3pattern1,602,0,overlay,0,0
+//Hip
+4interval,never
+4pattern0,0,0,stop,1
+4pattern1,603,0,overlay,0,0
+
+//--Body
+//yass
+10interval,always
+10pattern0,50,0,overlay,0,0
+10pattern1,50,1,overlay,0,0
+
+//--Front arms hell yeah
+//relax
+90interval,always
+90pattern0,650,0,overlay,0
+90pattern0,650,1,overlay,0
+//hip
+91interval,never
+91pattern0,0,0,stop,90
+91pattern1,651,0,overlay,0
+//think
+92interval,never
+92pattern0,0,0,stop,90
+92pattern1,652,0,overlay,0
+//behind
+93interval,never
+93pattern0,0,0,stop,90
+93pattern1,653,0,overlay,0
+//phone time1
+94interval,never
+94pattern0,0,0,stop,90
+94pattern1,654,0,overlay,0
+//phone time2
+95interval,never
+95pattern0,0,0,stop,90
+95pattern1,655,0,overlay,0
+//open1
+96interval,never
+96pattern0,0,0,stop,90
+96pattern1,656,0,overlay,0
+//point1
+97interval,never
+97pattern0,0,0,stop,90
+97pattern1,657,0,overlay,0
+//handup
+98interval,never
+98pattern0,0,0,stop,90
+98pattern1,658,0,overlay,0
+}
+
+
+//-----STATIC POSES
+
+//pick em up
+surface800
+{
+element0,overlay,surface800.png,0,0
+//Glasses
+910interval,bind
+910pattern0,801,0,add,0,0
+}
+
+
+
+//--------------------Misc
+
+surface10
+{
+element0,overlay,surface10.png,0,0
+}
+
+//--------ELY------------
+//idle
+surface2000
+{
+element0,over,surface10.png,0,0
+}
+//embarassed
+surface2001
+{
+element0,over,surface2001.png,0,0
+}
+//surprised
+surface2002
+{
+element0,over,surface2002.png,0,0
+}
+//worried
+surface2003
+{
+element0,over,surface2003.png,0,0
+}
+//bored
+surface2006
+{
+element0,over,surface2006.png,0,0
+}
+
+
