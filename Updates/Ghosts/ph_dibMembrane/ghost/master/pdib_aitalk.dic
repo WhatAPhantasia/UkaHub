@@ -89,6 +89,13 @@ RandomTalk : nonoverlap_pool
 	"\0\s[0]This is more dialogue related to a hypothetical shell we don't actually have.\e"
 	}
 	
+	if "Face|Glasses" _in_ currentdressups != 1 //YESS IT WORKS THANK YOU ZI
+	{
+	"\0When are you gonna give my glasses back, anyway? \w6I can barely see anything.\e"
+	"\0Ugh.... So blurry.\e"
+	"\0(He's muttering something to himself.)\w8\n\n[half]%(username) couldn't have hidden my glasses \w1\f[italic,1]that\f[italic,0]\w1 well, right? I can find it here somewhere..."
+	}
+	
 	if month >= 12
 	{
 		"\0\s[0]This is dialogue for December. \w2A cold month?\e"

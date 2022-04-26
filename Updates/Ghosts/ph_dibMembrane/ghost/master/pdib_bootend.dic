@@ -652,11 +652,11 @@ if reference0 == 0 //in OnDressupChanged, reference0 refers to the character, th
 	{
 	if reference1 == "Glasses" //This is the name of the clothing item in the descript.txt file, I'm pretty sure.
 		{
-			if reference2 == 1
+			if reference2 == 1 //If you put it on
 			{
 				"\0\s[11]Oh- \w6Finally. \w8\0\s[0]\i[70]\i[76]\i[91]Do you really think that's funny?\e"
 			}
-			else
+			else //When you take it off.
 			{
 				if nowshell == "florpus"
 				{
@@ -671,27 +671,51 @@ if reference0 == 0 //in OnDressupChanged, reference0 refers to the character, th
 	}
 else //if reference0 isn't the main character, then it has to be the side character.
 	{
-	if reference1 == "Gameslave" //The name of the item of clothing in the descript.txt file in your shell folder.
+	if reference1 == "Gameslave"
 		{
-			if reference2 == 1 //If you put it on
+			if reference2 == 1 
 			{
 			"\1\s[10]She still looks annoyed, just... Less so.\e"
 			}
-			else //When you take it off.
+			else
 			{
 			"\1\s[10]...\e"
 			}
 		}
-	elseif reference1 == "Glasses" //As you've seen above, you can use elseifs to expand the list if you have more than one item.
+	elseif reference1 == "Glasses"
 		{
-			if reference2 == 1 //if you're putting it on
+			if reference2 == 1
 			{
 			"\1\s[10]...\w8\0\s[0]Gaz! You got my glasses back! \w8\1\s[10]\n\n[half]Huh? No, these are mine. \w2\0\s[0]\n\n[half]Gaz!!\e"
 			}
-			else //when you take it off
+			else
 			{
 			"\1\s[10]She doesn't seem to have noticed you taking them.\e"
 			}
 		}
 	}
 }
+
+//thank you zi for coding literally everything in here. i um. i don't understand any of this
+OnNotifyDressupInfo
+{
+    _reference = reference
+    
+    currentdressups = "" //This one is so we can display which dressups are currently in use
+    
+    foreach _reference; _dressup
+    {
+        for _i = 3; _i < ARRAYSIZE(_dressup); _i++
+        {
+            if _dressup[_i] == "default" || _dressup[_i] == "" || _dressup[_i] == "mustselect" || _dressup[_i] == "multiple"; continue
+            
+            if _dressup[_i] == "1"
+            {
+                if currentdressups != ""; currentdressups += ","
+                currentdressups += _dressup[1] + "|" + _dressup[2]
+            }
+        }
+    }
+}
+//every time it loads or the dressups change you should get a list of all the current dressups. They're formatted like so: "Category|Piece,Category|Piece"
+//So you can do a search for, say, if "Hair|Braid" _in_ currentdressups
