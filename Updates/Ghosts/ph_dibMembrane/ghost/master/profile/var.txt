@@ -1,7 +1,7 @@
 Charset,UTF-8
 install,700118458
-surfacecount,48
+surfacecount,87
 update_result,NG(timeout)
 firstboot,700118514
-commitmemorysize,532765
-lastboot,703001853
+commitmemorysize,1409011
+lastboot,704260075
