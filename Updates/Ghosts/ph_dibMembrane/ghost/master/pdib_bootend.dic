@@ -393,9 +393,7 @@ normalboottalk
 		elseif timeslot == "latenight"
 		{
  		"\0\s[0]This is a late night boot dialogue. Between 21 and 24.\e"
-		
  		"\0\s[0]This is another late night boot dialogue.\e"
-		
  		"\0\s[0]This is the third late night boot dialogue. \w8Between 21 and 24.\e"
 		}
 		else //the last timeslot we haven't done is midnight, which is what's under here.
@@ -404,9 +402,7 @@ normalboottalk
 				{
 					"\0\s[0]Oh... You're up, too? \w4Don't know why I'm doing this to myself... It's a Skoolday tomorrow. \w2Or today?\w8"
 				}
-		
 				"\0\s[0]Mnnhuh? \w2Oh. \w4Why are you up?\w8"
-		
 				"\0\s[0]...Shouldn't you be asleep?\w8\e"
 		}
 	}
@@ -429,69 +425,63 @@ OnClose
 		{
 			if RAND(100) < 40 //see above about the random number generator
 			{
-				"\0\s[0]This is a random close dialogue. \w8The random number generator chose something below 40.\w8\w8"
+			"\0\s[0]I actually have no idea what to make Dib say. \w4Uh. \w4Goodbye, I guess?? \w6Yeah, that sounds right.\w8\w8"
 			}
 			else
 			{
 			if timeslot == "earlymorning"
 				{
-					"\0\s[0]This is an early morning close dialogue.\w8"
-					
+					"\0\s[0]Up and at 'em, then?\w8"
 					"\0\s[0]This is another early morning close dialogue.\w8"
 				}
 			elseif timeslot == "morning"
  				{
- 					"\0\s[0]This is a morning close dialogue.\w8"
- 				}
+					if weekday != 0 || weekday != 6
+					{
+						"\0\s[0]Aw, darn. \w1I was hoping I could skip class today.\w8"
+						"\0\s[0]Right in the middle of class... I wonder what ZIM's planning right now. \w2Nothing good, probably.\w8"
+					}
+					"\0\s[0]Up and at 'em, then?\w8"
+				}
  			elseif timeslot == "lunch"
  				{
- 					"\0\s[0]This is a lunch close dialogue.\w8"
-					
- 					"\0\s[0]This is another lunch close dialogue.\w8"
- 				}
+					if weekday != 0 || weekday != 6
+					{
+						"\0\s[0]Aw, darn. \w1I was hoping I could skip class today.\w8"
+						"\0\s[0]Oh, nice! \w2I can still check in on ZIM at Skool...\w8"
+					}
+					"\0\s[0]Get something to eat if you can, yeah?\w8"
+				}
  			elseif timeslot == "afternoon"
  				{
- 					"\0\s[0]This is an afternoon close dialogue.\w8"
-					
- 					"\0\s[0]This is another afternoon close dialogue.\w8"
+					"\0\s[0]This is an afternoon close dialogue.\w8"
  				}
   			elseif timeslot == "evening"
  				{
- 						if weekday == 6 //here, a nested if statement is checking that if it's evening, is it also saturday? You can do this to check more specific times on other days as well. You can change this to some other day if you want, or just delete this little if/else section entirely and write your own evening related close dialogue.
- 						{
- 							"\0\s[0]This is a Saturday evening close dialogue.\w8"
- 						}
- 						else //if it's not saturday, then it'll do this dialogue instead.
- 						{
- 							"\0\s[0]This is an evening close dialogue.\w8"
-							
- 							"\0\s[0]This is another evening close dialogue.\w8"
- 						}
+ 					if weekday == 6 //if its set up like this and not how lunch and morning are set up it'll make the ifs the only possible messages.
+ 					{
+ 						"\0\s[0]This is a Saturday evening close dialogue.\w8"
+ 					}
+ 					else
+ 					{
+ 						"\0\s[0]This is an evening close dialogue.\w8"
+ 					}
  				}
 			elseif timeslot == "latenight"
 			 	{
- 						if weekday == 6 //This is the same check as above to see if it's Saturday. Note that this doesn't have an else statement! Sometimes you can get away with that, but make sure you test thoroughly.
-						//Of course, you can also cut this check entirely if you want.
- 						{
- 							"\0\s[0]This is a late Saturday night close dialogue.\w8"
-							
- 							"\0\s[0]This is another late Saturday night close dialogue.\w8"
- 						}
-						
- 						"\0\s[0]This is a late night close dialogue.\w8"
-						
-						"\0\s[0]This is another late night close dialogue.\w8"
+ 					if weekday == 6 //This is the same check as above to see if it's Saturday. Note that this doesn't have an else statement! Sometimes you can get away with that, but make sure you test thoroughly.
+ 					{
+ 						"\0\s[0]Alone on a Saturday night? \w6Haha, no, I'm not going to make that joke. \w6Bye, %(username)!\w2\w8"
+ 					}		
+					"\0\s[0]Logging off for the night? \w2Seeya, then.\w8"
  				}
 			else //like above, this is the midnight time slot since it's the last one left.
  				{
- 						if weekday == 0 //checking if it's the middle of the night on Sunday
- 						{
- 							"\0\s[0]Yeesh, do you have anything tomorrow? \w2Or today, I guess. \w4You should get some rest.\w8"
- 						}
-						
-						"\0\s[0]This is another middle of the night close dialogue.\w8"
-						
-						"\0\s[0]This is the third middle of the night close dialogue.\w8"
+ 					if weekday == 0 //checking if it's the middle of the night on Sunday
+ 					{
+ 						"\0\s[0]Yeesh, do you have anything tomorrow? \w2Or today, I guess. \w4You should get some rest.\w8"
+ 					}	
+					"\0\s[0]I hope you're planning on getting some sleep if you haven't already, %(username). \w2Though I guess I shouldn't be a hypocrite...\w8"
 				}
 			}
 				
@@ -501,7 +491,6 @@ OnClose
  	else //This dialogue is for if they haven't been open for at least five minutes.
  	{
  		"\0\s[0]That was short. Did you get me by accident?\w8\w8"
-		
  		"\0\s[0]Uh, okay. See you!\w8\w8"
  	}
  	--

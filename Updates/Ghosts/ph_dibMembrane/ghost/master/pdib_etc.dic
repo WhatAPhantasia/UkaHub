@@ -220,6 +220,22 @@ OnInstallComplete
 		{
 		"\s[0]A look I named after the whole florpus hole incident! Check it out in the right click menu under Change Shell.\e"
 		}
+		elseif reference1 == "Pilot"
+		{
+		"\s[0]This doesn't actually exist, but it's nice to pretend, right?\e"
+		}
+		elseif reference1 == "Concept"
+		{
+		"\s[0]This doesn't actually exist, but it's nice to pretend, right?\e"
+		}
+		elseif reference1 == "Series"
+		{
+		"\s[0]This doesn't actually exist, but it's nice to pretend, right?\e"
+		}
+		elseif reference1 == "Zib"
+		{
+		"\s[0]This doesn't actually exist, but it's nice to pretend, right?\e"
+		}
 		elseif reference1 == "Shooting Star"
 		{
 		"\s[0]Huh, I'm supposed to come with this look. \w2I get it though, Shooting Star is... \w4An oc x canon fic. \w6Sad. \w8Well, at least I can change my head to a reasonable size now.\e"
@@ -233,7 +249,7 @@ OnInstallComplete
  	{
 		if reference1 == "Invader Zim"
 		{
-		"Wait- ZIM?! \w2Aw, come on! \w4I can't believe I assisted on bringing him somewhere he could use to do... \w6The things he do! \w6Things that are definitely bad! \w8If he's here, \w2I guess I could keep an eye on him...\e"
+		"Wait- ZIM?! \w2Aw, come on! \w4I can't believe I assisted on bringing him somewhere he could use to do... \w6The things he do! \w6Things that are definitely bad! \w8If he's here, though, \w2I guess I could keep an eye on him...\e"
 		}
 		elseif reference1 == "Dib" //change to whatever quo names their dib ghost lmao
 		{
@@ -249,7 +265,7 @@ OnInstallComplete
  	{
 		if reference1 == "Swollen Eyeball Balloon"
 		{
-		"Oh- Finally! \w2The Swollen Eyeball Network finally sent in the replacement monitors! \w5I was worried they wouldn't after last time... \w2Does it really take that long for a disc to be repaired?\e"
+		"Oh- \w2Finally! \w3Dad fixed up the floating monitors in my room! \w5I was worried he wouldn't after what happened last time... \w2Does it seriously take that long for a disc to be repaired?\e"
 		}
 		else
 		{
@@ -418,7 +434,7 @@ OnBIFFFailure
 	}
  	elseif reference0 == "kick" //If the account blocks the ghost from accessing it. I think gmail may do this at first to try and protect your account from unapproved applications using it. It gives you the option to change the setting in the warning email they send you about it.
 	{
-		"\0\s[0]We can't access the account.\e"
+		"\0\s[0]I can't access the account.\e"
  	}
 	elseif reference0 == "defect" //If the information put into the POP menu is wrong.
  	{
@@ -428,7 +444,7 @@ OnBIFFFailure
 	}
  	else //if there's some other kind of error.
 	{
-		"\0\s[0]We can't connect to the account. \w8The error returned is '%(reference[0])'.\e"
+		"\0\s[0]I can't connect to the account. \w8The error returned is '%(reference[0])'.\e"
 		
 		//reference0 here stores the error message the email server would have given the ghost, hopefully.
  	}
@@ -510,7 +526,7 @@ OnUpdate.OnDownloadBegin
  {
  	if "aitalk" _in_ reference0 //this is checking to see what kind of files are being downloaded. In this case, it's looking for files called aitalk in the download queue. If you want to have a specialized bit of dialogue for each type of file, you can expand this with elseifs and by replacing aitalk with whatever file you have in mind. Keep in mind my warning above though.
  	{
- 		"\0\s[0]We are going to download more dialogue.\w8\1\s[10]It's in the aitalk file.\e"
+ 		"\0\s[0]I am going to download more dialogue.\w8\1\s[10]It's in the aitalk file.\e"
  	}
  	else //for files not specified above
  	{
@@ -687,7 +703,7 @@ OnNarCreated
  
 OnSNTPBegin
  {
-	"\0\s[0]We're going to check the time. I'm connecting to %(reference0).\e"
+	"\0\s[0]I'm going to check the time. I'm connecting to %(reference0).\e"
 	//%(reference0) here is the site they'll be using to check your clock. I wouldn't worry too much about what the site is or where it's defined, it should be accurate. Replace the dialogue with what you need, you don't have to use reference0 if you don't want to.
  }
 
@@ -756,7 +772,7 @@ OnDisplayChange
  
 OnScreenSaverStart
  {
-	"\0\s[0]The screensaver is starting.\w7\1\s[10]Wiggle your mouse!\e"
+	"\0\s[0]The screensaver is starting. Wiggle your mouse!\e"
 	//Replace with what you want.
  }
 
