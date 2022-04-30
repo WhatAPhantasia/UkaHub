@@ -79,21 +79,19 @@ RandomTalk : nonoverlap_pool
 	
 	if nowshell == "master"
 	{
-	"\0\s[0]Here is dialogue related to the default shell.\e"
-	"\0\s[0]Here is more dialogue related to the default shell.\e"
+	"\0\s[0]Tall. Gonna kick ZIM all the way back to Irk with this height.\e"
 	}
 
 	if nowshell == "florpus"
 	{
-	"\0\s[0]This is dialogue related to a shell we don't actually have.\e"
-	"\0\s[0]This is more dialogue related to a hypothetical shell we don't actually have.\e"
+	"\0\s[0]Placeholder Florpus text because I have no idea what I want to make him say.\e"
 	}
 	
 	if "Face|Glasses" _in_ currentdressups != 1 //YESS IT WORKS THANK YOU ZI
 	{
-	"\0When are you gonna give my glasses back, anyway? \w6I can barely see anything.\e"
-	"\0Ugh.... So blurry.\e"
-	"\0(He's muttering something to himself.)\w8\n\n[half]%(username) couldn't have hidden my glasses \w1\f[italic,1]that\f[italic,0]\w1 well, right? I can find it here somewhere..."
+	"\0\s[11]\i[91]\i[76]When are you gonna give my glasses back, anyway? \w6\s[11]\i[91]\i[70]I can barely see anything.\e"
+	"\0\s[21]\i[73]\i[78]Ugh.... \w2So blurry.\e"
+	"\0\s[0]\i[92]\i[21]\i[70]\i[78]\i[65](He's muttering something to himself.)\w8\n\n[half]\s[0]\i[92]\i[21]\i[70]\i[78]%(username) couldn't have hidden my glasses \w1that\w1 well, right? I can find it around here \f[italic,1]somewhere\f[italic,0]...\e"
 	}
 	
 	if month >= 12
@@ -196,19 +194,21 @@ RandomTalk : nonoverlap_pool
 	//--Time of Day
 	if timeslot == "earlymorning"
 	{
-		"\0\s[0]My morning routine has stayed mostly intact thanks to the weird magic void in my briefcase. \w4For breakfast, I've got some... Old snacks in here. \w8Looks like I'm eating a \w2two-week-old bag of Flamin' Hot Cheezos! \w8\w4Ergh.\e"
+		"\0\s[0]%(dibarmfiddle)My morning routine has stayed mostly intact thanks to the \w3\i[2]\i[27]weird magic void in my briefcase. \w8\w3\s[2]For breakfast, I've got some... Old snacks. \w8Looks like I'm eating a \w2two-week-old bag of Flamin' Hot Cheezos! \w8\w4\n\n[half]Ergh.\e"
+		//---TODO: I still dont have the surfaces required to do this one, gotta get an arm interval where he looks in his briefcase
 	}
 	if timeslot == "morning"
 	{
 		"\0\s[0]%(dibarmfiddle)Have you brushed your teeth today? \w8\s[21]\i[21]\i[70]\i[92]...Not sure if I've forgotten.\e"
 		"\0\s[0]%(dibarmfiddle)Have you eaten breakfast yet, %(username)?\e"
-		"\0\s[23]\i[70]\i[21]\i[91]Gaz ate all the FrankenChokies a while back. \w8\s[3]\i[78]\i[91]She even called dibs! \w2\s[3]\i[76]\i[91]That's my name, so it was supposed to be mine, right?\e"
+		"\0\s[23]\i[70]\i[21]\i[91]Gaz ate all the FrankenChokies a while back. \w8\s[3]\i[78]\i[91]She even called dibs! \w6\s[3]\i[76]\i[91]That's my name, so it was supposed to be mine, right?\e"
 		"\0\s[11]\i[98]\i[28]Hm... My nails haven't dried yet.\e"
 	}
 	if timeslot == "lunch"
 	{
-		"\0\s[0]Mmm... Man, there was this one time I hit ZIM on the head with a muffin. It was hilarious! You should've been there.\e"
-		"\0\s[0]Have you eaten lately? Honestly, I'm a little hungry myself...\e"
+		"\0\s[2]\i[72]\i[92]Mmm... Man, there was this one time I hit ZIM on the head with a muffin. \w6\s[2]\i[91]It was hilarious! You should've been there.\e"
+		"\0\s[0]%(dibarmfiddle)Have you eaten lately? \w8\s[0]\i[26]%(dibarmfiddle)Honestly, I'm a little hungry myself...\e"
+		"\0\s[0]I usually \e"
 	}
 	if timeslot == "afternoon"
 	{

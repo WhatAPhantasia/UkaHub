@@ -272,13 +272,13 @@ collision1,128,104,193,182,Face
 38pattern0,0,0,stop,24
 38pattern1,117,0,overlay,138,126
 //uhohmiddle
-38interval,never
-38pattern0,0,0,stop,24
-38pattern1,117,0,overlay,138,124
-//uhohdownright
 39interval,never
 39pattern0,0,0,stop,24
-39pattern1,117,0,overlay,140,126
+39pattern1,117,0,overlay,138,124
+//uhohdownright
+40interval,never
+40pattern0,0,0,stop,24
+40pattern1,117,0,overlay,140,126
 
 
 //--BlinkBlink
@@ -602,13 +602,13 @@ collision1,140,94,216,178,Face
 38pattern0,0,0,stop,24
 38pattern1,217,0,overlay,152,121
 //uhohmiddle
-38interval,never
-38pattern0,0,0,stop,24
-38pattern1,217,0,overlay,152,118
-//uhohdownright
 39interval,never
 39pattern0,0,0,stop,24
-39pattern1,217,0,overlay,155,120
+39pattern1,217,0,overlay,152,118
+//uhohdownright
+40interval,never
+40pattern0,0,0,stop,24
+40pattern1,217,0,overlay,155,120
 
 //--BlinkBlink
 71interval,random,4
@@ -845,13 +845,13 @@ collision1,123,106,188,185,Face
 38pattern0,0,0,stop,24
 38pattern1,317,0,overlay,136,126
 //uhohmiddle
-38interval,never
-38pattern0,0,0,stop,24
-38pattern1,317,0,overlay,140,124
-//uhohdownright
 39interval,never
 39pattern0,0,0,stop,24
-39pattern1,317,0,overlay,140,126
+39pattern1,317,0,overlay,140,124
+//uhohdownright
+40interval,never
+40pattern0,0,0,stop,24
+40pattern1,317,0,overlay,140,126
 
 //--BlinkBlink
 71interval,random,4
