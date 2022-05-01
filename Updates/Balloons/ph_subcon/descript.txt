@@ -13,15 +13,15 @@ craftmanurl,https://whataphantasia.carrd.co
 
 //2. -- Defining Text Areas
 
-origin.x,31
-origin.y,19
+origin.x,30
+origin.y,33
 
-validrect.left,29
-validrect.top,18
-validrect.right,217
-validrect.bottom,170
+validrect.left,30
+validrect.top,33
+validrect.right,-30
+validrect.bottom,-50
 
-wordwrappoint.x,207
+wordwrappoint.x,-30
 wordwrappoint.y,0
 
 font.name,Curse Casual
@@ -74,14 +74,14 @@ cursor.font.color.b,102
 
 //6. -- Image Markers
 
-arrow0.x,222
+arrow0.x,-50
 arrow0.y,21
 
-arrow1.x,222
+arrow1.x,-50
 arrow1.y,155
 
-clickwaitmarker.x,270
-clickwaitmarker.y,-40
+clickwaitmarker.x,287
+clickwaitmarker.y,-49
 
 //I want it to look AHITy so we got a click marker :D I wish I coulda done something similar with the scroll but I want people without mouses to be able to go thru a balloon so no dice
 
@@ -112,8 +112,17 @@ number.y,179
 
 //7. -- Communication Box
 
-communicatebox.x,13
-communicatebox.y,29
+communicatebox.x,30
+communicatebox.y,58
 
-communicatebox.width,333
-communicatebox.height,20
+communicatebox.width,300
+communicatebox.height,25
+
+communicatebox.font.name,Ink Free
+communicatebox.font.color.r,0
+communicatebox.font.color.g,0
+communicatebox.font.color.b,0
+//why the hell arent you working. :raised_eyebrow:
+teachbox.font.color.r,0
+teachbox.font.color.g,0
+teachbox.font.color.b,0
