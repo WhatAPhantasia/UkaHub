@@ -21,7 +21,7 @@ validrect.top,33
 validrect.right,-30
 validrect.bottom,-50
 
-wordwrappoint.x,-30
+wordwrappoint.x,-35
 wordwrappoint.y,0
 
 font.name,Curse Casual
@@ -74,16 +74,17 @@ cursor.font.color.b,102
 
 //6. -- Image Markers
 
-arrow0.x,-50
-arrow0.y,21
+arrow0.x,167
+arrow0.y,10
 
-arrow1.x,-50
-arrow1.y,155
+arrow1.x,167
+arrow1.y,-40
 
 clickwaitmarker.x,287
 clickwaitmarker.y,-49
 
 //I want it to look AHITy so we got a click marker :D I wish I coulda done something similar with the scroll but I want people without mouses to be able to go thru a balloon so no dice
+//ALSO..... HOW TF DO YOU TURN OFF BLINKING... PLS ADD THAT AS A FEATURE PLS AND THANK U
 
 onlinemarker.x,299
 onlinemarker.y,3
