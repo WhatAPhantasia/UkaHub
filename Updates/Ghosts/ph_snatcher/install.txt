@@ -1,0 +1,6 @@
+charset,UTF-8
+type,ghost
+
+name,Snatcher
+directory,ph_snatcher
+balloon.directory,ph_subcon

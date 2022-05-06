@@ -428,7 +428,7 @@ Select.TALKHIGH
 //If the user chooses every three minutes.
 Select.TALKNORMAL
 	{
- 		talktime = " 3 minutes."
+ 		talktime = " 3 minutes"
 		aitalkinterval = 180
 		
  		"\0\s[0]\i[91]Sounds reasonable. Every three minutes, then.\e"

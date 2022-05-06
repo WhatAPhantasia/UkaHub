@@ -99,7 +99,6 @@ RandomTalk : nonoverlap_pool
 		"\0\s[0]This is dialogue for December. \w2A cold month?\e"
 		"\0\s[0]This is more dialogue for December. \w2Still cold?\e"
 	}
-	//You can also nest ifs within these, so you could check if it was the 25 of April in the morning for example. You can also add or take away dialogue from these as you like, so if you want to have five dialogue options for April or one for January, you can totally do that.
 	if month == 1
 	{
 		"\0\s[0]This is dialogue for January.\e"
@@ -183,18 +182,21 @@ RandomTalk : nonoverlap_pool
 	}
 	if weekday == 6
 	{
-		"\0\s[0]This is dialogue for Saturday.\e"
-		"\0\s[0]This is more dialogue for Saturday.\e"
+		"\0\s[3]\i[72]\i[96]\i[77]Even today, I usually can't catch a break. \w8\w2\s[3]\i[91]\i[25]\i[76]One Sunday, ZIM launched this plan about %(zimnonskoolplans)... \w8\s[3]\i[70]\i[91]It was annoying, \w6\s[2]\i[72]\i[91]but I stopped him, \w2of course.\e"
 	}
 	if weekday == 0
 	{
-		"\0\s[0]This is dialogue for Sunday.\e"
-		"\0\s[0]This is more dialogue for Sunday.\e"
+		"\0\s[3]\i[72]\i[96]\i[77]Even today, I usually can't catch a break. \w8\w2\s[3]\i[91]\i[25]\i[76]One Saturday, ZIM launched this plan about %(zimnonskoolplans)... \w8\s[3]\i[70]\i[91]It was annoying, \w6\s[2]\i[72]\i[91]but I stopped him, \w2of course.\e"
+		
+		if month != 6 || month != 7 || month != 8
+		{
+		"\0\s[0]\i[70]\i[21]%(dibarmfiddle)Mmm... It's back to Skool tomorrow.\e" //TODO: expand/organize CheckSchoolMonth conditionals
+		}
 	}
 	//--Time of Day
 	if timeslot == "earlymorning"
 	{
-		"\0\s[0]%(dibarmfiddle)My morning routine has stayed mostly intact thanks to the \w3\i[2]\i[27]weird magic void in my briefcase. \w8\w3\s[2]For breakfast, I've got some... Old snacks. \w8Looks like I'm eating a \w2two-week-old bag of Flamin' Hot Cheezos! \w8\w4\n\n[half]Ergh.\e"
+		"\0\s[0]%(dibarmfiddle)My morning routine has stayed mostly intact thanks to the \w3\i[2]\i[27]weird magic void in my briefcase. \w8\w3\s[2]For breakfast, I've got some... Old snacks. \w8Looks like I'm eating a \w2two-week-old bag of Flamin' Hot Cheezos! \w8\w4\n\n[half]\s[3]\i[27]\i[77]Ergh.\e"
 		//---TODO: I still dont have the surfaces required to do this one, gotta get an arm interval where he looks in his briefcase
 	}
 	if timeslot == "morning"
@@ -208,40 +210,35 @@ RandomTalk : nonoverlap_pool
 	{
 		"\0\s[2]\i[72]\i[92]Mmm... Man, there was this one time I hit ZIM on the head with a muffin. \w6\s[2]\i[91]It was hilarious! You should've been there.\e"
 		"\0\s[0]%(dibarmfiddle)Have you eaten lately? \w8\s[0]\i[26]%(dibarmfiddle)Honestly, I'm a little hungry myself...\e"
-		"\0\s[0]I usually \e"
 	}
 	if timeslot == "afternoon"
 	{
 		"\0\s[0]This is dialogue for the afternoon.\e"
-		"\0\s[0]This is more dialogue for the afternoon.\e"
 	}
 	if timeslot == "evening"
 	{
 		"\0\s[0]This is dialogue for the evening.\e"
-		"\0\s[0]This is more dialogue for the evening.\e"
 	}
 	if timeslot == "latenight"
 	{
 		"\0\s[0]This is dialogue for the late night.\e"
-		"\0\s[0]This is more dialogue for the late night.\e"
 	}
 	if timeslot == "midnight"
 	{
-		"\0\s[0]%(username), you should have a good reason for being up... Though I don't have a good reason, either.\e"
-		"\0\s[0]This is more dialogue for midnight.\e"
+		"\0\s[0]You're probably working on sommething, and that's keeping you up, right?\e"
 	}
 	
 	
 	//--Double Envelopes
 	//note that this is enclosed in its own set of brackets
-	{
-	_korean = lessonkor //Here, the envelope "lessonkor" (which is in word.dic) is stored as a new temporary value called _korean. You can name the new value anything you like. As a reminder, when coding, it goes "4 = 2 + 2" and not "2 + 2 = 4". The result always comes first!
+	//{
+	//_korean = lessonkor //Here, the envelope "lessonkor" (which is in word.dic) is stored as a new temporary value called _korean. You can name the new value anything you like. As a reminder, when coding, it goes "4 = 2 + 2" and not "2 + 2 = 4". The result always comes first!
 	//If you look at lessonkor in word.dic, you'll see it goes "Korean word, meaning". So "Korean word" is the first value in that array, and "meaning" is the second. Arrays always start at 0, as a note.
-	_korword = _korean[0] //Now we make a temporary value called "_korword", which is what will store the Korean word. Since the Korean word is the first value in the array _korean which we just defined, then we can pull that value from the array with _korean[0]. [0] is telling it which entry in the array to take - in this case, the first one (again, arrays start at 0).
-	_kormean = _korean[1] //Now we make a temporary value called "_kormean", which is what will store the meaning of the Korean word. This is the second value in the array, so we can pull it out of _korean by using _korean[1].
-	"\0\s[0]Here is an example of a double envelope. The Korean word is %(_korword). The word means %(_kormean).\e"
+	//_korword = _korean[0] //Now we make a temporary value called "_korword", which is what will store the Korean word. Since the Korean word is the first value in the array _korean which we just defined, then we can pull that value from the array with _korean[0]. [0] is telling it which entry in the array to take - in this case, the first one (again, arrays start at 0).
+	//_kormean = _korean[1] //Now we make a temporary value called "_kormean", which is what will store the meaning of the Korean word. This is the second value in the array, so we can pull it out of _korean by using _korean[1].
+	//"\0\s[0]Here is an example of a double envelope. The Korean word is %(_korword). The word means %(_kormean).\e"
 	//The underscores in front of korword and kormean mean that the value is temporary, and will disappear when the dialogue has finished. More on this kind of thing on the coding page of the walkthrough.
-	}
+	//}
 	
 	
 	//--Multiple Responses
@@ -258,7 +255,7 @@ RandomTalk : nonoverlap_pool
 	". \w3Thoughts?\e"
 	}
 	
-	"\0\s[0]\f[height,20]These words are really large. \w8\n\n[half]\f[height,default]These words are a normal size. \w8\n\n[half]\f[height,6]These words are small.\f[height,default]\e"
+	//"\0\s[0]\f[height,20]These words are really large. \w8\n\n[half]\f[height,default]These words are a normal size. \w8\n\n[half]\f[height,6]These words are small.\f[height,default]\e"
 	
 	//You can use other fancier SakuraScript bits in your dialogue if you want to get font effects, although I won't get too much into them here. In this case, \f[height,20] changes the height of the font, in this case to 20 or to 6, and then \f[height,default] changes them back to normal. I touch more on this in the SakuraScript page of the walkthrough.
 	

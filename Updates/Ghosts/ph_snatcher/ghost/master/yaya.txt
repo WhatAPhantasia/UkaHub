@@ -1,0 +1,24 @@
+charset, UTF-8
+charset.dic, UTF-8
+charset.output, UTF-8
+charset.file, UTF-8
+charset.save, UTF-8
+charset.extension, UTF-8
+
+include, system_config.txt
+
+dic, sn_bootend.dic
+dic, sn_aitalk.dic
+dic, sn_menu.dic
+dic, sn_string.dic
+dic, sn_word.dic
+dic, sn_mouse.dic
+dic, sn_commu.dic
+dic, sn_etc.dic
+dic, sn_user.dic //set pronouns n names n stuff for user
+dic, sn_snatcher.dic //set nicknames and other stuff for snatcher
+dic, sn_jokes.dic //a little redundant but we have fun here
+
+//TODO: add dic as needed, like anchors/ontranslate stuff. i could merge it with word.
+
+messagetxt,messagetxt/english.txt

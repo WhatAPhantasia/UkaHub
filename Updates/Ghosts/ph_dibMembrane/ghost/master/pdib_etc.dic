@@ -255,6 +255,10 @@ OnInstallComplete
 		{
 		"Woah, another me! \w2After the whole Zimvoid thing, I'm honestly not surprised. \w8Wait, your desktop can communicate trans-dimensionally?!\e"
 		}
+		elseif reference1 == "Minimum YAYA Template" || reference1 == "GT Template" //TODO: add more of these will ya
+		{
+		"Making something? The more people on here, the merrier.\e"
+		}
 		else
 		{
 		"\s[11]\i[28]\i[94]%(reference1)... \w8\s[11]\i[94]Seems your computer is just a magnet for people, huh? \w4\s[11]\i[94]\i[26]Spelldrives \w6\s[11]\i[94]\i[25]or no spelldrives. \w6\s[12]\i[93]\i[73]Interesting!\e"
@@ -350,7 +354,7 @@ OnVanishSelected
 
 OnVanishCancel
 {
-	"\0\s[0]The user has decided not to uninstall us after all.\e"
+	"\0\s[0]Oh- Did you just want to see what I would say?\e"
 }
 
 //--OnVanishButtonHold
@@ -358,7 +362,7 @@ OnVanishCancel
 
 OnVanishButtonHold
 {
-	"\0\s[0]This dialogue displays when the user double clicks on the balloon when we're saying we're going to uninstall ourselves.\e"
+	"\0\s[0]What- You made me prepare to leave and everything! Pfft...\e"
 }
 
 
@@ -848,15 +852,15 @@ OnBatteryNotify
  //--OnShellScaling
 OnShellScaling
 {
-	if reference0 >= 150 //this number is the percentage that you're scaling the ghost up to. In this case, it's 150%.
+	if reference0 >= 150
 	{
 		"\0\s[0]Hey, my base scale is already really big! Isn't this excessive..??\e"
 	}
-	elseif reference0 == 100 //this is 100%
+	elseif reference0 == 100
 	{
 		"\0\s[0]I would say that I'm normal sized, but I still seem relatively big to everything around me...\e"
 	}
-	elseif reference0 == 50 //this is 50%. You can add any percentage that's listed under shell scaling if you want using more elseifs.
+	elseif reference0 <= 35
 	{
 		"\0\s[0]Little man holding an artery shut?? Lemon Demon real??\e"
 	}

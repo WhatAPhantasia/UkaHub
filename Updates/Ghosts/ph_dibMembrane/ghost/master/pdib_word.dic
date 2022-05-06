@@ -87,6 +87,25 @@ dibarmfiddle
 
 
 
+//----TEXT ENVELOPE!!!!!!!!!!!!!!!!!
+
+zimnonskoolplans
+{
+	"dumping Flamin' Hot Cheezo dust into the atmosphere"
+	"using some weird alien chemical to poison the local Waffle House"
+	"sending a large, mutated bird on a rampage through the city"
+	"ripping out all the traffic lights in the city to make a weird rave machine"
+	"taking GIR to Krazy Taco... Which isn't really evil, but GIR ate like, 6 babies"
+	"destroying the local MacMeaties"
+}
+
+zimskoolplans
+{
+	"poisoning the Skool lunch line"
+	"replacing all the cleaning products in the janitor's closet with acid"
+}
+
+
 exampleenvelope
 {
 	"Example Envelope Dialogue 1"

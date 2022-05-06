@@ -1,0 +1,17 @@
+charset,UTF-8
+
+name,Snatcher
+type,ghost
+
+shiori,yaya.dll
+
+craftman,whataphantasia
+craftmanw,WhatAPhantasia
+craftmanurl,https://whataphantasia.carrd.co
+
+sakura.name,Snatcher
+kero.name,Subcon Minion
+
+sstp.allowunspecifiedsend,0
+
+balloon,Subcon Small Talk

@@ -1,0 +1,81 @@
+//---------------------------Strings--------------------------
+
+On_username
+{
+	username
+}
+
+On_homeurl
+{
+	"https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/Updates/Ghosts/ph_snatcher"
+}
+
+//--Custom menu names
+On_recommendrootbutton.caption
+{
+	"Reference Sites"
+}
+
+On_sakura.recommendsites
+{
+	"Ghost Template Walkthrough"
+	--
+	"%ASC(1)http://www.ashido.com/ukagaka/%ASC(2)"
+	--
+	
+	"SSP"
+	--
+	"%ASC(1)http://ssp.shillest.net/%ASC(2)"
+	--
+	
+	"Crow + SSP Reference (J)"
+	--
+	"%ASC(1)http://crow.aqrs.jp/reference/all/index.html%ASC(2)"
+	--
+	
+	"Ghost Documentation (J)"
+	--
+	"%ASC(1)http://usada.sakura.vg/contents/specification.html%ASC(2)"
+	--
+	
+	"Disc-2 (J)"
+	--
+	"%ASC(1)http://disc2.s56.xrea.com/%ASC(2)"
+	--
+	
+	"UKADOC Project Wiki (J)"
+	--
+	"%ASC(1)http://ssp.shillest.net/ukadoc/manual/index.html/%ASC(2)"
+}
+
+
+On_portalrootbutton.caption
+{
+	"Creator Links"
+}
+ 
+On_sakura.portalsites
+{
+ 	"WhatAPhantasia Website"
+	--
+	"%ASC(1)https://whataphantasia.github.io/UkaHub/%ASC(2)"
+	
+	"WhatAPhantasia Carrd"
+	--
+	"%ASC(1)https://whataphantasia.carrd.co/%ASC(2)"
+	--
+
+	"Phantasia Tumblr"
+	--
+	"%ASC(1)http://whataphantasia.tumblr.com/%ASC(2)"
+	--
+	
+	"Phantasia Twitter"
+	--
+	"%ASC(1)https://twitter.com/WhatAPhantasia/%ASC(2)"
+	--
+	
+	"Play A Hat in Time!"
+	--
+	"%ASC(1)http://www.fourthsite.com/%ASC(2)"
+}
