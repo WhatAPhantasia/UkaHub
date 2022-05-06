@@ -1,6 +1,6 @@
 Charset,UTF-8
 __system_settings_version__,2
-balloon,C:\Users\eshal\Downloads\SSP\balloon\ph_subcon\
+balloon,C:\Users\eshal\Downloads\SSP\balloon\swolleneyeball_b\
 inputbox.left,836
 scriptbox.left,418
 shiori.lognotify,0
@@ -9,12 +9,12 @@ Char3.center,962
 Char.VirtualDesktop,67ee651c-f44e-4cbd-86e4-b5f09f0f8433
 Char4.center,1162
 Char2.center,1162
-Char0.center,1294
+Char0.center,1214
 scriptbox.top,201
 shell,shell\master\
 FirstBoot,booted
-Char1.center,1221
+Char1.center,1094
 shell.ischanged.2,1
 inputbox.top,306
-update.lastexec,701980676
+update.lastexec,705167823
 __system_written_flag_do_not_remove__,written
