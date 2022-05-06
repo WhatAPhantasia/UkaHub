@@ -168,7 +168,7 @@ MouseDoubleClickKero
  {
  	if reference4 == "Face" 
 	{
-		"\1\s[10]how did you hit a blank kero...\e"
+		"\1\s[2002]Dude what the heck!!\e"
  	}
 	else
  	{

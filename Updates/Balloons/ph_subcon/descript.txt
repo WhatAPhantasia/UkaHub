@@ -7,8 +7,7 @@ craftman,WhatAPhantasia
 craftmanw,whataphantasia
 craftmanurl,https://whataphantasia.carrd.co
 
-//TODO: make github directory for updates
-//homeurl,http://www.yourwebspace.com/yourballoondirectory/
+homeurl,https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/master/Updates/Balloons/ph_subcon
 
 
 //2. -- Defining Text Areas

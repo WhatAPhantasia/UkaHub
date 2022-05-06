@@ -1012,7 +1012,7 @@ element0,overlay,surface10.png,0,0
 //idle
 surface2000
 {
-element0,overlay,surface10.png,0,0
+element0,overlay,surface2000.png,0,0
 }
 //embarassed
 surface2001

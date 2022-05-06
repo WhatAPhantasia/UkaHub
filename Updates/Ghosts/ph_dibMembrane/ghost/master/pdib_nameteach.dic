@@ -30,7 +30,7 @@ NameDone
 	{
 		firstboot = 0
 		
-		"\0\s[0]Okay, %(username), cool! \w2My name is Dib Membrane. \w2I'll be sticking around for a bit! \w6Now where do I put- \w5\w5\w5\w5\w5\n\n[half]Oh. \w5That's pretty useful. A pocket dimension in my briefcase! \w8And- \w3A bunch of my stuff is in here! \n\n[half]\w8Hey, I could play you some music, I think. And while I'm here, I could tell you all about the files on cryptids I have on hand!\w8\w8\n\nOh, This is going to be very, very interesting. \w5I should write my findings down!\x\c(Well, you've got a dude on your desktop now. \w2You can use f1 to open his readme.)\e"
+		"\0\s[0]\![leave,passivemode]Okay, %(username), cool! \w2My name is Dib Membrane. \w2I'll be sticking around for a bit! \w6Now where do I put- \w5\w5\w5\w5\w5\n\n[half]Oh. \w5That's pretty useful. A pocket dimension in my briefcase! \w8And- \w3A bunch of my stuff is in here! \n\n[half]\w8Hey, I could play you some music, I think. And while I'm here, I could tell you all about the files on cryptids I have on hand!\w8\w8\n\nOh, This is going to be very, very interesting. \w5I should write my findings down!\x\c(Well, you've got a dude on your desktop now. \w2You can use f1 to open his readme.)\e"
 		//TODO: dialogue where dib puts spelldrive into dimensional briefcase. cool! also explains that he'll play music for you
 	}
 	else

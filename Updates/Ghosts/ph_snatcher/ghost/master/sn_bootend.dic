@@ -1,0 +1,54 @@
+//---------------------------Booting and Ending--------------------------
+
+OnFirstBootVar
+{
+	username = "kid"
+	stroke = 0
+ 	teachusername = 0
+ 	aitalkinterval = 300
+	mikireflag = 0
+ 	birthdayprint = "????"
+	talktime = " 5 minutes"
+	deleteshitai = "OFF"
+	nowshell = "master"
+}
+
+OnFirstBoot
+{
+	uninstallStatus = reference0
+	firstboot = 1
+	OnFirstBootVar
+	--
+	"\![enter,passivemode]\1\s[-1]\0\s[-1]"
+	--
+	//I'm mostly setting this up because after ghost jam is over i wanna use levidre's font checker to check for curse casual like in my dib ghost!! but i gotta make this stuff from scratch so its a no-go for the jam jk jk
+	OnFirstBootTalk
+}
+
+OnFirstBootTalk
+{
+	if uninstallStatus == 0
+	{
+		"\0\s[1]AHHHHHHHAHAHAHAHHA!!! FOOOOOOOOOOOOL!!! \w4\x\cYou blew it! You totally screwed yourself! \w6 No one enters my forest and leaves... \w8\w4Wait. \w8Where the heck is this? \w4\x\cUghhhh, seriously? Are \f[italic,1]you\f[italic,0] the one taking things from my forest? You couldn't just stop at my belongings, my minions... Now you've taken me too. You're really giving me a run for my money here, kid."
+		--
+		"\w5\_q\![*]\q[He/Him,choicefirsthehim]\n\![*]\q[She/Her,choicefirstsheher]\n\![*]\q[They/Them,choicefirsttheythem]\e"
+	}
+	else
+	{
+		"\0\s[0]Uhhuh. Let's just get this over with, hm?"
+		--
+		"\w5\_q\![*]\q[He/Him,choicefirsthehim]\n\![*]\q[She/Her,choicefirstsheher]\n\![*]\q[They/Them,choicefirsttheythem]\e"
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+

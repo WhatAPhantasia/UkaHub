@@ -26,7 +26,7 @@ On_username
 
 On_homeurl
 {
-	"http://www.somekindofwebhost.com/yourghostsdirectory/"
+	"https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/Updates/Ghosts/ph_dibMembrane"
 }
 
 
@@ -34,7 +34,7 @@ On_homeurl
 //You may have noticed that there are two collapsed links at the top of the SSP right click menu that lead you to another assortment of links. This is the caption for the top option of the menu.
 
 On_recommendrootbutton.caption
- {
+{
 	"Reference Sites"
 }
 
@@ -50,21 +50,6 @@ On_sakura.recommendsites
 	"%ASC(1)http://www.ashido.com/ukagaka/%ASC(2)"
 	--
 	//And this is the site that it would link to. Note that a website address begins with %ASC(1) and ends with %ASC(2). Don't forget these!
-	
-	"Zarla's Twitter"
-	--
-	"%ASC(1)https://twitter.com/Zarla_S/%ASC(2)"
-	--
-	
-	"Zarla's Tumblr"
-	--
-	"%ASC(1)http://zarla-s.tumblr.com/%ASC(2)"
-	--
-	
-	"Zarla's Dreamwidth"
-	--
-	"%ASC(1)http://zarla.dreamwidth.org/%ASC(2)"
-	--
 	
 	"SSP"
 	--
@@ -84,6 +69,7 @@ On_sakura.recommendsites
 	"Disc-2 (J)"
 	--
 	"%ASC(1)http://disc2.s56.xrea.com/%ASC(2)"
+	--
 	
 	"UKADOC Project Wiki (J)"
 	--
@@ -104,6 +90,10 @@ On_portalrootbutton.caption
  
 On_sakura.portalsites
  {
+	"WhatAPhantasia Website"
+	--
+	"%ASC(1)https://whataphantasia.github.io/UkaHub/%ASC(2)"
+	
  	"WhatAPhantasia Carrd"
 	--
 	"%ASC(1)https://whataphantasia.carrd.co/%ASC(2)"
@@ -178,8 +168,7 @@ On_headlinesenserootbutton.caption
  
 On_readmebutton.caption
  {
-	"READ ME"
-	"Manual"
+	"Read Me"
  }
 
  //---- Uninstall Caption -----------------------------------------------------

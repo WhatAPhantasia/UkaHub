@@ -1,0 +1,14 @@
+charset,UTF-8
+type,shell
+
+name,Default
+craftman,whataphantasia
+craftmanurl,https://whataphantasia.carrd.co
+
+seriko.alignmenttodesktop,free
+seriko.use_self_alpha,1
+
+
+menu.background.alignment,righttop + repeat-y
+menu.foreground.alignment,righttop + repeat-y
+menu.sidebar.alignment,bottom
