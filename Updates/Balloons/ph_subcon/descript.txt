@@ -86,25 +86,26 @@ clickwaitmarker.y,-49
 //ALSO..... HOW TF DO YOU TURN OFF BLINKING... PLS ADD THAT AS A FEATURE PLS AND THANK U
 
 onlinemarker.x,299
-onlinemarker.y,2
+onlinemarker.y,0
 
-sstpmarker.x,30
-sstpmarker.y,161
+sstpmarker.x,20
+sstpmarker.y,-20
 
-sstpmessage.font.height,9
-sstpmessage.font.color.r,150
-sstpmessage.font.color.g,150
-sstpmessage.font.color.b,150
-sstpmessage.x,40
-sstpmessage.y,161
+sstpmessage.font.name,Courier New
+sstpmessage.font.height,12
+sstpmessage.font.color.r,50
+sstpmessage.font.color.g,50
+sstpmessage.font.color.b,50
+sstpmessage.x,38
+sstpmessage.y,-20
 
 number.font.name,Microsoft Sans Serif
 number.font.height,10
-number.font.color.r,125
-number.font.color.g,127
-number.font.color.b,139
-number.xr,230
-number.y,179
+number.font.color.r,255
+number.font.color.g,255
+number.font.color.b,255
+number.xr,-60
+number.y,15
 
 //Note that number.xr has an r in it, that's important.
 //In Balloon Test Mode, this shows up as Test 128/256.
