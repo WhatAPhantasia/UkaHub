@@ -1,0 +1,14 @@
+origin.x,32
+origin.y,32
+
+validrect.left,32
+validrect.top,32
+validrect.right,-38
+validrect.bottom,-46
+
+wordwrappoint.x,-40
+wordwrappoint.y,0
+
+font.color.r,0
+font.color.g,0
+font.color.b,0

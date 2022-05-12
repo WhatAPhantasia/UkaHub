@@ -13,14 +13,14 @@ homeurl,https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/master/Updates/B
 //2. -- Defining Text Areas
 
 origin.x,30
-origin.y,33
+origin.y,30
 
 validrect.left,30
-validrect.top,33
+validrect.top,30
 validrect.right,-30
-validrect.bottom,-50
+validrect.bottom,-46
 
-wordwrappoint.x,-35
+wordwrappoint.x,-33
 wordwrappoint.y,0
 
 font.name,Curse Casual
@@ -66,9 +66,9 @@ cursor.brush.color.r,200
 cursor.brush.color.g,200
 cursor.brush.color.b,200
 
-cursor.font.color.r,102
-cursor.font.color.g,102
-cursor.font.color.b,102
+cursor.font.color.r,150
+cursor.font.color.g,150
+cursor.font.color.b,150
 
 
 //6. -- Image Markers
@@ -86,7 +86,7 @@ clickwaitmarker.y,-49
 //ALSO..... HOW TF DO YOU TURN OFF BLINKING... PLS ADD THAT AS A FEATURE PLS AND THANK U
 
 onlinemarker.x,299
-onlinemarker.y,3
+onlinemarker.y,2
 
 sstpmarker.x,30
 sstpmarker.y,161
@@ -119,10 +119,8 @@ communicatebox.width,300
 communicatebox.height,25
 
 communicatebox.font.name,Ink Free
-communicatebox.font.color.r,0
-communicatebox.font.color.g,0
-communicatebox.font.color.b,0
+communicatebox.font.color.r,5
+communicatebox.font.color.g,5
+communicatebox.font.color.b,5
 //why the hell arent you working. :raised_eyebrow:
-teachbox.font.color.r,0
-teachbox.font.color.g,0
-teachbox.font.color.b,0
+//ok i just changed the image to have a dark background. waiting until i can find a workaround lmao
