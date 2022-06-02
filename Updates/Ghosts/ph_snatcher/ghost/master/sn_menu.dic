@@ -1,0 +1,286 @@
+//---------SNATCHER MENU------------------------
+
+//ran out of time in jam, using x template haha
+//TODO: try making menu from scratch after jam
+OpenSakuraMenu
+{
+	if AutoUpdates[1] == 2 //If an update is available, the user will be notified when they try to open the menu
+	{
+		"\0\s[0]Hm... Seems like I have an update. \w3Wanna download it, %(kidname)?"
+		--
+		//Note: the download it now option will go straight into updating without directing to another function. You can do this with some things using 'script:' in the function name, but it's finicky. If this gives you issues feel free to replace it.
+		all:{
+		"\_q\n\n"
+		"\![*]\q[Download it now,script:\![updatebymyself\]]\n"
+		"\![*]\q[Maybe later,UpdateLater]\n\n"
+		"\![*]\q[Turn off auto updates,UpdateOff]\e"
+		}
+	}
+	else //Normal menu opening
+	{
+		"\0\b2\s[0]What now?"
+		--
+		OnMenuRun
+	}
+}
+
+OnMenuRun : all //Main menu. The all modifier here means every string will be output in order, so you don't need to write -- between lines
+{
+	"\b2\n\n\_q"
+
+	if lastTalk != ""; "\![*]\q[Repeat last dialogue,OnLastTalk]"
+	"\n"
+	"\![*]\q[Say something,OnAiTalk]\n"
+	//"\![*]\q[Talk to another ghost,OnStartTalking]\n\n"
+	"\![*]\q[Functions,OnFunctionMenu]\n"
+	"\![*]\q[Config,OnConfigMenu]\n\n"
+	"\![*]\q[Nevermind,Cancel]\n\n"
+	"\nRuntime: %(runtime)%(newline)\f[align,right]Version %(ghostver)\e"
+}
+
+OnLastTalk //Repeats the last thing the ghost said
+{
+	"%(lastTalk)\e"
+}
+
+//----------Function Menu----------
+OnFunctionMenu : all
+{
+	"\0\b2"
+	
+	//This will make the opening dialogue random (ignoring the all modifier) with a nonoverlap modifier, if you add more dialogues
+	nonoverlap:{ 
+	
+	if soulcustody == 1
+	{
+	"\s[0]Last I checked, I'm not the one whose soul is under custody."
+	"\s[0]Really funny. I'm not doing anything for you."
+	"\s[0]HAHAHAHAHA!! \w8\w8\w2No."
+	}
+	
+	}
+	"\n\n\_q"
+	
+	"\![*]\q[Check Email,script:\![biff\]]\n"
+	"\![*]\q[Fix the Clock,script:\![execute,sntp\]]\n"
+	"\![*]\q[Open Calendar,OpenCalendar]\n"
+	"\![*]\q[Open SSP Preferences,SSPPrefs]\n"
+	"\![*]\q[Empty Recycle Bin,RecycleBin]\n"
+	"\![*]\q[Show System Information,SystemInfo]\n"
+	"\![*]\q[Report a bug,BugReport]\n"
+	"\![*]\q[Check for updates,UpdateCheck]\n\n"
+	
+	"\![*]\q[Back to main menu,OnMenuRun]\e"
+}
+
+Select.OpenCalendar
+{
+	"\0\s[0]Sure,\w4 here's the calendar!"
+	--
+	"\![open,calendar]\e"
+}
+
+Select.SSPPrefs
+{
+	"\0\s[0]Sure,\w4 here it is!"
+	--
+	"\![open,configurationdialog]\e"
+}
+
+Select.RecycleBin
+{
+	_gomicheck = FUNCTIONEX("saori/gomi.dll", "-n") //Gets the number of items in the recycle bin
+	
+	"Ok,\w4 I'll go empty the recycle bin!\w8\w8\s[-1]\w8\w8\w8\w8\n\n"
+	--
+	if _gomicheck > 0 //If there was something to empty
+	{
+		_gomi = FUNCTIONEX("saori/gomi.dll", "-f") //Calling the Saori to empty the recycle bin
+		_s = ""; if _gomicheck != 1; _s = "s" //Plural check
+		
+		"\s[0]Done!\w8\w8 %(_gomicheck) item%(_s) cleared."
+	}
+	else //If it's empty
+	{
+		"\s[0]It was empty."
+	}
+	--
+	"\n\n\![*]\q[Back to functions menu,OnFunctionMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
+}
+
+Select.SystemInfo : all //Partially copied from the GT template, but I tweaked a few things
+{
+	os_name = FUNCTIONEX("saori/saori_cpuid.dll","os.name")
+	os_version = FUNCTIONEX("saori/saori_cpuid.dll","os.version")
+	cpu_name = FUNCTIONEX("saori/saori_cpuid.dll","cpu.name")
+	cpu_clockex = FUNCTIONEX("saori/saori_cpuid.dll","cpu.clockex")
+	
+	"\0\b[2]\_q\f[anchorstyle,none]"
+	
+	"OS: \_a[OnBlank]%(os_name) %(os_version)\_a\n"
+	"Memory Load: \_a[OnBlank]%(memoryload)%\_a\n"
+	"Physical Memory: \_a[OnBlank]%(memoryavailphys) KB\_a\n"
+	"CPU: \_a[OnBlank]%(cpu_name) %(cpu_clockex)MHz\_a\n"
+	"Uptime: \_a[OnBlank]%(systemuphour):%(systemupminute):%(systemupsecond)\_a\n\n"
+	
+	"Ukagaka: \_a[OnBlank]%property[baseware.version]\_a\n\n"
+	
+	"\![*]\q[Back to functions,OnFunctionMenu]\n"
+	"\![*]\q[Done,cancelnodialogue]\e"
+}
+
+Select.BugReport
+{
+	"\0\s[0]Bugs can be reported to the dev \_a[https://www.YourUrlforBugReports.com]here\_a!"
+	--
+	"\n\n\![*]\q[Back to functions,OnFunctionMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
+}
+
+Select.UpdateCheck //Starts an update check
+{
+	"\![updatebymyself]\e"
+}
+
+
+
+//----------Config Menu----------
+OnConfigMenu : all 
+{
+	FixDefaultOptions
+	
+	if "OnUserBorn" _in_ reference0; {birthday = oldbirthday; ERASEVAR("oldbirthday")} //resets the birthday to the old values, erases the temp variable
+	"\0\_q\b2\![close,inputbox,%(reference0)]"
+	
+	"\f[align,center]—Config—\n\n\f[align,default]"
+	
+	"\![*]Your name: \_a[OnChangeName]%(username)\_a\n"
+	"\![*]Your pronouns: \_a[OnChangePronoun]%(Capitalize(heshe))/%(Capitalize(himher))/%(Capitalize(hisher))\_a\n"
+	"\![*]Your birthday: \_a[OnChangeBirthday]%(birthday[0])\_a\n"
+	"\![*]Your hemisphere: \_a[OnToggleHemisphere]%(hemisphere)\_a\n\n"
+	
+	"\![*]Talk rate: \_a[OnChangeTalk]%(talkrate)\_a\n"
+	"\![*]Hour Notifications: \_a[OnToggleHourNotifs]%(HourNotifs)\_a\n\n"
+	
+	"\![*]Auto update checks: \_a[OnToggleUpdate]%(AutoUpdates[0])\_a\n"
+	"\![*]Enable Uninstall? \_a[OnToggleUninstall]%(deleteshitai)\_a\n\n"
+	
+	"\![*]\q[Back to the menu,OnMenuRun]\e"
+}
+
+//This is here in case the variables get erased. The buttons will be set to default so the user has something to click in the config menu. This has happened to my users before and resetting them is a painful process. Do not remove these, you'll want to add in new ones for any toggle buttons you have in the config menu. This is also called in BootVars and UpdateVars, which is why it's separate from the config menu itself.
+FixDefaultOptions
+{
+	if username == ""; username = "kid"
+	if birthday[0] == ""; birthday[0] = "???"
+	if hemisphere == ""; hemisphere = "Northern"
+	if talkrate == ""; {talkrate = "every 5 minutes"; aitalkinterval = 300}
+	if deleteshitai == ""; deleteshitai = "Off"
+	if AutoUpdates[0] == ""; AutoUpdates[0] = "On"
+	if HourNotifs == ""; HourNotifs = "On"
+}
+
+OnToggleHemisphere
+{
+	if hemisphere != "Northern"; hemisphere = "Northern"
+	else; hemisphere = "Southern"
+	--
+	OnConfigMenu
+}
+
+OnChangeTalk : all
+{
+	nonoverlap:{
+	"\0\s[0]How often should I talk?\w8 Right now it's %(talkrate)\n\n"
+	}
+	
+	"\![*]\q[Every 30 seconds,OnTalkRate,30]\n"
+	"\![*]\q[Every minute,OnTalkRate,60]\n"
+	"\![*]\q[Every 3 minutes,OnTalkRate,180]\n"
+	"\![*]\q[Every 5 minutes,OnTalkRate,300]\n"
+	"\![*]\q[Don't speak,OnTalkRate,0]\n\n"
+	
+	"\![*]\q[Nevermind,OnConfigMenu]\e"
+}
+
+OnToggleHourNotifs
+{
+	if HourNotifs != "On"; HourNotifs = "On"
+	else; HourNotifs = "Off"
+	--
+	OnConfigMenu
+}
+
+OnTalkRate
+{
+	aitalkinterval = TOINT(reference0) //this changes the talk rate, in seconds. reference0 is sent from the menu options above
+	
+	if reference0 == "30"
+	{
+		talkrate = "every 30 seconds" //this displays the talk rate in the menu
+		
+		"\0\s[0]Ok,\w4 every 30 seconds it is!"
+	}
+	elseif reference0 == "60"
+	{
+		talkrate = "every minute"
+		
+		"\0\s[0]Ok,\w4 every minute it is!"
+	}
+	elseif reference0 == "180"
+	{
+		talkrate = "every 3 minutes"
+		
+		"\0\s[0]Ok,\w4 every 3 minutes!"
+	}
+	elseif reference0 == "300"
+	{
+		talkrate = "every 5 minutes"
+		
+		"\0\s[0]Ok,\w4 every 5 minutes!"
+	}
+	else
+	{
+		talkrate = "never"
+		
+		"\0\s[0]Ok, I won't talk at all."
+	}
+	--
+	"\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[I'm done,cancelnodialogue]\e"
+}
+
+OnToggleUpdate
+{
+	if AutoUpdates[0] != "On"; AutoUpdates[0] = "On"
+	else; AutoUpdates[0] = "Off"
+	--
+	OnConfigMenu
+}
+
+OnToggleUninstall
+{
+	if deleteshitai != "On"; deleteshitai = "On"
+	else; deleteshitai = "Off"
+	--
+	OnConfigMenu
+}
+
+//----------Misc Functions----------
+
+//Menu has timed out
+OnChoiceTimeout
+{
+	"\0\s[0]C'mon, %(kidname), I don't have all the time in the world.\e"
+}
+
+//If the main menu has been cancelled
+Select.Cancel
+{
+	"\0\s[0]Try deciding on what you want before you bother me, huh?\e"
+}
+
+OnTestVar
+{
+	"Testing!\e"
+	
+	LOGGING("This is a debug function! This text will show up in Tama, or in the SHIORI log! You can also output variables and such with this function. This is super handy for debugging without having to output data to your ghost's balloon! Especially for things like loops, where you need to see certain variables at every step of the loop. Make good use of it!")
+}

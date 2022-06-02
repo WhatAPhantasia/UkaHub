@@ -1,6 +1,4 @@
 ﻿//---------------------------Mouse Functions--------------------------
-//As you've probably guessed, this .dic file has to do with mouse functions. This includes the petting feature and what happens when you double click your ghost.
-//As a note, this .dic file isn't strictly necessary - I'm pretty sure you can just clear the file and it won't hurt your ghost any, it'll just make it so you can't pet or double click them. And if you're interested in only petting or double clicking one character, all you have to do is delete the chunks of code for the other character you want to be uninvolved. However, I'm assuming most people making ghosts want to make their ghosts pettable and clickable, so this will cover the messages for both.
 
 //(http://www.ashido.com/ukagaka/walkthrough.html)
 

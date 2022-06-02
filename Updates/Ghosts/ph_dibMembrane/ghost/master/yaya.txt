@@ -22,7 +22,7 @@ dic, pdib_etc.dic
 dic, pdib_menu.dic
 dic, pdib_word.dic
 dic, pdib_commu.dic
-dic, pdib_nameteach.dic
+dic, pdib_user.dic
 dic, pdib_anchor.dic
 
 //---- Log Location -------------------------------------------------------------------------

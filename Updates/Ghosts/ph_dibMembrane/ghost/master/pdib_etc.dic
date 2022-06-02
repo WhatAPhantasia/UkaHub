@@ -39,7 +39,7 @@ OnMouseDragEnd
 	
 }
 
-//-----None of this code is working so I give up
+
 OnUpdateCoordinates
 {
     surfacescoordinates = IARRAY
@@ -100,6 +100,10 @@ capitalize
 }
 
 //thank you zi, everything in this ghost is stolen from someone else :sob:
+//As the name implies, this checks if the balloon is currently open or not. This was written by Levidre, and modified a bit by Zi!
+//To use it I would do this, so you don't have to copy this whole chunk of code:
+//_b = BalloonCheck
+//if _b == 0 //_b will be 0 if the balloon is not open, or 1 if it is open
 BalloonCheck
 {
     if ASEARCH("Status",var.req.key) != -1
@@ -120,6 +124,34 @@ MenuCheck
         else; 0
     }
     else; 0
+}
+
+//This function allows you to add a line break, but only for the balloon you intend your ghost to use! So if a bit of text wraps awkwardly, but you don't want to add a \n because it may look super weird in other balloons, you can put a %(br) instead! It'll be a \n in your balloon, and a single space in any other balloon. Make sure you add the name of your balloon here!
+//Example: "This dialogue would cut awkwardly in a hypothetical default%(br)balloon,\w4 so a manual linebreak is added for only that balloon.\w8\w8 In any other balloon this would be a%(br)continuous line,\w4 and use SSP's default word wrap.\e"
+br
+{
+	if SHIORI3FW.BalloonName == "Swollen Eyeball Balloon"; "\n"
+	else; " "
+}
+
+//This function is to help with changing text alignment in the same line! It makes a new line by using \n, displaying a space, and then going back up a line. So you'd use it like this:
+//"Text on the left%(newline)\f[align,right]Text on the right"
+newline
+{
+	"\n \_l[0]\n[-100]"
+}
+
+//Some lorem ipsum for when you need quick filler text
+loremipsum
+{
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+}
+
+//Sanitize user inputs! This should stop any sakurascript tags from executing, as well as any envelopes. Use it for sending user input as an argument through a menu choice or raise, or for things like saving user input as file names. Like this:
+//\![raise,OnSaveFile,%(Sanitize(_input))]
+Sanitize
+{
+	"%(CHR(34))%(_argv)%(CHR(34))"
 }
 
 
@@ -146,6 +178,16 @@ OnDiscordPluginBoot
 ']'
 }
 
+
+//--Misc shit i made yuh
+
+//jk theres nothing here
+
+
+
+
+
+//-----------------wow----------------
 
 
 //--OnFileDrop2
@@ -247,21 +289,47 @@ OnInstallComplete
  	}
 	elseif reference0 == "ghost" //if the type of the file they're installing is a ghost.
  	{
+		//HELL YEAH WRITING DIALOGUE NO ONE WILL SEE, MY FAVORITE!!
+		//i know if elses are kinda inefficient BUT i only know how to do _in_ with if elses sooooooooo yeah
 		if reference1 == "Invader Zim"
 		{
-		"Wait- ZIM?! \w2Aw, come on! \w4I can't believe I assisted on bringing him somewhere he could use to do... \w6The things he do! \w6Things that are definitely bad! \w8If he's here, though, \w2I guess I could keep an eye on him...\e"
+		"Wait- ZIM?! \w2Aw, come on! \w4I can't believe I assisted on bringing him somewhere he could use to do... \w6The things he do! \w6Things that are definitely bad! \w8\n\n[half]If he's here, though, \w2I guess I could keep an eye on him...\e"
 		}
 		elseif reference1 == "Dib" //change to whatever quo names their dib ghost lmao
 		{
-		"Woah, another me! \w2After the whole Zimvoid thing, I'm honestly not surprised. \w8Wait, your desktop can communicate trans-dimensionally?!\e"
+		"Woah, another me! \w2After the whole Zimvoid thing, I'm honestly not surprised. \n\n[half]\w8...Wait, your desktop can communicate trans-dimensionally?!\e"
 		}
-		elseif reference1 == "Minimum YAYA Template" || reference1 == "GT Template" //TODO: add more of these will ya
+		elseif reference1 == "Ely Crowe" //change name according to what i make the shooting star gang later
 		{
-		"Making something? The more people on here, the merrier.\e"
+		"W-Wait, Ely?! \w8You-! \w8How-? \w8\w3You brought them here?! \w8Shit, what am I gonna say to them..?! \w8\w8\w5\n\n[half](It looks like you broke the poor boy. Simp.)\e"
+		}
+		elseif reference1 == "Snatcher"
+		{
+		"\s[11]\i[94]\i[28]The Snatcher, huh? \w2An actual ghost... Shadow... \w4\s[2]\i[94]Thing! \w6That's going to be interesting. \w8\w8\n\n\s[2]\i[93]\i[21]\i[77]This is a little out of character, \w2\s[12]\i[73]\i[93]but thanks for downloading him!\e"
+		}
+		elseif reference1 == "Minimum YAYA Template" || reference1 == "GT Template" || ("X. Template" _in_ reference1) //TODO: add more of these will ya
+		{
+		"\s[2]\i[4]\i[94]%(reference1)? \w8Making something? \w8\i[73]The more people on here, the merrier.\e"
+		}
+		elseif reference1 == "Needle" || reference1 == "Radio Nowhere" || reference1 == "Paper" || reference1 == "Hydrate" || reference1 == "Balloons" || reference1 == "Pet Rock"
+		{
+		"\s[0]\i[91]%(reference1)? \w8\s[0]\i[70]\i[91]\i[76]Okay, now you're just bringing objects onto here. \w6\s[11]\i[92]\i[76]What \w2\f[bold,1]is\f[bold,0] \w3the extent of things you can put on your desktop, anyway?\e"
+		}
+		elseif reference1 == "S the Skeleton" || reference1 == "Multiverse Sans" || reference1 == "Dr. W.D. Gaster" || reference1 == "sans" || reference1 == "Sans" || reference1 == "Papyrus" || reference1 == "Dreamtale Sans"
+		{
+		"\s[12]\i[94]Oh, wow, a skeleton! \w6\i[28]%(reference1)? \w6It's been a while since I messed with the undead... \w8\s[2]\i[93]\i[77]\i[21]\i[80]Last time didn't go so well.\e"
+		}
+		elseif reference1 == "FLUX" || reference1 == "flele"
+		{
+		"\s[0]Oh, %(reference1) looks like they can play music. \w8\w3...I have a music player too, %(username)! \w2With cool playlists! \w5Am I not enough for you? Why do you need another music player in your life?! I WANT TO BE THE ONLY ONE WHO PLAYS MUSIC FOR YOU!!!\n\n[half]\w8\w3Nah I'm just kidding. \w4Phantasia didn't expect anyone to see this so they're having fun lmao\e"
+		}
+		elseif reference1 == "Shadow the Hedgehog" || reference1 == "Crewmate" //TODO: check if crewmate, flele, and pet rock are actually correct
+		{
+		"HOLY SHIT %(TOUPPER(reference1))???\e" //TODO: expressions yall
 		}
 		else
 		{
-		"\s[11]\i[28]\i[94]%(reference1)... \w8\s[11]\i[94]Seems your computer is just a magnet for people, huh? \w4\s[11]\i[94]\i[26]Spelldrives \w6\s[11]\i[94]\i[25]or no spelldrives. \w6\s[12]\i[93]\i[73]Interesting!\e"
+		"\s[11]\i[28]\i[94]%(reference1)... \w8\s[11]\i[94]Seems your computer is just a magnet for people, huh? \w4\s[11]\i[94]\i[26]Spelldrives \w6\s[11]\i[94]\i[25]or no spelldrives. \w6\s[12]\i[93]\i[73]Neat!\e"
 		//Reference1 here would be the name of the ghost in install.txt. Replace as needed.
 		}
  	}
@@ -269,7 +337,7 @@ OnInstallComplete
  	{
 		if reference1 == "Swollen Eyeball Balloon"
 		{
-		"Oh- \w2Finally! \w3Dad fixed up the floating monitors in my room! \w5I was worried he wouldn't after what happened last time... \w2Does it seriously take that long for a disc to be repaired?\e"
+		"\s[0]\i[4]Oh- \w6\s[2]\i[4]Finally! \w8Dad fixed up the floating monitors in my room! \w8\w2\s[12]\i[21]\i[77]\i[4]I was worried he wouldn't after what happened last time... \w8\s[11]\i[96]\i[24]\i[76]\i[4]But come on, does it seriously take that long for a disc to be repaired?\e"
 		}
 		else
 		{
@@ -279,24 +347,24 @@ OnInstallComplete
  	}
 	elseif reference0 == "plugin" //if the type of file is a plug-in, like a saori of some kind.
  	{
-		"\s[0]A plugin! It's called %(reference1).\e"
+		"\s[2]\i[91]A plugin! \w6It's called %(reference1).\e"
 		//Reference1 here would be the name of the plug-in. Replace as needed.
  	}
 	elseif reference0 == "calendar skin" //if the type of file is a calendar skin
 	{
-		"\s[0]Just installed a calendar skin. %(reference1), right?\e"
+		"\s[0]\i[91]Just installed a calendar skin. %(reference1), right?\e"
 	}
 	elseif reference0 == "headline" //if the file/url you drop on them is counted as a headline. To be honest with you I don't know what determines whether a url is a headline or what.
 	{
-		"\0\s[0]I've set up a headline. It's called %(reference1).\e"
+		"\0\s[0]\i[91]I've set up a headline. It's called %(reference1).\e"
 	}
 	elseif reference0 == "rss" //this is more clearly for when you drag an rss feed onto your ghost. you can find rss feeds on sites by looking for the little rss icon, it kind of looks like a little satellite. you can google more info on rss feeds if you're curious!
 	{
-		"\0\s[0]I've set up a headline. It's called %(reference1).\e"
+		"\0\s[0]\i[91]I've set up a headline. It's called %(reference1).\e"
 	}
 	else
 	{
-		"\s[0]No idea what %(reference1) is, but it's installed."
+		"\s[2]\i[73]\i[91]No idea what %(reference1) is, but it's installed.\e"
 	}
 }
 
@@ -305,7 +373,7 @@ OnInstallComplete
 
 OnInstallFailure
  {
-	"\0\s[0]Ah... Sorry, I can't install this.\n\n[half]\w5"
+	"\0\s[2]\i[93]\i[77]Ah... Sorry, I can't install this.\n\n[half]\w8"
 	--
 	if reference0 == "unsupported"
 	{
@@ -315,6 +383,14 @@ OnInstallFailure
 	{
 	"Something messed up during the extraction process.\e"
 	}
+	elseif reference0 == "artificial"
+	{
+	"\w4\i[21]...But that's because you stopped me, so\w8\w3%(br)\s[2]\i[73]\i[91]you're welcome!\e"
+	}
+	elseif reference0 == "invalid type"
+	{
+	"I can't read this install.txt!\e"
+	}
  }
  
  //--OnInstallRefuse
@@ -322,9 +398,23 @@ OnInstallFailure
  
 OnInstallRefuse
  {
-	"\0\s[0]Hmm, whatever this is, it isn't mine. \w2Try %(reference0) instead.\e"
-	
-	//reference0 in this function refers to the ghost this file is associated with, probably the name of the ghost listed in its install.txt file. You would see this if you dropped a shell made for a different ghost on your current ghost, for example. They can't install a shell for themselves they can't use, right? Anyway, replace this with what you wish, you can use the reference0 envelope or not if you want.
+	 //oh boy i can't wait to write stuff for things no one will see (mostly bc zim doesnt have an alternate shell or anything
+	if reference0 == "Invader Zim"
+	{
+		"\0\s[0]\i[76]...This is more @ZIM's thing, isn't it? \w6\s[3]\i[75]\i[70]\i[91]I don't really think you should give him anything, but- \w8\s[0]\i[72]\i[96]I don't have a use for this, so it's not like I can do anything about it.\e"
+	}
+	elseif reference0 == "Ely Crowe"
+	{
+		"\0\s[2]\i[28]\i[94]Oh, \w2this seems like @Ely's thing! \w8\s[2]\i[77]\i[91]You should probably give this to them and not me, you know? \w8\w2\s[2]\i[85]\i[77]\i[27]\i[93]\f[height,10]Even though I'd like to keep this...\f[height,default]\e"
+	}
+	elseif reference0 == "Hydrate"
+	{
+		"\0\s[0]\i[91]Ooh, getting some new drinks for Hydrate? I can't use them- Install them with Hydrate instead.\e"
+	}
+	else
+	{
+		"\0\s[0]Hmm, whatever this is, it isn't mine. \w2Try %(reference0) instead.\e"
+	}
  }
 
 
@@ -337,7 +427,7 @@ OnInstallRefuse
 
 OnVanishSelecting
 {
-	"\0\s[0]Aw, you're kicking me out? I mean, your choice, I guess. \w2Just hope my power points get refunded.\e"
+	"\0\s[2]\i[77]\i[91]Aw, you're kicking me out? \w4I mean, your choice, I guess. \w8\s[0]\i[92]\i[26]Just hope my power points get refunded.\e"
 }
 
 //OnVanishSelected
@@ -345,7 +435,7 @@ OnVanishSelecting
 
 OnVanishSelected
 {
-	"\0\s[0]Really? \w2Well, see you later, %(username). \w2Maybe.\w9\w9\e"
+	"\0\s[2]\i[91]Well, \w8\s[2]\i[98]see you later, %(username). \w8\w8\s[2]\i[73]\i[91]Who knows! \w8It could happen!\w9\w9\w9\e"
 }
 
 
@@ -354,7 +444,7 @@ OnVanishSelected
 
 OnVanishCancel
 {
-	"\0\s[0]Oh- Did you just want to see what I would say?\e"
+	"\0\s[0]...Oh. \w8Alright! \w8\w2\s[2]\i[26]\i[91]I \f[bold,1]do\f[bold,0] still kind of have things I'd like to mess with on here, \w2haha.\e"
 }
 
 //--OnVanishButtonHold
@@ -362,7 +452,7 @@ OnVanishCancel
 
 OnVanishButtonHold
 {
-	"\0\s[0]What- You made me prepare to leave and everything! Pfft...\e"
+	"\0\s[0]Wait, what, huh? \w1Why am I still here? \w8\w5...Pfft, you didn't do that, \w2did you? \w4Guess 'seeing you later' already happened!\e"
 }
 
 
@@ -371,7 +461,7 @@ OnVanishButtonHold
  
 OnVanished
  {
-	"\1\s[-1]\0\s[0]Hope you're not thinking of booting me like you did %(reference0). There's still stuff for me to look at here!\e"
+	"\1\s[-1]\0\s[0]Hope you're not thinking of kicking me out like you did %(reference0). \w6There's still stuff for me to look at on here!\e"
 	
 	//reference0 here is the name of the other ghost.
 }
@@ -530,7 +620,7 @@ OnUpdate.OnDownloadBegin
  {
  	if "aitalk" _in_ reference0 //this is checking to see what kind of files are being downloaded. In this case, it's looking for files called aitalk in the download queue. If you want to have a specialized bit of dialogue for each type of file, you can expand this with elseifs and by replacing aitalk with whatever file you have in mind. Keep in mind my warning above though.
  	{
- 		"\0\s[0]I am going to download more dialogue.\w8\1\s[10]It's in the aitalk file.\e"
+ 		"\0\s[0]Oooh, I've got some more things I want to talk about!\e"
  	}
  	else //for files not specified above
  	{
@@ -820,14 +910,14 @@ OnApplicationFileOpen
  //---- OnBatteryLow -----------------------------------------------------------------
 OnBatteryLow
  {
-	"\0\s[0]The laptop's battery is low. \w8\0\s[0]There is %(reference0) power left.\e"
+	"\0\s[0]\i[92]\i[28]Looks like you have %(reference0) battery left...\e"
 	//reference0 here is the amount of battery power. Replace as you like.
  }
  
  //--OnBatteryCritical-----------------------------------------------------------------
 OnBatteryCritical
 {
-	"\0\s[0]The laptop's battery is critically low.\e"
+	"\0\s[2]\i[77]\i[93]...Geez, charge your computer! \w6I'm \w8\i[23]\i[80]not sure what happens to me if it dies while I'm here.\e"
 }
  
 //--OnBatteryNotify--------------------------------------------------------------------

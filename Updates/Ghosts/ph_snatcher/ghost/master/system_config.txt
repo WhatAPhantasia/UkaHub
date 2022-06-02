@@ -4,8 +4,8 @@
 dic, yaya_config.txt		// YAYA: Dictionary setting. Must be defined first.
 
 dic, system/yaya_shiori3.dic	// YAYA: System dictionary
-//dic, system/yaya_optional.dic	// YAYA: Optional functions dictionary
-//dic, system/yaya_compatible.dic	// YAYA: AYA backward compatibility dictionary
+dic, system/yaya_optional.dic	// YAYA: Optional functions dictionary
+dic, system/yaya_compatible.dic	// YAYA: AYA backward compatibility dictionary
 
 //------------------------------------------------------------------------------
 //Execution log

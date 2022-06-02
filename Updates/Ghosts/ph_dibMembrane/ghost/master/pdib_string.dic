@@ -35,7 +35,7 @@ On_homeurl
 
 On_recommendrootbutton.caption
 {
-	"Reference Sites"
+	"Ukagaka Sites"
 }
 
 
@@ -82,7 +82,7 @@ On_sakura.recommendsites
 
 On_portalrootbutton.caption
  {
-	"Creator Links"
+	"Creator + Misc Links"
  }
 
  //---- Websites in the Second Option --------------------------------------------------
@@ -93,13 +93,13 @@ On_sakura.portalsites
 	"WhatAPhantasia Website"
 	--
 	"%ASC(1)https://whataphantasia.github.io/UkaHub/%ASC(2)"
-	
+	--
+	"%ASC(1)%ASC(2)"//-------------------------------------------
+	--
  	"WhatAPhantasia Carrd"
 	--
 	"%ASC(1)https://whataphantasia.carrd.co/%ASC(2)"
 	--
-	//Here, you'll notice that there are two names, a --, then a website bracketed by %ASC(1) and %ASC(2). What this will do is randomly chose between those two site names for the link. So if you open the menu, maybe it will say Site Name 1, or maybe it will say Site Name 1 Alternate. Honestly I find links changing names without warning kind of confusing, but maybe some find it amusing, idk. Put the address of the site you want to link to between the two ASC tags.
-	
 	"Phantasia Tumblr"
 	--
 	"%ASC(1)http://whataphantasia.tumblr.com/%ASC(2)"
@@ -111,8 +111,12 @@ On_sakura.portalsites
 	"Shooting Star Fic"
 	--
 	"%ASC(1)http://www.fourthsite.com/%ASC(2)"
-	
-	//You get the idea. You can add more links or take them away as you like following this basic formula.
+	--
+	"%ASC(1)%ASC(2)"//-------------------------------------------
+	--
+	"Levidre's Zim Ghost"
+	--
+	"%ASC(1)https://levidre.github.io/ukagaka/zim-and-gir/%ASC(2)"
  }
 
  

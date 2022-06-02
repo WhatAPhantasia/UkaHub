@@ -17,7 +17,7 @@ dic, sn_commu.dic
 dic, sn_etc.dic
 dic, sn_user.dic //set pronouns n names n stuff for user
 dic, sn_snatcher.dic //set nicknames and other stuff for snatcher
-dic, sn_jokes.dic //a little redundant but we have fun here
+dic, sn_menusub.dic //sub section for menu choices, like what snatcher thinks abt u and jokes and stuff
 
 //TODO: add dic as needed, like anchors/ontranslate stuff. i could merge it with word.
 

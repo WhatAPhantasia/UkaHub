@@ -169,7 +169,7 @@ TalkConfig
 	--
 	"f[bold,1]Your name:\f[bold,0] %(username) \f[sup,1](\q[Change it?,TEACHNAME])\f[sup,0]\n"
 	--
-	"\f[bold,1]Your pronouns:\f[bold,0] %(heshe)/%(himher)/%(hisher) \f[sup,1](\q[Change them?,TEACHPRONOUN])\f[sup,0]\n"
+	"\f[bold,1]Your pronouns:\f[bold,0] %(capitalize(they))/%(capitalize(them)) \f[sup,1](\q[Change them?,TEACHPRONOUN])\f[sup,0]\n"
 	--
 	"\f[bold,1]Your birthday:\f[bold,0] %(birthdayprint) \f[sup,1](\q[Change it?,TEACHBDAY])\f[sup,0]\n\n"
 	--
@@ -188,7 +188,7 @@ TalkConfig
 
 Select.TEACHPRONOUN
 {
-	"\0\s[0]What pronouns do you want?\w5\n\n[half]\_q/
+	"\0\s[0]Oh, what are your pronouns?\w5\n\n[half]\_q/
 		\![*]\q[He/Him,choicemasc]\n/
 		\![*]\q[She/Her,choicefem]\n/	
 		\![*]\q[They/Them,choiceneither]\e"
@@ -196,12 +196,6 @@ Select.TEACHPRONOUN
 
 Select.choicemasc
 {
-	presuffix = "masculine"
-	himher = "him"
-	heshe = "he"
-	hisher = "his"
-	hesshes = "he's"
-	//---updated pronouns
 	their = "his"
 	theirs = "his"
 	they = "he"
@@ -214,12 +208,6 @@ Select.choicemasc
 
 Select.choicefem
 {
-	presuffix = "feminine"
-	himher = "her"
-	heshe = "she"
-	hisher = "her"
-	hesshes = "she's"
-	//---updated pronouns
 	their = "her"
 	theirs = "hers"
 	they = "she"
@@ -232,12 +220,6 @@ Select.choicefem
 
 Select.choiceneither
 {
-	presuffix = "undefine"
-	himher = "them"
-	heshe = "they"
-	hisher = "their"
-	hesshes = "they're"
-	//---updated pronouns
 	their = "their"
 	theirs = "theirs"
 	they = "they"
@@ -579,12 +561,15 @@ OpenKeroMenu
 	"\n\n[half]/
 	\![*]\q[Update,keroupdatecheck]\n/
  	\![*]\q[Bug report,bugreport]\n\n/
-	\![*]\q[Test variable,testvariable]\n\n/
+	\![*]\q[Test variable,testvariable]\n/
+	\![*]\q[Debug variables,debug]\n\n/
 	\![*]\q[Nothing,keroCANCEL]\e"
 }
 
-//There are no real set things for the second character to do, really. You can mostly add whatever functions you want to them, their menu is totally free reign. In mine for example, Hunter has some games, a pseudo-FAQ for users, a bug report, an update option, and most importantly, a test variable. A lot of that is fairly complicated though, so I won't get into it here. Advanced Users can pick up Hunter and Smoker and study their menu.dic to see how I did it though, and those who read the coding page of the walkthrough and want to make their own functions can feel free to add them here. 
-//For the purposes of this simple template, I'll include two options that may come in handy - an update option and a bug report option, as well as the test variable.
+Select.BACKTOMENUKERO
+{
+	OpenKeroMenu
+}
 
 Select.keroCANCEL
 {
@@ -610,6 +595,26 @@ Select.keroupdatecheck
 
 Select.testvariable
 {
-	"\1\s[2000]Dib, I'm going to call a friend over real quick.\w6\0\s[23]\i[27]A- \w2No, don't tell me its... \w8\1\s[2000]\n\n[half]Zim!!\p[3]\s[5000]ZIIIIIIIIIIIIIM!!\0\s[13]\i[72]\i[77]\i[80]\n\n[half]NOOOOOOOOOOOOOOOOO\e"
+	"\1\s[2000]Dib, I'm going to call a friend over real quick.\w6\0\s[23]\i[27]A- \w2No, don't tell me its... \w8\1\s[2000]\n\n[half]ZIM!!\p[3]\s[5000]ZIIIIIIIIIIIIIM!!\0\s[13]\i[72]\i[77]\i[80]\n\n[half]NOOOOOOOOOOOOOOOOO\e"
 	//\p[3] \s[-1]\0\s[0]\i[21]Oh no wait he's gone.\e"
+}
+
+Select.debug
+{
+	"\1\s[2000]Alright, here's your variables!\n\n"
+	--
+	"\![*]\q[Put Dib to sleep,debugsleep]\n/
+	\![*]\q[Toggle translator,debugtranslate]\n\n"
+	--
+	"\![*]\q[Back,BACKTOMENUKERO]\e"
+}
+
+Select.debugsleep
+{
+	"hehe placeholder text\e"
+}
+
+Select.debugtranslate
+{
+	"more placeholder text!\e"
 }
