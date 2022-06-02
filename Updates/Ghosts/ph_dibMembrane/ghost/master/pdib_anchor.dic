@@ -1,65 +1,48 @@
-//---------------------------Anchors and OnTranslate--------------------------
+//-------------------ANCHOR------------------------------
 
-//This .dic file is for setting up anchor words, which are links to set conversations attached to certain words automatically. It also deals with OnTranslate, which is a fairly unique function. All text goes through OnTranslate first before it displays on your ghost, which is how it knows to turn certain words into links.
-//Why should I care about anchor words, you ask? Or what can I use them for? Well, you can set up anchor words to easy explanations for things your ghost might talk about that might confuse your user. People they know, places they've been, pop culture references the user might not get, information about you the creator or the world the characters from, items in an item menu, basically any number of things. Anchor words can be a handy repository of information! Or just an easy way to set up some cheap jokes. The power is yours!
-
-//Make sure to read the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html) for more details about how to properly format ghost dialogue!
-//I will reiterate that you should be editing these in Notepad++, and in particular, you should set the Language to C to properly highlight all the text. It will make things A LOT EASIER for you, trust me! It will also help you keep track of your brackets in case you forget some. If you click on a line with a bracket in Notepad++, it should highlight where the other bracket ends, or turn purple if there's no finishing bracket (which you should definitely fix!)
-//It will also highlight my commented lines in green, so you'll know where they are. Any line beginning with // is a commented line that the code will not read. It's just for your reference!
-
-//This file is very short, so don't worry! And if you aren't planning on using anchor words, you just have to delete a few things and you'll be done!
-
-
-//--OnTranslate
-
-//As I said above, OnTranslate filters through all the text your ghost displays and does whatever you specify to it. That doesn't have to just be turning things into links, it could be anything. This is a powerful function that can be used in a lot of creative ways I bet, but I wouldn't mess with it too much since you can pretty easily break stuff if you don't know what you're doing.
-//If you're not interested in any anchor words, delete all the lines that start with _talk = REPLACE under OnTranslate.
+//To clarify, i have no idea how anchors work n the way x template formats this whole thing makes a little more sense soooooooooooooooo HI ZI im using your code again
 
 OnTranslate
-	{
-	_talk = reference0
- 	_talk = REPLACE(_talk, "Anchor 1", "\_a[anchor1]Anchor 1\_a")
- 	_talk = REPLACE(_talk, "Anchor 2", "\_a[anchor2]Anchor 2\_a")
- 	_talk = REPLACE(_talk, "Anchor 3", "\_a[anchor3]Anchor 3\_a")
-	
-		if reference1 == "" && reference2 == "" { //send input box : no event (ref2) , no special flag (ref1)
-            EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
-        }
-        else { //event result from ghost
-            TOSTR(_talk)
-        }
-	}
-	
-	//Some brief explanation about what's going on in those REPLACE lines! Basically, the function looks through the script and looks for a defined word or set of words. In this case, it's "Anchor 1". It then replaces "Anchor 1" with the second set of text, "\_a[anchor1]Anchor 1\_a". \_a if you recall is the dialogue code for linking something, so this is linking the words Anchor 1 to something called anchor1 set up in the next function, OnAnchorSelect.
-	//This is being used to change a word into a link, but you could conceivably use this to replace any text with any other kind of text if you wanted.
-
-	
-//--OnAnchorSelect
-//OnAnchorSelect runs whenever someone clicks one of the links as specified above, or a link that begins with http://.
-
-OnAnchorSelect
 {
-	if "http://" _in_ reference0 || "https://" _in_ reference0 //checking to see if the link is a web address
+	_talk = reference0
+	
+	//---Auto Anchors---
+	//Add as many names as you want to this list
+	_namelist = "ZIM,GIR,Gaz,Ely,Dad"
+	
+	//Names written here should be written in dialogue as @Name 1, @Name 2, etc... So if I added Lulo, I would write @Lulo in dialogue to call the anchor. If I wanted to write the name Lulo without it being an anchor, I would just write it as Lulo
+	//When these anchors are clicked, they will direct to an Anchor.function. So for Name 1 it would be Anchor.Name_1 and for Lulo it would be Anchor.Lulo
+	//Invalid characters will be converted to underscores. You can see a list of invalid characters below. Names are case sensitive as well!
+
+	//Loops through every name on the list and checks for them in dialogue
+	foreach _namelist; _name
 	{
-	"\j[%(reference0)]\e" // \j is a tag that will open a specified url in the user's browser of choice. This basically just tells the ghost to open the webpage stored in reference0, which would be the address that the user just clicked. I didn't get too much into \j in the walkthrough page because I have literally never used it except here.
-	}
-	else //if it's NOT a web address
-	{
-	case reference0 //case is a unique thing that only really shows up in anchor.dic, and it basically sets up reference0 for evaluation to see if matches any of the below criteria, which are all tagged with when. You can read more about this on the coding page on the walkthrough site. You can add as many things here as you want to set up above as long as you follow the basic format.
+		//List of characters that are invalid for function names
+		_invalidcharacters = (" ",'"',"#","$","%","&","(",")","*","+","-","/",":",";","<","=",">","?","@","[","]","`","{","|","}",",")
+		_funcname = _name
+		foreach _invalidcharacters; _char //Loop through each invalid character and replace them with _ if they exist
 		{
-			when "anchor1" //if the link is this value
-			{
-				"\0\s[0]This dialogue is for when Anchor 1 is clicked.\e"
-			}
-			when "anchor2" //if the link is this value
-			{
-				"\0\s[0]This dialogue is for when Anchor 2 is clicked.\e"
-			}
-			when "anchor3" //if the link is this value
-			{
-				"\1\s[10]This dialogue is for when Anchor 3 is clicked.\e"
-			}
+			if _char _in_ _funcname; _funcname = REPLACE(_funcname,_char,"_")
 		}
+		_talk = REPLACE(_talk,"@%(_name)","\_a[AUTO_ANCHOR:%(_funcname)]%(_name)\_a") //Replace the @name in the script with an anchor. Since the auto anchor tag uses a :, and : is already cleaned out of the anchor name, you should never be able to interfere with that tag.
+	}
+	
+	
+	//---Manual Anchors---
+	//You can use these in conjunction with the auto anchors! Auto anchors are good for setting up simple links to names and such, but if you need something more complex you can still easily put it here and it should not interfere. Don't forget that if you need a one-off anchor, you can just write them directly in dialogue as well.
+	_talk = REPLACE(_talk,"Example Anchor","\_a[exampleanchor]Example Anchor\_a")
+	_talk = REPLACE(_talk,"Example Anchor with OnFunction","\_a[OnSomeAnchor]Since this links to OnSomeAnchor, you could create a function called OnSomeAnchor that would be called directly by clicking this\_a")
+	_talk = REPLACE(_talk,"Example word swap","You don't have to just make anchors, you could also use this to insert images and such")
+	
+	
+	//---Important other stuff, written by Ponapalt---
+	if reference1 == "" && reference2 == ""
+	{ //send input box : no event (ref2) , no special flag (ref1)
+		EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
+	}
+    else
+	{ //event result from ghost
+		TOSTR(_talk)
 	}
 }
 
@@ -67,4 +50,102 @@ OnAnchorSelect
 OnChoiceSelect
 {
 	EVAL("Select.%(reference0)")
+}
+
+OnAnchorSelect
+{
+	if "http://" _in_ reference0 || "https://" _in_ reference0 //checking to see if the link is a web address
+	{
+		"\j[%(reference0)]\e"
+	}
+	elseif "AUTO_ANCHOR:" _in_ reference0 //Checks for the Auto Anchor tag. If it exists, runs a function starting with 'Anchor.' The name of the function, as set up above, will be appended to the end. Example: Anchor.Name_1 or Anchor.Lulo
+	{
+		EVAL("Anchor.%(SPLIT(reference0,'AUTO_ANCHOR:')[1])")
+	}
+	else
+	{
+		case reference0
+		{
+			when "exampleanchor"
+			{
+				"\0\s[0]You clicked the example!\e"
+			}
+		}
+	}
+}
+
+Anchor.ZIM
+{
+	"\0\s[0]Oh yeah, this is gonna link to you asking Dib about ZIM!!"
+}
+Anchor.GIR
+{
+	"\0\s[0]This'll be redirected to Dib's answer abt GIR :)"
+}
+Anchor.Gaz
+{
+	"\0\s[2]\i[77]\i[80]\i[93]i'll never understand gamers..."
+}
+Anchor.Ely
+{
+	"\0\s[2]\i[72]\i[77]\i[85]\i[92]ahhh yes ely my best friend who i am totally not pining for mhmm yes"
+}
+Anchor.Dad
+{
+	"\0\s[2]\i[78]\i[91]\i[4]\i[72]AS YOUR FATHER I EXPRESSLY FORBID IT!! YEAH!!"
+}
+
+
+//------------------------------
+//Bringing over flags from x template because WOW these are useful and will help me make my highly specific conversations LMAO
+
+//Usage: This is intended to take the place of single-use variables that only contain 0 or 1, used as flags for certain events and such. With these functions, you can store all those flags as a single array, meaning you can make as many flags as you want without having to really worry about save bloat. It can also make your code a bit more readable!
+
+//You'll want to put 'MiscFlags = IARRAY' into your OnFirstBoot. That'll set up an empty array for flags to be stored in.
+//When you want to check if a flag is set or not, you can do it like so:
+//if Flag("My Flag") == 0
+//or
+//if Flag("My Flag") == 1
+
+//Any flags that are NOT in the array are 0, and any flags that ARE in the array are 1. So, to set a flag to 1, you add it to the array like this:
+//if Flag("My Flag") == 0; MiscFlags ,= "My Flag"
+
+//You don't technically need the if check there, but it stops duplicate entries from being added. The ,= is also important; that adds a new element to an array. Don't use += for this!
+
+//If you want to set a flag back to 0, you can remove it like so:
+//RemoveFlag("My Flag")
+
+//Flag names can be just about anything you want! They're just stored as strings. For example, for S I have "Saw Gaster with googly eyes", and for Lulo I have things like "Unlocked MP3 player" and "Unlocked journal". If you want to see what flags are set, you can just put %(MiscFlags) into script input, so it's helpful to have names that describe the flag!
+
+Flag //Checks to see if a flag exists. Returns 1 if yes, returns 0 if no
+{
+	if ASEARCH(_argv[0],MiscFlags) != -1; 1
+	else; 0
+}
+
+RemoveFlag //Removes all instances of a flag in the array.
+{
+	_elements = ASEARCHEX(_argv[0],MiscFlags)
+	if ARRAYSIZE(_elements) > 0
+	{
+		for _i = ARRAYSIZE(_elements) - 1; _i >= 0; _i-- //Goes from the end of the list to the start, so the elements stay in the same positions while we erase
+		{
+			_current = _elements[_i]
+			MiscFlags[_current] = IARRAY
+		}
+	}
+}
+
+//Setting variables in random dialogue
+//You can use this to do detailed variable changes and such in dialogue. If you only need to set one variable, I recommend using EVAL in the line of dialogue, like so:
+//"Some dialogue that changes a variable.\e:eval=somevar='some value'"
+OnDialogueVars
+{
+	case reference0
+	{
+		when "example"
+		{
+			_example += 1
+		}
+	}
 }

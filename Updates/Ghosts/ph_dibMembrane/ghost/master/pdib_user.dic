@@ -1,9 +1,5 @@
-﻿//---------------------------The User's Name--------------------------
-//This .dic file has to do with setting the user's name and suffix/prefix. You may recall some of the functions mentioned here from bootend.dic. As you can see, you can spread functions across multiple .dic files if you like! Just remember my note in bootend.dic about the different between OnFunction and Function.
-
-//This file is fairly short, so don't worry! It shouldn't take you too long to finish.
-
-//Make sure to read the walkthrough (http://www.ashido.com/ukagaka/walkthrough.html) for more details about how to properly format ghost dialogue!
+﻿//---------------------------The User's Info--------------------------
+//(http://www.ashido.com/ukagaka/walkthrough.html)
 
 
 //--OnTeachName
@@ -45,21 +41,16 @@ NameDone
 // {
 	//tempname = reference0
 	
+	//i'm not going to use presuffix if i implement titles, choose the titles ya want no matter what ur pronouns are !!!!!!
+	
 //"\0\s[0]Do you want a title?\w4\n\n[half]\![*]\q[Nope,titlenone]\n"
 	//	--
-	//	if presuffix == "masculine"
-	//	{
 	//	"\![*]\q[Mr.,titlemr]\n/
 	//	\![*]\q[Master,titlemaster]\n"
-	//	}
-	//	elseif presuffix == "feminine" 
-	//	{
 	//	"\![*]\q[Ms.,titlems]\n/
 	//	\![*]\q[Lady,titlelady]\n"
-	//	}
-	//	-- 
-	//	"\![*]\q[-ssi,titlessi]\n/
-	//	\![*]\q[-san,titlesan]\e"
+	//	"\![*]\q[Mx.,titlemx]\n/
+	//	\![*]\q[Ser,titleser]\e"
 // }
 
 OnNameTeach
@@ -70,6 +61,8 @@ OnNameTeach
 	reference0 = REPLACE(reference0,".","") //removes periods
 	reference0 = REPLACE(reference0,"-","") //removes dashes
 	
+	
+	//-----------Nope, try again--------------------------------------------
 	if reference0 == "dib"
 	{
 		if firstboot == 1 && uninstallStatus == 0
@@ -85,51 +78,6 @@ OnNameTeach
 	{
 		"\0\s[11]\i[92]Oh... \w8\0\s[11]\i[92]I actually use the same name, \w4kind of. \w5\s[0]\i[91]Just so we don't get confused, can I call you something else?\w8\![open,inputbox,OnNameTeach,-1]"
 		//not sure if i should keep this one. eh
-	}
-	elseif reference0 == "ely"
-	{
-		if firstboot == 1
-		{
-		username = tempname
-		"\0\s[3]\i[33]\i[85]E-Ely?! Out of all the places- \w8\0\s[3]\i[72]\i[78]Agh, no, no, no. This isn't even their desktop. \w2\0\s[0]\i[72]It's a common name... \x\c%(NameDone)\e"
-		//TODO: let user confirm yes or no, and check for pronouns (or just do an alternate .dic for ely lines? look i just want him to be cute with ely ok)
-		}
-		else
-		{
-		username = tempname
-		"\0\s[0]Huh? \w2Oh, that name... \w5It's a good name. \w2After all, I know a really good person with it! \x\c%(NameDone)"
-		}
-	}
-	elseif reference0 == "zim"
-	{
-		username = tempname
-		"\0\s[0]\i[76]...Really? \w2I mean, okay, but I know a guy, and he sucks. \w4You aren't him, right? \w8Well... \x\c%(NameDone)"
-		//TODO: make a variable for whether or not dib has told the user about zim and plan accordingly >:)
-	}
-	elseif reference0 == "gir"
-	{
-		"\0\s[0]\i[76]...Really? \w2Didn't think anyone else but ZIM's weird robot dog had that name. \w8Anyway... \x\c%(NameDone)"
-	}
-	elseif reference0 == "gaz"
-	{
-		if firstboot == 1
-		{
-		"\0\s[0]Oh- \w8Wow! Hi, Gaz!! \w2Wait, no, this isn't her desktop... \w4Uh, can I call you something else? \w6It just feels weird, y'know?\w8\![open,inputbox,OnNameTeach,-1]"
-		}
-		else
-		{
-		"\0\s[0]Hm... \w2That's my sister's name. \w6Can I call you something else? I don't want to confuse you, y'know?\w8\![open,inputbox,OnNameTeach,-1]"
-		}
-	}
-	elseif reference0 == "tak" || reference0 == "mimi" || reference0 == "gretchen" || reference0 == "torque" || reference0 == "dwicky" || reference0 == "bitters" || reference0 == "groyna" || reference0 == "fizzmitz" || reference0 == "zib" || reference0 == "zita" || reference0 == "keef" || reference0 == "melvin" || reference0 == "rob" || reference0 == "sara" || reference0 == "willy"
-	{
-		username = tempname
-		"\0\s[0]Huh. What a coincidence... %(NameDone)"
-	}
-	elseif reference0 == "neil" || reference0 == "neilc" || reference0 == "neilcic" || reference0 == "neilcicierega" || reference0 == "lemondemon"
-	{
-		username = tempname
-		"\0\s[0]\i[43]NEIL CICIEREGA?!?! \w6\0\s[2]\i[73]I'M A BIG FAN!! \w2\0\s[2]\i[65](how did you find this one lmao) \x\c%(NameDone)"
 	}
 	elseif reference0 == "dad" || reference0 == "daddy" || reference0 == "father" || reference0 == "dadd" || reference0 == "mrmembrane" || reference0 == "professormembrane" || reference0 == "profmembrane" || reference0 == "mrsbitters" || reference0 == "msbitters" || reference0 == "mrdwicky" || reference0 == "torquesmackey"
 	{
@@ -147,10 +95,65 @@ OnNameTeach
 		"\0\s[0]\i[70]...Are you making fun of me? \w2At least use my actual name. I'm not calling you that.\w8\![open,inputbox,OnNameTeach,-1]"
 		}
 	}
+	elseif reference0 == "gaz"
+	{
+		if firstboot == 1
+		{
+		"\0\s[0]Oh- \w8Wow! Hi, Gaz!! \w2Wait, no, this isn't her desktop... \w4Uh, can I call you something else? \w6It just feels weird, y'know?\w8\![open,inputbox,OnNameTeach,-1]"
+		}
+		else
+		{
+		"\0\s[0]Hm... \w2That's my sister's name. \w6Can I call you something else? I don't want to confuse you, y'know?\w8\![open,inputbox,OnNameTeach,-1]"
+		}
+	}
+	//----------Unique responses that allow you to be that name-------------------------------------
+	elseif reference0 == "ely"
+	{
+		if firstboot == 1
+		{
+		username = tempname
+		"\0\s[3]\i[33]\i[85]E-Ely?! Out of all the places- \w8\0\s[3]\i[72]\i[78]Agh, no, no, no. This isn't even their desktop. \w2\0\s[0]\i[72]It's a common name... \x\c%(NameDone)\e"
+		//TODO: let user confirm yes or no, and check for pronouns (or just do an alternate .dic for ely lines? look i just want him to be cute with ely ok)
+		}
+		else
+		{
+		username = tempname
+		"\0\s[0]Huh? \w2Oh, that name... \w5It's a good name. \w2The Ely I already know is really cool. \x\c%(NameDone)"
+		}
+	}
+	elseif reference0 == "zim"
+	{
+		username = tempname
+		"\0\s[0]\i[76]...Really? \w2I mean, okay, but I know a guy, and he sucks. \w4You aren't him, right? \w8Well... \x\c%(NameDone)"
+		//TODO: make a variable for whether or not dib has told the user about zim and plan accordingly >:)
+	}
+	elseif reference0 == "gir"
+	{
+		"\0\s[0]\i[76]...Really? \w2Didn't think anyone else but ZIM's weird robot dog had that name. \w8\x\c%(NameDone)"
+	}
+	elseif reference0 == "tak" || reference0 == "mimi" || reference0 == "gretchen" || reference0 == "torque" || reference0 == "dwicky" || reference0 == "bitters" || reference0 == "groyna" || reference0 == "fizzmitz" || reference0 == "zib" || reference0 == "zita" || reference0 == "keef" || reference0 == "melvin" || reference0 == "rob" || reference0 == "sara" || reference0 == "willy"
+	{
+		username = tempname
+		"\0\s[0]Huh. What a coincidence... %(NameDone)"
+	}
+	elseif reference0 == "neil" || reference0 == "neilc" || reference0 == "neilcic" || reference0 == "neilcicierega" || reference0 == "cicierega" || reference0 == "lemondemon"
+	{
+		username = tempname
+		"\0\s[0]\i[43]NEIL CICIEREGA?!?! \w6\0\s[2]\i[73]I'M A BIG FAN!! \w2\0\s[2]\i[65](how did you find this one lmao) \x\c%(NameDone)"
+	}
 	elseif reference0 == "eshal" || reference0 == "phantasia" || reference0 == "whataphantasia"
 	{
 		username = tempname
 		"\0\s[0]Looking for secrets, huh? \w2I'll allow it. \w6\x\c%(NameDone)"
+	}
+	elseif reference0 == "zi" || reference0 == "zichqec" || reference0 == "zar" || reference0 == "zarla" || reference0 == "levidre" || reference0 == "azura" || reference0 == "quo" || reference0 == "quonit" || reference0 == "smoky" || reference0 == "vita" || reference0 == "kai" || reference0 == "gale" //ADD MORE LMAO
+	{
+		"\0\s[2]\i[91]Oh! \w4That's a cool name! \w6\i[73]You're a cool person! \w8\x\c%(NameDone)"
+	}
+	elseif ("shit" _in_ reference0 || "fuck" _in_ reference0 || "bitch" _in_ reference0 || "dick" _in_ reference0 || "crap" _in_ reference0 || "slut" _in_ reference0 || "cock" _in_ reference0)
+	{
+		username = tempname
+		"\0\s[0]Woah, \w4um, \w5okay. \w8Is that really your..? \w8\x\c%(NameDone)"
 	}
 	elseif reference0 == "" 
 	{

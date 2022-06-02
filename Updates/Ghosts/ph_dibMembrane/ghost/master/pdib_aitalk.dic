@@ -51,7 +51,13 @@ OnAiTalk
 RandomTalk : nonoverlap_pool
 {
 	
-	"\0Have you stretched lately? My posture at my own desk is pretty horrible.\e"
+	"\0\s[0]%(dibarmfiddle)Have you stretched lately? \w8\i[25]My posture at my own desk is pretty horrible.\e"
+	"\0\s[2]\i[97]Get up and walk around if you haven't gotten up in a while! \w6\i[73]Don't become a chair! \w8\w5...\s[2]\i[70]\i[91]No, \w2I won't explain the chair thing. \w8\w5\s[22]\i[70]\i[91]\i[80]\i[21]Don't ask.\e"
+	"\0\s[13]\i[98]\i[28]...Wow, my cuticles are all messed up. \w8\s[11]\i[92]\i[27]\i[70]I should probably stop messing with my nails.\e"
+	"\0\s[11]\i[98]\i[28]Hmm... Should I buff my nails?\e"
+	"\0\s[2]\i[72]\i[92]Man, it would be so cool to get more piercings. \w8Ever since I got my studs a while back, \w2Gaz has been interested in like, \w2nose and eyebrow piercings, \w1and I was considering getting helix piercings, \w5but... \w8\w2Seriously, \w2think about what ZIM could do if I got a ton of piercings! \w4He could rip my ears and face off! \w8I am not letting him get that opportunity.\e"
+	"\0\s[2]\i[97]\i[73]Let's test out some anchors! \w8\s[2]\i[97]@Ely! \w2They're really cool! \w6@Gaz!! wOw!!!! \w6What about @ZIM and%(br)@GIR????????? \w4WOW\e"
+	
 	
 	//------------REFERENCE LINES----------------
 	/*
@@ -77,12 +83,12 @@ RandomTalk : nonoverlap_pool
 	
 	//--------If statements------------
 	
-	if nowshell == "master"
+	if nowshell == "Shooting Star"
 	{
 	"\0\s[0]Tall. Gonna kick ZIM all the way back to Irk with this height.\e"
 	}
 
-	if nowshell == "florpus"
+	if nowshell == "Florpus"
 	{
 	"\0\s[0]Placeholder Florpus text because I have no idea what I want to make him say.\e"
 	}
@@ -97,96 +103,79 @@ RandomTalk : nonoverlap_pool
 	if month >= 12
 	{
 		"\0\s[0]This is dialogue for December. \w2A cold month?\e"
-		"\0\s[0]This is more dialogue for December. \w2Still cold?\e"
 	}
 	if month == 1
 	{
 		"\0\s[0]This is dialogue for January.\e"
-		"\0\s[0]This is more dialogue for January.\e"
 	}
 	if month == 2
 	{
 		"\0\s[0]This is dialogue for February.\e"
-		"\0\s[0]This is more dialogue for February.\e"
 	}
 	if month == 3
 	{
 		"\0\s[0]This is dialogue for March.\e"
-		"\0\s[0]This is more dialogue for March.\e"
 	}
 	if month == 4
 	{
 		"\0\s[0]This is dialogue for April.\e"
-		"\0\s[0]This is more dialogue for April.\e"
 	}
 	if month == 5
 	{
 		"\0\s[0]This is dialogue for May.\e"
-		"\0\s[0]This is more dialogue for May.\e"
 	}
 	if month == 6
 	{
-		"\0\s[0]This is dialogue for June.\e"
-		"\0\s[0]This is more dialogue for June.\e"
+		"\0\s[2]\i[91]Pride month! I can't think of any cute dialogue for it, haha\e"
 	}
 	if month == 7
 	{
 		"\0\s[0]This is dialogue for July.\e"
-		"\0\s[0]This is more dialogue for July.\e"
 	}
 	if month == 8
 	{
 		"\0\s[0]This is dialogue for August.\e"
-		"\0\s[0]This is more dialogue for August.\e"
 	}
 	if month == 9
 	{
 		"\0\s[0]This is dialogue for September.\e"
-		"\0\s[0]This is more dialogue for September.\e"
 	}
 	if month == 10
 	{
 		"\0\s[0]This is dialogue for October.\e"
-		"\0\s[0]This is more dialogue for October.\e"
 	}
 	if month == 11
 	{
 		"\0\s[0]This is dialogue for November.\e"
-		"\0\s[0]This is more dialogue for November.\e"
 	}
 	//These ifs check what day of the week it is.
 	if weekday == 1
 	{
 		"\0\s[0]This is dialogue for Monday.\e"
-		"\0\s[0]This is more dialogue for Monday.\e"
 	}
 	if weekday == 2
 	{
 		"\0\s[0]This is dialogue for Tuesday.\e"
-		"\0\s[0]This is more dialogue for Tuesday.\e"
 	}
 	if weekday == 3
 	{
-		"\0\s[0]This is dialogue for Wednesday.\e"
-		"\0\s[0]This is more dialogue for Wednesday.\e"
+		"\0\s[0]It's still Wednesday? When will this week end?\e"
 	}
 	if weekday == 4
 	{
 		"\0\s[0]This is dialogue for Thursday.\e"
-		"\0\s[0]This is more dialogue for Thursday.\e"
 	}
 	if weekday == 5
 	{
 		"\0\s[0]This is dialogue for Friday.\e"
-		"\0\s[0]This is more dialogue for Friday.\e"
 	}
 	if weekday == 6
 	{
-		"\0\s[3]\i[72]\i[96]\i[77]Even today, I usually can't catch a break. \w8\w2\s[3]\i[91]\i[25]\i[76]One Sunday, ZIM launched this plan about %(zimnonskoolplans)... \w8\s[3]\i[70]\i[91]It was annoying, \w6\s[2]\i[72]\i[91]but I stopped him, \w2of course.\e"
+		"\0\s[3]\i[72]\i[96]\i[77]Even today, I usually can't catch a break. \w8\w2\s[3]\i[91]\i[25]\i[76]One Saturday, ZIM launched this plan about %(zimnonskoolplans)... \w8\s[3]\i[70]\i[91]It was annoying, \w6\s[2]\i[72]\i[91]but I stopped him, \w2of course.\e"
 	}
 	if weekday == 0
 	{
-		"\0\s[3]\i[72]\i[96]\i[77]Even today, I usually can't catch a break. \w8\w2\s[3]\i[91]\i[25]\i[76]One Saturday, ZIM launched this plan about %(zimnonskoolplans)... \w8\s[3]\i[70]\i[91]It was annoying, \w6\s[2]\i[72]\i[91]but I stopped him, \w2of course.\e"
+		"\0\s[3]\i[72]\i[96]\i[77]Even today, I usually can't catch a break. \w8\w2\s[3]\i[91]\i[25]\i[76]One Sunday, ZIM launched this plan about %(zimnonskoolplans)... \w8\s[3]\i[70]\i[91]It was annoying, \w6\s[2]\i[72]\i[91]but I stopped him, \w2of course.\e"
 		
 		if month != 6 || month != 7 || month != 8
 		{
@@ -213,7 +202,7 @@ RandomTalk : nonoverlap_pool
 	}
 	if timeslot == "afternoon"
 	{
-		"\0\s[0]This is dialogue for the afternoon.\e"
+		"\0\s[0]\i[70]\i[21]\i[92]It's around this time I get kinda tired... \w6\s[0]\i[91]I used to not be like this, but I've had my hands full with stopping weird evil alien plans, \w4so. \w6\s[2]\i[21]\i[70]There's that.\e"
 	}
 	if timeslot == "evening"
 	{
@@ -225,7 +214,12 @@ RandomTalk : nonoverlap_pool
 	}
 	if timeslot == "midnight"
 	{
-		"\0\s[0]You're probably working on sommething, and that's keeping you up, right?\e"
+		//for dialogue options where u get a choice im gonna do anchors instead of directing you to a whole ass select func yk
+		//i could also create a temp function that turns off at morning/onboot, opens up a wider range of wildly specific conditional conversations
+		if midnightwork == 0
+		{
+		"\0\s[0]Hey... \w8Are you working on something, or \w2what? \w8I can't really imagine why you'd be up...\n\n\![*]\q[I'm working,select.nightworkyeah]     \![*]\q[Just staying up,select.nightworknah]"
+		}
 	}
 	
 	

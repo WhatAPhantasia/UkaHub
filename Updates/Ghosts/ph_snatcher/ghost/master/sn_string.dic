@@ -77,5 +77,156 @@ On_sakura.portalsites
 	
 	"Play A Hat in Time!"
 	--
-	"%ASC(1)http://www.fourthsite.com/%ASC(2)"
+	"%ASC(1)https://www.gearsforbreakfast.com/games/a-hat-in-time/%ASC(2)"
+}
+
+
+On_updatebutton.caption
+{
+	"Update Snatcher"
+}
+
+On_dressuprootbutton.caption
+{
+	"Dress-Up"
+}
+
+On_headlinesenserootbutton.caption
+{
+	"Headlines and RSS"
+}
+
+On_readmebutton.caption 
+{
+	"Read Me"
+}
+
+On_vanishbutton.caption
+{
+	"Uninstall"
+}
+
+On_shellrootbutton.caption
+{
+	"Change Shell"
+}
+
+On_ghostrootbutton.caption
+{
+	"Change Ghost"
+}
+
+On_callghostrootbutton.caption
+{
+	"Call Ghost"
+}
+
+On_hidebutton.caption
+{
+	"Minimize"
+}
+
+On_quitbutton.caption
+{
+	"Quit"
+}
+
+
+
+
+
+
+
+
+//---- 消滅指示ボタン表示切り替え -------------------------------------------------------
+On_vanishbutton.visible
+ {
+ 	if deleteshitai == "On"
+ 	{
+		"1"
+	}
+	else
+	{
+		"0"
+	}
+}
+
+//---- 起動中の他のゴースト名取得 -------------------------------------------------------
+On_otherghostname
+{
+	// ghostexlist = ""
+	// _i = 0
+	// while _i >= 0
+	// {
+		// _ghostname = NAMETOVALUE("reference%_i")
+		// if _ghostname != ""
+		// {
+			// if _i > 0; ghostexlist += ","
+			// ghostexlist += _ghostname[0]
+			// _i++
+		// }
+		// else; _i = -1
+	// }
+	//Rewrote this... because I wanted to split it up by C_BYTE1 and I figured this is probably more efficient (thanks zi)
+	ghostexlist = ""
+	foreach reference; _ghost
+	{
+		if ghostexlist != ""; ghostexlist += C_BYTE1
+		ghostexlist += _ghost[0]
+	}
+	ghostexcount = ARRAYSIZE(SPLIT(ghostexlist,C_BYTE1))
+}
+
+On_installedballoonname
+{
+	balloonlist = ""
+	_i = 0
+	while _i >= 0
+	{
+		_ghostname = NAMETOVALUE("reference%_i")
+		if _ghostname != ""
+		{
+			if _i > 0; balloonlist += ","
+			balloonlist += _ghostname[0]
+			_i++
+		}
+		else; _i = -1
+	}
+	ballooncount = ARRAYSIZE(balloonlist)
+}
+
+//---- SHIORI 関連情報 ------------------------------------------------------------------
+On_version
+{
+	GETSETTING(AYAINFO_VERSION)
+}
+
+On_craftman
+{
+	"umeici"
+}
+
+On_craftmanw
+{
+	"梅市"
+}
+
+On_name
+{
+	"AYA"
+}
+
+//---- Owned SSTP 用 uniqueid 取得 ------------------------------------------------------
+On_uniqueid
+{
+	uniqueid = reference0
+}
+
+//---- hwnd 取得 ------------------------------------------------------------------------
+On_hwnd
+{
+	sakurahwnd    = reference0[0]
+	kerohwnd      = reference0[1]
+	sakurablnhwnd = reference1[0]
+	keroblnhwnd   = reference1[1]
 }

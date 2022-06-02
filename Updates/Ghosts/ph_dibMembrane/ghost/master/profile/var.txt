@@ -4,4 +4,4 @@ surfacecount,87
 update_result,NG(404:ghost/master/aitalk.dic)
 firstboot,700118514
 commitmemorysize,1409011
-lastboot,705167851
+lastboot,707454906

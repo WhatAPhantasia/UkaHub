@@ -28,17 +28,12 @@ OnNotifyFontInfo
 
 //--OnFirstBoot--
 
-//*********************Advanced User Info*******************************
-//Because this only runs once and under an odd set of circumstances, it can be hard to test if this function is working properly. Trying to run the entire function using \![raise,OnFirstBoot] will instead bring up your alternate dialogue, so sadly you can't check it that way. You CAN get it to run using \![raise,OnFirstBoot,0] though.
-
-//If you're going to be adding new variables and values and such, make sure you define them all in OnFirstBoot! You can make any value you want, but it has to equal SOMEthing to exist at first. Then you can do whatever with it.
-//***********************************************************************
-
 OnFirstBootVar
 {
 	hastranslator = 0
 	lookdirection = 1
 	nowkeroname = "none"
+	dibbirthday = 0
 	
  	username         = "you" //This sets a temporary name for the user. It'll be replaced when they tell the ghost their name.
 	stroke           = 0	// Sets their being-pet state to zero.
@@ -48,14 +43,15 @@ OnFirstBootVar
  	birthdayprint = "????" //A temporary value for the user's birthday.
 	talktime = " 5 minutes" //How the value aitalkinterval will display in the config menu.
 	deleteshitai = "OFF" //Sets whether or not the user can uninstall the ghost to "OFF". The user can change it later in the config menu (see menu.dic).
-	nowshell = "master" //just in case :)
+	MiscFlags = IARRAY
+	//nowshell = "master" (ok this was originally a "just in case" thing but with how his shell + onshellchanged works now i think this'll mess stuff up)
 }
 
 OnFirstBoot
 {
 	uninstallStatus = reference0
 	firstboot = 1
-	//OnFirstBootVar //THIS IS A TEMP DEACTIVATION, JUST BC I DONT WANT MY SETTINGS TO BE RESET LMAO -- REMEMBER TO TURN THIS BACK ON DUMMY
+	OnFirstBootVar
 	--
 	"\![enter,passivemode]\1\s[-1]\0\s[-1]"
 	--
@@ -156,12 +152,6 @@ OnFirstBootTalk
 
 Select.choicefirsthehim
 {
-	presuffix = "masculine"
-	himher = "him"
-	heshe = "he"
-	hisher = "his"
-	hesshes = "he's"
-	//---updated pronouns
 	their = "his"
 	theirs = "his"
 	they = "he"
@@ -174,12 +164,6 @@ Select.choicefirsthehim
 
 Select.choicefirstsheher
 {
-	presuffix = "feminine"
-	himher = "her"
-	heshe = "she"
-	hisher = "her"
-	hesshes = "she's"
-	//---updated pronouns
 	their = "her"
 	theirs = "hers"
 	they = "she"
@@ -192,11 +176,6 @@ Select.choicefirstsheher
 
 Select.choicefirsttheythem
 {
-	himher = "them"
-	heshe = "they"
-	hisher = "theirs"
-	hesshes = "they're"
-	//---updated pronouns
 	their = "their"
 	theirs = "theirs"
 	they = "they"
@@ -213,18 +192,10 @@ Select.choicefirsttheythem
 NameInput
 {
 	//Note that there's a \![leave,passivemode] tag in this dialogue! Don't forget about this!
-	
 	"\0\s[0](Now, enter your name.)\![open,inputbox,OnNameTeach,-1]\e"
-	
-	//*********************Advanced User Info*******************************
-	//What this tag basically means is that you're calling a function at the end of the dialogue with the \! tag, you are telling it to open, you're telling it to open an inputbox, and you're telling that inputbox to link to a function called OnNameTeach, which is in the nameteach.dic file. Remember what I said about On functions? I talked a bit about this in the SakuraScripting walkthrough page and the coding page.
-	//The -1 at the end determines how long the box will be open until it times out. -1 means it shouldn't time out at all, I think.
-	//***********************************************************************
 }
 
 //--timeslot
-
-//This is another unique function to tell what time of day it is. This is used for specialized dialogue related to the day. If you're uninterested, just ignore it. Either way, don't touch it. If you are going to use it though, make a note of the names used for each chunk of time, like earlymorning or lunch. Those are the names you'll be using later.
 
 timeslot
 {
@@ -260,19 +231,6 @@ dayslot
 
 //-----------------------Normal Booting----------------------------
 
-//From this point on, the dialogue will be for any normal boot of your ghost. You can specialize this for certain days or times if you like, or if you're uninterested, leave it very simple.
-
-
-//--OnBoot
-
-//As you can probably guess, OnBoot runs when you boot your ghost.
-
-//*********************Advanced User Info*******************************
-//If you're defining new values that depend on what you were doing with your ghost (like say, if you've hit them, if they're in a certain mode of some kind) and are generally temporary, remember to put them in OnBoot and set them back to zero or off. For example, I have a counter in the Hunter Smoker ghost that keeps track of if you've hit one of them so that when you go into their menus, it will know to give you the option to apologize or not. So I made sure to add a hunterpunchcount = 0 tag at the beginning of OnBoot, that way when you boot them up, they start fresh and don't display the option if you haven't done anything wrong yet. It's unlikely this'll come up very much if you're not interested in expanding your ghost, but I'm making a note of it here anyway for enterprising developers, huge success.
-
-//You can also stick any values you want to reset on boot into their own function, like "BootReset", then run BootReset instead during boot so it's a bit less unwieldy. It's up to you though!
-//***********************************************************************
-
 OnBootVar
  {
  	lastTalk = "" //This is part of how chained conversations work (see aitalk.dic).
@@ -298,16 +256,23 @@ OnBootVar
 	if dayslot == userbirthday 
 	{
 		"\0\s[0]It's %(bornmonthprint) %(borndayprint). \w4I've kinda been looking forward to today, cause it's your birthday, right? \w8Happy birthday, %(username).\e" 
-		//If the user didn't or hasn't put in their birthday yet, this dialogue will basically never get called. Which makes sense.
+		--
+		if dayslot == "3month 30day"
+		{
+			"\x\c...Oh, and it's my birthday today, too. Nice! (Later im gonna make this jump to it's own Dib Birthday function, yeah?)" 
+		}
 	}
-	
 	elseif dayslot == "3month 30day" 
 	{
+		if dibbirthday == 0
+		{
+		//dibbirthday += 1
 		"\0\s[0]I'm going to code in some cute birthday boot conversation here!! Not yet though. Surprise!\e"
-	}
-	elseif dayslot == "7month 4day"
-	{
-		"\0\s[0]It's the fourth of July.\e"
+		}
+		else
+		{
+		"\0\s[0]Probably gonna do some cool Dib birthday stuff for how many times you've experienced it. LMAO imagine doing this 50 times and Dib just. HASN'T AGED.\e"
+		}
 	}
 	else
 	{
@@ -416,7 +381,6 @@ OnClose
 			if timeslot == "earlymorning"
 				{
 					"\0\s[0]Up and at 'em, then?\w8"
-					"\0\s[0]This is another early morning close dialogue.\w8"
 				}
 			elseif timeslot == "morning"
  				{
@@ -457,15 +421,17 @@ OnClose
  					{
  						"\0\s[0]Alone on a Saturday night? \w6Haha, no, I'm not going to make that joke. \w6Bye, %(username)!\w2\w8"
  					}		
-					"\0\s[0]Logging off for the night? \w2Seeya, then.\w8"
+					"\0\s[0]%(dibarmfiddle)Logging off for the night? \w6\s[2]\i[98]Seeya, then.\w8"
+					"\0\s[0]Oh! \w8\s[2]\i[98]Sweet dreams, %(username). \w8\w2\i[77]\w5...If you're planning to sleep, that is.\w8\w4"
+					"\0\s[2]%(dibarmfiddle)Good night, \w2then.\w8"
  				}
 			else //like above, this is the midnight time slot since it's the last one left.
  				{
  					if weekday == 0 //checking if it's the middle of the night on Sunday
  					{
- 						"\0\s[0]Yeesh, do you have anything tomorrow? \w2Or today, I guess. \w4You should get some rest.\w8"
+ 						"\0\s[0]\i[77]Yeesh, do you have anything tomorrow? \w2\s[0]\i[25]\i[77]Or today, \w4I guess. \w8\s[2]\i[77]You should get some rest.\w8\w2"
  					}	
-					"\0\s[0]I hope you're planning on getting some sleep if you haven't already, %(username). \w2Though I guess I shouldn't be a hypocrite...\w8"
+					"\0\s[0]\i[77]\i[91]I hope you're planning on getting some sleep if you haven't already, %(username). \w6\s[22]\i[92]\i[80]\i[77]\i[21]\i[70]Though I guess I shouldn't be a hypocrite...\w8\w4"
 				}
 			}
 				
@@ -561,19 +527,21 @@ OnGhostChanged
 //Literal suffering. Even making the florpus shell hurt me. Whoever makes a shell for anything, you have my greatest respect.
 //Making a shell for this ghost would be nigh impossible without changing some of the interval coding, huh? bc i barely set up any expression envelopes haha, and also his eyes and shit are super complicated. I am so sorry.
 
-OnShellChanging
- {
-	if reference0 == "Shooting Star" 
-	{
-	"\0\s[0]\i[91]Hm?\w8\e"
-	}
-	else //if you don't have any specific dialogue for a specific shell
-	{
-	"\0\s[0]\i[91]Hm?\w8\e"
-	
-	"\0\s[0]\i[91]Oh, alright.\w8\e"
-	}
- }
+//deleting OnShellChanging because ehhhhhhhhhhhh it's like. fodder that I don't have dialogue ideas for.
+
+//OnShellChanging
+//{
+//	if reference0 == "Shooting Star" 
+//	{
+//	"\0\s[0]\i[91]Hm?\w8\e"
+//	}
+//	else //if you don't have any specific dialogue for a specific shell
+//	{
+//	"\0\s[0]\i[91]Hm?\w8\e"
+//	
+//	"\0\s[0]\i[91]Oh, alright.\w8\e"
+//	}
+//}
  
  
  //--OnShellChanged
@@ -582,10 +550,15 @@ OnShellChanging
  
 OnShellChanged
  {
-	if reference0 == "Shooting Star" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
+	_old = nowshell
+	nowshell = reference0 //Sets nowshell to the new value. reference0 is the name set in descript.txt.
+	--
+	if reference0 == _old && firstboot != 1
 	{
-		nowshell = "master" //This is the folder name for your shell. Not the same as the above! 
-		
+		"\0\s[0]\i[76]%(dibarmfiddle)...Huh? \w5Did you do something?\e"
+	}
+	elseif reference0 == "Shooting Star" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
+	{
 		if firstboot == 1
 		{
 		"\0(This shell is very big: Please resize him by right clicking on him and choosing the percentage you want in Shell Scaling.)\n\n[half](You can change his look by going to the Change Shell menu option.)\x\c"
@@ -600,10 +573,8 @@ OnShellChanged
 		"\0\s[2]\i[78]\i[92]With this height, I could probably kick ZIM into the stratosphere.\e"		
 		}
 	}
-	elseif reference0 == "Florpus"
+	elseif reference0 == "Florpus" //REMEMBER THIS IS CASE SENSITIVE OMFG
 	{
-		nowshell = "florpus"
-		
 		if firstboot == 1
 		{
 		"\0(You can change his look by right clicking on Dib and going to the Change Shell menu option.)\x\c"
@@ -618,7 +589,16 @@ OnShellChanged
 	}
 	else //For any shell without a specific name
 	{
-	"\0\s[2]\i[91]Changed to %(reference[0]). \w4A new look!\e"
+		if firstboot == 1
+		{
+		"\0...Strange, you shouldn't be able to see this dialogue. But I'm putting it here just in case something goes wrong! Report this to Phantasia, huh?\x\c"
+		--
+		OnFirstBootTalk
+		}
+		else
+		{
+		"\0\s[2]\i[91]Changed to %(reference[0]). \w4A new look!\e"
+		}
 	}
  }
 
@@ -627,7 +607,7 @@ OnShellChanged
 //HOOO boy i figured this one out through 10 minutes of research on documentation and the discord. I work so hard for Dib.
 //SO BASICALLY. reference0 is the name of the shell, reference1 is the full path, and reference2 is the surface number list [comma separated] Example: 0,1,2,3,4,5,6,7,8,10,11. So yeah!! Currently using this in the dressup to check if Dib is in his Florpus shell, so it can make a tiny quip about there basically being no difference. I could probably do some other shell exclusive stuff here, though.
 
-//UPDATE IM AN IDIOT NOWSHELL ALREADY EXISTS JUST USE THAT LMAO. keeping this here for posterity
+//UPDATE IM AN IDIOT NOWSHELL ALREADY EXISTS JUST USE THAT LMAO. though i guess i could use this to check if dibs on a specific surface and react accordingly yk
 
 /*OnNotifyShellInfo
 {
@@ -650,7 +630,7 @@ if reference0 == 0 //in OnDressupChanged, reference0 refers to the character, th
 			}
 			else //When you take it off.
 			{
-				if nowshell == "florpus"
+				if nowshell == "Florpus"
 				{
 					"\0\s[3]\i[39]What- \w8\w4\0\s[3]\i[78]\i[91]Hey! \w4Give that back! \0\s[3]\i[78]\i[91]\i[65]\w8\n\n[half](You barely notice a difference...)\e"
 				}

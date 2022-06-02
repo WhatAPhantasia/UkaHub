@@ -2,20 +2,47 @@
 
 OnFirstBootVar
 {
+	lastTalk = ""
+	nowshell = "Default Shell" //Make sure to change this if you change your shell name
 	username = "kid"
-	stroke = 0
- 	teachusername = 0
- 	aitalkinterval = 300
-	mikireflag = 0
- 	birthdayprint = "????"
-	talktime = " 5 minutes"
-	deleteshitai = "OFF"
-	nowshell = "master"
+	birthday[0] = "???"	 //The user's birthday, written out with words
+	birthday[1] = "???"	 //The user's birthday, written in DD/MM format
+	talkrate = "every 5 minutes"
+	aitalkinterval = 300
+	totalpunches = 0
+	nowscale = (65,65) //Current scale, as a percentage
+	//---Petting related variables---
+	stroke[0] = 0		 //The stroke value, which resets after each pet
+	stroke[1] = 0		 //The stroke value, but it doesn't reset after each pet
+	stroke[2] = 0		 //The current streak of successful pets
+	pethighscore[0] = 0	 //The petting high score, as the number of the stroke value
+	pethighscore[1] = 0	 //The petting high score, as the number of pets
+	totalpets = 0		 //The total times the ghost has been pet
+	offscreen = IARRAY
+	//---
+	deleteshitai = "Off"
+	AutoUpdates = ("On",0)
+	//nowmode = "Default" //Uncomment if you plan to add more modes
+	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)","%(ghostver)") //This tracks the exact day and time the ghost was installed, in case you want to mess around with that later. It also tracks what version the user installed, which may be helpful for debugging!
+	MiscFlags = IARRAY	 //For the flag system
+	
+	x.boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
+	x.up_all = 0 //How many minutes the ghost was up for in total, not including current session
+	
+	if uninstallstatus == 0
+	{
+		foundinnocent = 0 //story progression variable, as part of the subcon disaster storyline.
+							//-1: hes absolutely sure ur the culprit, he has evidence (even if its false)
+							//0: no evidence, but he's ver sus of you. no story dialogue.
+							//1: youre helping him find who the culprit is, starting not to suspect u but not conclusive yet. only get this if you ask whats going on
+							//2: oh ok ur chill sorry abt that.
+		soulcustody = 0 //if he has ur soul... simple true n false
+	}
 }
 
 OnFirstBoot
 {
-	uninstallStatus = reference0
+	uninstallstatus = reference0
 	firstboot = 1
 	OnFirstBootVar
 	--
@@ -27,28 +54,79 @@ OnFirstBoot
 
 OnFirstBootTalk
 {
-	if uninstallStatus == 0
+	if uninstallstatus == 0
 	{
-		"\0\s[1]AHHHHHHHAHAHAHAHHA!!! FOOOOOOOOOOOOL!!! \w4\x\cYou blew it! You totally screwed yourself! \w6 No one enters my forest and leaves... \w8\w4Wait. \w8Where the heck is this? \w4\x\cUghhhh, seriously? Are \f[italic,1]you\f[italic,0] the one taking things from my forest? You couldn't just stop at my belongings, my minions... Now you've taken me too. You're really giving me a run for my money here, kid."
-		--
-		"\w5\_q\![*]\q[He/Him,choicefirsthehim]\n\![*]\q[She/Her,choicefirstsheher]\n\![*]\q[They/Them,choicefirsttheythem]\e"
+		"\0\s[1]\f[height,20]AHHHHHHHAHAHAHAHHA!!! \n\f[height,38]FOOOOOOOOOOOOL!!!\f[height,default] \w4\x\c\s[0]You blew it! You totally screwed yourself! \w6 Nobody enters my home and leaves... \w8\w4Wait. \w8Where the heck am I? \w4\x\cUghhhh, seriously? Are \f[bold,1]you\f[bold,0] the one taking things from my forest? You couldn't just stop at my belongings, my minions... \x\cNow you've taken me, too. \w2You're really giving me a run for my pons here, kid. \w3Taking from the Snatcher! It's almost funny! \w7\f[bold,1]Almost.\f[bold,0] \x\cAhhhh, never mind that. How about we make the best of this opportunity and make a deal, yeah? \w4I think your soul would be a reasonable exchange for all the trouble you've caused me. \x\cAll you have to do is sign the paper.\![open,inputbox,OnFirstNameTeach]\n\n\n[half]\![*]\q[But I didn't do any of that!,iminnocentofficer]"
 	}
-	else
+	elseif uninstallstatus == 1 && soulcustody == 0 && foundinnocent == 0
 	{
-		"\0\s[0]Uhhuh. Let's just get this over with, hm?"
+		"\0\s[1]\f[height,20]AHHHHHHHAHAHAHAHHA!!! \n\n[half]\f[height,37]FOOO\w1O\f[height,30]\w1o\w2o\w2o\w3o\f[height,20]\w3o\w3o\f[height,default]\w4.\w4.\w4. \w8\w8\x\cOh. \w8It's you. \w8Did you enjoy bringing me here, then kicking me out right as I try to get you back for inconveniencing me? \w6It's you who's in the wrong here, really. \x\cWell... Let's sign the paper this time, yeah? \w2\nNo takesie-backsies anymore."
 		--
-		"\w5\_q\![*]\q[He/Him,choicefirsthehim]\n\![*]\q[She/Her,choicefirstsheher]\n\![*]\q[They/Them,choicefirsttheythem]\e"
+		"\![open,inputbox,OnFirstNameTeach]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
 	}
+	elseif uninstallstatus > 1 && soulcustody == 0 && foundinnocent == 0
+	{
+		//\0\s[1]\w8\w8\w8\w8\w8\w8\w8
+		"\0\s[0]Ughhhh, this again? \w2You know the drill, I need you to get to signing."
+		--
+		"\![open,inputbox,OnFirstNameTeach]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
+	}
+	elseif uninstallstatus != 0 && soulcustody == 1
+	{
+		"\0\s[1]\f[height,20]AHHHHHHHAHAHAHAHHA!!! \n\f[height,38]FOOOOOOOOOOOOL!!!\f[height,default] \w4\x\c\s[0]Did you really think kicking me out of here would get you your soul back? \w4NOPE! \w4You still have to work under me, kiddo! \w2\x\cAnd guess what? \w4You have to sign another contract! \w2Just to check your name, of course. You know the deal."
+		--
+		"\![open,inputbox,OnFirstNameTeach]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
+	}
+	elseif soulcustody == 0 && foundinnocent == 2
+	{
+		"\0\s[1]\f[height,20]AHHHHHHHAHAHAHAHHA!!! \n\n[half]\f[height,37]FOOO\w1O\f[height,30]\w1o\w2o\w2o\w3o\f[height,20]\w3o\w3o\f[height,default]\w4.\w4.\w4. \w8\w8\x\cOh. \w8It's... You. \w5\x\cUh... How's it hanging, kiddo? Nice to be back, I suppose. \w8...You are the same person, right?"
+		--
+		"\![open,inputbox,OnFirstNameTeach]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
+	}
+	else //no idea what condition this would be under but i'll think abt it later, after ghost jam yk?
+	{
+		"\0\s[0]Okay, no idea how you're seeing this message, but it means Phantasia messed up. \w6Shoot 'em a message after this firstboot sequence, alright?"
+		--
+		"\![open,inputbox,OnFirstNameTeach]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
+	}
+}
+
+OnFirstNameTeach {"\![raise,OnNameTeach,%(Sanitize(reference0)),firstboot]"}
+
+
+Select.iminnocentofficer
+{
+	"\f[italic,1]O\w1h\w1h\w1h\w1h\w1? \w3What's that? \w3You're innocent?\f[italic,0]  \w6HAHAHAHAHA!! \w6Even if you were, do you really think I'd spare you? \x\cI'm not too fond of letting souls go. \w2\nSign the paper.\![open,inputbox,OnFirstNameTeach]\n\n\![*]\q[I'm NOT doing that,imNOTdoingthat]"
+}
+
+Select.imNOTdoingthat
+{
+	"Oh, \w3I'm \w1\f[bold,1]sorry,\f[bold,0] \w6was I not clear enough? \x\c\![open,inputbox,OnFirstNameTeach]\f[height,25]\n[half]YOU DON'T HAVE A CHOICE HERE.\f[height,default]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
 }
 
 
 
 
 
+OnBootVar //taken from x template, yet again,,,
+{
+	FixDefaultOptions //In case variables get erased, they should be fixed here
+	lastTalk = ""
+	AutoUpdates[1] = 0
+	x.boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
+}
 
 
+OnBoot
+{
+	OnBootVar
+	--
+	"\0\s[1]\w8\w8\w8Heyy! What's up, kid?"
+}
 
 
-
-
+OnClose
+{
+	"Toodles!\w8\w8\e"
+}
 

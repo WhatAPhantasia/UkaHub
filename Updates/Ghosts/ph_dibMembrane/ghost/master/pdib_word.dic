@@ -6,7 +6,7 @@
 
 //accountforshell
 //{
-	//if nowshell == "florpus"
+	//if nowshell == "Florpus"
 	//{
 		//
 	//}
@@ -102,24 +102,13 @@ zimnonskoolplans
 zimskoolplans
 {
 	"poisoning the Skool lunch line"
-	"replacing all the cleaning products in the janitor's closet with acid"
+	"replacing all the cleaning products in the janitor's closet with acid (which is admittedly better than the old cleaning products)"
+	"getting Torque Smackey to... Bully me more than he already does, I guess"
 }
 
 
-exampleenvelope
-{
-	"Example Envelope Dialogue 1"
-	"Example Envelope Dialogue 2"
-	"Example Envelope Dialogue 3"
-}
 
-internalenvelope
-{
-	"Internal Envelope Dialogue 1 - %(exampleenvelope)"
-	"%(username)'s computer"
-	"Here is a blanklist object - %(blanklist)."
-}
-
+//wow...
 		//*********************Advanced User Info*******************************
 	  
 	  //One particularly useful thing you can do is add value changes to an envelope, if your dialogue is in a place where it's not easy to add the change directly. For example...

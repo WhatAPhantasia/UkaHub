@@ -1,0 +1,407 @@
+//------SNATCHER WORD.DIC... I've merged anchor.dic with word.dic because thats just how it makes sense to me-----------
+
+
+
+kidname //randomizes whether or not to call the user kid or their name.
+{
+	"%(username)"
+	"%(username)"
+	"kid"
+	"kiddo"
+}
+
+name
+{
+	if notakid == 1
+	{
+		"%(username)"
+	}
+	else
+	{
+		"%(kidname)"
+	}
+}
+
+
+
+
+//--USEFUL X TEMPLATE STUFF!!
+season //Current season
+{
+	if hemisphere == "Southern"
+	{
+		if month > 2 && month < 6; "Autumn"
+		elseif month > 5 && month < 9; "Winter"
+		elseif month > 8 && month < 12; "Spring"
+		else; "Summer"
+	}
+	else
+	{
+		if month > 2 && month < 6; "Spring"
+		elseif month > 5 && month < 9; "Summer"
+		elseif month > 8 && month < 12; "Autumn"
+		else; "Winter"
+	}
+}
+
+//hour12 displays the hour like a 12 hour clock, except for 12 which is displayed as 0
+nowhour
+{
+	if hour12 == 0; "12"
+	else; "%(hour12)"
+}
+
+//Adding a 0 to the minute if it's under 10
+nowmin
+{
+	if minute < 10; "0%(minute)"
+	else; "%(minute)"
+}
+
+//Total hours
+totalhours {x.up_total / 60}
+
+//Total hours + minutes
+totalruntime
+{
+	_hours = x.up_total / 60
+	_mins = x.up_total % 60
+	if _mins <= 9; _mins = "0%(_mins)"
+	
+	"%(_hours):%(_mins)"
+}
+
+//Current runtime as hours + minutes
+runtime
+{
+	_hours = x.up_mins / 60
+	_mins = x.up_mins % 60
+	if _mins <= 9; _mins = "0%(_mins)"
+	
+	"%(_hours):%(_mins)"
+}
+
+//AM or PM - ampm is 0 during am, and 1 during pm
+ap
+{
+ 	if ampm == 0; "AM"
+ 	else; "PM"
+}
+
+//Abbreviated week day
+wd
+{
+	if weekday == 0; "Sun"
+	elseif weekday == 1; "Mon"
+	elseif weekday == 2; "Tue"
+	elseif weekday == 3; "Wed"
+	elseif weekday == 4; "Thu"
+	elseif weekday == 5; "Fri"
+	else; "Sat"
+}
+
+//Full week day
+nowday
+{
+	_weekday = weekday
+	if _argv[0] == "next"
+	{
+		_weekday++
+		if _weekday > 6; _weekday = 0
+	}
+	if _argv[0] == "last"
+	{
+		_weekday--
+		if _weekday < 0; _weekday = 6
+	}
+	
+	if GETTYPE(_argv[0]) == 1 //If it's an integer
+	{
+		while _argv[0] > 6; {_argv[0] -= 7}
+		while _argv[0] < 0; {_argv[0] += 7}
+		_weekday = _argv[0]
+	}
+	
+	if _weekday == 0; "Sunday"
+	elseif _weekday == 1; "Monday"
+	elseif _weekday == 2; "Tuesday"
+	elseif _weekday == 3; "Wednesday"
+	elseif _weekday == 4; "Thursday"
+	elseif _weekday == 5; "Friday"
+	else; "Saturday"
+}
+
+//The current month name
+nowmonth
+{
+	_month = month
+	
+	if _argv[0] == "next"
+	{
+		_month++
+		if _month > 12; _month = 1
+	}
+	if _argv[0] == "last"
+	{
+		_month--
+		if _month < 1; _month = 12
+	}
+	
+	if GETTYPE(_argv[0]) == 1 //If it's an integer
+	{
+		while _argv[0] > 12; {_argv[0] -= 12}
+		while _argv[0] < 1; {_argv[0] += 12}
+		_month = _argv[0]
+	}
+	
+	if _month == 1; "January"
+	elseif _month == 2; "February"
+	elseif _month == 3; "March"
+	elseif _month == 4; "April"
+	elseif _month == 5; "May"
+	elseif _month == 6; "June"
+	elseif _month == 7; "July"
+	elseif _month == 8; "August"
+	elseif _month == 9; "September"
+	elseif _month == 10; "October"
+	elseif _month == 11; "November"
+	else; "December"
+}
+
+//Checks if this is a leap year
+leapyear
+{
+	if year % 4 != 0; 0
+	elseif year % 100 != 0; 1
+	elseif year % 400 != 0; 0
+	else; 1
+}
+
+//Gets the day of the year it currently is, starting from 1 because starting from 0 here is silly
+yearday {GETTIME[7] + 1}
+
+yearweek
+{
+	//Get the current day of the year
+	_days = yearday
+
+	//Get the number of days into the current week that we are
+	_trailingdays = 0
+	while weekday - _trailingdays >= 0
+	{
+		_trailingdays++
+	}
+
+	//Get the number of weeks minus leading and trailing days
+	_days -= _trailingdays
+	_weeks = _days / 7
+	_leadingdays = _days % 7
+
+	//Add in the trailing weeks
+	if _leadingdays > 0; _weeks++
+	if _trailingdays > 0; _weeks++
+
+	//Handles week 53
+	if _weeks == 53
+	{
+		_daysleft = 31 - day
+		if _daysleft + _trailingdays < 7; _weeks = 1
+	}
+	_weeks
+}
+
+//From the GT template. Breaking down the day into a few distinct chunks so you dont have to add checks for every hour.
+timeslot
+{
+	if hour >= 5 && hour <= 8; "earlymorning" //5-8am
+	elseif hour >= 9 && hour <= 11; "morning" //9-11am
+	elseif hour >= 12 && hour <= 14; "lunch" //12-2pm
+	elseif hour >= 15 && hour <= 17; "afternoon" //3-5pm
+	elseif hour >= 18 && hour <= 20; "evening" //6-8pm
+	elseif hour >= 21 && hour <= 24; "latenight" //9pm-12am
+	else; "midnight" //1-4am
+}
+//---END OF COOL X TEMPLATE STUFF!!!!!!
+
+
+
+//-------ANCHOR STUFF-------------------------------------------------
+
+//---X Template.... yet again........
+OnTranslate
+{
+	_talk = reference0
+	
+	//---Auto Anchors---
+	//Add as many names as you want to this list
+	_namelist = "Hat Kid,Bow Kid,Subcon Forest"
+	
+	//Names written here should be written in dialogue as @Name 1, @Name 2, etc... So if I added Lulo, I would write @Lulo in dialogue to call the anchor. If I wanted to write the name Lulo without it being an anchor, I would just write it as Lulo
+	//When these anchors are clicked, they will direct to an Anchor.function. So for Name 1 it would be Anchor.Name_1 and for Lulo it would be Anchor.Lulo
+	//Invalid characters will be converted to underscores. You can see a list of invalid characters below. Names are case sensitive as well!
+
+	//Loops through every name on the list and checks for them in dialogue
+	foreach _namelist; _name
+	{
+		//List of characters that are invalid for function names
+		_invalidcharacters = (" ",'"',"#","$","%","&","(",")","*","+","-","/",":",";","<","=",">","?","@","[","]","`","{","|","}",",")
+		_funcname = _name
+		foreach _invalidcharacters; _char //Loop through each invalid character and replace them with _ if they exist
+		{
+			if _char _in_ _funcname; _funcname = REPLACE(_funcname,_char,"_")
+		}
+		_talk = REPLACE(_talk,"@%(_name)","\_a[AUTO_ANCHOR:%(_funcname)]%(_name)\_a") //Replace the @name in the script with an anchor. Since the auto anchor tag uses a :, and : is already cleaned out of the anchor name, you should never be able to interfere with that tag.
+	}
+	
+	
+	//---Manual Anchors---
+	//You can use these in conjunction with the auto anchors! Auto anchors are good for setting up simple links to names and such, but if you need something more complex you can still easily put it here and it should not interfere. Don't forget that if you need a one-off anchor, you can just write them directly in dialogue as well.
+	_talk = REPLACE(_talk,"Example Anchor","\_a[exampleanchor]Example Anchor\_a")
+	_talk = REPLACE(_talk,"Example Anchor with OnFunction","\_a[OnSomeAnchor]Since this links to OnSomeAnchor, you could create a function called OnSomeAnchor that would be called directly by clicking this\_a")
+	_talk = REPLACE(_talk,"Example word swap","You don't have to just make anchors, you could also use this to insert images and such")
+	
+	
+	//---Important other stuff, written by Ponapalt---
+	if reference1 == "" && reference2 == ""
+	{ //send input box : no event (ref2) , no special flag (ref1)
+		EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
+	}
+    else
+	{ //event result from ghost
+		TOSTR(_talk)
+	}
+}
+
+OnAnchorSelect
+{
+	if "http://" _in_ reference0 || "https://" _in_ reference0 //checking to see if the link is a web address
+	{
+		"\j[%(reference0)]\e"
+	}
+	elseif "AUTO_ANCHOR:" _in_ reference0 //Checks for the Auto Anchor tag. If it exists, runs a function starting with 'Anchor.' The name of the function, as set up above, will be appended to the end. Example: Anchor.Name_1 or Anchor.Lulo
+	{
+		EVAL("Anchor.%(SPLIT(reference0,'AUTO_ANCHOR:')[1])")
+	}
+	else
+	{
+		case reference0
+		{
+			when "exampleanchor"
+			{
+				"\0\s[0]You clicked the example!\e"
+			}
+		}
+	}
+}
+
+Anchor.Hat_Kid
+{
+	"Annoying."
+}
+
+
+//If you write all your envelopes as lowercase, you can send them through this function whenever you need the first letter capitalized! It'd look something like this: "%(Capitalize(exampleenvelope))"
+//TODO: replace with zi's updated capitalize function after jam
+Capitalize
+{
+	_word = _argv[0] //Sets _word to the word the user sent
+	_buffer = SUBSTR(_word,0,1) //Storing the first character in _buffer
+	_word = ERASE(_word,0,1) //Erasing the first character from _word
+	_word = INSERT(_word,0,TOUPPER(_buffer)) //Making the character in _buffer uppercase and inserting it back into _word
+	_word //Returns the capitalized word
+}
+
+
+//As the name implies, this checks if the balloon is currently open or not. This was written by Levidre, and modified a bit by me!
+//To use it I would do this, so you don't have to copy this whole chunk of code:
+//_b = BalloonCheck
+//if _b == 0 //_b will be 0 if the balloon is not open, or 1 if it is open
+BalloonCheck
+{
+	if ASEARCH("Status",var.req.key) != -1
+    {
+        _currentstatus = var.req.value[ASEARCH("Status",var.req.key)]
+        if "balloon" _in_ _currentstatus; 1
+		else; 0
+    }
+	else; 0
+}
+
+//This function allows you to add a line break, but only for the balloon you intend your ghost to use! So if a bit of text wraps awkwardly, but you don't want to add a \n because it may look super weird in other balloons, you can put a %(br) instead! It'll be a \n in your balloon, and a single space in any other balloon. Make sure you add the name of your balloon here!
+//Example: "This dialogue would cut awkwardly in a hypothetical default%(br)balloon,\w4 so a manual linebreak is added for only that balloon.\w8\w8 In any other balloon this would be a%(br)continuous line,\w4 and use SSP's default word wrap.\e"
+br
+{
+	if SHIORI3FW.BalloonName == "Your Balloon Name Here"; "\n"
+	else; " "
+}
+
+//This function is to help with changing text alignment in the same line! It makes a new line by using \n, displaying a space, and then going back up a line. So you'd use it like this:
+//"Text on the left%(newline)\f[align,right]Text on the right"
+newline
+{
+	"\n \_l[0]\n[-100]"
+}
+
+//Some lorem ipsum for when you need quick filler text
+loremipsum
+{
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+}
+
+//Sanitize user inputs! This should stop any sakurascript tags from executing, as well as any envelopes. Use it for sending user input as an argument through a menu choice or raise, or for things like saving user input as file names. Like this:
+//\![raise,OnSaveFile,%(Sanitize(_input))]
+Sanitize
+{
+	"%(CHR(34))%(_argv)%(CHR(34))"
+}
+
+//Usage: This is intended to take the place of single-use variables that only contain 0 or 1, used as flags for certain events and such. With these functions, you can store all those flags as a single array, meaning you can make as many flags as you want without having to really worry about save bloat. It can also make your code a bit more readable!
+
+//You'll want to put 'MiscFlags = IARRAY' into your OnFirstBoot. That'll set up an empty array for flags to be stored in.
+//When you want to check if a flag is set or not, you can do it like so:
+//if Flag("My Flag") == 0
+//or
+//if Flag("My Flag") == 1
+
+//Any flags that are NOT in the array are 0, and any flags that ARE in the array are 1. So, to set a flag to 1, you add it to the array like this:
+//if Flag("My Flag") == 0; MiscFlags ,= "My Flag"
+
+//You don't technically need the if check there, but it stops duplicate entries from being added. The ,= is also important; that adds a new element to an array. Don't use += for this!
+
+//If you want to set a flag back to 0, you can remove it like so:
+//RemoveFlag("My Flag")
+
+//Flag names can be just about anything you want! They're just stored as strings. For example, for S I have "Saw Gaster with googly eyes", and for Lulo I have things like "Unlocked MP3 player" and "Unlocked journal". If you want to see what flags are set, you can just put %(MiscFlags) into script input, so it's helpful to have names that describe the flag!
+
+Flag //Checks to see if a flag exists. Returns 1 if yes, returns 0 if no
+{
+	if ASEARCH(_argv[0],MiscFlags) != -1; 1
+	else; 0
+}
+
+RemoveFlag //Removes all instances of a flag in the array.
+{
+	_elements = ASEARCHEX(_argv[0],MiscFlags)
+	if ARRAYSIZE(_elements) > 0
+	{
+		for _i = ARRAYSIZE(_elements) - 1; _i >= 0; _i-- //Goes from the end of the list to the start, so the elements stay in the same positions while we erase
+		{
+			_current = _elements[_i]
+			MiscFlags[_current] = IARRAY
+		}
+	}
+}
+
+//Setting variables in random dialogue
+//You can use this to do detailed variable changes and such in dialogue. If you only need to set one variable, I recommend using EVAL in the line of dialogue, like so:
+//"Some dialogue that changes a variable.\e:eval=somevar='some value'"
+OnDialogueVars
+{
+	case reference0
+	{
+		when "example"
+		{
+			_example += 1
+		}
+	}
+}
