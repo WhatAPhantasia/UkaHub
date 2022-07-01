@@ -16,7 +16,7 @@ collision0,110,68,230,103,Head
 collision1,128,104,193,182,Face
 //------
 element0,overlay,surface50.png,0,0
-element1,overlay,surface650.png,0,0
+element1,interpolate,surface650.png,0,0
 //--Clothes----------------------------------------------------------------------------
 //Glasses
 910interval,bind
@@ -28,7 +28,11 @@ element1,overlay,surface650.png,0,0
 surface0
 {
 element0,overlay,surface50.png,0,0
-
+element1,interpolate,surface650.png,0,0
+//--Clothes----------------------------------------------------------------------------
+//Glasses
+910interval,bind
+910pattern0,105,0,add,0,0
 }
 
 //--DIB 3/4 SMIRK
@@ -906,10 +910,11 @@ surface.append0-50,!1,!10,!18,!19
 //pick em up
 surface800
 {
-element0,overlay,surface800.png,0,0
+element0,overlay,surface50.png,0,0
+element0,interpolate,surface650.png,0,0
 //Glasses
 910interval,bind
-910pattern0,801,0,add,0,0
+910pattern0,105,0,add,0,0
 }
 
 

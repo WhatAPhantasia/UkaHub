@@ -83,7 +83,7 @@ element7,overlay,surface650.png,0,0
 //--DIB 3/4 NEUTRAL
 surface0
 {
-element0,overlay,surface0.png,0,0
+element0,overlay,surface1.png,0,0
 
 //Yeah im being stupid and sumbling my way through interval stacking. just try and stop me!!
 
@@ -114,7 +114,7 @@ element0,overlay,surface0.png,0,0
 //--DIB 3/4 SMIRK
 surface2
 {
-element0,overlay,surface0.png,0,0
+element0,overlay,surface1.png,0,0
 //close
 60interval,always
 60pattern0,152,0,overlay,0,0
@@ -138,7 +138,7 @@ element0,overlay,surface0.png,0,0
 //--DIB 3/4 FROWN
 surface3
 {
-element0,overlay,surface0.png,0,0
+element0,overlay,surface1.png,0,0
 //close
 60interval,always
 60pattern0,154,0,overlay,0,0
@@ -162,7 +162,7 @@ element0,overlay,surface0.png,0,0
 //--DIB 3/4 POUT
 surface4
 {
-element0,overlay,surface0.png,0,0
+element0,overlay,surface1.png,0,0
 //close
 60interval,always
 60pattern0,156,0,overlay,0,0
@@ -333,6 +333,7 @@ collision1,128,104,193,182,Face
 //--DIB FRONT FACING NEUTRAL
 surface11
 {
+element0,overlay,surface1.png,0,0
 //close
 60interval,always
 60pattern0,250,0,overlay,0,0
@@ -356,7 +357,7 @@ surface11
 //--DIB FRONT SMIRK
 surface12
 {
-element0,overlay,surface0.png,0,0
+element0,overlay,surface1.png,0,0
 //close
 60interval,always
 60pattern0,252,0,overlay,0,0
@@ -380,7 +381,7 @@ element0,overlay,surface0.png,0,0
 //--DIB FRONT FROWN
 surface13
 {
-element0,overlay,surface0.png,0,0
+element0,overlay,surface1.png,0,0
 //close
 60interval,always
 60pattern0,254,0,overlay,0,0
@@ -404,7 +405,7 @@ element0,overlay,surface0.png,0,0
 //--DIB FRONT POUT
 surface14
 {
-element0,overlay,surface0.png,0,0
+element0,overlay,surface1.png,0,0
 //close
 60interval,always
 60pattern0,256,0,overlay,0,0
@@ -662,7 +663,7 @@ collision1,140,94,216,178,Face
 //--DIB PROFILE NEUTRAL
 surface21
 {
-element0,overlay,surface0.png,0,0
+element0,overlay,surface1.png,0,0
 //close
 60interval,always
 60pattern0,350,0,overlay,0,0
@@ -686,7 +687,7 @@ element0,overlay,surface0.png,0,0
 //--DIB PROFILE SMIRK
 surface22
 {
-element0,overlay,surface0.png,0,0
+element0,overlay,surface1.png,0,0
 //close
 60interval,always
 60pattern0,352,0,overlay,0,0
@@ -735,7 +736,7 @@ element0,overlay,surface0.png,0,0
 //--DIB PROFILE POUT
 surface24
 {
-element0,overlay,surface0.png,0,0
+element0,overlay,surface1.png,0,0
 //close
 60interval,always
 60pattern0,356,0,overlay,0,0

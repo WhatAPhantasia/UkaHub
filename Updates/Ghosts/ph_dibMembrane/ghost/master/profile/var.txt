@@ -1,7 +1,7 @@
 Charset,UTF-8
 install,700118458
-surfacecount,87
+surfacecount,89
 update_result,NG(404:ghost/master/aitalk.dic)
 firstboot,700118514
-commitmemorysize,1409011
-lastboot,707454906
+commitmemorysize,1657230
+lastboot,709665159

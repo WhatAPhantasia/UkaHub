@@ -10,7 +10,7 @@ OnFirstBootVar
 	talkrate = "every 5 minutes"
 	aitalkinterval = 300
 	totalpunches = 0
-	nowscale = (65,65) //Current scale, as a percentage
+	nowscale = (100,100) //Current scale, as a percentage
 	//---Petting related variables---
 	stroke[0] = 0		 //The stroke value, which resets after each pet
 	stroke[1] = 0		 //The stroke value, but it doesn't reset after each pet
