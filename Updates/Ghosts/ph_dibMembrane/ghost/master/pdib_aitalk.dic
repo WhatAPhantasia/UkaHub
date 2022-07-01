@@ -55,8 +55,14 @@ RandomTalk : nonoverlap_pool
 	"\0\s[2]\i[97]Get up and walk around if you haven't gotten up in a while! \w6\i[73]Don't become a chair! \w8\w5...\s[2]\i[70]\i[91]No, \w2I won't explain the chair thing. \w8\w5\s[22]\i[70]\i[91]\i[80]\i[21]Don't ask.\e"
 	"\0\s[13]\i[98]\i[28]...Wow, my cuticles are all messed up. \w8\s[11]\i[92]\i[27]\i[70]I should probably stop messing with my nails.\e"
 	"\0\s[11]\i[98]\i[28]Hmm... Should I buff my nails?\e"
-	"\0\s[2]\i[72]\i[92]Man, it would be so cool to get more piercings. \w8Ever since I got my studs a while back, \w2Gaz has been interested in like, \w2nose and eyebrow piercings, \w1and I was considering getting helix piercings, \w5but... \w8\w2Seriously, \w2think about what ZIM could do if I got a ton of piercings! \w4He could rip my ears and face off! \w8I am not letting him get that opportunity.\e"
 	"\0\s[2]\i[97]\i[73]Let's test out some anchors! \w8\s[2]\i[97]@Ely! \w2They're really cool! \w6@Gaz!! wOw!!!! \w6What about @ZIM and%(br)@GIR????????? \w4WOW\e"
+	//--ZIMS BASE DIALOGUE, MOVE TO Q&A LATER
+	"\0\s[2]\i[97]\i[73]@ZIM's base is full of admittedly cool alien tech. \w8Like his AI! \w4He calls it his computer, but it's way too smart to just be \f[bold,1]that,\f[bold,0] you know? \w5It has a personality and everything! \w4I was hoping I could sneak into @ZIM's base again and ask his computer if I could study it's code or something. \w2I mean, it let me put a bug in the base, so... \w4Anything's possible, \w2right?\e"
+	//make into a chain? idk
+	"\0\s[0]\i[91]\i[76]\i[21]...@ZIM's computer is kinda like a smart device, \w1huh? \w8\s[0]\i[96]Except for the fact that it seems almost sentient. \w4\s[0]\i[92]\i[25]And... \w8\w2\s[2]\i[70]\i[91]\i[80]Okay, maybe they're not all that similiar. \w8\s[2]\i[97]\i[73]But at least @ZIM's computer%(br)won't spy on me and sell my information to the government! \w8\w8\s[0]\i[92]\i[70]\i[21]\f[height,9]...Human government, anyway.\f[height,default]\e"
+	//--PHONE DIALOGUE: FLAG TO ACTIVATE AFTER CLICKING ON DIB'S PHONE
+	"Oh, my phone? \w8Yeah!! \w8I made it myself! \w8\w5Well, I didn't \w1\f[bold,1]completely\f[bold,0] \w1make it, \w1but I modified it a lot from an old Membrane Labs phone model. \w8It's completely rooted, has privacy sliders for the high definition camera, can connect to VPN... \w8\w2Gotta stay safe from the other big tech companies trying to spy on my data!\e"
+	
 	
 	
 	//------------REFERENCE LINES----------------
@@ -85,7 +91,8 @@ RandomTalk : nonoverlap_pool
 	
 	if nowshell == "Shooting Star"
 	{
-	"\0\s[0]Tall. Gonna kick ZIM all the way back to Irk with this height.\e"
+	"\0\s[0]Seriously though, @ZIM is so much shorter than me! And yet, every single time I've tried to kick him across a room or the skool hallways, he somehow manages to avoid%(br)me...\e"
+	"\0\s[2]\i[72]\i[92]Man, it would be so cool to get more piercings. \w8Ever since I got my studs a while back, \w2@Gaz has been interested in like, \w2nose and eyebrow piercings, \w1and I was considering getting helix piercings, \w5but... \w8\w2Seriously, \w2think about what @ZIM could do if I got a ton of piercings! \w4He could rip my ears and face off! \w8\s[0]\i[70]\i[91]\i[78]I am not letting him get that opportunity.\e"
 	}
 
 	if nowshell == "Florpus"
@@ -215,7 +222,7 @@ RandomTalk : nonoverlap_pool
 	if timeslot == "midnight"
 	{
 		//for dialogue options where u get a choice im gonna do anchors instead of directing you to a whole ass select func yk
-		//i could also create a temp function that turns off at morning/onboot, opens up a wider range of wildly specific conditional conversations
+		//i could also create flags that turn off at morning/onboot/whenever they need to be reset, opens up a wider range of wildly specific conditional conversations
 		if midnightwork == 0
 		{
 		"\0\s[0]Hey... \w8Are you working on something, or \w2what? \w8I can't really imagine why you'd be up...\n\n\![*]\q[I'm working,select.nightworkyeah]     \![*]\q[Just staying up,select.nightworknah]"

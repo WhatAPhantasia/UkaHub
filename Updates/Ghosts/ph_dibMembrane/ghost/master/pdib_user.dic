@@ -121,7 +121,7 @@ OnNameTeach
 		"\0\s[0]Huh? \w2Oh, that name... \w5It's a good name. \w2The Ely I already know is really cool. \x\c%(NameDone)"
 		}
 	}
-	elseif reference0 == "zim"
+	elseif reference0 == "zim" //kinda iffy on letting the user be zim...
 	{
 		username = tempname
 		"\0\s[0]\i[76]...Really? \w2I mean, okay, but I know a guy, and he sucks. \w4You aren't him, right? \w8Well... \x\c%(NameDone)"
@@ -129,6 +129,7 @@ OnNameTeach
 	}
 	elseif reference0 == "gir"
 	{
+		username = tempname
 		"\0\s[0]\i[76]...Really? \w2Didn't think anyone else but ZIM's weird robot dog had that name. \w8\x\c%(NameDone)"
 	}
 	elseif reference0 == "tak" || reference0 == "mimi" || reference0 == "gretchen" || reference0 == "torque" || reference0 == "dwicky" || reference0 == "bitters" || reference0 == "groyna" || reference0 == "fizzmitz" || reference0 == "zib" || reference0 == "zita" || reference0 == "keef" || reference0 == "melvin" || reference0 == "rob" || reference0 == "sara" || reference0 == "willy"
@@ -148,6 +149,7 @@ OnNameTeach
 	}
 	elseif reference0 == "zi" || reference0 == "zichqec" || reference0 == "zar" || reference0 == "zarla" || reference0 == "levidre" || reference0 == "azura" || reference0 == "quo" || reference0 == "quonit" || reference0 == "smoky" || reference0 == "vita" || reference0 == "kai" || reference0 == "gale" //ADD MORE LMAO
 	{
+		username = tempname
 		"\0\s[2]\i[91]Oh! \w4That's a cool name! \w6\i[73]You're a cool person! \w8\x\c%(NameDone)"
 	}
 	elseif ("shit" _in_ reference0 || "fuck" _in_ reference0 || "bitch" _in_ reference0 || "dick" _in_ reference0 || "crap" _in_ reference0 || "slut" _in_ reference0 || "cock" _in_ reference0)

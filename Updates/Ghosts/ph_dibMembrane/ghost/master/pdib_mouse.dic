@@ -48,10 +48,10 @@ MouseMoveSakura
 				//NEVER EVER EVER MAKE IT ROMANTICALLY CODED IN PUBLIC RELEASES OMG ID DIE ON THE SPOT
 				"\0\s[2]\i[77]\i[21]\i[85]Come on, %(username)...\e"
 				"\0\s[3]\i[72]\i[77]\i[85]\i[96]What kind of torture is this..?\e"
-				"\0\s[0]\i[70]\i[21]\i[85]\i[92]\f[height,8]...Would you still do this even if I weren't on your desktop?\f[height,default]\e"
+				"\0\s[0]\i[70]\i[21]\i[85]\i[92]\f[height,9]...Would you still do this even if I weren't on your desktop?\f[height,default]\e"
 				"\0\s[0]\i[70]\i[21]\i[85]..."
 				"\0\s[3]\i[72]\i[85]\i[65]\i[77](He just sighs. You can't tell if he's frustrated, or...)"
-				"\0\s[0]\i[72]\i[85]\i[78]Just because I'm on your desktop doesn't mean you should abuse that power. \w6\0\s[0]\i[70]\i[21]\i[85]\i[92]\i[78]\f[height,8]Not that I mind, but...\f[height,default]"
+				"\0\s[0]\i[72]\i[85]\i[78]Just because I'm on your desktop doesn't mean you should abuse that power. \w6\0\s[0]\i[70]\i[21]\i[85]\i[92]\i[78]\f[height,9]Not that I mind, but...\f[height,default]"
 				"\0\s[2]\i[77]\i[21]\i[85]\i[93]..."
  			}
  			elseif reference4 == "Face"
