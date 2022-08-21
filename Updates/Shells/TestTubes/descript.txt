@@ -7,7 +7,13 @@ name,Test Tubes
 craftman,WhatAPhantasia
 craftmanurl,https://whataphantasia.carrd.co
 homeurl,https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/master/Updates/Shells/TestTubes/
-//TODO: PLEEEEEEAAAAAAAAAASE update the homeurl for updates once i YEET this into github
+
+sakura.balloon.offsetx,0
+sakura.balloon.offsety,0
+kero.balloon.offsetx,0
+kero.balloon.offsety,0
+sakura.balloon.alignment,none
+kero.balloon.alignment,none
 
 menu.background.bitmap.filename,menu_background.png
 menu.foreground.bitmap.filename,menu_foreground.png
