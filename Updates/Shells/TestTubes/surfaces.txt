@@ -1,0 +1,48 @@
+descript
+{
+	version,1
+}
+
+//hey gamers whats up i havent touched a ghost in liiike idk a month? girl help
+
+surface0
+{
+	element0,overlay,surface1.png,0,0
+	
+	//holder
+	animation150.interval,bind
+	animation150.pattern0,overlay,150,0,0,0
+
+	//liquid
+	//TODO: apparently RGB is the no-liquid tube and the NONE is... nothing?? what. what is going on. fix it please
+	animation50.interval,bind
+	animation50.pattern0,overlay,50,0,0,0
+
+	animation51.interval,bind
+	animation51.pattern0,overlay,51,0,0,0
+
+	animation52.interval,bind
+	animation52.pattern0,overlay,52,0,0,0
+
+	animation53.interval,bind
+	animation53.pattern0,overlay,53,0,0,0
+
+	animation54.interval,bind
+	animation54.pattern0,overlay,54,0,0,0
+
+	animation55.interval,bind
+	animation55.pattern0,overlay,55,0,0,0
+
+	animation56.interval,bind + run once + talk 3
+	animation56.pattern0,start,(57)
+	animation56.pattern1,overlay,56,0,0,0
+	
+	//TODO: talking for a specific dressup isn't working: figure this out after da jam
+	animation57.interval,never
+	animation57.pattern0,overlay,57,20,0,0
+	animation57.pattern1,overlay,-1,100,0,0
+
+	//extra
+	animation200.interval,bind
+	animation200.pattern0,overlay,20,0,0,0
+}
