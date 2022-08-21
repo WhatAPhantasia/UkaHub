@@ -6,7 +6,7 @@ type,shell
 name,Test Tubes
 craftman,WhatAPhantasia
 craftmanurl,https://whataphantasia.carrd.co
-homeurl,https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/Updates/Shells/TestTubes
+homeurl,https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/master/Updates/Shells/TestTubes/
 //TODO: PLEEEEEEAAAAAAAAAASE update the homeurl for updates once i YEET this into github
 
 menu.background.bitmap.filename,menu_background.png
