@@ -36,11 +36,18 @@ surface0
 	animation56.interval,bind + run once + talk 3
 	animation56.pattern0,start,(57)
 	animation56.pattern1,overlay,56,0,0,0
+	animation56.pattern2,start,(58)
 	
-	//TODO: talking for a specific dressup isn't working: figure this out after da jam
 	animation57.interval,never
 	animation57.pattern0,overlay,57,20,0,0
 	animation57.pattern1,overlay,-1,100,0,0
+	
+	//TODO: blinking is a little funky (of course it is, it's dressup specific) but experiment with it a little more. as of right now she only blinks after she talks.
+	animation58.interval,never
+	animation58.pattern0,overlay,58,700,0,0
+	animation58.pattern1,overlay,59,100,0,0
+	animation58.pattern2,overlay,58,80,0,0
+	animation58.pattern3,overlay,-1,0,0,0
 
 	//extra
 	animation200.interval,bind
