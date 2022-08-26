@@ -19,21 +19,123 @@
 keroneutral
 {
 	//alright this envelope will be used to determine whether or not so display a kero when this is called. it also decides which kero to show, since i'm gonna have like, gaz zim and ely as keros. so i imagine it'd go something like this.
-	/*
-	if activekero == "Ely"
+	
+	if nowkeroname == "all" //this'll have to direct to a different mode instead of being keroneutral but then again this is only cosmetic at the moment so its not a big deal.
 	{
-		\s[2000]
+		"\s[2000]\p[2]\s[3000]\p[3]\s[5000]"
 	}
-	elseif activekero == "Gaz"
+	elseif nowkeroname == "ely"
 	{
-		\s[3000]
+		"\s[2000]\p[2]\s[-1]\p[3]\s[-1]"
+	}
+	elseif nowkeroname == "gaz"
+	{
+		"\s[3000]\p[2]\s[-1]\p[3]\s[-1]"
+	}
+	elseif nowkeroname == "zim"
+	{
+		"\s[5000]\p[2]\s[-1]\p[3]\s[-1]"
 	}
 	else
 	{
-		\s[-1]
+		"\s[-1]\p[2]\s[-1]\p[3]\s[-1]"
 	}
-	*/
+	
 	//and so on. i'll do this for the rest of the emotions as well!
+	//there's DEFINITELY a better way to do this rather than if/elses and setting a variable to a name, siiiigh. maybe something with arrays? im not experienced with them tho soooooooooooo yeah
+}
+keroembarass
+{
+	if nowkeroname == "all" //honestly i'll just do this one manually so it doesnt matter lmao (but in theory this should set everyone that's out into their embarrased pose)
+	{
+		"\s[2001]\p[2]\s[3000]\p[3]\s[5000]"
+	}
+	elseif nowkeroname == "ely"
+	{
+		"\s[2001]\p[2]\s[-1]\p[3]\s[-1]"
+	}
+	elseif nowkeroname == "gaz"
+	{
+		"\s[3000]\p[2]\s[-1]\p[3]\s[-1]"
+	}
+	elseif nowkeroname == "zim"
+	{
+		"\s[5000]\p[2]\s[-1]\p[3]\s[-1]"
+	}
+	else
+	{
+		"\s[-1]\p[2]\s[-1]\p[3]\s[-1]"
+	}
+}
+keroshock
+{
+	if nowkeroname == "all"
+	{
+		"\s[2002]\p[2]\s[3000]\p[3]\s[5000]"
+	}
+	elseif nowkeroname == "ely"
+	{
+		"\s[2002]\p[2]\s[-1]\p[3]\s[-1]"
+	}
+	elseif nowkeroname == "gaz"
+	{
+		"\s[3000]\p[2]\s[-1]\p[3]\s[-1]"
+	}
+	elseif nowkeroname == "zim"
+	{
+		"\s[5000]\p[2]\s[-1]\p[3]\s[-1]"
+	}
+	else
+	{
+		"\s[-1]\p[2]\s[-1]\p[3]\s[-1]"
+	}
+}
+keroworry
+{
+	if nowkeroname == "all"
+	{
+		"\s[2003]\p[2]\s[3000]\p[3]\s[5000]"
+	}
+	elseif nowkeroname == "ely"
+	{
+		"\s[2003]\p[2]\s[-1]\p[3]\s[-1]"
+	}
+	elseif nowkeroname == "gaz"
+	{
+		"\s[3000]\p[2]\s[-1]\p[3]\s[-1]"
+	}
+	elseif nowkeroname == "zim"
+	{
+		"\s[5000]\p[2]\s[-1]\p[3]\s[-1]"
+	}
+	else
+	{
+		"\s[-1]\p[2]\s[-1]\p[3]\s[-1]"
+	}
+}
+//more expressions inbetween here lmao--------
+kerobored
+{
+	if nowkeroname == "all"
+	{
+		"\s[2006]\p[2]\s[3000]\p[3]\s[5000]"
+	}
+	elseif nowkeroname == "ely"
+	{
+		"\s[2006]\p[2]\s[-1]\p[3]\s[-1]"
+	}
+	elseif nowkeroname == "gaz"
+	{
+		"\s[3000]\p[2]\s[-1]\p[3]\s[-1]"
+	}
+	elseif nowkeroname == "zim"
+	{
+		"\s[5000]\p[2]\s[-1]\p[3]\s[-1]"
+	}
+	else
+	{
+		"\s[-1]\p[2]\s[-1]\p[3]\s[-1]"
+	}
 }
 
 choosedibidle //a function for more variety when setting dib back to his idle.
