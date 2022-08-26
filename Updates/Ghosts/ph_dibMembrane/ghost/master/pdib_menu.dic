@@ -117,6 +117,10 @@ Select.configmenu
 
 Select.asktheboy
 {
+	"\b2\0\s[0]Oh! I bet I can answer them."
+	"\b2\0\s[0]And I have answers."
+	"\b2\0\s[0]Yeah?"
+	--
 	DibQuestions
 }
 
@@ -124,14 +128,71 @@ DibQuestions
 {
 	"\b2"
 	--
-	"\0\s[0]Oh! I bet I can answer them."
-	"\0\s[0]And I have answers."
-	"\0\s[0]Yeah?"
+	"\n\n\![*]\q[Can I see another friend?,debugkero]\n\n"
 	--
-	
+	"\![*]\q[Back,BACKTOMENU]\e"
 }
 
+Select.debugkero
+{
+	"\0\s[0]%(dibarmfiddle)"
+	--
+	"Oh, \w1okay. \w6Who do you wanna see? (this menu is only for debug/cosmetic purposes atm)"
+	--
+	"\n\n\![*]\q[No one,choosekeronone]    /
+	\![*]\q[Ely!,choosekeroely]    /
+	\![*]\q[Gaz!,choosekerogaz]    /
+	\![*]\q[ZIM!,choosekerozim]\n/
+	\![*]\q[EVERYONE,choosekeroall]\n\n"
+	--
+	"\![*]\q[Back,BACKTOQNA]\e"
+}
 
+Select.BACKTOQNA
+{
+	DibQuestions
+}
+
+Select.choosekeronone
+{
+	nowkeroname = "none"
+	--
+	"\1%(keroneutral)"
+	--
+	"\0\i[24]\i[70]Oh, yeah, definitely getting crowded around here. Even if there was no one here in the first place. This is a debug thing im not coding for every single possibility fuck that."
+}
+Select.choosekeroely
+{
+	nowkeroname = "ely"
+	--
+	"\1%(keroneutral)"
+	--
+	"\0\s[2]\i[72]\i[77]\i[85]oh my gosh........ ely........ my love (LMAO)\e"
+}
+Select.choosekerogaz
+{
+	nowkeroname = "gaz"
+	--
+	"\1%(keroneutral)"
+	--
+	"\0\s[2]OH HEY GAZ!!!\e"
+}
+Select.choosekerozim
+{
+	nowkeroname = "zim"
+	--
+	"\1%(keroneutral)"
+	--
+	"\0\s[3]\i[78]Wait- \w5HIM?! \w8\w8Ugh. \w8Okay. \w8Sure.\e"
+}
+Select.choosekeroall
+{
+	nowkeroname = "all"
+	--
+	"\1%(keroneutral)"
+	--
+	"\0\s[3]\i[21]Oh gosh that's a lot of. \w6\s[3]People.\e"
+}
 
 //----------FUN FACTS GALORE------------------------------------------------
 
@@ -549,9 +610,9 @@ OnChoiceTimeout
 
 OpenKeroMenu
  {
-	"\1\s[2000]\b[2]"
-	"\1\s[2001]\b[2]"
-	"\1\s[2002]\b[2]"
+	"\1%(keroneutral)\b[2]"
+	"\1%(keroembarass)\b[2]"
+	"\1%(keroshock)\b[2]"
  	--
 	"This is a menu introduction dialogue."
  	"This is another menu introduction dialogue."
@@ -573,18 +634,18 @@ Select.BACKTOMENUKERO
 
 Select.keroCANCEL
 {
-	//"\1\s[2000]This is menu cancel dialogue.\e"
+	//"\1%(keroneutral)This is menu cancel dialogue.\e"
 }
 
 
 Select.bugreport
 {
-"\1\s[2003]This is the bug report dialogue. \w5Report bugs to WhatAPhantasia on any social! \w5We were downloaded from \_a[http://www.whereveryoupostedthem.com/]some place\_a.\e"
+"\1%(keroembarass)This is the bug report dialogue. \w5Report bugs to WhatAPhantasia on any social! \w5We were downloaded from \_a[http://www.whereveryoupostedthem.com/]some place\_a.\e"
 }
 
 Select.keroupdatecheck
 {
-	"\1\s[2000]\![updatebymyself]\e"
+	"\1\![updatebymyself]\e"
 }
 
 //--Test Variable --------------------------------------------------------
@@ -595,16 +656,18 @@ Select.keroupdatecheck
 
 Select.testvariable
 {
-	"\1\s[2000]Dib, I'm going to call a friend over real quick.\w6\0\s[23]\i[27]A- \w2No, don't tell me its... \w8\1\s[2000]\n\n[half]ZIM!!\p[3]\s[5000]ZIIIIIIIIIIIIIM!!\0\s[13]\i[72]\i[77]\i[80]\n\n[half]NOOOOOOOOOOOOOOOOO\e"
+	"Nothing's here! Though you could maybe use this to test expressions....?\e"
+	//"\1\s[2000]Dib, I'm going to call a friend over real quick.\w6\0\s[23]\i[27]A- \w2No, don't tell me its... \w8\1\s[2000]\n\n[half]ZIM!!\p[3]\s[5000]ZIIIIIIIIIIIIIM!!\0\s[13]\i[72]\i[77]\i[80]\n\n[half]NOOOOOOOOOOOOOOOOO\e"
 	//\p[3] \s[-1]\0\s[0]\i[21]Oh no wait he's gone.\e"
 }
 
 Select.debug
 {
-	"\1\s[2000]Alright, here's your variables!\n\n"
+	"\1%(keroneutral)Alright, here's your variables!\n\n"
 	--
 	"\![*]\q[Put Dib to sleep,debugsleep]\n/
-	\![*]\q[Toggle translator,debugtranslate]\n\n"
+	\![*]\q[Toggle translator,debugtranslate]\n/
+	\![*]\q[Change kero,debugkero]\n\n"
 	--
 	"\![*]\q[Back,BACKTOMENUKERO]\e"
 }

@@ -32,7 +32,6 @@ OnAiTalk
 
 
 //--RandomTalk 
- //Alright, here we go! This is where ALL your ghost's random dialogue will go! These are the conversations that they'll have with you or each other that pop up depending on the talk rate defined in menu.dic (or if you ignored that, set in bootend.dic in the first boot, which would be every five minutes).
  
 //*********************Advanced User Info*******************************
 //These text boxes are meant for those who have an interest in expanding or using more complicated functions in their ghost. Also for my own reference in the future since I plan on using this template too, haha. If you have no interest in any of this and just want to keep things as simple as possible, feel free to skip these boxes.
@@ -113,7 +112,7 @@ RandomTalk : nonoverlap_pool
 	}
 	if month == 1
 	{
-		"\0\s[0]This is dialogue for January.\e"
+		"\0\s[0]January is the start of the year... I don't feel like doing anything.\e"
 	}
 	if month == 2
 	{
@@ -133,7 +132,7 @@ RandomTalk : nonoverlap_pool
 	}
 	if month == 6
 	{
-		"\0\s[2]\i[91]Pride month! I can't think of any cute dialogue for it, haha\e"
+		"\0\s[2]\i[91]I've been thinking of getting some new pins for pride month. \w6\i[70]\i[21]Gaz says I can't borrow her matte ace pin after I used it to prick ZIM that one time.\e"
 	}
 	if month == 7
 	{
@@ -141,7 +140,8 @@ RandomTalk : nonoverlap_pool
 	}
 	if month == 8
 	{
-		"\0\s[0]This is dialogue for August.\e"
+		"\0\s[0]Geez, August already? Feels like it was just summer break...\e"
+		"\0\s[0]It's back to skool soon... Not sure if I'm looking forward to it or not.\e"
 	}
 	if month == 9
 	{
@@ -241,21 +241,6 @@ RandomTalk : nonoverlap_pool
 	//The underscores in front of korword and kormean mean that the value is temporary, and will disappear when the dialogue has finished. More on this kind of thing on the coding page of the walkthrough.
 	//}
 	
-	
-	//--Multiple Responses
-	{
-	"\0\s[0]I'm thinking of a color... Like " 
-	--
-	"green"
-	"red"
-	"purple"
-	"orange"
-	"yellow"
-	"magenta"
-	--
-	". \w3Thoughts?\e"
-	}
-	
 	//"\0\s[0]\f[height,20]These words are really large. \w8\n\n[half]\f[height,default]These words are a normal size. \w8\n\n[half]\f[height,6]These words are small.\f[height,default]\e"
 	
 	//You can use other fancier SakuraScript bits in your dialogue if you want to get font effects, although I won't get too much into them here. In this case, \f[height,20] changes the height of the font, in this case to 20 or to 6, and then \f[height,default] changes them back to normal. I touch more on this in the SakuraScript page of the walkthrough.
@@ -352,7 +337,6 @@ OnMinuteChange //This is what will trigger time-based dialogue for your Ghost.
  			"\0\s[0]It's midnight!\e"
  			"\0\s[0]This is another bit of dialogue for midnight.\e"
  			"\0\s[0]This is the third bit of dialogue for midnight.\e"
-			//Then replace the dialogue with what's appropriate.
 		}
 		else
 		{
@@ -442,7 +426,7 @@ EndMikireTalk
 //You can also use OnSurfaceRestore to clean up things that might be left on the screen, primarily from using p[number]\s[] to call up other objects or characters. Just make sure to add a p[number]\s[-1] to OnSurfaceRestore, and that should get rid of it each time the ghost cleans itself up.
 //***********************************************************************
 
-OnSurfaceRestore
+OnSurfaceRestore //TODO: change choosing an idle to be separate from OnSurfaceRestore. It cant be OnSurfaceRestore because it only activates after dialogue, not like constantly yk
  {
  	//reference0 is sakura, reference1 is kero.
  	//elseif reference1 == 14 || reference1 == 16 //This is doing the same but for Triangle, since he's reference1. It looks to see if he's in pose 14 or post 16.
@@ -451,7 +435,7 @@ OnSurfaceRestore
  	//}
  	//else
  	//{
-	"%(choosedibidle)\1\s[2000]\e"
+	"%(choosedibidle)\1%(keroneutral)\e"
 	//}
  }
 

@@ -133,7 +133,7 @@ OnFirstBootTalk
  	}
 	else
  	{
-		//---- You'll see this if you try to run OnFirstBootTalk using ![raise] without the extra 0 as mentioned above. except i cant actually get it to work for some reason?? please help omfg
+		//---- You'll see this if you try to run OnFirstBootTalk using ![raise] without the extra 0 as mentioned above. except i cant actually get it to work?? prob bc i separated onfirstboot and onfirstboottalk lmaoooooooo there's no set reference0 for this function
 		{
  		"\1\s[-1]\0\s[0]Aha! Now- \w8Wait, here again? \w5I guess I should have expected that... \w8\n\n[half]Hey again. \w2Just to make sure this is actually the same place, how should I refer to you?\n\n[half]"
 		--
@@ -248,7 +248,7 @@ OnBootVar
  }
  OnBootPhaseOne
  {
- 	"\0\s[0]\1\s[2000]" //This sets them up in their neutral pose for now.
+ 	"\0\s[0]\1%(keroneutral)" //This sets them up in their neutral pose for now.
 	
 	//put %(normalboottalk) if u dont want indiv day messages
 	//"\0\s[0]\1\s[10]%(normalboottalk)"
@@ -499,7 +499,7 @@ OnGhostChanging
 
 OnGhostChanged
 {
-	"\0\s[0]\1\s[2000]" //this sets up their default poses
+	"\0\s[0]\1%(keroneutral)" //this sets up their default poses
 	--
 	if reference0 == "Dib" //As above, this should be the name of your ghost as in install.txt or descript.txt.
 	{

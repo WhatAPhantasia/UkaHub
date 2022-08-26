@@ -323,7 +323,7 @@ OnInstallComplete
 		{
 		"\s[0]Oh, %(reference1) looks like they can play music. \w8\w3...I have a music player too, %(username)! \w2With cool playlists! \w5Am I not enough for you? Why do you need another music player in your life?! I WANT TO BE THE ONLY ONE WHO PLAYS MUSIC FOR YOU!!!\n\n[half]\w8\w3Nah I'm just kidding. \w4Phantasia didn't expect anyone to see this so they're having fun lmao\e"
 		}
-		elseif reference1 == "Shadow the Hedgehog" || reference1 == "Crewmate" //TODO: check if crewmate, flele, and pet rock are actually correct
+		elseif reference1 == "Shadow the Hedgehog" || reference1 == "Among Us" //TODO: check if crewmate, flele, and pet rock are actually correct
 		{
 		"HOLY SHIT %(TOUPPER(reference1))???\e" //TODO: expressions yall
 		}
@@ -461,8 +461,12 @@ OnVanishButtonHold
  
 OnVanished
  {
+	if reference0 == "Invader Zim" {
+	"\1\s[-1]\0\s[0]HAHA LMAOOOO BYE ZIM (change this later)"
+	}
+	else {
 	"\1\s[-1]\0\s[0]Hope you're not thinking of kicking me out like you did %(reference0). \w6There's still stuff for me to look at on here!\e"
-	
+	}
 	//reference0 here is the name of the other ghost.
 }
 

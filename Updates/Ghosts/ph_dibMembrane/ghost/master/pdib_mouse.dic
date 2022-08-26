@@ -166,7 +166,7 @@ MouseDoubleClickKero
  {
  	if reference4 == "Face" 
 	{
-		"\1\s[2002]Dude what the heck!!\e"
+		"\1%(keroneutral)Dude what the heck!!\e"
  	}
 	else
  	{
