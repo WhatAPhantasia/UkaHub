@@ -1,0 +1,1 @@
+They stitched me to wires and electricity. A shell of myself.

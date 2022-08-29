@@ -711,7 +711,7 @@ element0,overlay,surface1.png,0,0
 //--DIB PROFILE FROWN
 surface23
 {
-element0,overlay,surface0.png,0,0
+element0,overlay,surface1.png,0,0
 //close
 60interval,always
 60pattern0,354,0,overlay,0,0

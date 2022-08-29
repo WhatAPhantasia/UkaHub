@@ -2,7 +2,7 @@
 
 FOOOOOOOOOOOOOOOOOOOL!! You blew it! You totally screwed yourself! No one comes into my forest and leaves in... Wait, this isn't the Subcon Forest!
 
-A really simple ghost (hehe) of Snatcher from A Hat in Time made for the 2022 Ghost Jam :] A little disaster's going on in the Subcon Forest, displacing everything and everyone. Since he's stuck on your desktop now, might as well make you complete some contractual obligations and sit through some bad jokes, right?
+A really simple ghost (hehe) of Snatcher from A Hat in Time initially made for the 2022 Ghost Jam :] A little disaster's going on in the Subcon Forest, displacing everything and everyone. Since he's stuck on your desktop, might as well make you complete some contractual obligations and sit through some bad jokes, right?
 
 
 - - IMPORTANT - -

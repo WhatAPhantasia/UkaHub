@@ -1,0 +1,298 @@
+OnFirstBoot //Dialogue when you first open the ghost
+{
+	FirstBootVars //Initialize all your variables at the very bottom!
+	
+	"\t"
+	--
+	if reference0 == 0 //Very first boot - this dialogue finishes over in nameteach.dic after the user gives their name, make sure you check there.
+	{
+		"\1\s[-1]\0\s[0]Hello!\w8\w8 My name is X. Template!\w8\w8\n\nThis ghost is a simple template meant for experienced ghost devs.\w8\w8 If you are interested in a ghost template that includes a walkthrough,\w4 you should try \_a[OnGTTemplateLink,(this function is in zzz_todo.dic because you shouldn't need it for your ghost)]Zarla's GT Template\_a!\w8\w8\n\nNow then,\w4 what should I call you,\w4 user?"
+	}
+	else //Reference0 is the number of times you've uninstalled the ghost, so this is if you're reinstalling them.
+	{
+		"\1\s[-1]\0\s[0]Hi there!\w8\w8 It's me again.\w8\w8 Tell me your name again please?"
+	}
+	--
+	"\![open,inputbox,OnFirstNameTeach]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
+	//Don't erase the \q tag there! That prevents the box from being closed or timing out before the user inputs their name. If you make significant changes to the first boot, you may want to erase that. There are bits of code that deal with this in etc.dic, use ctrl F to find them. IF THIS GIVES YOU ISSUES PLEASE LET ME KNOW, but I think it should be a lot better than the variable solution I had previously.
+}
+
+OnFirstNameTeach {"\![raise,OnNameTeach,%(Sanitize(reference0)),firstboot]"}
+
+OnBoot //Normal booting
+{
+	BootVars //This sets variables you want to be set on a normal boot, like resetting the variable that saves the previous dialogue. Again, make sure you set these up at the bottom.
+	_timesince = FUNCTIONEX("saori/time_check.dll","how_many_days",lastclosed[0],lastclosed[1],lastclosed[2],0,0,0)
+	_timesince *= -1 //Multiply it by -1 to get rid of the negative sign, or to add one if the user traveled back in time.
+	"\1\s[-1]" //This line ensures the Kero character does not appear. Feel free to remove if you want a Kero.
+	--
+	if _timesince < 0 //If the user has changed their clock backwards
+	{
+		"\0\s[0]You've gone backwards in time!\e"
+	}
+	elseif "%(month)/%(day)" == birthday[1] //If you want to write dates as DD/MM, feel free to swap this around. Also, feel free to add any other holidays you like here. Some ideas would be April Fools, Christmas, Halloween, your character's birthday, etc.
+	{
+		"\0\s[0]Happy birthday %(username)!\e"
+	}
+	elseif _timesince >= 90 //At least 3 months have passed. Feel free to nix this whole section if you don't want it.
+	{
+		TimeBoot(_timesince)
+	}
+	else
+	{
+		NormalBoot
+	}
+}
+
+TimeBoot //This will be called if it's been at least 3 months since you opened the ghost last.
+{
+	_timesince = _argv[0] //Days since opened ghost last
+	
+	//Add as many stages to this as you like. Just write the number of days you want. If you want this to happen earlier than 3 months, you can edit it in OnBoot.
+	if _timesince >= 365 //A year
+	{
+		"\0\s[0]It's been a year since you opened me last!\e"
+	}
+	else
+	{
+		"\0\s[0]It's been at least 3 months since you opened me last!\e"
+	}
+}
+
+NormalBoot : pool
+{
+	"\0\s[0]Hello %(username)!\e"
+	"\0\s[0]Normal booting dialogue!\e"
+	//---
+	if timeslot == "earlymorning"
+	{
+		"\0\s[0]It's very early!\e"
+	}
+	if timeslot == "morning"
+	{
+		"\0\s[0]It's early!\e"
+	}
+	if timeslot == "lunch"
+	{
+		"\0\s[0]It's lunchtime!\e"
+	}
+	if timeslot == "afternoon"
+	{
+		"\0\s[0]It's the afternoon!\e"
+	}
+	if timeslot == "evening"
+	{
+		"\0\s[0]It's the evening!\e"
+	}
+	if timeslot == "latenight"
+	{
+		"\0\s[0]It's getting late!\e"
+	}
+	if timeslot == "midnight"
+	{
+		"\0\s[0]It's very late!\e"
+	}
+}
+
+OnClose : pool
+{
+	CloseVars
+	
+	if x.up_mins >= 5 //If the ghost has been open longer than 5 minutes.
+	{
+		"\0\s[0]Cya!"
+		
+		if timeslot == "earlymorning"
+		{
+			"\0\s[0]It's very early!"
+		}
+		if timeslot == "morning"
+		{
+			"\0\s[0]It's early!"
+		}
+		if timeslot == "lunch"
+		{
+			"\0\s[0]It's lunchtime!"
+		}
+		if timeslot == "afternoon"
+		{
+			"\0\s[0]It's the afternoon!"
+		}
+		if timeslot == "evening"
+		{
+			"\0\s[0]It's the evening!"
+		}
+		if timeslot == "latenight"
+		{
+			"\0\s[0]It's getting late!"
+		}
+		if timeslot == "midnight"
+		{
+			"\0\s[0]It's very late!"
+		}
+	}
+	else //If the ghost has been open less than 5 minutes.
+	{
+		"\0\s[0]Done so soon?\w8\w8 Cya!"
+	}
+	--
+	"\w8\w8\-\e"
+}
+
+//When you minimize the ghost
+OnWindowStateMinimize
+{
+	"\0\s[0]Minimizing.\w8 You can bring me back by double clicking my icon in the task tray!\e"
+}
+
+OnWindowStateRestore //When you bring the ghost back up after minimizing it.
+{
+	"\0\s[0]I'm back!\e"
+}
+
+OnGhostChanging //Changing to another ghost.
+{
+	_path = REPLACE(SHIORI3FW.Path,"\","/")
+	_path = REPLACE(_path,"ghost/master/","")
+	
+	if reference3 == _path //If reloading.
+	{
+		"\0\s[0]Ok,\w4 I'll reload!"
+		--
+		"\w8\w8\e" //Gives the user a moment to read the dialogue before they disappear
+	}
+	else
+	{
+		CloseVars
+		
+		"\0\s[0]Ok,\w4 say hi to %(reference0) for me!"
+		--
+		"\w8\w8\e"
+	}
+}
+
+OnGhostChanged //After switching.
+{
+	_path = REPLACE(SHIORI3FW.Path,"\","/")
+	_path = REPLACE(_path,"ghost/master/","")
+	
+	"\1\s[-1]\0\s[0]"
+	--
+	if reference3 == _path //Finished reloading.
+	{
+		"I'm back!\e"
+	}
+	else
+	{
+		BootVars
+		_timesince = FUNCTIONEX("saori/time_check.dll","how_many_days",lastclosed[0],lastclosed[1],lastclosed[2],0,0,0)
+		_timesince *= -1
+		
+		if _timesince >= 90 //If it's been 3 months or more since you opened them, it'll do the 'wow it's been a long time' dialogue instead of switching dialogue. You can change this if you like!
+		{
+			TimeBoot(_timesince)
+		}
+		else //Switching to this ghost from another ghost
+		{
+			"Cya %(reference0)!\e"
+		}
+	}
+}
+
+OnShellChanging //Starting to change the shell
+{
+	if reference0 == nowshell
+	{
+		"\0\s[0]I'm already wearing that?\w8\w8 But ok I guess!"
+	}
+	elseif reference0 == "Default Shell"
+	{
+		"\0\s[0]Ok,\w4 I'll switch back to the default!"
+	}
+	--
+	"\w8\w8\e"
+}
+
+OnShellChanged //After the shell has changed
+{
+	_old = nowshell
+	nowshell = reference0 //Sets nowshell to the new value
+	
+	"\1\s[-1]" //This hides the kero, get rid of it if you want a kero
+	--
+	if reference0 == _old //If the user switches to the shell they're already using
+	{
+		"\0\s[0]Nothing has changed.\e"
+	}
+	elseif reference0 == "Default Shell"
+	{
+		"\0\s[0]Back to the default!\e"
+	}
+	else
+	{
+		"\0\s[0]Some other shell!\e"
+	}
+}
+
+//These are all the variables you want to set during a normal boot. So every time the ghost opens, we reset the timekeeping, whether the ghost has checked for updates, and if they've said anything yet.
+BootVars
+{
+	FixDefaultOptions //In case variables get erased, they should be fixed here
+	lastTalk = ""
+	AutoUpdates[1] = 0
+	x.boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
+}
+
+//These are variables to set when the ghost is closing or switching away, similar to the above.
+CloseVars
+{
+	lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)") //This tracks the last time the ghost was closed.
+	x.up_all = x.up_total //I rewrote the timekeeping system... I like the way it's set up in the base SHIORI files, except that it goes back to 0 every time the ghost reloads and that's annoying. So I recreated it lol
+}
+
+//These are new variables to initialize after an update. By checking if the variable doesn't exist before initializing it, we prevent variables already in use from being overwritten. This is VERY IMPORTANT, or you risk resetting the user's progress on your new variables every time they update.
+//ISVAR is a built in YAYA function that checks if a variable exists(is initialized) or not. It returns 0 if the variable doesn't exist, and 1 if it does.
+UpdateVars
+{
+	FixDefaultOptions //Putting this here too, since the variable issues I've had seemed to happen mostly when updates went wrong!
+	//if ISVAR("examplevariable") == 0; examplevariable = 0
+}
+
+//These are all the variables that need to be initialized when the user first installs the ghost.
+FirstBootVars
+{
+	lastTalk = ""
+	nowshell = "Default Shell" //Make sure to change this if you change your shell name
+	username = "User"
+	pronouns = "undef"
+	birthday[0] = "???"	 //The user's birthday, written out with words
+	birthday[1] = "???"	 //The user's birthday, written in DD/MM format
+	talkrate = "every 5 minutes"
+	aitalkinterval = 300
+	totalpunches = 0
+	nowscale = (100,100) //Current scale, as a percentage
+	//---Petting related variables---
+	stroke[0] = 0		 //The stroke value, which resets after each pet
+	stroke[1] = 0		 //The stroke value, but it doesn't reset after each pet
+	stroke[2] = 0		 //The current streak of successful pets
+	pethighscore[0] = 0	 //The petting high score, as the number of the stroke value
+	pethighscore[1] = 0	 //The petting high score, as the number of pets
+	totalpets = 0		 //The total times the ghost has been pet
+	offscreen = IARRAY
+	//---
+	deleteshitai = "Off"
+	AutoUpdates = ("On",0)
+	//nowmode = "Default" //Uncomment if you plan to add more modes
+	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)","%(ghostver)") //This tracks the exact day and time the ghost was installed, in case you want to mess around with that later. It also tracks what version the user installed, which may be helpful for debugging!
+	MiscFlags = IARRAY	 //For the flag system
+	
+	x.boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
+	x.up_all = 0 //How many minutes the ghost was up for in total, not including current session
+}
+
+//How many minutes the ghost was up in total, including current session
+x.up_total {x.up_all + x.up_mins}
+
+//How long the ghost has been up in the current session
+x.up_mins {(GETSECCOUNT / 60) - x.boot_min}
+

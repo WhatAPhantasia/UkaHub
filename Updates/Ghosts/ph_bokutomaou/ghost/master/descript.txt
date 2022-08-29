@@ -1,0 +1,18 @@
+charset,UTF-8
+
+name,Ari & Stan
+type,ghost
+
+sakura.name,Ari
+kero.name,Stanley Hihat Trinidad XIV
+
+craftman,WhatAPhantasia
+craftmanw,whataphantasia
+craftmanurl,https://whataphantasia.carrd.co
+
+sstp.allowunspecifiedsend,0
+shiori,yaya.dll
+
+//http://www.convertico.com/ is handy for making .icos
+icon,bokutomaou.ico
+balloon,X. Template Balloon

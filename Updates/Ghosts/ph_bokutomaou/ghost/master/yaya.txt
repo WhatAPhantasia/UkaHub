@@ -1,0 +1,24 @@
+charset, UTF-8
+charset.dic, UTF-8
+charset.output, UTF-8
+charset.file, UTF-8
+charset.save, UTF-8
+charset.extension, UTF-8
+
+include, system_config.txt
+dic, ari_aitalk.dic
+dic, ari_anchor.dic
+dic, ari_bootend.dic
+dic, ari_commu.dic
+dic, ari_etc.dic
+dic, ari_menu.dic
+dic, ari_mouse.dic
+dic, ari_user.dic
+dic, ari_string.dic
+dic, ari_word.dic
+dic, zzz_todo.dic
+
+
+//log, ayame.log
+msglang,english
+messagetxt,system/messagetxt/english.txt

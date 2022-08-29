@@ -141,7 +141,7 @@ RandomTalk : nonoverlap_pool
 	if month == 8
 	{
 		"\0\s[0]Geez, August already? Feels like it was just summer break...\e"
-		"\0\s[0]It's back to skool soon... Not sure if I'm looking forward to it or not.\e"
+		"\0\s[0]Skool's back up again for me. \w4Not looking forward to it in the slightest.\e" //TODO: dib complaining abt bullying, mrs bitters, skool stuff
 	}
 	if month == 9
 	{
@@ -149,7 +149,7 @@ RandomTalk : nonoverlap_pool
 	}
 	if month == 10
 	{
-		"\0\s[0]This is dialogue for October.\e"
+		"\0\s[0]It's kinda nice this time of year, with all the Halloween marketing going on in the City and all. \w8@Dad is also more lenient with my paranormal research! But...\w6\n\n(He doesn't finish the thought.)\e"
 	}
 	if month == 11
 	{
@@ -174,7 +174,7 @@ RandomTalk : nonoverlap_pool
 	}
 	if weekday == 5
 	{
-		"\0\s[0]This is dialogue for Friday.\e"
+		"\0\s[0]I'll probably be able to work on that\e"
 	}
 	if weekday == 6
 	{
@@ -321,22 +321,21 @@ if passmin >= 59
 }
 
 
-OnMinuteChange //This is what will trigger time-based dialogue for your Ghost.
+OnMinuteChange
  {
-	HourCheck //checks to see if an hour has passed, ignore it
+	HourCheck
 	--
- 	if minute == 0 //These ifs will check what time it is. Here, it's seeing if the minute equals zero...
+ 	if minute == 0
 	{
- 		if hour == 12 //And the hour equals 12, meaning it's noon. You can change this to some other hour if you want.
+ 		if hour == 12
 		{
  			"\0\s[0]It's noon.\e"
 			//Replace with appropriate dialogue as you want.
 		}
- 		elseif hour == 0 //If the hour is zero, aka midnight. Again, you can change this to whatever hour you want to check for. This section is flexible! You can also add more elseifs if you want to check for other hours.
+ 		elseif hour == 0
 		{
- 			"\0\s[0]It's midnight!\e"
- 			"\0\s[0]This is another bit of dialogue for midnight.\e"
- 			"\0\s[0]This is the third bit of dialogue for midnight.\e"
+ 			"\0\s[0]It's midnight! \w3Did you turn in what you had due?\e" //This dialogue is for me, TODO: replace later
+ 			"\0\s[0]Ah... Midnight. \w3Planning on sleeping soon, %(username)?\e"
 		}
 		else
 		{
