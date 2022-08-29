@@ -129,9 +129,8 @@ pronoundone
 {
 	if firstboot == 1
 	{
-		soulcustody = 0
+		firstboot = 0
 		--
-		//^ might be redundant but oh well
 		"\![leave,passivemode]"
 		--
 		if soulcustody == 0 && foundinnocent != 2
