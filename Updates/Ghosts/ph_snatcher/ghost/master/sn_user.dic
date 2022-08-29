@@ -32,7 +32,7 @@ OnNameTeach
 	elseif _name == "vanessa"
 	{
 		username = SHIORI3FW.EscapeAllTags(_tempname)
-		"\0\s[0]...Ah. w6What a lovely name. \w6\x\c%(namedone)"
+		"\0\s[0]...Ah. w6What a lovely name. \w6\x%(namedone)"
 	}
 	elseif _name == "queenvanessa" || _name == "moonjumper" || _name == "hatkid" || _name == "bowkid" || _name == "mustachegirl" || _name == "conductor" || _name == "theconductor" || _name == "djgrooves" || _name == "restingking" || _name == "mafiaboss"
 	{
@@ -40,20 +40,21 @@ OnNameTeach
 		//TODO: check surface where it cancels snatcher's talking anim
 		//TODO: make unique dialogues for some of these
 	}
-	elseif _name == "timmy" || _name == "minion" || _name == "kid"
+	elseif _name == "timmy" || _name == "minion" || _name == "kid" || _name == "darling" || _name == "love"
 	{
-		"\0\s[0]Pfft- Hahaha, okay, sure. \w6\x\c%(namedone)"
+		username = SHIORI3FW.EscapeAllTags(_tempname)
+		"\0\s[0]Pfft- Hahaha, okay, sure. \w6\x%(namedone)"
 	}
 	elseif _name == "eshal" || _name == "phantasia" || _name == "whataphantasia"
 	{
 		username = SHIORI3FW.EscapeAllTags(_tempname)
-		"\0\s[0]Hahahaha! Looking for secrets, are we? \w6\x\c%(namedone)"
+		"\0\s[0]Hahahaha! Looking for secrets, are we? \w6\x%(namedone)"
 	}
 	elseif reference0 == "" 
 	{
 		username = "kid"
 		
-		"\0\s[0]Huh? What's that? At a loss for words? \w6\x\c%(namedone)"
+		"\0\s[0]Huh? What's that? At a loss for words? \w6\x%(namedone)"
 	}
 	else
 	{
@@ -128,6 +129,9 @@ pronoundone
 {
 	if firstboot == 1
 	{
+		soulcustody = 0
+		--
+		//^ might be redundant but oh well
 		"\![leave,passivemode]"
 		--
 		if soulcustody == 0 && foundinnocent != 2
@@ -135,14 +139,11 @@ pronoundone
 			"\0\s[0]AHAHAHHA! That seals the deal! Alright, how do I get your soul from here... \w6\x"
 			--
 			soulcustody = 1
-			firstboot = 0
 			--
-			"\i[1]\b[4]You feel exceedingly empty inside. \w6\x\c\s[0]Another braindead servant to add to the pile! \w5And, \w2actually, \w2your place here is pretty neat... \w6\x\cIt doesn't look like I can get out of here by myself, but that just means more quality time with the guy you decided to steal from, huh? \w6I'll be looking for the stuff you stole. \w6\x\c\i[1]\b[4]You... \w6You really didn't do any of that. \w6Maybe you can \f[bold,1]ask\f[bold,0] him about the details on the whole stealing disaster. \w6\x\c\i[1]\b[4]Or \w3you can just let him hang around. \w5He sounds fun.\w8\w2\x\e"
+			"\i[1]\b[4]You feel exceedingly empty inside. \w6\x\s[0]Another braindead servant to add to the pile! \w5And, \w2actually, \w2your place here is pretty neat... \w6\xIt doesn't look like I can get out of here by myself, but that just means more quality time with the guy you decided to steal from, huh? \w6I'll be looking for the stuff you stole. \w6\x\i[1]\b[4]You... \w6You really didn't do any of that. \w6Maybe you can \f[bold,1]ask\f[bold,0] him about the details on the whole stealing disaster. \w6\x\i[1]\b[4]Or \w3you can just let him hang around. \w5He sounds fun.\w8\w2\x\e"
 		}
 		elseif soulcustody == 0 //&& foundinnocent == 2 (omitted bc its redundant but maybe i'll need this who knows)
 		{
-			firstboot = 0
-			--
 			"\0\s[0]Wonderful to see you again, %(username). \w6And, \w4hey, \w6if you ever want to give me your soul again, I really wouldn't mind... \x\e"
 		}
 		else

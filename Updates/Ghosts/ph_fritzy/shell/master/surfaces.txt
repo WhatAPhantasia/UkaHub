@@ -1,0 +1,93 @@
+//---------------------------Surfaces.txt--------------------------
+//http://www.ashido.com/ukagaka/
+
+//FRITZY MASTER SHELL
+
+//--------PLANNING----------
+//Fritzy 0-1000 (excluding 10)
+//---
+//deriv of neutral 50-99
+//neutral 100
+//	antenna 101-109
+//	
+//happy 200
+//--------------------------
+
+//IMPORTANT NOTE ABOUT SERIKO! You CANNOT have mid-line comments! Put ALL COMMENTS ON THEIR OWN LINES.
+//As a note, you can put your images in subfolders! I'd be careful doing it, but it could be very helpful! It would look something like this
+//element0,overlay,yourfolder/surface0.png,0,0
+//Any images in subfolders HAVE to be defined in a surface before you can use them in animations, though.
+
+version,1
+
+
+//--------------------FRITZY
+
+surface0
+{
+	element0,overlay,surface0.png,0,0
+	
+	//Collisions
+	collision0,50,8,95,27,Head
+	collision1,47,4,102,60,Face
+}
+
+//------NEUTRAL
+surface11
+{
+	element0,overlay,surface1.png,0,0
+	//Base
+	element0,overlay,surface100.png,0,0
+	//TODO: Fritzy collisions
+	
+	//Antenna
+	animation10.interval,random,4
+	animation10.pattern0,overlay,101,500,0,0
+	animation10.pattern1,overlay,-1,0,0,0
+	animation10.pattern2,overlay,102,100,0,0
+	animation10.pattern3,overlay,-1,0,0,0
+	animation10.pattern4,overlay,103,200,0,0
+	animation10.pattern5,overlay,-1,0,0,0
+	animation10.pattern6,overlay,101,30,0,0
+	//Talk
+	animation11.interval,talk,4
+	animation11.pattern0,overlay,110,20,0,0
+	animation11.pattern1,overlay,-1,100,0,0
+	//Blink
+	animation12.interval,random,4
+	animation12.pattern0,overlay,-1,100,0,0
+	animation12.pattern1,overlay,115,50,0,0
+	animation12.pattern2,overlay,116,100,0,0
+	animation12.pattern3,overlay,-1,30,0,0
+	
+	//Left Arm Up
+	animation1.interval,never
+	animation1.pattern0,stop,0,0,0
+	//TODO: study how stop works in new def. too tired to do this rn
+}
+
+//------HAPPY
+surface12
+{
+	//Base
+	element0,overlay,surface200.png,0,0
+}
+
+//surface.append0-99
+//{
+	//Anything you want to be applied to multiple surfaces (like collisions, blink frames, etc) goes in a range like this. You can exclude a surface from the range by adding something like ,!95 to the end, which would exclude surface95. You can include multiple ranges by separating them with commas.
+	//This is just here for my own reference, I always forget the syntax for append
+//}
+
+//Also here for reference. If you want your blink/talk frames in subfolders, you must define them first. This is where you can put the subfolder. You should be able to hide them from surface test again by putting that option into your surfacetable.
+//surface100
+//{
+	//element0,overlay,ExampleFolder/surface100.png,0,0
+//}
+
+//Kero surfaces - If you want a kero, uncomment the line below and create an image for surface10
+
+surface10
+{
+	//element0,overlay,surface10.png,0,0
+}

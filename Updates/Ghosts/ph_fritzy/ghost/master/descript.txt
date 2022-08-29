@@ -1,0 +1,18 @@
+charset,UTF-8
+
+name,Fritzy
+type,ghost
+
+sakura.name,Puella_01
+kero.name,
+
+craftman,WhatAPhantasia
+craftmanw,whataphantasia
+craftmanurl,https://whataphantasia.carrd.co
+
+sstp.allowunspecifiedsend,0
+shiori,yaya.dll
+
+//http://www.convertico.com/ is handy for making .icos
+icon,puella_01.ico
+balloon,X. Template Balloon

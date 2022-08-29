@@ -1,0 +1,230 @@
+//Network Update URL. I recommend using Github Pages to set up a site and store their files! It's free and reliable. I've written up a guide on how to do this here https://zichqec.github.io/s-the-skeleton/github.html
+On_homeurl
+{
+	"https://YourGhostDirectoryHere.com/YourGhost/"
+}
+
+On_recommendrootbutton.caption //Change [Your Username] to your username, or change the whole caption to whatever you want. This is the top list of websites in the right click menu.
+{
+	"More from [Your Username]"
+}
+
+On_sakura.recommendsites
+{
+	FormatLinks(recommendsites_sakura)
+}
+
+//These are the websites linked in the top option of the right click menu. Add your websites here! Follow the format carefully here, on the left is the name you want to display, on the right is the url you want it to link to. You could make this a single list as well, as long as it alternates between name, url, name, url...
+recommendsites_sakura : array
+{
+	"Your Ghost Website";			"https://yourwebsite.githubb.io/yoursite/index.html"
+	"Your Social";					"https://www.socialmediaexample.com/you"
+	"Your Character's Toyhouse";	"https://toyhou.se/yourcharacter"
+}
+ 
+On_portalrootbutton.caption //Caption for the second list of websites
+{
+	"Reference Sites"
+}
+
+//You can make these anything you like. I've set them to link to my template, Zarla's template, and anything else helpful for making ghosts.
+On_sakura.portalsites 
+{
+	FormatLinks(portalsites_sakura)
+}
+
+//Same deal as above with the formatting.
+portalsites_sakura : array
+{
+	//I'd appreciate it if you left the X. Template link in your ghost so that other people can find the source <3
+	"Built on X. Template YAYA - v1.1.3";	"https://zichqec.github.io/s-the-skeleton/xtemplate.html"
+	"Zarla's Ghost Template Walkthrough";	"http://www.ashido.com/ukagaka/walkthrough.html"
+	"How to set up updates with Github";	"https://zichqec.github.io/s-the-skeleton/github.html"
+	"Ukagaka Dream Team Discord";			"https://ukagakadreamteam.tumblr.com/discord"
+	"SSP (J)"; 								"http://ssp.shillest.net/"
+	"Ukadoc (J)"; 							"http://ssp.shillest.net/ukadoc/manual/list_shiori_event.html"
+	"YAYA Wiki (J)"; 						"http://emily.shillest.net/ayaya/index.php?"
+	"Crow + SSP Reference (J)"; 			"http://crow.aqrs.jp/reference/all/index.html"
+	"Ghost Documentation (J)"; 				"http://usada.sakura.vg/contents/specification.html"
+}
+ 
+On_kero.recommendbuttoncaption //Caption for the Kero's website list
+{
+	"More websites"
+}
+
+On_kero.recommendsites
+{
+	FormatLinks(recommendsites_kero)
+}
+
+recommendsites_kero : array //Put any websites you want here, I just included some stuff that was helpful to me when making my website.
+{
+	"Github Pages"; "https://pages.github.com/"
+	"w3 schools"; 	"https://www.w3schools.com/"
+}
+
+//This is the function that formats the links above! This is based on a function in Konno Yayame that serves a similar purpose. You can see that one here: http://emily.shillest.net/ayaya/index.php?Tips/%E3%81%8A%E6%B0%97%E3%81%AB%E5%85%A5%E3%82%8A%E3%82%92%E6%9B%B8%E3%81%8D%E3%82%84%E3%81%99%E3%81%8F%E3%81%99%E3%82%8B
+//Takes an array of alternating names and urls, and formats them for use with the right click menu
+FormatLinks
+{
+	_display = ""
+	for _i = 0; _i < ARRAYSIZE(_argv); _i++
+	{
+		_display += _argv[_i] //Add the link/title
+		//Alternate between adding %ASC(1) or %ASC(2)
+		if _i % 2 == 1; _display += "%ASC(2)"
+		else; _display += "%ASC(1)"
+	}
+	_display
+}
+
+On_updatebutton.caption //Caption for the update button
+{
+	"Check for updates"
+}
+
+On_headlinesenserootbutton.caption //Caption for the RSS/Headlines button
+{
+	"Headlines and RSS"
+}
+
+On_readmebutton.caption //Caption for the Readme button
+{
+	"Readme"
+}
+
+On_vanishbutton.caption //Caption for the uninstall button
+{
+	"Uninstall"
+}
+
+On_shellrootbutton.caption //Caption for the change shell button
+{
+	"Change Shell"
+}
+
+On_ghostrootbutton.caption //Caption for the change ghost button
+{
+	"Change Ghost"
+}
+
+On_callghostrootbutton.caption //Caption for the call ghost button
+{
+	"Call Ghost"
+}
+
+On_hidebutton.caption //Caption for the minimize/iconify button
+{
+	"Minimize"
+}
+
+On_quitbutton.caption //Caption for the quit button
+{
+	"Quit"
+}
+
+
+
+
+//-----Don't touch these-----
+//This stuff is, I believe, written by Umeici.
+//What you need to know is this: ghostexlist is a list of the names of ghosts that are currently open, going by the name of the sakura. ghostexcount is the number of opened ghosts. balloonlist and ballooncount are the same thing but with balloons. I might've added that one but I'm not sure? I can't remember anymore
+
+//---- 消滅指示ボタン表示切り替え -------------------------------------------------------
+On_vanishbutton.visible
+ {
+ 	if deleteshitai == "On"
+ 	{
+		"1"
+	}
+	else
+	{
+		"0"
+	}
+}
+
+//---- 起動中の他のゴースト名取得 -------------------------------------------------------
+On_otherghostname
+{
+	// ghostexlist = ""
+	// _i = 0
+	// while _i >= 0
+	// {
+		// _ghostname = NAMETOVALUE("reference%_i")
+		// if _ghostname != ""
+		// {
+			// if _i > 0; ghostexlist += ","
+			// ghostexlist += _ghostname[0]
+			// _i++
+		// }
+		// else; _i = -1
+	// }
+	//Rewrote this... because I wanted to split it up by C_BYTE1 and I figured this is probably more efficient
+	ghostexlist = ""
+	foreach reference; _ghost
+	{
+		if ghostexlist != ""; ghostexlist += C_BYTE1
+		ghostexlist += _ghost[0]
+	}
+	ghostexcount = ARRAYSIZE(SPLIT(ghostexlist,C_BYTE1))
+}
+
+On_installedballoonname
+{
+	balloonlist = ""
+	_i = 0
+	while _i >= 0
+	{
+		_ghostname = NAMETOVALUE("reference%_i")
+		if _ghostname != ""
+		{
+			if _i > 0; balloonlist += ","
+			balloonlist += _ghostname[0]
+			_i++
+		}
+		else; _i = -1
+	}
+	ballooncount = ARRAYSIZE(balloonlist)
+}
+
+//---- SHIORI 関連情報 ------------------------------------------------------------------
+On_version
+{
+	GETSETTING(AYAINFO_VERSION)
+}
+
+On_craftman
+{
+	"umeici"
+}
+
+On_craftmanw
+{
+	"梅市"
+}
+
+On_name
+{
+	"AYA"
+}
+
+//---- Owned SSTP 用 uniqueid 取得 ------------------------------------------------------
+On_uniqueid
+{
+	uniqueid = reference0
+}
+
+//---- hwnd 取得 ------------------------------------------------------------------------
+On_hwnd
+{
+	sakurahwnd    = reference0[0]
+	kerohwnd      = reference0[1]
+	sakurablnhwnd = reference1[0]
+	keroblnhwnd   = reference1[1]
+}
+
+On_username
+{
+	username
+}
