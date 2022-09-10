@@ -87,17 +87,17 @@ surface0
 element0,overlay,surface1.png,0,0
 
 //close
-60interval,always
+60interval,runonce
 60pattern0,150,0,overlay,0,0
 //talk
 61interval,talk,4
 61pattern0,0,0,alternativestart,[62.63]
 62interval,never
-62pattern0,151,10,overlay,0,0
-62pattern1,-1,10,overlay,0,0
+62pattern0,151,12,overlay,0,0
+62pattern1,-1,12,overlay,0,0
 63interval,never
-63pattern0,151,8,overlay,0,0
-63pattern1,-1,6,overlay,0,0
+63pattern0,151,10,overlay,0,0
+63pattern1,-1,10,overlay,0,0
 //open
 64interval,never
 64pattern0,151,0,overlay,0,0
@@ -111,17 +111,17 @@ surface2
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,152,0,overlay,0,0
 //talk
 61interval,talk,4
 61pattern0,0,0,alternativestart,[62.63]
 62interval,never
-62pattern0,153,10,overlay,0,0
-62pattern1,-1,10,overlay,0,0
+62pattern0,153,12,overlay,0,0
+62pattern1,-1,12,overlay,0,0
 63interval,never
-63pattern0,153,8,overlay,0,0
-63pattern1,-1,6,overlay,0,0
+63pattern0,153,10,overlay,0,0
+63pattern1,-1,10,overlay,0,0
 //open
 64interval,never
 64pattern0,153,0,overlay,0,0
@@ -135,17 +135,17 @@ surface3
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,154,0,overlay,0,0
 //talk
 61interval,talk,4
 61pattern0,0,0,alternativestart,[62.63]
 62interval,never
-62pattern0,155,10,overlay,0,0
-62pattern1,-1,10,overlay,0,0
+62pattern0,155,12,overlay,0,0
+62pattern1,-1,12,overlay,0,0
 63interval,never
-63pattern0,155,8,overlay,0,0
-63pattern1,-1,6,overlay,0,0
+63pattern0,155,10,overlay,0,0
+63pattern1,-1,10,overlay,0,0
 //open
 64interval,never
 64pattern0,155,0,overlay,0,0
@@ -159,17 +159,17 @@ surface4
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,156,0,overlay,0,0
 //talk
 61interval,talk,4
 61pattern0,0,0,alternativestart,[62.63]
 62interval,never
-62pattern0,151,10,overlay,0,0
-62pattern1,-1,10,overlay,0,0
+62pattern0,151,12,overlay,0,0
+62pattern1,-1,12,overlay,0,0
 63interval,never
-63pattern0,151,8,overlay,0,0
-63pattern1,-1,6,overlay,0,0
+63pattern0,151,10,overlay,0,0
+63pattern1,-1,10,overlay,0,0
 //close 2
 65interval,never
 65pattern0,156,0,overlay,0,0
@@ -183,13 +183,12 @@ collision0,113,108,201,136,Head
 collision1,112,137,182,200,Face
 
 //--Head Base
-55interval,always
+55interval,runonce
 55pattern0,100,0,overlay,0,0
-55pattern1,100,1,overlay,0,0
 
 //--Eeeyyyeees
 //eyewhite
-15interval,always
+15interval,runonce
 15pattern0,110,0,overlay,0,0
 //right
 20interval,never
@@ -208,7 +207,7 @@ collision1,112,137,182,200,Face
 23pattern0,0,0,parallelstop,[24.71]
 23pattern1,115,0,overlayfast,121,168
 //middle
-24interval,parallelstop,[24.71]
+24interval,runonce
 24pattern0,115,0,overlayfast,121,158
 //upright
 25interval,never
@@ -276,9 +275,8 @@ collision1,112,137,182,200,Face
 40pattern1,117,0,overlay,124,168
 
 //Eyeline
-59interval,always
-59pattern,139,0,overlay,0
-59pattern1,139,1,overlay,0
+59interval,runonce
+59pattern0,139,0,overlay,0
 
 //--BlinkBlink
 71interval,random,4
@@ -305,9 +303,8 @@ collision1,112,137,182,200,Face
 
 //--Eyebrows, yasss
 //neutral
-75interval,always
+75interval,runonce
 75pattern0,170,0,overlay,0
-75pattern0,170,1,overlay,0
 //question
 76interval,never
 76pattern0,0,0,stop,75
@@ -343,17 +340,17 @@ surface11
 element0,overlay,surface1.png,0,0
 
 //close
-60interval,always
+60interval,runonce
 60pattern0,150,0,overlay,0,0
 //talk
 61interval,talk,4
 61pattern0,0,0,alternativestart,[62.63]
 62interval,never
-62pattern0,151,10,overlay,0,0
-62pattern1,-1,10,overlay,0,0
+62pattern0,151,12,overlay,0,0
+62pattern1,-1,12,overlay,0,0
 63interval,never
-63pattern0,151,8,overlay,0,0
-63pattern1,-1,6,overlay,0,0
+63pattern0,151,10,overlay,0,0
+63pattern1,-1,10,overlay,0,0
 //open
 64interval,never
 64pattern0,151,0,overlay,0,0
@@ -367,17 +364,17 @@ surface12
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,152,0,overlay,0,0
 //talk
 61interval,talk,4
 61pattern0,0,0,alternativestart,[62.63]
 62interval,never
-62pattern0,153,10,overlay,0,0
-62pattern1,-1,10,overlay,0,0
+62pattern0,153,12,overlay,0,0
+62pattern1,-1,12,overlay,0,0
 63interval,never
-63pattern0,153,8,overlay,0,0
-63pattern1,-1,6,overlay,0,0
+63pattern0,153,10,overlay,0,0
+63pattern1,-1,10,overlay,0,0
 //open
 64interval,never
 64pattern0,153,0,overlay,0,0
@@ -391,17 +388,17 @@ surface13
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,154,0,overlay,0,0
 //talk
 61interval,talk,4
 61pattern0,0,0,alternativestart,[62.63]
 62interval,never
-62pattern0,155,10,overlay,0,0
-62pattern1,-1,10,overlay,0,0
+62pattern0,155,12,overlay,0,0
+62pattern1,-1,12,overlay,0,0
 63interval,never
-63pattern0,155,8,overlay,0,0
-63pattern1,-1,6,overlay,0,0
+63pattern0,155,10,overlay,0,0
+63pattern1,-1,10,overlay,0,0
 //open
 64interval,never
 64pattern0,155,0,overlay,0,0
@@ -415,17 +412,17 @@ surface14
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,156,0,overlay,0,0
 //talk
 61interval,talk,4
 61pattern0,0,0,alternativestart,[62.63]
 62interval,never
-62pattern0,151,10,overlay,0,0
-62pattern1,-1,10,overlay,0,0
+62pattern0,151,12,overlay,0,0
+62pattern1,-1,12,overlay,0,0
 63interval,never
-63pattern0,151,8,overlay,0,0
-63pattern1,-1,6,overlay,0,0
+63pattern0,151,10,overlay,0,0
+63pattern1,-1,10,overlay,0,0
 //close 2
 65interval,never
 65pattern0,156,0,overlay,0,0
@@ -437,18 +434,16 @@ element0,overlay,surface1.png,0,0
 surface18
 {
 //--Back Arm
-1interval,always
+1interval,runonce
 1pattern0,600,0,overlay,0,0
-1pattern1,600,1,overlay,0,0
 
 //--Body
 //yass
-10interval,always
+10interval,runonce
 10pattern0,50,0,overlay,0,0
-10pattern1,50,1,overlay,0,0
 
 //--Mouth moods...
-60interval,always
+60interval,runonce
 60pattern0,150,0,overlay,0,0
 
 61interval,rarely
@@ -473,30 +468,28 @@ surface18
 surface19
 {
 //--Back Arm
-1interval,always
+1interval,runonce
 1pattern0,600,0,overlay,0,0
-1pattern1,600,1,overlay,0,0
 
 //--Body
 //yass
-10interval,always
+10interval,runonce
 10pattern0,50,0,overlay,0,0
-10pattern1,50,1,overlay,0,0
 
 
 //--Mouth moods...
-60interval,always
+60interval,runonce
 60pattern0,150,0,overlay,0,0
 
 //talking and stuff
 61interval,talk,4
 61pattern0,0,0,alternativestart,[62.63]
 62interval,never
-62pattern0,151,10,overlay,0,0
-62pattern1,-1,10,overlay,0,0
+62pattern0,151,12,overlay,0,0
+62pattern1,-1,12,overlay,0,0
 63interval,never
-63pattern0,151,8,overlay,0,0
-63pattern1,-1,6,overlay,0,0
+63pattern0,151,10,overlay,0,0
+63pattern1,-1,10,overlay,0,0
 //open
 64interval,never
 64pattern0,151,0,overlay,0,0
@@ -527,17 +520,17 @@ surface21
 element0,overlay,surface1.png,0,0
 
 //close
-60interval,always
+60interval,runonce
 60pattern0,150,0,overlay,0,0
 //talk
 61interval,talk,4
 61pattern0,0,0,alternativestart,[62.63]
 62interval,never
-62pattern0,151,10,overlay,0,0
-62pattern1,-1,10,overlay,0,0
+62pattern0,151,12,overlay,0,0
+62pattern1,-1,12,overlay,0,0
 63interval,never
-63pattern0,151,8,overlay,0,0
-63pattern1,-1,6,overlay,0,0
+63pattern0,151,10,overlay,0,0
+63pattern1,-1,10,overlay,0,0
 //open
 64interval,never
 64pattern0,151,0,overlay,0,0
@@ -551,17 +544,17 @@ surface22
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,152,0,overlay,0,0
 //talk
 61interval,talk,4
 61pattern0,0,0,alternativestart,[62.63]
 62interval,never
-62pattern0,153,10,overlay,0,0
-62pattern1,-1,10,overlay,0,0
+62pattern0,153,12,overlay,0,0
+62pattern1,-1,12,overlay,0,0
 63interval,never
-63pattern0,153,8,overlay,0,0
-63pattern1,-1,6,overlay,0,0
+63pattern0,153,10,overlay,0,0
+63pattern1,-1,10,overlay,0,0
 //open
 64interval,never
 64pattern0,153,0,overlay,0,0
@@ -575,17 +568,17 @@ surface23
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,154,0,overlay,0,0
 //talk
 61interval,talk,4
 61pattern0,0,0,alternativestart,[62.63]
 62interval,never
-62pattern0,155,10,overlay,0,0
-62pattern1,-1,10,overlay,0,0
+62pattern0,155,12,overlay,0,0
+62pattern1,-1,12,overlay,0,0
 63interval,never
-63pattern0,155,8,overlay,0,0
-63pattern1,-1,6,overlay,0,0
+63pattern0,155,10,overlay,0,0
+63pattern1,-1,10,overlay,0,0
 //open
 64interval,never
 64pattern0,155,0,overlay,0,0
@@ -599,17 +592,17 @@ surface24
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,156,0,overlay,0,0
 //talk
 61interval,talk,4
 61pattern0,0,0,alternativestart,[62.63]
 62interval,never
-62pattern0,151,10,overlay,0,0
-62pattern1,-1,10,overlay,0,0
+62pattern0,151,12,overlay,0,0
+62pattern1,-1,12,overlay,0,0
 63interval,never
-63pattern0,151,8,overlay,0,0
-63pattern1,-1,6,overlay,0,0
+63pattern0,151,10,overlay,0,0
+63pattern1,-1,10,overlay,0,0
 //close 2
 65interval,never
 65pattern0,156,0,overlay,0,0
@@ -626,13 +619,12 @@ collision0,113,108,201,136,Head
 collision1,112,137,182,200,Face
 
 //--Head Base
-55interval,always
+55interval,runonce
 55pattern0,100,0,overlay,0,0
-55pattern1,100,1,overlay,0,0
 
 //--Eeeyyyeees
 //eyewhite
-15interval,always
+15interval,runonce
 15pattern0,110,0,overlay,0,0
 //right
 20interval,never
@@ -651,7 +643,7 @@ collision1,112,137,182,200,Face
 23pattern0,0,0,parallelstop,[24.71]
 23pattern1,115,0,overlayfast,121,168
 //middle
-24interval,parallelstop,[24.71]
+24interval,runonce
 24pattern0,115,0,overlayfast,121,158
 //upright
 25interval,never
@@ -719,9 +711,8 @@ collision1,112,137,182,200,Face
 40pattern1,117,0,overlay,124,168
 
 //Eyeline
-59interval,always
-59pattern,139,0,overlay,0
-59pattern1,139,1,overlay,0
+59interval,runonce
+59pattern0,139,0,overlay,0
 
 //--BlinkBlink
 71interval,random,4
@@ -748,9 +739,8 @@ collision1,112,137,182,200,Face
 
 //--Eyebrows, yasss
 //neutral
-75interval,always
+75interval,runonce
 75pattern0,170,0,overlay,0
-75pattern0,170,1,overlay,0
 //question
 76interval,never
 76pattern0,0,0,stop,75
@@ -785,9 +775,8 @@ surface.append0-50,!1,!10,!18,!19
 {
 //--Back Arm
 //Relax
-1interval,always
+1interval,runonce
 1pattern0,600,0,overlay,0,0
-1pattern1,600,1,overlay,0,0
 //PointDown
 2interval,never
 2pattern0,0,0,stop,1
@@ -803,15 +792,13 @@ surface.append0-50,!1,!10,!18,!19
 
 //--Body
 //yass
-10interval,always
+10interval,runonce
 10pattern0,50,0,overlay,0,0
-10pattern1,50,1,overlay,0,0
 
 //--Front arms hell yeah
 //relax
-90interval,always
+90interval,runonce
 90pattern0,650,0,overlay,0
-90pattern0,650,1,overlay,0
 //hip
 91interval,never
 91pattern0,0,0,stop,90
@@ -844,6 +831,18 @@ surface.append0-50,!1,!10,!18,!19
 98interval,never
 98pattern0,0,0,stop,90
 98pattern1,658,0,overlay,0
+//phone time3
+99interval,never
+99pattern0,0,0,stop,90
+99pattern1,659,0,overlay,0
+//phone time4
+100interval,never
+100pattern0,0,0,stop,90
+100pattern1,660,0,overlay,0
+//hmf (hand in front of face, mostly)
+101interval,never
+101pattern0,0,0,stop,90
+101pattern1,661,0,overlay,0
 }
 
 
@@ -871,27 +870,27 @@ element0,overlay,surface10.png,0,0
 //idle
 surface2000
 {
-element0,over,surface2000.png,0,0
+element0,overlay,surface2000.png,0,0
 }
 //embarassed
 surface2001
 {
-element0,over,surface2001.png,0,0
+element0,overlay,surface2001.png,0,0
 }
 //surprised
 surface2002
 {
-element0,over,surface2002.png,0,0
+element0,overlay,surface2002.png,0,0
 }
 //worried
 surface2003
 {
-element0,over,surface2003.png,0,0
+element0,overlay,surface2003.png,0,0
 }
 //bored
 surface2006
 {
-element0,over,surface2006.png,0,0
+element0,overlay,surface2006.png,0,0
 }
 
 

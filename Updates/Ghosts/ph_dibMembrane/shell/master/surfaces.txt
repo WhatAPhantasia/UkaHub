@@ -92,7 +92,7 @@ element0,overlay,surface1.png,0,0
 //IDK how levidre's zim ghost works?? LIKE. HOW DID YOU GIVE HIM TALKING FRAMES WITH INTERVAL STACKING AND SHIT?? it seems to do something with appending surfaces but my brain is too smooth to figure that out right now. ill just do the different surface idea for now
 
 //close
-60interval,always
+60interval,runonce
 60pattern0,150,0,overlay,0,0
 //talk
 61interval,talk,4
@@ -116,7 +116,7 @@ surface2
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,152,0,overlay,0,0
 //talk
 61interval,talk,4
@@ -140,7 +140,7 @@ surface3
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,154,0,overlay,0,0
 //talk
 61interval,talk,4
@@ -164,7 +164,7 @@ surface4
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,156,0,overlay,0,0
 //talk
 61interval,talk,4
@@ -188,13 +188,13 @@ collision0,110,68,230,103,Head
 collision1,128,104,193,182,Face
 
 //--Head Base
-55interval,always
+55interval,runonce
 55pattern0,100,0,overlay,0,0
 55pattern1,100,1,overlay,0,0
 
 //--Eeeyyyeees
 //eyewhite
-15interval,always
+15interval,runonce
 15pattern0,110,0,overlay,0,0
 //right
 20interval,never
@@ -213,7 +213,7 @@ collision1,128,104,193,182,Face
 23pattern0,0,0,stop,24
 23pattern1,115,0,overlay,138,126
 //middle
-24interval,always
+24interval,runonce
 24pattern0,115,0,overlay,138,124
 //upright
 25interval,never
@@ -299,10 +299,9 @@ collision1,128,104,193,182,Face
 73pattern0,144,0,overlay,0
 
 //--Eyebrows, yasss
-//neutral
-75interval,always
+//neutral------------------------HEY HEY HEY LOOK AT THIS PLEASE
+75interval,runonce
 75pattern0,170,0,overlay,0
-75pattern0,170,1,overlay,0
 //question
 76interval,never
 76pattern0,0,0,stop,75
@@ -335,7 +334,7 @@ surface11
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,250,0,overlay,0,0
 //talk
 61interval,talk,4
@@ -359,7 +358,7 @@ surface12
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,252,0,overlay,0,0
 //talk
 61interval,talk,4
@@ -383,7 +382,7 @@ surface13
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,254,0,overlay,0,0
 //talk
 61interval,talk,4
@@ -407,7 +406,7 @@ surface14
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,256,0,overlay,0,0
 //talk
 61interval,talk,4
@@ -429,18 +428,16 @@ element0,overlay,surface1.png,0,0
 surface18
 {
 //--Back Arm
-1interval,always
+1interval,runonce
 1pattern0,600,0,overlay,0,0
-1pattern1,600,1,overlay,0,0
 
 //--Body
 //yass
-10interval,always
+10interval,runonce
 10pattern0,50,0,overlay,0,0
-10pattern1,50,1,overlay,0,0
 
 //--Mouth moods...
-60interval,always
+60interval,runonce
 60pattern0,250,0,overlay,0,0
 
 61interval,rarely
@@ -466,19 +463,17 @@ surface18
 surface19
 {
 //--Back Arm
-1interval,always
+1interval,runonce
 1pattern0,600,0,overlay,0,0
-1pattern1,600,1,overlay,0,0
 
 //--Body
 //yass
-10interval,always
+10interval,runonce
 10pattern0,50,0,overlay,0,0
-10pattern1,50,1,overlay,0,0
 
 
 //--Mouth moods...
-60interval,always
+60interval,runonce
 60pattern0,250,0,overlay,0,0
 
 //talking and stuff
@@ -519,13 +514,12 @@ collision0,122,58,238,93,Head
 collision1,140,94,216,178,Face
 
 //--Head Base
-55interval,always
+55interval,runonce
 55pattern0,200,0,overlay,0,0
-55pattern1,200,1,overlay,0,0
 
 //--Eeeyyyeees
 //eyewhite
-15interval,always
+15interval,runonce
 15pattern0,210,0,overlay,0,0
 //right
 20interval,never
@@ -544,7 +538,7 @@ collision1,140,94,216,178,Face
 23pattern0,0,0,stop,24
 23pattern1,215,0,overlay,152,121
 //middle
-24interval,always
+24interval,runonce
 24pattern0,215,0,overlay,152,118
 //upright
 25interval,never
@@ -630,9 +624,8 @@ collision1,140,94,216,178,Face
 
 //--Eyebrows, yasss
 //neutral
-75interval,always
+75interval,runonce
 75pattern0,270,0,overlay,0
-75pattern0,270,1,overlay,0
 //question
 76interval,never
 76pattern0,0,0,stop,75
@@ -665,7 +658,7 @@ surface21
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,350,0,overlay,0,0
 //talk
 61interval,talk,4
@@ -689,7 +682,7 @@ surface22
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,352,0,overlay,0,0
 //talk
 61interval,talk,4
@@ -713,9 +706,8 @@ surface23
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,354,0,overlay,0,0
-60pattern1,354,1,overlay,0,0
 //talk
 61interval,talk,4
 61pattern0,0,0,alternativestart,[62.63]
@@ -738,7 +730,7 @@ surface24
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,always
+60interval,runonce
 60pattern0,356,0,overlay,0,0
 //talk
 61interval,talk,4
@@ -762,13 +754,12 @@ collision0,115,75,230,105,Head
 collision1,123,106,188,185,Face
 
 //--Head Base
-55interval,always
+55interval,runonce
 55pattern0,300,0,overlay,0,0
-55pattern1,300,1,overlay,0,0
 
 //--Eeeyyyeees
 //eyewhite
-15interval,always
+15interval,runonce
 15pattern0,310,0,overlay,0,0
 //right
 20interval,never
@@ -787,7 +778,7 @@ collision1,123,106,188,185,Face
 23pattern0,0,0,stop,24
 23pattern1,315,0,overlay,136,126
 //middle-------------this is the same as right but oh well
-24interval,always
+24interval,runonce
 24pattern0,315,0,overlay,140,124
 //upright
 25interval,never
@@ -873,9 +864,8 @@ collision1,123,106,188,185,Face
 
 //--Eyebrows, yasss
 //neutral
-75interval,always
+75interval,runonce
 75pattern0,370,0,overlay,0
-75pattern0,370,1,overlay,0
 //Oh whoops this one doesnt exist. dam dibs profile checks r kinda funky
 //question
 76interval,never
@@ -909,9 +899,8 @@ surface.append0-50,!1,!10,!18,!19
 {
 //--Back Arm
 //Relax
-1interval,always
+1interval,runonce
 1pattern0,600,0,overlay,0,0
-1pattern1,600,1,overlay,0,0
 //PointDown
 2interval,never
 2pattern0,0,0,stop,1
@@ -927,15 +916,13 @@ surface.append0-50,!1,!10,!18,!19
 
 //--Body
 //yass
-10interval,always
+10interval,runonce
 10pattern0,50,0,overlay,0,0
-10pattern1,50,1,overlay,0,0
 
 //--Front arms hell yeah
 //relax
-90interval,always
+90interval,runonce
 90pattern0,650,0,overlay,0
-90pattern0,650,1,overlay,0
 //hip
 91interval,never
 91pattern0,0,0,stop,90
@@ -968,17 +955,18 @@ surface.append0-50,!1,!10,!18,!19
 98interval,never
 98pattern0,0,0,stop,90
 98pattern1,658,0,overlay,0
-//phone time but COMPLICATED----------------ok nvm its not loopin we cant do it as an interval gamers
+//phone time3
+99interval,never
+99pattern0,0,0,stop,90
+99pattern1,659,0,overlay,0
+//phone time4
 100interval,never
-100pattern0,0,0,parallelstop,[90.94.95]
-100pattern1,654,0,overlay,0,0
-100pattern2,655,105,overlay,0,0
-100pattern3,654,10,overlay,0,0
-100pattern4,655,37,overlay,0,0
-100pattern5,654,9,overlay,0,0
-100pattern6,655,27,overlay,0,0
-100pattern7,654,13,overlay,0,0
-100pattern8,655,55,overlay,0,0
+100pattern0,0,0,stop,90
+100pattern1,660,0,overlay,0
+//hmf (hand in front of face, mostly)
+101interval,never
+101pattern0,0,0,stop,90
+101pattern1,661,0,overlay,0
 }
 
 
@@ -1136,38 +1124,6 @@ element0,overlay,surface5000.png,0,0
 //This is much the same as the lines above. You'd replace 0404 with whatever image you'd be using. 5000 is the delay on the frame, so this stays on the screen for about 5 seconds. You can replace that value with whatever you want to change the timing, and change the number after random at the top to adjust how often it might occur.
 //Note that at the end the image file number it calls is -1. -1 returns to the base default pose, so you'll want to end most unique or new animations with this to bring your ghost back to normal.
 
-//--Other Animation Options
-//There are a few other options you can have for interval animations. We've already seen bind, talk, random, and never so far. Some other ones are always, sometimes, runonce, and rarely. Their names are fairly self-explanatory I'd imagine, but I'll do some really quick examples from my other surfaces.txt files here.
-
-//20interval,always
-//20pattern0,182,0,overlay,0,0
-
-//This would always run this animation.
-
-//6interval,sometimes
-//6pattern0,604,13,replace,0,96
-//6pattern1,606,14,replace,0,96
-//6pattern2,605,14,replace,0,96
-//6pattern3,-1,10,overlay,0,0
-
-//This would run this animation sometimes. Again, note how it ends with on a -1 frame.
-
-//0interval,runonce
-//0pattern0,41,13,replace
-//0pattern1,42,19,replace
-
-//This would run the animation once and stop on the last frame.
-
-//20interval,rarely
-//20pattern0,286,0,base
-//20pattern0,288,0,replace,0,0
-//20pattern1,287,15,replace,0,0
-//20pattern2,-1,25,overlay,0,0
-
-//This would run the animation rarely.
-
-//So you see, fairly straightforward. You can use these animation options to set up other things for your Surface to do. Since I mentioned furries above, you could, say... have a sometimes animation for a tail waving or something. Or a rarely animation for someone coughing, or runonce for someone falling over.
-
 
 //Interval Stacking
 //This is definitely for advanced users, so if you're not interested in the HARD STUFF, you can move on, haha.
@@ -1199,54 +1155,6 @@ element0,overlay,surface5000.png,0,0
 //You can think of the intervals in a Surface as layers in a PSD file. The top layers will go on top of the other layers. You can use this to layer certain animations underneath others. If you layer a blink animation below... I dunno, a hair-blowing animation or a sweatdrop or something, the blink should go beneath the other layer and they shouldn't conflict. Hopefully. It's tricky to set-up, so you may need to go through some trial and error.
 //As such you should always be mindful of the placement of your layers. Hair layers should go above eye layers, for example.
 //This does NOT apply to replace, which does not care about layering and will pre-empt almost all other SERIKO functions like Always or Random. Which sucks. Be careful when using Replace.
-
-
-//--Base
-//Base is a newer interval setting I only figured out while doing the Gordon FLELE. Basically, what base does is change the base of your pose from one file to another, which has some limited application, but can come in handy. The best example is from Gordon - He was standing at a three-quarter view with one arm in front of him and one arm behind him. Moving the arm in front of him was easy, it just required layering that arm above all the others. Moving the arm BEHIND him was harder, because his body was the base frame and you can't move things behind that. To get it to work, I would use base to temporarily change the base to his back arm, then change it back after it had moved. To snag a bit of code from his surfaces.txt file...
-
-//Left arm half out
-//21interval,never
-//21pattern4,0504,0,base,0,0
-//21pattern5,-1,800,base,0,0
-
-//Always make sure to set the base back to the original image with -1 at the end. It might be easier to just have the body in a higher layer than your back arms though... but that's just the application I found for this. It might be just what you need for whatever you're doing.
-
-
-//--Replace
-//Alright, here we go. Replace basically does what it says - it replaces the image (or part of the image) with another image. Have you noticed so far that the last two numbers of all the pattern lines have almost always been 0,0? Go ahead, scroll up again and look. Almost always 0,0. That's because if all your images are the same size (and they definitely should be, this is the very reason why you should be doing that), they will always line up properly with each other, and you'll almost never have to put anything but 0,0.
-//Unless you're using replace.
-//Actually that's not entirely true. If you're replacing the ENTIRE image with a new one, then you can leave replace as 0,0. That can be handy for full body animations like... someone getting hit, for example. You could have four unique frames of them falling to the ground, and you'd use replace for each of those frames to change the entire image each time.
-//However, most of the time (at least in my experience) you're going to be using replace for smaller things, primarily mouths in profile view I'm going to guess. And if you're going to be doing that, you're going to need to find yourself some coordinates. Do you remember setting up collisions up there? This is much the same thing. First, let's pull up a bit of replace code. I'll use one from Hunter and Smoker as an example. Here's one of Smoker's talking animations where she's in profile. You can see the frames for this on the surfaces.txt page of the walkthrough.
-
-//talking
-//1interval,talk,4
-//1pattern0,0,0,alternativestart,[2.3.4]
-
-//2interval,never
-//2pattern0,708,13,replace,0,72
-//2pattern1,-1,10,overlay,0,0
-
-//3interval,never
-//3pattern0,709,14,replace,0,72
-//3pattern1,-1,10,overlay,0,0
-
-//4interval,never
-//4pattern0,709,14,replace,0,72
-//4pattern1,708,14,replace,0,72
-//4pattern2,-1,10,overlay,0,0
-
-//You'll see at first that it's very similar to the talk function we set up above. However, there is a distinct difference. Overlay has been replaced with replace, and the final number is different. Those two numbers are the x,y coordinates for that image, and tell it where it needs to replace.
-//In the interest of making this as simple as possible, and avoiding a problem I ran into when I cropped things too tightly, what you're going to do is go into your image with your profile talk frames. You are going to draw a rectangle that VERTICALLY just about covers your mouth frames, and HORIZONTALLY spans your entire image. Then you'll crop your image down to that rectangle. What this will create is an image that is the same WIDTH as your base image, but a different HEIGHT. Save those images as your mouth frames.
-//Since your new mouth frame is the same width as your base image, you can leave it as 0. How do you find the second number then? The second number is the Y value, and it's the top of your rectangle. Undo your crop so your image is its base size again, hold your cursor at the top of your rectangle, and look at the coordinates in Photoshop info or MSPaint or whatever. Write down that Y number, and put it in here. Test your shell and see if the mouth frames line up properly. If they're a pixel too high or low, adjust the number until they line up right.
-//You'll notice the last line in each interval, the one with -1 and with the remaining overlay tag, is still set to 0,0. That's because that's the animation returning to normal. You don't have to mess with that line. Just replace the 708 709 whatever numbers in the replace lines with what you're using.
-
-//"But Zar!" you exclaim. "If I go all the way horizontally, then I run into my eye frames, and the blinking animation doesn't look right because replace doesn't care about me!" in which cause ouch, because that sucks and means you're going to have to get a little more into this.
-//Alright, this time, draw your same rectangle over your mouth frames. THIS TIME, however, don't stretch it all the way across. Draw it as close to your mouth frames as you can without filling up the entire rectangle. Specifically, leave at least ONE PIXEL blank in the top left corner if you possibly can. If you don't that pixel will flicker during the animation and if you're like me it will slowly drive you insane.
-//Once you've drawn your rectangle, take your cursor and find the coordinates again. This time, look for the y coordinate at the top of the rectangle, and x at the left side of it if I remember right. Write them down, come back over here, and fill out the last two numbers of each line as appropriate. Go back to your image, crop it down to your rectangle, and save your mouth frames. Test. Adjust. Repeat until it looks right.
-//You can see now why I recommended keeping your mouth frames inside your silhouette as much as you can. If you are running into the blink problem, you can try putting your blink interval above your talk interval. So if your talk intervals are 1-4 for example, you could put blink as 5interval instead. That could fix your problem! Maybe. Surfaces.txt can be annoying.
-
-//As a side note, replace will go over bound items like dress-up items, so keep this in mind if you're making clothes for your ghost. 
-//Replace will also take precedent over most other animation methods like Random or Always. For example, if you set up something to always play in the background, like... let's say, a fire was behind your character, and at some point you wanted to use replace on the main body of your character to say, make them move their arm. Replace will then shut off the Always interval and do its own thing, no matter how you layer it. It works okay with Overlay though. Basically, you'll need to mess with it a bit yourself to see when it works and when it doesn't.
 
 //--Move
 //The last of the animation functions and one that's really fairly simple. Move just moves the frame around your screen. This is handy when you want to move your character but don't want to draw a ton of frames for it.
