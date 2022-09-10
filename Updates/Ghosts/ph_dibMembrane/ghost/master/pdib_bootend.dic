@@ -127,7 +127,7 @@ OnFirstBootTalk
 {
 	if uninstallStatus == 0
  	{
-		"\1\s[-1]\0\s[0]Ah- \w4It worked! The spelldrives still work!! I can't believe I'm... \w2Uh, wherever here is! \w8Wait, what does Digital Jump mean, anyway? And- \w2Why did it only cost two power points? \w4\xOh, nevermind that!! \w2This looks like... \w4A desktop! \w6Pretty cool... \w5\w5If this is a desktop, then it must belong to someone, right? \w8\n.\w2.\w2.\w8\w8\n\n[half]Oh. \w5Hi! \w8I've just been \w2talking to myself this whole time, I didn't even notice you were- \w4Whatever! \w8\xHow should I refer to the person who I'll be spending my desktop-hanging time with, huh?\n\n[half]"
+		"\1\s[-1]\0\s[0]Ah- \w4It worked! The spelldrives still work!! I%(br)can't believe I'm... \w2Uh, wherever here is! \w8Wait, what does Digital Jump mean, anyway? And- \w2Why did it only cost two power points? \w4\xOh, nevermind that!! \w2This looks like... \w4A desktop! \w6Pretty cool... \w5\w5If this is a desktop, then it must belong to someone, right? \w8\n.\w2.\w2.\w8\w8\n\n[half]Oh. \w5Hi! \w8I've just been \w2talking to myself this whole time, I didn't even notice you were- \w4Whatever! \w8\xHow should I refer to the person who I'll be spending my desktop-hanging time with, huh?\n\n[half]"
 		--
 		"\w5\_q\![*]\q[He/Him,choicefirsthehim]\n\![*]\q[She/Her,choicefirstsheher]\n\![*]\q[They/Them,choicefirsttheythem]\e"
  	}
@@ -276,37 +276,17 @@ OnBootVar
 	}
 	else
 	{
-		"%(normalboottalk)" //If none of the days above match the current date, the ghost instead will go down to the next function, normalboottalk.
+		NormalBootTalk
 	}
 }
 
-
-//--normalboottalk
-
-//This is another unique bit of coding from cindysuke's ghost. OnBoot above checks for the day when you open them, but normalboottalk will vary their dialogue in a few different ways depending on the time and weekday. If you don't want to use these, you can delete everything under normalboottalk and write your own lines of general boot dialogue, so it'd look something like.
-
-//normalboottalk
-//{
-//[insert your general boot dialogue here]
-//}
-
-//Otherwise, just replace the upcoming pieces of dialogue with what you like.
-
-
-normalboottalk
+NormalBootTalk : pool
 {
-	if weekday == 6 && hour >= 19 //This checks if the weekday equals six, meaning saturday AND (using the && operator) if the hour is past 19. You can change these numbers or values to anything you like! As such you can check any combination of date and day and time for potential boot dialogue. You can also add more elseif checks for other days if you want.
-		{
-		"\0\s[0]It's Saturday night.\e"
-		}
-	elseif RAND(100) < 40 //What this does is choose a random number from 1-100, and then checks if that number is less than 40. If it's less than forty, then these dialogue pieces will occur. Remember, you can have multiple lines of dialogue within one set of brackets like this! You just need to make sure they're all enclosed in their own set of quotation marks.
-		{
+	//elseif RAND(100) < 40 { } (removed, put back in and remove pool if this stops working or sm....)
 		"\0\s[23]\i[72]\i[78]\i[96]-So that's why Mothman-! \w8\w2\s[3]\i[96]\w8\w2...Ohh, \w5um. \w8\w2\s[2]\i[98]\i[77]Hey, \w5%(username)!\e"
 		"\0\s[0]\s[21]\i[92]\i[21]\w8\w8\s[0]\s[21]\i[92]...Oh. \w8\w6\s[2]\i[91]Back on the computer again?\e"
 		"\0\s[0]...Oh. \w8Darn! \w6%(username), I was doing some very important spy stuff! \w2Guess I can still do it here, but...\e"
-		}
- 	else
- 	{
+ 	//else
 		if timeslot == "earlymorning"
 		{
 		"\0\s[0]This is an early morning boot dialogue. \w8Between the hours of five and eight.\e"
@@ -340,7 +320,7 @@ normalboottalk
  		"\0\s[0]...Oh. \w8Hey, %(username)! \w8Shouldn't you be getting to sleep soon?\e"
 		"\0\s[21]\i[70]\i[21]\i[92]-And move that over there... \w8Huh? \w5Oh, %(username)? \w8Didn't know you'd call me around this time. \w6Guess I'll continue my research here, then!\e"
 		}
-		else //the last timeslot we haven't done is midnight, which is what's under here.
+		elseif timeslot == "midnight"
 		{
 			if weekday == 1
 			{
@@ -348,26 +328,15 @@ normalboottalk
 			}
 		"\0\s[0]Mnnhuh? \w2Oh. \w4Why are you up?\w8"
 		"\0\s[0]...Shouldn't you be asleep?\w8\e"
-		}
 	}
 }
 
-
-//--OnClose
-
-//OnClose runs when you close your ghost. Like OnBoot, this can be customized for times and days if you like, as you saw above. It can also be easily simplified down to
-//OnClose
-//{
-//[insert your dialogue here]
-//}
-//if you don't want to deal with the time slots. Although do note, close dialogue must end with a \- instead of \e. \- will close the program.
-//Like above with OnBoot, just replace all the following pieces of dialogue with your own. Note though that each bit here ends with \w8 instead of \e. That's because the actual end statement to close the ghost is at the very end, one of the very very rare times you won't have to end a line with \e. Instead, end it with \w8 so there's a little bit of a pause for the user before your ghost closes so they can read the last message.
-
-OnClose //TODO: buff up the whole "goodbye" dialogues later yea?
+//TODO: buff up the whole "goodbye" dialogues later yea?
+OnClose
  {
-	if passmin >= 5 || passhour > 0	//This checks to see if you've had them open for at least five minutes.
+	if passmin >= 5 || passhour > 0
 		{
-			if RAND(100) < 40 //see above about the random number generator
+			if RAND(100) < 40
 			{
 			"\0\s[0]Seeya, %(username)!\w8\w8"
 			}
@@ -375,7 +344,7 @@ OnClose //TODO: buff up the whole "goodbye" dialogues later yea?
 			{
 			if timeslot == "earlymorning"
 				{
-					"\0\s[0]Up and at 'em, then?\w8"
+					"\0\s[0]Up and at 'em, then? \w6Bye.\w8\w8"
 				}
 			elseif timeslot == "morning"
  				{
@@ -384,7 +353,7 @@ OnClose //TODO: buff up the whole "goodbye" dialogues later yea?
 						"\0\s[0]Aw, darn. \w1I was hoping I could skip class today.\w8"
 						"\0\s[0]Right in the middle of class... I wonder what ZIM's planning right now. \w2Nothing good, probably.\w8"
 					}
-					"\0\s[0]Up and at 'em, then?\w8"
+					"\0\s[0]Up and at 'em, then? \w6Bye.\w8\w8"
 				}
  			elseif timeslot == "lunch"
  				{
@@ -399,7 +368,7 @@ OnClose //TODO: buff up the whole "goodbye" dialogues later yea?
  				{
 					if weekday != 0 || weekday != 6
 					{
-						"\0\s[0]Oh, dang, it's already %(nowhour):%(nowmin)? \w6Looks like I don't have to go to Skool...\w8"
+						"\0\s[0]Oh, dang, it's already %(nowhour) PM? \w6Looks like I don't have to go to Skool...\w8"
 					}
 					"\0\s[0]Logging off, then? \w8"
  				}
@@ -424,7 +393,7 @@ OnClose //TODO: buff up the whole "goodbye" dialogues later yea?
 					"\0\s[0]Oh! \w8\s[2]\i[98]Sweet dreams, %(username). \w8\w2\i[77]\w5...If you're planning to sleep, that is.\w8\w4"
 					"\0\s[2]%(dibarmfiddle)Good night, \w2then.\w8"
  				}
-			else //like above, this is the midnight time slot since it's the last one left.
+			elseif timeslot == "midnight"
  				{
  					if weekday == 0 //checking if it's the middle of the night on Sunday
  					{

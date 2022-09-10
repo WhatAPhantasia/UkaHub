@@ -262,7 +262,7 @@ OnSecondChange
 {
 	if reference2 == 1 //This is for if your Sakura and Kero are overlapping. \4 will move the speaking character away from the other character. If you need something more complicated you can use OnOverlap instead of this
 	{
-		"\0\s[0]Me and %(keroname) are overlapping.\4\e"
+		//"\0\s[0]Me and %(keroname) are overlapping.\4\e"
 	}
 }
 
