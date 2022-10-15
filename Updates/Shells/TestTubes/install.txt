@@ -3,4 +3,3 @@ type,shell
 name,Test Tubes
 directory,TestTubes
 accept,Hydrate
-refresh,1
