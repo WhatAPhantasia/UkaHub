@@ -48,7 +48,7 @@ OnFirstBoot
 	--
 	"\![enter,passivemode]\1\s[-1]\0\s[-1]"
 	--
-	//I'm mostly setting this up because after ghost jam is over i wanna use levidre's font checker to check for curse casual like in my dib ghost!! but i gotta make this stuff from scratch so its a no-go for the jam jk jk
+	//I'm mostly setting this up because i wanna use levidre's font checker to check for curse casual like in my dib ghost!! idk maybe its not necessary, im fine wif people usin the balloon without the font but yk. Maybe just a little reminder that "hey theres a font thats supposed to go with this balloon dingus"
 	OnFirstBootTalk
 }
 
@@ -56,47 +56,48 @@ OnFirstBootTalk
 {
 	if uninstallstatus == 0
 	{
-		"\0\s[1]\f[height,20]AHHHHHHHAHAHAHAHHA!!! \n\f[height,38]FOOOOOOOOOOOOL!!!\f[height,default] \w4\x\s[0]You blew it! You totally screwed yourself! \w6 Nobody enters my home and leaves... \w8\w4Wait. \w8Where the heck am I? \w4\xUghhhh, seriously? Are \f[bold,1]you\f[bold,0] the one taking things from my forest? You couldn't just stop at my belongings, my minions... \xNow you've taken me, too. \w2You're really giving me a run for my pons here, kid. \w3Taking from the Snatcher! It's almost funny! \w7\f[bold,1]Almost.\f[bold,0] \xAhhhh, never mind that. How about we make the best of this opportunity and make a deal, yeah? \w4I think your soul would be a reasonable exchange for all the trouble you've caused me. \xAll you have to do is sign the paper.\![open,inputbox,OnFirstNameTeach]\n\n\n[half]\![*]\q[But I didn't do any of that!,iminnocentofficer]"
+		"\0\s[1]\f[height,20]AHHHHHHHAHAHAHAHHA!!! \n\f[height,38]FOOOOOOOOOOOOL!!!\f[height,default] \w4\x\s[0]You blew it! You totally screwed yourself! \w6 Nobody enters my home and leaves... \w8\w4Wait. \w8Where the heck am I? \w4\xUghhhh, seriously? Are \f[bold,1]you\f[bold,0] the one taking things from my forest? You couldn't just stop at my belongings, my minions... \xNow you've taken me, too. \w2You're really giving me a run for my pons here, kid. \w3Taking from the Snatcher! It's almost funny! \w7\f[bold,1]Almost.\f[bold,0] \xAhhhh, never mind that. How about we make the best of this opportunity and make a deal, yeah? \w4I think your soul would be a reasonable exchange for all the trouble you've caused me. \xAll you have to do is sign the paper.\![open,inputbox,OnNameTeach,-1]\n\n\n[half]\![*]\q[But I didn't do any of that!,iminnocentofficer]"
 	}
 	elseif uninstallstatus == 1 && soulcustody == 0 && foundinnocent == 0
 	{
 		"\0\s[1]\f[height,20]AHHHHHHHAHAHAHAHHA!!! \n\n[half]\f[height,37]FOOO\w1O\f[height,30]\w1o\w2o\w2o\w3o\f[height,20]\w3o\w3o\f[height,default]\w4.\w4.\w4. \w8\w8\xOh. \w8It's you. \w8Did you enjoy bringing me here, then kicking me out right as I try to get you back for inconveniencing me? \w6It's you who's in the wrong here, really. \xWell... Let's sign the paper this time, yeah? \w2\nNo takesie-backsies anymore."
 		--
-		"\![open,inputbox,OnFirstNameTeach]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
+		"\![open,inputbox,OnNameTeach]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
 	}
 	elseif uninstallstatus > 1 && soulcustody == 0 && foundinnocent == 0
 	{
 		//\0\s[1]\w8\w8\w8\w8\w8\w8\w8
 		"\0\s[0]Ughhhh, this again? \w2You know the drill, I need you to get to signing."
 		--
-		"\![open,inputbox,OnFirstNameTeach]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
+		"\![open,inputbox,OnNameTeach]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
 	}
 	elseif uninstallstatus != 0 && soulcustody == 1
 	{
 		"\0\s[1]\f[height,20]AHHHHHHHAHAHAHAHHA!!! \n\f[height,38]FOOOOOOOOOOOOL!!!\f[height,default] \w4\x\s[0]Did you really think kicking me out of here would get you your soul back? \w4NOPE! \w4You still have to work under me, kiddo! \w2\xAnd guess what? \w4You have to sign another contract! \w2Just to check your name, of course. You know the deal."
 		--
-		"\![open,inputbox,OnFirstNameTeach]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
+		"\![open,inputbox,OnNameTeach]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
 	}
 	elseif soulcustody == 0 && foundinnocent == 2
 	{
 		"\0\s[1]\f[height,20]AHHHHHHHAHAHAHAHHA!!! \n\n[half]\f[height,37]FOOO\w1O\f[height,30]\w1o\w2o\w2o\w3o\f[height,20]\w3o\w3o\f[height,default]\w4.\w4.\w4. \w8\w8\xOh. \w8It's... You. \w5\xUh... How's it hanging, kiddo? Nice to be back, I suppose. \w8...You are the same person, right?"
 		--
-		"\![open,inputbox,OnFirstNameTeach]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
+		"\![open,inputbox,OnNameTeach]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
 	}
-	else //no idea what condition this would be under but i'll think abt it later, after ghost jam yk?
+	else //no idea what condition this would be under but i'll think abt it later
 	{
 		"\0\s[0]Okay, no idea how you're seeing this message, but it means Phantasia messed up. \w6Shoot 'em a message after this firstboot sequence, alright?"
 		--
-		"\![open,inputbox,OnFirstNameTeach]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
+		"\![open,inputbox,OnNameTeach]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
 	}
 }
 
-OnFirstNameTeach {"\![raise,OnNameTeach,%(Sanitize(reference0)),firstboot]"}
+//OnFirstNameTeach {"\![raise,OnNameTeach,%(Sanitize(reference0)),firstboot]"}
+//im just trying to get the "im innocent officer" dialogue to show up again :sob:
 
 
 Select.iminnocentofficer
 {
-	"\f[italic,1]O\w1h\w1h\w1h\w1h\w1? \w3What's that? \w3You're innocent?\f[italic,0]  \w6HAHAHAHAHA!! \w6Even if you were, do you really think I'd spare you? \xI'm not too fond of letting souls go. \w2\nSign the paper.\![open,inputbox,OnFirstNameTeach]\n\n\![*]\q[I'm NOT doing that,imNOTdoingthat]"
+	"\f[italic,1]O\w1h\w1h\w1h\w1h\w1? \w3What's that? \w3You're innocent?\f[italic,0]  \w6HAHAHAHAHA!! \w6Even if you were, do you really think I'd spare you? \xI'm not too fond of letting souls go. \w2\nSign the paper.\![open,inputbox,OnNameTeach,-1]\n\n\![*]\q[I'm NOT doing that,imNOTdoingthat]"
 }
 
 Select.imNOTdoingthat

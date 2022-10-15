@@ -51,7 +51,7 @@ MouseMoveSakura
 				"\0\s[0]\i[70]\i[21]\i[85]\i[92]\f[height,9]...Would you still do this even if I weren't on your desktop?\f[height,default]\e"
 				"\0\s[0]\i[70]\i[21]\i[85]..."
 				"\0\s[3]\i[72]\i[85]\i[65]\i[77](He just sighs. You can't tell if he's frustrated, or...)"
-				"\0\s[0]\i[72]\i[85]\i[78]Just because I'm on your desktop doesn't mean you should abuse that power. \w6\0\s[0]\i[70]\i[21]\i[85]\i[92]\i[78]\f[height,9]Not that I mind, but...\f[height,default]"
+				"\0\s[0]\i[72]\i[85]\i[78]Just because I'm on your desktop doesn't mean you should abuse that power. \w6\i[21]\i[92]\i[70]\f[height,9]Not that I mind, but...\f[height,default]"
 				"\0\s[2]\i[77]\i[21]\i[85]\i[93]..."
  			}
  			elseif reference4 == "Face"
@@ -149,7 +149,7 @@ MouseDoubleClickSakura
  {
  	if reference4 == "Head" || reference4 == "Face" 
 	{
-		"\0\s[3]\i[77]nooooo why would you punch me \0\s[3]\i[77]\i[65](i haven't implemented punching yet lmao)\e"
+		"\0\s[3]\i[77]nooooo why would you punch me \0\i[65](i haven't implemented punching yet lmao)\e"
  	}
 	else
  	{
@@ -166,7 +166,7 @@ MouseDoubleClickKero
  {
  	if reference4 == "Face" 
 	{
-		"\1%(keroneutral)Dude what the heck!!\e"
+		"\1Dude what the heck!!\e" //%(keroneutral)
  	}
 	else
  	{

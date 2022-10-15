@@ -31,9 +31,8 @@ OnNotifyFontInfo
 OnFirstBootVar
 {
 	hastranslator = 0
-	lookdirection = 1
-	nowkeroname = "none"
-	dibbirthday = 0
+	//lookdirection = 1
+	//nowkeroname = "none"
 	
  	username         = "you" //This sets a temporary name for the user. It'll be replaced when they tell the ghost their name.
 	stroke           = 0	// Sets their being-pet state to zero.
@@ -191,7 +190,6 @@ Select.choicefirsttheythem
 
 NameInput
 {
-	//Note that there's a \![leave,passivemode] tag in this dialogue! Don't forget about this!
 	"\0\s[0](Now, enter your name.)\![open,inputbox,OnNameTeach,-1]\e"
 }
 
@@ -243,12 +241,13 @@ OnBootVar
 	OnBootVar
 	OnDiscordPluginBoot
 	--
-	temppose = OnBootPhaseOne
-	OnUpdateCoordinates
+	OnBootPhaseOne
+	//temppose = OnBootPhaseOne
+	//OnUpdateCoordinates
  }
  OnBootPhaseOne
  {
- 	"\0\s[0]\1%(keroneutral)" //This sets them up in their neutral pose for now.
+ 	"\0\s[0]" //This sets them up in their neutral pose for now. "\1%(keroneutral)"
 	
 	//put %(normalboottalk) if u dont want indiv day messages
 	//"\0\s[0]\1\s[10]%(normalboottalk)"
@@ -264,15 +263,7 @@ OnBootVar
 	}
 	elseif dayslot == "3month 30day" 
 	{
-		if dibbirthday == 0
-		{
-		//dibbirthday += 1
 		"\0\s[0]I'm going to code in some cute birthday boot conversation here!! Not yet though. Surprise!\e"
-		}
-		else
-		{
-		"\0\s[0]Probably gonna do some cool Dib birthday stuff for how many times you've experienced it. LMAO imagine doing this 50 times and Dib just. HASN'T AGED.\e"
-		}
 	}
 	else
 	{
@@ -283,9 +274,9 @@ OnBootVar
 NormalBootTalk : pool
 {
 	//elseif RAND(100) < 40 { } (removed, put back in and remove pool if this stops working or sm....)
-		"\0\s[23]\i[72]\i[78]\i[96]-So that's why Mothman-! \w8\w2\s[3]\i[96]\w8\w2...Ohh, \w5um. \w8\w2\s[2]\i[98]\i[77]Hey, \w5%(username)!\e"
-		"\0\s[0]\s[21]\i[92]\i[21]\w8\w8\s[0]\s[21]\i[92]...Oh. \w8\w6\s[2]\i[91]Back on the computer again?\e"
-		"\0\s[0]...Oh. \w8Darn! \w6%(username), I was doing some very important spy stuff! \w2Guess I can still do it here, but...\e"
+	"\0\s[23]\i[72]\i[78]\i[96]-So that's why Mothman-! \w8\w2\s[3]\i[96]\w8\w2...Ohh, \w5um. \w8\w2\s[2]\i[98]\i[77]Hey, \w5%(username)!\e"
+	"\0\s[21]\i[92]\i[21]\w8\w8\i[201]...Oh. \w8\w6\s[2]\i[91]Back on the computer again?\e"
+	"\0\s[0]...Oh. \w8Darn! \w6%(username), I was doing some very important spy stuff! \w2Guess I can still do it here, but...\e"
  	//else
 		if timeslot == "earlymorning"
 		{
@@ -318,7 +309,7 @@ NormalBootTalk : pool
 		elseif timeslot == "latenight"
 		{
  		"\0\s[0]...Oh. \w8Hey, %(username)! \w8Shouldn't you be getting to sleep soon?\e"
-		"\0\s[21]\i[70]\i[21]\i[92]-And move that over there... \w8Huh? \w5Oh, %(username)? \w8Didn't know you'd call me around this time. \w6Guess I'll continue my research here, then!\e"
+		"\0\s[21]\i[70]\i[21]\i[92]-And move that over there... \w8\i[201]\i[203]Huh? \w8Oh, \w5%(username)? \w8\s[0]\i[91]\i[76]Didn't know you'd call me around this time. \w8\s[2]\i[91]\i[21]Guess I'll continue my research here, then!\e"
 		}
 		elseif timeslot == "midnight"
 		{
@@ -479,7 +470,7 @@ OnGhostChanged
 	_path = REPLACE(SHIORI3FW.Path,"\","/")
 	_path = REPLACE(_path,"ghost/master/","")
 	
-	"\0\s[0]\1%(keroneutral)" //this sets up their default poses
+	"\0\s[0]" //this sets up their default poses "\1%(keroneutral)"
 	--
 	if reference3 == _path  
 	{

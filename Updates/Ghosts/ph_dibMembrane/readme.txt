@@ -7,7 +7,7 @@ He comes with a music player (and a few of dib's playlists), cryptid facts, and 
 
 If you want to open up more dialogue pools, I recommend installing:
 LEVIDRE'S ZIM GHOST: https://levidre.github.io/ukagaka/zim-and-gir
-MY ELY CROWE GHOST (warning: will open up more oc x canon romance dialogue):
+MY ELY CROWE GHOST (warning: will open up more oc x canon romance dialogue): https://phantasiaukahub.carrd.co/#ely
 You can also find them under the Creator + Misc Links in the SSP menu.
 
 

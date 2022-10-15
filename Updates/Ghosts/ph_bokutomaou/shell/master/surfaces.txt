@@ -1,7 +1,16 @@
-//---------------------------Surfaces.txt--------------------------
-//http://www.ashido.com/ukagaka/
+//---------------------------Surfaces.txt for the ARI MASTER SHELL--------------------------
+descript
+{
+version,1
+}
 
-//ARI MASTER SHELL
+//THIS IS NEWDEF FORMAT BTW
+//animation#.pattern#,method,surface,pause,X,Y
+
+//IMPORTANT NOTE ABOUT SERIKO! You CANNOT have mid-line comments! Put ALL COMMENTS ON THEIR OWN LINES.
+//As a note, you can put your images in subfolders! I'd be careful doing it, but it could be very helpful! It would look something like this
+//element0,overlay,yourfolder/surface0.png,0,0
+//Any images in subfolders HAVE to be defined in a surface before you can use them in animations, though.
 
 //--------PLANNING----------
 //Ari 0-1000 (excluding 10)
@@ -10,15 +19,20 @@
 //-----
 //Stan 1001-2000
 //---
-//insert words here 1100-1109
+//idle body base 0-9
+//3/4 head 100-299
+//	base 100-109
+//	eyes 110-159
+//	mouths 160-219
+//	eyebrows 220-249
+//	extras 250-299
+//back arm 600-649
+//front arm 650-699
+//sitting down 700-799
+//static poses/misc 800-1000
 //--------------------------
 
-//IMPORTANT NOTE ABOUT SERIKO! You CANNOT have mid-line comments! Put ALL COMMENTS ON THEIR OWN LINES.
-//As a note, you can put your images in subfolders! I'd be careful doing it, but it could be very helpful! It would look something like this
-//element0,overlay,yourfolder/surface0.png,0,0
-//Any images in subfolders HAVE to be defined in a surface before you can use them in animations, though.
 
-version,1
 
 
 //--------------------ARI
@@ -28,42 +42,18 @@ surface0
 	element0,overlay,surface0.png,0,0
 	
 	//Collisions
-	collision0,50,8,95,27,Head
-	collision1,47,4,102,60,Face
+	collision0,114,39,179,65,Head
+	collision1,122,65,157,97,Face
+	collision2,157,65,182,97,Ear
 }
 
-//------NEUTRAL
-surface11
+
+
+//--------------------STAN
+
+surface10
 {
-	element0,overlay,surface1.png,0,0
-	//Base
-	element0,overlay,surface100.png,0,0
-	//TODO: Fritzy collisions
-	
-	//Antenna
-	animation10.interval,random,4
-	animation10.pattern0,overlay,101,500,0,0
-	animation10.pattern1,overlay,-1,0,0,0
-	animation10.pattern2,overlay,102,100,0,0
-	animation10.pattern3,overlay,-1,0,0,0
-	animation10.pattern4,overlay,103,200,0,0
-	animation10.pattern5,overlay,-1,0,0,0
-	animation10.pattern6,overlay,101,30,0,0
-	//Talk
-	animation11.interval,talk,4
-	animation11.pattern0,overlay,110,20,0,0
-	animation11.pattern1,overlay,-1,100,0,0
-	//Blink
-	animation12.interval,random,4
-	animation12.pattern0,overlay,-1,100,0,0
-	animation12.pattern1,overlay,115,50,0,0
-	animation12.pattern2,overlay,116,100,0,0
-	animation12.pattern3,overlay,-1,30,0,0
-	
-	//Left Arm Up
-	animation1.interval,never
-	animation1.pattern0,stop,0,0,0
-	//TODO: study how stop works in new def. too tired to do this rn
+	element0,overlay,surface10.png,0,0
 }
 
 //surface.append0-99
@@ -77,10 +67,3 @@ surface11
 //{
 	//element0,overlay,ExampleFolder/surface100.png,0,0
 //}
-
-//Kero surfaces - If you want a kero, uncomment the line below and create an image for surface10
-
-surface10
-{
-	//element0,overlay,surface10.png,0,0
-}

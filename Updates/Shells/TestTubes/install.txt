@@ -2,3 +2,4 @@ Charset,UTF-8
 type,shell
 name,Test Tubes
 directory,TestTubes
+accept,Hydrate

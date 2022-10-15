@@ -1,7 +1,6 @@
 ﻿//---------------------------Miscellaneous Functions--------------------------
 
 //This .dic file is concerned with a number of functions that didn't quite fit in anywhere else. If you're adding new functions, this may be the place to do it! This also has the functions related to updating your ghost, among others.
-//http://www.ashido.com/ukagaka/walkthrough.html
 
 //----------------------------------------------------------------------------
 
@@ -27,14 +26,16 @@ OnMouseDragStart
 
 OnMouseDragEnd
 {
-	if basewarenameex != "SSP"
+	if basewarenameex != "SSP" || nowkeroname == "none"
 	{
 		endDragPoses
 	}
 	else
 	{
-		temppose = endDragPoses
-		OnUpdateCoordinates
+		endDragPoses
+		//temppose = endDragPoses
+		//OnUpdateCoordinates
+		//NOTE: the changing direction thing was unecessary, i'll just get rid of this stuff... TODO: eventually delete the coordinate variable on startup.
 	}
 	
 }
@@ -84,6 +85,7 @@ endDragPoses
 	if reference3 == 0
 	{
 		dibidleyuh
+		//TODO: eventually just preserve his previous pose because changing it on enddrag is kinda jarring
 	}
 	else
 	{
@@ -170,10 +172,10 @@ OnDiscordPluginBoot
 'base_icon,'//LargeImageKey
 --
 'Shooting Star - Dib,'//LargeImageText
---
-'gear1,'//SmallImageKey
---
-'Developer'//SmallImageText
+//--
+//'gear1,'//SmallImageKey
+//--
+//'Developer'//SmallImageText
 --
 ']'
 }
@@ -192,8 +194,8 @@ OnDiscordPluginBoot
 
 //--OnFileDrop2
 
-//OnFileDrop2 handles how your ghost will set an image as the desktop background when someone drags and drops an image on them. You don't need to touch any of the coding here, just replace the dialogue as needed and leave the \q options alone. More about \q options in bootend.dic and in the walkthrough.
-
+//When you drop a file on the ghost that isn't something it can install
+//reference0 is the file path, which is split up amongst the local variables below
 OnFileDrop2
 {
 	_filepath = SPLITPATH(reference0)
@@ -201,56 +203,78 @@ OnFileDrop2
 	_fileext = TOLOWER(_filepath[3])
 	case _fileext
 	{
-		when ".jpg", ".jpeg", ".bmp", ".png" //These are the formats your ghost will recognize as image files to set as the background.
+		when ".jpg", ".jpeg", ".bmp", ".png" //These are pictures that they can set to wallpapers. Png works for me, but if it doesn't work for you let us know please, I'm curious about this.
 		{
-			Wallpaperfile = reference0
+			_file = REPLACE(reference0,"]","\]")
 			
-			"\0\s[0]The file you dropped is %(_filename)%(_fileext).\w8How would you like me to set this picture as your wallpaper?\n\n[half]/
-			\![*]\q[Centered,SetWallpaper_0]\n/
-			\![*]\q[Tiled,SetWallpaper_1]\n/
-			\![*]\q[Stretched,SetWallpaper_2]\n\n[half]/
-			\![*]\q[No thanks,SetWallpaper_Cancel]\e"
+			"\0\s[0]\b[2]This is %(_filename)%(_fileext)!\w8\w8 I can set it as your wallpaper,\w4 how do you want it?\n\n"
+			--
+			all:{
+			"\![*]\q[Centered,OnWallpaper,%(_file),center]\n"
+			"\![*]\q[Tiled,OnWallpaper,%(_file),tile]\n"
+			"\![*]\q[Stretched,OnWallpaper,%(_file),stretch]"
+			if "Windows 7" || "Windows 10" _in_ NotifyOS //These are the 'fit' and 'fill' options available from win 7 on. NotifyOS is set just below, to check what OS you're on
+			{
+				"\n\![*]\q[Fill,OnWallpaper,%(_file),stretch-x]"
+				"\n\![*]\q[Fit,OnWallpaper,%(_file),stretch-y]"
+			}
+			if "Windows 10" _in_ NotifyOS; "\n\![*]\q[Spanned,OnWallpaper,%(_file),span]" //Same as above, but for the span option since that's win10 and above
+			
+			"\n\n\![*]\q[No thanks,WallpaperCancel]\e"
+			}
 		}
-		when ".mid", ".wav", ".mp3", ".wma", ".au" //Other file formats you might want to give your ghost a specific response to.
+		when ".mid", ".wav", ".mp3", ".wma", ".au", ".ogg", ".flac"
 		{
-			"\0\s[0]%(_filename)%(_fileext) is a music file.\e"
+			"\0\s[0]This is music!\e"
 		}
-		others //Any other file format. As a note here, if you drop something ghost-related on them that does not have an install.txt, then they won't install it and will just say this response. If you are testing your balloon or nar files and you get this response instead of a proper installation, you should check and make sure you have an install.txt in the file!
+		others
 		{
-			"\0\s[0]This is %(_filename)%(_fileext). Not sure what to do with this, honestly.\e"
+			if _fileext == "" //If it's a folder. Using \_? lets you display the slashes and such in dialogue, but you have to toggle it off after you no longer need it
+			{
+				"\0\s[0]This is \_?%(_filepath[1])\_?!\e"
+			}
+			else //If it's a file
+			{
+				"\0\s[0]This is %(_filename)%(_fileext)!\e"
+			}
 		}
-	}
+	}		
 }
 
-//This set of options sets the wallpaper up. You can replace the dialogue, but make sure to leave the \![set,wallpaper, etc.] tag at the beginning.
-
-Select.SetWallpaper_0
+//You can get other information about the OS here, it's in the other references. Reference0 includes the OS system, version, and display name
+OnNotifyOSInfo
 {
-	"\![set,wallpaper,%(Wallpaperfile),center]\0\s[0]The image is centered.\e"
-}
-Select.SetWallpaper_1
-{
-	"\![set,wallpaper,%(Wallpaperfile),tile]\0\s[0]The image is tiled.\e"
-}
-Select.SetWallpaper_2
-{
-	"\![set,wallpaper,%(Wallpaperfile),stretch]\0\s[0]The image is stretched.\e"
-}
-Select.SetWallpaper_Cancel
-{
-	"\0\s[0]You don't want to set the file as your desktop background.\e"
+	NotifyOS = reference0
 }
 
- //---- OnInstallBegin -------------------------------------------------------
- //OnInstallBegin is called when a file with an included install.txt is dropped on your ghost. This primarily means things like .nar files for other ghosts or .zip files containing balloons or shells for your ghosts. Primarily ghost-related things. Replace as you want.
+OnWallpaper
+{
+	"\0\![set,wallpaper,%(REPLACE(reference0,']','\]')),%(reference1)]"
+	--
+	//You can remove this if check if you want a single dialogue for changing the wallpaper
+	if reference1 == "center"; "\s[0]It's centered!\e"
+	elseif reference1 == "tile"; "\0\s[0]It's tiled!\e"
+	elseif reference1 == "stretch"; "\0\s[0]It's stretched!\e"
+	elseif reference1 == "stretch-x"; "\0\s[0]It's filled!\e"
+	elseif reference1 == "stretch-y"; "\0\s[0]It's fitted!\e"
+	elseif reference1 == "span"; "\0\s[0]It's spanned!\e"
+}
+
+Select.WallpaperCancel
+{
+	"\0\s[0]Ok,\w4 let me know if you change your mind!\e"
+}
+
+//---- OnInstallBegin -------------------------------------------------------
+//OnInstallBegin is called when a file with an included install.txt is dropped on your ghost. This primarily means things like .nar files for other ghosts or .zip files containing balloons or shells for your ghosts. Primarily ghost-related things. Replace as you want.
  
 OnInstallBegin
  {
 	"\0\s[11]\i[94]More things to put on your desktop, huh?\e"
  }
 
- //---- OnInstallComplete -------------------------------------------------------
- //OnInstallComplete runs once the file above has finished installing.
+//---- OnInstallComplete -------------------------------------------------------
+//OnInstallComplete runs once the file above has finished installing.
  
 OnInstallComplete
  {
@@ -957,5 +981,23 @@ OnShellScaling
 	elseif reference0 <= 35
 	{
 		"\0\s[0]Little man holding an artery shut?? Lemon Demon real??\e"
+	}
+}
+
+//Hotkeys
+OnKeyPress
+{
+	case reference0
+	{
+		when "t"; OnAiTalk
+		when "r"; OnLastTalk
+		when "y"; "\![raise,OnStartTalking]" //Starts a commu dialogue with a random ghost
+		when "f1"; "\![open,readme]"
+		when "f5"; {if debug; "\![reload,ghost]"}
+		when "f6"; {if debug; "\![reload,shiori]"}
+		when "f7"; {if debug; "\![reload,shell]"}
+		when "f8"; {if debug; "\![reload,balloon]"}
+		when "v"; {if debug; OnTestVar}
+		when "c"; {if debug; OnCommuPingMenu}
 	}
 }

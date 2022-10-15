@@ -48,6 +48,16 @@ MouseMoveSakura
 			"\0\s[0]That's my face!\e"
 		}
 	}
+	elseif reference4 == "Ear"
+	{
+		stroke[0]++
+		
+		if stroke[0] >= 40
+		{
+			stroke[0] = 0
+			"\0(...His hair gets messed up a little, but he looks happy.)"
+		}
+	}
 }
 
 OnMouseLeaveAll //When the mouse is no longer on a hitbox. You can change to OnMouseLeave if you want it to happen when you leave any hitbox for another one
@@ -93,7 +103,7 @@ MouseDoubleClickSakura
 	{
 		if totalpunches < 1 //If the user has not punched the ghost yet
 		{
-			"\0(Are you sure you want to punch her in the face?)"
+			"\0(Are you sure you want to punch him?)"
 			--
 			"\n\n\_q\![*]\q[Yes,FirstPunch] \![*]\q[No!,cancelnodialogue]"
 		}

@@ -16,8 +16,6 @@ craftmanurl,https://whataphantasia.carrd.co
 
 
 //Balloon Co-ordinates
-//These basically define where your balloon starts for your main character (sakura) and your secondary character (kero). While you're testing your ghost, you'll notice that moving the balloons around shows you a set of coordinates on the bottom. Move your balloons where you want them, write down the coordinates, and copy them here. Otherwise, you can just leave them at 0. Your user will adjust them as they need to, so I wouldn't sweat this too much.
-//Alignment means which way you want your balloon to be facing. There are three options here: right, left, or none. If you choose right or left, the balloon will ALWAYS face right or left. If you put none, however, the balloon will flip sides whenever it hits the side of the screen. For example, if you drag your ghost with a right balloon all the way to the right side of your screen, it'll flip the balloon to the left side. I generally prefer putting it to none because it's convenient to me to flip balloons as I need to, but this is up to you.
 sakura.balloon.offsetx,0
 sakura.balloon.offsety,0
 kero.balloon.offsetx,0
@@ -27,14 +25,12 @@ kero.balloon.alignment,none
 
 
 //Shiori Icon
-//Don't mess with any of this.
 shiori.logo.filename,resources\niseshiori.png
 shiori.logo.x,16
 shiori.logo.y,256
 
 
 //Menu Font Color
-//Like it says, this is the font color for the right-click SSP menu.
 menu.background.font.color.r,240
 menu.background.font.color.g,240
 menu.background.font.color.b,240
@@ -52,21 +48,18 @@ menu.disable.font.color.b,150
 
 
 //Menu Separate Color
-//The color of the tiny line that separates the sections on the menu.
 menu.separator.color.r,200
 menu.separator.color.g,200
 menu.separator.color.b,200
 
 
 //Menu Background Image Alignment
-//If you have images you want to set for your menu, this determines the alignment of the background and foreground pictures. You can put in lefttop, righttop, or centertop, and bottom or top for the sidebar. You'd be replacing righttop or bottom with whatever alignment you prefer.
 menu.background.alignment,righttop + repeat-y
 menu.foreground.alignment,righttop + repeat-y
 menu.sidebar.alignment,bottom
 
 
 //Menu Background Image Location
-//The location of the files you want to use for your background images. You'd be replacing menu_background.png with whatever the name is for your background image, and so on. If you've just saved images over mine, you won't have to adjust this at all I think.
 menu.background.bitmap.filename,menu_background.png
 menu.foreground.bitmap.filename,menu_foreground.png
 menu.sidebar.bitmap.filename,menu_sidebar.png
