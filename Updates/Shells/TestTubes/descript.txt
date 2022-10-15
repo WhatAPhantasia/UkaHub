@@ -5,7 +5,7 @@ charset,UTF-8
 type,shell
 name,Test Tubes
 craftman,WhatAPhantasia
-craftmanurl,https://whataphantasia.carrd.co
+craftmanurl,https://phantasiaukahub.carrd.co
 homeurl,https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/master/Updates/Shells/TestTubes/
 
 sakura.balloon.offsetx,0
