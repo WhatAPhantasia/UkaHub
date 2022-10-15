@@ -51,16 +51,16 @@ RandomTalk : nonoverlap_pool
 {
 	
 	"\0\s[0]%(dibarmfiddle)Have you stretched lately? \w8\i[25]My posture at my own desk is pretty horrible.\e"
-	"\0\s[2]\i[97]Get up and walk around if you haven't gotten up in a while! \w6\i[73]Don't become a chair! \w8\w5...\s[2]\i[70]\i[91]No, \w2I won't explain the chair thing. \w8\w5\s[22]\i[70]\i[91]\i[80]\i[21]Don't ask.\e"
+	"\0\s[2]\i[97]Get up and walk around if you haven't gotten up in a while! \w6\i[73]Don't become a chair! \w8\w5...\i[70]\i[91]No, \w2I won't explain the chair thing. \w8\w5\s[22]\i[70]\i[91]\i[80]\i[21]Don't ask.\e"
 	"\0\s[13]\i[98]\i[28]...Wow, my cuticles are all messed up. \w8\s[11]\i[92]\i[27]\i[70]I should probably stop messing with my nails.\e"
 	"\0\s[11]\i[98]\i[28]Hmm... Should I buff my nails?\e"
-	"\0\s[2]\i[97]\i[73]Let's test out some anchors! \w8\s[2]\i[97]@Ely! \w2They're really cool! \w6@Gaz!! wOw!!!! \w6What about @ZIM and%(br)@GIR????????? \w4WOW\e"
+	"\0\s[2]\i[97]\i[73]Let's test out some anchors! \w8\i[203]\i[97]@Ely! \w2They're really cool! \w6@Gaz!! wOw!!!! \w6What about @ZIM and%(br)@GIR????????? \w4WOW\e"
 	//--ZIMS BASE DIALOGUE, MOVE TO Q&A LATER
 	"\0\s[2]\i[97]\i[73]@ZIM's base is full of admittedly cool alien tech. \w8Like his AI! \w4He calls it his computer, but it's way too smart to just be \f[bold,1]that,\f[bold,0] you know? \w5It has a personality and everything! \w4I was hoping I could sneak into @ZIM's base again and ask his computer if I could study it's code or something. \w2I mean, it let me put a bug in the base, so... \w4Anything's possible, \w2right?\e"
 	//make into a chain? idk
-	"\0\s[0]\i[91]\i[76]\i[21]...@ZIM's computer is kinda like a smart device, \w1huh? \w8\s[0]\i[96]Except for the fact that it seems almost sentient. \w4\s[0]\i[92]\i[25]And... \w8\w2\s[2]\i[70]\i[91]\i[80]Okay, maybe they're not all that similiar. \w8\s[2]\i[97]\i[73]But at least @ZIM's computer%(br)won't spy on me and sell my information to the government! \w8\w8\s[0]\i[92]\i[70]\i[21]\f[height,9]...Human government, anyway.\f[height,default]\e"
+	"\0\s[0]\i[91]\i[76]\i[21]...@ZIM's computer is kinda like a smart device, \w1huh? \w8\i[201]\i[204]\i[96]Except for the fact that it seems almost sentient. \w4\i[92]\i[25]And... \w8\w2\s[2]\i[70]\i[91]\i[80]Okay, maybe they're not all that similiar. \w8\s[2]\i[97]\i[73]But at least @ZIM's computer%(br)won't spy on me and sell my information to the government! \w8\w8\s[0]\i[92]\i[70]\i[21]\f[height,9]...Human government, anyway.\f[height,default]\e"
 	//--PHONE DIALOGUE: FLAG TO ACTIVATE AFTER CLICKING ON DIB'S PHONE
-	"Oh, my phone? \w8Yeah!! \w8I made it myself! \w8\w5Well, I didn't \w1\f[bold,1]completely\f[bold,0] \w1make it, \w1but I modified it a lot from an old Membrane Labs phone model. \w8It's completely rooted, has privacy sliders for the high definition camera, can connect to VPN... \w8\w2Gotta stay safe from the other big tech companies trying to spy on my data!\e"
+	"\0\s[2]\i[99]Oh, my phone? \w8Yeah!! \w8I made it myself! \w8\w5Well, I didn't \w1\f[bold,1]completely\f[bold,0] \w1make it, \w1but I modified it a lot from an old Membrane Labs phone model. \w8It's completely rooted, has privacy sliders for the high definition camera, can connect to VPN... \w8\w2Gotta stay safe from the other big tech companies trying to spy on my data!\e"
 	
 	
 	
@@ -90,20 +90,26 @@ RandomTalk : nonoverlap_pool
 	
 	if nowshell == "Shooting Star"
 	{
-	"\0\s[0]Seriously though, @ZIM is so much shorter than me! And yet, every single time I've tried to kick him across a room or the skool hallways, he somehow manages to avoid%(br)me...\e"
+	"\0\s[3]\i[78]\i[91]Seriously though, @ZIM is so much shorter than me! \w5\i[70]\i[21]And yet, every single time I've tried to kick him across a room or the skool hallways, he somehow manages to avoid%(br)me...\e"
 	"\0\s[2]\i[72]\i[92]Man, it would be so cool to get more piercings. \w8Ever since I got my studs a while back, \w2@Gaz has been interested in like, \w2nose and eyebrow piercings, \w1and I was considering getting helix piercings, \w5but... \w8\w2Seriously, \w2think about what @ZIM could do if I got a ton of piercings! \w4He could rip my ears and face off! \w8\s[0]\i[70]\i[91]\i[78]I am not letting him get that opportunity.\e"
 	}
 
 	if nowshell == "Florpus"
 	{
-	"\0\s[0]Placeholder Florpus text because I have no idea what I want to make him say.\e"
+		{
+		"\0\s[0](You can barely hear him say something...)\n\n\w8"
+		--
+		"Don't spelldrives have anything for making things smaller..?\e"
+		"It's not \w1\f[bold,1]my\f[bold,0]\w1 head that's big,\w4 it's everyone else whose head is smaller\w2.\w2.\w2.\e"
+		"Maybe my head \w1\f[bold,1]is\f[bold,0]\w1 big\w2.\w2.\w2?\e"
+		}
 	}
 	
 	if "Face|Glasses" _in_ currentdressups != 1 //YESS IT WORKS THANK YOU ZI
 	{
-	"\0\s[11]\i[91]\i[76]When are you gonna give my glasses back, anyway? \w6\s[11]\i[91]\i[70]I can barely see anything.\e"
+	"\0\s[11]\i[91]\i[76]When are you gonna give my glasses back, anyway? \w6\i[204]\i[70]I can barely see anything.\e"
 	"\0\s[21]\i[73]\i[78]Ugh.... \w2So blurry.\e"
-	"\0\s[0]\i[92]\i[21]\i[70]\i[78]\i[65](He's muttering something to himself.)\w8\n\n[half]\s[0]\i[92]\i[21]\i[70]\i[78]%(username) couldn't have hidden my glasses \w1that\w1 well, right? I can find it around here \f[italic,1]somewhere\f[italic,0]...\e"
+	"\0\s[0]\i[92]\i[21]\i[70]\i[78]\i[65](He's muttering something to himself.)\w8\n\n[half]\i[66]%(username) couldn't have hidden my glasses \w1that\w1 well, right? I can find it around here \f[italic,1]somewhere\f[italic,0]...\e"
 	}
 	
 	if month >= 12
@@ -199,13 +205,13 @@ RandomTalk : nonoverlap_pool
 	{
 		"\0\s[0]%(dibarmfiddle)Have you brushed your teeth today? \w8\s[21]\i[21]\i[70]\i[92]...Not sure if I've forgotten.\e"
 		"\0\s[0]%(dibarmfiddle)Have you eaten breakfast yet, %(username)?\e"
-		"\0\s[23]\i[70]\i[21]\i[91]Gaz ate all the FrankenChokies a while back. \w8\s[3]\i[78]\i[91]She even called dibs! \w6\s[3]\i[76]\i[91]That's my name, so it was supposed to be mine, right?\e"
+		"\0\s[23]\i[70]\i[21]\i[91]Gaz ate all the FrankenChokies a while back. \w8\s[3]\i[78]\i[91]She even called dibs! \w6\i[76]That's my name, so it was supposed to be mine, right?\e"
 		"\0\s[11]\i[98]\i[28]Hm... My nails haven't dried yet.\e"
 	}
 	if timeslot == "lunch"
 	{
-		"\0\s[2]\i[72]\i[92]Mmm... Man, there was this one time I hit ZIM on the head with a muffin. \w6\s[2]\i[91]It was hilarious! You should've been there.\e"
-		"\0\s[0]%(dibarmfiddle)Have you eaten lately? \w8\s[0]\i[26]%(dibarmfiddle)Honestly, I'm a little hungry myself...\e"
+		"\0\s[2]\i[72]\i[92]Mmm... Man, there was this one time I hit ZIM on the head with a muffin. \w6\i[203]\i[91]It was hilarious! You should've been there.\e"
+		"\0\s[0]%(dibarmfiddle)Have you eaten lately? \w8\i[26]Honestly, I'm a little hungry myself...\e"
 	}
 	if timeslot == "afternoon"
 	{
@@ -434,25 +440,6 @@ OnSurfaceRestore //TODO: change choosing an idle to be separate from OnSurfaceRe
  	//}
  	//else
  	//{
-	"%(choosedibidle)\1%(keroneutral)\e"
+	"%(choosedibidle)\e" //\1%(keroneutral)
 	//}
  }
-
- 
- //--OnKeyPress
- 
-OnKeyPress
-{
-	if reference0 == "t"
-	{
-	OnAiTalk
-	}
-	elseif reference0 == "r"
-	{
-	OnLastTalk
-	}
-	elseif reference0 == "f1"
-	{
-	"\![open,readme]"
-	}
-}

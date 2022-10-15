@@ -24,6 +24,7 @@ dic, pdib_word.dic
 dic, pdib_commu.dic
 dic, pdib_user.dic
 dic, pdib_anchor.dic
+dic, zzz_todo.dic
 
 //---- Log Location -------------------------------------------------------------------------
 //I'm not entirely sure what this does, but basically don't touch it.

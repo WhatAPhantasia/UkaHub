@@ -124,12 +124,17 @@ Select.asktheboy
 	DibQuestions
 }
 
-DibQuestions
+DibQuestions : all
 {
 	"\b2"
-	--
+	
 	"\n\n\![*]\q[Can I see another friend?,debugkero]\n\n"
-	--
+	if debug == 1 //%(debug = 1) in script input to show the debug options
+	{
+		"\![*]\q[Test Variable,OnTestVar]\n"
+		"\![*]\q[To-do list,OnTemplateTodo]\n\n"
+	}
+	
 	"\![*]\q[Back,BACKTOMENU]\e"
 }
 
@@ -137,7 +142,8 @@ Select.debugkero
 {
 	"\0\s[0]%(dibarmfiddle)"
 	--
-	"Oh, \w1okay. \w6Who do you wanna see? (this menu is only for debug/cosmetic purposes atm)"
+	//"Oh, \w1okay. \w6Who do you wanna see? (this menu is only for debug/cosmetic purposes atm)"
+	"...Actually, Phantasia axed this whole debug thing because it was unneeded. These options don't do anything anymore, unless you uncommented all the relevant stuff I guess."
 	--
 	"\n\n\![*]\q[No one,choosekeronone]    /
 	\![*]\q[Ely!,choosekeroely]    /
@@ -155,42 +161,42 @@ Select.BACKTOQNA
 
 Select.choosekeronone
 {
-	nowkeroname = "none"
-	--
-	"\1%(keroneutral)"
-	--
-	"\0\i[24]\i[70]Oh, yeah, definitely getting crowded around here. Even if there was no one here in the first place. This is a debug thing im not coding for every single possibility fuck that."
+	//nowkeroname = "none"
+	//--
+	//"\1%(keroneutral)"
+	//--
+	"\0\i[24]\i[70]Oh, yeah, definitely getting crowded around here. Even if there was no one here in the first place. This is a debug thing im not coding for every single possibility."
 }
 Select.choosekeroely
 {
-	nowkeroname = "ely"
-	--
-	"\1%(keroneutral)"
-	--
+	//nowkeroname = "ely"
+	//--
+	//"\1%(keroneutral)"
+	//--
 	"\0\s[2]\i[72]\i[77]\i[85]oh my gosh........ ely........ my love (LMAO)\e"
 }
 Select.choosekerogaz
 {
-	nowkeroname = "gaz"
-	--
-	"\1%(keroneutral)"
-	--
+	//nowkeroname = "gaz"
+	//--
+	//"\1%(keroneutral)"
+	//--
 	"\0\s[2]OH HEY GAZ!!!\e"
 }
 Select.choosekerozim
 {
-	nowkeroname = "zim"
-	--
-	"\1%(keroneutral)"
-	--
+	//nowkeroname = "zim"
+	//--
+	//"\1%(keroneutral)"
+	//--
 	"\0\s[3]\i[78]Wait- \w5HIM?! \w8\w8Ugh. \w8Okay. \w8Sure.\e"
 }
 Select.choosekeroall
 {
-	nowkeroname = "all"
-	--
-	"\1%(keroneutral)"
-	--
+	//nowkeroname = "all"
+	//--
+	//"\1%(keroneutral)"
+	//--
 	"\0\s[3]\i[21]Oh gosh that's a lot of. \w6\s[3]People.\e"
 }
 
@@ -234,7 +240,7 @@ TalkConfig
 	--
 	"\f[bold,1]Your birthday:\f[bold,0] %(birthdayprint) \f[sup,1](\q[Change it?,TEACHBDAY])\f[sup,0]\n\n"
 	--
-	"\f[bold,1]Talk Rate:\f[bold,0] - Every%(talktime). \f[sup,1](\q[Change it,talkinter])\f[sup,0]\n\n"
+	"\f[bold,1]Talk Rate:\f[bold,0] - %(talktime). \f[sup,1](\q[Change it,talkinter])\f[sup,0]\n\n"
 	--
 	"\f[bold,1]Stats:\f[bold,0] Insert cool stats here\n\n"
 	--		
@@ -433,7 +439,7 @@ birthchecked
 
 Select.talkinter
  	{
- 		"\0\s[0]\b2How often should I speak? \w8The interval is currently set to%(talktime)./
+ 		"\0\s[0]\b2How often should I speak? \w8The interval is currently set to %(talktime)./
 		//note the new envelope here for %(talktime). You'll see it again in a second. You can replace the dialogue above with whatever you like, just make sure it ends with ./ and not \e.
  		\0\n\n[half]/
  		\![*]\q[Every 30 seconds,TALKMAX]\n/
@@ -453,7 +459,7 @@ Select.TalksTill
 //If the user chooses every 30 seconds.
 Select.TALKMAX
 	{
- 		talktime = " 30 seconds" //this sets up the envelope properly
+ 		talktime = "30 seconds" //this sets up the envelope properly
 		aitalkinterval = 30 //this changes the actual rate
 		
  		"\0\s[2]\i[91]Alright, I can do that! \w4\0\s[0]\i[26]\i[91]People say I talk too much, actually.\e"
@@ -462,7 +468,7 @@ Select.TALKMAX
 //If the user chooses every minute.
 Select.TALKHIGH
 	{
- 		talktime = " minute"
+ 		talktime = "1 minute"
 		aitalkinterval = 60
 		
  		"\0\s[0]\i[91]Got it, every minute.\e"
@@ -471,7 +477,7 @@ Select.TALKHIGH
 //If the user chooses every three minutes.
 Select.TALKNORMAL
 	{
- 		talktime = " 3 minutes"
+ 		talktime = "3 minutes"
 		aitalkinterval = 180
 		
  		"\0\s[0]\i[91]Sounds reasonable. Every three minutes, then.\e"
@@ -480,7 +486,7 @@ Select.TALKNORMAL
 //If the user chooses every five minutes. This is the default rate the ghost will start up in, as seen in bootend.dic.
 Select.TALKPOOR
 	{
- 		talktime = " 5 minutes"
+ 		talktime = "5 minutes"
 		aitalkinterval = 300
 		
  		"\0\s[0]\i[91]Every five minutes, got it.\e"
@@ -489,7 +495,7 @@ Select.TALKPOOR
 //If the user chooses to not have them speak. This is one case where you MIGHT want to make talktime equal something else, if you have a snappier way of saying the ghost won't talk. Make sure it flows well in your menus though, since it will be displayed in your config menu.
 Select.TALKNONE
 	{
- 		talktime = "... Actually, I won't talk at all"
+ 		talktime = "Never"
 		aitalkinterval = 0
 		
 		"\0\s[2]\i[77]...Okay, I'll try.\e"

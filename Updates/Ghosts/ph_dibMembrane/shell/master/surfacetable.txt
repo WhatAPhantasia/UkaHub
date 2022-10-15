@@ -25,6 +25,8 @@ scope,0
 12,Front Smirk
 13,Front Frown
 14,Front Pout
+18,Phone Idle
+19,Phone Talk
 21,Prof Neut
 22,Prof Smirk
 23,Prof Frown

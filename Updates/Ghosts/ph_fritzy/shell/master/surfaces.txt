@@ -27,6 +27,16 @@ surface0
 {
 	element0,overlay,surface0.png,0,0
 	
+	animation1.interval,talk,3
+	animation1.pattern0,overlay,110,100,0,0
+	animation1.pattern1,overlay,-1,150,0,0
+	
+	animation12.interval,random,4
+	animation12.pattern0,overlay,-1,150,0,0
+	animation12.pattern1,overlay,115,100,0,0
+	animation12.pattern2,overlay,116,150,0,0
+	animation12.pattern3,overlay,-1,80,0,0
+	
 	//Collisions
 	collision0,50,8,95,27,Head
 	collision1,47,4,102,60,Face

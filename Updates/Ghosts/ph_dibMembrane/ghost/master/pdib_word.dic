@@ -16,9 +16,11 @@
 	//}
 //}
 
+/*
 keroneutral
 {
 	//alright this envelope will be used to determine whether or not so display a kero when this is called. it also decides which kero to show, since i'm gonna have like, gaz zim and ely as keros. so i imagine it'd go something like this.
+	//EDIT: yeah i'm axing this whole thing, dont need it + worried that it's too taxing on dib for now. keeping it commented
 	
 	if nowkeroname == "all" //this'll have to direct to a different mode instead of being keroneutral but then again this is only cosmetic at the moment so its not a big deal.
 	{
@@ -137,6 +139,7 @@ kerobored
 		"\s[-1]\p[2]\s[-1]\p[3]\s[-1]"
 	}
 }
+*/
 
 choosedibidle //a function for more variety when setting dib back to his idle.
 {
@@ -166,23 +169,22 @@ phoneidle //he tappy on da phone
 
 eyeroll
 {
-	"\0\s[0]\i[21]\i[70]\w4\0\s[0]\i[27]\i[70]\w4\0\s[0]\i[23]\i[70]\w2\0\s[0]\i[20]\w2\0\s[0]\i[22]\w2\0\s[0]\i[26]\w3\0\s[0]\i[21]\i[70]"
+	"\0\s[0]\i[21]\i[70]\w4\i[27]\w4\i[23]\w2\i[20]\w2\i[22]\i[203]\w2\i[26]\w3\i[21]\i[70]"
 }
 eyerollsm
 {
-	"\0\s[2]\i[21]\i[70]\w4\0\s[2]\i[27]\i[70]\w4\0\s[2]\i[23]\i[70]\w2\0\s[2]\i[20]\w2\0\s[2]\i[22]\w2\0\s[2]\i[26]\w3\0\s[2]\i[21]\i[70]"
+	"\0\s[2]\i[21]\i[70]\w4\i[27]\w4\i[23]\w2\i[20]\w2\i[22]\i[203]\w2\i[26]\w3\i[21]\i[70]"
 }
 
 fronteyeroll
 {
-	"\0\s[11]\i[21]\i[70]\w4\0\s[11]\i[27]\i[70]\w4\0\s[11]\i[23]\i[70]\w2\0\s[11]\i[20]\w2\0\s[11]\i[22]\w2\0\s[11]\i[26]\w3\0\s[11]\i[21]\i[70]"
+	"\0\s[11]\i[21]\i[70]\w4\i[27]\w4\i[23]\w2\i[20]\w2\i[22]\i[203]\w2\i[26]\w3\i[21]\i[70]"
 }
 
 dibarmfiddle
 {
 	"\i[93]"
 	"\i[91]"
-	"\i[90]"
 }
 
 
@@ -198,7 +200,7 @@ zimnonskoolplans
 	"sending a large, mutated bird on a rampage through the city"
 	"ripping out all the traffic lights in the city to make a weird rave machine"
 	"taking GIR to Krazy Taco... Which isn't really evil, but GIR ate like, 6 babies"
-	"destroying the local MacMeaties"
+	"taking over the local MacMeaties"
 }
 
 zimskoolplans

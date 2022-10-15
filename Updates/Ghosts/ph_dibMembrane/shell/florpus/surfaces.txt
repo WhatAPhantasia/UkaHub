@@ -1,9 +1,15 @@
-//---------------------------Surfaces.txt--------------------------
-//http://www.ashido.com/ukagaka/
+//---------------------------Surfaces.txt for the DIB FLORPUS SHELL--------------------------
+//Converted by olddef2newdef, by Zichqec.
+descript
+{
+version,1
+}
 
-//DIB FLORPUS SHELL
+//THIS IS NEWDEF FORMAT BTW
+//animation#.pattern#,method,surface,pause,X,Y
 
-//--------PLANNING----------
+
+//---------------PNG-PLANNING----
 //Dib 0-1000 (excluding 10)
 //---
 //idle body base 0-9
@@ -37,9 +43,55 @@
 //back arm 600-649
 //front arm 650-699
 //sitting down 700-799
-//static poses 800-1000
+//static poses/misc 800-1000
 
-//--------------------DIB MEMBRANE
+//--------------SURFACES-INTERVALS----
+//surface0: 3/4 neutral
+//surface1: test
+//surface2: 3/4 smirk
+//surface3: 3/4 frown
+//surface4: 3/4 pout
+//surface10: null
+//surface11: front neutral
+//surface12: front smirk
+//surface13: front frown
+//surface14: front pout
+//surface18: phone idle
+//	100: idle phone tap
+//surface19: phone talk
+//surface21: profile neutral
+//surface22: profile smirk
+//surface23: profile frown
+//surface24: profile pout
+//surface800: pickup pose
+//------------------IDLE INTERVALS----
+//	0-9: backarm
+//	10: body
+//	15: eyewhite
+//	20-40: eye directions
+//	55: head base
+//	60: closed mouth
+//	61-63: talk
+//	64: open mouth
+//	65: stop talk
+//	66: continue talk
+//	TODO 67: teeth
+//	70: eyelid
+//	71: blink
+//	72-74: closed eye
+//	75-79: eyebrows
+//	80-99: extras
+//	90-199: frontarm
+//	200: resets backarm
+//	201: reset eyedirection
+//	202: stops blink
+//	203: stops eyelids
+//	204: resets eyebrows
+//	205: stops extras (\i[205]\w1\i[80], etc)
+//	210: resets frontarm
+//	910: glasses
+
+//--------------------DIB MEMBRANE----
 
 //--3/4 test neutral pose
 surface1
@@ -57,26 +109,26 @@ element6,overlay,surface150.png,0,0
 element7,overlay,surface650.png,0,0
 //--Blinking---------------------------------------------------------------------------
 //not entirely happy with how i handled the blinking, i want the left n right sides to be independent if that makes sense? but they should still play at the same time yk. also a few of the eye poses have the eyes slightly shifted like. ONE pixel to the left or right, so it doesn't line up... idk im having a Hard Time
-0interval,random,4
-0pattern0,-1,10,overlay,123,156
-0pattern1,140,8,overlayfast,123,156
-0pattern2,142,15,overlayfast,123,156
-0pattern3,-1,6,overlay,123,156
+animation0.interval,random,4
+animation0.pattern0,overlay,-1,100,123,156
+animation0.pattern1,overlayfast,140,80,123,156
+animation0.pattern2,overlayfast,142,150,123,156
+animation0.pattern3,overlay,-1,60,123,156
 //--Clothes----------------------------------------------------------------------------
 //Glasses
-910interval,bind
-910pattern0,105,0,add,0,0
+animation910.interval,bind
+animation910.pattern0,add,105,0,0,0
 //--Talking----------------------------------------------------------------------------
-1interval,talk,4
-1pattern0,0,0,alternativestart,[2.3]
+animation1.interval,talk,4
+animation1.pattern0,alternativestart,(2,3)
 
-2interval,never
-2pattern0,151,10,overlay,0,0
-2pattern1,-1,10,overlay,0,0
+animation2.interval,never
+animation2.pattern0,overlay,151,100,0,0
+animation2.pattern1,overlay,-1,100,0,0
 
-3interval,never
-3pattern0,151,14,overlay,0,0
-3pattern1,-1,10,overlay,0,0
+animation3.interval,never
+animation3.pattern0,overlay,151,140,0,0
+animation3.pattern1,overlay,-1,100,0,0
 }
 
 
@@ -87,23 +139,20 @@ surface0
 element0,overlay,surface1.png,0,0
 
 //close
-60interval,runonce
-60pattern0,150,0,overlay,0,0
+animation60.interval,runonce
+animation60.pattern0,overlay,150,0,0,0
 //talk
-61interval,talk,4
-61pattern0,0,0,alternativestart,[62.63]
-62interval,never
-62pattern0,151,12,overlay,0,0
-62pattern1,-1,12,overlay,0,0
-63interval,never
-63pattern0,151,10,overlay,0,0
-63pattern1,-1,10,overlay,0,0
+animation61.interval,talk,4
+animation61.pattern0,alternativestart,(62,63)
+animation62.interval,never
+animation62.pattern0,overlay,151,120,0,0
+animation62.pattern1,overlay,-1,120,0,0
+animation63.interval,never
+animation63.pattern0,overlay,151,100,0,0
+animation63.pattern1,overlay,-1,100,0,0
 //open
-64interval,never
-64pattern0,151,0,overlay,0,0
-//close 2
-65interval,never
-65pattern0,150,0,overlay,0,0
+animation64.interval,never
+animation64.pattern0,overlay,151,0,0,0
 }
 
 //--DIB 3/4 SMIRK
@@ -111,23 +160,20 @@ surface2
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,runonce
-60pattern0,152,0,overlay,0,0
+animation60.interval,runonce
+animation60.pattern0,overlay,152,0,0,0
 //talk
-61interval,talk,4
-61pattern0,0,0,alternativestart,[62.63]
-62interval,never
-62pattern0,153,12,overlay,0,0
-62pattern1,-1,12,overlay,0,0
-63interval,never
-63pattern0,153,10,overlay,0,0
-63pattern1,-1,10,overlay,0,0
+animation61.interval,talk,4
+animation61.pattern0,alternativestart,(62,63)
+animation62.interval,never
+animation62.pattern0,overlay,153,120,0,0
+animation62.pattern1,overlay,-1,120,0,0
+animation63.interval,never
+animation63.pattern0,overlay,153,100,0,0
+animation63.pattern1,overlay,-1,100,0,0
 //open
-64interval,never
-64pattern0,153,0,overlay,0,0
-//close 2
-65interval,never
-65pattern0,152,0,overlay,0,0
+animation64.interval,never
+animation64.pattern0,overlay,153,0,0,0
 }
 
 //--DIB 3/4 FROWN
@@ -135,23 +181,20 @@ surface3
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,runonce
-60pattern0,154,0,overlay,0,0
+animation60.interval,runonce
+animation60.pattern0,overlay,154,0,0,0
 //talk
-61interval,talk,4
-61pattern0,0,0,alternativestart,[62.63]
-62interval,never
-62pattern0,155,12,overlay,0,0
-62pattern1,-1,12,overlay,0,0
-63interval,never
-63pattern0,155,10,overlay,0,0
-63pattern1,-1,10,overlay,0,0
+animation61.interval,talk,4
+animation61.pattern0,alternativestart,(62,63)
+animation62.interval,never
+animation62.pattern0,overlay,155,120,0,0
+animation62.pattern1,overlay,-1,120,0,0
+animation63.interval,never
+animation63.pattern0,overlay,155,100,0,0
+animation63.pattern1,overlay,-1,100,0,0
 //open
-64interval,never
-64pattern0,155,0,overlay,0,0
-//close 2
-65interval,never
-65pattern0,154,0,overlay,0,0
+animation64.interval,never
+animation64.pattern0,overlay,155,0,0,0
 }
 
 //--DIB 3/4 POUT
@@ -159,20 +202,17 @@ surface4
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,runonce
-60pattern0,156,0,overlay,0,0
+animation60.interval,runonce
+animation60.pattern0,overlay,156,0,0,0
 //talk
-61interval,talk,4
-61pattern0,0,0,alternativestart,[62.63]
-62interval,never
-62pattern0,151,12,overlay,0,0
-62pattern1,-1,12,overlay,0,0
-63interval,never
-63pattern0,151,10,overlay,0,0
-63pattern1,-1,10,overlay,0,0
-//close 2
-65interval,never
-65pattern0,156,0,overlay,0,0
+animation61.interval,talk,4
+animation61.pattern0,alternativestart,(62,63)
+animation62.interval,never
+animation62.pattern0,overlay,151,120,0,0
+animation62.pattern1,overlay,-1,120,0,0
+animation63.interval,never
+animation63.pattern0,overlay,151,100,0,0
+animation63.pattern1,overlay,-1,100,0,0
 }
 
 //--DIB 3/4 APPEND
@@ -183,153 +223,166 @@ collision0,113,108,201,136,Head
 collision1,112,137,182,200,Face
 
 //--Head Base
-55interval,runonce
-55pattern0,100,0,overlay,0,0
+animation55.interval,runonce
+animation55.pattern0,overlay,100,0,0,0
+animation55.pattern1,overlay,100,200,0,0
 
 //--Eeeyyyeees
 //eyewhite
-15interval,runonce
-15pattern0,110,0,overlay,0,0
+animation15.interval,runonce
+animation15.pattern0,overlay,110,0,0,0
+animation15.pattern1,overlay,110,200,0,0
+
+//reset
+animation201.interval,never
+animation201.pattern0,parallelstop,(20,21,22,23,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40)
+animation201.pattern1,start,24
 //right
-20interval,never
-20pattern0,0,0,stop,24
-20pattern1,115,0,overlayfast,125,158
+animation20.interval,never
+animation20.pattern0,parallelstop,(21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40)
+animation20.pattern1,overlayfast,115,0,125,158
 //left
-21interval,never
-21pattern0,0,0,parallelstop,[24.71]
-21pattern1,115,0,overlayfast,109,158
+animation21.interval,never
+animation21.pattern0,parallelstop,(71,20,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40)
+animation21.pattern1,overlayfast,115,0,109,158
 //up
-22interval,never
-22pattern0,0,0,parallelstop,[24.71]
-22pattern1,115,0,overlayfast,121,150
+animation22.interval,never
+animation22.pattern0,parallelstop,(71,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40)
+animation22.pattern1,overlayfast,115,0,121,150
 //down
-23interval,never
-23pattern0,0,0,parallelstop,[24.71]
-23pattern1,115,0,overlayfast,121,168
+animation23.interval,never
+animation23.pattern0,parallelstop,(71,20,21,22,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40)
+animation23.pattern1,overlayfast,115,0,121,168
 //middle
-24interval,runonce
-24pattern0,115,0,overlayfast,121,158
+animation24.interval,runonce
+animation24.pattern0,overlayfast,115,0,121,158
 //upright
-25interval,never
-25pattern0,0,0,parallelstop,[24.71]
-25pattern1,115,0,overlayfast,124,150
+animation25.interval,never
+animation25.pattern0,parallelstop,(71,20,21,22,23,24,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40)
+animation25.pattern1,overlayfast,115,0,124,150
 //upleft
-26interval,never
-26pattern0,0,0,parallelstop,[24.71]
-26pattern1,115,0,overlayfast,109,150
+animation26.interval,never
+animation26.pattern0,parallelstop,(71,20,21,22,23,24,25,27,28,29,30,31,32,33,34,35,36,37,38,39,40)
+animation26.pattern1,overlayfast,115,0,109,150
 //downleft
-27interval,never
-27pattern0,0,0,parallelstop,[24.71]
-27pattern1,115,0,overlayfast,109,168
+animation27.interval,never
+animation27.pattern0,parallelstop,(71,20,21,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,38,39,40)
+animation27.pattern1,overlayfast,115,0,109,168
 //downright
-28interval,never
-28pattern0,0,0,parallelstop,[24.71]
-28pattern1,115,0,overlay,124,168
+animation28.interval,never
+animation28.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,29,30,31,32,33,34,35,36,37,38,39,40)
+animation28.pattern1,overlay,115,0,124,168
 //shockright
-29interval,never
-29pattern0,0,0,stop,24
-29pattern1,116,0,overlay,127,159
+animation29.interval,never
+animation29.pattern0,parallelstop,(20,21,22,23,24,25,26,27,28,30,31,32,33,34,35,36,37,38,39,40)
+animation29.pattern1,overlay,116,0,127,159
 //shockleft
-30interval,never
-30pattern0,0,0,parallelstop,[24.71]
-30pattern1,116,0,overlay,110,159
+animation30.interval,never
+animation30.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,31,32,33,34,35,36,37,38,39,40)
+animation30.pattern1,overlay,116,0,110,159
 //shockup
-31interval,never
-31pattern0,0,0,parallelstop,[24.71]
-31pattern1,116,0,overlay,122,152
+animation31.interval,never
+animation31.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,30,32,33,34,35,36,37,38,39,40)
+animation31.pattern1,overlay,116,0,122,152
 //shockdown
-32interval,never
-32pattern0,0,0,parallelstop,[24.71]
-32pattern1,116,0,overlay,122,168
+animation32.interval,never
+animation32.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,30,31,33,34,35,36,37,38,39,40)
+animation32.pattern1,overlay,116,0,122,168
 //shockmiddle
-33interval,never
-33pattern0,0,0,parallelstop,[24.71]
-33pattern1,116,0,overlay,122,159
+animation33.interval,never
+animation33.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,30,31,32,34,35,36,37,38,39,40)
+animation33.pattern1,overlay,116,0,122,159
 //shockdownright
-34interval,never
-34pattern0,0,0,parallelstop,[24.71]
-34pattern1,116,0,overlay,126,168
+animation34.interval,never
+animation34.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,30,31,32,33,35,36,37,38,39,40)
+animation34.pattern1,overlay,116,0,126,168
 //uhohright------------------i'm considering shaving down this section (and shock) since i barely use em
-35interval,never
-35pattern0,0,0,stop,24
-35pattern1,117,0,overlay,125,158
+animation35.interval,never
+animation35.pattern0,parallelstop,(20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,36,37,38,39,40)
+animation35.pattern1,overlay,117,0,125,158
 //uhohleft
-36interval,never
-36pattern0,0,0,parallelstop,[24.71]
-36pattern1,117,0,overlay,109,158
+animation36.interval,never
+animation36.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,37,38,39,40)
+animation36.pattern1,overlay,117,0,109,158
 //uhohup
-37interval,never
-37pattern0,0,0,parallelstop,[24.71]
-37pattern1,117,0,overlay,121,150
+animation37.interval,never
+animation37.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,38,39,40)
+animation37.pattern1,overlay,117,0,121,150
 //uhohdown
-38interval,never
-38pattern0,0,0,parallelstop,[24.71]
-38pattern1,117,0,overlay,121,168
+animation38.interval,never
+animation38.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,39,40)
+animation38.pattern1,overlay,117,0,121,168
 //uhohmiddle
-39interval,never
-39pattern0,0,0,parallelstop,[24.71]
-39pattern1,117,0,overlay,121,158
+animation39.interval,never
+animation39.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,40)
+animation39.pattern1,overlay,117,0,121,158
 //uhohdownright
-40interval,never
-40pattern0,0,0,parallelstop,[24.71]
-40pattern1,117,0,overlay,124,168
+animation40.interval,never
+animation40.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39)
+animation40.pattern1,overlay,117,0,124,168
 
 //Eyeline
-59interval,runonce
-59pattern0,139,0,overlay,0
-
+animation59.interval,runonce
+animation59.pattern0,overlay,139,0,0,0
 //--BlinkBlink
-71interval,random,4
-71pattern0,-1,10,overlay,120,157
-71pattern1,140,4,overlayfast,120,157
-71pattern2,142,8,overlayfast,120,157
-71pattern3,-1,6,overlay,120,157
+animation71.interval,random,4
+animation71.pattern0,overlay,-1,100,120,157
+animation71.pattern1,overlayfast,140,40,120,157
+animation71.pattern2,overlayfast,142,80,120,157
+animation71.pattern3,overlay,-1,60,120,157
+//202 stops blink.
 
 //call eyelid
-70interval,never
-70pattern0,0,0,parallelstop,[15.59]
-70pattern1,0,0,parallelstart,[74.16]
+animation70.interval,never
+animation70.pattern0,parallelstop,(15,59,72,73)
+animation70.pattern1,parallelstart,(74,16)
 //Eyelid Yasss
-74interval,never
-74pattern0,138,0,overlay,0
-16interval,never
-16pattern0,111,0,overlay,0
+animation74.interval,never
+animation74.pattern0,overlay,138,0,0,0
+animation16.interval,never
+animation16.pattern0,overlay,111,0,0,0
 //Closed
-72interval,never
-72pattern0,142,0,overlay,120,157
+animation72.interval,never
+animation72.pattern0,parallelstop,(74,16,70,71,73)
+animation72.pattern1,overlay,142,0,120,157
 //Happy
-73interval,never
-73pattern0,144,0,overlay,120,157
+animation73.interval,never
+animation73.pattern0,parallelstop,(74,16,70,71,72)
+animation73.pattern1,overlay,144,0,120,157
+//203 stops (70,72,73)
 
 //--Eyebrows, yasss
 //neutral
-75interval,runonce
-75pattern0,170,0,overlay,0
+animation75.interval,runonce
+animation75.pattern0,overlay,170,0,0,0
+animation75.pattern1,overlay,170,200,0,0
 //question
-76interval,never
-76pattern0,0,0,stop,75
-76pattern1,171,0,overlay,0
+animation76.interval,never
+animation76.pattern0,parallelstop,(75,77,78)
+animation76.pattern1,overlay,171,0,0,0
 //sad
-77interval,never
-77pattern0,0,0,stop,75
-77pattern1,172,0,overlay,0
+animation77.interval,never
+animation77.pattern0,parallelstop,(75,76,78)
+animation77.pattern1,overlay,172,0,0,0
 //angry
-78interval,never
-78pattern0,0,0,stop,75
-78pattern1,173,0,overlay,0
+animation78.interval,never
+animation78.pattern0,parallelstop,(75,76,77)
+animation78.pattern1,overlay,173,0,0,0
+//204 stops (76,77,78) and starts 75
 
 //--Extras lets gooooo
 //sweat
-80interval,never
-80pattern0,190,0,overlay,0
+animation80.interval,never
+animation80.pattern0,overlay,190,0,0,0
 //blush
-85interval,never
-85pattern0,195,0,overlay,0
+animation85.interval,never
+animation85.pattern0,overlay,195,0,0,0
+//205 stops all extras
 
 //--Clothes
 //Glasses
-910interval,bind
-910pattern0,105,0,add,0,0
+animation910.interval,bind
+animation910.pattern0,add,105,0,0,0
 }
 
 //--------DIB'S FLORPUS SHELL DOESNT HAVE FRONT AND PROFILE FACES YET, SO THESE ARE ALL CARRIED OVER FROM HIS 3/4 SURFACES----------
@@ -340,23 +393,20 @@ surface11
 element0,overlay,surface1.png,0,0
 
 //close
-60interval,runonce
-60pattern0,150,0,overlay,0,0
+animation60.interval,runonce
+animation60.pattern0,overlay,150,0,0,0
 //talk
-61interval,talk,4
-61pattern0,0,0,alternativestart,[62.63]
-62interval,never
-62pattern0,151,12,overlay,0,0
-62pattern1,-1,12,overlay,0,0
-63interval,never
-63pattern0,151,10,overlay,0,0
-63pattern1,-1,10,overlay,0,0
+animation61.interval,talk,4
+animation61.pattern0,alternativestart,(62,63)
+animation62.interval,never
+animation62.pattern0,overlay,151,120,0,0
+animation62.pattern1,overlay,-1,120,0,0
+animation63.interval,never
+animation63.pattern0,overlay,151,100,0,0
+animation63.pattern1,overlay,-1,100,0,0
 //open
-64interval,never
-64pattern0,151,0,overlay,0,0
-//close 2
-65interval,never
-65pattern0,150,0,overlay,0,0
+animation64.interval,never
+animation64.pattern0,overlay,151,0,0,0
 }
 
 //--DIB FRONT SMIRK
@@ -364,23 +414,20 @@ surface12
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,runonce
-60pattern0,152,0,overlay,0,0
+animation60.interval,runonce
+animation60.pattern0,overlay,152,0,0,0
 //talk
-61interval,talk,4
-61pattern0,0,0,alternativestart,[62.63]
-62interval,never
-62pattern0,153,12,overlay,0,0
-62pattern1,-1,12,overlay,0,0
-63interval,never
-63pattern0,153,10,overlay,0,0
-63pattern1,-1,10,overlay,0,0
+animation61.interval,talk,4
+animation61.pattern0,alternativestart,(62,63)
+animation62.interval,never
+animation62.pattern0,overlay,153,120,0,0
+animation62.pattern1,overlay,-1,120,0,0
+animation63.interval,never
+animation63.pattern0,overlay,153,100,0,0
+animation63.pattern1,overlay,-1,100,0,0
 //open
-64interval,never
-64pattern0,153,0,overlay,0,0
-//close 2
-65interval,never
-65pattern0,152,0,overlay,0,0
+animation64.interval,never
+animation64.pattern0,overlay,153,0,0,0
 }
 
 //--DIB FRONT FROWN
@@ -388,23 +435,20 @@ surface13
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,runonce
-60pattern0,154,0,overlay,0,0
+animation60.interval,runonce
+animation60.pattern0,overlay,154,0,0,0
 //talk
-61interval,talk,4
-61pattern0,0,0,alternativestart,[62.63]
-62interval,never
-62pattern0,155,12,overlay,0,0
-62pattern1,-1,12,overlay,0,0
-63interval,never
-63pattern0,155,10,overlay,0,0
-63pattern1,-1,10,overlay,0,0
+animation61.interval,talk,4
+animation61.pattern0,alternativestart,(62,63)
+animation62.interval,never
+animation62.pattern0,overlay,155,120,0,0
+animation62.pattern1,overlay,-1,120,0,0
+animation63.interval,never
+animation63.pattern0,overlay,155,100,0,0
+animation63.pattern1,overlay,-1,100,0,0
 //open
-64interval,never
-64pattern0,155,0,overlay,0,0
-//close 2
-65interval,never
-65pattern0,154,0,overlay,0,0
+animation64.interval,never
+animation64.pattern0,overlay,155,0,0,0
 }
 
 //--DIB FRONT POUT
@@ -412,20 +456,17 @@ surface14
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,runonce
-60pattern0,156,0,overlay,0,0
+animation60.interval,runonce
+animation60.pattern0,overlay,156,0,0,0
 //talk
-61interval,talk,4
-61pattern0,0,0,alternativestart,[62.63]
-62interval,never
-62pattern0,151,12,overlay,0,0
-62pattern1,-1,12,overlay,0,0
-63interval,never
-63pattern0,151,10,overlay,0,0
-63pattern1,-1,10,overlay,0,0
-//close 2
-65interval,never
-65pattern0,156,0,overlay,0,0
+animation61.interval,talk,4
+animation61.pattern0,alternativestart,(62,63)
+animation62.interval,never
+animation62.pattern0,overlay,151,120,0,0
+animation62.pattern1,overlay,-1,120,0,0
+animation63.interval,never
+animation63.pattern0,overlay,151,100,0,0
+animation63.pattern1,overlay,-1,100,0,0
 }
 
 
@@ -434,33 +475,33 @@ element0,overlay,surface1.png,0,0
 surface18
 {
 //--Back Arm
-1interval,runonce
-1pattern0,600,0,overlay,0,0
+animation1.interval,runonce
+animation1.pattern0,overlay,600,0,0,0
 
 //--Body
 //yass
-10interval,runonce
-10pattern0,50,0,overlay,0,0
+animation10.interval,runonce
+animation10.pattern0,overlay,50,0,0,0
 
 //--Mouth moods...
-60interval,runonce
-60pattern0,150,0,overlay,0,0
+animation60.interval,runonce
+animation60.pattern0,overlay,150,0,0,0
 
-61interval,rarely
-61pattern0,152,0,overlay,0,0
-61pattern1,-1,800,overlay,0,0
+animation61.interval,rarely
+animation61.pattern0,overlay,152,0,0,0
+animation61.pattern1,overlay,-1,8000,0,0
 
 
 //--phone!!
-100interval,always
-100pattern0,654,0,overlay,0,0
-100pattern1,655,105,overlay,0,0
-100pattern2,654,10,overlay,0,0
-100pattern3,655,37,overlay,0,0
-100pattern4,654,9,overlay,0,0
-100pattern5,655,27,overlay,0,0
-100pattern6,654,13,overlay,0,0
-100pattern7,655,55,overlay,0,0
+animation100.interval,always
+animation100.pattern0,overlay,654,0,0,0
+animation100.pattern1,overlay,655,1050,0,0
+animation100.pattern2,overlay,654,100,0,0
+animation100.pattern3,overlay,655,370,0,0
+animation100.pattern4,overlay,654,90,0,0
+animation100.pattern5,overlay,655,270,0,0
+animation100.pattern6,overlay,654,130,0,0
+animation100.pattern7,overlay,655,550,0,0
 }
 
 //phone tappy time 2 - idle
@@ -468,46 +509,46 @@ surface18
 surface19
 {
 //--Back Arm
-1interval,runonce
-1pattern0,600,0,overlay,0,0
+animation1.interval,runonce
+animation1.pattern0,overlay,600,0,0,0
 
 //--Body
 //yass
-10interval,runonce
-10pattern0,50,0,overlay,0,0
+animation10.interval,runonce
+animation10.pattern0,overlay,50,0,0,0
 
 
 //--Mouth moods...
-60interval,runonce
-60pattern0,150,0,overlay,0,0
+animation60.interval,runonce
+animation60.pattern0,overlay,150,0,0,0
 
 //talking and stuff
-61interval,talk,4
-61pattern0,0,0,alternativestart,[62.63]
-62interval,never
-62pattern0,151,12,overlay,0,0
-62pattern1,-1,12,overlay,0,0
-63interval,never
-63pattern0,151,10,overlay,0,0
-63pattern1,-1,10,overlay,0,0
+animation61.interval,talk,4
+animation61.pattern0,alternativestart,(62,63)
+animation62.interval,never
+animation62.pattern0,overlay,151,120,0,0
+animation62.pattern1,overlay,-1,120,0,0
+animation63.interval,never
+animation63.pattern0,overlay,151,100,0,0
+animation63.pattern1,overlay,-1,100,0,0
 //open
-64interval,never
-64pattern0,151,0,overlay,0,0
+animation64.interval,never
+animation64.pattern0,overlay,151,0,0,0
 //close but like... ye
-65interval,never
-65pattern0,150,0,overlay,0,0
+animation65.interval,never
+animation65.pattern0,overlay,150,0,0,0
 
 
 //--phone!!
-100interval,always
-100pattern0,654,0,overlay,0,0
-100pattern1,655,105,overlay,0,0
-100pattern2,654,10,overlay,0,0
-100pattern3,655,37,overlay,0,0
-100pattern4,654,9,overlay,0,0
-100pattern5,655,27,overlay,0,0
-100pattern6,654,13,overlay,0,0
-100pattern7,655,55,overlay,0,0
+animation100.interval,always
+animation100.pattern0,overlay,654,0,0,0
+animation100.pattern1,overlay,655,1050,0,0
+animation100.pattern2,overlay,654,100,0,0
+animation100.pattern3,overlay,655,370,0,0
+animation100.pattern4,overlay,654,90,0,0
+animation100.pattern5,overlay,655,270,0,0
+animation100.pattern6,overlay,654,130,0,0
+animation100.pattern7,overlay,655,550,0,0
 }
 
 
@@ -520,23 +561,20 @@ surface21
 element0,overlay,surface1.png,0,0
 
 //close
-60interval,runonce
-60pattern0,150,0,overlay,0,0
+animation60.interval,runonce
+animation60.pattern0,overlay,150,0,0,0
 //talk
-61interval,talk,4
-61pattern0,0,0,alternativestart,[62.63]
-62interval,never
-62pattern0,151,12,overlay,0,0
-62pattern1,-1,12,overlay,0,0
-63interval,never
-63pattern0,151,10,overlay,0,0
-63pattern1,-1,10,overlay,0,0
+animation61.interval,talk,4
+animation61.pattern0,alternativestart,(62,63)
+animation62.interval,never
+animation62.pattern0,overlay,151,120,0,0
+animation62.pattern1,overlay,-1,120,0,0
+animation63.interval,never
+animation63.pattern0,overlay,151,100,0,0
+animation63.pattern1,overlay,-1,100,0,0
 //open
-64interval,never
-64pattern0,151,0,overlay,0,0
-//close 2
-65interval,never
-65pattern0,150,0,overlay,0,0
+animation64.interval,never
+animation64.pattern0,overlay,151,0,0,0
 }
 
 //--DIB PROFILE SMIRK
@@ -544,23 +582,20 @@ surface22
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,runonce
-60pattern0,152,0,overlay,0,0
+animation60.interval,runonce
+animation60.pattern0,overlay,152,0,0,0
 //talk
-61interval,talk,4
-61pattern0,0,0,alternativestart,[62.63]
-62interval,never
-62pattern0,153,12,overlay,0,0
-62pattern1,-1,12,overlay,0,0
-63interval,never
-63pattern0,153,10,overlay,0,0
-63pattern1,-1,10,overlay,0,0
+animation61.interval,talk,4
+animation61.pattern0,alternativestart,(62,63)
+animation62.interval,never
+animation62.pattern0,overlay,153,120,0,0
+animation62.pattern1,overlay,-1,120,0,0
+animation63.interval,never
+animation63.pattern0,overlay,153,100,0,0
+animation63.pattern1,overlay,-1,100,0,0
 //open
-64interval,never
-64pattern0,153,0,overlay,0,0
-//close 2
-65interval,never
-65pattern0,152,0,overlay,0,0
+animation64.interval,never
+animation64.pattern0,overlay,153,0,0,0
 }
 
 //--DIB PROFILE FROWN
@@ -568,23 +603,20 @@ surface23
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,runonce
-60pattern0,154,0,overlay,0,0
+animation60.interval,runonce
+animation60.pattern0,overlay,154,0,0,0
 //talk
-61interval,talk,4
-61pattern0,0,0,alternativestart,[62.63]
-62interval,never
-62pattern0,155,12,overlay,0,0
-62pattern1,-1,12,overlay,0,0
-63interval,never
-63pattern0,155,10,overlay,0,0
-63pattern1,-1,10,overlay,0,0
+animation61.interval,talk,4
+animation61.pattern0,alternativestart,(62,63)
+animation62.interval,never
+animation62.pattern0,overlay,155,120,0,0
+animation62.pattern1,overlay,-1,120,0,0
+animation63.interval,never
+animation63.pattern0,overlay,155,100,0,0
+animation63.pattern1,overlay,-1,100,0,0
 //open
-64interval,never
-64pattern0,155,0,overlay,0,0
-//close 2
-65interval,never
-65pattern0,154,0,overlay,0,0
+animation64.interval,never
+animation64.pattern0,overlay,155,0,0,0
 }
 
 //--DIB PROFILE POUT
@@ -592,20 +624,17 @@ surface24
 {
 element0,overlay,surface1.png,0,0
 //close
-60interval,runonce
-60pattern0,156,0,overlay,0,0
+animation60.interval,runonce
+animation60.pattern0,overlay,156,0,0,0
 //talk
-61interval,talk,4
-61pattern0,0,0,alternativestart,[62.63]
-62interval,never
-62pattern0,151,12,overlay,0,0
-62pattern1,-1,12,overlay,0,0
-63interval,never
-63pattern0,151,10,overlay,0,0
-63pattern1,-1,10,overlay,0,0
-//close 2
-65interval,never
-65pattern0,156,0,overlay,0,0
+animation61.interval,talk,4
+animation61.pattern0,alternativestart,(62,63)
+animation62.interval,never
+animation62.pattern0,overlay,151,120,0,0
+animation62.pattern1,overlay,-1,120,0,0
+animation63.interval,never
+animation63.pattern0,overlay,151,100,0,0
+animation63.pattern1,overlay,-1,100,0,0
 }
 
 
@@ -619,153 +648,164 @@ collision0,113,108,201,136,Head
 collision1,112,137,182,200,Face
 
 //--Head Base
-55interval,runonce
-55pattern0,100,0,overlay,0,0
+animation55.interval,runonce
+animation55.pattern0,overlay,100,0,0,0
 
 //--Eeeyyyeees
 //eyewhite
-15interval,runonce
-15pattern0,110,0,overlay,0,0
+animation15.interval,runonce
+animation15.pattern0,overlay,110,0,0,0
+
+//reset
+animation201.interval,never
+animation201.pattern0,parallelstop,(20,21,22,23,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40)
+animation201.pattern1,start,24
 //right
-20interval,never
-20pattern0,0,0,stop,24
-20pattern1,115,0,overlayfast,125,158
+animation20.interval,never
+animation20.pattern0,parallelstop,(71,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40)
+animation20.pattern1,overlayfast,115,0,125,158
 //left
-21interval,never
-21pattern0,0,0,parallelstop,[24.71]
-21pattern1,115,0,overlayfast,109,158
+animation21.interval,never
+animation21.pattern0,parallelstop,(71,20,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40)
+animation21.pattern1,overlayfast,115,0,109,158
 //up
-22interval,never
-22pattern0,0,0,parallelstop,[24.71]
-22pattern1,115,0,overlayfast,121,150
+animation22.interval,never
+animation22.pattern0,parallelstop,(71,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40)
+animation22.pattern1,overlayfast,115,0,121,150
 //down
-23interval,never
-23pattern0,0,0,parallelstop,[24.71]
-23pattern1,115,0,overlayfast,121,168
+animation23.interval,never
+animation23.pattern0,parallelstop,(71,20,21,22,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40)
+animation23.pattern1,overlayfast,115,0,121,168
 //middle
-24interval,runonce
-24pattern0,115,0,overlayfast,121,158
+animation24.interval,runonce
+animation24.pattern0,overlayfast,115,0,121,158
 //upright
-25interval,never
-25pattern0,0,0,parallelstop,[24.71]
-25pattern1,115,0,overlayfast,124,150
+animation25.interval,never
+animation25.pattern0,parallelstop,(71,20,21,22,23,24,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40)
+animation25.pattern1,overlayfast,115,0,124,150
 //upleft
-26interval,never
-26pattern0,0,0,parallelstop,[24.71]
-26pattern1,115,0,overlayfast,109,150
+animation26.interval,never
+animation26.pattern0,parallelstop,(71,20,21,22,23,24,25,27,28,29,30,31,32,33,34,35,36,37,38,39,40)
+animation26.pattern1,overlayfast,115,0,109,150
 //downleft
-27interval,never
-27pattern0,0,0,parallelstop,[24.71]
-27pattern1,115,0,overlayfast,109,168
+animation27.interval,never
+animation27.pattern0,parallelstop,(71,20,21,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,38,39,40)
+animation27.pattern1,overlayfast,115,0,109,168
 //downright
-28interval,never
-28pattern0,0,0,parallelstop,[24.71]
-28pattern1,115,0,overlay,124,168
+animation28.interval,never
+animation28.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,29,30,31,32,33,34,35,36,37,38,39,40)
+animation28.pattern1,overlay,115,0,124,168
 //shockright
-29interval,never
-29pattern0,0,0,stop,24
-29pattern1,116,0,overlay,127,159
+animation29.interval,never
+animation29.pattern0,parallelstop,(20,21,22,23,24,25,26,27,28,30,31,32,33,34,35,36,37,38,39,40)
+animation29.pattern1,overlay,116,0,127,159
 //shockleft
-30interval,never
-30pattern0,0,0,parallelstop,[24.71]
-30pattern1,116,0,overlay,110,159
+animation30.interval,never
+animation30.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,31,32,33,34,35,36,37,38,39,40)
+animation30.pattern1,overlay,116,0,110,159
 //shockup
-31interval,never
-31pattern0,0,0,parallelstop,[24.71]
-31pattern1,116,0,overlay,122,152
+animation31.interval,never
+animation31.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,30,32,33,34,35,36,37,38,39,40)
+animation31.pattern1,overlay,116,0,122,152
 //shockdown
-32interval,never
-32pattern0,0,0,parallelstop,[24.71]
-32pattern1,116,0,overlay,122,168
+animation32.interval,never
+animation32.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,30,31,33,34,35,36,37,38,39,40)
+animation32.pattern1,overlay,116,0,122,168
 //shockmiddle
-33interval,never
-33pattern0,0,0,parallelstop,[24.71]
-33pattern1,116,0,overlay,122,159
+animation33.interval,never
+animation33.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,30,31,32,34,35,36,37,38,39,40)
+animation33.pattern1,overlay,116,0,122,159
 //shockdownright
-34interval,never
-34pattern0,0,0,parallelstop,[24.71]
-34pattern1,116,0,overlay,126,168
+animation34.interval,never
+animation34.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,30,31,32,33,35,36,37,38,39,40)
+animation34.pattern1,overlay,116,0,126,168
 //uhohright------------------i'm considering shaving down this section (and shock) since i barely use em
-35interval,never
-35pattern0,0,0,stop,24
-35pattern1,117,0,overlay,125,158
+animation35.interval,never
+animation35.pattern0,parallelstop,(20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,36,37,38,39,40)
+animation35.pattern1,overlay,117,0,125,158
 //uhohleft
-36interval,never
-36pattern0,0,0,parallelstop,[24.71]
-36pattern1,117,0,overlay,109,158
+animation36.interval,never
+animation36.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,37,38,39,40)
+animation36.pattern1,overlay,117,0,109,158
 //uhohup
-37interval,never
-37pattern0,0,0,parallelstop,[24.71]
-37pattern1,117,0,overlay,121,150
+animation37.interval,never
+animation37.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,38,39,40)
+animation37.pattern1,overlay,117,0,121,150
 //uhohdown
-38interval,never
-38pattern0,0,0,parallelstop,[24.71]
-38pattern1,117,0,overlay,121,168
+animation38.interval,never
+animation38.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,39,40)
+animation38.pattern1,overlay,117,0,121,168
 //uhohmiddle
-39interval,never
-39pattern0,0,0,parallelstop,[24.71]
-39pattern1,117,0,overlay,121,158
+animation39.interval,never
+animation39.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,40)
+animation39.pattern1,overlay,117,0,121,158
 //uhohdownright
-40interval,never
-40pattern0,0,0,parallelstop,[24.71]
-40pattern1,117,0,overlay,124,168
+animation40.interval,never
+animation40.pattern0,parallelstop,(71,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39)
+animation40.pattern1,overlay,117,0,124,168
 
 //Eyeline
-59interval,runonce
-59pattern0,139,0,overlay,0
-
+animation59.interval,runonce
+animation59.pattern0,overlay,139,0,0,0
 //--BlinkBlink
-71interval,random,4
-71pattern0,-1,10,overlay,120,157
-71pattern1,140,4,overlayfast,120,157
-71pattern2,142,8,overlayfast,120,157
-71pattern3,-1,6,overlay,120,157
+animation71.interval,random,4
+animation71.pattern0,overlay,-1,100,120,157
+animation71.pattern1,overlayfast,140,40,120,157
+animation71.pattern2,overlayfast,142,80,120,157
+animation71.pattern3,overlay,-1,60,120,157
+//202 stops blink.
 
 //call eyelid
-70interval,never
-70pattern0,0,0,parallelstop,[15.59]
-70pattern1,0,0,parallelstart,[74.16]
+animation70.interval,never
+animation70.pattern0,parallelstop,(15,59,72,73)
+animation70.pattern1,parallelstart,(74,16)
 //Eyelid Yasss
-74interval,never
-74pattern0,138,0,overlay,0
-16interval,never
-16pattern0,111,0,overlay,0
+animation74.interval,never
+animation74.pattern0,overlay,138,0,0,0
+animation16.interval,never
+animation16.pattern0,overlay,111,0,0,0
 //Closed
-72interval,never
-72pattern0,142,0,overlay,120,157
+animation72.interval,never
+animation72.pattern0,parallelstop,(74,16,70,71,73)
+animation72.pattern1,overlay,142,0,120,157
 //Happy
-73interval,never
-73pattern0,144,0,overlay,120,157
+animation73.interval,never
+animation73.pattern0,parallelstop,(74,16,70,71,72)
+animation73.pattern1,overlay,144,0,120,157
+//203 stops (70,72,73)
 
 //--Eyebrows, yasss
 //neutral
-75interval,runonce
-75pattern0,170,0,overlay,0
+animation75.interval,runonce
+animation75.pattern0,overlay,170,0,0,0
+animation75.pattern1,overlay,170,200,0,0
 //question
-76interval,never
-76pattern0,0,0,stop,75
-76pattern1,171,0,overlay,0
+animation76.interval,never
+animation76.pattern0,parallelstop,(75,77,78)
+animation76.pattern1,overlay,171,0,0,0
 //sad
-77interval,never
-77pattern0,0,0,stop,75
-77pattern1,172,0,overlay,0
+animation77.interval,never
+animation77.pattern0,parallelstop,(75,76,78)
+animation77.pattern1,overlay,172,0,0,0
 //angry
-78interval,never
-78pattern0,0,0,stop,75
-78pattern1,173,0,overlay,0
+animation78.interval,never
+animation78.pattern0,parallelstop,(75,76,77)
+animation78.pattern1,overlay,173,0,0,0
+//204 stops (76,77,78) and starts 75
 
 //--Extras lets gooooo
 //sweat
-80interval,never
-80pattern0,190,0,overlay,0
+animation80.interval,never
+animation80.pattern0,overlay,190,0,0,0
 //blush
-85interval,never
-85pattern0,195,0,overlay,0
+animation85.interval,never
+animation85.pattern0,overlay,195,0,0,0
+//205 stops all extras
 
 //--Clothes
 //Glasses
-910interval,bind
-910pattern0,105,0,add,0,0
+animation910.interval,bind
+animation910.pattern0,add,105,0,0,0
 }
 
 //--------END OF COPY PASTE NIGHTMARE. DRAW HIS SHELL ALREADY DAMN IT------------------------------------------------
@@ -775,74 +815,125 @@ surface.append0-50,!1,!10,!18,!19
 {
 //--Back Arm
 //Relax
-1interval,runonce
-1pattern0,600,0,overlay,0,0
+animation1.interval,runonce
+animation1.pattern0,overlay,600,0,0,0
 //PointDown
-2interval,never
-2pattern0,0,0,stop,1
-2pattern1,601,0,overlay,0,0
+animation2.interval,never
+animation2.pattern0,parallelstop,(1,3,4,5,6,7,8)
+animation2.pattern1,overlay,601,0,0,0
 //Behind
-3interval,never
-3pattern0,0,0,stop,1
-3pattern1,602,0,overlay,0,0
+animation3.interval,never
+animation3.pattern0,parallelstop,(1,2,4,5,6,7,8)
+animation3.pattern1,overlay,602,0,0,0
 //Hip
-4interval,never
-4pattern0,0,0,stop,1
-4pattern1,603,0,overlay,0,0
+animation4.interval,never
+animation4.pattern0,parallelstop,(1,2,3,5,6,7,8)
+animation4.pattern1,overlay,603,0,0,0
+//phone1
+animation5.interval,never
+animation5.pattern0,parallelstop,(1,2,3,4,6,7,8)
+animation5.pattern1,overlay,604,0,0,0
+//phone2
+animation6.interval,never
+animation6.pattern0,parallelstop,(1,2,3,4,5,7,8)
+animation6.pattern1,overlay,605,0,0,0
+//phone3
+animation7.interval,never
+animation7.pattern0,parallelstop,(1,2,3,4,5,6,8)
+animation7.pattern1,overlay,606,0,0,0
+//backarm for front1------------or something, idk this is blank 4 now, its a placeholder
+animation8.interval,never
+animation8.pattern0,parallelstop,(1,2,3,4,5,6,7)
+//reset backarm
+animation200.interval,never
+animation200.pattern0,parallelstop,(2,3,4,5,6,7,8)
+animation200.pattern1,start,1,0,0,0
 
 //--Body
 //yass
-10interval,runonce
-10pattern0,50,0,overlay,0,0
+animation10.interval,runonce
+animation10.pattern0,overlay,50,0,0,0
+animation10.pattern1,overlay,50,200,0,0
+
+//--Mouth
+//stop that!!
+animation65.interval,never
+animation65.pattern0,parallelstop,(61,64)
+//ok continue talking
+animation66.interval,never
+animation66.pattern0,stop,65
+
+//staaare (stops blink)
+animation202.interval,never
+animation202.pattern0,stop,71
+
+//STOOOP those eyelids. 
+animation203.interval,never
+animation203.pattern0,parallelstop,(70,72,73)
+
+//Stop eyebrows
+animation204.interval,never
+animation204.pattern0,parallelstop,(76,77,78)
+animation204.pattern1,start,75
+
+//Stop extras
+animation205.interval,never
+animation205.pattern0,parallelstop,(80,85)
 
 //--Front arms hell yeah
+animation210.interval,never
+animation210.pattern0,parallelstop,(91,92,93,94,95,96,97,98,99,100,101)
+animation210.pattern1,start,90
 //relax
-90interval,runonce
-90pattern0,650,0,overlay,0
+animation90.interval,runonce
+animation90.pattern0,overlay,650,0,0
+animation90.pattern1,overlay,650,200,0,0
 //hip
-91interval,never
-91pattern0,0,0,stop,90
-91pattern1,651,0,overlay,0
+animation91.interval,never
+animation91.pattern0,parallelstop,(90,92,93,94,95,96,97,98,99,100,101)
+animation91.pattern1,overlay,651,0,0
 //think
-92interval,never
-92pattern0,0,0,stop,90
-92pattern1,652,0,overlay,0
+animation92.interval,never
+animation92.pattern0,parallelstop,(90,91,93,94,95,96,97,98,99,100,101)
+animation92.pattern1,overlay,652,0,0
 //behind
-93interval,never
-93pattern0,0,0,stop,90
-93pattern1,653,0,overlay,0
+animation93.interval,never
+animation93.pattern0,parallelstop,(90,91,92,94,95,96,97,98,99,100,101)
+animation93.pattern1,overlay,653,0,0
 //phone time1
-94interval,never
-94pattern0,0,0,stop,90
-94pattern1,654,0,overlay,0
+animation94.interval,never
+animation94.pattern0,parallelstop,(90,91,92,93,95,96,97,98,99,100,101)
+animation94.pattern1,overlay,654,0,0
 //phone time2
-95interval,never
-95pattern0,0,0,stop,90
-95pattern1,655,0,overlay,0
+animation95.interval,never
+animation95.pattern0,parallelstop,(90,91,92,93,94,96,97,98,99,100,101)
+animation95.pattern1,overlay,655,0,0
 //open1
-96interval,never
-96pattern0,0,0,stop,90
-96pattern1,656,0,overlay,0
+animation96.interval,never
+animation96.pattern0,parallelstop,(90,91,92,93,94,95,97,98,99,100,101)
+animation96.pattern1,overlay,656,0,0
 //point1
-97interval,never
-97pattern0,0,0,stop,90
-97pattern1,657,0,overlay,0
+animation97.interval,never
+animation97.pattern0,parallelstop,(90,91,92,93,94,95,96,98,99,100,101)
+animation97.pattern1,overlay,657,0,0
 //handup
-98interval,never
-98pattern0,0,0,stop,90
-98pattern1,658,0,overlay,0
+animation98.interval,never
+animation98.pattern0,parallelstop,(90,91,92,93,94,95,96,97,99,100,101)
+animation98.pattern1,overlay,658,0,0
 //phone time3
-99interval,never
-99pattern0,0,0,stop,90
-99pattern1,659,0,overlay,0
+animation99.interval,never
+animation99.pattern0,parallelstop,(90,91,92,93,94,95,96,97,98,100,101)
+animation99.pattern1,overlay,659,0,0
 //phone time4
-100interval,never
-100pattern0,0,0,stop,90
-100pattern1,660,0,overlay,0
+animation100.interval,never
+animation100.pattern0,parallelstop,(90,91,92,93,94,95,96,97,98,99,101)
+animation100.pattern1,overlay,660,0,0
 //hmf (hand in front of face, mostly)
-101interval,never
-101pattern0,0,0,stop,90
-101pattern1,661,0,overlay,0
+animation101.interval,never
+animation101.pattern0,parallelstop,(90,91,92,93,94,95,96,97,98,99,100)
+animation101.pattern1,start,950
+animation950.interval,never
+animation950.pattern0,overlay,661,0,0,0
 }
 
 
@@ -853,8 +944,8 @@ surface800
 {
 element0,overlay,surface800.png,0,0
 //Glasses
-910interval,bind
-910pattern0,801,0,add,0,0
+animation910.interval,bind
+animation910.pattern0,add,801,0,0,0
 }
 
 

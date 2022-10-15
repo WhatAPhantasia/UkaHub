@@ -14,7 +14,6 @@ surface0
 	animation150.pattern0,overlay,150,0,0,0
 
 	//liquid
-	//TODO: apparently RGB is the no-liquid tube and the NONE is... nothing?? what. what is going on. fix it please
 	animation50.interval,bind
 	animation50.pattern0,overlay,50,0,0,0
 

@@ -67,16 +67,16 @@ OnNameTeach
 	{
 		if firstboot == 1 //&& uninstallStatus == 0
 		{
-		"\0\s[0]\i[92]\i[76]...Huh? \w6Not many people I know with that name. \w4Because it's \w4\s[0]\i[76]\i[91]my name. \w8\s[0]\i[91]Can I call you something else? This might get confusing.\w8\![open,inputbox,OnNameTeach,-1]"
+		"\0\s[0]\i[92]\i[76]...Huh? \w6Not many people I know with that name. \w4Because it's \w4\i[204]\i[91]my name. \w8\w8\i[76]\i[96]Can I call you something else? \w8\![open,inputbox,OnNameTeach,-1]"
 		}
 		else
 		{
-		"\0\s[2]\i[77]Come on, you know that's my name.\w8\![open,inputbox,OnNameTeach,-1]"
+		"\0\s[2]\i[77]\i[91]Come on, you know that's my name.\w8\![open,inputbox,OnNameTeach,-1]"
 		}
 	}
 	elseif reference0 == "mothman"
 	{
-		"\0\s[11]\i[92]Oh... \w8\0\s[11]\i[92]I actually use the same name, \w4kind of. \w5\s[0]\i[91]Just so we don't get confused, can I call you something else?\w8\![open,inputbox,OnNameTeach,-1]"
+		"\0\s[11]\i[92]Oh... \w8\0\s[0]\i[92]I actually use the same name, \w4\i[21]kind of. \w8\w2\i[91]\i[201]\i[76]Just so we don't get confused, can I call you something else?\w8\![open,inputbox,OnNameTeach,-1]"
 		//not sure if i should keep this one. eh
 	}
 	elseif reference0 == "dad" || reference0 == "daddy" || reference0 == "father" || reference0 == "dadd" || reference0 == "mrmembrane" || reference0 == "professormembrane" || reference0 == "profmembrane" || reference0 == "mrsbitters" || reference0 == "msbitters" || reference0 == "mrdwicky" || reference0 == "torquesmackey"
@@ -92,7 +92,7 @@ OnNameTeach
 		}
 		else
 		{
-		"\0\s[0]\i[70]...Are you making fun of me? \w2At least use my actual name. I'm not calling you that.\w8\![open,inputbox,OnNameTeach,-1]"
+		"\0\s[0]\i[70]\i[91]...Are you making fun of me? \w2At least use my actual name. I'm not calling you that.\w8\![open,inputbox,OnNameTeach,-1]"
 		}
 	}
 	elseif reference0 == "gaz" || reference0 == "gazlene"
@@ -117,7 +117,7 @@ OnNameTeach
 		if firstboot == 1
 		{
 		username = tempname
-		"\0\s[3]\i[33]\i[85]E-Ely?! Out of all the places- \w8\0\s[3]\i[72]\i[78]Agh, no, no, no. This isn't even their desktop. \w2\0\s[0]\i[72]It's a common name... \x%(NameDone)\e"
+		"\0\s[3]\i[33]\i[85]E-Ely?! Out of all the places- \w8\i[72]\i[78]Agh, no, no, no. This isn't even their desktop. \w2\s[3]\i[72]It's a common name... \x%(NameDone)\e"
 		//TODO: let user confirm yes or no, and check for pronouns (or just do an alternate .dic for ely lines? look i just want him to be cute with ely ok)
 		}
 		else

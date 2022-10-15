@@ -13,10 +13,10 @@ OnNameTeach
 	_name = REPLACE(_name,".","") //removes periods
 	_name = REPLACE(_name,"-","") //removes dashes
 	
-	_is_first_boot = 0; if reference1 == "firstboot"; _is_first_boot = 1
-	_function = "OnNameTeach"; if _is_first_boot; _function = "OnFirstNameTeach"
+	//_is_first_boot = 0; if reference1 == "firstboot"; _is_first_boot = 1
+	//_function = "OnNameTeach"; if _is_first_boot; _function = "OnFirstNameTeach"
 	
-	if _is_first_boot; "\_l[-10000,-10000]\q[ ,__VERY_FIRST_BOOT__]\_l[0,0]\*\t" //Prevents balloon from timing out if this is during first boot. Also prevents the user from closing out the input box
+	//if _is_first_boot; "\_l[-10000,-10000]\q[ ,__VERY_FIRST_BOOT__]\_l[0,0]\*\t" //Prevents balloon from timing out if this is during first boot. Also prevents the user from closing out the input box
 	
 	if ("snatcher" _in_ _name)
 	{
@@ -34,7 +34,7 @@ OnNameTeach
 		username = SHIORI3FW.EscapeAllTags(_tempname)
 		"\0\s[0]...Ah. w6What a lovely name. \w6\x%(namedone)"
 	}
-	elseif _name == "queenvanessa" || _name == "moonjumper" || _name == "hatkid" || _name == "bowkid" || _name == "mustachegirl" || _name == "conductor" || _name == "theconductor" || _name == "djgrooves" || _name == "restingking" || _name == "mafiaboss"
+	elseif _name == "queenvanessa" || _name == "moonjumper" || _name == "hatkid" || _name == "bowkid" || _name == "mustachegirl" || _name == "conductor" || _name == "theconductor" || _name == "djgrooves" || _name == "restingking" || _name == "therestingking" || _name == "mafiaboss"
 	{
 		"\0\s[0]\i[1]\b[4]That name already belongs to someone, and stealing is wrong! Try again.\w8\![open,inputbox,OnNameTeach,-1]"
 		//TODO: check surface where it cancels snatcher's talking anim
@@ -59,6 +59,7 @@ OnNameTeach
 	else
 	{
 		username = SHIORI3FW.EscapeAllTags(_tempname)
+		"%(namedone)"
 	}
 
 }
@@ -136,7 +137,7 @@ pronoundone
 		--
 		if soulcustody == 0 && foundinnocent != 2
 		{
-			"\0\s[0]AHAHAHHA! That seals the deal! Alright, how do I get your soul from here... \w6\x"
+			"\0\s[0]AHAHAHHA! That seals the deal, %(username)! Alright, how do I get your soul from here... \w6\x"
 			--
 			soulcustody = 1
 			--
