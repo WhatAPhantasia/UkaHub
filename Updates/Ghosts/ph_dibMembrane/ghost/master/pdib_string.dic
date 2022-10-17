@@ -90,9 +90,9 @@ On_portalrootbutton.caption
  
 On_sakura.portalsites
  {
-	"WhatAPhantasia Website"
+	"WhatAPhantasia Ukagaka Hub"
 	--
-	"%ASC(1)https://whataphantasia.github.io/UkaHub/%ASC(2)"
+	"%ASC(1)https://phantasiaukahub.carrd.co/%ASC(2)"
 	--
 	"%ASC(1)%ASC(2)"//-------------------------------------------
 	--
@@ -110,13 +110,17 @@ On_sakura.portalsites
 	--
 	"Shooting Star Fic"
 	--
-	"%ASC(1)http://www.fourthsite.com/%ASC(2)"
+	"%ASC(1)https://www.wattpad.com/story/298530578-shooting-star%ASC(2)"
 	--
 	"%ASC(1)%ASC(2)"//-------------------------------------------
 	--
 	"Levidre's Zim Ghost"
 	--
 	"%ASC(1)https://levidre.github.io/ukagaka/zim-and-gir/%ASC(2)"
+	--
+	"Ely Crowe Ghost"
+	--
+	"%ASC(1)https://phantasiaukahub.carrd.co/#ely/%ASC(2)"
  }
 
  
@@ -133,13 +137,13 @@ On_kero.recommendbuttoncaption
  
 On_kero.recommendsites
  {
-	"A Site"
+	"WhatAPhantasia Ukagaka Hub"
 	--
-	"%ASC(1)http://www.asite.com/%ASC(2)"
+	"%ASC(1)https://phantasiaukahub.carrd.co/%ASC(2)"
 	--
-	"Another Site"
+	"Dib's Page!!"
 	--
-	"%ASC(1)http://anothersite.org/%ASC(2)"
+	"%ASC(1)https://phantasiaukahub.carrd.co/#dib/%ASC(2)"
  }
 
  //---- Update Menu Caption ------------------------------------------------------------

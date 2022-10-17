@@ -9,7 +9,7 @@ name,Swollen Eyeball Balloon
 
 craftman,WhatAPhantasia
 craftmanw,whataphantasia
-craftmanurl,https://whataphantasia.carrd.co
+craftmanurl,https://phantasiaukahub.carrd.co
 
 homeurl,https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/master/Updates/Balloons/swolleneyeball_b
 

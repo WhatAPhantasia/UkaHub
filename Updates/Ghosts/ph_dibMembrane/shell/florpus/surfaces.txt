@@ -51,6 +51,8 @@ version,1
 //surface2: 3/4 smirk
 //surface3: 3/4 frown
 //surface4: 3/4 pout
+//surface8: 3/4 phone idle
+//surface8: 3/4 phone talk
 //surface10: null
 //surface11: front neutral
 //surface12: front smirk
@@ -215,6 +217,105 @@ animation63.pattern0,overlay,151,100,0,0
 animation63.pattern1,overlay,-1,100,0,0
 }
 
+//phone tappy time 1 - idle
+//theres no talking frames with this one, intended for idle
+surface8
+{
+//--Back Arm
+animation1.interval,runonce
+animation1.pattern0,overlay,600,0,0,0
+
+//--Body
+//yass
+animation10.interval,runonce
+animation10.pattern0,overlay,50,0,0,0
+
+//--Mouth moods...
+animation60.interval,runonce
+animation60.pattern0,overlay,150,0,0,0
+
+animation61.interval,rarely
+animation61.pattern0,stop,60
+animation61.pattern1,overlay,152,0,0,0
+animation61.pattern2,overlay,-1,8000,0,0
+animation61.pattern3,start,60
+
+
+//--phone!!
+animation99.interval,runonce
+animation99.pattern0,stop,100
+animation99.pattern1,overlay,659,0,0,0
+animation99.pattern2,overlay,659,10,0,0
+animation99.pattern3,start,100
+animation99.pattern4,overlay,-1,200,0,0
+animation100.interval,always
+animation100.pattern0,overlay,659,200,0,0
+animation100.pattern1,overlay,660,1050,0,0
+animation100.pattern2,overlay,659,100,0,0
+animation100.pattern3,overlay,660,370,0,0
+animation100.pattern4,overlay,659,130,0,0
+animation100.pattern5,overlay,660,270,0,0
+animation100.pattern6,overlay,659,130,0,0
+animation100.pattern7,overlay,660,550,0,0
+}
+
+//phone tappy time 2 - idle
+//here i can use this during dialogue
+surface9
+{
+//--Back Arm
+animation1.interval,runonce
+animation1.pattern0,overlay,600,0,0,0
+
+//--Body
+//yass
+animation10.interval,runonce
+animation10.pattern0,overlay,50,0,0,0
+
+
+//--Mouth moods...
+animation60.interval,runonce
+animation60.pattern0,overlay,150,0,0,0
+
+//talking and stuff
+animation61.interval,talk,4
+animation61.pattern0,alternativestart,(62,63)
+animation62.interval,never
+animation62.pattern0,overlay,151,120,0,0
+animation62.pattern1,overlay,-1,120,0,0
+animation63.interval,never
+animation63.pattern0,overlay,151,100,0,0
+animation63.pattern1,overlay,-1,100,0,0
+//open
+animation64.interval,never
+animation64.pattern0,overlay,151,0,0,0
+//stop that!!
+animation65.interval,never
+animation65.pattern0,parallelstop,(61,64)
+//ok continue talking
+animation66.interval,never
+animation66.pattern0,stop,65
+//teef
+
+
+//--phone!!
+animation99.interval,runonce
+animation99.pattern0,stop,100
+animation99.pattern1,overlay,659,0,0,0
+animation99.pattern2,overlay,659,10,0,0
+animation99.pattern3,start,100
+animation99.pattern4,overlay,-1,200,0,0
+animation100.interval,always
+animation100.pattern0,overlay,659,200,0,0
+animation100.pattern1,overlay,660,1050,0,0
+animation100.pattern2,overlay,659,100,0,0
+animation100.pattern3,overlay,660,370,0,0
+animation100.pattern4,overlay,659,130,0,0
+animation100.pattern5,overlay,660,270,0,0
+animation100.pattern6,overlay,659,130,0,0
+animation100.pattern7,overlay,660,550,0,0
+}
+
 //--DIB 3/4 APPEND
 surface.append0-9,!1
 {
@@ -239,7 +340,7 @@ animation201.pattern0,parallelstop,(20,21,22,23,25,26,27,28,29,30,31,32,33,34,35
 animation201.pattern1,start,24
 //right
 animation20.interval,never
-animation20.pattern0,parallelstop,(21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40)
+animation20.pattern0,parallelstop,(71,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40)
 animation20.pattern1,overlayfast,115,0,125,158
 //left
 animation21.interval,never
@@ -488,17 +589,25 @@ animation60.interval,runonce
 animation60.pattern0,overlay,150,0,0,0
 
 animation61.interval,rarely
-animation61.pattern0,overlay,152,0,0,0
-animation61.pattern1,overlay,-1,8000,0,0
+animation61.pattern0,stop,60
+animation61.pattern1,overlay,152,0,0,0
+animation61.pattern2,overlay,-1,8000,0,0
+animation61.pattern3,start,60
 
 
 //--phone!!
+animation99.interval,runonce
+animation99.pattern0,stop,100
+animation99.pattern1,overlay,654,0,0,0
+animation99.pattern2,overlay,654,10,0,0
+animation99.pattern3,start,100
+animation99.pattern4,overlay,-1,200,0,0
 animation100.interval,always
-animation100.pattern0,overlay,654,0,0,0
+animation100.pattern0,overlay,654,200,0,0
 animation100.pattern1,overlay,655,1050,0,0
 animation100.pattern2,overlay,654,100,0,0
 animation100.pattern3,overlay,655,370,0,0
-animation100.pattern4,overlay,654,90,0,0
+animation100.pattern4,overlay,654,130,0,0
 animation100.pattern5,overlay,655,270,0,0
 animation100.pattern6,overlay,654,130,0,0
 animation100.pattern7,overlay,655,550,0,0
@@ -534,18 +643,28 @@ animation63.pattern1,overlay,-1,100,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,151,0,0,0
-//close but like... ye
+//stop that!!
 animation65.interval,never
-animation65.pattern0,overlay,150,0,0,0
+animation65.pattern0,parallelstop,(61,64)
+//ok continue talking
+animation66.interval,never
+animation66.pattern0,stop,65
+//teef
 
 
 //--phone!!
+animation99.interval,runonce
+animation99.pattern0,stop,100
+animation99.pattern1,overlay,654,0,0,0
+animation99.pattern2,overlay,654,10,0,0
+animation99.pattern3,start,100
+animation99.pattern4,overlay,-1,200,0,0
 animation100.interval,always
-animation100.pattern0,overlay,654,0,0,0
+animation100.pattern0,overlay,654,200,0,0
 animation100.pattern1,overlay,655,1050,0,0
 animation100.pattern2,overlay,654,100,0,0
 animation100.pattern3,overlay,655,370,0,0
-animation100.pattern4,overlay,654,90,0,0
+animation100.pattern4,overlay,654,130,0,0
 animation100.pattern5,overlay,655,270,0,0
 animation100.pattern6,overlay,654,130,0,0
 animation100.pattern7,overlay,655,550,0,0
@@ -637,11 +756,146 @@ animation63.pattern0,overlay,151,100,0,0
 animation63.pattern1,overlay,-1,100,0,0
 }
 
+//phone tappy time 1 - idle
+//theres no talking frames with this one, intended for idle
+surface28
+{
+//--Front arms (only hip, relax, behind, and think)
+animation210.interval,never
+animation210.pattern0,parallelstop,(91,92,93)
+animation210.pattern1,start,90
+//relax
+animation90.interval,runonce
+animation90.pattern0,overlay,650,0,0,0
+animation90.pattern1,overlay,650,200,0,0
+//hip
+animation91.interval,never
+animation91.pattern0,parallelstop,(90,92,93)
+animation91.pattern1,overlay,651,0,0,0
+//think
+animation92.interval,never
+animation92.pattern0,parallelstop,(90,91,93)
+animation92.pattern1,overlay,652,0,0,0
+//behind
+animation93.interval,never
+animation93.pattern0,parallelstop,(90,91,92)
+animation93.pattern1,overlay,653,0,0,0
+
+//--Body
+//yass
+animation10.interval,runonce
+animation10.pattern0,overlay,50,0,0,0
+
+//--Mouth moods...
+animation60.interval,runonce
+animation60.pattern0,overlay,150,0,0,0
+
+animation61.interval,rarely
+animation61.pattern0,stop,60
+animation61.pattern1,overlay,152,0,0,0
+animation61.pattern2,overlay,-1,8000,0,0
+animation61.pattern3,start,60
+
+
+//--phone!! (604-606)
+animation0.interval,runonce
+animation0.pattern0,stop,1
+animation0.pattern1,overlay,604,0,0,0
+animation0.pattern2,overlay,604,10,0,0
+animation0.pattern3,start,1
+animation0.pattern4,overlay,-1,200,0,0
+animation1.interval,always
+animation1.pattern0,overlay,604,200,0,0
+animation1.pattern1,overlay,605,200,0,0
+animation1.pattern2,overlay,606,200,0,0
+animation1.pattern3,overlay,604,1000,0,0
+animation1.pattern4,overlay,605,370,0,0
+animation1.pattern6,overlay,606,270,0,0
+animation1.pattern8,overlay,604,830,0,0
+animation1.pattern9,overlay,605,400,0,0
+animation1.pattern10,overlay,606,300,0,0
+}
+
+//phone tappy time 2 - idle
+//here i can use this during dialogue
+surface29
+{
+//--Front arms (only hip, relax, behind, and think)
+animation210.interval,never
+animation210.pattern0,parallelstop,(91,92,93)
+animation210.pattern1,start,90
+//relax
+animation90.interval,runonce
+animation90.pattern0,overlay,650,0,0,0
+animation90.pattern1,overlay,650,200,0,0
+//hip
+animation91.interval,never
+animation91.pattern0,parallelstop,(90,92,93)
+animation91.pattern1,overlay,651,0,0,0
+//think
+animation92.interval,never
+animation92.pattern0,parallelstop,(90,91,93)
+animation92.pattern1,overlay,652,0,0,0
+//behind
+animation93.interval,never
+animation93.pattern0,parallelstop,(90,91,92)
+animation93.pattern1,overlay,653,0,0,0
+
+//--Body
+//yass
+animation10.interval,runonce
+animation10.pattern0,overlay,50,0,0,0
+
+
+//--Mouth moods...
+animation60.interval,runonce
+animation60.pattern0,overlay,150,0,0,0
+
+//talking and stuff
+animation61.interval,talk,4
+animation61.pattern0,alternativestart,(62,63)
+animation62.interval,never
+animation62.pattern0,overlay,151,120,0,0
+animation62.pattern1,overlay,-1,120,0,0
+animation63.interval,never
+animation63.pattern0,overlay,151,100,0,0
+animation63.pattern1,overlay,-1,100,0,0
+//open
+animation64.interval,never
+animation64.pattern0,overlay,151,0,0,0
+//stop that!!
+animation65.interval,never
+animation65.pattern0,parallelstop,(61,64)
+//ok continue talking
+animation66.interval,never
+animation66.pattern0,stop,65
+//teef
+
+
+//--phone!! (604-606)
+animation0.interval,runonce
+animation0.pattern0,stop,1
+animation0.pattern1,overlay,604,0,0,0
+animation0.pattern2,overlay,604,10,0,0
+animation0.pattern3,start,1
+animation0.pattern4,overlay,-1,200,0,0
+animation1.interval,always
+animation1.pattern0,overlay,604,200,0,0
+animation1.pattern1,overlay,605,200,0,0
+animation1.pattern2,overlay,606,200,0,0
+animation1.pattern3,overlay,604,1000,0,0
+animation1.pattern4,overlay,605,370,0,0
+animation1.pattern6,overlay,606,270,0,0
+animation1.pattern8,overlay,604,830,0,0
+animation1.pattern9,overlay,605,400,0,0
+animation1.pattern10,overlay,606,300,0,0
+}
+
 
 //--DIB PROFILE APPEND
 
 //TEMP APPEND-----------------REMOVE THIS WHEN ADDING PROFILE/FRONT BECAUSE ITS COPY PASTED FROM HIS 3/4 APPEND
-surface.append11-24
+surface.append11-29
 {
 //--Collisions
 collision0,113,108,201,136,Head
@@ -811,7 +1065,7 @@ animation910.pattern0,add,105,0,0,0
 //--------END OF COPY PASTE NIGHTMARE. DRAW HIS SHELL ALREADY DAMN IT------------------------------------------------
 
 //--APPEND ALL THE SURFACES. ALLLLLLLL OF IT!(This is for the idle body btw)
-surface.append0-50,!1,!10,!18,!19
+surface.append0-50,!1,!8,!9,!10,!18,!19,!28,!29
 {
 //--Back Arm
 //Relax
