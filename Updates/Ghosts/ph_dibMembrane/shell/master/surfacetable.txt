@@ -20,17 +20,31 @@ scope,0
 2,3/4 Smirk
 3,3/4 Frown
 4,3/4 Pout
+8,3/4 PIdle
+9,3/4 PTalk
 10,Null
 11,Front Neut
 12,Front Smirk
 13,Front Frown
 14,Front Pout
-18,Phone Idle
-19,Phone Talk
+18,Front PIdle
+19,Front PTalk
 21,Prof Neut
 22,Prof Smirk
 23,Prof Frown
 24,Prof Pout
+28,Prof PIdle
+29,Prof PTalk
+
+800,Pickup
+
+2000,E Neut
+2001,E Shy
+2002,E Shock
+2003,E Nerv
+2006,E Bored
+3000,Gz Neut
+5000,Z Neut
 }
 
 //First, we define a group. Then we give that group a name, in this case, G. You generally have VERY little space to read with the Surface Test, so you'll want these group names to be pretty short. But you can adjust and change it as you try this out.

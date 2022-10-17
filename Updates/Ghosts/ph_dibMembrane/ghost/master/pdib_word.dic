@@ -165,6 +165,7 @@ phoneidle //he tappy on da phone
 {
 	//INTRO TEXT: "\0\s[11]\i[93]\w8\w2"
 	"\0\s[18]\i[28]"
+	"\0\s[8]\i[23]"
 }
 
 eyeroll
@@ -201,6 +202,7 @@ zimnonskoolplans
 	"ripping out all the traffic lights in the city to make a weird rave machine"
 	"taking GIR to Krazy Taco... Which isn't really evil, but GIR ate like, 6 babies"
 	"taking over the local MacMeaties"
+	"trying to become the King of Burrito King to \f[italic,1]Control the masses\f[italic,0]"
 }
 
 zimskoolplans

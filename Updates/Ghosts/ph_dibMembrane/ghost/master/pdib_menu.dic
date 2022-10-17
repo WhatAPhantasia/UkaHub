@@ -128,12 +128,13 @@ DibQuestions : all
 {
 	"\b2"
 	
-	"\n\n\![*]\q[Can I see another friend?,debugkero]\n\n"
+	"\n\n\![*]\q[Can I see another friend?,debugkero]\n"
 	if debug == 1 //%(debug = 1) in script input to show the debug options
 	{
 		"\![*]\q[Test Variable,OnTestVar]\n"
-		"\![*]\q[To-do list,OnTemplateTodo]\n\n"
+		"\![*]\q[To-do list,OnTemplateTodo]\n"
 	}
+	"\n"
 	
 	"\![*]\q[Back,BACKTOMENU]\e"
 }
