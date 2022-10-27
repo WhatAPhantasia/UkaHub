@@ -11,10 +11,9 @@ OnMouseDragStart
 {	
 	if BalloonCheck == 1
 	{
-		"\C"
+		""
 	}
-	--
-	if reference3 == 0
+	elseif reference3 == 0
 	{
 		"\0\s[800]"
 	}
@@ -207,25 +206,26 @@ OnFileDrop2
 		{
 			_file = REPLACE(reference0,"]","\]")
 			
-			"\0\s[0]\b[2]This is %(_filename)%(_fileext)!\w8\w8 I can set it as your wallpaper,\w4 how do you want it?\n\n"
+			"\0\s[0]\i[92]\i[21]\b[2]This is %(_filename)%(_fileext)...\w8\w4 \i[76]\i[201]Want me to set it as your wallpaper or something?\n\n"
 			--
 			all:{
-			"\![*]\q[Centered,OnWallpaper,%(_file),center]\n"
-			"\![*]\q[Tiled,OnWallpaper,%(_file),tile]\n"
-			"\![*]\q[Stretched,OnWallpaper,%(_file),stretch]"
+			"\![*]\q[Center it,OnWallpaper,%(_file),center]\n"
+			"\![*]\q[Tile it,OnWallpaper,%(_file),tile]\n"
+			"\![*]\q[Stretch it,OnWallpaper,%(_file),stretch]"
 			if "Windows 7" || "Windows 10" _in_ NotifyOS //These are the 'fit' and 'fill' options available from win 7 on. NotifyOS is set just below, to check what OS you're on
 			{
-				"\n\![*]\q[Fill,OnWallpaper,%(_file),stretch-x]"
-				"\n\![*]\q[Fit,OnWallpaper,%(_file),stretch-y]"
+				"\n\![*]\q[Fill the screen,OnWallpaper,%(_file),stretch-x]"
+				"\n\![*]\q[Fit the screen,OnWallpaper,%(_file),stretch-y]"
 			}
 			if "Windows 10" _in_ NotifyOS; "\n\![*]\q[Spanned,OnWallpaper,%(_file),span]" //Same as above, but for the span option since that's win10 and above
 			
-			"\n\n\![*]\q[No thanks,WallpaperCancel]\e"
+			"\n\n\![*]\q[Just wanted to show you something],DragDropImage]\n"
+			"\![*]\q[It's nothing,WallpaperCancel]\e"
 			}
 		}
 		when ".mid", ".wav", ".mp3", ".wma", ".au", ".ogg", ".flac"
 		{
-			"\0\s[0]This is music!\e"
+			"\0\s[0]Looks like music! \w4My music player isn't ready, \w2so... \w4I can't do anything with them right now.\e"
 		}
 		others
 		{
@@ -251,18 +251,25 @@ OnWallpaper
 {
 	"\0\![set,wallpaper,%(REPLACE(reference0,']','\]')),%(reference1)]"
 	--
+	"\s[0]\i[91]Alright, done. \w8\w2\i[21]\i[76]Hope that looks good?\e"
+	"\s[2]\i[91]Done! \w8\w2\i[21]Hope it looks alright.\e"
 	//You can remove this if check if you want a single dialogue for changing the wallpaper
-	if reference1 == "center"; "\s[0]It's centered!\e"
-	elseif reference1 == "tile"; "\0\s[0]It's tiled!\e"
-	elseif reference1 == "stretch"; "\0\s[0]It's stretched!\e"
-	elseif reference1 == "stretch-x"; "\0\s[0]It's filled!\e"
-	elseif reference1 == "stretch-y"; "\0\s[0]It's fitted!\e"
-	elseif reference1 == "span"; "\0\s[0]It's spanned!\e"
+	//if reference1 == "center"; "\s[0]It's centered!\e"
+	//elseif reference1 == "tile"; "\0\s[0]It's tiled!\e"
+	//elseif reference1 == "stretch"; "\0\s[0]It's stretched!\e"
+	//elseif reference1 == "stretch-x"; "\0\s[0]It's filled!\e"
+	//elseif reference1 == "stretch-y"; "\0\s[0]It's fitted!\e"
+	//elseif reference1 == "span"; "\0\s[0]It's spanned!\e"
 }
 
 Select.WallpaperCancel
 {
-	"\0\s[0]Ok,\w4 let me know if you change your mind!\e"
+	"\0\s[0]Alright, got it. \w8Tell me if you change your mind!\e"
+}
+
+Select.DragDropImage
+{
+	"\0\s[0]...Oh! Uh, cool image, I guess?\e"
 }
 
 //---- OnInstallBegin -------------------------------------------------------
@@ -278,9 +285,9 @@ OnInstallBegin
  
 OnInstallComplete
  {
-	"\0" //this means your main character will be speaking first, therefore the \s[] at the beginning of each line will be defining your main character's pose.
+	"\0"
  	--
-	if reference0 == "shell" //This is checking to see if what you installed is classified as a shell in the install.txt. Remember the line in install.txt that said type,ghost or type,shell? This is why that line is important, that's what tells the program what it's installing like so.
+	if reference0 == "shell"
  	{	
 		if reference1 == "Florpus"
 		{
@@ -304,7 +311,7 @@ OnInstallComplete
 		}
 		elseif reference1 == "Shooting Star"
 		{
-		"\s[0]Huh, I'm supposed to come with this look. \w2I get it though, Shooting Star is... \w4An oc x canon fic. \w6Sad. \w8Well, at least I can change my head to a reasonable size now.\e"
+		"\s[0]Huh, I'm supposed to come with this look. \w2I get it though, Shooting Star is... \w4An oc x canon fic. \w6Sad. \w8\w2Well, at least I can change my head to a reasonable size now.\e"
 		}
 		else //For any other shell they may install.
 		{
@@ -314,47 +321,54 @@ OnInstallComplete
 	elseif reference0 == "ghost" //if the type of the file they're installing is a ghost.
  	{
 		//HELL YEAH WRITING DIALOGUE NO ONE WILL SEE, MY FAVORITE!!
-		//i know if elses are kinda inefficient BUT i only know how to do _in_ with if elses sooooooooo yeah
-		if reference1 == "Invader Zim"
+		//i know if elses are kinda inefficient BUT i only know how to do _in_ with if elses sooooooooo yeah (ok so turns out if/elses are FINE in this language thats EPIC i dont wanna do anything else, if/elses are good AS IS)
+		if reference1 == "Zim and GIR"
 		{
-		"Wait- ZIM?! \w2Aw, come on! \w4I can't believe I assisted on bringing him somewhere he could use to do... \w6The things he do! \w6Things that are definitely bad! \w8\n\n[half]If he's here, though, \w2I guess I could keep an eye on him...\e"
+		"Wait- ZIM?! \w2Aw, come on! \w4I can't believe I assisted on bringing him somewhere he could use to do... \w6The things he do! \w6Things that are definitely bad! \w8\n\n[half]If he's here, though, \w2I guess I could keep an eye on him..."
 		}
 		elseif reference1 == "Dib" //change to whatever quo names their dib ghost lmao
 		{
-		"Woah, another me! \w2After the whole Zimvoid thing, I'm honestly not surprised. \n\n[half]\w8...Wait, your desktop can communicate trans-dimensionally?!\e"
+		"Woah, another me! \w2After the whole Zimvoid thing, I'm honestly not surprised. \n\n[half]\w8...Wait, your desktop can communicate trans-dimensionally?!"
 		}
 		elseif reference1 == "Ely Crowe" //change name according to what i make the shooting star gang later
 		{
-		"W-Wait, Ely?! \w8You-! \w8How-? \w8\w3You brought them here?! \w8Shit, what am I gonna say to them..?! \w8\w8\w5\n\n[half](It looks like you broke the poor boy. Simp.)\e"
+		"W-Wait, Ely?! \w8You-! \w8How-? \w8\w3You brought them here?! \w8Shit, what am I gonna say to them..?! \w8\w8\w5\n\n[half](It looks like you broke the poor boy. Simp.)"
 		}
 		elseif reference1 == "Snatcher"
 		{
-		"\s[11]\i[94]\i[28]The Snatcher, huh? \w2An actual ghost... Shadow... \w4\s[2]\i[94]Thing! \w6That's going to be interesting. \w8\w8\n\n\s[2]\i[93]\i[21]\i[77]This is a little out of character, \w2\s[12]\i[73]\i[93]but thanks for downloading him!\e"
+		"\s[11]\i[94]\i[28]The Snatcher, huh? \w2An actual ghost... Shadow... \w4\s[2]\i[94]Thing! \w6That's going to be interesting. \w8\w8\n\n\s[2]\i[93]\i[21]\i[77]This is a little out of character, \w2\s[12]\i[73]\i[93]but thanks for downloading him!"
 		}
 		elseif reference1 == "Minimum YAYA Template" || reference1 == "GT Template" || ("X. Template" _in_ reference1) //TODO: add more of these will ya
 		{
-		"\s[2]\i[4]\i[94]%(reference1)? \w8Making something? \w8\i[73]The more people on here, the merrier.\e"
+		"\s[2]\i[4]\i[94]%(reference1)? \w8Making something? \w8\i[73]The more people on here, the merrier."
 		}
-		elseif reference1 == "Needle" || reference1 == "Radio Nowhere" || reference1 == "Paper" || reference1 == "Hydrate" || reference1 == "Balloons" || reference1 == "Pet Rock"
+		elseif reference1 == "Needle" || reference1 == "Radio Nowhere" || reference1 == "Paper" || reference1 == "Hydrate" || reference1 == "Balloons" || reference1 == "Pet Rock" || reference1 == "Plushie Base"
 		{
-		"\s[0]\i[91]%(reference1)? \w8\s[0]\i[70]\i[91]\i[76]Okay, now you're just bringing objects onto here. \w6\s[11]\i[92]\i[76]What \w2\f[bold,1]is\f[bold,0] \w3the extent of things you can put on your desktop, anyway?\e"
+		"\s[0]\i[91]%(reference1)? \w8\s[0]\i[70]\i[91]\i[76]Okay, now you're just bringing objects onto here. \w6\s[11]\i[92]\i[76]What \w2\f[bold,1]is\f[bold,0] \w3the extent of things you can put on your desktop, anyway?"
 		}
-		elseif reference1 == "S the Skeleton" || reference1 == "Multiverse Sans" || reference1 == "Dr. W.D. Gaster" || reference1 == "sans" || reference1 == "Sans" || reference1 == "Papyrus" || reference1 == "Dreamtale Sans"
+		elseif reference1 == "S the Skeleton" || reference1 == "Multiverse Sans" || reference1 == "Dr. W.D. Gaster" || reference1 == "sans" || reference1 == "Sans" || reference1 == "Papyrus" || reference1 == "Dreamtale Sans" || reference1 == "Jazz"
 		{
-		"\s[12]\i[94]Oh, wow, a skeleton! \w6\i[28]%(reference1)? \w6It's been a while since I messed with the undead... \w8\s[2]\i[93]\i[77]\i[21]\i[80]Last time didn't go so well.\e"
+		"\s[12]\i[94]Oh, wow, a skeleton! \w6\i[28]%(reference1)? \w6It's been a while since I messed with the undead... \w8\s[2]\i[93]\i[77]\i[21]\i[80]Last time didn't go so well."
 		}
-		elseif reference1 == "FLUX" || reference1 == "flele"
+		elseif reference1 == "FLUX" || reference1 == "flele" //TODO: check if flele is actually correct
 		{
-		"\s[0]Oh, %(reference1) looks like they can play music. \w8\w3...I have a music player too, %(username)! \w2With cool playlists! \w5Am I not enough for you? Why do you need another music player in your life?! I WANT TO BE THE ONLY ONE WHO PLAYS MUSIC FOR YOU!!!\n\n[half]\w8\w3Nah I'm just kidding. \w4Phantasia didn't expect anyone to see this so they're having fun lmao\e"
+		"\s[0]Oh, %(reference1) looks like they can play music. \w8\w3...I have a music player too, %(username)! \w2With cool playlists! \w5Am I not enough for you? Why do you need another music player in your life?! I WANT TO BE THE ONLY ONE WHO PLAYS MUSIC FOR YOU!!!\n\n[half]\w8\w3Nah I'm just kidding. \w4Phantasia didn't expect anyone to see this so they're having fun lmao"
 		}
-		elseif reference1 == "Shadow the Hedgehog" || reference1 == "Among Us" //TODO: check if crewmate, flele, and pet rock are actually correct
+		elseif reference1 == "Shadow the Hedgehog" || reference1 == "Among Us" 
 		{
-		"HOLY SHIT %(TOUPPER(reference1))???\e" //TODO: expressions yall
+		"HOLY SHIT %(TOUPPER(reference1))???" //TODO: expressions yall
 		}
 		else
 		{
-		"\s[11]\i[28]\i[94]%(reference1)... \w8\s[11]\i[94]Seems your computer is just a magnet for people, huh? \w4\s[11]\i[94]\i[26]Spelldrives \w6\s[11]\i[94]\i[25]or no spelldrives. \w6\s[12]\i[93]\i[73]Neat!\e"
+		"\s[11]\i[28]\i[94]%(reference1)... \w8\s[11]\i[94]Seems your computer is just a magnet for people, huh? \w4\s[11]\i[94]\i[26]Spelldrives \w6\s[11]\i[94]\i[25]or no spelldrives. \w6\s[12]\i[93]\i[73]Neat!"
 		//Reference1 here would be the name of the ghost in install.txt. Replace as needed.
+		}
+		--
+		all:{
+		"\n\n[half]"
+		"\![*]\q[Call %(reference1),CallGhost]\n"
+		"\![*]\q[Change to %(reference1),ChangeToGhost]\n\n"
+		"\![*]\q[No thanks,CANCEL]\e"
 		}
  	}
 	elseif reference0 == "balloon" //if the type of file is a balloon
@@ -372,7 +386,6 @@ OnInstallComplete
 	elseif reference0 == "plugin" //if the type of file is a plug-in, like a saori of some kind.
  	{
 		"\s[2]\i[91]A plugin! \w6It's called %(reference1).\e"
-		//Reference1 here would be the name of the plug-in. Replace as needed.
  	}
 	elseif reference0 == "calendar skin" //if the type of file is a calendar skin
 	{
@@ -380,16 +393,28 @@ OnInstallComplete
 	}
 	elseif reference0 == "headline" //if the file/url you drop on them is counted as a headline. To be honest with you I don't know what determines whether a url is a headline or what.
 	{
-		"\0\s[0]\i[91]I've set up a headline. It's called %(reference1).\e"
+		"\0\s[0]\i[91]I've set up a headline. %(reference1), right?\e"
 	}
-	elseif reference0 == "rss" //this is more clearly for when you drag an rss feed onto your ghost. you can find rss feeds on sites by looking for the little rss icon, it kind of looks like a little satellite. you can google more info on rss feeds if you're curious!
+	elseif reference0 == "rss" //this is more clearly for when you drag an rss feed onto your ghost.
 	{
-		"\0\s[0]\i[91]I've set up a headline. It's called %(reference1).\e"
+		"\0\s[0]\i[91]I've set up a headline. %(reference1), I think.\e"
 	}
 	else
 	{
 		"\s[2]\i[73]\i[91]No idea what %(reference1) is, but it's installed.\e"
 	}
+}
+
+//Calling the ghost that was just installed. Add dialogues to these if you like.
+Select.CallGhost
+{
+	"\![call,ghost,lastinstalled]\e"
+}
+
+//Opening the ghost that was just installed.
+Select.ChangeToGhost
+{
+	"\![change,ghost,lastinstalled]\e"
 }
 
 //---- OnInstallFailure -------------------------------------------------------
@@ -413,7 +438,7 @@ OnInstallFailure
 	}
 	elseif reference0 == "invalid type"
 	{
-	"I can't read this install.txt!\e"
+	"I can't read this install.txt at all.\e"
 	}
  }
  
@@ -433,7 +458,7 @@ OnInstallRefuse
 	}
 	elseif reference0 == "Hydrate"
 	{
-		"\0\s[0]\i[91]Ooh, getting some new drinks for Hydrate? I can't use them- Install them with Hydrate instead.\e"
+		"\0\s[0]\i[91]Ooh, getting some new drinks for Hydrate? \w4I can't use them- \w2Install them with Hydrate instead.\e"
 	}
 	else
 	{
@@ -485,14 +510,42 @@ OnVanishButtonHold
  
 OnVanished
  {
+	"\1\s[-1]\0"
+	--
 	if reference0 == "Invader Zim" {
-	"\1\s[-1]\0\s[0]HAHA LMAOOOO BYE ZIM (change this later)"
+		"\s[2]\i[78]\i[91]\i[4]HAHA LMAOOOO BYE ZIM\e"
+	}
+	if reference0 == "Ely Crowe" {
+		"\s[2]\i[21]\i[77]\i[93]...Oh, \w2um... \w6Was that Ely? \w8\w2\i[20]Why did you..?\e"
 	}
 	else {
-	"\1\s[-1]\0\s[0]Hope you're not thinking of kicking me out like you did %(reference0). \w6There's still stuff for me to look at on here!\e"
+		"\s[0]\i[91]... Oh. \w8\w4\i[76]Hope you're not thinking of kicking me out like you did %(reference0). \w6\s[22]\i[92]\i[78]There's still stuff for me to look at on here!\e"
 	}
 	//reference0 here is the name of the other ghost.
 }
+
+
+OnGhostCallComplete
+{
+	if reference0 == "Zim" { 
+		"\0\s[0]Wait- ZIM?! \w8\w8\w8...Well, he can't see me, but I can see HIM! \w6Need to make sure he's not working on his evil alien plans here...\e"
+	}
+	if reference0 == "Ely Crowe" { //TODO: once dib and ely are published, make them have a tiny exchange here
+		"\0\s[2]\i[77]\i[85]\i[20]\i[93]..O-Oh, Ely..!\e"
+	}
+	else {
+	}
+}
+
+//-------------------OnDeviceArrival
+//basically like, can tell whenever u plug in an external thing. will do this later when i have a "let him snoop on your computer" option
+//reference0 is a big output of all the information about what you plugged in, this'll make it lowercase so that you can check it in the ifs easier. || This big thing splits that device name, and removes the 4th section (3rd if you're counting from 0) because the 4th section changes if the device is bluetooth. Nothing of value is lost here, it should still be able to recognize the device from the other sections. Many thanks to GrayArea and Firefright for helping me on this one! (yes... this is zi borrowed code. i may delete this function in future releases)
+//OnDeviceArrival
+//{
+//	_device = reference[0][0,","] + reference[0][1,","] + reference[0][2,","] + reference[0][4,","]
+//	
+//}
+
 
 
 //**** Mail Checking *******************************************************************
@@ -513,36 +566,72 @@ OnVanished
  
 OnBIFFBegin
  {
-	"\0\s[0]This is the starting dialogue for checking email.\e"
+	"\0\s[9]\i[23]Ah, \w2checking your email...\e"
  }
 
  
  //---- OnBIFFComplete ---------------------------------------------------------------
- //After they've succeeded in checking your mail, they'll report back with how many new emails you have. Replace the dialogue with whatever would be character appropriate.
- 
+ //reference0 is the number of emails found
 OnBIFFComplete
- {
-	if reference0 == 0 //If you have no new mail.
- 	{
- 		"\0\s[0]There is no new mail.\e"
-	}
-	elseif reference0 == 1 //If you have one new email.
- 	{
- 		"\0\s[0]There is one new email.\e"
-	}
-	elseif reference0 > 1 && reference0 < 11 //If you have more than one email but less than eleven.
+{
+	if reference0 == 0 //No new emails
 	{
-		"\0\s[0]There are %(reference0) emails.\e"
-		//reference0 here stores the amount of new email it finds.
+		"\0\s[0]%(dibarmfiddle)Nope, no new mail.\e"
 	}
-	elseif reference0 > 100 //If there are over one hundred new emails.
+	elseif reference0 <= 500 //less than 100 new emails
 	{
-		"\0\s[0]There are %(reference0) emails unread.\w8\1\s[10]Woah.\e"
+		
+		headers = ""
+		if reference7 != "" && reference0 <= 500 //AHAHAHA I FINALLY FIGURED OUT HOW TO GET AN ARRAY OF THE HEADERS WITH AUTO TYPE CONVERT ON. They're normally in reference7, but since auto type convert changes the C_BYTE1 characters to commas, any headers with commas screw things up badly. But you can get the nonconverted values! Still need a loop to add menu markers and stuff to the display, but that can happen in the other function...
+		{
+			headers = SPLIT(reference.raw[7],C_BYTE1)
+		}
+		--
+		_s = ""; if reference0 != 1; _s = "s" //Plural check, adds an s if the number of emails is not 1
+		"\0\s[0]%(dibarmfiddle)You have %(reference0) new email%(_s)."
+		--
+		if reference7 != "" //Same as above, no need to ask if there are no headers
+		{
+			"\w8\w8 Wanna see the header%(_s)?"
+			--
+			"\n\n\![*]\q[Yes,OnSeeHeaders,yes]\n\*\![*]\q[No,OnSeeHeaders,no]"
+		}
 	}
- 	else //For any other number of emails.
+	else //more than 500 new emails
 	{
-		"\0\s[0]There are %(reference0) emails.\e"
- 	}
+		{
+		"\0\s[0]\i[99]...You got %(reference0) emails unread. \w8\w2" 
+		--
+		"\i[76]Maybe you should clean that out?\e"
+		"\s[2]\i[21]\i[77]\i[99]I actually haven't cleared out my inbox, so... \w4\i[73]I shouldn't be judging you.\e"
+		}
+	}
+	--
+	"\e"
+}
+
+ //Displaying the headers. No need to touch this other than changing the surface, or if you want to make the buttons different or something. Reference0 is the list of headers
+OnSeeHeaders
+{
+	if reference0 == "yes" //It's set up this way so that the headers variable will still be erased if the user says no. If they say no, it'll just erase the headers and say nothing
+	{
+		_display = ""
+		foreach headers; _header
+		{
+			_display += "\![*]"
+			_display += SHIORI3FW.EscapeAllTags(_header)
+			_display += "\n\n[half]"
+		}
+		"\0\s[0]\b2\![set,autoscroll,disable]\*\_q"
+		--
+		"\![*]\q[Done,CANCEL]\n\n"
+		--
+		"%(_display)"
+		--
+		"\n\n\![*]\q[Done,CANCEL]"
+	}
+	--
+	ERASEVAR("headers") //This erases the variable so you're not storing all those headers and bloating your save. Also, privacy reasons.
 }
 
  //---- OnBIFFFailure ---------------------------------------------------------------
@@ -552,21 +641,19 @@ OnBIFFFailure
  {
 	if reference0 == "timeout" //If the connection times out.
  	{
- 		"\0\s[0]The connection has timed out.\e"
+ 		"\0\s[2]\i[99]\i[23]\i[77]...Oh, \w5the connection timed out.\e"
 	}
  	elseif reference0 == "kick" //If the account blocks the ghost from accessing it. I think gmail may do this at first to try and protect your account from unapproved applications using it. It gives you the option to change the setting in the warning email they send you about it.
 	{
-		"\0\s[0]I can't access the account.\e"
+		"\0\s[0]\i[99]...Your email provider isn't letting me see your account. \w6\i[76]Maybe your email settings are weird?\e"
  	}
 	elseif reference0 == "defect" //If the information put into the POP menu is wrong.
  	{
- 		"\0\s[0]The email account was not set up properly. It can be reset at the POP menu.\w8\![open,configurationdialog]\e"
-		
-		//Note that this ends with \![open,configurationdialog]. This will open up the preferences menu I described above automatically. More on \! functions in the walkthrough. You can delete the \! tag here if you want to.
+ 		"\0\s[0]\i[99]...Oh, did you set up your email wrong? \w6\s[2]\i[91]You can change it in the POP menu. \w8\![open,configurationdialog]\e"
 	}
  	else //if there's some other kind of error.
 	{
-		"\0\s[0]I can't connect to the account. \w8The error returned is '%(reference[0])'.\e"
+		"\0\s[0]\i[99]\i[23]\i[76]...Huh, no idea what happened, \w2but I can't connect. \w8\w8\i[91]\i[201]\i[204]'%(reference[0])', \w5it says.\e"
 		
 		//reference0 here stores the error message the email server would have given the ghost, hopefully.
  	}
@@ -574,34 +661,25 @@ OnBIFFFailure
 
 
  //**** Network Update *****************************************************************
- //The following functions are for the Network Update of your ghost, where it will connect to your website, check for new files, and update itself. This is a handy feature, but tricky to set up. If you have no intention of using Network Update, you can disregard these, but it won't hurt to fill them out anyway just in case. More details about how to set up Network Update are in the walkthrough (http://www.ashido.com/ukagaka/).
- 
  //Replace the dialogue in the next set of functions as appropriate. You can easily test these messages using the Developer panel. Go to Open at the bottom of it and choose one of the four Update Event options to simulate a Ghost's update process. I highly recommend doing this at LEAST once if you're going to use this feature to make sure it flows well.
-
  
  //---- OnUpdateBegin -------------------------------------------------------------
  //When you first tell your ghost to update. An introductory statement, like OnBIFFBegin above. Replace or add more dialogue as appropriate. Note that they end with \w8 to give a little breather time.
  
 OnUpdateBegin
  {
-	"\0\s[0]Starting the update process.\w8\e"
-	
-	"\0\s[0]Another message for starting the update process. Hope you read the directions properly.\w8\e"
+	"\0\s[2]\i[99]Oh, checking for something new?\w8\e"
+	"\0\s[0]\i[99]\i[23]\i[76]\i[70]Hmm... Is there anything new?\w8\e"
  }
 
- //---- OnUpdateReady ---------------------------------------------------------
- //If the ghost finds new files to update with.
- 
+//reference0 is the number of new files, starting from 0
 OnUpdateReady
- {
- 
-	reference0++ //makes sure it starts at 1 instead of 0
+{
+	reference0++ //Number of files starts from 0, so this displays the correct amount
+	_s = ""; _is = "'s"; if reference0 != 1; _s = "s"; _is = " are" //plural checks, adds an s and changes is to are if there's more than 1 file
 	
-    "\0\s[0]There are %(reference0) new files.\w8\e"
-	
-	//reference0 here storing the number of new files. You don't have to use it if you don't want to.
- }
-
+	"\0\s[0]There%(_is) %(reference0) new file%(_s)!\w8\w8\e"
+}
 
 //---- OnUpdateComplete -------------------------------------------------------------
 //When the ghost has finished the update process.
@@ -610,77 +688,97 @@ OnUpdateComplete
  {
 	if reference0 == "none" //if the ghost had nothing to update with
  	{
- 		"\0\s[0]There are no new files.\e"
-		
-		"\0\s[0]This is another message about there being no new files to update with.\e"
+ 		"\0\s[0]%(dibarmfiddle)...Nope, \w2nothing.\e"
+		"\0\s[0]%(dibarmfiddle)Hmm, \w2didn't see anything.\e"
 	}
  	else //if the ghost has updated successfully
 	{
-		"\0\s[0]Update successful!\e"
+		"\0\s[0]Done! "
+		"\0\s[0]Finished! "
+		--
+		"You can see the the list of stuff that's changed on this \_a[https://docs.google.com/document/d/10yy69A5hkizTPMh1mmRISIDg8M3JMfOdL9abrYmme20/edit?usp=sharing]Google Doc!\_a "
+		"Got a changelog at this \_a[https://docs.google.com/document/d/10yy69A5hkizTPMh1mmRISIDg8M3JMfOdL9abrYmme20/edit?usp=sharing]Google Doc!\_a "
+		--
+		"Looks like my tech is on version %(ghostver).\e"
+		"Everything's at version %(ghostver)."
  	}
 }
 
- //---- OnUpdateFailure -------------------------------------------------------------
- //Error messages if the update process fails in some way.
- 
-OnUpdateFailure
- {
-	if reference0 == "timeout" //if the connection times out
- 	{
- 		"\0\s[0]The update connection has timed out.\e"
-	}
- 	elseif reference0 == "md5 miss" //This is the final message displayed when you've run into an md5 error below at some point.
-	{
-		"\0\s[0]The MD5 hash of the files don't match.\e"
- 	}
-	else //for other errors
- 	{
- 		"\0\s[0]The update could not be completed.\w8\0\s[0]The error is '%(reference0)'.\e"
-	}
- }
+//hey eshal, remember to change this number every version update!
+ghostver
+{
+	"1.0.0"
+}
 
-
- //---- OnUpdate.OnDownloadBegin ------------------------------------------------
- //This dialogue plays when they begin downloading a new file. WARNING: if you have big plans for your ghost and are going to make a lot of new image files for it (like... i do, cough) at some point, you're going to want to make these messages very brief, if you even have them at all. The reason is because the user will see these messages for EVERY individual file that they have to download, and if you have, say, 50 pna files in the queue, they will see this dialogue 50 times. Not only that, but displaying the dialogue takes some time, so it also extends the download process.
- //If you aren't planning on adding a ton of files at any point, or are only intending to update the .dic files which will be at most a handful of files, then you can go ahead and put a short message in here. But if your ghost is going to grow in leaps and bounds as you work on it, try and keep these messages as brief as possible (or again, just make it "" to have there be no message at all) to make the process that much faster for your user.
- 
+//Revamped this code! It's a lot more concise now (thanks zi)
+//reference0 is the name of the file currently being downloaded
 OnUpdate.OnDownloadBegin
- {
- 	if "aitalk" _in_ reference0 //this is checking to see what kind of files are being downloaded. In this case, it's looking for files called aitalk in the download queue. If you want to have a specialized bit of dialogue for each type of file, you can expand this with elseifs and by replacing aitalk with whatever file you have in mind. Keep in mind my warning above though.
- 	{
- 		"\0\s[0]Oooh, I've got some more things I want to talk about!\e"
- 	}
- 	else //for files not specified above
- 	{
-	"\0\s[0]This is dialogue for finding a new file.\e"
-	
-	"\0\s[0]This is another bit of dialogue for finding a new file.\e"
+{
+	_progress = TOINT(reference1) + 1
+	_total = TOINT(reference2) + 1
+	--
+	if "aitalk" _in_ reference0
+	{
+		"\0\s[2]\i[23]\i[99]\b2\_q(Ooh, I've got more stuff to say!)\n\n"
+		"\0\s[2]\i[23]\i[99]\b2\_q(Ooh, more random conversation topics!)\n\n"
 	}
- }
+	elseif "mouse" _in_ reference0
+	{
+		"\0\s[9]\i[23]\i[76]\b2\_q(New mouse interactions?)\n\n"
+		"\0\s[9]\i[23]\b2\_q(Might react to touch differently...)\n\n"
+	}
+	elseif "menu" _in_ reference0
+	{
+		"\0\s[9]\i[23]\b2\_q(New menu stuff...)\n\n"
+		"\0\s[9]\i[23]\b2\_q(Switched up my menu...)\n\n"
+	}
+	elseif "bootend" _in_ reference0
+	{
+		"\0\s[9]\i[23]\i[76]\b2\_q(Got new things to say on boot or close, maybe?)\n\n"
+		"\0\s[9]\i[23]\i[76]\b2\_q(New boot greetings and close send-offs..?)\n\n"
+	}
+	else
+	{
+		"\0\s[9]\i[23]\b2\_q(Downloading %(reference0)...)\n\n"
+	}
+	--
+	"\f[name,courier new]"
+	--
+	_display = ""
+	for _i = 0; _i < _total; _i++
+	{
+		//Loading bar display - customize with text or images or whatever
+		_filled = "■" //Files that have already been downloaded
+		_empty = "□" //Files that have not been downloaded yet
 
- //---- OnUpdate.OnMD5CompareBegin ---------------------------------------------------
- //This checks the hash value of the files in the directory and the files listed in updates.dau, I believe. It will do this for every file the user downloads, so I again remind you of my warning above! For every file they download, they will have to go through three sets of unique dialogue, and it can get old fast. Not to mention it slows things down a lot. Again, I would recommend keeping this very brief, if not just replacing it with "..." or "" instead.
- 
-OnUpdate.OnMD5CompareBegin
- {
-	"\0\s[0]Checking the MD5 value.\e"
- }
-
- //---- OnUpdate.OnMD5CompareComplete --------------------------------------------------
- //After they've checked the MD5 value and it matches. See above about the length of this message.
- 
-OnUpdate.OnMD5CompareComplete
- {
-	"\0\s[0]MD5 check good.\e"
+		//This is a bit like a ternary operator, for anyone familiar with those... It's just an array with the symbols/images/text specified above, and then the index it picks is based on whether _i < _progress is true or not. Ha, take that, languages like Python that use True/False (but have actual ternary operators)!
+		_display += (_empty,_filled)[_i < _progress]
+	}
+	--
+	"%(_display)\n\n%(_progress)/%(_total)\e"
 }
 
- //---- OnUpdate.OnMD5CompareFailure ---------------------------------------------------
- //If the MD5 values don't match, meaning if the file is missing or damaged or incomplete in some way. If you follow my Network Update directions carefully, this shouldn't come up very often, but don't be surprised if you run into it every now and then by forgetting a file here or there.
- 
-OnUpdate.OnMD5CompareFailure
- {
-	"\0\s[0]The MD5 values don't match.\w8\e"
- }
+//reference0 is the reason the update failed
+OnUpdateFailure //If the update fails
+{
+	if reference0 == "timeout" //If it timed out
+	{
+		"\0\s[2]\i[99]\i[23]\i[77]...Ah,\w4 the connection timed out.\e"
+	}
+	elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+	{
+		_currentfile = SPLITPATH(reference1)[2] + SPLITPATH(reference1)[3] //This gets the name and extension of the offending file
+		"\0\s[0]\i[99]\i[23]\i[76]...Huh, looks like the MD5 values don't match.\w8\w8 %(dibarmfiddle)\i[201]\i[204]You should contact Phantasia through the creator links in the right click menu and let them know that '%(_currentfile)' is giving an MD5 error.\e"
+	}
+	elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+	{
+		"\0\s[0]\i[91]\i[76]Oh,\w4 changed your mind?\e"
+	}
+	else //Any other errors
+	{
+		"\0\s[0]\i[99]\i[23]\i[76]...Hm, \w2got an error. \w8\w4\i[204]\i[201]It says \w2'%(reference0)'.\e"
+	}
+}
 
  
  
@@ -689,38 +787,19 @@ OnUpdate.OnMD5CompareFailure
  //The headlines you see under the tab are in the headline folder under your base SSP install. So it'd be SSP\headlines. You should see the folders for each linked headline in there. I've very rarely ever messed with them or used them. Likewise, your RSS feeds you've added will be under SSP\rss and I don't think that option will appear in the headlines/RSS tab until you add an RSS feed to a ghost. If you want to clear your RSS feeds or headlines, just delete either of those two folders.
  
 
- //---- OnHeadlinesenseBegin -----------------------------------------------------------
- //This dialogue comes up when you select something in your RSS feed as an intro, like the other On[Thing]Begin things we've seen so far. Replace as you need.
- 
+//reference0 is the name of the site, reference1 is the url
 OnHeadlinesenseBegin
- {
-	"\0\s[0]You've selected %(reference0).\e"
- }
+{
+	"\0\s[2]\i[99]\i[23]Ok,\w4 I'll open %(reference0)!\e"
+}
 
- //---- OnHeadlinesense.OnFind --------------------------------------------------------
- //This actually displays the feed. My set-up for it is pretty simple but gets the job done, it just has the name of the feed, a line space, then a list of links. You shouldn't have to edit any of these and I probably wouldn't honestly.
- 
+//modified x template headline code,, taken from gt template :0
+//reference0 is the site name, reference1 is the url, reference3 is the headlines
 OnHeadlinesense.OnFind
 {
-	//----  What page You're on
- 	if reference2 == "First" || reference2 == "First and Last"
-	{
- 		//---- First page
-		"\0\b2\s[0]%(reference0):"
- 	}
-	elseif reference2 == "Next"
- 	{
-		//---- Second page
- 		"\0\b2\s[0]%(reference0):"
-	}
- 	elseif reference2 == "Last"
-	{
- 		//---- Last page
-		"\0\b2\s[0]%(reference0):"
- 	}
-	--
+	_display = REPLACE(reference3,"\_a[","\![*]\_a[")
  	//---- Headlines
-	"\n\n%reference3\n"
+	"\0\b2%(reference0):\n\n%(_display)\n"
  	--
 	//---- Pages
  	if reference2 == "First" || reference2 == "Next"
@@ -733,43 +812,37 @@ OnHeadlinesense.OnFind
 		//---- Bottom buttons
  		"\![*]\q[Stop,Headline_Cancel]\e"
  	}
-	
 }
-
 
 Select.Headline_Cancel
 {
-	"\0\s[0]Headline viewing complete.\e"
-	//Actually I take that back, you can change this line of dialogue here for when you're done looking at a headline to something else if you want.
+	"\0\s[2]%(dibarmfiddle)Ok,\w4 done with RSS!\e"
 }
 
- //---- OnHeadlinesenseComplete -------------------------------------------------------
- //This is an odd function. As far as I can gather, this is if the headline information gathering was successful, but there's no new information to report. Possibly if none of the feeds have updated? I'm a little fuzzy on this one.
- 
-OnHeadlinesenseComplete
- {
-	"\0\s[0]No update. %(reference0).\e"
-	//reference0 here supposedly always stores the value no update? Again this isn't hugely clear from what I can see. Anyway, this dialogue has never come up for me while using a ghost, so perhaps someone else who runs into it can offer more clarity. For now, you can leave it as is, or write up something else in here if you like.
- }
+//Looks like this happens if you view a headline and nothing has changed. I can only get RSS to work, so... I'll leave it here just in case.
+OnHeadlinesenseComplete 
+{
+	"\0\s[0]\i[99]\i[23]\i[76]Hm, there's no update.\e"
+}
 
- //---- OnHeadlinesenseFailure ---------------------------------------------------------
- //This one is more clearly for when the ghost can't get the information it needs about the RSS feed in question.
- 
+//---- OnHeadlinesenseFailure ---------------------------------------------------------
+//This one is more clearly for when the ghost can't get the information it needs about the RSS feed in question.
+
 OnHeadlinesenseFailure
   {
-	"\0\s[0]The feed can't updated.\w8\0\s[0]\n\n[half]" //This sets up an exchange between the two characters. The final part of the exchange continues below in the if statements.
+	"\0\s[2]\i[99]\i[23]\i[77]Ah, I can't update the feed.\w8\w2\n\n[half]"
  	--
 	if reference0 == "can't download"
  	{
-		"I can't download it, for some reason."
+		"\i[201]I can't download it, for some reason."
  	}
 	elseif reference0 == "can't analyze"
  	{
-		"I can't analyze these files..."
+		"\s[0]\i[99]\i[23]\i[77]I can't analyze these files..."
  	}
 	else //other errors
  	{
-		"I... Have no idea what went wrong here."
+		"\s[0]\i[99]\i[23]\i[77]I just... \w6Have no idea what went wrong here."
  	}
 	--
  	"\e" //And here is the final /e, so you don't need to include it in the if statements above. Another one of the very rare cases this occurs.
@@ -786,7 +859,9 @@ OnHeadlinesenseFailure
  
 OnUpdatedataCreating
  {
-	"\0\s[0]Creating the updates2.dau file.\e"
+	"\0\s[2]\i[99]Oh hey, new updates2.dau file?\e"
+	"\0\s[0]\i[70]\i[23]\i[99]Updates, updates...\e"
+	"\0\s[0]\i[99]Updates? \w4\i[23]Give me a sec...\e"
  }
 
  //---- OnUpdatedataCreated -------------------------------------------------------------
@@ -794,7 +869,8 @@ OnUpdatedataCreating
  
 OnUpdatedataCreated
  {
-	"\0\s[0]Successfully created updates2.dau.\e"
+	"\0\s[2]\i[73]%(dibarmfiddle)Just made the updates2.dau.\e"
+	"\0\s[2]\i[91]Done.\e"
  }
 
  //---- OnNarCreating ------------------------------------------------------------------
@@ -802,7 +878,8 @@ OnUpdatedataCreated
  
 OnNarCreating
  {
-	"\0\s[0]Creating the .nar file.\e"
+	"\0\s[0]\i[99]\i[23]\i[70]Making the .nar...\e"
+	"\0\s[0]\i[99]\i[23]\i[70]A .nar? \w4Give me a sec...\e"
  }
 
  //---- OnNarCreated -------------------------------------------------------------------
@@ -810,71 +887,67 @@ OnNarCreating
  
 OnNarCreated
  {
-	"\0\s[0]Successfully created '%(reference0)'.\e"
+	"\0\s[0]\i[91]Created '%(reference0)'.\e"
+	"\0\s[0]\i[91]\i[72]Okay, just made '%(reference0)'.\e"
 	//reference0 here will be the filename of the nar you just created. It should drop the nar in the folder where all your ghosts are listed, ssp\ghost\.
  }
 
- //****　Clock Synchronization　**********************************************************
-//**** 미카 (http://homepage2.nifty.com/ko-ki/)의 사전을 참고했습니다．감사＞こ 나무 성
-//This set of functions was done by the above Korean coder, I think. I'll leave their comment there untouched. 
-//If you right click your ghost and go into the Utilities menu, there's an option called NTP Time Sync. That's what this is for!
- 
-
- //----OnSNTPBegin ------------------------------------------------------------------
- //As with the others you've seen above, this is the beginning bit of dialogue for this process.
- 
+//reference0 is the name of the server it's connecting to
 OnSNTPBegin
- {
-	"\0\s[0]I'm going to check the time. I'm connecting to %(reference0).\e"
-	//%(reference0) here is the site they'll be using to check your clock. I wouldn't worry too much about what the site is or where it's defined, it should be accurate. Replace the dialogue with what you need, you don't have to use reference0 if you don't want to.
- }
+{
+	"\0\s[0]\i[99]Sure,\w4 I'll check your time against %(reference0).\w8\w8\e"
+}
 
-
- //----　OnSNTPCompare----------------------------------------------------------
- //Now the ghost is going to compare the current time of your computer's system to the time of the site they connected to. Most of this you don't have to touch, just replace the dialogue as indicated.
- 
+//Grabbed this from the X Template, which took from GT template!!
+//**** 미카 (http://homepage2.nifty.com/ko-ki/)의 사전을 참고했습니다．감사＞こ 나무 성
+//Above comment from the person who originally coded these functions
+//reference0 is the name of the server it's connecting to, reference1 is the server's time, reference2 is the computer's time, reference3 is the difference (in seconds)
 OnSNTPCompare
- {
- 	"Retrieved Time: %reference1[1]/%reference1[2]/%reference1[0] %reference1[3]:%reference1[4]:%reference1[5]\w2\n/
-	Your Time: %reference2[1]/%reference2[2]/%reference2[0] %reference2[3]:%reference2[4]:%reference2[5]\w2\n/
- 	\n"
+{
+ 	"Retrieved Time: %reference1[1]/%reference1[2]/%reference1[0] %reference1[3]:%reference1[4]:%reference1[5]\w2\n"
+	--
+	"Your Time: %reference2[1]/%reference2[2]/%reference2[0] %reference2[3]:%reference2[4]:%reference2[5]\w2\n\n"
 	--
  	if reference3 == 0 //if your clock is already accurate.
 	{
- 		"\0\s[0]Your clock is accurate.\e" //replace this with whatever message you like.
+		"\s[2]\i[91]Your clock's good!\e"
+		"\s[0]\i[91]Time looks accurate.\e"
 	}
  	else //if your clock doesn't match
 	{
-	//you can redo this top line up to the \n\n[half] part, but leave the \q options alone.
- 		"\0\s[0]Your clock doesn't match.\w6\nShould I fix it?\n\n[half]/
-		\![*]\q[Fix it,OnSNTPEXECUTE]\n/
- 		\![*]\q[Leave it alone,OnSNTPCANCEL]\e"
+		"\0\s[0]\i[23]\i[99]Oh, your clock doesn't match. \w8"
+		"\0\s[0]\i[23]\i[99]Yeah, that's off. \w8"
+		--
+		"\i[201]I can fix it if you want."
+		"\i[201]Want me to fix it?"
+		--
+		all:{
+		"\n\n"
+		"\![*]\q[Fix it,OnSNTPExecute]\n"
+		"\![*]\q[Leave it alone,OnSNTPCancel]\e"
+		}
 	}
- }
+}
 
- //----　OnSNTPEXECUTE ------------------------------------------------------------------
- //After they've fixed your clock. Note the \6 tag - that's what actually changes the clock. Do not remove that tag. Replace the rest with what you want.
- 
-OnSNTPEXECUTE
- {
-	"\0\s[0]The clock has been fixed.\6\e"
- }
+//The \6 is what actually changes the clock
+OnSNTPExecute
+{
+	"\6"
+	--
+	"\0\s[2]\i[91]Cool, should be fixed now.\e"
+}
 
- //----　OnSNTPCANCEL ------------------------------------------------------------------
- //If you decide not to change your clock when they tell you it doesn't match. Replace with what you want.
- 
-OnSNTPCANCEL
- {
-	"\0\s[0]The user decided not to change the clock.\e"
- }
+OnSNTPCancel
+{
+	"\0\s[2]\i[91]Alright, your call.\e"
+	"\0\s[0]\i[91]Okay, \w2tell me if you wanna change it later or something.\e"
+}
 
- //----　OnSNTPFailure ------------------------------------------------------------------
- //If they can't change the clock for some reason, possibly because the site timed out but it could be anything. Replace with what you want.
- 
+//reference0 is the name of the SNTP server - Note that this may happen before any other STNP dialogue is said! Keep in mind when writing your dialogue that the user will not necessarily have clicked the yes button.
 OnSNTPFailure
- {
-	"\0\s[0]The clock wasn't changed. \w8Something went wrong.\e"
- }
+{
+	"\0\s[0]\i[23]\i[99]\i[76]Oh, huh... \w4Something went wrong. \w6\i[201]Try again later?\e"
+}
 
 
  //--OnDisplayChange----------------------------------------------------------------
@@ -889,43 +962,38 @@ OnDisplayChange
 
 
 
- //---- OnScreenSaverStart -------------------------------------------------------
- //This happens if your ghost is running when your screensaver starts up. I've never got this to trigger but I love this idea, and I feel like there's a way to do it I haven't figured out yet. So you can skip these for now if you want, but if I do ever get it working, I'll come back and make a note of it.
+//---- OnScreenSaverStart -------------------------------------------------------
+//This happens if your ghost is running when your screensaver starts up. I've never got this to trigger but I love this idea, and I feel like there's a way to do it I haven'tfigured out yet. So you can skip these for now if you want, but if I do ever get it working, I'll come back and make a note of it.
  
 OnScreenSaverStart
  {
-	"\0\s[0]The screensaver is starting. Wiggle your mouse!\e"
-	//Replace with what you want.
+	"\0\s[0]\i[26]%(dibarmfiddle)...Huh, seems like your screensaver might be starting up.\e"
  }
 
- //---- OnScreenSaverEnd -------------------------------------------------------
- //When you wiggle your mouse and stop your screensaver.
- 
 OnScreenSaverEnd
  {
-	"\0\s[0]The screensaver is gone.\e"
-	//Replace with what you want.
+	"\0\s[2]\i[93]\i[25]\i[77]...Oh, \w4uh. \w8\w4\i[26]It's over..?\e"
  }
 
 
- //---- OnApplicationBoot ---------------------------------------------------------------
- //This supposedly is for when a program starts but I have honestly never gotten it to work or seen it happen. I wouldn't sweat these three related functions too much.
+//---- OnApplicationBoot ---------------------------------------------------------------
+//This supposedly is for when a program starts but I have honestly never gotten it to work or seen it happen. I wouldn't sweat these three related functions too much.
  
 OnApplicationBoot
  {
 	"\0\s[0]%(reference0) just started.\e"
  }
 
- //---- OnApplicationClose --------------------------------------------------------------
- //See above, but for the program closing.
+//---- OnApplicationClose --------------------------------------------------------------
+//See above, but for the program closing.
  
 OnApplicationClose
  {
 	"\0\s[0]%(reference0) has closed.\e"
  }
 
- //---- OnApplicationFileOpen ----------------------------------------------------------
- //I believe this is for when the program detailed above opens a document file of some kind.
+//---- OnApplicationFileOpen ----------------------------------------------------------
+//I believe this is for when the program detailed above opens a document file of some kind.
  
 OnApplicationFileOpen
  {
@@ -967,22 +1035,62 @@ OnBatteryNotify
 */
 
 
- //--OnShellScaling
+//reference0 is the new size, reference1 is the previous size. Sadly, you can't check for the Y scale.
 OnShellScaling
 {
-	if reference0 >= 150
+	nowscale[0] = reference0 //X
+	nowscale[1] = reference2 //Y
+	
+	if reference0 == 100
 	{
-		"\0\s[0]Hey, my base scale is already really big! Isn't this excessive..??\e"
+		if nowshell == "Shooting Star" {
+		"\0\s[0]...I would say that I'm back to normal, \w2but I still look pretty big compared to everything around me...\e"
+		}
+		else {
+		"\0\s[0]Ah, that's a comfortable size...\e"
+		}
 	}
-	elseif reference0 == 100
+	elseif reference0 < 0 //If it's backwards
 	{
-		"\0\s[0]I would say that I'm normal sized, but I still seem relatively big to everything around me...\e"
+		"\0\s[0]Backwards"
+		--
+		if reference2 < 0 //If it's also upside down
+		{
+			" and upside down"
+		}
+		--
+		"!\e"
 	}
-	elseif reference0 <= 35
+	elseif reference2 < 2 //Upside down but not backwards
 	{
-		"\0\s[0]Little man holding an artery shut?? Lemon Demon real??\e"
+		"Upside down!\e"
+	}
+	elseif reference0 > reference1 //getting bigger
+	{
+		"\0\s[0]Getting bigger!\e"
+	}
+	elseif reference0 < reference1 //getting smaller
+	{
+		"\0\s[0]Getting smaller!\e"
 	}
 }
+
+ //--OnShellScaling
+//OnShellScaling
+//{
+//	if reference0 >= 150
+//	{
+//		"\0\s[0]Hey, my base scale is already really big! Isn't this excessive..??\e"
+//	}
+//	elseif reference0 == 100
+//	{
+//		"\0\s[0]I would say that I'm normal sized, but I still seem relatively big to everything around me...\e"
+//	}
+//	elseif reference0 <= 35
+//	{
+//		"\0\s[0]Little man holding an artery shut?? Lemon Demon real??\e"
+//	}
+//}
 
 //Hotkeys
 OnKeyPress

@@ -94,6 +94,10 @@ On_sakura.portalsites
 	--
 	"%ASC(1)https://phantasiaukahub.carrd.co/%ASC(2)"
 	--
+	"Changelog (Google Docs)"
+	--
+	"%ASC(1)https://docs.google.com/document/d/10yy69A5hkizTPMh1mmRISIDg8M3JMfOdL9abrYmme20/edit?usp=sharing/%ASC(2)"
+	--
 	"%ASC(1)%ASC(2)"//-------------------------------------------
 	--
  	"WhatAPhantasia Carrd"
@@ -144,6 +148,10 @@ On_kero.recommendsites
 	"Dib's Page!!"
 	--
 	"%ASC(1)https://phantasiaukahub.carrd.co/#dib/%ASC(2)"
+	--
+	"Changelog (Google Docs)"
+	--
+	"%ASC(1)https://docs.google.com/document/d/10yy69A5hkizTPMh1mmRISIDg8M3JMfOdL9abrYmme20/edit?usp=sharing/%ASC(2)"
  }
 
  //---- Update Menu Caption ------------------------------------------------------------

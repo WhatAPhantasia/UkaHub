@@ -7,56 +7,65 @@
 //This is a bunch of code determining who the mouse is over. Don't touch any of it.
 
 OnMouseMove
- {
-		//---- reference3 determines the character in question
-		if reference3 == 0 //if the character is 0, aka the main character
-		{
-			//---- it will run the mouse functions for that character
-			MouseMoveSakura
-		}
-		else //if the character isn't 0, then it must be the side character.
-		{
-			//---- this will run the mouse functions for the side character.
-			MouseMoveKero
-		}
- }
- 
- //*********************Advanced User Info*******************************
-//These text boxes are meant for those who have an interest in expanding or using more complicated functions in their ghost. Also for my own reference in the future since I plan on using this template too, haha. If you have no interest in any of this and just want to keep things as simple as possible, feel free to skip these boxes.
+{
+	if reference3 == 0 //reference3 is what character the mouse is over. 0 is Sakura, 1 is Kero
+	{
+		MouseMoveSakura
+	}
+	else
+	{
+		MouseMoveKero
+	}
+}
 
-//If you want to have more than two characters at any point, like for example how I added Charger with my Hunter/Smoker ghost, and you want to be able to interact with that character like you can with the others, you will have to add in that character to OnMouseMove above. You'll need to know the p[] you've assigned your third character to, which in Charger's case was 3. You can assign your third character any p you want, just be consistent about using the same p[] everytime. I touch on \p a bit more in the walkthrough.
-//So anyway, as you can see above, OnMouseMove determines who the user is touching, so you'll just have to add in an elseif checking for reference3 == 3, or reference3 == 4, or whatever p number is you're using. More on elseif in the walkthrough and in bootend.dic. After that, you'll just need to copy and paste the other mouse functions below and change the name as you need (for example, MouseMoveCharger, MouseDoubleClickCharger). 
+//--MouseMoveSakura
+//The petting function for your main character. Remember how it was referred to as sakura in some of the descript.txt and install.txt files?
 
-//Note though that the extra character will not be a hard-coded character like 0 and 1! You're basically tricking the program into thinking there's another character, and some functions in things like menu.dic and aitalk.dic won't work quite right if you put in a value other than 0 or 1, and you'll need to be careful about making sure to remove the third character when you're done. But luckily for you, this won't be a problem with any of the mouse functions as far as I'm aware, and you can fill them out for the third character just like you would for the two main ones.
-//***********************************************************************
-
-
- //--MouseMoveSakura
- //The petting function for your main character. Remember how it was referred to as sakura in some of the descript.txt and install.txt files?
- 
+//x template stuff! thanks zi
+//stroke is an array here, to save on variables. stroke[0] is the original stroke value, which resets after every successful pet. stroke[1] is the continuous stroking. It's the same as stroke[0], but it does not reset until your mouse leaves the character. stroke[2] is the number of successful pets in a row. I haven't used it here but you can if you want.
 MouseMoveSakura
- {
-	if reference4 != "" //ignore
- 	{
- 		stroke++ //if you move the mouse over the right areas, the stroke count will go up.
- 		if stroke >= 40 //if the stroke count is above a certain number, the petting dialogue will kick in. You can change this number to make the petting take longer or shorter if you want. FLELEs have it set to 50 for some reason, which makes it take longer than this.
+{
+	if reference4 == "Head"
+	{
+		stroke[0]++ //Stroke value only goes up when over the appropriate areas
+		stroke[1]++
+		
+		if stroke[1] >= 160 //this would happen starting at 4 pets
 		{
- 			stroke = 0 //resetting the stroke count
-			if reference4 == "Head" 
- 			{
-				//TODO: CHANGE THIS BEFORE RELEASE LMAO. make it so you need to befriend him before he accepts pets positively, like GASTER yk yk
-				//NEVER EVER EVER MAKE IT ROMANTICALLY CODED IN PUBLIC RELEASES OMG ID DIE ON THE SPOT
-				"\0\s[2]\i[77]\i[21]\i[85]Come on, %(username)...\e"
-				"\0\s[3]\i[72]\i[77]\i[85]\i[96]What kind of torture is this..?\e"
-				"\0\s[0]\i[70]\i[21]\i[85]\i[92]\f[height,9]...Would you still do this even if I weren't on your desktop?\f[height,default]\e"
-				"\0\s[0]\i[70]\i[21]\i[85]..."
-				"\0\s[3]\i[72]\i[85]\i[65]\i[77](He just sighs. You can't tell if he's frustrated, or...)"
-				"\0\s[0]\i[72]\i[85]\i[78]Just because I'm on your desktop doesn't mean you should abuse that power. \w6\i[21]\i[92]\i[70]\f[height,9]Not that I mind, but...\f[height,default]"
-				"\0\s[2]\i[77]\i[21]\i[85]\i[93]..."
- 			}
- 			elseif reference4 == "Face"
- 			{
-				if username == "Ely"
+			if stroke[0] >= 160 //Stroke count is longer so that you have time to read the dialogue here. Adjust as you like.
+			{
+				stroke[0] = 0
+				stroke[2]++
+				totalpets++
+				
+				"\0\s[0]...Pfft, you really like doing that, huh?\w8\w8 You're on a %(stroke[2]) pet streak.\e"
+			}
+		}
+		elseif stroke[0] >= 40
+		{
+			stroke[0] = 0 //Stroke value is reset
+			stroke[2]++
+			totalpets++
+			
+			//HEY REMEMBER NOT TO MAKE THIS ROMANTICALLY CODED IN FINAL RELEASE LOL
+			"\0\s[2]\i[77]\i[21]\i[85]Come on, %(username)...\e"
+			"\0\s[3]\i[72]\i[77]\i[85]\i[96]What kind of torture is this..?\e"
+			"\0\s[0]\i[70]\i[21]\i[85]\i[92]\f[height,9]...Would you still do this even if I weren't on your desktop?\f[height,default]\e"
+			"\0\s[0]\i[70]\i[21]\i[85]..."
+			"\0\s[3]\i[72]\i[85]\i[65]\i[77](He just sighs. You can't tell if he's frustrated, or...)"
+			"\0\s[0]\i[72]\i[85]\i[78]Just because I'm on your desktop doesn't mean you should abuse that power. \w6\i[21]\i[92]\i[70]\f[height,9]Not that I mind, but...\f[height,default]"
+			"\0\s[2]\i[77]\i[21]\i[85]\i[93]..."
+		}
+	}
+	elseif reference4 == "Face"
+	{
+		stroke[0]++
+		
+		if stroke[0] >= 40
+		{
+			stroke[0] = 0
+			--
+			if username == "Ely"
 				{
 				"\0\s[2]\i[72]\i[77]\i[85]"
 				}
@@ -66,15 +75,40 @@ MouseMoveSakura
  				"\0\s[0]\i[76]What are you even..??\e"
  				"\0\s[3]\i[70]I'd like it if you didn't touch my face, thanks.\e"
 				}
- 			}
-			//elseif reference4 == "Scythe"
- 		}
+		}
 	}
- 	else
+	elseif reference4 == "Scythe"
 	{
- 		// If the mouse isn't over the ghost, it'll zero out the stroke value.
-		stroke = 0
- 	}
+		stroke[0]++
+		
+		if stroke[0] >= 40
+		{
+			stroke[0] = 0
+			"\0\s[0]\i[76]...I don't even have a hitbox for this. How are you..??\e"
+		}
+	}
+}
+
+OnMouseLeaveAll //When the mouse is no longer on a hitbox. You can change to OnMouseLeave if you want it to happen when you leave any hitbox for another one
+{
+	if stroke[1] > 160 && stroke[1] > pethighscore[0] //Checks if you're in continuous petting, and if you are, if you got a high score.
+	{
+		pethighscore[0] = stroke[1]
+		_b = BalloonCheck
+		if _b == 1 //Checks to see if the balloon is open, and if it is, \C means this will be added onto the previous dialogue.
+		{
+			"\C\n\n\i[65](New high score! %(pethighscore[0])!)\e"
+		}
+	}
+	--
+	if stroke[2] > pethighscore[1] //Same thing here, but it's counting the number of successful pets you got. You can use this instead of the stroke count if you like.
+	{
+		pethighscore[1] = stroke[2]
+	}
+	--
+	stroke[0] = 0
+	stroke[1] = 0
+	stroke[2] = 0
 }
 
  //---- MouseMoveKero -----------------------------------------------------------------
@@ -114,48 +148,47 @@ MouseMoveKero
 //Advanced users adding a third character, the same principles from OnMouseMove apply here as well! Make sure to add an elseif with the right number for your third character.
 
 OnMouseDoubleClick
- {
-	//---- like with the OnMouseMove function above, this determines who the user is clicking on.
-	if reference5 == 0 //checks which button is being used for the click
+{
+	if reference5 == 0 //reference5 is the mouse button being clicked, in this case a left click. Also checks to see if this is during the first boot, and if so, prevents the menus from being opened
 	{
-	 	if reference3 == 0 //if the character is 0, aka your main character
+		if reference3 == 0 //this is the character, as above
 		{
-		MouseDoubleClickSakura
+			MouseDoubleClickSakura
 		}
 		else
 		{
- 		MouseDoubleClickKero
+			MouseDoubleClickKero
 		}
 	}
- }
+}
 
- //---- MouseDoubleClickSakura ----------------------------------------------------------
- //Like the petting animation above, this is the reactions they have to being double clicked. These also rely on the collisions you set up in surfaces.txt! This set is specifically for the main character, as indicated by the Sakura in the name again.
- 
- //*********************Advanced User Info*******************************
- //As a note, double clicking on a certain area of your ghost doesn't have to be the user hitting them. You could instead set up a collision for a piece of clothing, and then have the character talk about that bit of clothing when it's double clicked, for example. One of Smoker's double clicks gives her a high-five when she's in a certain pose. Maybe double clicking is patting them, or pointing behind them, or tapping them, or any number of things. You can be creative here with how they respond depending on what areas you've set up as collisions!
- 
- //If you don't want your character to be hittable at all, you can just delete everything in MouseDoubleClickSakura except OpenSakuraMenu. So it'd look like
- 
- //MouseDoubleClickSakura
- //{
- //OpenSakuraMenu
- //}
- 
- //That's all there is to it. This method also applies to the secondary character, Kero, below this set.
- //***********************************************************************
- 
 MouseDoubleClickSakura
- {
- 	if reference4 == "Head" || reference4 == "Face" 
+{
+	if reference4 == "Face" //Punching dialogue
 	{
-		"\0\s[3]\i[77]nooooo why would you punch me \0\i[65](i haven't implemented punching yet lmao)\e"
- 	}
-	else
- 	{
- 		OpenSakuraMenu
+		if totalpunches < 1 //If the user has not punched the ghost yet
+		{
+			"\0(Are you sure you want to punch him in the face?)"
+			--
+			"\n\n\_q\![*]\q[Yes,FirstPunch] \![*]\q[No!,cancelnodialogue]"
+		}
+		else //If they've already punched the ghost at least once
+		{
+			"\0\s[3]\i[70]smh i cant believe u would punch me............\e"
+			totalpunches++
+		}
 	}
- }
+	else //If you're not punching, you must want the menu
+	{
+		OpenSakuraMenu
+	}
+}
+
+Select.FirstPunch //The first time the ghost is punched
+{
+	"\0\s[0]...Oh. You're just like them. Fuck you \i[65](CHANGE LATER LOL)\e"
+	totalpunches++
+}
 
  
  //---- MouseDoubleClickKero -----------------------------------------------------------
@@ -163,78 +196,33 @@ MouseDoubleClickSakura
  
  
 MouseDoubleClickKero
- {
- 	if reference4 == "Face" 
-	{
-		"\1Dude what the heck!!\e" //%(keroneutral)
- 	}
-	else
- 	{
-		OpenKeroMenu
-	}
- }
- 
- //--------Ok now its time to get funky
- 
- //this one got complicated so i moved it to etc.dic
-/*
-OnMouseDragStart
 {
-	if pickupframes == "off"
+ 	if reference4 == "Face" //Punching dialogue
 	{
-		
-	}
-	else
-	{
-		if reference3 == 0 //If being dragged
+		if totalpunches < 1 //If the user has not punched the ghost yet
 		{
-			if BalloonCheck == 1 //If Balloon is open
-			{
-				""
-				if MenuCheck == 1 //if menu is open.
-				{
-					"\0\s[26]"
-				}
-			}
-			else //no balloon is there
-			{
-				"\0\s[26]"
-			}
-		} else //kero?
-		{
-			""
+			"\1(Are you sure you want to punch them in the face?)"
+			--
+			"\n\n\_q\![*]\q[Yes,FirstPunchKero] \![*]\q[No!,cancelnodialogue]"
 		}
+		else //If they've already punched the ghost at least once
+		{
+			"\1oh... ow....\e"
+			totalpunches++
+		}
+	}
+	else //If you're not punching, you must want the menu
+	{
+		OpenKeroMenu
 	}
 }
 
-OnMouseDragEnd
+Select.FirstPunchKero
 {
-	if pickupframes == "off"
-	{
-		
-	}
-	else
-	{
-		if reference3 == 0
-		{
-			if BalloonCheck == 1 //If Balloon is open
-			{
-				""
-				if MenuCheck == 1
-				{
-				"\0\s[0]"
-				}
-			}
-			else
-			{
-				"\0\s[0]"
-			}
-			
-		}
-		else
-		{
-			"\1\s[10]"
-		}
-	}
+	"\1Ow!! Dude, what the heck??\e"
+	totalpunches++
 }
-*/
+ 
+//--------Ok now its time to get funky
+
+//this one got complicated so i moved it to etc.dic (will probably move it back tbh)
