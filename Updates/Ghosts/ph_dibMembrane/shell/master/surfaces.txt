@@ -108,14 +108,14 @@ element3,overlayfast,surface115.png,139,124
 element4,overlay,surface100.png,0,0
 element5,overlay,surface170.png,0,0
 element6,overlay,surface150.png,0,0
-element7,overlay,surface650.png,0,0
+element7,overlay,surface651.png,0,0
 //An element also doesn't need to be the first frame of an animation, it can also be the last one. This can come in handy for certain animations that only run once.
 //--Blinking---------------------------------------------------------------------------
 animation0.interval,random,4
 animation0.pattern0,overlay,-1,100,0,0
-animation0.pattern1,overlayfast,140,50,0,0
-animation0.pattern2,overlayfast,142,100,0,0
-animation0.pattern3,overlay,-1,30,0,0
+animation0.pattern1,overlayfast,140,40,0,0
+animation0.pattern2,overlayfast,142,80,0,0
+animation0.pattern3,overlay,-1,50,0,0
 //--Clothes----------------------------------------------------------------------------
 //Glasses
 animation910.interval,bind
@@ -157,7 +157,7 @@ animation62.pattern0,overlay,151,100,0,0
 animation62.pattern1,overlay,-1,100,0,0
 animation63.interval,never
 animation63.pattern0,overlay,151,80,0,0
-animation63.pattern1,overlay,-1,60,0,0
+animation63.pattern1,overlay,-1,80,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,151,0,0,0
@@ -181,7 +181,7 @@ animation62.pattern0,overlay,153,100,0,0
 animation62.pattern1,overlay,-1,100,0,0
 animation63.interval,never
 animation63.pattern0,overlay,153,80,0,0
-animation63.pattern1,overlay,-1,60,0,0
+animation63.pattern1,overlay,-1,80,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,153,0,0,0
@@ -205,7 +205,7 @@ animation62.pattern0,overlay,155,100,0,0
 animation62.pattern1,overlay,-1,100,0,0
 animation63.interval,never
 animation63.pattern0,overlay,155,80,0,0
-animation63.pattern1,overlay,-1,60,0,0
+animation63.pattern1,overlay,-1,80,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,155,0,0,0
@@ -229,7 +229,7 @@ animation62.pattern0,overlay,151,100,0,0
 animation62.pattern1,overlay,-1,100,0,0
 animation63.interval,never
 animation63.pattern0,overlay,151,80,0,0
-animation63.pattern1,overlay,-1,60,0,0
+animation63.pattern1,overlay,-1,80,0,0
 //teef
 //animation67.interval,never
 }
@@ -302,7 +302,7 @@ animation62.pattern0,overlay,151,100,0,0
 animation62.pattern1,overlay,-1,100,0,0
 animation63.interval,never
 animation63.pattern0,overlay,151,80,0,0
-animation63.pattern1,overlay,-1,60,0,0
+animation63.pattern1,overlay,-1,80,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,151,0,0,0
@@ -470,17 +470,21 @@ animation75.pattern0,overlay,170,0,0,0
 animation75.pattern1,overlay,170,200,0,0
 //question
 animation76.interval,never
-animation76.pattern0,parallelstop,(75,77,78)
+animation76.pattern0,parallelstop,(75,77,78,79)
 animation76.pattern1,overlay,171,0,0,0
 //sad
 animation77.interval,never
-animation77.pattern0,parallelstop,(75,76,78)
+animation77.pattern0,parallelstop,(75,76,78,79)
 animation77.pattern1,overlay,172,0,0,0
 //angry
 animation78.interval,never
-animation78.pattern0,parallelstop,(75,76,77)
+animation78.pattern0,parallelstop,(75,76,77,79)
 animation78.pattern1,overlay,173,0,0,0
-//204 stops (76,77,78) and starts 75
+//shock
+animation79.interval,never
+animation79.pattern0,parallelstop,(75,76,77,78)
+animation79.pattern1,overlay,174,0,0,0
+//204 stops (76,77,78,79) and starts 75
 
 //--Extras lets gooooo
 //sweat
@@ -513,7 +517,7 @@ animation62.pattern0,overlay,251,100,0,0
 animation62.pattern1,overlay,-1,100,0,0
 animation63.interval,never
 animation63.pattern0,overlay,251,80,0,0
-animation63.pattern1,overlay,-1,60,0,0
+animation63.pattern1,overlay,-1,80,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,251,0,0,0
@@ -537,7 +541,7 @@ animation62.pattern0,overlay,253,100,0,0
 animation62.pattern1,overlay,-1,100,0,0
 animation63.interval,never
 animation63.pattern0,overlay,253,80,0,0
-animation63.pattern1,overlay,-1,60,0,0
+animation63.pattern1,overlay,-1,80,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,253,0,0,0
@@ -561,7 +565,7 @@ animation62.pattern0,overlay,255,100,0,0
 animation62.pattern1,overlay,-1,100,0,0
 animation63.interval,never
 animation63.pattern0,overlay,255,80,0,0
-animation63.pattern1,overlay,-1,60,0,0
+animation63.pattern1,overlay,-1,80,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,255,0,0,0
@@ -585,7 +589,7 @@ animation62.pattern0,overlay,251,100,0,0
 animation62.pattern1,overlay,-1,100,0,0
 animation63.interval,never
 animation63.pattern0,overlay,251,80,0,0
-animation63.pattern1,overlay,-1,60,0,0
+animation63.pattern1,overlay,-1,80,0,0
 //teef
 //animation67.interval,never
 }
@@ -659,7 +663,7 @@ animation62.pattern0,overlay,251,100,0,0
 animation62.pattern1,overlay,-1,100,0,0
 animation63.interval,never
 animation63.pattern0,overlay,251,80,0,0
-animation63.pattern1,overlay,-1,60,0,0
+animation63.pattern1,overlay,-1,80,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,251,0,0,0
@@ -731,8 +735,8 @@ animation23.pattern0,parallelstop,(20,21,22,24,25,26,27,28,29,30,31,32,33,34,35,
 animation23.pattern1,overlay,215,0,152,121
 //middle
 animation24.interval,always
-animation24.pattern0,overlay,215,0,152,118
-animation24.pattern1,overlay,215,200,152,118
+animation24.pattern0,overlay,218,0,153,118
+animation24.pattern1,overlay,218,200,153,118
 //upright
 animation25.interval,never
 animation25.pattern0,parallelstop,(20,21,22,23,24,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40)
@@ -827,17 +831,21 @@ animation75.pattern0,overlay,270,0,0,0
 animation75.pattern1,overlay,270,200,0,0
 //question
 animation76.interval,never
-animation76.pattern0,parallelstop,(75,77,78)
+animation76.pattern0,parallelstop,(75,77,78,79)
 animation76.pattern1,overlay,271,0,0,0
 //sad
 animation77.interval,never
-animation77.pattern0,parallelstop,(75,76,78)
+animation77.pattern0,parallelstop,(75,76,78,79)
 animation77.pattern1,overlay,272,0,0,0
 //angry
 animation78.interval,never
-animation78.pattern0,parallelstop,(75,76,77)
+animation78.pattern0,parallelstop,(75,76,77,79)
 animation78.pattern1,overlay,273,0,0,0
-//204 stops (76,77,78) and starts 75
+//shock
+animation79.interval,never
+animation79.pattern0,parallelstop,(75,76,77,78)
+animation79.pattern1,overlay,274,0,0,0
+//204 stops (76,77,78,79) and starts 75
 
 //--Extras lets gooooo
 //sweat
@@ -870,7 +878,7 @@ animation62.pattern0,overlay,351,100,0,0
 animation62.pattern1,overlay,-1,100,0,0
 animation63.interval,never
 animation63.pattern0,overlay,351,80,0,0
-animation63.pattern1,overlay,-1,60,0,0
+animation63.pattern1,overlay,-1,80,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,351,0,0,0
@@ -894,7 +902,7 @@ animation62.pattern0,overlay,353,100,0,0
 animation62.pattern1,overlay,-1,100,0,0
 animation63.interval,never
 animation63.pattern0,overlay,353,80,0,0
-animation63.pattern1,overlay,-1,60,0,0
+animation63.pattern1,overlay,-1,80,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,353,0,0,0
@@ -918,7 +926,7 @@ animation62.pattern0,overlay,355,100,0,0
 animation62.pattern1,overlay,-1,100,0,0
 animation63.interval,never
 animation63.pattern0,overlay,355,80,0,0
-animation63.pattern1,overlay,-1,60,0,0
+animation63.pattern1,overlay,-1,80,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,355,0,0,0
@@ -942,7 +950,7 @@ animation62.pattern0,overlay,351,100,0,0
 animation62.pattern1,overlay,-1,100,0,0
 animation63.interval,never
 animation63.pattern0,overlay,351,80,0,0
-animation63.pattern1,overlay,-1,60,0,0
+animation63.pattern1,overlay,-1,80,0,0
 //teef
 //animation67.interval,never
 }
@@ -1050,7 +1058,7 @@ animation62.pattern0,overlay,351,100,0,0
 animation62.pattern1,overlay,-1,100,0,0
 animation63.interval,never
 animation63.pattern0,overlay,351,80,0,0
-animation63.pattern1,overlay,-1,60,0,0
+animation63.pattern1,overlay,-1,80,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,351,0,0,0
@@ -1209,7 +1217,7 @@ animation72.pattern1,overlay,342,0,0,0
 animation73.interval,never
 animation73.pattern0,parallelstop,(70,71,72)
 animation73.pattern1,overlay,344,0,0,0
-//203 stops (70,72,73)
+//203 stops 71,72,73
 
 //--Eyebrows, yasss
 //neutral
@@ -1219,17 +1227,21 @@ animation75.pattern1,overlay,370,200,0,0
 //Oh whoops this one doesnt exist. dam dibs profile checks r kinda funky
 //question
 animation76.interval,never
-animation76.pattern0,parallelstop,(75,77,78)
+animation76.pattern0,parallelstop,(75,77,78,79)
 animation76.pattern1,overlay,370,0,0,0
 //sad
 animation77.interval,never
-animation77.pattern0,parallelstop,(75,76,78)
+animation77.pattern0,parallelstop,(75,76,78,79)
 animation77.pattern1,overlay,372,0,0,0
 //angry
 animation78.interval,never
-animation78.pattern0,parallelstop,(75,76,77)
+animation78.pattern0,parallelstop,(75,76,77,79)
 animation78.pattern1,overlay,373,0,0,0
-//204 stops (76,77,78) and starts 75
+//angry
+animation79.interval,never
+animation79.pattern0,parallelstop,(75,76,77,78)
+animation79.pattern1,overlay,374,0,0,0
+//204 stops (76,77,78,79) and starts 75
 
 //--Extras lets gooooo
 //sweat
@@ -1315,7 +1327,7 @@ animation203.pattern0,parallelstop,(70,72,73)
 
 //Stop eyebrows
 animation204.interval,never
-animation204.pattern0,parallelstop,(76,77,78)
+animation204.pattern0,parallelstop,(76,77,78,79)
 animation204.pattern1,start,75
 
 //Stop extras
@@ -1438,7 +1450,6 @@ surface5000
 {
 element0,overlay,surface5000.png,0,0
 }
-
 
 //--surface.append-------------------------------------------------------------------
 //This function is primarily for advanced users, so you can skip it if it seems too scary to you. Otherwise, read on. It may be useful.

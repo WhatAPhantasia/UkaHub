@@ -153,8 +153,6 @@ dibidleyuh
 {
 	"\0\s[0]\i[91]\i[20]"
 	"\0\s[0]\i[91]\i[21]"
-	"\0\s[0]\i[21]"
-	"\0\s[0]\i[20]"
 	"\0\s[0]\i[93]\i[21]"
 	"\0\s[0]\i[93]\i[20]"
 	"\0\s[0]\i[93]\i[25]"
@@ -194,6 +192,61 @@ dibarmfiddle
 
 //----TEXT ENVELOPE!!!!!!!!!!!!!!!!!
 
+
+//PRONOUNS!!
+//"%(they) left that there."
+//"%(their) work is really cool."
+//"I'll ask %(them) later."
+//"%(they)%(re) really good at it."
+//"%(they) %(are) thinking about cheese!"
+//"%(they) %(were) lost in their code, but %(they) fixed it!!"
+//use %(capitalize(they)) to use it properly at the start of sentences.
+//use _s = "s"; if pronouns == "undef"; _s = "re" and other temp vars if needed for more specific pronoun talk
+their
+{
+	if pronouns == "masc"; "his"
+	elseif pronouns == "fem"; "her"
+	elseif pronouns == "custom"; "%(custompronouns[2])"
+	else; "their"
+}
+theirs
+{
+	if pronouns == "masc"; "his"
+	elseif pronouns == "fem"; "hers"
+	elseif pronouns == "custom"; "%(custompronouns[3])"
+	else; "theirs"
+}
+they
+{
+	if pronouns == "masc"; "he"
+	elseif pronouns == "fem"; "she"
+	elseif pronouns == "custom"; "%(custompronouns[0])"
+	else; "they"
+}
+them
+{
+	if pronouns == "masc"; "him"
+	elseif pronouns == "fem"; "her"
+	elseif pronouns == "custom"; "%(custompronouns[1])"
+	else; "them"
+}
+//CHECK CONTEXT SINGULAR OR PLURAL!!
+were
+{
+	if pronounplur == "plur" || pronouns == "undef"; "were"
+	else; "was"
+}
+re
+{
+	if pronounplur == "plur" || pronouns == "undef"; "'re"
+	else; "'s"
+}
+are
+{
+	if pronounplur == "plur" || pronouns == "undef"; "are"
+	else; "is"
+}
+
 zimnonskoolplans
 {
 	"dumping Flamin' Hot Cheezo dust into the atmosphere"
@@ -202,14 +255,15 @@ zimnonskoolplans
 	"ripping out all the traffic lights in the city to make a weird rave machine"
 	"taking GIR to Krazy Taco... Which isn't really evil, but GIR ate like, 6 babies"
 	"taking over the local MacMeaties"
-	"trying to become the King of Burrito King to \f[italic,1]Control the masses\f[italic,0]"
+	"trying to become the King of Burrito King to \f[italic,1]control the masses\f[italic,0]"
 }
 
 zimskoolplans
 {
 	"poisoning the Skool lunch line"
-	"replacing all the cleaning products in the janitor's closet with acid (which is admittedly better than the old cleaning products)"
-	"getting Torque Smackey to... Bully me more than he already does, I guess"
+	"replacing all the cleaning products in the janitor's closet with acid \i[65](which is admittedly better than the old cleaning products)"
+	"getting Torque Smackey to... Bully me more than he already does" //I guess"
+	"unleashing a horde of mutant gerbils in the Skool during lunch"
 }
 
 
@@ -254,65 +308,247 @@ zimskoolplans
 		
 	  //***********************************************************************
 
-blanklist
+exampleenvelope
 {
-	"List object 1"
-	"List object 2"
-	"List object 3"
-	"List object 4"
-	"List object 5"
-}
-
-blanklist2
-{
-	"List object 1"
-	"List object 2"
-	"List object 3"
-	"List object 4"
-	"List object 5"
-	"List object 6"
-	"List object 7"
-	"List object 8"
-}
-
-blanklist3
-{
-	"List object 1"
-	"List object 2"
-	"List object 3"
-	"List object 4"
-}
-
-blanklist4
-{
-	"List object 1"
-	"List object 2"
+	"result 1"
+	"result 2"
+	"result 3"
 }
 
 usersfolder
 {
-	"%(username)'s Recycle Bin"
-	"%(username)'s Document folder"
-	"%(username)'s secret folder"
+	"start bar"
+	"Documents folder"
+	"Pictures folder"
+	"Music folder"
+	"Games folder"
 }
 
-
-//Now, this next envelope is unique. I've called it a double envelope at times, but this is actually technically an array. Note that it has a word, a comma, then another word. This is essentially a list being stored in this envelope. You can call one of the values by using brackets around the number of the list entry. So, the first value (the Korean word) would be %(lessonkor[0]) since all arrays start at 0. The second value (the definition) would be %(lessonkor[1]). If you have a longer array, like "word,word,word,word,word", you can keep calling values by changing the numbers, like %(lessonkor[5]) or %(lessonkor[10]). Arrays can be very powerful and useful for storing a lot of information in a condensed space, but I must level with you, I'm not very good at arrays or figuring out how to use them. :B They can be VERY useful though, if you can wrap your head around how they work. An example of pulling information from this array can be seen in aitalk.dic.
-
-lessonkor
+filetype
 {
-	"사과(sa-gua),apple"
-	"노동(no-dong),labor"
-	"손가락(son-ga-rak),finger"
-	"마르크스(ma-r-k-s),Marx"
-	"자본주의(ja-bon-ju-yi),capitalism"
+	".txt"
+	".dic"
+	".png"
+	".jpg"
+	".jpeg"
+	".mp3"
+	".exe"
+	".bat"
+	".cfg"
+	".wav"
+	".pdf"
+	".dat"
+	".gif"
+	".tiff"
+	".dll"
+	".pna"
+	".ico"
+	".dau"
+	".zip"
+	".nar"
+	".html"
+	".psd"
+	".mp4"
+	".ttf"
+	".rar"
 }
 
-//You can also format your envelopes like this as one line separated by semicolons, but personally I think the spaced lists above look nicer. It's up to you however you want to set them up.
+//-----Menu stuff-----
 
-blanklistparagraph
+season //Current season
 {
-	"List paragraph 1"; "List paragraph 2"; "List paragraph 3"; "List paragraph 4"; "List paragraph 5";
+	if hemisphere == "Southern"
+	{
+		if month > 2 && month < 6; "Autumn"
+		elseif month > 5 && month < 9; "Winter"
+		elseif month > 8 && month < 12; "Spring"
+		else; "Summer"
+	}
+	else
+	{
+		if month > 2 && month < 6; "Spring"
+		elseif month > 5 && month < 9; "Summer"
+		elseif month > 8 && month < 12; "Autumn"
+		else; "Winter"
+	}
+}
+
+//hour12 displays the hour like a 12 hour clock, except for 12 which is displayed as 0
+nowhour
+{
+	if hour12 == 0; "12"
+	else; "%(hour12)"
+}
+
+//Adding a 0 to the minute if it's under 10
+nowmin
+{
+	if minute < 10; "0%(minute)"
+	else; "%(minute)"
+}
+
+//Total hours
+totalhours {x.up_total / 60}
+
+//Total hours + minutes
+totalruntime
+{
+	_hours = x.up_total / 60
+	_mins = x.up_total % 60
+	if _mins <= 9; _mins = "0%(_mins)"
+	
+	"%(_hours):%(_mins)"
+}
+
+//Current runtime as hours + minutes
+runtime
+{
+	_hours = x.up_mins / 60
+	_mins = x.up_mins % 60
+	if _mins <= 9; _mins = "0%(_mins)"
+	
+	"%(_hours):%(_mins)"
+}
+
+//AM or PM - ampm is 0 during am, and 1 during pm
+ap
+{
+ 	if ampm == 0; "AM"
+ 	else; "PM"
+}
+
+//Abbreviated week day
+wd
+{
+	if weekday == 0; "Sun"
+	elseif weekday == 1; "Mon"
+	elseif weekday == 2; "Tue"
+	elseif weekday == 3; "Wed"
+	elseif weekday == 4; "Thu"
+	elseif weekday == 5; "Fri"
+	else; "Sat"
+}
+
+//Full week day
+nowday
+{
+	_weekday = weekday
+	if _argv[0] == "next"
+	{
+		_weekday++
+		if _weekday > 6; _weekday = 0
+	}
+	if _argv[0] == "last"
+	{
+		_weekday--
+		if _weekday < 0; _weekday = 6
+	}
+	
+	if GETTYPE(_argv[0]) == 1 //If it's an integer
+	{
+		while _argv[0] > 6; {_argv[0] -= 7}
+		while _argv[0] < 0; {_argv[0] += 7}
+		_weekday = _argv[0]
+	}
+	
+	if _weekday == 0; "Sunday"
+	elseif _weekday == 1; "Monday"
+	elseif _weekday == 2; "Tuesday"
+	elseif _weekday == 3; "Wednesday"
+	elseif _weekday == 4; "Thursday"
+	elseif _weekday == 5; "Friday"
+	else; "Saturday"
+}
+
+//The current month name
+nowmonth
+{
+	_month = month
+	
+	if _argv[0] == "next"
+	{
+		_month++
+		if _month > 12; _month = 1
+	}
+	if _argv[0] == "last"
+	{
+		_month--
+		if _month < 1; _month = 12
+	}
+	
+	if GETTYPE(_argv[0]) == 1 //If it's an integer
+	{
+		while _argv[0] > 12; {_argv[0] -= 12}
+		while _argv[0] < 1; {_argv[0] += 12}
+		_month = _argv[0]
+	}
+	
+	if _month == 1; "January"
+	elseif _month == 2; "February"
+	elseif _month == 3; "March"
+	elseif _month == 4; "April"
+	elseif _month == 5; "May"
+	elseif _month == 6; "June"
+	elseif _month == 7; "July"
+	elseif _month == 8; "August"
+	elseif _month == 9; "September"
+	elseif _month == 10; "October"
+	elseif _month == 11; "November"
+	else; "December"
+}
+
+//Checks if this is a leap year
+leapyear
+{
+	if year % 4 != 0; 0
+	elseif year % 100 != 0; 1
+	elseif year % 400 != 0; 0
+	else; 1
+}
+
+//Gets the day of the year it currently is, starting from 1 because starting from 0 here is silly
+yearday {GETTIME[7] + 1}
+
+yearweek
+{
+	//Get the current day of the year
+	_days = yearday
+
+	//Get the number of days into the current week that we are
+	_trailingdays = 0
+	while weekday - _trailingdays >= 0
+	{
+		_trailingdays++
+	}
+
+	//Get the number of weeks minus leading and trailing days
+	_days -= _trailingdays
+	_weeks = _days / 7
+	_leadingdays = _days % 7
+
+	//Add in the trailing weeks
+	if _leadingdays > 0; _weeks++
+	if _trailingdays > 0; _weeks++
+
+	//Handles week 53
+	if _weeks == 53
+	{
+		_daysleft = 31 - day
+		if _daysleft + _trailingdays < 7; _weeks = 1
+	}
+	_weeks
+}
+
+//From the GT template. Breaking down the day into a few distinct chunks so you dont have to add checks for every hour.
+timeslot
+{
+	if hour >= 5 && hour <= 8; "earlymorning" //5-8am
+	elseif hour >= 9 && hour <= 11; "morning" //9-11am
+	elseif hour >= 12 && hour <= 14; "lunch" //12-2pm
+	elseif hour >= 15 && hour <= 17; "afternoon" //3-5pm
+	elseif hour >= 18 && hour <= 20; "evening" //6-8pm
+	elseif hour >= 21 && hour <= 24; "latenight" //9pm-12am
+	else; "midnight" //1-4am
 }
 
 

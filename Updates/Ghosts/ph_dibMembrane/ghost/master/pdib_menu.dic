@@ -18,10 +18,7 @@ OpenSakuraMenu
 //As you just saw above. This actually fills out the rest of the menu. If you're going to be adding or changing functions, this is where you'll be doing your edits.
 
 MenuRun
- {	
- 	wd = GetWeekDay
- 	ap = GetAP
-	//These four statements basically get the day of the week, whether it's AM or PM, the hour, and the time. It's putting together the information to display the time at the bottom of the balloon. Pay it no mind.
+{	
 	--
 	"\n\n\_q\b2"
 	--
@@ -44,11 +41,9 @@ MenuRun
 	--
 	"\n(Or you could ask him to...)\n\n[half]"
 	--
-	"\![*]\q[Check your settings,configmenu]\n/
+	"\![*]\q[Check your settings,OnConfigMenu]\n/
 	\![*]\q[Do something for you,dosomething]\n\n/
  	\![*]\q[Nevermind,CANCEL]\n\n[half]%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year)\e"
-	
-	//These three lead to the Config Menu, the Function menu, and Cancel. You can leave these alone if you like. All the envelopes at the end (see word.dic) basically display the year, month, day, weekday, and time.
 }
 
 //Leave this alone
@@ -57,56 +52,10 @@ OnLastTalk
 "%(lastTalk)\e"
 }
 
-//This is figuring out what day of the week it is. Leave it alone.
-GetWeekDay
-{
-	if weekday == 0
-	{"Sun"}
-	elseif weekday == 1
-	{"Mon"}
-	elseif weekday == 2
-	{"Tue"}
-	elseif weekday == 3
-	{"Wed"}
-	elseif weekday == 4
-	{"Thu"}
-	elseif weekday == 5
-	{"Fri"}
-	else
-	{"Sat"}
-}
-
-//This is finding out whether it's AM or PM. Leave it alone.
-GetAP
-{
- 	if hour >= 0 && hour <= 11
- 		{"AM"}
- 	else
- 		{"PM"}
-}
-
-nowhour
-{
-	if hour12 == 0; "1"
-	else; "%(hour12)"
-}
-
-nowmin
-{
-	if minute >= 0 && minute <=9; "0%(minute)"
-	else; "%(minute)"
-}
-
 
 Select.BACKTOMENU
 	{
 		MenuRun
-	}
-
-//If someone selects configmenu, this will lead to TalkConfig.
-Select.configmenu
-	{
-		TalkConfig
 	}
 
 //*********************Advanced User Info*******************************
@@ -228,219 +177,58 @@ Select.gotomusic
 	"\0\s[0]ooh yeah music players are tough, figure this one out later\e"
 }
 
-//--TalkConfig
-//This menu allows the user to change their name and other information, as well as put in their birthday and change how often the ghost speaks. You can restructure how this looks if you want, but it's perfectly functional as is. You can of course change the dialogue though if you like.
-
-TalkConfig
+//--CONFIG MENU: TALKCONFIG
+OnConfigMenu : all
 {
-	"\0\b[2]\_q\"
-	--
-	"f[bold,1]Your name:\f[bold,0] %(username) \f[sup,1](\q[Change it?,TEACHNAME])\f[sup,0]\n"
-	--
-	"\f[bold,1]Your pronouns:\f[bold,0] %(capitalize(they))/%(capitalize(them)) \f[sup,1](\q[Change them?,TEACHPRONOUN])\f[sup,0]\n"
-	--
-	"\f[bold,1]Your birthday:\f[bold,0] %(birthdayprint) \f[sup,1](\q[Change it?,TEACHBDAY])\f[sup,0]\n\n"
-	--
-	"\f[bold,1]Talk Rate:\f[bold,0] - %(talktime). \f[sup,1](\q[Change it,talkinter])\f[sup,0]\n\n"
-	--
+	FixDefaultOptions
+	
+	if "OnUserBorn" _in_ reference0; {birthday = oldbirthday; ERASEVAR("oldbirthday")} //resets the birthday to the old values, erases the temp variable
+	"\0\_q\b2\![close,inputbox,%(reference0)]"
+	
+	"\f[bold,1]Your name:\f[bold,0] %(username) \f[sup,1](\_a[OnChangeName]Change it?\_a)\f[sup,0]\n"
+	"\f[bold,1]Your pronouns:\f[bold,0] %(capitalize(they))/%(capitalize(them)) \f[sup,1](\_a[OnChangePronoun]Change them?\_a)\f[sup,0]\n"
+	"\f[bold,1]Your birthday:\f[bold,0] %(birthday[0]) \f[sup,1](\_a[OnChangeBirthday]Change it?\_a)\f[sup,0]\n\n"
+	"\f[bold,1]Talk Rate:\f[bold,0] - %(capitalize(talkrate)) \f[sup,1](\q[Change it,talkinter])\f[sup,0]\n\n"
+	
 	"\f[bold,1]Stats:\f[bold,0] Insert cool stats here\n\n"
-	--		
-		{
-		"\![*]Enable Uninstall? (NOW : %(deleteshitai))\n\q[ON,deleteon] \q[OFF,deleteoff]\n\n[half]\n"
-		}
-	--
+	
+	"\![*]Enable Uninstall? \_a[OnToggleUninstall]%(deleteshitai)\_a\n\n"
+	
 	"\![*]\q[Back to the menu,BACKTOMENU]\e"
 }
 
-//This and the next few set up the pronouns, as you can see by the linkedfunction names. You can replace "\0\s[0]What pronouns do you want?" with your own dialogue if you prefer, but leave the rest of it alone.
-
-Select.TEACHPRONOUN
+FixDefaultOptions
 {
-	"\0\s[0]Oh, what are your pronouns?\w5\n\n[half]\_q/
-		\![*]\q[He/Him,choicemasc]\n/
-		\![*]\q[She/Her,choicefem]\n/	
-		\![*]\q[They/Them,choiceneither]\e"
-}
-
-Select.choicemasc
-{
-	their = "his"
-	theirs = "his"
-	they = "he"
-	them = "him"
-	theyre = "he's"
-	theywere = "he was"
-	--
-	"\0\s[0]\i[91]Alright, I'll remember.\e"
-}
-
-Select.choicefem
-{
-	their = "her"
-	theirs = "hers"
-	they = "she"
-	them = "her"
-	theyre = "she's"
-	theywere = "she was"
-	--
-	"\0\s[0]\i[91]Alright, I'll remember.\e"
-}
-
-Select.choiceneither
-{
-	their = "their"
-	theirs = "theirs"
-	they = "they"
-	them = "them"
-	theyre = "they're"
-	theywere = "they were"
-	--
-	"\0\s[0]\i[91]Alright, I'll remember.\e"
-}
-
-//Here are some examples of these envelopes in use.
-//"%(they) left that there."
-//"%(their) work is really cool."
-//"I'll ask %(them) later."
-//"%(theyre) really good at it."
-
-
-Select.deleteon
-{
-	deleteshitai = "ON"
-	TalkConfig
-}
-
-Select.deleteoff
-{
-	deleteshitai = "OFF"
-	TalkConfig
-}
-
-
-//This next set of functions handles inputting the user's birthday.
-
-Select.TEACHBDAY
-	{	
-		"\0\s[0]What month were you born? \w8Name or number is fine.\![open,inputbox,OnUserBornMonth,-1]\e"
-		
-		//You can replace the dialogue up to the \![open,inputbox,OnUserBornMonth,-1] tag, leave that alone. You'll need the input box to get the information.
-		
-		//*********************Advanced User Info*******************************
-		//I also touched on this in bootend.dic and explained it in the walkthrough page on coding, but I'll also go into it here. I'm going to break down the tag there at the end of the sentence so you know what it's doing. Basically, \! means a function is going to happen, open tells it to open something, inputbox tells it to open an input box, and OnUserBornMonth is the function the input box will be linked to, which is just below here. -1 means the input box should not time out. If you want to add input boxes to some new function for whatever reason, you should follow this basic format.
-		//On a related note, you can raise any function at the end of any piece of dialogue by using this format - \![raise,InsertFunctionName]. This can be handy for testing things if the function is hard to get to run otherwise.
-		//***********************************************************************
+	if username == ""; username = "you"
+	if birthday[0] == ""; birthday[0] = "???"
+	if talkrate == ""; {talkrate = "every 5 minutes"; aitalkinterval = 300}
+	if deleteshitai == ""; deleteshitai = "OFF"
+	if pronouns == ""; pronouns = "undef"
+	if (pronounplur != "plur") || (pronounplur != "sing") {
+		if pronouns == "undef"; pronounplur = "plur"
+		else; pronounplur = "sing"
 	}
+	//if hemisphere == ""; hemisphere = "Northern"
+	//if AutoUpdates[0] == ""; AutoUpdates[0] = "On"
+	//if HourNotifs == ""; HourNotifs = "On"
+}
 
-//--OnUserBornMonth
-//This takes the value that the user put into the input box above and evaluates it. Most of this you won't have to touch, but I'll explain what it's doing anyway. I'll point out where you can change the dialogue.
 
-OnUserBornMonth
+OnToggleUninstall
 {
-	_tempmonth = TOSTR(reference0) //this stores what the user put in as a variable called _tempmonth
-	_tempmonth = TOLOWER(_tempmonth) //changes it to lowercase
-	
-	//this is attaching the right value to the input from the user
-	if _tempmonth == "january" || _tempmonth == "1" {bornmonth = 1; bornmonthprint = "January"}
-	elseif _tempmonth == "february" || _tempmonth == "2" {bornmonth = 2; bornmonthprint = "February"}
-	elseif _tempmonth == "march" || _tempmonth == "3" {bornmonth = 3; bornmonthprint = "March"}
-	elseif _tempmonth == "april" || _tempmonth == "4" {bornmonth = 4; bornmonthprint = "April"}
-	elseif _tempmonth == "may" || _tempmonth == "5" {bornmonth = 5; bornmonthprint = "May"}
-	elseif _tempmonth == "june" || _tempmonth == "6" {bornmonth = 6; bornmonthprint = "June"}
-	elseif _tempmonth == "july" || _tempmonth == "7" {bornmonth = 7; bornmonthprint = "July"}
-	elseif _tempmonth == "august" || _tempmonth == "8" {bornmonth = 8; bornmonthprint = "August"}
-	elseif _tempmonth == "september" || _tempmonth == "9" {bornmonth = 9; bornmonthprint = "September"}
-	elseif _tempmonth == "october" || _tempmonth == "10" {bornmonth = 10; bornmonthprint = "October"}
-	elseif _tempmonth == "november" || _tempmonth == "11" {bornmonth = 11; bornmonthprint = "November"}
-	elseif _tempmonth == "december" || _tempmonth == "12" {bornmonth = 12; bornmonthprint = "December"}
-	
-	else //if the month isn't a valid month, like 32 or something.
-	{
-			"\0\s[0]That's not a valid month. Try again."
-			--
-			"\![open,inputbox,OnUserBornMonth,-1]\![set,balloontimeout,-1]\e"
-			
-			//You can replace this dialogue in the first line. You need to leave the tag for the input box so they can put in a correct month. That last tag there for ![set,balloontimeout,-1] makes it so the input box won't time out if the user takes too long.
-	}
+	if deleteshitai != "ON"; deleteshitai = "ON"
+	else; deleteshitai = "OFF"
 	--
-	"\0\s[0]So you were born in %(bornmonthprint).\n\w8What day was it?"
-	--
-	"\![open,inputbox,OnUserBornDay,-1]\![set,balloontimeout,-1]\e"
-	
-	//Here you can see the use of a bornmonthprint envelope to show the user what month they put in. Notice that it opens an inputbox at the end the same way the one above did. You can replace the dialogue in the first line just as with above.
+	OnConfigMenu
 }
 
-//This adds an appropriate suffix to the number for the day. No need to mess with this.
-
-Printday
-{
-	if bornday == 1 || bornday == 21 || bornday == 31
-	{	"%(bornday)st"	}
-	elseif bornday == 2 || bornday == 22
-	{	"%(bornday)nd"	}
-	elseif bornday == 3 || bornday == 23
-	{	"%(bornday)rd"	}
-	else
-	{	"%(bornday)th"	}
-}	
-
-//--OnUserBornDay
-//This is much like the above function OnUserBornMonth. It'll take the value the user put in for the day and analyze it. Again, there'll be comments explaining how it works, but all you really need to do is change the dialogue appropriately. I'll point out where you can add new dates to check for.
-
-OnUserBornDay
-{
-	_tempday = reference0 //storing the input in _tempday
-	_tempday = TOLOWER(_tempday) //changes it to lowercase
-	_tempday = REPLACE(_tempday,"st","") //if the user types something like 2nd, 3rd, etc, this will make it just the number. It'll just add the suffix back later on the one that actually shows.
-	_tempday = REPLACE(_tempday,"nd","")
-	_tempday = REPLACE(_tempday,"rd","")
-	_tempday = REPLACE(_tempday,"th","")
-	_tempday = TOINT(_tempday) //Converts it to an integer
-	
-	if ((bornmonth == 1 || bornmonth == 3 || bornmonth == 5 || bornmonth == 7 || bornmonth == 8 || bornmonth == 10 || bornmonth == 12) && _tempday >= 1 && _tempday <= 31) || (bornmonth == 2 && _tempday >= 1 && _tempday <= 29) || ((bornmonth == 4 || bornmonth == 6 || bornmonth == 9 || bornmonth == 11) && _tempday >= 1 && _tempday <= 30) //This ugly function checks if the day falls into a valid range. If it does, we set some variables and continue down.
-	{
-		bornday = _tempday
-		borndayprint = Printday
-		userbirthday = "%(bornmonth)month %(bornday)day"
-		birthdayprint = "%(bornmonthprint) %(borndayprint)"
-		
-		"%(birthchecked)"
-		//Mostly defining envelopes and values in here. No need to touch any of this! Eagle-eyed readers will notice the new envelope birthchecked on its own line like a tiny king. We'll get to that momentarily, but pay it no mind for now.
-	}
-	else //If the day isn't valid, like the 10046th or something, this will open the input box again and have a \e so the dialogue below doesn't play. You can replace the dialogue in the first line here.
-	{
-		"\0\s[0]That's not a valid day. Try again."
-		--
-		"\![open,inputbox,OnUserBornDay,-1]\e"
-	}	
-}
-
-//--birthchecked
-//This is the new envelope you saw me point out above. As you can see here, you can actually call dialogue in a function with an envelope, even when it has if and else statements like here! Which can be pretty handy. Again, more on envelopes in word.dic. Creative ghostmakers can find handy ways to exploit this, I'm sure.
-
-birthchecked
-{
-	if userbirthday == dayslot //if today is the user's birthday
-		{
-			"\0\s[0]Hey, that's today! \w8Happy birthday, %(username).\e"
-		}
-	elseif userbirthday == "3month 30day"
-		{
-			"\0\s[0]Oh, hey! We were born on the same day, aparrently. I'll definitely remember.\e"
-		}
-	else //if the birthday is not listed above.
-		{
-			"\0\s[0]Your birthday is %(bornmonthprint) %(borndayprint). I'll remember.\e"
-			//note the use of envelopes to display the newly set birthday properly. You can replace this dialogue as well, and you can use %(bornmonthprint) and %(borndayprint) to display the month and day in the new dialogue, if you want.
-		}
-}
 
 //--Talk Rate
 //This is when the user chooses to adjust the talk rate in the config menu. The talk rate is how often the ghost will read some dialogue from aitalk.dic.
 
 Select.talkinter
  	{
- 		"\0\s[0]\b2How often should I speak? \w8The interval is currently set to %(talktime)./
+ 		"\0\s[0]\b2How often should I speak? \w8The interval is currently set to %(talkrate)./
 		//note the new envelope here for %(talktime). You'll see it again in a second. You can replace the dialogue above with whatever you like, just make sure it ends with ./ and not \e.
  		\0\n\n[half]/
  		\![*]\q[Every 30 seconds,TALKMAX]\n/
@@ -460,7 +248,7 @@ Select.TalksTill
 //If the user chooses every 30 seconds.
 Select.TALKMAX
 	{
- 		talktime = "30 seconds" //this sets up the envelope properly
+ 		talkrate = "every 30 seconds" //this sets up the envelope properly
 		aitalkinterval = 30 //this changes the actual rate
 		
  		"\0\s[2]\i[91]Alright, I can do that! \w4\0\s[0]\i[26]\i[91]People say I talk too much, actually.\e"
@@ -469,7 +257,7 @@ Select.TALKMAX
 //If the user chooses every minute.
 Select.TALKHIGH
 	{
- 		talktime = "1 minute"
+ 		talkrate = "every minute"
 		aitalkinterval = 60
 		
  		"\0\s[0]\i[91]Got it, every minute.\e"
@@ -478,7 +266,7 @@ Select.TALKHIGH
 //If the user chooses every three minutes.
 Select.TALKNORMAL
 	{
- 		talktime = "3 minutes"
+ 		talkrate = "every 3 minutes"
 		aitalkinterval = 180
 		
  		"\0\s[0]\i[91]Sounds reasonable. Every three minutes, then.\e"
@@ -487,7 +275,7 @@ Select.TALKNORMAL
 //If the user chooses every five minutes. This is the default rate the ghost will start up in, as seen in bootend.dic.
 Select.TALKPOOR
 	{
- 		talktime = "5 minutes"
+ 		talkrate = "every 5 minutes"
 		aitalkinterval = 300
 		
  		"\0\s[0]\i[91]Every five minutes, got it.\e"
@@ -496,7 +284,7 @@ Select.TALKPOOR
 //If the user chooses to not have them speak. This is one case where you MIGHT want to make talktime equal something else, if you have a snappier way of saying the ghost won't talk. Make sure it flows well in your menus though, since it will be displayed in your config menu.
 Select.TALKNONE
 	{
- 		talktime = "Never"
+ 		talkrate = "never"
 		aitalkinterval = 0
 		
 		"\0\s[2]\i[77]...Okay, I'll try.\e"

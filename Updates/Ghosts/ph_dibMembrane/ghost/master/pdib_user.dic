@@ -5,16 +5,15 @@
 //--OnTeachName
 //This is called from the config menu in the main character's double click menu when the user says they want to change their name. If you look in menu.dic you'll see the code leading to here.
 
-OnTeachName	
+OnChangeName
 {
-	if reference0 == "TEACHNAME"
-		{
-		"\0\s[0]Oh, okay. What do you want me to call you?\![open,inputbox,OnNameTeach,-1]\e"
-		}
-	else
-		{
-		//This else statement is empty, and I'm mostly pointing this out to mention that you can do this too with your if/elses if you want! An empty else will simply cause your ghost not to do anything. I wouldn't get too crazy with this though.
-		}
+	if reference0 == "redo" {
+	"Oh, did I catch that wrong? Tell me your name again."
+	"\i[65](He's caught a bit off guard, but nods.)"
+	}
+	"\0\s[0]Ok,\w4 what should I call you?"
+	--
+	"\n\n\![*]\q[Cancel,OnConfigMenu,OnNameTeach]\![set,balloontimeout,-1]\![open,inputbox,OnNameTeach,-1]\e"
 }
 
 //--NameDone
@@ -24,14 +23,24 @@ NameDone
 {
 	if firstboot == 1
 	{
-		firstboot = 0
-		
-		"\0\s[0]\![leave,passivemode]Okay, %(username), cool! \w2My name is Dib Membrane. \w2I'll be sticking around for a bit! \w6Now where do I put- \w5\w5\w5\w5\w5\n\n[half]Oh. \w5That's pretty useful. A pocket dimension in my briefcase! \w8And- \w3A bunch of my stuff is in here! \n\n[half]\w8Hey, I could play you some music, I think. And while I'm here, I could tell you all about the files on cryptids I have on hand!\w8\w8\n\nOh, This is going to be very, very interesting. \w5I should write my findings down!\x(Well, you've got a dude on your desktop now. \w2You can use f1 to open his readme.)\e"
-		//TODO: dialogue where dib puts spelldrive into dimensional briefcase. cool! also explains that he'll play music for you
+		"And how should I refer to you?"
+		--
+		all:{
+		"\n\n\_q"
+		"\![*]\q[He/Him/His,OnPronouns,masc]\n"
+		"\![*]\q[She/Her/Hers,OnPronouns,fem]\n"
+		"\![*]\q[They/Them/Their,OnPronouns,undef]\n"
+		"\![*]\q[Something else...,OnPronouns,custom]"
+		}
+		--
+		"\_l[-10000,-10000]\*\q[ ,CANCEL]"
 	}
 	else
 	{
-		"\0\s[0]Alright, I'll call you %(username) from now on.\e"
+		"\0\s[0]Alright, I'll call you %(username)!"
+		"\0\s[0]I'll remember. \w6%(username), right?"
+		--
+		"\n\n\![*]\q[That's not right,OnChangeName,redo]\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[I'm done,CANCEL]\e"
 	}	
 }
 
@@ -55,108 +64,121 @@ NameDone
 
 OnNameTeach
 {
-	tempname = reference0 //this stores the name value from reference0 in tempname
-	reference0 = TOLOWER(reference0) //changes it to lowercase
-	reference0 = REPLACE(reference0," ","") //removes spaces
-	reference0 = REPLACE(reference0,".","") //removes periods
-	reference0 = REPLACE(reference0,"-","") //removes dashes
+	_tempname = CUTSPACE(reference.raw[0]) //this stores the original name in _tempname
+	_name = reference.raw[0] //putting the raw name into _name to do some tests on it
+	_name = TOLOWER(_name) //changes it to lowercase
+	_name = REPLACE(_name," ","") //removes spaces
+	_name = REPLACE(_name,".","") //removes periods
+	_name = REPLACE(_name,"-","") //removes dashes
 	
 	
 	//-----------Nope, try again--------------------------------------------
-	if reference0 == "dib"
+	if _name == "dib"
 	{
 		if firstboot == 1 //&& uninstallStatus == 0
 		{
-		"\0\s[0]\i[92]\i[76]...Huh? \w6Not many people I know with that name. \w4Because it's \w4\i[204]\i[91]my name. \w8\w8\i[76]\i[96]Can I call you something else? \w8\![open,inputbox,OnNameTeach,-1]"
+		"\0\s[0]\i[92]\i[76]...Huh? \w6Not many people I know with that name. \w4Because it's \w4\i[204]\i[91]my name. \w8\w8\i[76]\i[96]Can I call you something else? \w8\![open,inputbox,OnNameTeach,-1]\_l[-10000,-10000]\*\q[ ,CANCEL]"
 		}
 		else
 		{
 		"\0\s[2]\i[77]\i[91]Come on, you know that's my name.\w8\![open,inputbox,OnNameTeach,-1]"
 		}
 	}
-	elseif reference0 == "mothman"
+	elseif _name == "mothman"
 	{
 		"\0\s[11]\i[92]Oh... \w8\0\s[0]\i[92]I actually use the same name, \w4\i[21]kind of. \w8\w2\i[91]\i[201]\i[76]Just so we don't get confused, can I call you something else?\w8\![open,inputbox,OnNameTeach,-1]"
+		--
+		if firstboot == 1 {
+			"\_l[-10000,-10000]\*\q[ ,CANCEL]"
+		}
 		//not sure if i should keep this one. eh
 	}
-	elseif reference0 == "dad" || reference0 == "daddy" || reference0 == "father" || reference0 == "dadd" || reference0 == "mrmembrane" || reference0 == "professormembrane" || reference0 == "profmembrane" || reference0 == "mrsbitters" || reference0 == "msbitters" || reference0 == "mrdwicky" || reference0 == "torquesmackey"
+	elseif _name == "dad" || _name == "daddy" || _name == "father" || _name == "dadd" || _name == "mrmembrane" || _name == "professormembrane" || _name == "profmembrane" || _name == "mrsbitters" || _name == "msbitters" || _name == "mrdwicky" || _name == "torquesmackey"
 	{
 		"\0\s[0]\i[70]...No, you aren't.\w8\![open,inputbox,OnNameTeach,-1]"
+		--
+		if firstboot == 1 {
+			"\_l[-10000,-10000]\*\q[ ,CANCEL]"
+		}
 	}
-	elseif reference0 == "dibby" || reference0 == "dibothy" || reference0 == "dibble" || reference0 == "diblet" || reference0 == "dibbly" || reference0 == "dibbley" || reference0 == "dibshit" || reference0 == "dibster" || reference0 == "feebly" || reference0 == "feebley"
+	elseif _name == "dibby" || _name == "dibothy" || _name == "dibble" || _name == "diblet" || _name == "dibbly" || _name == "dibbley" || _name == "dibshit" || _name == "dibster" || _name == "feebly" || _name == "feebley"
 	//TODO: let the user assign dib a nickname! transfer this to that.
 	{
 		if firstboot == 1 && uninstallStatus == 0
 		{
-		"\0\s[0]\i[70]...I'm not calling you that.\w8\![open,inputbox,OnNameTeach,-1]"
+		"\0\s[0]\i[70]...I'm not calling you that.\w8\![open,inputbox,OnNameTeach,-1]\_l[-10000,-10000]\*\q[ ,CANCEL]"
 		}
 		else
 		{
 		"\0\s[0]\i[70]\i[91]...Are you making fun of me? \w2At least use my actual name. I'm not calling you that.\w8\![open,inputbox,OnNameTeach,-1]"
 		}
 	}
-	elseif reference0 == "gaz" || reference0 == "gazlene"
+	elseif _name == "gaz" || _name == "gazlene"
 	{
 		if firstboot == 1
 		{
-		"\0\s[0]Oh- \w8Wow! Hi, Gaz!! \w2Wait, no, this isn't her desktop... \w4Uh, can I call you something else? \w6It just feels weird, y'know?\w8\![open,inputbox,OnNameTeach,-1]"
+		"\0\s[0]Oh- \w8Wow! Hi, Gaz!! \w2Wait, no, this isn't her desktop... \w4Uh, can I call you something else? \w6It just feels weird, y'know?\w8\![open,inputbox,OnNameTeach,-1]\_l[-10000,-10000]\*\q[ ,CANCEL]"
 		}
 		else
 		{
 		"\0\s[0]Hm... \w2That's my sister's name. \w6Can I call you something else? I don't want to confuse you, y'know?\w8\![open,inputbox,OnNameTeach,-1]"
 		}
 	}
-	elseif reference0 == "zim"
+	elseif _name == "zim"
 	{
 		"\0\s[0]\i[76]...Really? \w8It's just- I know a guy, and he \w1sucks. \w8You'd probably get a little uncomfortable when I talk about him.\w8\![open,inputbox,OnNameTeach,-1]"
 		//TODO: make a variable for whether or not dib has told the user about zim and plan accordingly >:)
 	}
 	//----------Unique responses that allow you to be that name-------------------------------------
-	elseif reference0 == "ely"
+	elseif _tempname == username && firstboot != 1
+	{
+		username = SHIORI3FW.EscapeAllTags(_tempname)
+		"\0\s[0]Oh, didn't want to change anything? \w8\x%(NameDone)"
+	}
+	elseif _name == "ely"
 	{
 		if firstboot == 1
 		{
-		username = tempname
+		username = SHIORI3FW.EscapeAllTags(_tempname)
 		"\0\s[3]\i[33]\i[85]E-Ely?! Out of all the places- \w8\i[72]\i[78]Agh, no, no, no. This isn't even their desktop. \w2\s[3]\i[72]It's a common name... \x%(NameDone)\e"
-		//TODO: let user confirm yes or no, and check for pronouns (or just do an alternate .dic for ely lines? look i just want him to be cute with ely ok)
 		}
 		else
 		{
-		username = tempname
+		username = SHIORI3FW.EscapeAllTags(_tempname)
 		"\0\s[0]Huh? \w2Oh, that name... \w5It's a good name. \w2The Ely I already know is really cool. \x%(NameDone)"
 		}
 	}
-	elseif reference0 == "gir"
+	elseif _name == "gir"
 	{
-		username = tempname
+		username = SHIORI3FW.EscapeAllTags(_tempname)
 		"\0\s[0]\i[76]...Really? \w2Didn't think anyone else but ZIM's weird robot dog had that name. \w8\x%(NameDone)"
 	}
-	elseif reference0 == "tak" || reference0 == "mimi" || reference0 == "gretchen" || reference0 == "torque" || reference0 == "dwicky" || reference0 == "bitters" || reference0 == "groyna" || reference0 == "fizzmitz" || reference0 == "zib" || reference0 == "zita" || reference0 == "keef" || reference0 == "melvin" || reference0 == "rob" || reference0 == "sara" || reference0 == "willy"
+	elseif _name == "tak" || _name == "mimi" || _name == "gretchen" || _name == "torque" || _name == "dwicky" || _name == "bitters" || _name == "groyna" || _name == "fizzmitz" || _name == "zib" || _name == "zita" || _name == "keef" || _name == "melvin" || _name == "rob" || _name == "sara" || _name == "willy"
 	{
-		username = tempname
+		username = SHIORI3FW.EscapeAllTags(_tempname)
 		"\0\s[0]Huh. What a coincidence... %(NameDone)"
 	}
-	elseif reference0 == "neil" || reference0 == "neilc" || reference0 == "neilcic" || reference0 == "neilcicierega" || reference0 == "cicierega" || reference0 == "lemondemon"
+	elseif _name == "neil" || _name == "neilc" || _name == "neilcic" || _name == "neilcicierega" || _name == "cicierega" || _name == "lemondemon"
 	{
-		username = tempname
-		"\0\s[0]\i[43]NEIL CICIEREGA?!?! \w6\0\s[2]\i[73]I'M A BIG FAN!! \w2\0\s[2]\i[65](how did you find this one lmao) \x%(NameDone)"
+		username = SHIORI3FW.EscapeAllTags(_tempname)
+		"\0\s[0]\i[43]NEIL CICIEREGA?!?! \w6\s[2]\i[73]I'M A BIG FAN!! \w2\i[65](how did you find this one lmao) \x%(NameDone)"
 	}
-	elseif reference0 == "eshal" || reference0 == "phantasia" || reference0 == "whataphantasia"
+	elseif _name == "eshal" || _name == "phantasia" || _name == "whataphantasia"
 	{
-		username = tempname
+		username = SHIORI3FW.EscapeAllTags(_tempname)
 		"\0\s[0]Looking for secrets, huh? \w2I'll allow it. \w6\x%(NameDone)"
 	}
-	elseif reference0 == "zi" || reference0 == "zichqec" || reference0 == "zar" || reference0 == "zarla" || reference0 == "levidre" || reference0 == "azura" || reference0 == "quo" || reference0 == "quonit" || reference0 == "smoky" || reference0 == "vita" || reference0 == "kai" || reference0 == "gale" //ADD MORE LMAO
+	elseif _name == "zi" || _name == "zichqec" || _name == "zar" || _name == "zarla" || _name == "levidre" || _name == "azura" || _name == "quo" || _name == "quonit" || _name == "smoky" || _name == "vita" || _name == "kai" || _name == "gale" //ADD MORE LMAO
 	{
-		username = tempname
+		username = SHIORI3FW.EscapeAllTags(_tempname)
 		"\0\s[2]\i[91]Oh! \w4That's a cool name! \w6\i[73]You're a cool person! \w8\x%(NameDone)"
 	}
-	elseif ("shit" _in_ reference0 || "fuck" _in_ reference0 || "bitch" _in_ reference0 || "dick" _in_ reference0 || "crap" _in_ reference0 || "slut" _in_ reference0 || "cock" _in_ reference0)
+	elseif ("shit" _in_ _name || "fuck" _in_ _name || "bitch" _in_ _name || "dick" _in_ _name || "crap" _in_ _name || "slut" _in_ _name || "cock" _in_ _name)
 	{
-		username = tempname
+		username = SHIORI3FW.EscapeAllTags(_tempname)
 		"\0\s[0]Woah, \w4um, \w5okay. \w8Is that really your..? \w8\x%(NameDone)"
 	}
-	elseif reference0 == "" 
+	elseif _name == "" 
 	{
 		username = "you"
 		
@@ -164,10 +186,220 @@ OnNameTeach
 	}
 	else
 	{
-		username = tempname
+		username = SHIORI3FW.EscapeAllTags(_tempname)
 		NameDone
 	}
 }
-	//*********************Advanced User Info*******************************
-	//Adding new titles for your users to use is simply a matter of copy and pasting creatively. You can see how the ghost puts together the title and your name in the Select. sections below. Above, you simply need to add a new option and link it to a new Select. For example, you could add "\![*]\q[Mistress,titlemistress]\n/" between Ms. and Lady up there, then write up a Select.titlemistress below that fits the pattern of the others.
-	//***********************************************************************
+
+OnChangePronoun
+{
+	if reference0 == "custom" {
+	"\![close,inputbox,OnCustomPronouns]"
+	--
+	"\s[0]Changed your mind?"
+	"\s[0]Something else?"
+	}
+	else {
+	"\0\s[0]Alright, \w2what pronouns do you use?"
+	"\0\s[0]Oh, yeah. \w3What're your pronouns?"
+	}
+	--
+	all:{
+	"\n\n\_q"
+	"\![*]\q[He/Him/His,OnPronouns,masc]\n"
+	"\![*]\q[She/Her/Hers,OnPronouns,fem]\n"
+	"\![*]\q[They/Them/Their,OnPronouns,undef]\n"
+	"\![*]\q[Something else...,OnPronouns,custom]"
+	if firstboot != 1 {
+	"\n\n\![*]\q[Back to Config,OnConfigMenu]    \![*]\q[Close Menu,CANCEL]\e"
+	}
+	}
+}
+
+OnPronouns
+{
+	pronouns = reference0
+	--
+	if pronouns == "custom" {
+        "\0\s[0]Got it. \w8Write them down like... \w8\n\_q'they/them/their/theirs', \w8\n'he/him/his/his', or \w8\n'she/her/her/hers',\_q \w8without the quotes.\n\n\*\![*]\q[Nevermind,OnChangePronoun,custom]\![open,inputbox,OnCustomPronouns,-1]\e"
+    }
+	--
+	OnPronounsDone
+}
+	
+OnPronounsDone 
+{
+	if pronouns == "custom"
+	{
+		pronounplur = reference0
+	}
+	else 
+	{
+		if pronouns == "undef" { pronounplur = "plur" }
+		else { pronounplur = "sing" }
+	}
+	--
+	if firstboot == 1 //This is the end of the firstboot dialogue
+	{
+		firstboot = 0
+		
+		"\0\s[0]\![leave,passivemode]Okay, %(username), cool! \w2My name is Dib Membrane. \w2I'll be sticking around for a bit! \w6Now where do I put- \w5\w5\w5\w5\w5\n\n[half]Oh. \w5That's pretty useful. A pocket dimension in my briefcase! \w8And- \w3A bunch of my stuff is in here! \n\n[half]\w8Hey, I could play you some music, I think. And while I'm here, I could tell you all about the files on cryptids I have on hand!\w8\w8\n\nOh, This is going to be very, very interesting.\e"
+		//TODO: dialogue where dib puts spelldrive into dimensional briefcase. cool! also explains that he'll play music for you
+	}
+	else //This is if the user is changing their pronouns through the menu
+	{
+		"\0\s[0]\i[91]Cool, I'll remember.\e"
+		--
+		"\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[I'm done,CANCEL]\e"
+	}
+}
+
+OnCustomPronouns 
+{
+	//This code is by smoky, posted onto the free-codes-snippet channel on the udt discord server! i just changed it a bit (and by a bit i mean separate into a billion functions)
+	
+	_pronouns = IARRAY
+	_pronouns = SPLIT(reference0,"/")
+	
+	if ARRAYSIZE(_pronouns) != 4
+	{
+		"\0\s[0]\_qOh, uh, I don't think you inputted them right. \w5Are you using forward slashes? \w5Or did you put in the wrong number of pronouns? \w8\n\n[half]Write them down like... \n'they/them/their/theirs', \n'he/him/his/his', or \n'she/her/her/hers', without the quotes. \n\n\*\![*]\q[Nevermind,OnChangePronoun,custom]\_q\![open,inputbox,OnCustomPronouns,-1,]\e"
+	}
+	else 
+	{
+		custompronouns = SPLIT(reference0,"/")
+		//i would like to sanitize the inputs here, probably in a foreach loop gnrjwife. but for some reason it didnt work and like. the user can put in anything, i just trust no one to be a jerk!!
+		--
+		"Should I use plural words with your pronouns? Singular meaning '%(they) is cool' versus plural meaning '%(they) are cool'."
+		--
+		all:{
+		"\n\n\_q"
+		"\![*]\q[Singular,OnPronounsDone,sing]\n"
+		"\![*]\q[Plural,OnPronounsDone,plur]\n\n"
+		}
+	}
+}
+
+//"%(they) left that there."
+//"%(their) work is really cool."
+//"I'll ask %(them) later."
+//"%(they)%(re) really good at it."
+//"%(they) %(are) thinking about cheese!"
+//"%(they) %(were) lost in their code, but %(they) fixed it!!"
+//use %(capitalize(they)) to use it properly at the start of sentences.
+//use _s = "s"; if pronouns == "undef"; _s = "re" and other temp vars if needed for more specific pronoun talk
+
+//PRONOUN ENVELOPES!!!!!!!! moved to word.dic
+
+
+OnChangeBirthday //Taken from X template, which modified this a bit
+{
+	oldbirthday = birthday
+	
+	"\0\s[0]Sure!\w8\w8 What month were you born in?\w8\w8 Name or number."
+	--
+	"\n\n\![*]\q[Cancel,OnConfigMenu,OnUserBornMonth]\![open,inputbox,OnUserBornMonth,-1]\![set,balloontimeout,-1]\e"
+}
+
+//birthday[0] - word birthday
+//birthday[1] - number birthday
+//birthday[2] - word month
+//birthday[3] - word day
+//birthday[4] - number month
+//birthday[5] - number day
+//Use birthday[0] to display the user's birthday, and birthday[1] to do checks with the numbers
+
+OnUserBornMonth
+{
+	_tempmonth = reference0 //this stores what the user put in as a variable called _tempmonth
+	_tempmonth = TOLOWER(_tempmonth) //changes it to lowercase
+	
+	if _tempmonth == "january" || _tempmonth == "1" {birthday[4] = 1; birthday[2] = "January"}
+	elseif _tempmonth == "february" || _tempmonth == "2" {birthday[4] = 2; birthday[2] = "February"}
+	elseif _tempmonth == "march" || _tempmonth == "3" {birthday[4] = 3; birthday[2] = "March"}
+	elseif _tempmonth == "april" || _tempmonth == "4" {birthday[4] = 4; birthday[2] = "April"}
+	elseif _tempmonth == "may" || _tempmonth == "5" {birthday[4] = 5; birthday[2] = "May"}
+	elseif _tempmonth == "june" || _tempmonth == "6" {birthday[4] = 6; birthday[2] = "June"}
+	elseif _tempmonth == "july" || _tempmonth == "7" {birthday[4] = 7; birthday[2] = "July"}
+	elseif _tempmonth == "august" || _tempmonth == "8" {birthday[4] = 8; birthday[2] = "August"}
+	elseif _tempmonth == "september" || _tempmonth == "9" {birthday[4] = 9; birthday[2] = "September"}
+	elseif _tempmonth == "october" || _tempmonth == "10" {birthday[4] = 10; birthday[2] = "October"}
+	elseif _tempmonth == "november" || _tempmonth == "11" {birthday[4] = 11; birthday[2] = "November"}
+	elseif _tempmonth == "december" || _tempmonth == "12" {birthday[4] = 12; birthday[2] = "December"}
+	else //if the month isn't a valid month, like 32 or something.
+	{
+		"\0\s[0]%(_tempmonth) isn't a valid month,\w4 try again."
+		--
+		"\n\n\![*]\q[Cancel,OnConfigMenu,OnUserBornMonth]\![open,inputbox,OnUserBornMonth,-1]\![set,balloontimeout,-1]\*\e"
+	}
+	--
+	//If it's a valid month
+	"%(birthday[2]) huh?\w8\w8 Ok,\w4 what day?"
+	--
+	"\n\n\![*]\q[Cancel,OnConfigMenu,OnUserBornDay]\![open,inputbox,OnUserBornDay,-1]\![set,balloontimeout,-1]\*\e"
+}
+
+OnUserBornDay
+{
+	
+	_tempday = reference0 //storing the input in _tempday
+	_tempday = TOLOWER(_tempday) //changes it to lowercase
+	_tempday = REPLACE(_tempday,"st","") //if the user types something like 2nd, 3rd, etc, this will make it just the number. It'll just add the suffix back later on the one that actually shows.
+	_tempday = REPLACE(_tempday,"nd","")
+	_tempday = REPLACE(_tempday,"rd","")
+	_tempday = REPLACE(_tempday,"th","")
+	_tempday = TOINT(_tempday) //Converts it to an integer
+	_month = birthday[4] //Just for readability
+	
+	if ((_month == 1 || _month == 3 || _month == 5 || _month == 7 || _month == 8 || _month == 10 || _month == 12) && _tempday >= 1 && _tempday <= 31) || (_month == 2 && _tempday >= 1 && _tempday <= 29) || ((_month == 4 || _month == 6 || _month == 9 || _month == 11) && _tempday >= 1 && _tempday <= 30) //This ugly function checks if the day falls into a valid range.
+	{
+		birthday[5] = _tempday
+		birthday[3] = Printday
+		birthday[1] = "%(birthday[4])/%(birthday[5])" //If you want to write dates as DD/MM, feel free to swap this around
+		birthday[0] = "%(birthday[2]) %(birthday[3])"
+		ERASEVAR("oldbirthday")
+		
+		if birthday[1] == "%(month)/%(day)" //if today is the user's birthday. Don't forget to switch this if you change the format to DD/MM
+		{
+			"\0\s[0]Happy birthday,\w4 %(username)!"
+		}
+		elseif birthday[1] == "3/30" //If you change the format to DD/MM, make sure you change any dates like this that might be in bootend.
+		{
+			"\0\s[0]Oh, hey! We were born on the same day, aparrently. I'll definitely remember."
+		}
+		else //if the birthday is not listed above.
+		{
+			"\0\s[0]Ok, your birthday is %(birthday[0]).\w8\w8 I'll remember."
+		}
+		--
+		"\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[I'm done,CANCEL]\e"
+	}
+	else //If it isn't a valid day, we open the input box again and have a \e so the dialogue below doesn't play.
+	{
+		"\0\s[0]That isn't a valid day.\w8\w8 Try again."
+		--
+		"\n\n\![*]\q[Cancel,OnConfigMenu,OnUserBornDay]\![open,inputbox,OnUserBornDay,-1]\*\e"
+	}
+	
+}
+
+Printday //Sets the appropriate suffix
+{
+	if birthday[5] == 1 || birthday[5] == 21 || birthday[5] == 31
+	{
+		"%(birthday[5])st"
+	}
+	elseif birthday[5] == 2 || birthday[5] == 22
+	{
+		"%(birthday[5])nd"
+	}
+	elseif birthday[5] == 3 || birthday[5] == 23
+	{
+		"%(birthday[5])rd"
+	}
+	else
+	{
+		"%(birthday[5])th"
+	}
+}	
+

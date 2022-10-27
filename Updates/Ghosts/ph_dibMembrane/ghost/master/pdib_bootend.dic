@@ -34,23 +34,51 @@ OnFirstBootVar
 	//lookdirection = 1
 	//nowkeroname = "none"
 	
- 	username         = "you" //This sets a temporary name for the user. It'll be replaced when they tell the ghost their name.
-	stroke           = 0	// Sets their being-pet state to zero.
- 	teachusername    = 0	// Related to them learning your name.
- 	aitalkinterval = 300 //Their default talk rate.
-	mikireflag       = 0	// Determines behavior at certain points.
- 	birthdayprint = "????" //A temporary value for the user's birthday.
-	talktime = " 5 minutes" //How the value aitalkinterval will display in the config menu.
-	deleteshitai = "OFF" //Sets whether or not the user can uninstall the ghost to "OFF". The user can change it later in the config menu (see menu.dic).
-	MiscFlags = IARRAY
-	//nowshell = "master" (ok this was originally a "just in case" thing but with how his shell + onshellchanged works now i think this'll mess stuff up)
+	lastTalk = ""
+	nowshell = "Shooting Star" //name of shell in descript.txt, case sensitive i believe
+	username = "you"
+	pronouns = "undef"
+	custompronouns = ("ey","em","eir","eirs")
+	pronounplur = "plur"
+	mikireflag = 0
+	birthday[0] = "???"	 //The user's birthday, written out with words
+	birthday[1] = "???"	 //The user's birthday, written in DD/MM format
+	talkrate = "every 5 minutes"
+	aitalkinterval = 300
+	totalpunches = 0
+	nowscale = (100,100) //Current scale, as a percentage
+	teachusername = 0
+	//---Petting related variables---
+	stroke[0] = 0		 //The stroke value, which resets after each pet
+	stroke[1] = 0		 //The stroke value, but it doesn't reset after each pet
+	stroke[2] = 0		 //The current streak of successful pets
+	pethighscore[0] = 0	 //The petting high score, as the number of the stroke value
+	pethighscore[1] = 0	 //The petting high score, as the number of pets
+	totalpets = 0		 //The total times the ghost has been pet
+	offscreen = IARRAY
+	//---
+	deleteshitai = "OFF"
+	//AutoUpdates = ("On",0)
+	//nowmode = "Default" //Uncomment if you plan to add more modes
+	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)","%(ghostver)") //This tracks the exact day and time the ghost was installed, in case you want to mess around with that later. It also tracks what version the user installed, which may be helpful for debugging!
+	MiscFlags = IARRAY	 //For the flag system
+	
+	x.boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
+	x.up_all = 0 //How many minutes the ghost was up for in total, not including current session
 }
+
+//How many minutes the ghost was up in total, including current session
+x.up_total {x.up_all + x.up_mins}
+
+//How long the ghost has been up in the current session
+x.up_mins {(GETSECCOUNT / 60) - x.boot_min}
 
 OnFirstBoot
 {
 	uninstallStatus = reference0
 	firstboot = 1
 	OnFirstBootVar
+	OnDiscordPluginBoot
 	--
 	"\![enter,passivemode]\1\s[-1]\0\s[-1]"
 	--
@@ -67,7 +95,7 @@ OnFirstBoot
 
 chooseshell
 {
-	"(Do you want to use the Shooting Star shell or the Florpus shell?)\n\n\_q\![*]\q[Shooting Star,fanonplease] - A more fanon look, very tall\n\![*]\q[Florpus,canonplease] - More ETF adjacent, looks nice next to Levidre's Zim ghost (less in-depth)"
+	"\_q(Do you want to use the Shooting Star shell or the Florpus shell?)\n\n\![*]\q[Shooting Star,fanonplease] - A more fanon look, very tall\n\![*]\q[Florpus,canonplease] - More ETF adjacent, looks nice next to Levidre's Zim ghost\n\n(You can change how he looks later in the right click menu under Change Shells.)\_q"
 }
 
 Select.fanonplease
@@ -91,13 +119,13 @@ Select.installirken
 	{
 		if "%(_i)" != ""
 		{
-			"(There has been an issue installing the Irken font : %(_i))\n(You can install it manually with the files in the Swollen Eyeball balloon. All irken dialogue will be locked until the font is installed.)\n\n[half]"
 			hastranslator = -1
+			"(There has been an issue installing the Irken font : %(_i))\n(You can install it manually with the files in the Swollen Eyeball balloon. All irken dialogue will be locked until the font is installed.)\x"
 		}
 		else
 		{
 			hastranslator = 0
-			"\n[half]"
+			"\n[half]\x"
 		}	
 	}
 	--
@@ -126,117 +154,38 @@ OnFirstBootTalk
 {
 	if uninstallStatus == 0
  	{
-		"\1\s[-1]\0\s[0]Ah- \w4It worked! The spelldrives still work!! I%(br)can't believe I'm... \w2Uh, wherever here is! \w8Wait, what does Digital Jump mean, anyway? And- \w2Why did it only cost two power points? \w4\xOh, nevermind that!! \w2This looks like... \w4A desktop! \w6Pretty cool... \w5\w5If this is a desktop, then it must belong to someone, right? \w8\n.\w2.\w2.\w8\w8\n\n[half]Oh. \w5Hi! \w8I've just been \w2talking to myself this whole time, I didn't even notice you were- \w4Whatever! \w8\xHow should I refer to the person who I'll be spending my desktop-hanging time with, huh?\n\n[half]"
+		//temp expressions: replace with actual static poses w/ spelldrives in post
+		"\1\s[-1]\0\s[0]\i[79]\i[92]\i[23]Ah- \w4It worked! The spelldrives still work!! I%(br)can't believe I'm... \w2Uh, wherever here is! \w8Wait, what does Digital Jump mean, anyway? And- \w2Why did it only cost two power points? \w4\xOh, nevermind that!! \w2This looks like... \w4A desktop! \w6Pretty cool... \w5\w5If this is a desktop, then it must belong to someone, right? \w8\n.\w2.\w2.\w8\w8\n\n[half]Oh. \w5Hi! \w8I've just been \w2talking to myself this whole time, I didn't even notice you were- \w4Whatever! \w8\xWhat's the name of the person whose computer I'm on, anyway?\n\n[half]"
 		--
-		"\w5\_q\![*]\q[He/Him,choicefirsthehim]\n\![*]\q[She/Her,choicefirstsheher]\n\![*]\q[They/Them,choicefirsttheythem]\e"
+		"\w5\_q\![open,inputbox,OnNameTeach,-1]\_l[-10000,-10000]\*\q[ ,CANCEL]"
  	}
 	else
  	{
 		//---- You'll see this if you try to run OnFirstBootTalk using ![raise] without the extra 0 as mentioned above. except i cant actually get it to work?? prob bc i separated onfirstboot and onfirstboottalk lmaoooooooo there's no set reference0 for this function
-		{
- 		"\1\s[-1]\0\s[0]Aha! Now- \w8Wait, here again? \w5I guess I should have expected that... \w8\n\n[half]Hey again. \w2Just to make sure this is actually the same place, how should I refer to you?\n\n[half]"
+ 		"\1\s[-1]\0\s[0]Aha! Now- \w8Wait, here again? \w5I guess I should have expected that... \w8\n\n[half]Hey again. \w2I mean, \w1\f[bold,1]are\f[bold,0]\w1 you the same person? \w2What's your name?\n\n[half]"
 		--
-		"\w5\_q\![*]\q[He/Him,choicefirsthehim]\n\![*]\q[She/Her,choicefirstsheher]\n\![*]\q[They/Them,choicefirsttheythem]\e"
-		}
+		"\w5\_q\![open,inputbox,OnNameTeach,-1]\_l[-10000,-10000]\*\q[ ,CANCEL]"
  	}
-}
-
-//*********************Advanced User Info*******************************
-//Notice that after the values are set, there's a -- and then it loads up the next function in the sequence. You can use this basic method to set many values at once, then go to the same function afterwords.
-
-//To define a value, you use a single = mark. If it's a word, you need to put it in quotation marks, but if it's a number, you do not. See the walkthrough page on coding for details.
-
-//Notice how each choice is formatted as Select.choice. This is what I was talking about above with the difference between OnFunction and Function. These choices do not start with On, so they must begin with Select. instead. If you're setting up some quick choices for a menu you're only going to do once, then don't be afraid to use select. instead of having everything start with On.
-//***********************************************************************
-
-Select.choicefirsthehim
-{
-	their = "his"
-	theirs = "his"
-	they = "he"
-	them = "him"
-	theyre = "he's"
-	theywere = "he was"
-	--
-	NameInput
-}
-
-Select.choicefirstsheher
-{
-	their = "her"
-	theirs = "hers"
-	they = "she"
-	them = "her"
-	theyre = "she's"
-	theywere = "she was"
-	--
-	NameInput
-}
-
-Select.choicefirsttheythem
-{
-	their = "their"
-	theirs = "theirs"
-	they = "they"
-	them = "them"
-	theyre = "they're"
-	theywere = "they were"
-	--
-	NameInput
-}
-
-
-//--NameInput
-
-NameInput
-{
-	"\0\s[0](Now, enter your name.)\![open,inputbox,OnNameTeach,-1]\e"
-}
-
-//--timeslot
-
-timeslot
-{
-	if hour >= 5 && hour <= 8
-	{	"earlymorning"	}
-	elseif hour >= 9 && hour <= 11
-	{	"morning"	}
-	elseif hour >= 12 && hour <= 14
-	{	"lunch"	}
-	elseif hour >= 15 && hour <= 17
-	{	"afternoon"	}
-	elseif hour >= 18 && hour <= 20
-	{	"evening"	}
-	elseif hour >= 21 && hour <= 24
-	{ "latenight"	}
-	else
-	{ "midnight" }
-}
-//*********************Advanced User Info*******************************
-//Do you see how this function is determining what time of day it is? It's using larger than/smaller than operators to isolate a range of time to define. For example, "hour >= 21 && hour <= 24" defines an hour that's greater than/equal to 21 AND less than/equal to 24. You can use this basic method to define other things too, such as the seasons. Keep this in mind! You never know when it might come in handy. I talk about operators more in the coding walkthrough page.
-//***********************************************************************
-
-
-//--dayslot
-
-//Like the above, but to find out what day it is. You can primarily use this for specialized dialogue on certain days, like the user's birthday. Either way, don't touch it.
-
-dayslot
-{
-	"%(month)month %(day)day"
 }
 
 
 //-----------------------Normal Booting----------------------------
 
+//These are new variables to initialize after an update. By checking if the variable doesn't exist before initializing it, we prevent variables already in use from being overwritten. This is VERY IMPORTANT, or you risk resetting the user's progress on your new variables every time they update.
+//ISVAR is a built in YAYA function that checks if a variable exists(is initialized) or not. It returns 0 if the variable doesn't exist, and 1 if it does.
+UpdateVars
+{
+	FixDefaultOptions //Putting this here too, since the variable issues I've had seemed to happen mostly when updates went wrong!
+	//if ISVAR("examplevariable") == 0; examplevariable = 0
+}
+
 OnBootVar
- {
+{
+	FixDefaultOptions
  	lastTalk = "" //This is part of how chained conversations work (see aitalk.dic).
-	passhour = 0
-	passmin = 0 
-	passsec = 0 // These keep track of the time.
- }
- OnBoot
+	x.boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
+}
+OnBoot
  {
 	OnBootVar
 	OnDiscordPluginBoot
@@ -244,24 +193,24 @@ OnBootVar
 	OnBootPhaseOne
 	//temppose = OnBootPhaseOne
 	//OnUpdateCoordinates
- }
- OnBootPhaseOne
- {
+}
+OnBootPhaseOne
+{
  	"\0\s[0]" //This sets them up in their neutral pose for now. "\1%(keroneutral)"
 	
 	//put %(normalboottalk) if u dont want indiv day messages
 	//"\0\s[0]\1\s[10]%(normalboottalk)"
 	--
-	if dayslot == userbirthday 
+	if "%(month)/%(day)" == birthday[1]
 	{
 		"\0\s[0]It's %(bornmonthprint) %(borndayprint). \w4I've kinda been looking forward to today, cause it's your birthday, right? \w8Happy birthday, %(username).\e" 
 		--
-		if dayslot == "3month 30day"
+		if "%(month)/%(day)" == "3/30"
 		{
 			"\x...Oh, and it's my birthday today, too. Nice! (Later im gonna make this jump to it's own Dib Birthday function, yeah?)" 
 		}
 	}
-	elseif dayslot == "3month 30day" 
+	elseif "%(month)/%(day)" == "3/30" 
 	{
 		"\0\s[0]I'm going to code in some cute birthday boot conversation here!! Not yet though. Surprise!\e"
 	}
@@ -273,129 +222,136 @@ OnBootVar
 
 NormalBootTalk : pool
 {
-	//elseif RAND(100) < 40 { } (removed, put back in and remove pool if this stops working or sm....)
-	"\0\s[23]\i[72]\i[78]\i[96]-So that's why Mothman-! \w8\w2\s[3]\i[96]\w8\w2...Ohh, \w5um. \w8\w2\s[2]\i[98]\i[77]Hey, \w5%(username)!\e"
+	{
+	"\0\s[23]\i[72]\i[78]\i[96]-So that's why "
+	--
+	"Mothman-! "
+	"Bigfoot-! "
+	"Flatwoods-! "
+	"Owlman-! "
+	"aliens-! "
+	--
+	"\w8\w2\s[3]\i[96]\w8\w2...Ohh, \w5um. \w8\w2\s[2]\i[98]\i[77]Hey, \w5%(username)!\e"
+	}
 	"\0\s[21]\i[92]\i[21]\w8\w8\i[201]...Oh. \w8\w6\s[2]\i[91]Back on the computer again?\e"
-	"\0\s[0]...Oh. \w8Darn! \w6%(username), I was doing some very important spy stuff! \w2Guess I can still do it here, but...\e"
- 	//else
-		if timeslot == "earlymorning"
+	"\0\s[0]...Oh. \w8Darn! \w6%(username), I was doing some very important paranormal investigator stuff! \w2Guess I can still do it here, but...\e"
+	
+	if timeslot == "earlymorning"
+	{
+	"\0\s[0]This is an early morning boot dialogue. \w8Between the hours of five and eight.\e"
+	}
+	elseif timeslot == "morning"
+	{
+	"\0\s[0]This is a morning boot dialogue.\e"
+	"\0\s[0]This is another morning boot dialogue.\e"
+	}
+	elseif timeslot == "lunch"
+	{
+	"\0\s[0]This is a lunch boot dialogue.\e"
+	"\0\s[0]This is another lunch boot dialogue.\e"
+	}
+	elseif timeslot == "afternoon"
+	{
+	"\0\s[0]This is an afternoon boot dialogue.\e"
+	}
+	elseif timeslot == "evening"
+	{
+		if weekday != 7 || weekday != 0 //TODO: another skool schedule thing
 		{
-		"\0\s[0]This is an early morning boot dialogue. \w8Between the hours of five and eight.\e"
+		"\0\s[21]\i[21]...\w6\s[21]Oh, \w4hey %(username). \w8\s[0]\i[91]Suppose here isn't a bad place to spend some time after skool.\e"
 		}
-		elseif timeslot == "morning"
+	"\0\s[21]\i[21]...\w6\s[21]Oh, \w4hey %(username). \w8\s[0]\i[91]Suppose here isn't a bad place to spend an evening.\e"
+	}
+	elseif timeslot == "latenight"
+	{
+	"\0\s[0]...Oh. \w8Hey, %(username)! \w8Shouldn't you be getting to sleep soon?\e"
+	"\0\s[21]\i[70]\i[21]\i[92]-And move that over there... \w8\i[201]\i[203]Huh? \w8Oh, \w5%(username)? \w8\s[0]\i[91]\i[76]Didn't know you'd call me around this time. \w8\s[2]\i[91]\i[21]Guess I'll continue my research here, then!\e"
+	}
+	elseif timeslot == "midnight"
+	{
+		if weekday == 1
 		{
-		"\0\s[0]This is a morning boot dialogue.\e"
-		
-		"\0\s[0]This is another morning boot dialogue.\e"
+			"\0\s[0]Oh... You're up, too? \w4Don't know why I'm doing this to myself... It's a Skoolday tomorrow. \w2Or today?\w8"
 		}
-		elseif timeslot == "lunch"
-		{
-		"\0\s[0]This is a lunch boot dialogue.\e"
-		
-		"\0\s[0]This is another lunch boot dialogue.\e"
-		}
-		elseif timeslot == "afternoon"
-		{
-		"\0\s[0]This is an afternoon boot dialogue.\e"
-		}
-		elseif timeslot == "evening"
-		{
-			if weekday != 7 || weekday != 0 //TODO: another skool schedule thing
-			{
-			"\0\s[21]\i[21]...\w6\s[21]Oh, \w4hey %(username). \w8\s[0]\i[91]Suppose here isn't a bad place to spend some time after skool.\e"
-			}
-		"\0\s[21]\i[21]...\w6\s[21]Oh, \w4hey %(username). \w8\s[0]\i[91]Suppose here isn't a bad place to spend an evening.\e"
-		}
-		elseif timeslot == "latenight"
-		{
- 		"\0\s[0]...Oh. \w8Hey, %(username)! \w8Shouldn't you be getting to sleep soon?\e"
-		"\0\s[21]\i[70]\i[21]\i[92]-And move that over there... \w8\i[201]\i[203]Huh? \w8Oh, \w5%(username)? \w8\s[0]\i[91]\i[76]Didn't know you'd call me around this time. \w8\s[2]\i[91]\i[21]Guess I'll continue my research here, then!\e"
-		}
-		elseif timeslot == "midnight"
-		{
-			if weekday == 1
-			{
-				"\0\s[0]Oh... You're up, too? \w4Don't know why I'm doing this to myself... It's a Skoolday tomorrow. \w2Or today?\w8"
-			}
-		"\0\s[0]Mnnhuh? \w2Oh. \w4Why are you up?\w8"
-		"\0\s[0]...Shouldn't you be asleep?\w8\e"
+	"\0\s[0]Mnnhuh? \w2Oh. \w4Hey, %(username)...\w8"
 	}
 }
 
+//These are variables to set when the ghost is closing or switching away, similar to the above.
+CloseVars
+{
+	lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)") //This tracks the last time the ghost was closed.
+	x.up_all = x.up_total //I rewrote the timekeeping system... I like the way it's set up in the base SHIORI files, except that it goes back to 0 every time the ghost reloads and that's annoying. So I recreated it lol
+}
 //TODO: buff up the whole "goodbye" dialogues later yea?
-OnClose
- {
-	if passmin >= 5 || passhour > 0
+OnClose : pool
+{
+	CloseVars
+	
+	if x.up_mins >= 5 //If the ghost has been open longer than 5 minutes.
 		{
-			if RAND(100) < 40
-			{
 			"\0\s[0]Seeya, %(username)!\w8\w8"
-			}
-			else
-			{
+			
 			if timeslot == "earlymorning"
-				{
-					"\0\s[0]Up and at 'em, then? \w6Bye.\w8\w8"
-				}
+			{
+				"\0\s[0]Up and at 'em, then? \w6Bye.\w8\w8"
+			}
 			elseif timeslot == "morning"
- 				{
-					if weekday != 0 || weekday != 6
-					{
-						"\0\s[0]Aw, darn. \w1I was hoping I could skip class today.\w8"
-						"\0\s[0]Right in the middle of class... I wonder what ZIM's planning right now. \w2Nothing good, probably.\w8"
-					}
-					"\0\s[0]Up and at 'em, then? \w6Bye.\w8\w8"
+			{
+				if weekday != 0 || weekday != 6
+				{
+					"\0\s[0]Aw, darn. \w1I was hoping I could skip class today.\w8"
+					"\0\s[0]Right in the middle of class... I wonder what ZIM's planning right now. \w2Nothing good, probably.\w8"
 				}
+				"\0\s[0]Up and at 'em, then? \w6Bye.\w8\w8"
+			}
  			elseif timeslot == "lunch"
- 				{
-					if weekday != 0 || weekday != 6 //TODO: replace with more accurate skool schedule tracker
-					{
-						"\0\s[0]Aw, darn. \w1I was hoping I could skip class today.\w8"
-						"\0\s[0]Oh, nice! \w2I can still check in on ZIM at Skool...\w8"
-					}
-					"\0\s[0]Get something to eat if you can, yeah?\w8"
+			{
+				if weekday != 0 || weekday != 6 //TODO: replace with more accurate skool schedule tracker
+				{
+					"\0\s[0]Aw, darn. \w1I was hoping I could skip class today.\w8"
+					"\0\s[0]Oh, nice! \w2I can still check in on ZIM at Skool...\w8"
 				}
+				"\0\s[0]Get something to eat if you can, yeah?\w8"
+			}
  			elseif timeslot == "afternoon"
- 				{
-					if weekday != 0 || weekday != 6
-					{
-						"\0\s[0]Oh, dang, it's already %(nowhour) PM? \w6Looks like I don't have to go to Skool...\w8"
-					}
-					"\0\s[0]Logging off, then? \w8"
- 				}
+			{
+				if weekday != 0 || weekday != 6
+				{
+					"\0\s[0]Oh, dang, it's already %(nowhour) PM? \w6Looks like I don't have to go to Skool...\w8"
+				}
+				"\0\s[0]Logging off, then? \w8"
+			}
   			elseif timeslot == "evening"
- 				{
- 					if weekday == 6 //if its set up like this and not how lunch and morning are set up it'll make the ifs the only possible messages.
- 					{
- 						"\0\s[0]Got something to do on a Saturday evening? \w7Seeya, %(username).\w8"
- 					}
- 					else
- 					{
- 						"\0\s[0]Oh, it's already this late..? \w7See you later then, %(username).\w8"
- 					}
- 				}
-			elseif timeslot == "latenight"
-			 	{
- 					if weekday == 6 //This is the same check as above to see if it's Saturday. Note that this doesn't have an else statement! Sometimes you can get away with that, but make sure you test thoroughly.
- 					{
- 						"\0\s[0]Alone on a Saturday night? \w6Haha, no, I'm not going to make that joke. \w6Bye, %(username)!\w2\w8"
- 					}		
-					"\0\s[0]%(dibarmfiddle)Logging off for the night? \w6\s[2]\i[98]Seeya, then.\w8"
-					"\0\s[0]Oh! \w8\s[2]\i[98]Sweet dreams, %(username). \w8\w2\i[77]\w5...If you're planning to sleep, that is.\w8\w4"
-					"\0\s[2]%(dibarmfiddle)Good night, \w2then.\w8"
- 				}
-			elseif timeslot == "midnight"
- 				{
- 					if weekday == 0 //checking if it's the middle of the night on Sunday
- 					{
- 						"\0\s[0]\i[77]Yeesh, do you have anything tomorrow? \w2\s[0]\i[25]\i[77]Or today, \w4I guess. \w8\s[2]\i[77]You should get some rest.\w8\w2"
- 					}	
-					"\0\s[0]\i[77]\i[91]I hope you're planning on getting some sleep if you haven't already, %(username). \w6\s[22]\i[92]\i[80]\i[77]\i[21]\i[70]Though I guess I shouldn't be a hypocrite...\w8\w4"
+			{
+				if weekday == 6 //if its set up like this and not how lunch and morning are set up it'll make the ifs the only possible messages.
+				{
+					"\0\s[0]Got something to do on a Saturday evening? \w7Seeya, %(username).\w8"
+				}
+				else
+				{
+					"\0\s[0]Oh, it's already this late..? \w7See you later then, %(username).\w8"
 				}
 			}
-				
- 		}
- 		
+			elseif timeslot == "latenight"
+			{
+				if weekday == 6 //This is the same check as above to see if it's Saturday. Note that this doesn't have an else statement! Sometimes you can get away with that, but make sure you test thoroughly.
+				{
+					"\0\s[0]Alone on a Saturday night? \w6Haha, no, I'm not going to make that joke. \w6Bye, %(username)!\w2\w8"
+				}		
+				"\0\s[0]%(dibarmfiddle)Logging off for the night? \w6\s[2]\i[98]Seeya, then.\w8"
+				"\0\s[0]Oh! \w8\s[2]\i[98]Sweet dreams, %(username). \w8\w2\i[77]\w5...If you're planning to sleep, that is.\w8\w4"
+				"\0\s[2]%(dibarmfiddle)Good night, \w2then.\w8"
+			}
+			elseif timeslot == "midnight"
+			{
+				if weekday == 0 //checking if it's the middle of the night on Sunday
+				{
+					"\0\s[0]\i[77]Yeesh, do you have anything tomorrow? \w2\s[0]\i[25]\i[77]Or today, \w4I guess. \w8\s[2]\i[77]You should get some rest.\w8\w2"
+				}	
+				"\0\s[0]\i[77]\i[91]I hope you're planning on getting some sleep if you haven't already, %(username). \w6\s[22]\i[92]\i[80]\i[77]\i[21]\i[70]Though I guess I shouldn't be a hypocrite...\w8\w4"
+			}
+		}
  		
  	else //This dialogue is for if they haven't been open for at least five minutes.
  	{
@@ -403,24 +359,24 @@ OnClose
  		"\0\s[0]Uh, okay. See you!\w8\w8"
  	}
  	--
-	"\-\e" //this bit of code actually closes and ends the ghost. Because \e is here, you don't have to end each line above with it. Again, this will come up very rarely, so OnClose is an unusual case.
- }
+	"\-\e" //dont forget that \- to close the ghost you idiot
+}
 
 
  //-------------------------State Changing--------------------
  //From here on, most of the dialogue will have to do with changing shells, ghosts, or states in some way.
  
 
- OnWindowStateMinimize
- {
-	"\0\s[0]I'm being minimized, I think.\w5\e"
+OnWindowStateMinimize
+{
+	"\0\s[-1]...Looks like he's been put into the taskbar. \w8You can bring him back out by clicking on his tab.\w8\w8\w4\e"
 }
 
 OnWindowStateRestore
  {
-	"\0\s[0]Back out.\e"
-	"\0\s[0]Y'know, being on a computer is a very interesting experience.\e"
-	"\0\s[0]Woah! It's kinda cramped down there...\e"
+	"\0\s[0]\w6Back out.\e"
+	"\0\s[0]\w6Y'know, \w6being on a computer is a very interesting experience.\e"
+	"\0\s[0]\w6Woah! \w6It's kinda cramped down there...\e"
 }
 
 
@@ -438,7 +394,7 @@ OnGhostChanging
 	
 	if reference3 == _path 
 	{
-		"\0\s[2]\i[91]\i[77]Ely, you are a mess. \w4Fix me already! \w2\0\s[2]\i[91]\i[77]\i[65](also change this dialogue later lmao)\w8\w8\e"
+		"\0\s[2]\i[91]\i[77]Ely, you are a mess. \w4Fix me already! \w2\i[65](also change this dialogue later lmao)\w8\w8\e"
 		"\0\s[0]\i[76]\i[91]How many times are you gonna reload me today?\w8\w8\e"
 		"\0\s[2]\i[96]\i[73]Let's play 'Will Dib Be Broken When You Reload Him Or Not?'\w8\w8\e"
 		"\0\s[0]\i[91]\i[70]Okay, okay, let's just get this over with.\w8\w8\e"
@@ -446,11 +402,35 @@ OnGhostChanging
 	elseif reference0 == "Zim"
 	{
 		"\0\s[3]\i[70]\i[91]Ugh, ZIM? \w4Have fun, I guess.\w8\w8\e"
-		"\0\s[3]\i[91]\i[29]ZIM?! \w5\0\s[3]\i[91]\i[78]Don't tell him anything that could defeat me!\w8\w8\e"
+		"\0\s[3]\i[91]\i[29]ZIM?! \w5\0\s[3]\i[91]\i[78]Don't tell him anything that could help him defeat me!!\w8\w8\e"
 	}
-	elseif reference1 == "Ely Crowe"
+	elseif reference0 == "Dib" //change to whatever quo or anyone elses dib has as their sakura name
+	{
+		"\s[0]\i[91]\i[76]\i[21].\w2.\w2.\w2Huh. \w8\w6\i[201]Was that me just now?\e"
+	}
+	elseif reference2 == "Ely Crowe"
 	{
 		"\0\s[0]Oh... \w8\s[2]Ely! \w8Say hi to them for me!\w8\w8\e"
+	}
+	elseif reference0 == "Snatcher"
+	{
+		"\s[11]\i[94]\i[28]The Snatcher, huh? \w2An actual ghost... Shadow... \w4\s[2]\i[94]Thing! \w6That's going to be interesting. \w8\w8\n\n\s[2]\i[93]\i[21]\i[77]This is a little out of character, \w2\s[12]\i[73]\i[93]but thanks for downloading him!"
+	}
+	elseif reference2 == "Minimum YAYA Template" || ("GT Template" _in_ reference2) ||  reference0 == "X. Template"
+	{
+		"\s[2]\i[4]\i[94]%(reference2)? \w8Making something? \w4Good luck.\w\w\e"
+	}
+	elseif reference2 == "Needle" || reference2 == "Radio Nowhere" || reference2 == "Paper" || reference2 == "Hydrate" || reference2 == "Balloons" || reference2 == "Pet Rock" || reference2 == "Plushie Base"
+	{
+		"\s[0]\i[91]%(reference0)? \w8\s[0]\i[70]\i[91]\i[76]Okay, now you're just bringing objects onto here. \w6\s[11]\i[92]\i[76]What \w2\f[bold,1]is\f[bold,0] \w3the extent of things you can put on your desktop, anyway?\w8\w8\e"
+	}
+	elseif reference2 == "S the Skeleton" || reference2 == "Multiverse Sans" || reference2 == "Dr. W.D. Gaster" || reference2 == "sans" || reference2 == "Sans" || reference2 == "Papyrus" || reference2 == "Dreamtale Sans" || reference2 == "Jazz"
+	{
+		"\s[12]\i[94]Oh, wow, a skeleton! \w6\i[28]%(reference2)? \w6It's been a while since I messed with the undead... \w8\s[2]\i[93]\i[77]\i[21]\i[80]Last time didn't go so well.\w8\w8\e"
+	}
+	elseif reference2 == "FLUX" || reference2 == "flele" //TODO: check if flele is actually correct
+	{
+		"\s[0]Oh, %(reference0) looks like they can play music. \w8\w3...I have a music player too, %(username)! \w2With cool playlists! \w5Am I not enough for you? Why do you need another music player in your life?! I WANT TO BE THE ONLY ONE WHO PLAYS MUSIC FOR YOU!!!\n\n[half]\w8\w3Nah I'm just kidding. \w4Phantasia didn't expect anyone to see this so they're having fun lmao\w8\w8\e"
 	}
  	else
 	{
@@ -474,45 +454,66 @@ OnGhostChanged
 	--
 	if reference3 == _path  
 	{
-		"\0\s[2]\i[96]Better?\w8\e"
-		"\0\s[0]\i[91]Code all sorted?\w8\e"
-		"\0\s[0]Back again. \w6\0\s[2]\i[96]Hey, %(username)!\w8\e"
+		"\s[2]\i[96]Better?\w8\e"
+		"\s[0]\i[91]Code all sorted?\w8\e"
+		"\s[0]Back again. \w6\0\s[2]\i[96]Hey, %(username)!\w8\e"
 		//me specific dialogue
-		"\0\s[0]\i[76]\i[91]...How many times have you looped that ZIM cover of Situations? \w8\0\s[2]\i[78]\i[91]It's hilarious, keep it on.\w8\e"
-		"\0\s[14]\i[24]Uh, %(username)... \w8\w8\w2\0\s[11]\i[24]\i[76]Where did you get that song? \w8And how many times have you looped it?\w8\w4\n\n[half]\0\s[21]\i[21]\i[92]\i[70]I'll admit, his singing voice is...\w8\e"
-		"\0\s[22]\i[93]\i[72]On my touch-tone, touch-tone telephone...\w8\e"
-	}
-	elseif reference0 == "Zim" //should be the name of ghost as in install.txt or descript.txt.
-	{
-		"\0\s[0]\i[91]\i[76]Hey, ZIM was just here! \w6\0\s[12]\i[76]\i[92]You think you can tell me his weaknesses?\e"
+		"\s[0]\i[76]\i[91]...How many times have you looped that ZIM cover of Situations? \w8\0\s[2]\i[78]\i[91]It's hilarious, keep it on.\w8\e"
+		"\s[14]\i[24]Uh, %(username)... \w8\w8\w2\0\s[11]\i[24]\i[76]Where did you get that song? \w8And how many times have you looped it?\w8\w4\n\n[half]\0\s[21]\i[21]\i[92]\i[70]I'll admit, his singing voice is...\w8\e"
+		"\s[22]\i[93]\i[72]On my touch-tone, touch-tone telephone...\w8\e"
 	}
 	else
 	{
-		"\0\s[0]\i[91]\i[76]%(reference0), huh? \w6\0\s[11]\i[76]\i[92]How many other people do you have on here, %(username)?\e"
+		OnBootVar
+		OnDiscordPluginBoot
+		--
+		if reference0 == "Zim" //should be the name of ghost as in install.txt or descript.txt.
+		{
+			"\s[0]\i[91]\i[76]Hey, ZIM was just here! \w6\0\s[12]\i[76]\i[92]You think you can tell me his weaknesses?\e"
+		}
+		elseif reference0 == "Dib" //change to whatever quo or anyone elses dib has as their sakura name
+		{
+			"\s[0]\i[91]\i[76]\i[21].\w2.\w2.\w2Huh. \w8\w6\i[201]Was that me just now?\e"
+		}
+		elseif reference0 == "Ely"
+		{
+			"\s[22]\i[77]\i[93]\i[27]\i[85]AAA ely um... ahem... theyre so... cute :flushed:\e" //change this later lol
+		}
+		elseif reference0 == "Snatcher"
+		{
+			"\s[11]\i[94]\i[28]The Snatcher, huh? \w2An actual ghost... Shadow... \w4\s[2]\i[94]Thing! \w6That's going to be interesting. \w8\w8\n\n\s[2]\i[93]\i[21]\i[77]This is a little out of character, \w2\s[12]\i[73]\i[93]but thanks for downloading him!"
+		}
+		elseif reference2 == "Minimum YAYA Template" || ("GT Template" _in_ reference2) ||  reference0 == "X. Template"
+		{
+			"\s[2]\i[4]\i[94]%(reference2)? \w8Making something? \w8\i[73]The more people on here, the merrier."
+		}
+		elseif reference2 == "Needle" || reference2 == "Radio Nowhere" || reference2 == "Paper" || reference2 == "Hydrate" || reference2 == "Balloons" || reference2 == "Pet Rock" || reference2 == "Plushie Base"
+		{
+			"\s[0]\i[91]%(reference0)? \w8\s[0]\i[70]\i[91]\i[76]Okay, now you're just bringing objects onto here. \w6\s[11]\i[92]\i[76]What \w2\f[bold,1]is\f[bold,0] \w3the extent of things you can put on your desktop, anyway?"
+		}
+		elseif reference2 == "S the Skeleton" || reference2 == "Multiverse Sans" || reference2 == "Dr. W.D. Gaster" || reference2 == "sans" || reference2 == "Sans" || reference2 == "Papyrus" || reference2 == "Dreamtale Sans" || reference2 == "Jazz"
+		{
+			"\s[12]\i[94]Oh, wow, a skeleton! \w6\i[28]%(reference2)? \w6It's been a while since I messed with the undead... \w8\s[2]\i[93]\i[77]\i[21]\i[80]Last time didn't go so well."
+		}
+		elseif reference2 == "FLUX" || reference2 == "flele" //TODO: check if flele is actually correct
+		{
+			"\s[0]Oh, %(reference0) looks like they can play music. \w8\w3...I have a music player too, %(username)! \w2With cool playlists! \w5Am I not enough for you? Why do you need another music player in your life?! I WANT TO BE THE ONLY ONE WHO PLAYS MUSIC FOR YOU!!!\n\n[half]\w8\w3Nah I'm just kidding. \w4Phantasia didn't expect anyone to see this so they're having fun lmao"
+		}
+		elseif reference2 == "Shadow the Hedgehog" || reference2 == "Among Us" 
+		{
+			"HOLY SHIT %(TOUPPER(reference2))???"
+		}
+		else
+		{
+			"\0\s[0]\i[91]\i[76]%(reference0), huh? \w6\0\s[11]\i[76]\i[92]How many other people do you have on here, %(username)?\e"
+		}
 	}
 }
 
 
-//--OnShellChanging
-
 //Literal suffering. Even making the florpus shell hurt me. Whoever makes a shell for anything, you have my greatest respect.
-//Making a shell for this ghost would be nigh impossible without changing some of the interval coding, huh? bc i barely set up any expression envelopes haha, and also his eyes and shit are super complicated. I am so sorry.
 
 //deleting OnShellChanging because ehhhhhhhhhhhh it's like. fodder that I don't have dialogue ideas for.
-
-//OnShellChanging
-//{
-//	if reference0 == "Shooting Star" 
-//	{
-//	"\0\s[0]\i[91]Hm?\w8\e"
-//	}
-//	else //if you don't have any specific dialogue for a specific shell
-//	{
-//	"\0\s[0]\i[91]Hm?\w8\e"
-//	
-//	"\0\s[0]\i[91]Oh, alright.\w8\e"
-//	}
-//}
  
  
  //--OnShellChanged
@@ -524,16 +525,16 @@ OnShellChanged
 	_old = nowshell
 	nowshell = reference0 //Sets nowshell to the new value. reference0 is the name set in descript.txt.
 	--
-	if reference0 == _old && firstboot != 1
+	if reference0 == _old && firstboot != 1 //hopefully setting a default shell on firstboot shouldnt mess this up now
 	{
 		"\0\s[0]\i[76]%(dibarmfiddle)...Huh? \w5Did you do something?\e"
+		"\0\s[0]\i[79]\i[23]%(dibarmfiddle)...Woah. \w8\w8\w8\i[21]What was that..?\e"
 	}
 	elseif reference0 == "Shooting Star" //Again, this is the name of your shell as you put in the descript.txt file for that shell.
 	{
 		if firstboot == 1
 		{
-		"\0(This shell is very big: Please resize him by right clicking on him and choosing the percentage you want in Shell Scaling.)\n\n[half](You can change his look by going to the Change Shell menu option.)\x"
-		//TODO: you can't actually change his shell scaling during firstboot bc its in passive mode. find some workaround alr?
+		"\0\![set,scaling,66]\_q(Due to this shell's size, Dib will be scaled down for now. The next time you boot him, though, he'll be really big! You can change shell scaling in the right click menu.)\_q\x"
 		--
 		OnFirstBootTalk
 		}
@@ -541,15 +542,13 @@ OnShellChanged
 		{
 		"\0\s[2]\i[91]Back to the good ol' Shooting Star. \w4\0\s[0]\i[76]\i[26]\i[91]How many people actually read that thing?\e"
 		"\0\s[2]\i[91]Nice! \w8\0\s[2]\i[91]\i[73]This is exactly the size my head should be!\e"
-		"\0\s[2]\i[78]\i[92]With this height, I could probably kick ZIM into the stratosphere.\e"		
+		"\0\s[2]\i[78]\i[92]With this height, I could probably kick ZIM into the stratosphere.\e"
 		}
 	}
 	elseif reference0 == "Florpus" //REMEMBER THIS IS CASE SENSITIVE OMFG
 	{
 		if firstboot == 1
 		{
-		"\0(You can change his look by right clicking on Dib and going to the Change Shell menu option.)\x"
-		--
 		OnFirstBootTalk
 		}
 		else
@@ -573,17 +572,6 @@ OnShellChanged
 	}
  }
 
-//--OnNotifyShellInfo
-
-//HOOO boy i figured this one out through 10 minutes of research on documentation and the discord. I work so hard for Dib.
-//SO BASICALLY. reference0 is the name of the shell, reference1 is the full path, and reference2 is the surface number list [comma separated] Example: 0,1,2,3,4,5,6,7,8,10,11. So yeah!! Currently using this in the dressup to check if Dib is in his Florpus shell, so it can make a tiny quip about there basically being no difference. I could probably do some other shell exclusive stuff here, though.
-
-//UPDATE IM AN IDIOT NOWSHELL ALREADY EXISTS JUST USE THAT LMAO. though i guess i could use this to check if dibs on a specific surface and react accordingly yk
-
-/*OnNotifyShellInfo
-{
-		currentShell = reference0
-}*/
 
  //--OnDressupChanged
  
@@ -601,16 +589,16 @@ if reference0 == 0 //in OnDressupChanged, reference0 refers to the character, th
 			}
 			else //When you take it off.
 			{
+				"\0\s[13]\i[43]What- \w8\w4\0\s[13]\i[78]\i[91]Hey! \w4Give that back!"
+				--
 				if nowshell == "Florpus"
 				{
-					"\0\s[3]\i[39]What- \w8\w4\0\s[3]\i[78]\i[91]Hey! \w4Give that back! \0\s[3]\i[78]\i[91]\i[65]\w8\n\n[half](You barely notice a difference...)\e"
+					"\0\s[3]\i[78]\i[91]\i[65]\w8\n\n[half](You barely notice a difference...)"
 				}
-				else
-				{
-					"\0\s[13]\i[43]What- \w8\w4\0\s[13]\i[78]\i[91]Hey! \w4Give that back!\e"
-				}
+				--
+				"\e"
 			}
-		}		
+		}
 	}
 else //if reference0 isn't the main character, then it has to be the side character.
 	{

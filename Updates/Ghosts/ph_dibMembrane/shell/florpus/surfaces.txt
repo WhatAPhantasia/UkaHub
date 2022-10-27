@@ -108,13 +108,14 @@ element3,overlayfast,surface115.png,124,158
 element4,overlay,surface100.png,0,0
 element5,overlay,surface170.png,0,0
 element6,overlay,surface150.png,0,0
-element7,overlay,surface650.png,0,0
+element7,overlay,surface139.png,0,0
+element8,overlay,surface651.png,0,0
 //--Blinking---------------------------------------------------------------------------
 //not entirely happy with how i handled the blinking, i want the left n right sides to be independent if that makes sense? but they should still play at the same time yk. also a few of the eye poses have the eyes slightly shifted like. ONE pixel to the left or right, so it doesn't line up... idk im having a Hard Time
 animation0.interval,random,4
 animation0.pattern0,overlay,-1,100,123,156
-animation0.pattern1,overlayfast,140,80,123,156
-animation0.pattern2,overlayfast,142,150,123,156
+animation0.pattern1,overlayfast,140,30,123,156
+animation0.pattern2,overlayfast,142,80,123,156
 animation0.pattern3,overlay,-1,60,123,156
 //--Clothes----------------------------------------------------------------------------
 //Glasses
@@ -123,13 +124,11 @@ animation910.pattern0,add,105,0,0,0
 //--Talking----------------------------------------------------------------------------
 animation1.interval,talk,4
 animation1.pattern0,alternativestart,(2,3)
-
 animation2.interval,never
-animation2.pattern0,overlay,151,100,0,0
-animation2.pattern1,overlay,-1,100,0,0
-
+animation2.pattern0,overlay,151,120,0,0
+animation2.pattern1,overlay,-1,120,0,0
 animation3.interval,never
-animation3.pattern0,overlay,151,140,0,0
+animation3.pattern0,overlay,151,100,0,0
 animation3.pattern1,overlay,-1,100,0,0
 }
 
@@ -459,17 +458,21 @@ animation75.pattern0,overlay,170,0,0,0
 animation75.pattern1,overlay,170,200,0,0
 //question
 animation76.interval,never
-animation76.pattern0,parallelstop,(75,77,78)
+animation76.pattern0,parallelstop,(75,77,78,79)
 animation76.pattern1,overlay,171,0,0,0
 //sad
 animation77.interval,never
-animation77.pattern0,parallelstop,(75,76,78)
+animation77.pattern0,parallelstop,(75,76,78,79)
 animation77.pattern1,overlay,172,0,0,0
 //angry
 animation78.interval,never
-animation78.pattern0,parallelstop,(75,76,77)
+animation78.pattern0,parallelstop,(75,76,77,79)
 animation78.pattern1,overlay,173,0,0,0
-//204 stops (76,77,78) and starts 75
+//shock
+animation79.interval,never
+animation79.pattern0,parallelstop,(75,76,77,78)
+animation79.pattern1,overlay,174,0,0,0
+//204 stops (76,77,78,79) and starts 75
 
 //--Extras lets gooooo
 //sweat
@@ -1035,17 +1038,21 @@ animation75.pattern0,overlay,170,0,0,0
 animation75.pattern1,overlay,170,200,0,0
 //question
 animation76.interval,never
-animation76.pattern0,parallelstop,(75,77,78)
+animation76.pattern0,parallelstop,(75,77,78,79)
 animation76.pattern1,overlay,171,0,0,0
 //sad
 animation77.interval,never
-animation77.pattern0,parallelstop,(75,76,78)
+animation77.pattern0,parallelstop,(75,76,78,79)
 animation77.pattern1,overlay,172,0,0,0
 //angry
 animation78.interval,never
-animation78.pattern0,parallelstop,(75,76,77)
+animation78.pattern0,parallelstop,(75,76,77,79)
 animation78.pattern1,overlay,173,0,0,0
-//204 stops (76,77,78) and starts 75
+//shock
+animation79.interval,never
+animation79.pattern0,parallelstop,(75,76,77,78)
+animation79.pattern1,overlay,174,0,0,0
+//204 stops (76,77,78,79) and starts 75
 
 //--Extras lets gooooo
 //sweat
