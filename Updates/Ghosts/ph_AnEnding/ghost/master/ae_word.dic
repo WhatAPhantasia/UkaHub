@@ -1,0 +1,565 @@
+//-----Envelopes-----
+
+usersfolder
+{
+	"start bar"
+	"Documents folder"
+	"Pictures folder"
+	"Music folder"
+	"Games folder"
+}
+
+filetype
+{
+	".txt"
+	".dic"
+	".png"
+	".jpg"
+	".jpeg"
+	".mp3"
+	".exe"
+	".bat"
+	".cfg"
+	".wav"
+	".pdf"
+	".dat"
+	".gif"
+	".tiff"
+	".dll"
+	".pna"
+	".ico"
+	".dau"
+	".zip"
+	".nar"
+	".html"
+	".psd"
+	".mp4"
+	".ttf"
+	".rar"
+}
+
+PeopleArray
+{
+	"vera","skul","ulys","lila","luce"
+}
+
+HollercodeArray
+{
+	"instantiator","prospector","ruminator","revisor"
+}
+
+
+//--name politeness determiner
+pername 		{if posfeel < 25 /*&& !Flag("peek hollerfeed")*/
+				{"%(prefix)%(TOLOWER(username))"}
+				else
+				{"%(TOLOWER(username))"}
+				}
+//determines whether or not to add an honorific (remember to not put a space ig?)
+prefix 			{
+				if usertitle == "none" 	{""}
+				else 					{"%(usertitle) "}
+				}
+menuprefix		{ if usertitle == "none" {"No Title"} else {"%(Capitalize(usertitle))"} }
+
+
+//--hollercode/name envelopes
+
+vera 			{"\f[color,%(n.yellow)]VERA:\w4"}
+instantiator 	{"\f[color,%(n.yellow)]Instantiator:\w4"}
+prospector 		{"\f[color,%(n.red)]Prospector:"}
+ruminator 		{"\f[color,%(n.blue)]Ruminator:"}
+revisor 		{"\f[color,%(n.green)]Revisor:"}
+
+//determine text color!
+n.red 			{if readability == "No Color"; "default"
+				 elseif readability == "Limited Color"; "maroon"
+				 else; "red"}
+n.green 		{if readability == "No Color"; "default"
+				 elseif readability == "Limited Color"; "green"
+				 else; "0,200,0"}
+n.blue 			{if readability == "No Color"; "default"
+				 elseif readability == "Limited Color"; "navy"
+				 else; "blue"}
+n.yellow 		{if readability == "No Color"; "default"
+				 elseif readability == "Limited Color"; "100,80,0"
+				 else; "130,110,0"}
+				//why tf did vera decide to go and have the most unreadable theme color
+
+
+//--PRONOUNS!!
+
+//"%(they) left that there."
+//"%(their) work is really cool."
+//"I'll ask %(them) later."
+//"%(they)%(re) really good at it."
+//"%(they) %(are) thinking about cheese!"
+//"%(they) %(were) lost in their code, but %(they) fixed it!!"
+//use %(capitalize(they)) to use it properly at the start of sentences.
+//use _s = "s"; if pronouns == "undef"; _s = "re" and other temp vars if needed for more specific pronoun talk
+their
+{
+	if pronouns == "masc"; "his"
+	elseif pronouns == "fem"; "her"
+	elseif pronouns == "custom"; "%(custompronouns[2])"
+	else; "their"
+}
+theirs
+{
+	if pronouns == "masc"; "his"
+	elseif pronouns == "fem"; "hers"
+	elseif pronouns == "custom"; "%(custompronouns[3])"
+	else; "theirs"
+}
+they
+{
+	if pronouns == "masc"; "he"
+	elseif pronouns == "fem"; "she"
+	elseif pronouns == "custom"; "%(custompronouns[0])"
+	else; "they"
+}
+them
+{
+	if pronouns == "masc"; "him"
+	elseif pronouns == "fem"; "her"
+	elseif pronouns == "custom"; "%(custompronouns[1])"
+	else; "them"
+}
+//CHECK CONTEXT SINGULAR OR PLURAL!!
+were
+{
+	if pronounplur == "plur" || pronouns == "undef"; "were"
+	else; "was"
+}
+re
+{
+	if pronounplur == "plur" || pronouns == "undef"; "'re"
+	else; "'s"
+}
+are
+{
+	if pronounplur == "plur" || pronouns == "undef"; "are"
+	else; "is"
+}
+ve
+{
+	if pronounplur == "plur" || pronouns == "undef"; "'ve"
+	else; "'s"
+}
+
+//uuhhhhhhhhhh relationship stuff
+//minor developments are marked at 5s, and major developments are marked at quarters/tens. no limit 
+
+//this subtracts posfeel by negfeel. results in a negative if neg > pos, do REPLACE(joinfeel,"-","") if you want absolute value
+joinfeel {posfeel - negfeel}
+
+//this divides posfeel by negfeel. if negfeel > posfeel, product is less than 0 (decimals).
+//if you do checks with this, it indicates her opinions of the user being more affected depending on how much youve raised her stats. like if you have pos/neg 100/5 vs 10/5. 
+//better than joinfeel in that case, in which 5 neg/pos acts barely affects her perception of user if they have lots of the other feeling.
+divfeel
+{
+	_out = 0
+	if posfeel == 0 || negfeel == 0 {_out = 0} //0 output means that the other stat has nothing in it obvi, making mixed feelings invalid
+	else 							{_out = posfeel / negfeel}
+	_out = REPLACE(_out,"-","") //shouldn't need an absolute value check because relationship vars shouldnt go into the negatives but. just in case
+	_out
+}
+
+allrecenttouch
+{
+	recenttouch[0] + recenttouch[1] + recenttouch[2]
+}
+
+//-----Sleep Stuff----
+//both sleep/wake range from 0-100.
+
+/*
+	earlymorning 	5-8am
+	morning 		9-11am
+	lunch 			12-2pm
+	afternoon 		3-5pm
+	evening 		6-8pm
+	latenight 		9pm-12am
+	midnight 		1-4am
+*/
+	
+sleepiness
+{
+	_i = 1
+	
+	_r2 = RAND(10) + 20
+	_r3 = RAND(10) + 30
+	_r4 = RAND(10) + 40
+	
+	//her circadian rhythm fucked up
+	if timeslot == "lunch" || timeslot == "afternoon" //most sleepy midday (has to talk to friends tho)
+	{_i += _r4} //41-50
+	elseif timeslot == "evening" || timeslot == "latenight" || timeslot == "midnight" //despite being most tired at night her circadian rhythm will not let her rest
+	{_i += _r2} //21-30
+	elseif timeslot == "earlymorning" || timeslot == "morning" //not used to being up early
+	{_i += _r3} //31-40
+	--
+	if recenttouch[1] > 5 //sleepy pets
+	{_i += 2}
+	--
+	if _i < 0; _i = 0
+	--
+	"%(_i)"
+}
+wakeyness
+{
+	_i = 1
+	
+	_r1 = RAND(10) + 10
+	_r2 = RAND(10) + 20
+	//this is a super roundabout way to do the rands siiigh
+	
+	if timeslot == "afternoon" || timeslot == "lunch"
+	{_i += RAND(10)} //1-10
+	elseif timeslot == "evening" || timeslot == "latenight" || timeslot == "midnight"
+	{_i += _r2} //21-30
+	elseif timeslot == "earlymorning" || timeslot == "morning"
+	{_i += _r1} //11-20
+	--
+	if recenttouch[1] > 5 //sleepy pets
+	{_i -= 10}
+	--
+	if _i < 0; _i = 0
+	--
+	"%(_i)"
+}
+
+
+//-----Shell Stuff----
+
+vsleepyidle
+{
+	"\s[2]\i[17]\i[1]\i[80]"
+	"\s[2]\i[18]\i[1]\i[80]"
+	"\s[5]\i[1]\i[80]\![anim,clear,25]"
+}
+
+vcasidle
+{
+	"\s[%(ANY(2,5))]"
+}
+
+//-----Menu stuff-----
+
+season //Current season
+{
+	if hemisphere == "Southern"
+	{
+		if month > 2 && month < 6; "Autumn"
+		elseif month > 5 && month < 9; "Winter"
+		elseif month > 8 && month < 12; "Spring"
+		else; "Summer"
+	}
+	else
+	{
+		if month > 2 && month < 6; "Spring"
+		elseif month > 5 && month < 9; "Summer"
+		elseif month > 8 && month < 12; "Autumn"
+		else; "Winter"
+	}
+}
+
+//hour12 displays the hour like a 12 hour clock, except for 12 which is displayed as 0
+nowhour
+{
+	if hour12 == 0; "12"
+	else; "%(hour12)"
+}
+
+//Adding a 0 to the minute if it's under 10
+nowmin
+{
+	if minute < 10; "0%(minute)"
+	else; "%(minute)"
+}
+
+//Total hours
+totalhours {x.up_total / 60}
+
+//Total hours + minutes
+totalruntime
+{
+	_hours = x.up_total / 60
+	_mins = x.up_total % 60
+	if _mins <= 9; _mins = "0%(_mins)"
+	
+	"%(_hours):%(_mins)"
+}
+
+//Current runtime as hours + minutes
+runtime
+{
+	_hours = x.up_mins / 60
+	_mins = x.up_mins % 60
+	if _mins <= 9; _mins = "0%(_mins)"
+	
+	"%(_hours):%(_mins)"
+}
+
+//AM or PM - ampm is 0 during am, and 1 during pm
+ap
+{
+ 	if ampm == 0; "AM"
+ 	else; "PM"
+}
+
+//Abbreviated week day
+wd
+{
+	if weekday == 0; "Sun"
+	elseif weekday == 1; "Mon"
+	elseif weekday == 2; "Tue"
+	elseif weekday == 3; "Wed"
+	elseif weekday == 4; "Thu"
+	elseif weekday == 5; "Fri"
+	else; "Sat"
+}
+
+//Full week day
+nowday
+{
+	_weekday = weekday
+	if _argv[0] == "next"
+	{
+		_weekday++
+		if _weekday > 6; _weekday = 0
+	}
+	if _argv[0] == "last"
+	{
+		_weekday--
+		if _weekday < 0; _weekday = 6
+	}
+	
+	if GETTYPE(_argv[0]) == 1 //If it's an integer
+	{
+		while _argv[0] > 6; {_argv[0] -= 7}
+		while _argv[0] < 0; {_argv[0] += 7}
+		_weekday = _argv[0]
+	}
+	
+	if _weekday == 0; "Sunday"
+	elseif _weekday == 1; "Monday"
+	elseif _weekday == 2; "Tuesday"
+	elseif _weekday == 3; "Wednesday"
+	elseif _weekday == 4; "Thursday"
+	elseif _weekday == 5; "Friday"
+	else; "Saturday"
+}
+
+//The current month name
+nowmonth
+{
+	_month = month
+	
+	if _argv[0] == "next"
+	{
+		_month++
+		if _month > 12; _month = 1
+	}
+	if _argv[0] == "last"
+	{
+		_month--
+		if _month < 1; _month = 12
+	}
+	
+	if GETTYPE(_argv[0]) == 1 //If it's an integer
+	{
+		while _argv[0] > 12; {_argv[0] -= 12}
+		while _argv[0] < 1; {_argv[0] += 12}
+		_month = _argv[0]
+	}
+	
+	if _month == 1; "January"
+	elseif _month == 2; "February"
+	elseif _month == 3; "March"
+	elseif _month == 4; "April"
+	elseif _month == 5; "May"
+	elseif _month == 6; "June"
+	elseif _month == 7; "July"
+	elseif _month == 8; "August"
+	elseif _month == 9; "September"
+	elseif _month == 10; "October"
+	elseif _month == 11; "November"
+	else; "December"
+}
+
+//Take an integer, give the name of the month it goes with
+MonthName
+{
+	switch _argv[0]
+	{
+		"" //0
+		"january"
+		"february"
+		"march"
+		"april"
+		"may"
+		"june"
+		"july"
+		"august"
+		"september"
+		"october"
+		"november"
+		"december"
+	}
+}
+
+//Checks if the day is valid for the month given
+//Month is argument 0, day is argument 1
+//Returns 1 if it's a valid day, 0 if it's not
+IsValidDay
+{
+	_month = TOINT(_argv[0])
+	_day = TOINT(_argv[1])
+
+	case _month
+	{
+		when 2
+		{
+			if _day >= 1 && _day <= 29; 1
+			else; 0
+		}
+		when 4, 6, 9, 11
+		{
+			if _day >= 1 && _day <= 30; 1
+			else; 0
+		}
+		others //1, 3, 5, 7, 8, 10, 12
+		{
+			if _day >= 1 && _day <= 31; 1
+			else; 0
+		}
+	}
+}
+
+//Checks if this is a leap year
+leapyear
+{
+	if year % 4 != 0; 0
+	elseif year % 100 != 0; 1
+	elseif year % 400 != 0; 0
+	else; 1
+}
+
+//Gets the day of the year it currently is, starting from 1 because starting from 0 here is silly
+yearday {GETTIME[7] + 1}
+
+yearweek
+{
+	//Get the current day of the year
+	_days = yearday
+
+	//Get the number of days into the current week that we are
+	_trailingdays = 0
+	while weekday - _trailingdays >= 0
+	{
+		_trailingdays++
+	}
+
+	//Get the number of weeks minus leading and trailing days
+	_days -= _trailingdays
+	_weeks = _days / 7
+	_leadingdays = _days % 7
+
+	//Add in the trailing weeks
+	if _leadingdays > 0; _weeks++
+	if _trailingdays > 0; _weeks++
+
+	//Handles week 53
+	if _weeks == 53
+	{
+		_daysleft = 31 - day
+		if _daysleft + _trailingdays < 7; _weeks = 1
+	}
+	_weeks
+}
+
+//Sets the appropriate suffix for whatever number you pass in
+NumSuffix : all
+{
+	_str = TOSTR(_argv[0])
+	_last = SUBSTR(_str,STRLEN(_str) - 1,1)
+	_last2 = SUBSTR(_str,STRLEN(_str) - 2,2)
+	CVINT(_last2)
+	
+	_str //Add the number, suffixes added below
+	
+	//Handle teen numbers
+	if _last2 >= 11 && _last2 <= 13
+	{
+		"th"
+		return
+	}
+	
+	//Everything else
+	case TOINT(_last)
+	{
+		when 1; "st"
+		when 2; "nd"
+		when 3; "rd"
+		others; "th"
+	}
+}
+
+//From the GT template. Breaking down the day into a few distinct chunks so you dont have to add checks for every hour.
+timeslot
+{
+	if hour >= 5 && hour <= 8; "earlymorning" 		//5-8am
+	elseif hour >= 9 && hour <= 11; "morning" 		//9-11am
+	elseif hour >= 12 && hour <= 14; "lunch" 		//12-2pm
+	elseif hour >= 15 && hour <= 17; "afternoon" 	//3-5pm
+	elseif hour >= 18 && hour <= 20; "evening" 		//6-8pm
+	elseif hour >= 21 && hour <= 24; "latenight" 	//9pm-12am
+	else; "midnight" 								//1-4am
+}
+
+//uhhhhhhhhhhhhhh kinda weird-ish if youre not in the same hemisphere/general area as vera but uh WHATEVER
+//returns 1 if yes, it is daytime
+daytime
+{
+	if hour >= 8 && hour <= 17; 1
+	//8am-5pm
+	elseif season == "Summer" && hour >= 6 && hour <= 19; 1 
+	//6am-7pm
+	else; 0
+}
+
+//This function is to help with changing text alignment in the same line! It makes a new line by using \n, displaying a space, and then going back up a line. So you'd use it like this:
+//"Text on the left%(newline)\f[align,right]Text on the right"
+newline
+{
+	"\n \_l[0]\n[-100]"
+}
+
+//Some lorem ipsum for when you need quick filler text
+loremipsum
+{
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+}
+
+//--uh oh! bad word filter!--------
+//if ASEARCH(thingtosearch,InsertNameHereArray) != -1
+
+//slurs and whatever
+//ig ppl can circumvent this with like numbers n stuff but it's their fault at that point, not mine
+CanYouNotArray
+{
+	"tranny","retard","faggot","dyke","nigger","nigga","beaner","shemale"
+}
+
+//look man i gotta cover all the bases
+WeirdNameArray
+{
+	"mom","dad","mommy","daddy"
+}
+
+SwearJarArray
+{
+	"fuck","shit","dick","cock","bitch","bastard","cunt","slut"
+}
+

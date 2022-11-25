@@ -11,7 +11,7 @@ seriko.use_self_alpha,1
 charset,UTF-8
 type,shell
 name,Shooting Star
-craftman,whataphantasia
+craftman,WhatAPhantasia
 craftmanurl,https://whataphantasia.carrd.co
 
 
@@ -29,6 +29,7 @@ shiori.logo.filename,resources\niseshiori.png
 shiori.logo.x,16
 shiori.logo.y,256
 
+//menu.font.name,Verdana
 
 //Menu Font Color
 menu.background.font.color.r,240

@@ -1,0 +1,118 @@
+//--Ordinary Balloon descript.txt--
+charset,UTF-8
+type,balloon
+name,OSK: Ordinary Balloon
+
+craftman,WhatAPhantasia
+craftmanw,WhatAPhantasia
+craftmanurl,https://phantasiaukahub.carrd.co
+
+homeurl,https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/master/Updates/Balloons/osk_ordinaryballoon
+
+
+//2. -- Defining Text Areas
+
+origin.x,105
+origin.y,30
+
+validrect.left,105
+validrect.top,30
+validrect.right,-10
+validrect.bottom,-18
+
+wordwrappoint.x,-15
+wordwrappoint.y,0
+
+font.name,Arial
+font.height,16
+font.color.r,255
+font.color.g,255
+font.color.b,255
+
+recommended.ghost,Ari & Stan
+
+//3. -- Balloon Position
+
+windowposition.x,0
+windowposition.y,0
+
+use_self_alpha,1
+use_input_alpha,1
+overlay_outside_balloon,1
+
+//This is so the hourglass online marker and click marker show up without being cropped by the balloon's transparency.
+
+
+//4. -- Other String
+
+font.shadowcolor.r,-1
+font.shadowcolor.g,-1
+font.shadowcolor.b,-1
+
+anchor.font.color.r,59
+anchor.font.color.g,65
+anchor.font.color.b,173
+
+
+//5. -- Choice Markers
+
+cursor.blendmethod,none
+cursor.style,underline
+
+cursor.pen.color.r,102
+cursor.pen.color.g,102
+cursor.pen.color.b,102
+
+cursor.brush.color.r,200
+cursor.brush.color.g,200
+cursor.brush.color.b,200
+
+cursor.font.color.r,150
+cursor.font.color.g,150
+cursor.font.color.b,150
+
+
+//6. -- Image Markers
+
+arrow0.x,167
+arrow0.y,10
+
+arrow1.x,167
+arrow1.y,-40
+
+clickwaitmarker.x,287
+clickwaitmarker.y,-49
+
+onlinemarker.x,299
+onlinemarker.y,0
+
+sstpmarker.x,20
+sstpmarker.y,-20
+
+sstpmessage.font.name,Arial
+sstpmessage.font.height,12
+sstpmessage.font.color.r,50
+sstpmessage.font.color.g,50
+sstpmessage.font.color.b,50
+sstpmessage.x,38
+sstpmessage.y,-20
+
+number.font.name,Microsoft Sans Serif
+number.font.height,10
+number.font.color.r,255
+number.font.color.g,255
+number.font.color.b,255
+number.xr,-60
+number.y,15
+
+//Note that number.xr has an r in it, that's important.
+//In Balloon Test Mode, this shows up as Test 128/256.
+
+
+//7. -- Communication Box
+
+communicatebox.x,30
+communicatebox.y,58
+
+communicatebox.width,300
+communicatebox.height,25

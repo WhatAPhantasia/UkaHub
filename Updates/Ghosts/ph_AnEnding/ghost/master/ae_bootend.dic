@@ -1,0 +1,459 @@
+OnFirstBoot //Dialogue when you first open the ghost
+{
+	FirstBootVars //Initialize all your variables at the very bottom!
+	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)","%(ghostver)") //This tracks the exact day and time the ghost was installed, in case you want to mess around with that later. It also tracks what version the user installed, which may be helpful for debugging!
+	--
+	"\![raise,OnFirstBootTalk,%(reference0)]"
+}
+OnFirstBootTalk
+{
+	"\t"
+	--
+	if reference0 == 0 //Very first boot - this dialogue finishes over in nameteach.dic after the user gives their name, make sure you check there.
+	{
+		"\1\s[-1]\0\s[11]\_q%(vera)\_q .\w8.\w8.\w8.\w8.\w8\i[1]? \w8\w4.\w4.\w4.\w4how strange. \w8\w8\n\_q%(vera)\_q who are you..? \w4your name..."
+	}
+	else //Reference0 is the number of times you've uninstalled the ghost, so this is if you're reinstalling them.
+	{
+		reset[0]++
+		"\1\s[-1]\0\s[11]\_q%(vera)\_q .\w8.\w8.\w8.\w8.\w8\i[1]oh. \w8\w4...huh. \w8\w8\n\_q%(vera)\_q have i... \w8been here before? \w8\w8\n\_q%(vera)\_q ah- \w8who are you..?"
+	}
+	--
+	"\![open,inputbox,OnFirstNameTeach]\_l[-10000,-10000]\*\q[ ,CANCEL]"
+}
+
+OnFirstNameTeach {"\![raise,OnNameTeach,""%(reference0)"",firstboot]"}
+
+OnBoot //Normal booting
+{
+	if reference1 != "test" { //\![raise,OnBoot,VERA - DEFAULT,test]
+	BootVars //This sets variables you want to be set on a normal boot, like resetting the variable that saves the previous dialogue. Again, make sure you set these up at the bottom.
+	_timesince = FUNCTIONEX("saori/time_check.dll","how_many_days",lastclosed[0],lastclosed[1],lastclosed[2],0,0,0)
+	_timesince *= -1 //Multiply it by -1 to get rid of the negative sign, or to add one if the user traveled back in time.
+	}
+	"\1\s[-1]" //This line ensures the Kero character does not appear. Feel free to remove if you want a Kero.
+	--
+	if _timesince < 0 //If the user has changed their clock backwards
+	{
+		"\0\s[3]\_q%(vera)\_q hi, %(pername)! \w8\w8\s[2]\i[26]\i[41]\n\_q%(vera)\_q ...huh, \w8why am i feeling some kind of weird deja vu..?\e"
+	}
+	elseif "%(month)/%(day)" == birthday[1] && posfeel >= 25 //she has terrible memory and likely won't remember ur birthday unless youre on good terms with her
+	{
+		"\0\s[3]\_q%(vera)\_q happy birthday %(pername)!! \w8\i[19]\n\_q%(vera)\_q aren't ya surprised i remembered?\e"
+	}
+	elseif _timesince >= 90 //At least 3 months have passed. Feel free to nix this whole section if you don't want it.
+	{
+		TimeBoot(_timesince)
+	}
+	
+	//elseif lastclosed 
+	//i really want to put in a function for "oh didnt i just see you..??" but its a lil hard to do rn
+	
+	else
+	{
+		NormalBoot
+	}
+}
+
+TimeBoot //This will be called if it's been at least 3 months since you opened the ghost last.
+{
+	_timesince = _argv[0] //Days since opened ghost last
+	
+	//Add as many stages to this as you like. Just write the number of days you want. If you want this to happen earlier than 3 months, you can edit it in OnBoot.
+	if _timesince >= 365 //A year
+	{
+		"\0\s[11]\_q%(vera)\_q .\w8.\w8.\w8.\w8.\w8\i[1]huh..?? \w8\w8\w8\n\_q%(vera)\_q i... \w8\w8\s[2]\i[1]\i[80]\i[17]\n\_q%(vera)\_q huh. \w8\w8\w8\s[3]\i[1]\i[80]\i[19]\i[26]\n\_q%(vera)\_q wow, \w2it feels like forever since i've seen this place...\e"
+	}
+	else
+	{
+		"\0\s[11]\_q%(vera)\_q .\w8.\w8.\w8.\w8.\w8\i[1]ah... \w8\w8\w8\s[2]\i[17]\i[1]\i[80]\n\_q%(vera)\_q ...wow, \w2it's been a little while since i've been here...\e"
+	}
+}
+
+NormalBoot : pool
+{
+	"\0\s[11]\_q%(vera)\_q .\w4.\w4.\w4.\w4.\w4\i[1]ah... \w8\w8\w4\n"
+	--
+	"\s[1]\i[1]\i[80]\_q%(vera)\_q i-i wasn't expecting to see you, \w2%(pername)...\e"
+	"\s[1]\i[1]\i[80]\_q%(vera)\_q hi, %(pername)..! \w8i was just taking a nap...\e"
+	
+	if timeslot == "earlymorning"
+	{
+		"\s[1]\i[1]\i[80]\_q%(vera)\_q you're up early, \w2%(pername)...\e"
+		"\s[1]\i[1]\i[80]\_q%(vera)\_q up so early, \w2%(pername)..?\e"
+	}
+	if timeslot == "morning"
+	{
+		"\s[1]\i[1]\i[80]\_q%(vera)\_q morning, \w2%(pername)...\e"
+		"\s[1]\i[1]\i[80]\i[18]\i[26]\_q%(vera)\_q i'm not usually up by now, \w2%(pername)...\e"
+	}
+	if timeslot == "lunch"
+	{
+		"\s[1]\i[1]\i[80]\_q%(vera)\_q it's noon..?\e"
+		"\s[1]\i[1]\i[80]\_q%(vera)\_q already half the day gone, \w2huh %(pername)..?\e"
+	}
+	if timeslot == "afternoon"
+	{
+		"\s[1]\i[1]\i[80]\i[18]\i[27]\_q%(vera)\_q mgnh... \w8\w8\n\s[3]\i[19]\i[26]\i[1]\i[80]\_q%(vera)\_q not used to being up now...\e"
+	}
+	if timeslot == "evening"
+	{
+		"\s[1]\i[1]\i[80]\_q%(vera)\_q hi, %(pername)..! \w6...i'm usually more awake around now, \w2i think.\e"
+	}
+	if timeslot == "latenight"
+	{
+		"\s[3]\i[1]\i[80]\i[19]\_q%(vera)\_q it's nice and dark out now, \w2huh..?\e"
+	}
+	if timeslot == "midnight"
+	{
+		"\s[3]\i[1]\i[80]\i[19]\_q%(vera)\_q it's nice and dark out now, \w2huh..?\e"
+		"\s[3]\i[1]\i[41]\i[61]\i[18]\i[26]\_q%(vera)\_q you know, i get... \w4kinda hungry \w2around this time...\e"
+	}
+}
+
+OnClose
+{
+	CloseVars
+	--
+	if x.up_mins >= 5 //If the ghost has been open longer than 5 minutes.
+	{
+		//band-aid patch, i want this singular dialogue to have a higher chance of appearing (scale as more dialogue pools are added)
+		parallel Pool_SleepyBye
+		
+		//pfft no one will see this but me, leaving it here for funsies
+		if x.up_mins >= 720
+		{
+			"\0\s[1]\i[1]\i[20]\i[80]\_q%(vera)\_q ...oh, huh?! \w8\w8\n\s[3]\i[19]\i[1]\i[27]\i[80]\_q%(vera)\_q wow, \w2and i thought you wouldn't get bored! \w8\w8\n\s[11]\i[1]\_q%(vera)\_q seeya, %(pername)....!!"
+		}
+	}
+	else //If the ghost has been open less than 5 minutes.
+	{
+		"\0\s[11](Ah... \w2Looks like she barely registers her departure, silently going back to sleep.)\w8"
+		"\0\s[11]\i[1]\_q%(vera)\_q already..? \w8\w8\n\s[11]\_q%(vera)\_q good night then, \w4%(pername)..."
+		"\s[1]\i[1]\i[80]\_q%(vera)\_q o-oh, \w4you're going..? \w8\w8\n\s[11]\i[1]\_q%(vera)\_q um, \w4goodbye then, \w4%(pername)..."
+	}
+	--
+	"\w8\w8\w8\-\e"
+}
+
+//two part tired dialogue
+//TODO: only have these appear if shes eepy
+Pool_SleepyBye
+{
+	"\0"
+	--
+	if daytime {					"\s[1]\i[1]\i[80]\i[18]\i[26]\_q%(vera)\_q daytime..."}
+	if !daytime {					"\s[3]\i[1]\i[80]\i[18]\_q%(vera)\_q hmm... \w6nice and dark."}
+	if timeslot == "earlymorning" {	"\s[1]\i[1]\i[80]\i[18]\i[26]\_q%(vera)\_q ahh, \w2it's still so early..."}
+	if timeslot == "morning" {		"\s[5]\i[26]\i[1]\i[80]\_q%(vera)\_q mmm, \w2isn't it bright out now..?"}
+	if timeslot == "lunch" {		"\s[2]\i[1]\i[80]\i[17]\_q%(vera)\_q ...middle of the day, huh?"}
+	if timeslot == "afternoon" {	"\s[1]\i[1]\i[80]\i[18]\i[26]\_q%(vera)\_q ah, \w2a lot of the day is gone..."
+									"\s[1]\i[1]\i[80]\i[18]\_q%(vera)\_q afternoon already..?"}
+	if timeslot == "evening" {		"\s[2]\i[1]\i[80]\_q%(vera)\_q oh... \w6i usually get up around this time..."
+									"\s[2]\i[1]\i[80]\_q%(vera)\_q oh..! \w8\s[1]\i[1]\i[80]is it starting to get dark now?"}
+	if timeslot == "latenight" {	"\s[3]\i[1]\i[80]\i[18]\_q%(vera)\_q hmm... \w6nice and dark."}
+	if timeslot == "midnight" {		"\s[3]\i[1]\i[80]\i[18]\_q%(vera)\_q oh, \w2it's midnight..."}
+	if x.up_mins >= 60 { 			"\s[2]\i[1]\i[80]\_q%(vera)\_q ah, \w4we've been hanging out for a while, \w4huh..?"}
+	//-------------------------------
+	"\s[1]\i[1]\i[80]\_q%(vera)\_q oh, \w4you're going..?"
+	//-------end dialogue immediately
+	"\s[1]\i[1]\i[80]\_q%(vera)\_q oh, \w4you're going..? \w8\w8\n\s[11]\i[1]\_q%(vera)\_q um, \w4goodbye then, \w4%(pername)...\w8\w8\w8\-\e"
+	--
+	"\w8\w8\n\s[11]\i[1]\_q%(vera)\_q "
+	--
+	if daytime {					"i wonder if it's sunny where you are, %(pername)..."
+									"have a good day, \w4%(pername)..."
+									"i hope it's sunny... \w6taking a nap in the sunlight is so nice..."}
+	if !daytime {					"got something to do at night..? \w8i wouldn't know..."
+									"have a good night, \w4%(pername)..."}
+	if timeslot == "earlymorning" {	"got something to do so early..? \w8i wouldn't know..."
+									"i wonder what it's like to wake up early... \w8\w8\n\_q%(vera)\_qseeya."}
+	if timeslot == "morning" {		"make sure you get something to eat if you're hungry, %(pername)..."
+									"i think people eat breakfast around now... \w8maybe i should..."}
+	if timeslot == "lunch" {		"make sure you get something to eat if you're hungry, %(pername)..."}
+	if timeslot == "afternoon" {	"the sun going down always makes me sleepy... \w8\w8\n\_q%(vera)\_qseeya."}
+	if timeslot == "evening" {		"do you get home around now? \w8well, i wouldn't know..."
+									"the sun going down always makes me sleepy... \w8\w8\n\_q%(vera)\_qseeya."}
+	if timeslot == "latenight" {	"...i wish i could just sleep at a normal time..."}
+	if timeslot == "midnight" {		"the city is so nice around this time... \w8\w8\n\s[11]\_q%(vera)\_q maybe i can sleep by the window again..."
+									"the city at midnight... \w8\w8\n\s[11]\_q%(vera)\_q so many colorful street lights..."
+									"dunno what you're up to around midnight, \w6but stay safe..."}
+	//-------------------------------
+	"the city is so nice around this time... \w8\w8\n\s[11]\_q%(vera)\_q maybe i can sleep by the window again..."
+	"make sure you get something to eat if you're hungry, %(pername)..."
+	"i think we still have water bottles in the fridge... \w8\w8\n\s[11]\_q%(vera)\_q water sounds nice..."
+	"maybe i should take a nap... \w8\w8\n\s[11]\_q%(vera)\_q seeya."
+	"um, \w4goodbye then, \w4%(pername)..."
+	"seeya, \w4%(pername)..."
+	{
+	"i wonder what %(ANY('skul,ulys,lila')) is doing right now... \w8\w8\n\s[11]\_q%(vera)\_q seeya."
+	}
+}
+
+
+
+//When you minimize the ghost
+OnWindowStateMinimize
+{
+	"\0\s[11]\i[1](She silently gets minimized into the task bar...)\w8\w8\w6\e"
+}
+
+OnWindowStateRestore //When you bring the ghost back up after minimizing it.
+{
+	"\0\s[1]\i[1]\i[80]\i[35](She's back!)\e"
+}
+
+OnGhostChanging //Changing to another ghost.
+{
+	_path = REPLACE(SHIORI3FW.Path,"\","/")
+	_path = REPLACE(_path,"ghost/master/","")
+	
+	"\1\s[-1]"
+	--
+	if reference3 == _path //If reloading.
+	{
+		if debug == 1
+		{
+			"\0\s[3]\_q%(vera)\_q let's hope nothing was broken, yeah?"
+			"\0\s[3]\i[19]\_q%(vera)\_q you are so so so silly!! come on %(pername)!!!"
+			"\0\s[3]\i[41]\i[27]\_q%(vera)\_q fix me pleaaase >:)"
+			"\0\s[3]\i[19]\_q%(vera)\_q hurry!! i gotta get back to flirting with skul!!!"
+		}
+		else
+		{
+			"\0\s[1]\i[1]\i[80]\i[18]\i[35](Reloading...)"
+		}
+		--
+		"\w8\w8\e" //Gives the user a moment to read the dialogue before they disappear
+	}
+	else
+	{
+		CloseVars
+		
+		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ah... \w8going to see %(TOLOWER(reference0))..? \w8\w6\s[11]\i[1]ok, \w6see you..."
+		--
+		"\w8\w8\w6\e"
+	}
+}
+
+OnGhostChanged //After switching.
+{
+	_path = REPLACE(SHIORI3FW.Path,"\","/")
+	_path = REPLACE(_path,"ghost/master/","")
+	
+	"\1\s[-1]"
+	--
+	if reference3 == _path //Finished reloading.
+	{
+		if debug == 1
+		{
+			"\0\s[3]\_q%(vera)\_q "
+			--
+			"meow!\e"
+			"nya!\e"
+			"mew!\e"
+			"prr!\e"
+			"mmrr!\e"
+			"miao!\e"
+		}
+		else 
+		{
+			"\0\s[1]\i[35](She's back!)\e"
+		}
+	}
+	else
+	{
+		BootVars
+		_timesince = FUNCTIONEX("saori/time_check.dll","how_many_days",lastclosed[0],lastclosed[1],lastclosed[2],0,0,0)
+		_timesince *= -1
+		
+		if _timesince >= 90 //If it's been 3 months or more since you opened them, it'll do the 'wow it's been a long time' dialogue instead of switching dialogue. You can change this if you like!
+		{
+			TimeBoot(_timesince)
+		}
+		else //Switching to this ghost from another ghost
+		{
+			if RAND(50) >= 40 {NormalBoot}
+			else {
+			"\0\s[11]\_q%(vera)\_q .........\i[1]%(TOLOWER(reference0))..?\e"
+			}
+		}
+	}
+}
+
+OnShellChanged //After the shell has changed
+{
+	_old = nowshell
+	nowshell = reference0 //Sets nowshell to the new value
+	
+	"\1\s[-1]" //This hides the kero, get rid of it if you want a kero
+	--
+	if reference0 == _old //If the user switches to the shell they're already using
+	{
+		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ..?\e"
+	}
+	elseif reference0 == "VERA - DEFAULT"
+	{
+		"\0\s[4]\i[1]\i[80]\_q%(vera)\_q ...oh! \w6this feels comfortable...\e"
+	}
+	else
+	{
+		"\0\s[2]\_q%(vera)\_q ...huh? \w6my hands look kinda different...\e"
+	}
+}
+
+//These are all the variables you want to set during a normal boot. So every time the ghost opens, we reset the timekeeping, whether the ghost has checked for updates, and if they've said anything yet.
+BootVars
+{
+	FixDefaultOptions //In case variables get erased, they should be fixed here
+	lastTalk = ""
+	AutoUpdates[1] = 0
+	x.boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
+	
+	//--ok heres the temp vars we need to reset--
+	
+	if allrecenttouch > 0; {recenttouch = (0,0,0)}
+	if Flag("just apologized"); RemoveFlag("just apologized")
+	
+	//--...and other variables to set--
+	VBoots++
+}
+
+//These are variables to set when the ghost is closing or switching away, similar to the above.
+CloseVars
+{
+	lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)") //This tracks the last time the ghost was closed.
+	x.up_all = x.up_total //[Zi] I rewrote the timekeeping system... I like the way it's set up in the base SHIORI files, except that it goes back to 0 every time the ghost reloads and that's annoying. So I recreated it lol
+}
+
+//These are new variables to initialize after an update. By checking if the variable doesn't exist before initializing it, we prevent variables already in use from being overwritten. This is VERY IMPORTANT, or you risk resetting the user's progress on your new variables every time they update.
+//ISVAR is a built in YAYA function that checks if a variable exists(is initialized) or not. It returns 0 if the variable doesn't exist, and 1 if it does.
+UpdateVars
+{
+	FixDefaultOptions //Putting this here too, since the variable issues I've had seemed to happen mostly when updates went wrong!
+	//if ISVAR("examplevariable") == 0; examplevariable = 0
+}
+
+//These are all the variables that need to be initialized when the user first installs the ghost.
+FirstBootVars
+{
+	//---menu/misc stuff---
+	lastTalk = ""
+	nowshell = "VERA - DEFAULT" //shell name
+	username = "stranger"
+	usertitle = "mixter"
+	pronouns = "undef"
+	custompronouns = ("ey","em","eir","eirs")
+	pronounplur = "plur" //THE RAVERS CODE
+	birthday[0] = "???"	 //The user's birthday, written out with words
+	birthday[1] = "???"	 //The user's birthday, written in DD/MM format
+	talkrate = "every 5 minutes"
+	aitalkinterval = 300
+	nowscale = (100,100) //Current scale, as a percentage
+	AcceptTopics=(1,1,1,1,1) //death, suicide, derealization, lgbtphobia, ableism
+	MiscFlags = IARRAY	 //For the flag system
+	offscreen = IARRAY
+	deleteshitai = "On"
+	AutoUpdates = ("On",0)
+	readability = "Full Color"
+	//---touch related variables---
+	stroke[0] = 0		 //The stroke value, which resets after each pet
+	stroke[1] = 0		 //The stroke value, but it doesn't reset after each pet
+	stroke[2] = 0		 //The current streak of successful pets
+	pethighscore[0] = 0	 //The petting high score, as the number of the stroke value
+	pethighscore[1] = 0	 //The petting high score, as the number of pets
+	totaltouch[0] = 0	 //The total times the ghost has been pet
+	totaltouch[1] = 0 	 //total brushes
+	totaltouch[2] = 0 	 //total boops
+	totaltouch[3] = 0 	 //total punches
+	totaltouch[4] = 0 	 //total tugs
+	recenttouch[0] = 0	 //recent pets
+	recenttouch[1] = 0 	 //recent brushes
+	recenttouch[2] = 0 	 //recent boops
+	recenttouch[3] = 0 	 //recent punches
+	recenttouch[4] = 0 	 //recent tugs
+	//--act and item stuff--
+	//i swear i can keep track of all these numbers
+	//a dictionary would make this so much easier...
+	totalacts[0] = 0 	//total compliments
+	totalacts[1] = 0 	//total sing
+	totalacts[2] = 0 	//total comfort
+	totalacts[3] = 0 	//total jokey jokes
+	totalacts[4] = 0 	//total huggies
+	totalacts[5] = 0 	//total teasy teases
+	totalacts[6] = 0 	//total insults
+	
+	totalgive[0] = 0 	//total snacks!
+	totalgive[1] = 0 	//total drinks!
+	totalgive[2] = 0 	//total hobby stuff
+	totalgive[3] = 0 	//total sleep stuff
+	//--modez--
+	nowmode = "Tired" 	//MODES:
+						//asleep
+						//tired
+						//awakened (realized that shes dead)
+						//holding obsidian doesnt need to be a separate mode for all 3 because its a separate variable
+	//---feely relationship vars---
+	reset = (0,0,0) 	 //total resets, positive resets, negative resets
+	posfeel = 0
+	negfeel = 0
+	//---uhhh unique variables here---
+	KnowAbout = (0,0,0,0,0) //luce, mom, skul, ulys, lila
+	VBoots = 1
+	apologies = 0
+	
+	
+	x.boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
+	x.up_all = 0 //How many minutes the ghost was up for in total, not including current session
+}
+
+OnResetConfirm
+{
+	if posfeel > negfeel {reset[1]++} 		//good reset
+	elseif negfeel > posfeel {reset[2]++} 	//bad reset
+	else {}
+	//i could leave else blank but i want to be safe
+	
+	//if divfeel > 1; 						reset[1]++ 	//good reset
+	//elseif divfeel < 0.9 && divfeel > 0; 	reset[2]++ 	//bad reset
+	
+	ResetVars
+	
+	"\t\1\s[-1]\0\s[-1](Your game has been reset. \w6Rebooting...) \_l[-10000,-10000]\*\q[ ,CANCEL]\x\![raise,OnFirstBootTalk,1]"
+}
+
+//resets certain variables. hey dumbass remember to change this every update for new variables idiot head
+ResetVars
+{
+	//--menu/misc things to be reset---
+	lastTalk = ""
+	pronouns = "undef"
+	custompronouns = ("ey","em","eir","eirs")
+	pronounplur = "plur"
+	birthday[0] = "???"	 //The user's birthday, written out with words
+	birthday[1] = "???"	 //The user's birthday, written in DD/MM format
+	talkrate = "every 5 minutes"
+	aitalkinterval = 300
+	MiscFlags = IARRAY
+	x.boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
+	//---touch related variables---
+	stroke = (0,0,0)
+	pethighscore = (0,0)
+	totaltouch = (0,0,0,0,0)
+	recenttouch = (0,0,0,0,0)
+	//---mode + feelies---
+	nowmode = "Tired"
+	posfeel = 0
+	negfeel = 0
+	//---actual unique variables lol---
+	KnowAbout = (0,0,0,0,0) //luce, mom, skul, ulys, lila
+	VBoots = 1
+	apologies = 0
+}
+
+//How many minutes the ghost was up in total, including current session
+x.up_total {x.up_all + x.up_mins}
+
+//How long the ghost has been up in the current session
+x.up_mins {(GETSECCOUNT / 60) - x.boot_min}
+

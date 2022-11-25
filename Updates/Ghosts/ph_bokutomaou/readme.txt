@@ -5,7 +5,7 @@ An Okage: Shadow King ukagaka. Interact with Ari and Stan: They can take out you
 
 - - IMPORTANT - -
 -You can use "Shell Scaling" the SSP menu to change his size.
--Make sure to uncheck Options > Preferences > ghost(2) > Balloon Scaling Linkage so her speech bubbles stay consistent when you scale him!
+-Make sure to uncheck Options > Preferences > ghost(2) > Balloon Scaling Linkage so his speech bubbles stay consistent when you scale him!
 -You can uninstall him by deleting the ph_bokutomaou folder out of your ssp/ghost/ directory, or by turning on uninstall in his personal menu, then selecting 'Uninstall' in the SSP menu.
 
 -- Quick User Guide --

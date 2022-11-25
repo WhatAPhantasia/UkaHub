@@ -1,0 +1,460 @@
+//ok so. i really heavily referenced zi's ghosts for this. onaitalk and randomtalk is all her.
+OnAiTalk
+{
+	if CHAIN.IDName == ""
+	{
+		lastTalk = RandomTalk
+	}
+	else
+	{
+		lastTalk = ChainTalk
+	}
+	
+	lastTalk
+}
+
+/* i like these envelopes heh (ref lines)
+	"\0\s[0]Today is %(nowday)!\e"
+	"\0\s[0]Tomorrow will be %(nowday('next'))!\e"
+	"\0\s[0]In two days it'll be %(nowday(weekday + 2))!\e"
+	"\0\s[0]Yesterday was %(nowday('last'))!\e"
+*/
+
+RandomTalk
+{
+	//idea: split event if/elses into a 50/50 chance to either go to events or straight to random talk, except for priority events. events like getting lila a hollercode under the right conditions (know about lila but havent had her have a hollercode yet), or to peek at hollerfeeds.
+//	if RAND(1)
+//	{
+//		if !Flag("Event FirstHoller") && (posfeel > 5 || negfeel > 5)
+//		{
+//			OnEventFirstHoller
+//		}
+//		else
+// 		{
+// 			Maintalk
+// 		}
+//	}
+//	else
+//	{
+		MainTalk
+//	}
+}
+
+MainTalk : nonoverlap_pool
+{
+	"\0\s[1]\_q%(vera)\_q haaa... i'm so sleepy...\e"
+	
+	//hollerfeed talk - just a normal parallel pool for now
+	parallel Pool_HollerfeedOne 
+	
+	
+	//User Environment Ifs
+	//---Timeslots---
+	if timeslot == "earlymorning" //5am - 8am
+	{
+		if x.up_mins >= 180 //Been open for 3 hours or more, so the user has probably been up all night
+		{
+			
+		}
+		else //Probably just got up
+		{
+			
+		}
+	}
+	if timeslot == "morning" //9am - 11am
+	{
+		
+	}
+	if timeslot == "lunch" //12pm - 2pm
+	{
+		
+	}
+	if timeslot == "afternoon" //3pm - 5pm
+	{
+		
+	}
+	if timeslot == "evening" //6pm - 8pm
+	{
+		
+	}
+	if timeslot == "latenight" //9pm - 12am
+	{
+		
+	}
+	if timeslot == "midnight" //1am - 4am
+	{
+		
+	}
+	
+	//---Days of the week---
+	if wd == "Sun"
+	{
+		
+	}
+	if wd == "Mon"
+	{
+		
+	}
+	if wd == "Tue"
+	{
+		
+	}
+	if wd == "Wed"
+	{
+		
+	}
+	if wd == "Thu"
+	{
+		
+	}
+	if wd == "Fri"
+	{
+		
+	}
+	if wd == "Sat"
+	{
+		
+	}
+	
+	//---Days in the month---
+	if day < 5 //4th and before, start of the month
+	{
+		
+	}
+	if day > 13 && day < 17 //14th-16th, halfway through
+	{
+		
+	}
+	if day > 26 //27th and after, end of the month
+	{
+		
+	}
+	
+	//---Months---
+	if month == 1
+	{
+		
+	}
+	if month == 2
+	{
+		
+	}
+	if month == 3 //Spring start Northern, Autumn start Southern
+	{
+		
+	}
+	if month == 4
+	{
+		
+	}
+	if month == 5
+	{
+		
+	}
+	if month == 6 //Summer start Northern, Winter start Southern
+	{
+		
+	}
+	if month == 7
+	{
+		
+	}
+	if month == 8
+	{
+		
+	}
+	if month == 9 //Autumn start Northern, Spring start Southern
+	{
+		
+	}
+	if month == 10
+	{
+		
+	}
+	if month == 11
+	{
+		
+	}
+	if month == 12 //Winter start Northern, Summer start Southern
+	{
+		
+	}
+	
+	//---Seasons---
+	if season == "Spring"
+	{
+		
+	}
+	if season == "Summer"
+	{
+		
+	}
+	if season == "Autumn"
+	{
+		
+	}
+	if season == "Winter"
+	{
+		
+	}
+	
+	//---Noticing and commenting on other ghosts---
+	//Remember that you have to check for the sakura name of another ghost, not the ghost name.
+	if "Girl" _in_ ghostexlist
+	{
+		
+	}
+}
+
+//user will barely see this so ykyk
+Pool_JustMet : array
+{
+	"\0\s[2]\i[1]\i[80]\_q%(vera)\_q so, \w8um, \w8\w8\n\s[1]\i[1]\i[80]\_q%(vera)\_q what do you usually get up to around here..?\e"
+	"\0\s[2]\i[1]\i[80]\_q%(vera)\_q ...i'm not really interesting company. \w8\w8\n\s[1]\i[1]\i[80]\_q%(vera)\_q i'm \w4just curious why you...\e"
+	"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ...do you have any games, %(pername)?\e"
+	
+	if x.up_mins >= 120
+	{
+		"\0\s[2]\i[1]\i[17]\i[41]\i[61]\_q%(vera)\_q ...oh, i wonder if my @dad... \w8\w8\n\s[3]\i[1]\i[19]\i[26]\i[41]\i[61]\_q%(vera)\_q -no, \w4no, \w4he couldn't be...\e"
+		"\0\s[2]\i[1]\i[80]\_q%(vera)\_q ...i'm not used to being around someone i barely know this long. \w8\w8\n\s[3]\i[1]\i[26]\i[80]\_q%(vera)\_q ...oh, i don't mean that in a bad way!\e"
+	}
+}
+Pool_JustMetNarra : array
+{
+	"\0\s[1]\i[35]\i[1]\i[18]\i[80](Her eyes are drooping... \w8Is that normal for her?)\e"
+	"\0\s[5]\i[1]\i[80](Looks like she's trying to get a sense of what you're doing.) \w8\w8\n\s[2]\i[1]\i[35]\i[80]\i[1030](...She glances away when she notices you looking at her.)\e"
+	"\0\s[1]\i[35]\i[1]\i[80](...She's staring at you awkwardly.)\e"
+}
+
+Pool_HollerfeedOne : array
+{
+	"\s[7]\i[502]\_q%(instantiator)\_q isn't that crazy that that happened? \n\w8\w8\w8\_q%(ruminator) And what, pray tell, are you referring to? \n\w8\w8\w8\w8%(ruminator) Do not leave us in the dark, my dear.\n\w8\w2\w8%(instantiator)\_q ok ok ok ok so!! you know how me and skul stole that street sign right\n\_q\w8\w8\w8\w2%(ruminator) Right...\n\w8\w8\i[26]%(instantiator)\_q the uh... the cops found out i did it lol\e"
+	
+	"\s[6]\i[26]\i[501]\_q%(instantiator)\_q skul... i'm sad :( \n\_q\w8\w8%(prospector) WANT ME TO GIVE YOU A KISS TO CHEER YOU UP? \n\w5\w8\w8%(instantiator)\_q \s[7]\i[26]\i[501]awhh youre adorable <3\e"
+	
+	"\s[6]\i[1030]\i[503]\_q%(revisor) PFFFT LOL whaaaaat are you TALKING abt vera?? Youre SUPER cute <33\n\w8\w8%(instantiator)\_q o-oh um,,, am i..??\e"
+}
+
+
+//-----------Chains-----------
+
+//Example of a chain. The dialogues will play in order each time the ghost talks until it reaches chain=end.
+achain
+{{CHAIN
+	"\0\s[0]Here's another part of the chain!\e"
+	"\0\s[0]Here's a third part of the chain!\e"
+	"\0\s[0]Here's a fourth part of the chain!\e"
+	"\0\s[0]Here's the end of a chain!\e:chain=end"
+}}CHAIN
+
+
+//-----------EVENTS!! LETS GO-----------
+
+//the first time the user sees vera talking on her tablet.
+OnEventFirstHoller : all
+{
+	_time = ""
+	if daytime 	{_time = "day"}
+	else 		{_time = "night"}
+	_s = ""
+	if pronounplur == "plur" || pronouns == "undef" {_s = ""}
+	else {_s = "s"}
+	
+	"\0\t\*\s[2]\i[1]\i[35]\i[81](...She's taken out a tablet. \w8The design is bulky and outdated.)\w8\w8\n\n(The screen is in plain sight.) \x"
+	
+	"\_q\s[6]\i[1]\i[505]| \f[color,%(n.yellow)]Instantiator\f[color,default] began hollerin' at%(br)\f[color,%(n.red)]Prospector\f[color,default] and \f[color,%(n.blue)]Ruminator\f[color,default] at %(hour):%(nowmin) |\w8\w8\n"
+	"%(instantiator)\_q guys i'm having the weirdest %(_time) ever\w8\w8\n"
+	"\_q%(prospector) YOU'RE AWAKE?! THAT'S THE WEIRD THING ABOUT TO%(TOUPPER(_time))!!\w8\w8\w8\w8\n"
+	"\i[17]%(instantiator)\_q ha ha, \w4very funny.\w8\w8\n"
+	"\s[6]\i[1]\i[27]\i[505]\_q%(instantiator)\_q i'm being serious though!! \w6\i[17]this person i'm talking to is,, like,,\w8\w8\n"
+	
+	if divfeel > 0.5 && divfeel < 2 && divfeel != 0
+	{"\![anim,stop,17]\i[18]\_q%(instantiator)\_q ...well, i can't tell WHAT %(they) feel%(_s) about me\w8\w8"}
+	elseif posfeel > negfeel
+	{
+		"\_q%(instantiator)\_q SUPER nice? \w8\w2"
+		if totaltouch[0] > 3
+		{"\![anim,stop,17]\i[18]\i[1030]%(they) keep%(_s) like. \w8touchin my head."}
+		else
+		{"\![anim,stop,17]\i[18]\i[1030]its like %(they) seem%(_s) to LIKE being around me."}
+	}
+	else //technically possible if you have 0 in both posfeel and negfeel but that should be impossible by now
+	{"\_q%(instantiator)\_q kind of a jerk! \w4it sucks being around %(them) :T"}
+	
+	"\w8\w8\n\s[6]\i[1]\i[27]\i[505]\i[1030]\_q%(instantiator)\_q but point is \w2no one talks to me this long! \w6what is going on??\w8\w8\w8\n"
+	"\_q%(prospector) HUH... SEEMS KIND OF SUSPICIOUS\w8\w8\w8\w8\w8\w8\w8\n"
+	
+	if posfeel > negfeel
+	{"\![anim,stop,27]\i[25]%(prospector) NOT IN A BAD WAY! YOU'RE THE COOLEST PERSON I KNOW AND TONS OF PEOPLE SHOULD BE YOUR FRIEND!!! BUT STILL\w8\w8\w8\w8\w8\w8\w8\w8\n"}
+	else 
+	{"%(prospector) ESPECIALLY SINCE %(TOUPPER(they)) SEEM%(TOUPPER(_s)) TO BE BEING MEAN TO YOU! LIKE WHAT IF %(TOUPPER(they))%(TOUPPER(ve)) BEEN TARGETTING YOU?\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\n"}
+	
+	"\i[17]%(prospector) IT'S ALL OUT OF NO WHERE. WHO EVEN IS THIS PERSON?\w8\w8\w8\w8\w8\w8\w8\w8\n"
+	"%(ruminator) Skul, you think everything is suspicious. Stop being a silly goose.\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\n"
+	"\s[6]\i[1]\i[505]%(ruminator) He does have a point on how we do not know your new acquaintance's name, though.\w8\w8\w8\w8\w8\w8\n"
+	"%(instantiator)\_q ah it's like. \w6%(TOLOWER(username)) or so\w2m\w4e\w6t\w8h\w8\w8\s[1]\i[1]\i[35]\i[81]\i[505]\w8\w8\w8\w8\w8\n"
+	"\_q%(prospector) ...VERA????\w8\w8\w8\w8\n"
+	"\s[6]\i[1]\i[505]\i[1030]%(instantiator)\_q uhhhhh i'll text you guys back"
+	
+	"\x"
+	
+	if posfeel > negfeel
+	{
+	"\s[1]\i[1]\i[80]\i[1030]\_q%(vera)\_q ...hi %(pername). \w8\w8\n"
+	"\s[3]\i[1]\i[19]\i[26]\i[80]\i[1030]\_q%(vera)\_q that was just,, my friends on hollercaller @_@; its like a chatroom type thing \w8\w8\n"
+	"\_q%(vera)\_q i didn't mean to talk about you it was just kinda on the mind so um \w8\w8\n"
+	"\s[3]\i[1]\i[26]\i[80]\i[1030]\_q%(vera)\_q yeah \w8\w8\w8\n"
+	"\s[1]\i[1]\i[80]\i[1030]\_q%(vera)\_q ...i don't mind you watching me talk to my friends. \w8\i[26]do you mind that..?"
+	}
+	else
+	{
+	"\s[2]\i[1]\i[80]\_q%(vera)\_q um, \w6hello %(pername)... \w8\w8\n"
+	"\s[3]\i[1]\i[19]\i[26]\i[80]\_q%(vera)\_q that was just,, my friends on hollercaller @_@; its like a chatroom type thing \w8\w8\n"
+	"\s[2]\i[1]\i[26]\i[80]\_q%(vera)\_q i-i didn't mean to talk about you like that i was just being dramatic \w8\w8\n"
+	"\_q%(vera)\_q ...ah \w8\w8\w8\n"
+	"\s[1]\i[1]\i[80]\_q%(vera)\_q ...you can watch me when i talk to my friends. \w8i don't mind."
+	}
+	
+	"\w8\w8\n\n\f[align,center]\f[color,default]\_q"
+	"\![*]\q[I don't mind,posfirstholler]\n\![*]\q[Is that what you think about me?,negfirstholler]"
+}
+Select.posfirstholler
+{
+	posfeel++
+	AddFlag("Event FirstHoller")
+	
+	"\s[3]\i[1]\i[26]\i[35]\i[80](You will now be able to see VERA's hollerfeeds.)\e"
+}
+Select.negfirstholler
+{
+	if negfeel > posfeel; negfeel++
+	AddFlag("Event FirstHoller")
+	
+	if negfeel > posfeel 
+	{"\s[2]\i[1]\i[26]\i[80]\_q%(vera)\_q n\w2-\w2n\w2o\w2, \w8i... \w8\w8\w8\n\n\f[color,default]\_q(...You will now be able to see VERA's hollerfeeds.)\e"}
+	else
+	{"\s[4]\i[1]\i[26]\i[80]\_q%(vera)\_q um... \w8kinda? \w8\w8\n\i[19]\_q%(vera)\_q s-sorry if you don't like me doing that, \w8but you're a good person! \w8i have nothing bad to say about you.\w8\w8\n\n\f[color,default]\_q(You will now be able to see VERA's hollerfeeds.)\e"}
+}
+
+
+//-----------Timekeeping systems and related dialogue-----------
+
+OnMinuteChange
+{
+	if hour == 0 && minute == 0; AutoUpdates[1] = 0 //Resetting auto updates
+	
+	if minute == 0
+	{
+		if allrecenttouch > 0; {recenttouch = (0,0,0)}
+		if Flag("just apologized"); RemoveFlag("just apologized")
+		
+		
+		if hour == 0 && day == 0 && month == 0 //New year's
+		{
+			"\0\s[0]\_q%(vera)\_q gasp!! \w8\w6\n\s[3]\i[19]\_q%(vera)\_q happy new year!!!\e"
+		}
+		elseif HourNotifs == "On" //Top of the hour notifications
+		{
+			if hour == 0
+			{
+				"\0\i[35](It's midnight.)\e"
+			}
+			elseif hour == 12
+			{
+				"\0\i[35](It's noon.)\e"
+			}
+			else
+			{
+				"\0\i[35](It's %(hour12) o'clock.)\e"
+			}
+		}
+	}
+	elseif ARRAYSIZE(offscreen) > 0 //If the ghost is off the screen, it will run the off screen dialogue every minute
+ 	{
+ 		OffscreenTalk
+	}
+	--
+	if AutoUpdates[0] == "On" && AutoUpdates[1] == 0 //Once a day the ghost will check for updates if the user has auto updates on
+	{
+		AutoUpdates[1] = 1
+		"\![updatebymyself,checkonly]"
+	}
+}
+
+OnSecondChange
+{
+	if reference2 == 1 //This is for if your Sakura and Kero are overlapping. \4 will move the speaking character away from the other character. If you need something more complicated you can use OnOverlap instead of this
+	{
+		//"\0\s[0]Me and %(keroname) are overlapping.\4\e"
+	}
+}
+
+OnOffscreen
+{
+	//I've tinkered a lot with this function to get it working for multiple characters. If you need more than 2, just copy the format below very carefully, and make sure you increment the numbers. It's not perfect; if you have multiple characters off screen at once it might pick the wrong dialogues, but you can add more elseifs to handle those cases if you really want them.
+	offscreen = TOSTR(reference0)
+	CVSTR(reference0)
+	CVSTR(reference1)
+	if !("__VERY_FIRST_BOOT__" _in_ SHIORI3FW.LastTalk) //Bandaid patch, hoping this is a bug in SSP that can be fixed there
+	{	
+		if "0" _in_ reference0 //Checks if the sakura was moved off screen
+		{
+			OffscreenTalk("0")
+		}
+		//elseif "1" _in_ reference0 //Checks if the kero was moved off screen
+		//{
+		//	OffscreenTalk("1")
+		//}
+		
+		//Coming back on screen
+		/*
+		elseif "0" _in_ reference1 //Checks if the sakura is no longer off screen
+		{
+			EndOffscreenTalk("0")
+		}
+		elseif "1" _in_ reference1 //Checks if the kero is no longer off screen
+		{
+			EndOffscreenTalk("1")
+		}
+		*/
+	}
+}
+
+OffscreenTalk //Off the screen dialogue.
+{
+	if _argv[0] == "0" //If the sakura is off screen
+	{
+		"\0\_q\i[35](Looks like she's offscreen... You can press Ctrl Shift F12 to bring her back.)\w8\w8\n\f[color,gray](You can also turn these messages off in SSP preferences > Ghost(1) > Disable Screen Boundary Check.)\_q\e"
+	}
+}
+
+EndOffscreenTalk //Being brought back on the screen.
+{
+	//"\0\s[0]I'm back!\e"
+}
+
+OnSurfaceRestore //OnSurfaceRestore happens around 30 seconds after the ghost's last dialogue. reference0 here stores the number of the previous surface, so you can have them comment when they change back if you like.
+{
+	"\1\s[-1]\0%(vsleepyidle)\e"
+}
+
+//plopping the pool func in here since i think this is where its most relevant... thanks zi!!!!!!
+
+//parallel Pool("Pool_Example","%(example == 'True')")
+//parallel Pool("Pool_Example",example == 'True')
+
+Pool
+{
+    if TOINT(_argv[1]); EVAL("%(_argv[0])")
+}
+
+//To start, you'll need to copy the above function into your ghost's files. Then, to create a pool, you need two things. First, you need to add a function call like this to the function you want the Pool in:
+//parallel Pool("Pool_SomePool","%(somevar == 'True')")
+//The word parallel is a built in function of YAYA, which treats all the elements of an array as individual output candidates. After that is a call to the Pool function, which you give two arguments.
+//Argument 1 is the name of the pool you want to call. I always start them with Pool_ but you don't have to. Name it anything you want, as long as it's a valid function name.
+//Argument 2 is the if check you want to activate the pool. In this case, this pool would be used if the variable somevar is equal to True.
+//You'll notice that I've put the condition for the if check into an envelope. You don't have to do that! I just do it because I think it makes the text highlighting nicer. You could also write it like this:
+//parallel Pool("Pool_SomePool",somevar == 'True')
+//Either way, you can put any kind of if check in here. So both of these are also valid:
+//parallel Pool("Pool_NobodyWillEverSeeThis",%(hour == 5 && friendship > 1000 || ARRAYSIZE(inventory) > 50 && (minute == 20 || minute == 40)))
+//parallel Pool("Pool_DaytimeDialogue",IsDaytime)

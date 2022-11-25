@@ -1,0 +1,520 @@
+OnMouseMove
+{
+	if reference3 == 0 //reference3 is what character the mouse is over. 0 is Sakura, 1 is Kero
+	{
+		MouseMoveSakura
+	}
+	else
+	{
+		MouseMoveKero
+	}
+}
+
+OnMouseWheel
+{
+	if reference3 == 0
+	{
+		PetCheck(20,160)
+	}
+	//shes never getting a kero lol but uhhhhghrnnnrg why not be prepared
+}
+
+MouseMoveSakura
+{
+	if reference3 == 0
+	{
+		PetCheck(40,160)
+	}
+}
+
+//stroke is an array here, to save on variables. stroke[0] is the original stroke value, which resets after every successful pet. stroke[1] is the continuous stroking. It's the same as stroke[0], but it does not reset until your mouse leaves the character. stroke[2] is the number of successful pets in a row. I haven't used it here but you can if you want.
+PetCheck //AWHDIUAWHD im sorry for referencing your petting system zi idk if i should ask to use + im too afraid to ask lol (i have. terrible anxietyi hate it)
+{
+	if reference4 == "Head"
+	{
+		stroke[0]++ //Stroke value only goes up when over the appropriate areas
+		stroke[1]++
+		
+		/* removed because this is covered in VPetting
+		if stroke[1] >= _argv[1] //should start around 4 pets
+		{
+			if stroke[0] >= _argv[1] 
+			{
+				stroke[0] = 0
+				stroke[2]++
+				totaltouch[0]++
+				recenttouch[0]++
+				
+				"\0\s[0]...hehe, wow!! \w8\w8\n you pet me, like, %(stroke[2]) times...\e"
+			}
+		}
+		*/
+		if stroke[0] >= _argv[0]
+		{
+			stroke[0] = 0 //Stroke value is reset
+			stroke[2]++
+			totaltouch[0]++
+			recenttouch[0]++
+			
+			VPetting
+		}
+	}
+	elseif reference4 == "Hair"
+	{
+		stroke[0]++
+		
+		if stroke[0] >= _argv[0]
+		{
+			stroke[0] = 0
+			totaltouch[1]++
+			recenttouch[1]++
+			
+			VHairB
+		}
+	}
+	elseif reference4 == "Face"
+	{
+		stroke[0]++
+		
+		if stroke[0] >= _argv[0]
+		{
+			stroke[0] = 0
+			
+			VFace
+		}
+	}
+	else //if leaving a hitbox. might be kinda jank, remove if its a problem
+	{
+		stroke[0] = 0
+		stroke[1] = 0
+		stroke[2] = 0
+	}
+}
+
+OnMouseLeaveAll //When the mouse is no longer on a hitbox. You can change to OnMouseLeave if you want it to happen when you leave any hitbox for another one
+{
+	if stroke[1] > 160 && stroke[1] > pethighscore[0] //Checks if you're in continuous petting, and if you are, if you got a high score.
+	{
+		pethighscore[0] = stroke[1]
+	}
+	--
+	if stroke[2] > pethighscore[1] //Same thing here, but it's counting the number of successful pets you got. You can use this instead of the stroke count if you like.
+	{
+		pethighscore[1] = stroke[2]
+		_b = BalloonCheck
+		if _b == 1 //Checks to see if the balloon is open, and if it is, \C means this will be added onto the previous dialogue.
+		{
+			"\C\n\n\f[color,default]\i[35](New high score: %(pethighscore[1]) in a row!)\e"
+		}
+	}
+	--
+	stroke[0] = 0
+	stroke[1] = 0
+	stroke[2] = 0
+}
+
+//add separate pool for petting obsi obvi
+
+VPetting : nonoverlap_pool //dialogue pools for pettooooning
+{
+	_b = ""
+	if negfeel < 20; _b = "\i[1030]" //she only blushes if ur on a positive route
+	
+	//TODO: prioritized over holding obsidian, make obsidian interval on normal poses as backup
+	if totaltouch[0] <= 1 //first pet
+	{
+		"\0\t\s[1]\i[1]\i[20]\i[42]\i[62]%(_b)\_q%(vera)\_q !!!!!!! \w8\w8\n\s[2]\i[1]\i[42]\i[62]%(_b)\_q%(vera)\_q w-why did you- \w8\w8\w8\n"
+		--
+		if negfeel >= 15 && posfeel < 10
+		{
+			negfeel++
+			"\n\f[color,default]\s[5]\i[1]\i[26]\i[62](She's afraid.)\e"
+		}
+		elseif negfeel >= 15 && posfeel >= 10
+		{
+			posfeel++
+			negfeel++
+			"\n\f[color,default]\s[5]\i[1]\i[26]\i[62](She looks conflicted...)\e"
+		}
+		elseif posfeel >= 100
+		{
+			posfeel += 2
+			"\s[3]\i[26]\i[42]\i[1030]\_q%(vera)\_q ...pfft, \w2%(pername), \w2you're silly!! \w8\w4\n\s[3]\i[18]\i[1030]\_q%(vera)\_q keep the pets coming! \w6they're cool!\e"
+		}
+		elseif posfeel >= 25
+		{
+			posfeel += 2
+			"\s[3]\i[26]\i[42]\i[1030]\_q%(vera)\_q not that i hated that!! \w8\w4\n\s[4]\i[26]\i[42]\i[1030]\_q%(vera)\_q that was actually. \w8kinda neat.\e"
+		}
+		else
+		{
+			posfeel++
+			"\s[2]\i[1]\i[26]\i[42]\i[1030]\_q%(vera)\_q um, that was kinda weird, but... \w8\w4\n\s[3]\i[1]\i[26]\i[42]\i[1030]\_q%(vera)\_q not that i... \w8hated it..?\e"
+		}
+	}
+	elseif holdingObsidian == 1
+	{
+		if posfeel >= 125
+		{
+			posfeel++
+			
+			if stroke[1] >= 160
+			{
+				
+			}
+			else
+			{
+				
+			}
+		}
+		else
+		{
+			
+		}
+	}
+	elseif nowmode == "Asleep"
+	{
+		posfeel++
+		
+		
+	}
+	elseif negfeel < 15 //not too mean to her (TODO: change to different marker for negative route)
+	{
+		if posfeel >= 125 //BESTIES <3 YIPPEE
+		{					
+			posfeel++
+
+			if stroke[1] >= 400 //LOOONG continuous pets
+			{
+				
+			}
+			elseif stroke[1] >= 160 //cont pet
+			{
+				
+			}
+			else //normal pets!!
+			{
+				
+				
+				if recenttouch[1] < 10 //messy messy hair
+				{
+					
+				}
+				else //brushy brushed hair
+				{
+					
+				}
+				if totaltouch[0] >= 200 //so many pets
+				{
+					
+				}
+				if recenttouch[0] > 50 //recent pets
+				{
+					
+				}
+			}
+			--
+			"\e"
+		}
+		elseif posfeel >= 70 //almost besties :3 good friends
+		{
+			posfeel++
+			
+			"\0\s[%(ANY(1,2,5))]\i[1]\i[80]\i[1030]\_q%(vera)\_q ..."
+			
+			if recenttouch[1] < 10 //messy messy hair
+				{
+					
+				}
+				else //brushy brushed hair
+				{
+					
+				}
+				if totaltouch[0] >= 200 //so many pets
+				{
+					
+				}
+				if recenttouch[0] > 50 //recent pets
+				{
+					
+				}
+		}
+		elseif posfeel >= 25 //probably what the user will see for a while
+		{
+			if recenttouch[0] <= 10; posfeel += 0.5
+			//she doesnt hate the pets, she just wont get more posfeel from em
+			
+			if totaltouch[0] <= 5 //you havent really pet her before (no one will see this)
+			{
+				"\0\s[2]\i[1]\i[80]\i[1030]\_q%(vera)\_q o-oh. \w8\w2\n\s[1]\i[1]\i[80]\i[1030]\_q%(vera)\_q hi %(pername)..!"
+				"\0\s[3]\i[1]\i[80]\i[1030]\i[19]\i[26]\_q%(vera)\_q i'm not used to..."
+				"\0\s[1]\i[1]\i[18]\i[80]\i[1030](She's not used to this, but she seems happy.)"
+				"\0\s[2]\i[1]\i[80]\i[1030]\_q%(vera)\_q no one's ever... \w8\n\s[3]\i[1]\i[19]\i[26]\i[80]\i[1030]\_q%(vera)\_q done this before..."
+			}
+				
+			else //normal dialogue pool
+			{
+				"\0\s[%(ANY(1,2,5))]\i[1]\i[80]\i[1030]\_q%(vera)\_q ..."
+				"\0\s[3]\i[1]\i[19]\i[26]\i[80]\i[1030]\_q%(vera)\_q i just wonder why you do this..."
+				"\0\s[2]\i[1]\i[80]\i[1030]\_q%(vera)\_q oh, \w8ok..."
+				"\0\s[1]\i[1]\i[35]\i[80]\i[1030](Her hair is very coarse...)"
+				
+				if recenttouch[1] < 10 //messy messy hair
+				{
+					"\0\s[2]\i[1]\i[35]\i[80]\i[1030](Her hair is all tangled...)"
+					"\0\s[1]\i[1]\i[35]\i[80]\i[1030](Your hand messes up her hair even more.)"
+					"\0\s[1]\i[1]\i[62]\_q%(vera)\_q oh, um, my hair's kinda messy. \w8\w8\n\s[2]\i[1]\i[62]\i[1030]\_q%(vera)\_q um, \w2you can brush it, \w4if you want..."
+				}
+				else //brushy brushed hair
+				{
+					"\0\s[2]\i[1]\i[25]\i[80]\i[1030](Neatly brushed hair.)"
+					"\0\s[1]\i[1]\i[35]\i[80]\i[1030](You take care to not mess up her brushed hair.)"
+				}
+				if totaltouch[0] >= 30 //so many pets
+				{
+					"\0\s[3]\i[1]\i[80]\i[1030]\i[19]\i[26]\_q%(vera)\_q ...so \w6petting people is normal for you?"
+					"\0\s[2]\i[1]\i[80]\_q%(vera)\_q ...i guess i know your love language? \w8\w8\n\s[3]\i[1]\i[80]\i[19]\_q%(vera)\_q hehe."
+					"\0\s[1]\i[1]\i[18]\i[35]\i[80](She seems a little more used to this.)"
+				}
+				if recenttouch[0] > 10 //recent pets
+				{
+					"\0\s[3]\i[19]\i[1]\i[80]\i[26]\_q%(vera)\_q c'mon, \w4%(pername), \w4that's kinda a lot..."
+					"\0\s[3]\i[19]\i[1]\i[80]\i[26]\_q%(vera)\_q c'mon, \w4%(pername), \w4my head's all petted out, \w4you know?"
+					"\0\s[3]\i[19]\i[1]\i[80]\i[26]\_q%(vera)\_q %(pername), that's a lot of pets..."
+					"\0\s[3]\i[19]\i[1]\i[80]\i[26]\_q%(vera)\_q 'm kinda dizzy..."
+				}
+			}
+			--
+			"\e"
+		}
+		else 
+		{
+			if recenttouch[0] > 5
+			{
+				"\0\s[3]\i[19]\i[1]\i[80]\i[26]\_q%(vera)\_q c-c'mon, \w4%(pername), \w4that's kinda a lot..."
+				"\0\s[3]\i[19]\i[1]\i[80]\i[26]\_q%(vera)\_q %(pername), isn't that enough..?"
+				"\0\s[5]\i[1]\i[80]\![anim,clear,25]\_q%(vera)\_q ..."
+			}
+			else
+			{
+				posfeel++
+				
+				"\0\s[2]\i[1]\i[35]\i[80]\i[1030](She sits awkwardly, but doesn't object.)"
+				"\0\s[5]\i[1]\i[35]\i[80]\i[1030](Doesn't seem like she's used to this.)"
+				"\0\s[1]\i[1]\i[18]\i[35]\i[80]\i[1030](Well, she doesn't hate it.)"
+				
+				if totaltouch[0] >= 15 //idk if anyone will see this but who knows
+				{
+					"\0\s[2]\i[1]\i[80]\i[1030]\_q%(vera)\_q no one's ever... \w8\n\s[3]\i[1]\i[19]\i[26]\i[80]\i[1030]\_q%(vera)\_q done this before..."
+					"\0\s[3]\i[1]\i[80]\i[1030]\i[19]\i[26]\_q%(vera)\_q i'm not used to..."
+					"\0\s[3]\i[1]\i[80]\i[1030]\i[19]\i[26]\_q%(vera)\_q ...is petting people normal for you..?"
+				}
+			}
+			--
+			"\e"
+		}
+	}
+	elseif negfeel >= 15 //bad routes, again change to different variable/flag for true bad routes
+	{
+		
+	}
+}
+
+
+VHairB
+{
+	//TODO: prioritized over holding obsidian, make obsidian interval on normal poses as backup
+	if totaltouch[1] <= 1 //first brush
+	{
+		"\0\t\s[1]\i[1]\i[20]\i[42]\i[62]\_q%(vera)\_q !!!!!!! \w8\w8\w8\n"
+		--
+		if negfeel >= 15 && posfeel < 10
+		{
+			negfeel++
+			"\n\f[color,default]\s[5]\i[1]\i[26]\i[62](She looks confused... Not in a good way.)\e"
+		}
+		elseif negfeel >= 15 && posfeel >= 10
+		{
+			"\n\f[color,default]\s[5]\i[1]\i[26]\i[62](She looks conflicted...)\e"
+		}
+		elseif posfeel >= 125
+		{
+			posfeel += 2
+			"\s[3]\i[26]\i[42]\i[1030]\_q%(vera)\_q ...oh, you're brushing my hair?? \w8\w4\n\s[3]\i[18]\i[26]\i[1030]\_q%(vera)\_q thanks, %(pername)! \w8it's, \w6um, \w6really messy, \w6so... \w8\w4\n\s[3]\i[1030]\_q%(vera)\_q i appreciate it :\)\e"
+		}
+		elseif posfeel >= 25
+		{
+			posfeel++
+			"\s[1]\i[1]\i[42]\i[1030]\_q%(vera)\_q a-are you... \w2brushing my hair..? \w8\w8\n\s[2]\i[1]\i[80]\i[1030]\_q%(vera)\_q i... don't mind if you want to keep doing it... \w8\w8\n\s[3]\i[1]\i[19]\i[26]\i[80]\i[1030]\_q%(vera)\_q it's kinda messy...\e"
+		}
+		else
+		{
+			"\s[2]\i[1]\i[26]\i[42]\_q%(vera)\_q u-um, \w8can you- \w8\w8\n\s[1]\i[1]\i[26]\i[42]\_q%(vera)\_q can you please not touch my hair like that..? \w8\w8\n\s[3]\i[1]\i[19]\i[26]\i[42]\i[61]\_q%(vera)\_q i'd probably be ok with it if i knew you better, but \w6um, \w6no hard feelings 'cause you didn't know...\e"
+		}
+	}
+	elseif holdingObsidian == 1
+	{
+		if posfeel >= 125
+		{
+			posfeel++
+			
+			if stroke[1] >= 160
+			{
+				
+			}
+			else
+			{
+				
+			}
+		}
+		else
+		{
+			
+		}
+	}
+	elseif nowmode == "Asleep"
+	{
+		posfeel++
+		
+		
+	}
+	elseif negfeel <= 15 //not too mean to her (TODO: change to different marker for negative route)
+	{
+		if posfeel >= 125
+		{					
+			posfeel += 0.5
+
+			if stroke[1] >= 400 //LOOONG continuous pets
+			{
+				
+			}
+			elseif stroke[1] >= 160 //cont pet
+			{
+				
+			}
+			else
+			{
+				
+			}
+			--
+			"\e"
+		}
+		elseif posfeel >= 70
+		{
+			posfeel += 0.5
+		}
+		elseif posfeel >= 25
+		{
+			if recenttouch[1] <= 10; posfeel += 0.5
+			
+			"\0\s[%(ANY(1,2,5))]\i[1]\i[80]\i[1030]\_q%(vera)\_q ..."
+			"\0\s[2]\i[1]\i[80]\i[1030]\_q%(vera)\_q hm..."
+			"\0\s[1]\i[1]\i[35]\i[80]\i[1030](Feels a little coarse.)"
+			
+			if recenttouch[1] < 10 {
+				"\0\s[1]\i[1]\i[18]\i[35]\i[80](She winces a bit... Unfortunately unavoidable.)"
+				"\0\s[1]\i[1]\i[35]\i[80]\i[1030](It's very knotted...)"
+				"\0\s[2]\i[1]\i[35]\i[80]\i[1030](Tough to get the tangles out.)"
+			}
+			else {
+				"\0\s[2]\i[1]\i[25]\i[80]\i[1030](Neatly brushed hair.)"
+				"\0\s[1]\i[1]\i[35]\i[80]\i[1030](Smooth and untangled. \w8Not silky, though. \w8Might have to work on that.)"
+				"\0\s[2]\i[1]\i[25]\i[80]\i[1030](Her hair's much nicer now.)"
+			}
+			if totaltouch[1] >= 30 {
+				"\0\s[2]\i[1]\i[80]\i[1030]\_q%(vera)\_q ...do you like brushing people's hair..?"
+				"\0\s[1]\i[1]\i[18]\i[35]\i[80](She seems a little more used to this.)"
+			}
+			--
+			"\e"
+		}
+		else 
+		{
+			if recenttouch[1] <= 4
+			{
+				negfeel += 0.5
+				
+				"\0\s[1]\i[1]\i[62]\_q%(vera)\_q o-oh, um, \w8\w8\n\s[2]\i[1]\i[26]\i[62]\_q%(vera)\_q i'm \w6assuming that was an accident..."
+				"\0\s[1]\i[1]\i[62]\_q%(vera)\_q h-hey, can you \w8\w8\n\s[2]\i[1]\i[26]\i[62]\_q%(vera)\_q watch your hands..?"
+			}
+			else //after tooching hair too much
+			{
+				negfeel += 1
+				
+				"\0\s[2]\i[1]\i[17]\i[26]\i[62]\_q%(vera)\_q u-um, %(pername), please stop..."
+				"\0\s[5]\i[26]\i[1]\i[80]\_q%(vera)\_q ..."
+				
+				if totaltouch[1] >= 8
+				{
+					"\0\s[2]\i[1]\i[17]\i[27]\i[62]\_q%(vera)\_q geez, okay, guess i'll never tell you about boundaries ever again."
+					"\0\s[5]\i[1]\i[26]\i[62]\_q%(vera)\_q w-why are you..?"
+					"\0\s[5]\i[27]\i[1]\i[80](...She seems upset.)"
+					"\0\s[5]\i[27]\i[1]\i[80]\_q%(vera)\_q ..."
+				}
+			}
+			--
+			"\e"
+		}
+	}
+	elseif negfeel >= 15 //bad routes, again change to different variable/flag for true bad routes
+	{
+		
+	}
+}
+
+
+
+//-----
+
+OnMouseDoubleClick
+{
+	if reference5 == 0 //reference5 is the mouse button being clicked, in this case a left click. Also checks to see if this is during the first boot, and if so, prevents the menus from being opened
+	{
+		if reference3 == 0; MouseDoubleClickSakura //this is the character, as above
+		else; MouseDoubleClickKero
+	}
+}
+
+MouseDoubleClickSakura
+{
+	if reference4 == "Face" //Punching dialogue, only show up on negative route
+	{
+		if totalpunches < 1 //If the user has not punched the ghost yet
+		{
+			"\0\i[35](Are you sure you want to punch her in the face?)"
+			--
+			"\n\n\_q\![*]\q[Yes,FirstPunch]    \![*]\q[No!!!,CANCEL]"
+		}
+		else //If they've already punched the ghost at least once
+		{
+			"\0\s[0]Ow!\e"
+			totalpunches++
+		}
+	}
+	/*
+	elseif reference4 == "Hair" || reference4 == "Head" //tugging hair, only show up on negative route
+	{
+		if totaltugs < 1
+		{
+			"\0\i[35]\_q(Messy hair. Looks pullable.)\w8\w8 \n(Tug?)\w8\w4 "
+			--
+			"\n\n\![*]\q[Yes,FirstTug]    \![*]\q[No,CANCEL]"
+		}
+	}*/ //she's already gone through a lot, letting the user hurt her makes me sad...
+	else //If you're not punching, you must want the menu
+	{
+		OpenSakuraMenu
+	}
+}
+
+Select.FirstPunch //The first time the ghost is punched
+{
+	"\0\s[1]\_q%(vera)\_q ngh-! \w8\n\_q%(vera)\_q %(pername)..?!\e"
+	totalpunches++
+}
+
+Select.FirstTug
+{
+	"\0\s[1]\_q%(vera)\_q ngh-! \w8\n\_q%(vera)\_q o-ow, stop..!!\e"
+	totaltouch[4]++
+}

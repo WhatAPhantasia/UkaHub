@@ -1,0 +1,673 @@
+//VERA THANDI, AN ENDING - MASTER SHELL
+
+version,1
+
+//THIS IS NEWDEF FORMAT BTW
+//animation#.pattern#,method,surface,pause,X,Y
+
+//======Plaaaaaaaning======
+//--------------SURFACES-INTERVALS----
+//surface0: fallback test
+//surface1: sitting neutral
+//surface2: sitting look
+//surface3: sitting smile
+//surface4: sitting smile look
+//surface5: sitting head turned
+//surface6: sit tablet talk + neutral
+//surface7: sit tablet talk + smile
+//surface8: sit journal talk + neutral
+//surface9: sit journal talk + smile
+//surface10: null
+//surface11: sleep idle
+//surface12: sit tablet idle
+//surface13: sit journal idle
+//surface14: 
+//surface18: 
+//surface19: 
+//surface21: standing neutral
+//surface22: 
+//surface23: 
+//surface24: 
+
+//------------------IDLE INTERVALS----
+//	0-9: back legs
+//	10-14: body
+//	15-24: eyes
+//	25-30: eyebrows
+//	31-39: mouth/talk
+//	40-59: back arms
+//	60-79: front arms
+//	80-99: both arms
+//	100 onwards: extra stuff i suppose
+
+//	200: resets back arm
+//	201: stops blink
+//	202: resets eyes
+//	203: resets mouth
+//	204: resets eyebrows
+//	205: stops extras (\i[205]\w1\i[80], etc)
+//	210: resets front arm
+
+//---------IMPORTANT: recalling her surfaces wont cause major flickering because her shell is small. therefore, her intervals are set up only to stop the runonce intervals. if you want to change her intervals, recall her surface first.
+//uh note to self i[35] should stop the mouth animation? though mayyyybeeee you could do ![stop,anim,32]?
+
+//-------------------------VERA-THANDI!-------------
+
+//fallback surface
+surface0 
+{
+	element0,overlay,surface110.png,0,0
+	element1,overlay,surface100.png,0,0
+	element2,overlay,surface130.png,0,0
+	element3,overlay,surface150.png,0,0
+	element4,overlay,surface125.png,0,0
+	
+	//Collisions
+	collisionex0,Head,polygon,128,136,216,136,215,192,191,192,176,188,165,165,162,165,158,177,148,182,158,201,122,201
+	collision1,147,165,190,202,Face
+	collisionex2,Hair,polygon,216,192,190,192,183,200,201,209,211,276,224,292,246,276,239,232
+	
+	//Silly talkin
+	animation1.interval,talk,4
+	animation1.pattern0,alternativestart,(2,3)
+	animation2.interval,never
+	animation2.pattern0,overlay,120,100,0,0
+	animation2.pattern1,overlay,-1,100,0,0
+	animation3.interval,never
+	animation3.pattern0,overlay,120,140,0,0
+	animation3.pattern1,overlay,-1,100,0,0
+	
+	//blink blink
+	animation4.interval,runonce
+	animation4.pattern0,overlay,190,0,0,0
+	
+	animation5.interval,random,4
+	animation5.pattern0,stop,4
+	animation5.pattern1,overlayfast,191,70,0,0
+	animation5.pattern2,overlayfast,194,120,0,0
+	animation5.pattern3,overlay,-1,80,0,0
+	animation5.pattern4,start,4
+	
+	point.basepos.y,282
+}
+
+//------------------------------------------------
+
+//sitting looking forward + neutral
+surface1
+{
+	element0,overlay,surface10.png,0,0
+}
+
+//sitting peering sideways + neutral
+surface2
+{
+	element0,overlay,surface10.png,0,0
+}
+
+
+//sitting looking forward + smiling
+surface3
+{
+	element0,overlay,surface10.png,0,0
+}
+
+//sitting peering sideways + smiling
+surface4
+{
+	element0,overlay,surface10.png,0,0
+}
+
+//neutral talk append for sitting
+surface.append1-2
+{
+	//talk
+	animation32.interval,talk,4
+	animation32.pattern0,overlay,120,100-140,0,0
+	animation32.pattern1,overlay,-1,100,0,0
+	//stop that!!
+	animation35.interval,never
+	animation35.pattern0,stop,32
+}
+
+//smile mouth append for sitting
+surface.append3-4
+{
+	//mouth overlay
+	animation31.interval,runonce
+	animation31.pattern0,overlay,121,0,0,0
+	//talk
+	animation32.interval,talk,4
+	animation32.pattern0,overlay,122,100-140,0,0
+	animation32.pattern1,overlay,-1,100,0,0
+	//stop that!!
+	animation35.interval,never
+	animation35.pattern0,stop,32
+}
+
+//sitting head turned
+surface5
+{
+	//Collisions
+	collisionex0,Head,polygon,128,136,216,136,215,192,191,192,183,200,165,184,154,164,147,181,147,201,122,201
+	collision1,147,165,180,202,Face
+	collisionex2,Hair,polygon,216,192,190,192,183,200,201,209,211,276,224,292,246,276,239,232
+	
+	element0,overlay,surface10.png,0,0
+	
+	//head overlay
+	animation15.interval,runonce
+	animation15.pattern0,overlay,200,0,0,0
+	
+	//--eyebrows
+	//neutral
+	animation25.interval,runonce
+	animation25.pattern0,overlay,205,0,0,0
+	//oh...
+	animation26.interval,never
+	animation26.pattern0,stop,25
+	animation26.pattern1,overlay,206,0,0,0
+	//angry
+	animation27.interval,never
+	animation27.pattern0,stop,25
+	animation27.pattern1,overlay,207,0,0,0
+	
+	//--extras
+	//bloosh
+	animation1030.interval,never
+	animation1030.pattern0,overlay,1031,0,0,0
+}
+
+//sit tablet talk + neutral
+surface6
+{
+	element0,overlay,surface10.png,0,0
+}
+
+//sit tablet talk + smile
+surface7
+{
+	element0,overlay,surface10.png,0,0
+	
+	//mouth overlay
+	animation37.interval,runonce
+	animation37.pattern0,overlay,121,0,0,0
+	//open mouth
+	animation38.interval,never
+	animation38.pattern0,overlay,122,0,0,0
+}
+
+//tablet talk append
+surface.append6-7
+{
+	//her tablet is her mouth now lol
+	animation31.interval,runonce
+	animation31.pattern0,overlay,171,0,0,0
+	//talk
+	animation32.interval,talk,4
+	animation32.pattern0,stop,31
+	animation32.pattern1,overlay,172,0,0,0
+	animation32.pattern2,overlay,-1,180-220,0,0
+	animation32.pattern3,start,31
+	//stop that!!
+	animation35.interval,never
+	animation35.pattern0,stop,32
+	//interval 203 will continue talking!
+}
+
+//sit journal talk + neutral
+surface8
+{
+	element0,overlay,surface10.png,0,0
+}
+
+//sit journal talk + smile
+surface9
+{
+	element0,overlay,surface10.png,0,0
+	
+	//mouth overlay
+	animation37.interval,runonce
+	animation37.pattern0,overlay,121,0,0,0
+	//open mouth
+	animation38.interval,never
+	animation38.pattern0,overlay,122,0,0,0
+}
+
+//journal talk append
+surface.append8-9
+{
+	//journal
+	animation31.interval,runonce
+	animation31.pattern0,overlay,173,0,0,0
+	//talk
+	animation32.interval,talk,6
+	animation32.pattern0,stop,33
+	animation32.pattern1,overlay,1026,0,0,0
+	animation32.pattern2,overlay,-1,500-800,0,0
+	animation32.pattern3,start,33
+	//resting pen
+	animation33.interval,runonce
+	animation33.pattern0,overlay,1025,0,0,0
+	//stop that!!
+	animation35.interval,never
+	animation35.pattern0,stop,32
+}
+
+//append for normal looking forward eyes
+surface.append1,3
+{
+	//commented out are the remnants of me attempting to give the lidded eyes blinking animations, thus the stops and stuff.
+	//--eyes
+	//eye look
+	animation15.interval,runonce
+	//animation15.pattern0,stop,18
+	animation15.pattern0,overlay,190,0,0,0
+	//blink look
+	animation16.interval,random,4
+	animation16.pattern0,stop,15
+	animation16.pattern1,overlayfast,191,0,0,0
+	animation16.pattern2,overlayfast,194,120,0,0
+	animation16.pattern3,overlay,-1,80,0,0
+	animation16.pattern4,start,15
+	//lid look
+	animation17.interval,never
+	animation17.pattern0,parallelstop,(15,16)
+	animation17.pattern1,overlay,191,0,0,0
+	
+	//animation17.interval,never
+	//animation17.pattern0,parallelstop,(15,16)
+	//animation17.pattern1,overlay,191,0,0,0
+	//animation17.pattern2,parallelstart,(18,19)
+	//animation18.interval,never
+	//animation18.pattern0,overlay,191,0,0,0
+	//lid blink
+	//animation19.interval,random,4
+	//animation19.pattern0,parallelstop,(17,18)
+	//animation19.pattern1,overlayfast,194,120,0,0
+	//animation19.pattern2,overlay,-1,80,0,0
+	//animation19.pattern3,start,18
+	
+	//u_u
+	animation18.interval,never
+	animation18.pattern0,parallelstop,(15,16)
+	animation18.pattern1,overlay,194,0,0,0
+	//^_^
+	animation19.interval,never
+	animation19.pattern0,parallelstop,(15,16)
+	animation19.pattern1,overlay,195,0,0,0
+	//0_0
+	animation20.interval,never
+	animation20.pattern0,parallelstop,(15,16)
+	animation20.pattern1,overlay,196,0,0,0
+}
+
+//append for peer eyes
+surface.append2,4,6-9
+{
+	//--eyes
+	//eye look
+	animation15.interval,runonce
+	animation15.pattern0,overlay,192,0,0,0
+	//blink look
+	animation16.interval,random,4
+	animation16.pattern0,stop,15
+	animation16.pattern1,overlayfast,193,0,0,0
+	animation16.pattern2,overlayfast,194,120,0,0
+	animation16.pattern3,overlay,-1,80,0,0
+	animation16.pattern4,start,15
+	//lid look
+	animation17.interval,never
+	animation17.pattern0,parallelstop,(15,16)
+	animation17.pattern1,overlay,193,0,0,0
+	//lid blink
+	//animation19.interval,random,4
+	//u_u
+	animation18.interval,never
+	animation18.pattern0,parallelstop,(15,16)
+	animation18.pattern1,overlay,194,0,0,0
+	//^_^
+	animation19.interval,never
+	animation19.pattern0,parallelstop,(15,16)
+	animation19.pattern1,overlay,195,0,0,0
+}
+
+//sit append 1, legs + body (base)
+surface.append1-9
+{
+	//--back leg
+	//relax
+	animation0.interval,runonce
+	animation0.pattern0,overlay,110,0,0,0
+	//curl up
+	animation1.interval,never
+	animation1.pattern0,stop,0
+	animation1.pattern1,overlay,111,0,0,0
+	
+	//normal sit body
+	animation10.interval,runonce
+	animation10.pattern0,overlay,100,0,0,0
+	
+	point.basepos.y,282
+}
+
+//sit append 2, (1-4, collisions + eyebrows)
+surface.append1-4,6-9
+{
+	//Collisions
+	collisionex0,Head,polygon,128,136,216,136,215,192,191,192,176,188,165,165,162,165,158,177,148,182,158,201,122,201
+	collision1,147,165,190,202,Face
+	collisionex2,Hair,polygon,216,192,190,192,183,200,201,209,211,276,224,292,246,276,239,232
+	
+	//--eyebrows
+	//neutral
+	animation25.interval,runonce
+	animation25.pattern0,overlay,125,0,0,0
+	//oh...
+	animation26.interval,never
+	animation26.pattern0,stop,25
+	animation26.pattern1,overlay,126,0,0,0
+	//angry
+	animation27.interval,never
+	animation27.pattern0,stop,25
+	animation27.pattern1,overlay,127,0,0,0
+	
+	//--extras
+	//bloosh
+	animation1030.interval,never
+	animation1030.pattern0,overlay,1030,0,0,0
+}
+
+//sit append 3, arms
+surface.append1-5
+{
+	//--back arms
+	//rest on knee
+	animation40.interval,runonce
+	animation40.pattern0,overlay,130,0,0,0
+	//put up to mouth
+	animation41.interval,never
+	animation41.pattern0,stop,40
+	animation41.pattern1,overlay,131,0,0,0
+	//on head
+	animation42.interval,never
+	animation42.pattern0,stop,40
+	animation42.pattern1,overlay,132,0,0,0
+	
+	//--front arms
+	//on ground
+	animation60.interval,runonce
+	animation60.pattern0,overlay,150,0,0,0
+	//on knee
+	animation61.interval,never
+	animation61.pattern0,stop,60
+	animation61.pattern1,overlay,151,0,0,0
+	//on head
+	animation62.interval,never
+	animation62.pattern0,stop,60
+	animation62.pattern1,overlay,152,0,0,0
+	
+	//--both arms
+	//on knees
+	animation80.interval,never
+	animation80.pattern0,parallelstop,(40,60)
+	animation80.pattern1,overlay,170,0,0,0
+	//tablet 1
+	animation81.interval,never
+	animation81.pattern0,parallelstop,(40,60,80)
+	animation81.pattern1,overlay,171,0,0,0
+	//tablet 2
+	animation82.interval,never
+	animation82.pattern0,parallelstop,(40,60,80)
+	animation82.pattern1,overlay,172,0,0,0
+	//dream journal
+	animation83.interval,never
+	animation83.pattern0,parallelstop,(40,60,80)
+	animation83.pattern1,overlay,173,0,0,0
+	//paper 1
+	animation84.interval,never
+	animation84.pattern0,parallelstop,(40,60,80)
+	animation84.pattern1,overlay,174,0,0,0
+	//paper 2
+	animation85.interval,never
+	animation85.pattern0,parallelstop,(40,60,80)
+	animation85.pattern1,overlay,175,0,0,0
+	
+	//journal pen 1
+	animation1025.interval,never
+	animation1025.pattern0,overlay,1025,0,0,0
+	//journal pen 2
+	animation1026.interval,never
+	animation1026.pattern0,stop,1025
+	animation1026.pattern1,overlay,1026,0,0,0
+}
+
+//floating tablet icons, sitting appends
+surface.append1-7
+{
+	//stops all of the speech bubbles bc theyre always functions that i dont want to show up until theyre called...
+	animation499.interval,runonce
+	animation499.pattern0,parallelstop,(1000,1001,1002,1003,1004,1005,1006,1007,1008)
+	//calls speech bubbles
+	//blank
+	animation500.interval,never
+	animation500.pattern0,start,1000
+	//skul
+	animation501.interval,never
+	animation501.pattern0,start,1001
+	//ulys
+	animation502.interval,never
+	animation502.pattern0,start,1002
+	//lila
+	animation503.interval,never
+	animation503.pattern0,start,1003
+	//vera
+	animation504.interval,never
+	animation504.pattern0,start,1004
+	//bestiez
+	animation505.interval,never
+	animation505.pattern0,start,1005
+	//simpz
+	animation506.interval,never
+	animation506.pattern0,start,1006
+	//siblingz
+	animation507.interval,never
+	animation507.pattern0,start,1007
+	//streetz
+	animation508.interval,never
+	animation508.pattern0,start,1008
+	
+	//blank speech bubble
+	animation1000.interval,always
+	animation1000.pattern0,overlay,1000,0,76,179
+	animation1000.pattern1,overlay,-1,1000,0,0
+	animation1000.pattern2,overlay,1000,0,76,182
+	animation1000.pattern3,overlay,-1,1000,0,0
+	//talking to skul
+	animation1001.interval,always
+	animation1001.pattern0,overlay,1010,0,76,179
+	animation1001.pattern1,overlay,-1,1000,0,0
+	animation1001.pattern2,overlay,1010,0,76,182
+	animation1001.pattern3,overlay,-1,1000,0,0
+	//talking to ulys
+	animation1002.interval,always
+	animation1002.pattern0,overlay,1011,0,76,179
+	animation1002.pattern1,overlay,-1,1000,0,0
+	animation1002.pattern2,overlay,1011,0,76,182
+	animation1002.pattern3,overlay,-1,1000,0,0
+	//talking to lila
+	animation1003.interval,always
+	animation1003.pattern0,overlay,1012,0,76,179
+	animation1003.pattern1,overlay,-1,1000,0,0
+	animation1003.pattern2,overlay,1012,0,76,182
+	animation1003.pattern3,overlay,-1,1000,0,0
+	//talking to... self?
+	animation1004.interval,always
+	animation1004.pattern0,overlay,1013,0,76,179
+	animation1004.pattern1,overlay,-1,1000,0,0
+	animation1004.pattern2,overlay,1013,0,76,182
+	animation1004.pattern3,overlay,-1,1000,0,0
+	//talking to skul + ulys
+	animation1005.interval,always
+	animation1005.pattern0,overlay,1014,0,76,179
+	animation1005.pattern1,overlay,-1,1000,0,0
+	animation1005.pattern2,overlay,1014,0,76,182
+	animation1005.pattern3,overlay,-1,1000,0,0
+	//talking to ulys + lila
+	animation1006.interval,always
+	animation1006.pattern0,overlay,1015,0,76,179
+	animation1006.pattern1,overlay,-1,1000,0,0
+	animation1006.pattern2,overlay,1015,0,76,182
+	animation1006.pattern3,overlay,-1,1000,0,0
+	//talking to skul + lila
+	animation1007.interval,always
+	animation1007.pattern0,overlay,1016,0,76,179
+	animation1007.pattern1,overlay,-1,1000,0,0
+	animation1007.pattern2,overlay,1016,0,76,182
+	animation1007.pattern3,overlay,-1,1000,0,0
+	//houseparty!
+	animation1008.interval,always
+	animation1008.pattern0,overlay,1017,0,76,179
+	animation1008.pattern1,overlay,-1,1000,0,0
+	animation1008.pattern2,overlay,1017,0,76,182
+	animation1008.pattern3,overlay,-1,1000,0,0
+}
+
+//--idlez
+//sleepy
+surface11
+{
+	element0,overlay,surface50.png,0,0
+	
+	animation1.interval,never
+	animation1.pattern0,overlay,51,0,0,0
+	
+	animation5.interval,always
+	animation5.pattern0,overlay,61,0,125,212
+	animation5.pattern1,overlay,-1,1000,0,0
+	animation5.pattern2,overlay,61,0,125,211
+	animation5.pattern3,overlay,-1,1000,0,0
+	animation5.pattern4,overlay,61,0,125,210
+	animation5.pattern5,overlay,-1,1000,0,0
+	animation5.pattern6,overlay,61,0,125,211
+	animation5.pattern7,overlay,-1,1000,0,0
+	
+	//tbh you could just do \![anim,pause,5] but jaeifahwduahwf
+	animation10.interval,never
+	animation10.pattern0,stop,5
+	animation10.pattern1,overlay,61,0,125,211
+	
+	point.basepos.y,282
+}
+
+//TODO: finish idle animations ya goof
+//tablet
+surface12
+{
+	element0,overlay,surface110.png,0,0
+	element1,overlay,surface100.png,0,0
+	
+	//--eyes
+	//eye look
+	animation15.interval,runonce
+	animation15.pattern0,overlay,192,0,0,0
+	//blink look
+	animation16.interval,random,4
+	animation16.pattern0,stop,15
+	animation16.pattern1,overlayfast,193,0,0,0
+	animation16.pattern2,overlayfast,194,120,0,0
+	animation16.pattern3,overlay,-1,80,0,0
+	animation16.pattern4,start,15
+	
+	//--tablet anim
+	animation30.interval,runonce
+	animation30.pattern0,stop,31
+	animation30.pattern1,overlay,171,0,0,0
+	animation30.pattern2,overlay,-1,200,0,0
+	animation30.pattern3,start,31
+	animation31.interval,always
+	animation31.pattern0,overlay,172,0,0,0
+	animation31.pattern1,overlay,-1,150-1000,0,0
+	animation31.pattern2,overlay,171,0,0,0
+	animation31.pattern3,overlay,-1,150-1000,0,0
+	
+	point.basepos.y,282
+}
+
+//writing in journal
+surface13
+{
+	element0,overlay,surface110.png,0,0
+	element1,overlay,surface100.png,0,0
+	element2,overlay,surface173.png,0,0
+	
+	//--eyes
+	//eye look
+	animation15.interval,runonce
+	animation15.pattern0,overlay,192,0,0,0
+	//blink look
+	animation16.interval,random,4
+	animation16.pattern0,stop,15
+	animation16.pattern1,overlayfast,193,0,0,0
+	animation16.pattern2,overlayfast,194,120,0,0
+	animation16.pattern3,overlay,-1,80,0,0
+	animation16.pattern4,start,15
+	
+	//--pen anim
+	animation30.interval,runonce
+	animation30.pattern0,stop,31
+	animation30.pattern1,overlay,1025,0,0,0
+	animation30.pattern2,overlay,-1,200,0,0
+	animation30.pattern3,start,31
+	animation31.interval,always
+	animation31.pattern0,overlay,1026,0,0,0
+	animation31.pattern1,overlay,-1,150-1000,0,0
+	animation31.pattern2,overlay,1025,0,0,0
+	animation31.pattern3,overlay,-1,150-1000,0,0
+	
+	point.basepos.y,282
+}
+
+//--Standing Fallback Surface
+surface20 
+{
+	element0,overlay,surface500.png,0,0
+	element1,overlay,surface570.png,0,0
+	
+	//Silly talkin
+	animation1.interval,talk,4
+	animation1.pattern0,alternativestart,(2,3)
+	animation2.interval,never
+	animation2.pattern0,overlay,520,100,0,0
+	animation2.pattern1,overlay,-1,100,0,0
+	animation3.interval,never
+	animation3.pattern0,overlay,520,140,0,0
+	animation3.pattern1,overlay,-1,100,0,0
+	
+	//blink blink
+	animation4.interval,runonce
+	animation4.pattern0,overlay,590,0,0,0
+	
+	animation5.interval,random,4
+	animation5.pattern0,stop,4
+	animation5.pattern1,overlayfast,594,0,0,0
+	animation5.pattern2,overlay,-1,80,0,0
+	animation5.pattern3,start,4
+	
+	point.basepos.y,293
+}
+
+
+
+//Here for reference. If you want your blink/talk frames in subfolders, you must define them first. This is where you can put the subfolder. You should be able to hide them from surface test again by putting that option into your surfacetable.
+//surface100
+//{
+	//element0,overlay,ExampleFolder/surface100.png,0,0
+//}
+
+//Kero surfaces - If you want a kero, uncomment the line below and create an image for surface10
+
+surface10
+{
+	//element0,overlay,surface10.png,0,0
+}

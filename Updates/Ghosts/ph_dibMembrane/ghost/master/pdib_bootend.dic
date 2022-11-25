@@ -60,7 +60,6 @@ OnFirstBootVar
 	deleteshitai = "OFF"
 	//AutoUpdates = ("On",0)
 	//nowmode = "Default" //Uncomment if you plan to add more modes
-	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)","%(ghostver)") //This tracks the exact day and time the ghost was installed, in case you want to mess around with that later. It also tracks what version the user installed, which may be helpful for debugging!
 	MiscFlags = IARRAY	 //For the flag system
 	
 	x.boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
@@ -78,14 +77,16 @@ OnFirstBoot
 	uninstallStatus = reference0
 	firstboot = 1
 	OnFirstBootVar
+	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)","%(ghostver)") 
+	//The above tracks the exact day and time the ghost was installed, in case you want to mess around with that later. It also tracks what version the user installed, which may be helpful for debugging!
 	OnDiscordPluginBoot
 	--
-	"\![enter,passivemode]\1\s[-1]\0\s[-1]"
+	"\t\1\s[-1]\0\s[-1]"
 	--
 	_i = SAORI("saori\fontinstaller","get","Irken Normal (TrueType)")
 	if "%(_i)" == "0"
 	{
-		"The Irken font isn't installed. Some dialogues need this font. Do you want to install it?\n\n[half]\![*]\q[Yes,installirken]     \![*]\q[No,nofont]"
+		"The Irken font isn't installed. Some dialogues need this font. Do you want to install it?\n\n[half]\*\![*]\q[Yes,installirken]     \![*]\q[No,nofont]"
 	}
 	else
 	{
@@ -95,7 +96,7 @@ OnFirstBoot
 
 chooseshell
 {
-	"\_q(Do you want to use the Shooting Star shell or the Florpus shell?)\n\n\![*]\q[Shooting Star,fanonplease] - A more fanon look, very tall\n\![*]\q[Florpus,canonplease] - More ETF adjacent, looks nice next to Levidre's Zim ghost\n\n(You can change how he looks later in the right click menu under Change Shells.)\_q"
+	"\_q(Do you want to use the Shooting Star shell or the Florpus shell?)\n\n\![*]\q[Shooting Star,fanonplease] - A more fanon look, very tall\n\*\![*]\q[Florpus,canonplease] - More ETF adjacent, looks nice next to Levidre's Zim ghost\n\n(You can change how he looks later in the right click menu under Change Shells.)\_q"
 }
 
 Select.fanonplease
@@ -113,7 +114,7 @@ Select.installirken
 	_i = SAORI("saori\fontinstaller","install","Irken Normal (TrueType)",balloonpath + "Irken.ttf")
 	if "%(_i)" == ""
 	{
-		"(Font installed.)\n\n[half]"
+		"(Font installed.)\n\n[half]\x"
 	}
 	else
 	{
@@ -137,7 +138,7 @@ Select.installirken
 
 Select.nofont
 {
-	"(Any dialogue that has irken text will not appear until the font is downloaded.)\n\n[half]"
+	"(Any dialogue that has irken text will not appear until the font is downloaded.)\n\n[half]\x"
 	hastranslator = -1
 	--
 	if firstboot == 1
@@ -155,14 +156,14 @@ OnFirstBootTalk
 	if uninstallStatus == 0
  	{
 		//temp expressions: replace with actual static poses w/ spelldrives in post
-		"\1\s[-1]\0\s[0]\i[79]\i[92]\i[23]Ah- \w4It worked! The spelldrives still work!! I%(br)can't believe I'm... \w2Uh, wherever here is! \w8Wait, what does Digital Jump mean, anyway? And- \w2Why did it only cost two power points? \w4\xOh, nevermind that!! \w2This looks like... \w4A desktop! \w6Pretty cool... \w5\w5If this is a desktop, then it must belong to someone, right? \w8\n.\w2.\w2.\w8\w8\n\n[half]Oh. \w5Hi! \w8I've just been \w2talking to myself this whole time, I didn't even notice you were- \w4Whatever! \w8\xWhat's the name of the person whose computer I'm on, anyway?\n\n[half]"
+		"\1\s[-1]\0\s[0]\i[79]\i[92]\i[23]Ah- \w4It worked! The spelldrives still work!! I can't believe I'm... \w2Uh, wherever here is! \w8Wait, what does Digital Jump mean, anyway? And- \w2Why did it only cost two power points? \w4\xOh, nevermind that!! \w2This looks like... \w4A desktop! \w6Pretty cool... \w5\w5If this is a desktop, then it must belong to someone, right? \w8\n.\w2.\w2.\w8\w8\n\n[half]Oh. \w5Hi! \w8I've just been \w2talking to myself this whole time, I didn't even notice you were- \w4Whatever! \w8\xWhat's the name of the person whose computer I'm on, anyway?\n\n[half]"
 		--
 		"\w5\_q\![open,inputbox,OnNameTeach,-1]\_l[-10000,-10000]\*\q[ ,CANCEL]"
  	}
 	else
  	{
 		//---- You'll see this if you try to run OnFirstBootTalk using ![raise] without the extra 0 as mentioned above. except i cant actually get it to work?? prob bc i separated onfirstboot and onfirstboottalk lmaoooooooo there's no set reference0 for this function
- 		"\1\s[-1]\0\s[0]Aha! Now- \w8Wait, here again? \w5I guess I should have expected that... \w8\n\n[half]Hey again. \w2I mean, \w1\f[bold,1]are\f[bold,0]\w1 you the same person? \w2What's your name?\n\n[half]"
+ 		"\1\s[-1]\0\s[0]Aha! Now- \w8Wait, here again? \w5I guess I should have expected that... \w8\n\n[half]Hey again. \w5I mean, \w1\f[bold,1]are\f[bold,0]\w1 you the same person? \w2What's your name?\n\n[half]"
 		--
 		"\w5\_q\![open,inputbox,OnNameTeach,-1]\_l[-10000,-10000]\*\q[ ,CANCEL]"
  	}
@@ -186,7 +187,7 @@ OnBootVar
 	x.boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
 }
 OnBoot
- {
+{
 	OnBootVar
 	OnDiscordPluginBoot
 	--
@@ -196,6 +197,8 @@ OnBoot
 }
 OnBootPhaseOne
 {
+	_timesince = FUNCTIONEX("saori/time_check.dll","how_many_days",lastclosed[0],lastclosed[1],lastclosed[2],0,0,0)
+	_timesince *= -1 //Multiply it by -1 to get rid of the negative sign, or to add one if the user traveled back in time.
  	"\0\s[0]" //This sets them up in their neutral pose for now. "\1%(keroneutral)"
 	
 	//put %(normalboottalk) if u dont want indiv day messages
@@ -203,12 +206,14 @@ OnBootPhaseOne
 	--
 	if "%(month)/%(day)" == birthday[1]
 	{
-		"\0\s[0]It's %(bornmonthprint) %(borndayprint). \w4I've kinda been looking forward to today, cause it's your birthday, right? \w8Happy birthday, %(username).\e" 
+		"\0\s[0]It's %(bornmonthprint) %(borndayprint). \w4I've kinda been looking forward to today, cause it's your birthday, right? \w8Happy birthday, %(username)." 
 		--
 		if "%(month)/%(day)" == "3/30"
 		{
 			"\x...Oh, and it's my birthday today, too. Nice! (Later im gonna make this jump to it's own Dib Birthday function, yeah?)" 
 		}
+		--
+		"/e"
 	}
 	elseif "%(month)/%(day)" == "3/30" 
 	{
@@ -233,12 +238,19 @@ NormalBootTalk : pool
 	--
 	"\w8\w2\s[3]\i[96]\w8\w2...Ohh, \w5um. \w8\w2\s[2]\i[98]\i[77]Hey, \w5%(username)!\e"
 	}
+	
 	"\0\s[21]\i[92]\i[21]\w8\w8\i[201]...Oh. \w8\w6\s[2]\i[91]Back on the computer again?\e"
 	"\0\s[0]...Oh. \w8Darn! \w6%(username), I was doing some very important paranormal investigator stuff! \w2Guess I can still do it here, but...\e"
+	"\0\s[0]-Gaz, stop messing with my spelldrives!! \w8Oh, \w2here again...\e"
+	"\0\s[21]\i[70]\i[21]\i[92]-And move that over there... \w8\i[201]\i[203]Huh? \w8Oh, \w5%(username)? \w8\s[0]\i[91]\i[76]Didn't know you'd call me... \w8\s[2]\i[91]\i[21]Guess I'll continue my research here, then!\e"
 	
 	if timeslot == "earlymorning"
 	{
-	"\0\s[0]This is an early morning boot dialogue. \w8Between the hours of five and eight.\e"
+		if weekday != weekend && month != nonskoolmonths
+		{
+			"\0\s[21]\i[21]\i[92].\w3.\w3.\w3\i[20]Oh, \w2hey! \w8\w4\s[2]\i[91]Guess I don't have to go to skool, \w4\i[20]maybe.\e"
+		}
+	"\0\s[0]Good morning, %(username).\e"
 	}
 	elseif timeslot == "morning"
 	{
@@ -256,24 +268,29 @@ NormalBootTalk : pool
 	}
 	elseif timeslot == "evening"
 	{
-		if weekday != 7 || weekday != 0 //TODO: another skool schedule thing
 		{
-		"\0\s[21]\i[21]...\w6\s[21]Oh, \w4hey %(username). \w8\s[0]\i[91]Suppose here isn't a bad place to spend some time after skool.\e"
+		"\0\s[21]\i[21]...\w6\s[21]Oh, \w4hey %(username). \w8\s[0]\i[91]Guess here isn't a bad place to spend "
+		--
+			if weekday != weekend && month != nonskoolmonths {
+			"some time after skool.\e"
+			}
+			else {
+			"an evening.\e"
+			}
 		}
-	"\0\s[21]\i[21]...\w6\s[21]Oh, \w4hey %(username). \w8\s[0]\i[91]Suppose here isn't a bad place to spend an evening.\e"
 	}
 	elseif timeslot == "latenight"
 	{
-	"\0\s[0]...Oh. \w8Hey, %(username)! \w8Shouldn't you be getting to sleep soon?\e"
-	"\0\s[21]\i[70]\i[21]\i[92]-And move that over there... \w8\i[201]\i[203]Huh? \w8Oh, \w5%(username)? \w8\s[0]\i[91]\i[76]Didn't know you'd call me around this time. \w8\s[2]\i[91]\i[21]Guess I'll continue my research here, then!\e"
+	"\0\s[0]...Oh. \w8Hey, %(username)! \w8Didn't expect to see you this late...\e"
 	}
 	elseif timeslot == "midnight"
 	{
 		if weekday == 1
 		{
-			"\0\s[0]Oh... You're up, too? \w4Don't know why I'm doing this to myself... It's a Skoolday tomorrow. \w2Or today?\w8"
+			"\0\s[0]Oh... \w6You're up, too? \w8\w3Don't know why I'm doing this to myself... \w6It's a Skoolday tomorrow. \w8Or today?\w8"
 		}
 	"\0\s[0]Mnnhuh? \w2Oh. \w4Hey, %(username)...\w8"
+	"\0\s[0]...Oh. \w8Hey, %(username)! \w8Didn't expect to see you this late...\e"
 	}
 }
 
@@ -281,7 +298,7 @@ NormalBootTalk : pool
 CloseVars
 {
 	lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)") //This tracks the last time the ghost was closed.
-	x.up_all = x.up_total //I rewrote the timekeeping system... I like the way it's set up in the base SHIORI files, except that it goes back to 0 every time the ghost reloads and that's annoying. So I recreated it lol
+	x.up_all = x.up_total //[Zi] I rewrote the timekeeping system... I like the way it's set up in the base SHIORI files, except that it goes back to 0 every time the ghost reloads and that's annoying. So I recreated it lol
 }
 //TODO: buff up the whole "goodbye" dialogues later yea?
 OnClose : pool
@@ -298,7 +315,7 @@ OnClose : pool
 			}
 			elseif timeslot == "morning"
 			{
-				if weekday != 0 || weekday != 6
+				if weekday != weekend && month != nonskoolmonths
 				{
 					"\0\s[0]Aw, darn. \w1I was hoping I could skip class today.\w8"
 					"\0\s[0]Right in the middle of class... I wonder what ZIM's planning right now. \w2Nothing good, probably.\w8"
@@ -307,7 +324,7 @@ OnClose : pool
 			}
  			elseif timeslot == "lunch"
 			{
-				if weekday != 0 || weekday != 6 //TODO: replace with more accurate skool schedule tracker
+				if weekday != weekend && month != nonskoolmonths
 				{
 					"\0\s[0]Aw, darn. \w1I was hoping I could skip class today.\w8"
 					"\0\s[0]Oh, nice! \w2I can still check in on ZIM at Skool...\w8"
@@ -316,7 +333,7 @@ OnClose : pool
 			}
  			elseif timeslot == "afternoon"
 			{
-				if weekday != 0 || weekday != 6
+				if weekday != weekend && month != nonskoolmonths
 				{
 					"\0\s[0]Oh, dang, it's already %(nowhour) PM? \w6Looks like I don't have to go to Skool...\w8"
 				}
@@ -324,7 +341,7 @@ OnClose : pool
 			}
   			elseif timeslot == "evening"
 			{
-				if weekday == 6 //if its set up like this and not how lunch and morning are set up it'll make the ifs the only possible messages.
+				if weekday == 6
 				{
 					"\0\s[0]Got something to do on a Saturday evening? \w7Seeya, %(username).\w8"
 				}
@@ -335,7 +352,7 @@ OnClose : pool
 			}
 			elseif timeslot == "latenight"
 			{
-				if weekday == 6 //This is the same check as above to see if it's Saturday. Note that this doesn't have an else statement! Sometimes you can get away with that, but make sure you test thoroughly.
+				if weekday == 6 
 				{
 					"\0\s[0]Alone on a Saturday night? \w6Haha, no, I'm not going to make that joke. \w6Bye, %(username)!\w2\w8"
 				}		
@@ -345,7 +362,7 @@ OnClose : pool
 			}
 			elseif timeslot == "midnight"
 			{
-				if weekday == 0 //checking if it's the middle of the night on Sunday
+				if weekday == 0
 				{
 					"\0\s[0]\i[77]Yeesh, do you have anything tomorrow? \w2\s[0]\i[25]\i[77]Or today, \w4I guess. \w8\s[2]\i[77]You should get some rest.\w8\w2"
 				}	
@@ -408,7 +425,7 @@ OnGhostChanging
 	{
 		"\s[0]\i[91]\i[76]\i[21].\w2.\w2.\w2Huh. \w8\w6\i[201]Was that me just now?\e"
 	}
-	elseif reference2 == "Ely Crowe"
+	elseif reference2 == "Ely Crowe - SS"
 	{
 		"\0\s[0]Oh... \w8\s[2]Ely! \w8Say hi to them for me!\w8\w8\e"
 	}
@@ -521,7 +538,7 @@ OnGhostChanged
  //The sister to the above, this is the dialogue after you've changed the shell.
  
 OnShellChanged
- {
+{
 	_old = nowshell
 	nowshell = reference0 //Sets nowshell to the new value. reference0 is the name set in descript.txt.
 	--
@@ -570,7 +587,7 @@ OnShellChanged
 		"\0\s[2]\i[91]Changed to %(reference[0]). \w4A new look!\e"
 		}
 	}
- }
+}
 
 
  //--OnDressupChanged

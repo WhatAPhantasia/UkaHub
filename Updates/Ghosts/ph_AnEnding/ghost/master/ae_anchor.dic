@@ -1,0 +1,287 @@
+OnTranslate
+{
+	_talk = reference0
+	
+	//---Auto Anchors---
+	//Add as many names as you want to this list
+	_namelist = "skul,ulys,lila,luce,dad,mom"
+	//HollercodeArray = {"instantiator","prospector","ruminator","revisor"} in word.dic
+	
+	//Names written here should be written in dialogue as @Name 1, @Name 2, etc... So if I added Lulo, I would write @Lulo in dialogue to call the anchor. If I wanted to write the name Lulo without it being an anchor, I would just write it as Lulo
+	//When these anchors are clicked, they will direct to an Anchor.function. So for Name 1 it would be Anchor.Name_1 and for Lulo it would be Anchor.Lulo
+	//Invalid characters will be converted to underscores. You can see a list of invalid characters below. Names are case sensitive as well!
+
+	//Loops through every name on the list and checks for them in dialogue
+	foreach _namelist; _name
+	{
+		//List of characters that are invalid for function names
+		_invalidcharacters = (" ",'"',"#","$","%","&","(",")","*","+","-","/",":",";","<","=",">","?","@","[","]","`","{","|","}",",")
+		_funcname = _name
+		foreach _invalidcharacters; _char //Loop through each invalid character and replace them with _ if they exist
+		{
+			if _char _in_ _funcname; _funcname = REPLACE(_funcname,_char,"_")
+		}
+		_talk = REPLACE(_talk,"@%(_name)","\_a[AUTO_ANCHOR:%(_funcname)]%(_name)\_a") //Replace the @name in the script with an anchor. Since the auto anchor tag uses a :, and : is already cleaned out of the anchor name, you should never be able to interfere with that tag.
+	}
+	
+	foreach HollercodeArray; _code
+	{
+		_funccode = _code
+		
+		_talk = REPLACE(_talk, "@&(_code)","\_a[AUTO_ANCHOR:%(_funccode)]%(_code)\_a")
+	}
+	
+	
+	//---Manual Anchors---
+	//You can use these in conjunction with the auto anchors! Auto anchors are good for setting up simple links to names and such, but if you need something more complex you can still easily put it here and it should not interfere. Don't forget that if you need a one-off anchor, you can just write them directly in dialogue as well.
+	_talk = REPLACE(_talk,"Example Anchor","\_a[exampleanchor]Example Anchor\_a")
+	_talk = REPLACE(_talk,"Example Anchor with OnFunction","\_a[OnSomeAnchor]Since this links to OnSomeAnchor, you could create a function called OnSomeAnchor that would be called directly by clicking this\_a")
+	_talk = REPLACE(_talk,"Example word swap","You don't have to just make anchors, you could also use this to insert images and such")
+	
+	
+	//---Important other stuff, written by Ponapalt---
+	if reference1 == "" && reference2 == ""
+	{ //send input box : no event (ref2) , no special flag (ref1)
+		EVAL('"' + REPLACE(_talk,'"','" + CHR(0x22) + "') + '"')
+	}
+    else
+	{ //event result from ghost
+		TOSTR(_talk)
+	}
+}
+
+//This bit of code is what makes menu options that don't start with On direct to Select.options instead. Remove or comment it if you prefer!
+OnChoiceSelect
+{
+	EVAL("Select.%(reference0)")
+}
+
+OnAnchorSelect
+{
+	if "http://" _in_ reference0 || "https://" _in_ reference0 //checking to see if the link is a web address
+	{
+		"\j[%(reference0)]\e"
+	}
+	elseif "AUTO_ANCHOR:" _in_ reference0 //Checks for the Auto Anchor tag. If it exists, runs a function starting with 'Anchor.' The name of the function, as set up above, will be appended to the end. Example: Anchor.Name_1 or Anchor.Lulo
+	{
+		EVAL("Anchor.%(SPLIT(reference0,'AUTO_ANCHOR:')[1])")
+	}
+	else
+	{
+		case reference0
+		{
+			when "exampleanchor"
+			{
+				"\0\s[0]You clicked the example!\e"
+			}
+		}
+	}
+}
+
+
+Anchor.dad
+{
+	if posfeel < 50
+	{	
+		"\0\s[2]\i[1]\i[80]\_q%(vera)\_q oh, \w6um, \w6my dad, \w6he... \w8\w8\n\i[18]\_q%(vera)\_q he takes care of me, \w6he pays for our apartment... \w8\w8\n\s[3]\i[1]\i[80]\_q%(vera)\_q he's really funny and hardworking!\w8\w2\n\i[18]\i[26]"
+		--
+		if KnowAbout[0] < 1 	{"\_q%(vera)\_q i just wish he... \w8\w8\n\s[5]\i[1]\i[80]\![anim,stop,25]\_q%(vera)\_q ...y'know."}
+		else 					{"\_q%(vera)\_q that's really all i have to say about him..."}
+	} 
+	else //if KnowAbout[0] == 1 (set this up bc im planning on using more than just 0 and 1)
+	{
+		"\0\s[1]\i[1]\i[80]\i[18]\_q%(vera)\_q my dad... \w8\w8\n\s[2]\i[17]\i[1]\i[80]\_q%(vera)\_q he's... \w6y'know. \w8\w8\n\_q%(vera)\_q he's trying his best to provide for me and himself, \w6especially since it's just us, \w6so... \w8\w8\n\s[5]\i[1]\i[80]\![anim,stop,25]\_q%(vera)\_q yeah. \w6no biggie."
+	}
+	--
+	if KnowAbout[0] == 0 {KnowAbout[0] = 1}
+	
+	"\n\n\f[color,default]\![*]\q[Go to question menu,OnPeopleMenu] \n\![*]\q[Close,CANCEL]\e"
+}
+Anchor.luce
+{
+	"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ah, \w6um, \w6that's just my dad's name... \w8\w8\n"
+	--
+	if posfeel < 50
+	{
+		"\s[2]\i[1]\i[80]\i[18]\_q%(vera)\_q he takes care of me, \w6he pays for our apartment... \w8\w8\n\s[3]\i[1]\i[80]\_q%(vera)\_q he's really funny and hardworking!\w8\w2\n\i[18]\i[26]"
+		--
+		if KnowAbout[0] < 1 	{"\_q%(vera)\_q i just wish he... \w8\w8\n\s[5]\i[1]\i[80]\![anim,stop,25]\_q%(vera)\_q ...y'know."}
+		else 					{"\_q%(vera)\_q that's really all i have to say about him..."}
+	} 
+	else
+	{
+		"\s[2]\i[17]\i[1]\i[80]\_q%(vera)\_q he's... \w6y'know. \w8\w8\n\_q%(vera)\_q he's trying his best to provide for me and himself, \w6especially since it's just us, \w6so... \w8\w8\n\s[5]\i[1]\i[80]\![anim,stop,25]\_q%(vera)\_q yeah. \w6no biggie."
+	}
+	--
+	if KnowAbout[0] == 0 {KnowAbout[0] = 1}
+	
+	"\n\n\f[color,default]\![*]\q[Go to question menu,OnPeopleMenu] \n\![*]\q[Close,CANCEL]\e"
+}
+Anchor.mom
+{
+	if KnowAbout[1] == 0 {KnowAbout[1] = 1}
+	
+	if posfeel < 50
+	{
+		"\s[1]\i[1]\i[80]\_q%(vera)\_q my... \w6mom..? \w8\w8\n\s[2]\i[1]\i[80]\_q%(vera)\_q uh, \w2i don't really know that much about her, \w6but my dad really likes her... \w8\w8\n\s[3]\i[19]\i[1]\i[80]\i[26]\_q%(vera)\_q so i like her too..!"
+	} 
+	else
+	{
+		"\s[4]\i[17]\i[26]\_q%(vera)\_q ...i wish i could tell you about her, \w8but i never really met her. \w8\w8\n\![anim,stop,17]\i[19]\_q%(vera)\_q @dad won't even tell me all that much about her, \w6so i don't know if she died or left or whatever. \w8\w8\n\s[5]\![anim,stop,25]\i[1]\i[80]\_q%(vera)\_q but from the way @dad talks about her, \w2she always wanted me to be happy and stuff..."
+	}
+	--
+	"\n\n\f[color,default]\![*]\q[Go to question menu,OnPeopleMenu] \n\![*]\q[Close,CANCEL]\e"
+}
+Anchor.skul
+{
+	if KnowAbout[2] == 0 {KnowAbout[2] = 1}
+	
+	"\0\s[1]\i[1]\i[80]\i[1030]\_q%(vera)\_q o-oh, \w6skul, \w6he... \w8\w8\n\s[3]\i[1]\i[80]\i[19]\i[26]\i[1030]\_q%(vera)\_q um, \w4i met him a few years ago on this one para-science forum. \w8\w8\n\s[4]\i[1]\i[41]\i[61]\i[26]\_q%(vera)\_q he was kinda the first person i really befriended online... \w8\w8\n\i[19]\_q%(vera)\_q um, \w4all you need to know about him is that he's like, \w4one of those conspiracy theory guys- \w4he's really secretive because he hates that the government is watching him and stuff. \w8\w8\n\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q he's really yelly, \w4but he looks out for us... \:)"
+	--
+	"\n\n\f[color,default]\![*]\q[Go to question menu,OnPeopleMenu] \n\![*]\q[Close,CANCEL]\e"
+}
+Anchor.ulys
+{
+	if KnowAbout[3] == 0 {KnowAbout[3] = 1}
+	
+	"\0\s[1]\i[1]\i[80]\_q%(vera)\_q oh, \w4ulys..! \w8\w8\n\s[2]\i[1]\i[80]\_q%(vera)\_q they're probably the most adjusted one out of all of us... \w8\w8\n\s[3]\i[1]\i[80]\i[18]\_q%(vera)\_q i met them on that one para-science forum- \w2\s[3]\i[1]\i[80]they're very particular about mythological creature lore... \w8\w8\n\s[2]\i[1]\i[41]\_q%(vera)\_q ...oh, \w4i'm rambling at this point, \w4but \w4ulys is basically... \w8\w8\n\s[3]\i[1]\i[80]\i[28]\_q%(vera)\_q the responsible-but-takes-no-shit older sibling of the friend group..! \w8\w8\n\s[3]\i[19]\i[1]\i[80]\i[26]\_q%(vera)\_q i-if that... makes sense."
+	--
+	"\n\n\f[color,default]\![*]\q[Go to question menu,OnPeopleMenu] \n\![*]\q[Close,CANCEL]\e"
+}
+Anchor.lila
+{
+	if KnowAbout[4] == 0 {KnowAbout[4] = 1}
+	
+	"\0\s[2]\i[1]\i[41]\_q%(vera)\_q ah, \w4lila is... \w8\w8\n\i[18]\_q%(vera)\_q i met her through "
+	--
+	if KnowAbout[3] >= 1 {"ulys,"} else {"her partner,"}
+	--
+	" \w6unlike the rest of my friends. \w8\w8\n\s[3]\i[1]\_q%(vera)\_q she has an eye for fashion and makeup... \w8\n\i[19]\_q%(vera)\_q and she's always trying to keep everyone in good spirits \^v\^"
+	--
+	if KnowAbout[2] >= 1 {" \w8\w8\w8\n\s[1]\i[17]\i[27]\i[1]\i[80]\i[1030]\_q%(vera)\_q ...i just wish a certain CONSPIRACY THEORIST would stop being so stand-offish to her."}
+	--
+	"\n\n\f[color,default]\![*]\q[Go to question menu,OnPeopleMenu] \n\![*]\q[Close,CANCEL]\e"
+}
+
+
+//If you write all your envelopes as lowercase, you can send them through this function whenever you need the first letter capitalized! It'd look something like this: "%(Capitalize(exampleenvelope))"
+Capitalize
+{
+	_first = SUBSTR(_argv[0],0,1)
+	_rest = ERASE(_argv[0],0,1) //Erase the first character and store everything else in _rest
+	TOUPPER(_first) + _rest
+}
+
+//Searches the start of a string for the requested substring.
+//Argument 0 is the source string to search, argument 1 is the substring to search for.
+//Returns 1 if true, 0 if false.
+//Usage example:
+//StartsWith("Testing","Test")
+StartsWith
+{
+	//Check the length of the substr to test for, check that many characters at the beginning of the string, and see if it matches the given substr
+	_teststr_len = STRLEN(_argv[1])
+	SUBSTR(_argv[0],0,_teststr_len) == _argv[1]
+}
+
+//Searches the end of a string for the requested substring.
+//Argument 0 is the source string to search, argument 1 is the substring to search for.
+//Returns 1 if true, 0 if false.
+//Usage example:
+//EndsWith("Testing","ing")
+EndsWith
+{
+	//Check the length of the substr to test for, check that many characters at the end of the string, and see if it matches the given substr
+	_teststr_len = STRLEN(_argv[0])
+	_substr_len = STRLEN(_argv[1])
+	SUBSTR(_argv[0],_teststr_len - _substr_len,_substr_len) == _argv[1]
+}
+
+//As the name implies, this checks if the balloon is currently open or not.
+//Will be 0 if the balloon is not open, and 1 if the balloon is open
+BalloonCheck
+{
+	"balloon" _in_ var.req.value[ASEARCH("Status",var.req.key)]
+}
+
+//This function allows you to add a line break, but only for the balloon you intend your ghost to use! So if a bit of text wraps awkwardly, but you don't want to add a \n because it may look super weird in other balloons, you can put a %(br) instead! It'll be a \n in your balloon, and a single space in any other balloon. Make sure you add the name of your balloon here!
+//Example: "This dialogue would cut awkwardly in a hypothetical default%(br)balloon,\w4 so a manual linebreak is added for only that balloon.\w8\w8 In any other balloon this would be a%(br)continuous line,\w4 and use SSP's default word wrap.\e"
+br
+{
+	if SHIORI3FW.BalloonName == "Hollerfeed Lite"; "\n"
+	else; " "
+}
+
+//
+//basically the name cleaning function in OnTitle and OnName. returns the cleaned term!!
+CleanTerm
+{	
+	_term = _argv[0] //putting the raw input into _term to do some tests on it
+	_term = TOLOWER(_term) //changes it to lowercase
+	_term = REPLACE(_term," ","") //removes spaces
+	_term = REPLACE(_term,".","") //removes periods
+	_term = REPLACE(_term,"-","") //removes dashes
+	_term
+}
+//
+
+//— Flag System —
+//Usage: This is intended to take the place of single-use variables that only contain 0 or 1, used as flags for certain events and such. With these functions, you can store all those flags as a single array, meaning you can make as many flags as you want without having to really worry about save bloat. It can also make your code a bit more readable!
+
+//You'll want to put 'FlagArray = IARRAY' into your OnFirstBoot. That'll set up an empty array for flags to be stored in.
+//When you want to check if a flag is set or not, you can do it like so:
+//if Flag("My Flag") == 0
+//or
+//if Flag("My Flag") == 1
+
+//Any flags that are NOT in the array are 0, and any flags that ARE in the array are 1. So, to set a flag to 1, you add it to the array like this:
+//AddFlag("My Flag")
+
+//If you want to set a flag back to 0, you can remove it like so:
+//RemoveFlag("My Flag")
+
+//Flag names can be just about anything you want! They're just stored as strings. For example, for S I have "Saw Gaster with googly eyes", and for Lulo I have things like "Unlocked MP3 player" and "Unlocked journal". If you want to see what flags are set, you can just put %(FlagArray) into script input, so it's helpful to have names that describe the flag!
+
+//Checks to see if a flag exists. Returns 1 if yes, returns 0 if no
+Flag
+{
+	if !ISVAR("FlagArray"); FlagArray = IARRAY
+	if ASEARCH(_argv[0],FlagArray) != -1; 1
+	else; 0
+}
+
+//Adds a flag to the array
+AddFlag
+{
+	if !ISVAR("FlagArray"); FlagArray = IARRAY
+	if !Flag(_argv); FlagArray ,= _argv
+}
+
+//Removes all instances of a flag in the array
+RemoveFlag
+{
+	if !ISVAR("FlagArray"); FlagArray = IARRAY
+	_elements = ASEARCHEX(_argv[0],FlagArray)
+	if ARRAYSIZE(_elements) > 0
+	{
+		for _i = ARRAYSIZE(_elements) - 1; _i >= 0; _i-- //Goes from the end of the list to the start, so the elements stay in the same positions while we erase
+		{
+			_current = _elements[_i]
+			FlagArray[_current] = IARRAY
+		}
+	}
+}
+
+//Setting variables in random dialogue
+//You can use this to do detailed variable changes and such in dialogue. If you only need to set one variable, I recommend using EVAL in the line of dialogue, like so:
+//"Some dialogue that changes a variable.\e:eval=somevar='some value'"
+OnDialogueVars
+{
+	case reference0
+	{
+		when "example"
+		{
+			_example += 1
+		}
+	}
+}
