@@ -30,6 +30,7 @@ MouseMoveSakura
 		stroke[0]++ //Stroke value only goes up when over the appropriate areas
 		stroke[1]++
 		
+		/*
 		if stroke[1] >= 160 //this would happen starting at 4 pets
 		{
 			if stroke[0] >= 160 //Stroke count is longer so that you have time to read the dialogue here. Adjust as you like.
@@ -41,7 +42,8 @@ MouseMoveSakura
 				"\0\s[0]...Pfft, you really like doing that, huh?\w8\w8 You're on a %(stroke[2]) pet streak.\e"
 			}
 		}
-		elseif stroke[0] >= 40
+		*/
+		if stroke[0] >= 40
 		{
 			stroke[0] = 0 //Stroke value is reset
 			stroke[2]++
@@ -84,7 +86,16 @@ MouseMoveSakura
 		if stroke[0] >= 40
 		{
 			stroke[0] = 0
-			"\0\s[0]\i[76]...I don't even have a hitbox for this. How are you..??\e"
+			"\0\s[0]\i[65](You comb your hand through his hair. \w6\i[76]He raises his brow at this.)\e"
+		}
+	}
+	elseif reference4 == "Bite"
+	{
+		stroke[0]++
+		
+		if stroke[0] == 10
+		{
+			"\0\s[13]\i[65]\i[33]\i[79]\i[92](He flinches.) !!!\w8\w8\s[3]\i[77]\i[92]\i[65]\w8...\w8\n\n[half](What was that? When you put your cursor near his neck... \w6\i[21]Should you ask him about it?)\e"
 		}
 	}
 }
@@ -143,9 +154,13 @@ MouseMoveKero
  	}
 }
 
-//---- OnMouseDoubleClick -------------------------------------------------------
-//This is set up much like OnMouseMove above, except this is checking to see if the user is double clicking on the ghost. You also don't need to touch any of this. 
-//Advanced users adding a third character, the same principles from OnMouseMove apply here as well! Make sure to add an elseif with the right number for your third character.
+OnMouseClick
+{
+	if reference4 == "Bite"
+	{
+		"\0\s[13]\i[65]\i[33]\i[79]\i[92](He flinches.) !!!\w8\w8\s[3]\i[78]\i[92]\n\n[half]What are you-? \w2Why are you poking \w1\f[bold,1]there??\f[bold,0]\e"
+	}
+}
 
 OnMouseDoubleClick
 {
@@ -168,15 +183,24 @@ MouseDoubleClickSakura
 	{
 		if totalpunches < 1 //If the user has not punched the ghost yet
 		{
-			"\0(Are you sure you want to punch him in the face?)"
+			"\0\i[65](Are you sure you want to punch him?)\i[66]"
 			--
-			"\n\n\_q\![*]\q[Yes,FirstPunch] \![*]\q[No!,cancelnodialogue]"
+			"\n\n\_q\![*]\q[Yes,FirstPunch] \![*]\q[No!!!,CANCEL]"
 		}
 		else //If they've already punched the ghost at least once
 		{
-			"\0\s[3]\i[70]smh i cant believe u would punch me............\e"
+			"\0\s[805]!!! \w8... \w8\s[825]What the hell?!\e"
 			totalpunches++
 		}
+	}
+	elseif reference4 == "Phone"
+	{
+		//this currently assumes u were clicking on the phone when he's in his 3/4 idle, change later
+		"\0\s[2]\i[76]\i[99]...Needed my phone for something?\e"
+	}
+	elseif reference4 == "Briefcase"
+	{
+		"\0\s[0]\i[76]My briefcase? Need something? \i[65](redirect to functions n stuff)\e"
 	}
 	else //If you're not punching, you must want the menu
 	{
@@ -186,7 +210,7 @@ MouseDoubleClickSakura
 
 Select.FirstPunch //The first time the ghost is punched
 {
-	"\0\s[0]...Oh. You're just like them. Fuck you \i[65](CHANGE LATER LOL)\e"
+	"\0\s[805]!!! \w8... \w8\s[820]You-! \w8Why did you-? \w8\w8\s[825]You're... \w8Just like everyone else...\e"
 	totalpunches++
 }
 
@@ -203,12 +227,12 @@ MouseDoubleClickKero
 		{
 			"\1(Are you sure you want to punch them in the face?)"
 			--
-			"\n\n\_q\![*]\q[Yes,FirstPunchKero] \![*]\q[No!,cancelnodialogue]"
+			"\n\n\_q\![*]\q[Yes,FirstPunchKero] \![*]\q[No!,CANCEL]"
 		}
 		else //If they've already punched the ghost at least once
 		{
 			"\1oh... ow....\e"
-			totalpunches++
+			totalkeropunches++
 		}
 	}
 	else //If you're not punching, you must want the menu
@@ -220,7 +244,7 @@ MouseDoubleClickKero
 Select.FirstPunchKero
 {
 	"\1Ow!! Dude, what the heck??\e"
-	totalpunches++
+	totalkeropunches++
 }
  
 //--------Ok now its time to get funky

@@ -1,0 +1,50 @@
+charset,UTF-8
+version,1
+option,DisableNoDefineSurfaces
+
+//A group defined as __disabled will not show up in surface test. __parts means it's mainly used as an animation or piece of something, and won't be assigned a name.
+//group,__disabled
+//{
+	//100,__parts
+//}
+
+
+group,Sit
+{
+	scope,0
+	//Scope is the character this group of surfaces belongs to, in this case the Sakura
+	
+	0,Fallback
+	1,Neutral
+	2,Neu Look
+	3,Smile
+	4,Sml Look
+	5,Head turn
+	6,Tablet N
+	7,Tablet S
+	8,Journal N
+	9,Journal S
+	//The number is the surface number, and the word is the name you want to assign to it
+}
+group
+{
+	scope,0
+	10,null
+}
+group,Idle
+{
+	scope,0
+
+	11,Sleep
+	12,Tablet
+	13,Journal
+}
+group,Stand
+{
+	scope,0
+	20,Fallback
+}
+
+
+
+//You can add as many groups as you like! Having a surface table will also make it so individual blink and talk frames, or any other frames you haven't defined, won't show up in the surface test window.

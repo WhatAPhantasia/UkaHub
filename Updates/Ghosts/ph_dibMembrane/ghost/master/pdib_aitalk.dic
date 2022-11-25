@@ -6,8 +6,12 @@
 
 OnAiTalk
 {
-	if STRLEN(offscreen) == 0
+	if firstboot == 1
 	{
+		firstboot = 0
+		"\0\s[0]Oh, uh, I don't think I finished introducing myself... I guess you can tell me more about yourself later, yeah? \n\i[65](You can update your info in his settings menu!)\x"
+	}
+	else {
 		if CHAIN.IDName == ""
 		{
 			lastTalk = RandomTalk
@@ -18,44 +22,38 @@ OnAiTalk
 		}
 		lastTalk
 	}
-	else
-	{ 
-		OffscreenTalk(ANY(offscreen))
-	}
 }
 
 
 
 
 //--RandomTalk 
- 
-//*********************Advanced User Info*******************************
-//These text boxes are meant for those who have an interest in expanding or using more complicated functions in their ghost. Also for my own reference in the future since I plan on using this template too, haha. If you have no interest in any of this and just want to keep things as simple as possible, feel free to skip these boxes.
+//Will later be used to choose different dialogue pools depending on relationship and situations, yk
 
-//You CAN link to other pools of dialogue in RandomTalk using envelopes/functions, such as %(teatalk) to pull from a pool of dialogue about tea. Then you'd just add that line in among the other dialogue in here with %(teatalk). However, this vastly lowers the probability of dialogue in that function being called. If teatalk only gets called 1/5 times, and it has 10 pieces of dialogue in there, then you're only getting... uh... god, I'm bad at fractions... 1...50th? a chance that a certain teatalk line will appear. LOOK THE GIST IS THAT THE PROBABILITY GETS LOW. This applies to any kind of dialogue in a conditional. A simpler example would be if you have one piece of normal dialogue, and one piece that's an if check that has four pieces of dialogue in there. You'd end up with a 50% chance to get that normal dialogue, and a 50% chance for ONE of the other four pieces of dialogue... which makes the odds of seeing any specific line in that special dialogue that much lower.
+RandomTalk
+{
+	MainTalk
+}
 
-//You can't do things like put OnSystemBoot or something in RandomTalk. You could use \![raise] to pull something though, although I'd be careful about it. More on these kind of things and conditionals in general in the coding page on the walkthrough.
 
-//If you split up RandomTalk with if/else checks, then you can redirect in an If to another function, like... if chargermode == "on" { ChargerChatting } else {normal random talk dialogue}. This would redirect the random dialogue to ChargerChatting instead. You can't just throw a function into RandomTalk directly though, like "dialogue 1" "dialogue 2" OnFunctionname "dialogue 3", that kind of thing. You'll have to split it off into its own if or point to it with an envelope.
-
-//You can do multiple ifs in RandomTalk if required... like an if for if a character is asleep, or if a third character is present, or if they're having a nervous breakdown, or if they're sulking. It depends! You can add a bunch of checks leading to specialized pools if you want. Just make sure you leave some normal dialogue in the last else for RandomTalk (unless you want to redirect that somewhere else with an envelope too... although that seems a bit redundant, honestly.)
-//***********************************************************************.
 //nonoverlap_pool is an amazing modifier added by steve02081504! This makes it so that ALL dialogues you put in the RandomTalk function will have an equal probability of being chosen, no matter how deeply you nest them! Not only that; the nonoverlap part means that it won't repeat itself until it runs out of dialogues, or the number of available dialogues changes. The only exception is if you use a -- to attach two pieces of dialogue together.
 
-RandomTalk : nonoverlap_pool
+MainTalk : nonoverlap_pool
 {
+	/*
 	"\0\s[0]Today is %(nowday)!\e"
 	"\0\s[0]Tomorrow will be %(nowday('next'))!\e"
 	"\0\s[0]In two days it'll be %(nowday(weekday + 2))!\e"
 	"\0\s[0]Yesterday was %(nowday('last'))!\e"
-	//--
+	*/
+	
 	"\0\s[0]%(dibarmfiddle)Have you stretched lately? \w8\i[25]My posture at my own desk is pretty horrible.\e"
 	"\0\s[2]\i[97]Get up and walk around if you haven't gotten up in a while! \w6\i[73]Don't become a chair! \w8\w5...\i[70]\i[91]No, \w2I won't explain the chair thing. \w8\w5\s[22]\i[70]\i[91]\i[80]\i[21]Don't ask.\e"
 	"\0\s[13]\i[98]\i[28]...Wow, my cuticles are all messed up. \w8\s[11]\i[92]\i[27]\i[70]I should probably stop messing with my nails.\e"
 	"\0\s[11]\i[98]\i[28]Hmm... Should I buff my nails?\e"
 	//--ZIMS BASE DIALOGUE, MOVE TO Q&A LATER
 	"\0\s[2]\i[97]\i[73]@ZIM's base is full of admittedly cool alien tech. \w8Like his AI! \w4He calls it his computer, but it's way too smart to just be \f[bold,1]that,\f[bold,0] you know? \w5It has a personality and everything! \w4I was hoping I could sneak into @ZIM's base again and ask his computer if I could study it's code or something. \w2I mean, it let me put a bug in the base, so... \w4Anything's possible, \w2right?\e"
-	"\0\s[0]\i[91]\i[76]\i[21]...@ZIM's computer is kinda like a smart device, \w1huh? \w8\i[201]\i[204]\i[96]Except for the fact that it seems almost sentient. \w4\i[92]\i[25]And... \w8\w2\s[2]\i[70]\i[91]\i[80]Okay, maybe they're not all that similiar. \w8\s[2]\i[97]\i[73]But at least @ZIM's computer%(br)won't spy on me and sell my information to the government! \w8\w8\s[0]\i[92]\i[70]\i[21]\f[height,9]...Human government, anyway.\f[height,default]\e"
+	"\0\s[0]\i[91]\i[76]\i[21]...@ZIM's computer is kinda like a smart device, \w1huh? \w8\i[201]\i[204]\i[96]Except for the fact that it seems almost sentient. \w4\i[92]\i[25]And... \w8\w2\s[2]\i[70]\i[91]\i[80]Okay, maybe they're not all that similiar. \w8\s[2]\i[97]\i[73]But at least @ZIM's computer won't spy on me and sell my information to the government! \w8\w8\s[0]\i[92]\i[70]\i[21]\f[height,9]...Human government, anyway.\f[height,default]\e"
 	//--PHONE DIALOGUE: FLAG TO ACTIVATE AFTER CLICKING ON DIB'S PHONE
 	"\0\s[2]\i[99]Oh, my phone? \w8Yeah!! \w8I made it myself! \w8\w5Well, I didn't \w1\f[bold,1]completely\f[bold,0] \w1make it, \w1but I modified it a lot from an old Membrane Labs phone model. \w8It's completely rooted, has privacy sliders for the high definition camera, can connect to VPN... \w8\w2Gotta stay safe from the other big tech companies trying to spy on my data!\e"
 	
@@ -64,8 +62,8 @@ RandomTalk : nonoverlap_pool
 	//---Appearance---
 	if nowshell == "Shooting Star"
 	{
-	"\0\s[3]\i[78]\i[91]Seriously though, @ZIM is so much shorter than me! \w5\i[70]\i[21]And yet, every single time I've tried to kick him across a room or the skool hallways, he somehow manages to avoid%(br)me...\e"
-	"\0\s[2]\i[72]\i[92]Man, it would be so cool to get more piercings. \w8Ever since I got my studs a while back, \w2@Gaz has been interested in like, \w2nose and eyebrow piercings, \w1and I was considering getting helix piercings, \w5but... \w8\w2Seriously, \w2think about what @ZIM could do if I got a ton of piercings! \w4He could rip my ears and face off! \w8\s[0]\i[70]\i[91]\i[78]I am not letting him get that opportunity.\e"
+	"\0\s[3]\i[78]\i[91]Seriously though, @ZIM is so much shorter than me! \w5\i[70]\i[21]And yet, every single time I've tried to kick him across a room or the skool hallways, he somehow manages to avoid me...\e"
+	"\0\s[2]\i[72]\i[92]Man, it would be so cool to get more piercings. \w8\i[203]Ever since I got my studs, \w2@Gaz has been interested in \w2nose and eyebrow piercings. \w5I was considering getting helix piercings, \w5but... \w8\w2\s[3]\i[91]\i[78]Seriously, \w2think about what @ZIM could do if I got a ton of piercings! \w4He could rip my ears and face off! \w8\i[70]I am not letting him get that opportunity.\e"
 	}
 
 	if nowshell == "Florpus"
@@ -91,11 +89,11 @@ RandomTalk : nonoverlap_pool
 	{
 		if totalhours >= 3 //Been open for 3 hours or more, so the user has probably been up all night
 		{
-			
+		"\0\s[0]...It's a familiar feeling for me, watching the sun go up even though I swear it was just the afternoon...\e"
 		}
 		else //Probably just got up
 		{
-			
+		"\0\s[0]Planning on doing anything today, %(username)? \w6Just curious.\e"
 		}
 		"\0\s[0]%(dibarmfiddle)My morning routine has stayed mostly intact thanks to the \w3\i[2]\i[27]weird magic void in my briefcase. \w8\w3\s[2]For breakfast, I've got some... Old snacks. \w8Looks like I'm eating a \w2two-week-old bag of Flamin' Hot Cheezos! \w8\w4\n\n[half]\s[3]\i[27]\i[77]Ergh.\e"
 		//---TODO: I still dont have the surfaces required to do this one, gotta get an arm interval where he looks in his briefcase
@@ -118,12 +116,12 @@ RandomTalk : nonoverlap_pool
 	}
 	if timeslot == "evening" //6pm - 8pm
 	{
-		"\0\s[0]\i[92]\i[25]...Sunsets from The City look really nice, \w4if %(br)you're above all the lights and buildings.\e"
+		"\0\s[0]\i[92]\i[25]...Sunsets from The City look really nice, \w4if you're above all the lights and buildings.\e"
 	}
 	if timeslot == "latenight" //9pm - 12am
 	{
 		"\0\s[21]\i[92]\i[27]I could probably write in that case file before the day ends...\e"
-		"\0\s[0]\i[70]\i[21]\i[91]Wish there was less light pollution in The %(br)City... \w8\i[20]\i[92]I guess I have @Dad's telescope, \w4but if you're walking and you look up around now, \w3it's all just satellites and planes.\e"
+		"\0\s[0]\i[70]\i[21]\i[91]Wish there was less light pollution in The City... \w8\i[20]\i[92]I guess I have @Dad's telescope, \w4but if you're walking and you look up around now, \w3it's all just satellites and planes.\e"
 		"\0\s[2]\i[91]Isn't space so fascinating? \w8\i[25]\i[96]I could look up around now and be meeting eyes with some alien living a completely different life than me. \w6\i[201]What would that life be like?\w8\w6\n\n[half]\s[3]\i[23]\i[92]\w8\w8...Wait, \w6\i[70]\i[78]\w6no, \w6I think @ZIM ruined that whole thought exercise for me.\e"
 	}
 	if timeslot == "midnight" //1am - 4am
@@ -134,7 +132,7 @@ RandomTalk : nonoverlap_pool
 		"\0\s[0]Hey... \w8Are you working on something, or \w2what? \w8I can't really imagine why you'd be up...\n\n\![*]\q[I'm working,select.nightworkyeah]     \![*]\q[Just staying up,select.nightworknah]"
 		}
 		//carried over from latenight, trim later
-		"\0\s[0]\i[70]\i[21]\i[91]Wish there was less light pollution in The %(br)City... \w8\i[20]\i[92]I guess I have @Dad's telescope, \w4but if you're walking and you look up around now, \w3it's all just satellites and planes.\e"
+		"\0\s[0]\i[70]\i[21]\i[91]Wish there was less light pollution in The City... \w8\i[20]\i[92]I guess I have @Dad's telescope, \w4but if you're walking and you look up around now, \w3it's all just satellites and planes.\e"
 		"\0\s[2]\i[91]Isn't space so fascinating? \w8\i[25]\i[96]I could look up around now and be meeting eyes with some alien living a completely different life than me. \w6\i[201]What would that life be like?\w8\w6\n\n[half]\s[3]\i[23]\i[92]\w8\w8...Wait, \w6\i[70]\i[78]\w6no, \w6I think @ZIM ruined that whole thought exercise for me.\e"
 		//--
 		"\0\s[0]\i[93]\i[21]I get a lot work done around this time. \w6\i[72]It's easier to think.\e"
@@ -143,11 +141,10 @@ RandomTalk : nonoverlap_pool
 	//---Days of the week---
 	if wd == "Sun"
 	{
-		"\0\s[3]\i[72]\i[96]\i[77]Even today, I usually can't catch a break. \w8\w2\s[3]\i[91]\i[25]\i[76]One Sunday, ZIM launched this plan about %(zimnonskoolplans)... \w8\s[3]\i[70]\i[91]It was annoying, \w6\s[2]\i[72]\i[91]but I stopped him, \w2of course.\e"
+		"\0\s[3]\i[72]\i[96]\i[77]Even today, I usually can't catch a break. \w8\w2\s[3]\i[91]\i[25]\i[76]One Sunday, @ZIM launched this plan about %(zimnonskoolplans)... \w8\s[3]\i[70]\i[91]It was annoying, \w6\s[2]\i[72]\i[91]but I stopped him, \w2of course.\e"
 		
-		if month != 6 || month != 7 || month != 8
-		{
-		"\0\s[0]\i[70]\i[21]%(dibarmfiddle)Mmm... It's back to Skool tomorrow.\e" //TODO: expand/organize CheckSchoolMonth conditionals
+		if month != nonskoolmonths {
+		"\0\s[0]\i[70]\i[21]%(dibarmfiddle)Mmm... It's back to Skool tomorrow.\e"
 		}
 	}
 	if wd == "Mon"
@@ -169,13 +166,15 @@ RandomTalk : nonoverlap_pool
 	}
 	if wd == "Fri"
 	{
-		if month != 6 || month != 7 || month != 8 {
+		if month != nonskoolmonths {
 		"\0\s[0]\i[72]\i[93]Friday... \w8\i[70]\i[78]\i[21]The last day I have to worry about @ZIM %(zimskoolplans), \w6\i[20]usually.\e"
 		}
 	}
 	if wd == "Sat"
 	{
-		"\0\s[3]\i[72]\i[96]\i[77]Even today, I usually can't catch a break. \w8\w2\s[3]\i[91]\i[25]\i[76]One Saturday, ZIM launched this plan about %(zimnonskoolplans)... \w8\s[3]\i[70]\i[91]It was annoying, \w6\s[2]\i[72]\i[91]but I stopped him, \w2of course.\e"
+		if month != nonskoolmonths {
+		"\0\s[3]\i[72]\i[96]\i[77]Even today, I usually can't catch a break. \w8\w2\s[3]\i[91]\i[25]\i[76]One Saturday, @ZIM launched this plan about %(zimnonskoolplans)... \w8\s[3]\i[70]\i[91]It was annoying, \w6\s[2]\i[72]\i[91]but I stopped him, \w2of course.\e"
+		}
 	}
 	
 	//---Days in the month---
@@ -216,15 +215,19 @@ RandomTalk : nonoverlap_pool
 	if month == 6 //Summer start Northern, Winter start Southern
 	{
 		"\0\s[2]\i[91]I've been thinking of getting some new pins for pride month. \w6\i[70]\i[21]@Gaz says I can't borrow her matte ace pin after I used it to prick @ZIM that one time.\e"
+		"\0\s[0]MORE PRIDE MONTH DIALOGUE RAHHHHH\e"
+		"\0\s[2]\i[91]Being out of skool means I can focus on my paranormal research more! \w8\i[20]I mean, \w2only if @ZIM doesn't plan anything, \w4and \w4\i[70]he probably will...\e"
 	}
 	if month == 7
 	{
-		
+		if day < 13 {
+			"\0\s[21]\i[8]\i[102]I have weird feelings about the fireworks around this time. \w6\i[72]Sometimes they bring out cryptids from the city woodworks, \w4and I guess they're pretty, \w4but they're also... \w8\s[0]\i[8]\i[102]\i[70]Really loud. \w8\w2\i[21]And it's adding to the already bad pollution.\e"
+		}
 	}
 	if month == 8
 	{
-		"\0\s[0]Geez, August already? Feels like it was just summer break for me...\e"
-		"\0\s[0]Skool's back up again for me. \w4Not looking forward to it.\e" //TODO: dib complaining abt bullying, mrs bitters, skool stuff
+		"\0\s[3]\i[25]\i[91]\i[76]Geez, August already? \w4\s[0]\i[91]\i[21]\i[70]\i[204]Feels like it was just summer break for me...\e"
+		"\0\s[0]\i[91]Skool's back up again for me. \w4\i[70]Not looking forward to it.\e" //TODO: dib complaining abt bullying, mrs bitters, skool stuff
 	}
 	if month == 9 //Autumn start Northern, Spring start Southern
 	{
@@ -232,7 +235,7 @@ RandomTalk : nonoverlap_pool
 	}
 	if month == 10
 	{
-		"\0\s[0]\i[91]It's pretty cool this time of year with all the Halloween marketing going on in The City. %(br)\w8\s[2]\i[97]@Dad is also more lenient with my paranormal research! \w8\w6\i[21]\i[92]\i[77]But he still doesn't... \n\n[half]\w8\w6\i[65](You can't catch what he mumbles after that.)\e"
+		"\0\s[0]\i[91]It's pretty cool this time of year with all the Halloween marketing going on in The City. \w8\s[2]\i[97]@Dad is also more lenient with my paranormal research! \w8\w6\i[21]\i[92]\i[77]But he still doesn't... \n\n[half]\w8\w6\i[65](You can't catch what he mumbles after that.)\e"
 	}
 	if month == 11
 	{
@@ -365,10 +368,10 @@ OnMinuteChange
 
 OnSecondChange
 {
-	if reference2 == 1 //This is for if your Sakura and Kero are overlapping. \4 will move the speaking character away from the other character. If you need something more complicated you can use OnOverlap instead of this
-	{
-		"\0\s[0]\i[65](Overlap dialogue! This usually shouldn't happen, but he'll move anyway.)\4\e"
-	}
+	//if reference2 == 1 //This is for if your Sakura and Kero are overlapping. \4 will move the speaking character away from the other character. If you need something more complicated you can use OnOverlap instead of this
+	//{
+	//	"\0\s[0]\i[65](Overlap dialogue! This usually shouldn't happen, but he'll move anyway.)\4\e"
+	//}
 }
 
 OnOffscreen
@@ -377,7 +380,7 @@ OnOffscreen
 	offscreen = TOSTR(reference0)
 	CVSTR(reference0)
 	CVSTR(reference1)
-	if !("__VERY_FIRST_BOOT__" _in_ SHIORI3FW.LastTalk) //Bandaid patch, hoping this is a bug in SSP that can be fixed there
+	if firstboot != 1
 	{	
 		if "0" _in_ reference0 //Checks if the sakura was moved off screen
 		{
@@ -400,11 +403,12 @@ OnOffscreen
 	}
 }
 
+//okay look offscreen dialogue is annoying to me. i get if a new user is like I ACCIDENTALLY MOVED THEM OFFSCREEN HELP but like. i cant deal with this. figure it out urself /hj
 OffscreenTalk //Off the screen dialogue. Ctrl Shift F12 will bring characters back onto the screen. _argv[0] here contains the number of the character who is off screen, 0 for sakura, 1 for kero, 2 and up for extra chars
 {
 	if _argv[0] == "0" //If the sakura is off screen
 	{
-		"\0\s[0]\i[65]\_q(He might be offscreen. You can press Ctrl-Shift-F12 to bring him back.)\n\n[half](You can turn off these messages in the right click menu under Options > Preferences > Ghost(1) > Disable Screen Boundary Check. You can also bring him back by right clicking his icon, and going to Utilities > Reset Shell Position.)\e"
+		//"\0\s[0]\i[65]\_q(He might be offscreen. You can press Ctrl-Shift-F12 to bring him back. You can also right click his icon and go to Utilities > Reset Shell Position.)\n\n[half](You can turn off these messages in his settings.)\e"
 	}
 	elseif _argv[0] == "1" //If the kero is off screen
 	{
@@ -416,7 +420,7 @@ EndOffscreenTalk //Being brought back on the screen. _argv[0] here contains the 
 {
 	if _argv[0] == "0" //If the sakura was brought back on screen
 	{
-		"\0\s[0]\i[65]\_q(Back in full view.)\e"
+		//"\0\s[0]\i[65]\_q(Back in full view.)\e"
 	}
 	elseif _argv[0] == "1" //If the kero was brought back on screen
 	{

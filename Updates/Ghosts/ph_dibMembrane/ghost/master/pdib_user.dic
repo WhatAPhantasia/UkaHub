@@ -26,14 +26,12 @@ NameDone
 		"And how should I refer to you?"
 		--
 		all:{
-		"\n\n\_q"
+		"\n\n\_q\*"
 		"\![*]\q[He/Him/His,OnPronouns,masc]\n"
 		"\![*]\q[She/Her/Hers,OnPronouns,fem]\n"
 		"\![*]\q[They/Them/Their,OnPronouns,undef]\n"
 		"\![*]\q[Something else...,OnPronouns,custom]"
 		}
-		--
-		"\_l[-10000,-10000]\*\q[ ,CANCEL]"
 	}
 	else
 	{
@@ -45,22 +43,6 @@ NameDone
 }
 
 //--OnNameTeach
-
-//OnNameTeach
-// {
-	//tempname = reference0
-	
-	//i'm not going to use presuffix if i implement titles, choose the titles ya want no matter what ur pronouns are !!!!!!
-	
-//"\0\s[0]Do you want a title?\w4\n\n[half]\![*]\q[Nope,titlenone]\n"
-	//	--
-	//	"\![*]\q[Mr.,titlemr]\n/
-	//	\![*]\q[Master,titlemaster]\n"
-	//	"\![*]\q[Ms.,titlems]\n/
-	//	\![*]\q[Lady,titlelady]\n"
-	//	"\![*]\q[Mx.,titlemx]\n/
-	//	\![*]\q[Ser,titleser]\e"
-// }
 
 OnNameTeach
 {
@@ -128,6 +110,10 @@ OnNameTeach
 	{
 		"\0\s[0]\i[76]...Really? \w8It's just- I know a guy, and he \w1sucks. \w8You'd probably get a little uncomfortable when I talk about him.\w8\![open,inputbox,OnNameTeach,-1]"
 		//TODO: make a variable for whether or not dib has told the user about zim and plan accordingly >:)
+		--
+		if firstboot == 1 {
+			"\_l[-10000,-10000]\*\q[ ,CANCEL]"
+		}
 	}
 	//----------Unique responses that allow you to be that name-------------------------------------
 	elseif _tempname == username && firstboot != 1
@@ -221,10 +207,11 @@ OnPronouns
 	pronouns = reference0
 	--
 	if pronouns == "custom" {
-        "\0\s[0]Got it. \w8Write them down like... \w8\n\_q'they/them/their/theirs', \w8\n'he/him/his/his', or \w8\n'she/her/her/hers',\_q \w8without the quotes.\n\n\*\![*]\q[Nevermind,OnChangePronoun,custom]\![open,inputbox,OnCustomPronouns,-1]\e"
+        "\0\s[0]Got it. \w8Write them down like... \w8\n\_q'they/them/their/theirs', \w8\n'he/him/his/his', or \w8\n'she/her/her/hers',\_q \w8without the quotes.\n\n\*\![*]\q[Nevermind,OnChangePronoun,custom]\![open,inputbox,OnCustomPronouns,-1]"
     }
-	--
+	else {
 	OnPronounsDone
+	}
 }
 	
 OnPronounsDone 
@@ -243,12 +230,12 @@ OnPronounsDone
 	{
 		firstboot = 0
 		
-		"\0\s[0]\![leave,passivemode]Okay, %(username), cool! \w2My name is Dib Membrane. \w2I'll be sticking around for a bit! \w6Now where do I put- \w5\w5\w5\w5\w5\n\n[half]Oh. \w5That's pretty useful. A pocket dimension in my briefcase! \w8And- \w3A bunch of my stuff is in here! \n\n[half]\w8Hey, I could play you some music, I think. And while I'm here, I could tell you all about the files on cryptids I have on hand!\w8\w8\n\nOh, This is going to be very, very interesting.\e"
+		"\0\s[0]Okay, %(username), cool! \w2My name is Dib Membrane. \w2I'll be sticking around for a bit! \w6Now where do I put- \w5\w5\w5\w5\w5\n\n[half]Oh. \w5That's pretty useful. A pocket dimension in my briefcase! \w8And- \w3A bunch of my stuff is in here! \n\n[half]\w8Hey, I could play you some music, I think. And while I'm here, I could tell you all about the files on cryptids I have on hand!\w8\w8\n\nOh, This is going to be very, very interesting.\e"
 		//TODO: dialogue where dib puts spelldrive into dimensional briefcase. cool! also explains that he'll play music for you
 	}
 	else //This is if the user is changing their pronouns through the menu
 	{
-		"\0\s[0]\i[91]Cool, I'll remember.\e"
+		"\0\s[0]\i[91]Cool, I'll remember."
 		--
 		"\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[I'm done,CANCEL]\e"
 	}
@@ -263,7 +250,7 @@ OnCustomPronouns
 	
 	if ARRAYSIZE(_pronouns) != 4
 	{
-		"\0\s[0]\_qOh, uh, I don't think you inputted them right. \w5Are you using forward slashes? \w5Or did you put in the wrong number of pronouns? \w8\n\n[half]Write them down like... \n'they/them/their/theirs', \n'he/him/his/his', or \n'she/her/her/hers', without the quotes. \n\n\*\![*]\q[Nevermind,OnChangePronoun,custom]\_q\![open,inputbox,OnCustomPronouns,-1,]\e"
+		"\0\s[0]\_qOh, uh, I don't think you inputted them right. \w5Are you using forward slashes? \w5Or did you put in the wrong number of pronouns? \w8\n\n[half]Write them down like... \n'they/them/their/theirs', \n'he/him/his/his', or \n'she/her/her/hers', without the quotes. \n\n\*\![*]\q[Nevermind,OnChangePronoun,custom]\_q\![open,inputbox,OnCustomPronouns,-1,]"
 	}
 	else 
 	{
@@ -273,7 +260,7 @@ OnCustomPronouns
 		"Should I use plural words with your pronouns? Singular meaning '%(they) is cool' versus plural meaning '%(they) are cool'."
 		--
 		all:{
-		"\n\n\_q"
+		"\n\n\_q\*"
 		"\![*]\q[Singular,OnPronounsDone,sing]\n"
 		"\![*]\q[Plural,OnPronounsDone,plur]\n\n"
 		}
@@ -292,6 +279,7 @@ OnCustomPronouns
 //PRONOUN ENVELOPES!!!!!!!! moved to word.dic
 
 
+//TODO: if its ur first time telling him ur birthday, have unique dialogue. he may also ask for user's birthday if he doesn't know it at high relationship levels
 OnChangeBirthday //Taken from X template, which modified this a bit
 {
 	oldbirthday = birthday
@@ -328,7 +316,7 @@ OnUserBornMonth
 	elseif _tempmonth == "december" || _tempmonth == "12" {birthday[4] = 12; birthday[2] = "December"}
 	else //if the month isn't a valid month, like 32 or something.
 	{
-		"\0\s[0]%(_tempmonth) isn't a valid month,\w4 try again."
+		"\0\s[0]I don't think that's a month..? \w4Tell me it clearly."
 		--
 		"\n\n\![*]\q[Cancel,OnConfigMenu,OnUserBornMonth]\![open,inputbox,OnUserBornMonth,-1]\![set,balloontimeout,-1]\*\e"
 	}
@@ -361,7 +349,7 @@ OnUserBornDay
 		
 		if birthday[1] == "%(month)/%(day)" //if today is the user's birthday. Don't forget to switch this if you change the format to DD/MM
 		{
-			"\0\s[0]Happy birthday,\w4 %(username)!"
+			"\0\s[0]Wait, isn't that today? \w5Happy birthday, \w2 I guess.\e"
 		}
 		elseif birthday[1] == "3/30" //If you change the format to DD/MM, make sure you change any dates like this that might be in bootend.
 		{

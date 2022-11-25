@@ -2,8 +2,7 @@
 
 After messing with his spelldrives, Dib ends up on your desktop and is fascinated by it!!!
 This is a version of Dib from one of my fics, Shooting Star, so his personality is different from canon: He's still Dib, he just has a bit of coffee and honey flavoring :]
-
-He comes with a music player (and a few of dib's playlists), cryptid facts, and 50% less head size! He also has most of the basic ghost features like checking your calendar, emptying your recycling bin, all that fun stuff.
+He comes with a music player (and a few of dib's playlists), cryptid facts, and 50% less head size!
 
 If you want to open up more dialogue pools, I recommend installing:
 LEVIDRE'S ZIM GHOST: https://levidre.github.io/ukagaka/zim-and-gir

@@ -7,43 +7,53 @@
 //--OpenSakuraMenu
 OpenSakuraMenu
 {
+	if firstboot == 1
+	{
+		firstboot = 0
+		"\0\s[0]Oh, uh, I don't think I finished introducing myself... I guess you can tell me more about yourself later, yeah? \n\i[65](Update your information in the settings!)\x"
+	}
+	else
+	{
 		"\0\s[0]\i[91]\b2Yeah? What's up?"
 		"\0\s[0]\i[76]\b2Need something?"
 		"\0\s[2]\i[72]\i[65]\i[93]\b2(He's humming something to himself.)"
 		--
 		MenuRun
+	}
 }
 
 //--MenuRun
 //As you just saw above. This actually fills out the rest of the menu. If you're going to be adding or changing functions, this is where you'll be doing your edits.
 
-MenuRun
+MenuRun : all
 {	
-	--
-	"\n\n\_q\b2"
-	--
+	"\n\n\_q\b2\![set,autoscroll,disable]"
+	
 	"(You want him to...)\n\n[half]"
-	--
+	
 	if lastTalk != ""
 	{
-	  "\![*]\q[Repeat what he said,OnLastTalk]\n"
+	  //"\![*]\q[Repeat what he said,OnLastTalk]\n"
 	  "\![*]\q[Say that again,OnLastTalk]\n"
 	}
-	--
- 	"\![*]\q[Say something,OnAiTalk]\n"
-	"\![*]\q[Talk to you,OnAiTalk]\n"
-	--
-	"\n(You could interact with him... \f[height,8]placeholder options\f[height,default])\n\n[half]"
-	--
-	"\![*]\q[Play some music,gotomusic]\n/
-	\![*]\q[Give me a fact,funfact]\n/
-	\![*]\q[Ask some questions,asktheboy]\n"
-	--
+	
+	"\![*]\q[Say something,OnAiTalk]\n"
+	//"\![*]\q[Talk to you,OnAiTalk]\n"
+		
+	"\n(You could interact with him...)\n\n[half]"
+	
+	"\![*]\q[Ask something,asktheboy]\n"
+	"\![*]\q[Do something,acttheboy]\n"
+	"\![*]\q[Give me a fact,funfact]\n"
+	"\![*]\q[Play music,OnMusicMenu]\n"
+	
 	"\n(Or you could ask him to...)\n\n[half]"
-	--
-	"\![*]\q[Check your settings,OnConfigMenu]\n/
-	\![*]\q[Do something for you,dosomething]\n\n/
- 	\![*]\q[Nevermind,CANCEL]\n\n[half]%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year)\e"
+	
+	"\![*]\q[Check your settings,OnConfigMenu]\n"
+	"\![*]\q[Do something for you,dosomething]\n\n"
+	
+ 	"\![*]\q[Nevermind,CANCEL]\n\n[half]"
+	"%(wd) %(nowhour):%(nowmin) %(ap), %(month)/%(day)/%(year)\e"
 }
 
 //Leave this alone
@@ -74,14 +84,13 @@ Select.asktheboy
 }
 
 DibQuestions : all
-{
-	"\b2"
-	
+{	
 	"\n\n\![*]\q[Can I see another friend?,debugkero]\n"
 	if debug == 1 //%(debug = 1) in script input to show the debug options
 	{
 		"\![*]\q[Test Variable,OnTestVar]\n"
 		"\![*]\q[To-do list,OnTemplateTodo]\n"
+		"\![*]\q[Set Variables,OnSetVar]\n"
 	}
 	"\n"
 	
@@ -150,6 +159,16 @@ Select.choosekeroall
 	"\0\s[3]\i[21]Oh gosh that's a lot of. \w6\s[3]People.\e"
 }
 
+//----------SILLY ACTING TIME-----------------------------------------------
+
+Select.acttheboy { DibAct }
+
+DibAct : all
+{
+	"This'll redirect to an act menu!\e"
+}
+
+
 //----------FUN FACTS GALORE------------------------------------------------
 
 Select.funfact
@@ -157,14 +176,17 @@ Select.funfact
 	SelectFactTopic
 }
 
-SelectFactTopic
+SelectFactTopic : all
 {
 	"\_q"
-	--
+	
 	"\![*]\q[Cryptids,factCryptid]\n"
-	--
+	"\![*]\q[UFOs & Aliens,factAlien]\n"
+	"\![*]\q[Mythical Creatures,factMyth]\n"
+	"\![*]\q[Ghosts,factGhost]\n"
+	"\![*]\q[Space,factSpace]\n"
 	"\![*]\q[Self-Care,factSelfcare]\n"
-	--
+	
 	"\n\![*]\q[Back to the menu,BACKTOMENU]\e"
 }
 
@@ -475,4 +497,26 @@ Select.debugsleep
 Select.debugtranslate
 {
 	"more placeholder text!\e"
+}
+
+OnSetVar : all
+{
+	"\b2\_q"
+	"(Pets: %(totalpets) | Punches: %(totalpunches))\n\n"
+	
+	"\![*]\q[Reset punches,resetpunch]\n"
+	"\![*]\q[Reset pets,resetpet]\n"
+	
+	"\n\![*]\q[Back,BACKTOMENU]   \![*]\q[Cancel,CANCEL]\e"
+}
+
+Select.resetpunch
+{
+	totalpunches = 0
+	"The punch counter is now at %(totalpunches).\e"
+}
+Select.resetpet
+{
+	totalpets = 0
+	"The pet counter is now at %(totalpets).\e"
 }

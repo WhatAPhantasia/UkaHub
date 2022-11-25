@@ -11,7 +11,7 @@ OnMouseDragStart
 {	
 	if BalloonCheck == 1
 	{
-		""
+		"\C"
 	}
 	elseif reference3 == 0
 	{
@@ -338,7 +338,7 @@ OnInstallComplete
 		{
 		"\s[11]\i[94]\i[28]The Snatcher, huh? \w2An actual ghost... Shadow... \w4\s[2]\i[94]Thing! \w6That's going to be interesting. \w8\w8\n\n\s[2]\i[93]\i[21]\i[77]This is a little out of character, \w2\s[12]\i[73]\i[93]but thanks for downloading him!"
 		}
-		elseif reference1 == "Minimum YAYA Template" || reference1 == "GT Template" || ("X. Template" _in_ reference1) //TODO: add more of these will ya
+		elseif reference1 == "Minimum YAYA Template" || "GT Template" _in_ reference1 || "X. Template" _in_ reference1 //TODO: add more of these will ya
 		{
 		"\s[2]\i[4]\i[94]%(reference1)? \w8Making something? \w8\i[73]The more people on here, the merrier."
 		}
@@ -346,7 +346,7 @@ OnInstallComplete
 		{
 		"\s[0]\i[91]%(reference1)? \w8\s[0]\i[70]\i[91]\i[76]Okay, now you're just bringing objects onto here. \w6\s[11]\i[92]\i[76]What \w2\f[bold,1]is\f[bold,0] \w3the extent of things you can put on your desktop, anyway?"
 		}
-		elseif reference1 == "S the Skeleton" || reference1 == "Multiverse Sans" || reference1 == "Dr. W.D. Gaster" || reference1 == "sans" || reference1 == "Sans" || reference1 == "Papyrus" || reference1 == "Dreamtale Sans" || reference1 == "Jazz"
+		elseif reference1 == "S the Skeleton" || reference1 == "Multiverse Sans" || reference1 == "Dr. W.D. Gaster" || reference1 == "sans" || reference1 == "Sans" || reference1 == "Papyrus" || reference1 == "Dreamtale Sans" || reference1 == "Jazz" || "skeleton" _in_ reference1
 		{
 		"\s[12]\i[94]Oh, wow, a skeleton! \w6\i[28]%(reference1)? \w6It's been a while since I messed with the undead... \w8\s[2]\i[93]\i[77]\i[21]\i[80]Last time didn't go so well."
 		}
@@ -530,7 +530,7 @@ OnGhostCallComplete
 	if reference0 == "Zim" { 
 		"\0\s[0]Wait- ZIM?! \w8\w8\w8...Well, he can't see me, but I can see HIM! \w6Need to make sure he's not working on his evil alien plans here...\e"
 	}
-	if reference0 == "Ely Crowe" { //TODO: once dib and ely are published, make them have a tiny exchange here
+	if reference2 == "Ely Crowe - SS" { //TODO: once dib and ely are published, make them have a tiny exchange here
 		"\0\s[2]\i[77]\i[85]\i[20]\i[93]..O-Oh, Ely..!\e"
 	}
 	else {

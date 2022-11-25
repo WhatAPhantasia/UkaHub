@@ -8,7 +8,7 @@ type,balloon
 name,Swollen Eyeball Balloon
 
 craftman,WhatAPhantasia
-craftmanw,whataphantasia
+craftmanw,WhatAPhantasia
 craftmanurl,https://phantasiaukahub.carrd.co
 
 homeurl,https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/master/Updates/Balloons/swolleneyeball_b
@@ -31,8 +31,8 @@ validrect.bottom,165
 wordwrappoint.x,294
 wordwrappoint.y,0
 
-font.name,Microsoft Sans Serif
-font.height,12
+font.name,Verdana
+font.height,11
 font.color.r,255
 font.color.g,255
 font.color.b,255
@@ -98,7 +98,7 @@ sstpmessage.font.color.b,150
 sstpmessage.x,64
 sstpmessage.y,167
 
-number.font.name,Microsoft Sans Serif
+number.font.name,Verdana
 number.font.height,10
 number.font.color.r,125
 number.font.color.g,127

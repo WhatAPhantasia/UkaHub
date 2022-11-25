@@ -1,0 +1,18 @@
+charset,UTF-8
+
+name,an ending
+type,ghost
+
+sakura.name,Vera
+kero.name,Friends
+
+craftman,WhatAPhantasia
+craftmanw,WhatAPhantasia
+craftmanurl,https://phantasiaukahub.carrd.co
+
+sstp.allowunspecifiedsend,0
+shiori,yaya.dll
+
+//http://www.convertico.com/ is handy for making .icos
+icon,an_ending.ico
+balloon,Hollerfeed Lite

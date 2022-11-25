@@ -353,6 +353,9 @@ filetype
 	".rar"
 }
 
+nonskoolmonths {6,7,8}
+weekend {0,6}
+
 //-----Menu stuff-----
 
 season //Current season

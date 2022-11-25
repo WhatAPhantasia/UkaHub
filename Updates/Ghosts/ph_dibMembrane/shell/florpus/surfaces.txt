@@ -100,6 +100,8 @@ surface1
 {
 collision0,113,108,201,136,Head
 collision1,112,137,182,200,Face
+collision2,130,70,243,109,Scythe
+collision11,115,275,163,311,Briefcase
 
 element0,overlay,surface600.png,0,0
 element1,overlay,surface50.png,0,0
@@ -154,6 +156,9 @@ animation63.pattern1,overlay,-1,100,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,151,0,0,0
+//teef
+animation67.interval,never
+animation67.pattern0,overlay,157,0,0,0
 }
 
 //--DIB 3/4 SMIRK
@@ -175,6 +180,9 @@ animation63.pattern1,overlay,-1,100,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,153,0,0,0
+//teef
+animation67.interval,never
+animation67.pattern0,overlay,158,0,0,0
 }
 
 //--DIB 3/4 FROWN
@@ -196,6 +204,9 @@ animation63.pattern1,overlay,-1,100,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,155,0,0,0
+//teef
+animation67.interval,never
+animation67.pattern0,overlay,159,0,0,0
 }
 
 //--DIB 3/4 POUT
@@ -214,12 +225,18 @@ animation62.pattern1,overlay,-1,120,0,0
 animation63.interval,never
 animation63.pattern0,overlay,151,100,0,0
 animation63.pattern1,overlay,-1,100,0,0
+//teef
+animation67.interval,never
+animation67.pattern0,overlay,157,0,0,0
 }
 
 //phone tappy time 1 - idle
 //theres no talking frames with this one, intended for idle
 surface8
 {
+collision11,115,275,163,311,Briefcase
+collisionex100,Phone,polygon,123,242,130,220,148,220,164,240,153,260,141,264
+
 //--Back Arm
 animation1.interval,runonce
 animation1.pattern0,overlay,600,0,0,0
@@ -262,6 +279,9 @@ animation100.pattern7,overlay,660,550,0,0
 //here i can use this during dialogue
 surface9
 {
+collision11,115,275,163,311,Briefcase
+collisionex100,Phone,polygon,123,242,130,220,148,220,164,240,153,260,141,264
+
 //--Back Arm
 animation1.interval,runonce
 animation1.pattern0,overlay,600,0,0,0
@@ -294,6 +314,7 @@ animation65.pattern0,parallelstop,(61,64)
 //ok continue talking
 animation66.interval,never
 animation66.pattern0,stop,65
+animation66.pattern1,start,61
 //teef
 
 
@@ -321,6 +342,7 @@ surface.append0-9,!1
 //--Collisions
 collision0,113,108,201,136,Head
 collision1,112,137,182,200,Face
+collision2,130,70,243,109,Scythe
 
 //--Head Base
 animation55.interval,runonce
@@ -511,6 +533,9 @@ animation63.pattern1,overlay,-1,100,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,151,0,0,0
+//teef
+animation67.interval,never
+animation67.pattern0,overlay,157,0,0,0
 }
 
 //--DIB FRONT SMIRK
@@ -532,6 +557,9 @@ animation63.pattern1,overlay,-1,100,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,153,0,0,0
+//teef
+animation67.interval,never
+animation67.pattern0,overlay,158,0,0,0
 }
 
 //--DIB FRONT FROWN
@@ -553,6 +581,9 @@ animation63.pattern1,overlay,-1,100,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,155,0,0,0
+//teef
+animation67.interval,never
+animation67.pattern0,overlay,159,0,0,0
 }
 
 //--DIB FRONT POUT
@@ -571,6 +602,9 @@ animation62.pattern1,overlay,-1,120,0,0
 animation63.interval,never
 animation63.pattern0,overlay,151,100,0,0
 animation63.pattern1,overlay,-1,100,0,0
+//teef
+animation67.interval,never
+animation67.pattern0,overlay,157,0,0,0
 }
 
 
@@ -578,6 +612,9 @@ animation63.pattern1,overlay,-1,100,0,0
 //theres no talking frames with this one, intended for idle
 surface18
 {
+collision11,115,275,163,311,Briefcase
+collision100,192,194,226,237,Phone
+
 //--Back Arm
 animation1.interval,runonce
 animation1.pattern0,overlay,600,0,0,0
@@ -620,6 +657,9 @@ animation100.pattern7,overlay,655,550,0,0
 //here i can use this during dialogue
 surface19
 {
+collision11,115,275,163,311,Briefcase
+collision100,192,194,226,237,Phone
+
 //--Back Arm
 animation1.interval,runonce
 animation1.pattern0,overlay,600,0,0,0
@@ -652,6 +692,7 @@ animation65.pattern0,parallelstop,(61,64)
 //ok continue talking
 animation66.interval,never
 animation66.pattern0,stop,65
+animation66.pattern1,start,61
 //teef
 
 
@@ -697,6 +738,9 @@ animation63.pattern1,overlay,-1,100,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,151,0,0,0
+//teef
+animation67.interval,never
+animation67.pattern0,overlay,157,0,0,0
 }
 
 //--DIB PROFILE SMIRK
@@ -718,6 +762,9 @@ animation63.pattern1,overlay,-1,100,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,153,0,0,0
+//teef
+animation67.interval,never
+animation67.pattern0,overlay,158,0,0,0
 }
 
 //--DIB PROFILE FROWN
@@ -739,6 +786,9 @@ animation63.pattern1,overlay,-1,100,0,0
 //open
 animation64.interval,never
 animation64.pattern0,overlay,155,0,0,0
+//teef
+animation67.interval,never
+animation67.pattern0,overlay,159,0,0,0
 }
 
 //--DIB PROFILE POUT
@@ -757,12 +807,17 @@ animation62.pattern1,overlay,-1,120,0,0
 animation63.interval,never
 animation63.pattern0,overlay,151,100,0,0
 animation63.pattern1,overlay,-1,100,0,0
+//teef
+animation67.interval,never
+animation67.pattern0,overlay,157,0,0,0
 }
 
 //phone tappy time 1 - idle
 //theres no talking frames with this one, intended for idle
 surface28
 {
+collision15,83,193,112,232,Phone
+
 //--Front arms (only hip, relax, behind, and think)
 animation210.interval,never
 animation210.pattern0,parallelstop,(91,92,93)
@@ -823,6 +878,8 @@ animation1.pattern10,overlay,606,300,0,0
 //here i can use this during dialogue
 surface29
 {
+collision15,83,193,112,232,Phone
+
 //--Front arms (only hip, relax, behind, and think)
 animation210.interval,never
 animation210.pattern0,parallelstop,(91,92,93)
@@ -872,6 +929,7 @@ animation65.pattern0,parallelstop,(61,64)
 //ok continue talking
 animation66.interval,never
 animation66.pattern0,stop,65
+animation66.pattern1,start,61
 //teef
 
 
@@ -903,6 +961,7 @@ surface.append11-29
 //--Collisions
 collision0,113,108,201,136,Head
 collision1,112,137,182,200,Face
+collision2,130,70,243,109,Scythe
 
 //--Head Base
 animation55.interval,runonce
@@ -1078,10 +1137,12 @@ surface.append0-50,!1,!8,!9,!10,!18,!19,!28,!29
 //Relax
 animation1.interval,runonce
 animation1.pattern0,overlay,600,0,0,0
+animation1.collision11,115,275,163,311,Briefcase
 //PointDown
 animation2.interval,never
 animation2.pattern0,parallelstop,(1,3,4,5,6,7,8)
 animation2.pattern1,overlay,601,0,0,0
+animation2.collision12,94,268,131,312,Briefcase
 //Behind
 animation3.interval,never
 animation3.pattern0,parallelstop,(1,2,4,5,6,7,8)
@@ -1094,14 +1155,17 @@ animation4.pattern1,overlay,603,0,0,0
 animation5.interval,never
 animation5.pattern0,parallelstop,(1,2,3,4,6,7,8)
 animation5.pattern1,overlay,604,0,0,0
+animation5.collision15,83,193,112,232,Phone
 //phone2
 animation6.interval,never
 animation6.pattern0,parallelstop,(1,2,3,4,5,7,8)
 animation6.pattern1,overlay,605,0,0,0
+animation6.collision16,83,193,112,232,Phone
 //phone3
 animation7.interval,never
 animation7.pattern0,parallelstop,(1,2,3,4,5,6,8)
 animation7.pattern1,overlay,606,0,0,0
+animation7.collision17,83,193,112,232,Phone
 //backarm for front1------------or something, idk this is blank 4 now, its a placeholder
 animation8.interval,never
 animation8.pattern0,parallelstop,(1,2,3,4,5,6,7)
@@ -1123,6 +1187,7 @@ animation65.pattern0,parallelstop,(61,64)
 //ok continue talking
 animation66.interval,never
 animation66.pattern0,stop,65
+animation66.pattern1,start,61
 
 //staaare (stops blink)
 animation202.interval,never
@@ -1165,10 +1230,12 @@ animation93.pattern1,overlay,653,0,0
 animation94.interval,never
 animation94.pattern0,parallelstop,(90,91,92,93,95,96,97,98,99,100,101)
 animation94.pattern1,overlay,654,0,0
+animation94.collision94,192,194,226,237,Phone
 //phone time2
 animation95.interval,never
 animation95.pattern0,parallelstop,(90,91,92,93,94,96,97,98,99,100,101)
 animation95.pattern1,overlay,655,0,0
+animation95.collision95,192,194,226,237,Phone
 //open1
 animation96.interval,never
 animation96.pattern0,parallelstop,(90,91,92,93,94,95,97,98,99,100,101)
@@ -1185,16 +1252,24 @@ animation98.pattern1,overlay,658,0,0
 animation99.interval,never
 animation99.pattern0,parallelstop,(90,91,92,93,94,95,96,97,98,100,101)
 animation99.pattern1,overlay,659,0,0
+animation99.collisionex99,Phone,polygon,123,242,130,220,148,220,164,240,153,260,141,264
 //phone time4
 animation100.interval,never
 animation100.pattern0,parallelstop,(90,91,92,93,94,95,96,97,98,99,101)
 animation100.pattern1,overlay,660,0,0
+animation100.collisionex100,Phone,polygon,123,242,130,220,148,220,164,240,153,260,141,264
 //hmf (hand in front of face, mostly)
 animation101.interval,never
 animation101.pattern0,parallelstop,(90,91,92,93,94,95,96,97,98,99,100)
 animation101.pattern1,start,950
 animation950.interval,never
 animation950.pattern0,overlay,661,0,0,0
+}
+
+//append to all ya!
+surface.append0-50,!10
+{
+point.basepos.y,320
 }
 
 
