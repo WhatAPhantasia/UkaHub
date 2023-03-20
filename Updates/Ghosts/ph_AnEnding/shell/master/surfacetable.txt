@@ -38,11 +38,17 @@ group,Idle
 	11,Sleep
 	12,Tablet
 	13,Journal
+	14,Shuffle
 }
 group,Stand
 {
 	scope,0
 	20,Fallback
+	21,Neutral
+	22,Neu Look
+	23,Smile
+	24,Sml Look
+	900,AwakeTemp
 }
 
 

@@ -11,12 +11,12 @@ OnFirstBootTalk
 	--
 	if reference0 == 0 //Very first boot - this dialogue finishes over in nameteach.dic after the user gives their name, make sure you check there.
 	{
-		"\1\s[-1]\0\s[11]\_q%(vera)\_q .\w8.\w8.\w8.\w8.\w8\i[1]? \w8\w4.\w4.\w4.\w4how strange. \w8\w8\n\_q%(vera)\_q who are you..? \w4your name..."
+		"\1\s[-1]\0\s[11]\_q%(vera)\_q .\w8.\w8.\w8.\w8.\w8\i[1]? \w8\w4.\w4.\w4.\w4o-oh, \w8\w8\n\_q%(vera)\_q um, \4who are you..? \w6your name..."
 	}
 	else //Reference0 is the number of times you've uninstalled the ghost, so this is if you're reinstalling them.
 	{
 		reset[0]++
-		"\1\s[-1]\0\s[11]\_q%(vera)\_q .\w8.\w8.\w8.\w8.\w8\i[1]oh. \w8\w4...huh. \w8\w8\n\_q%(vera)\_q have i... \w8been here before? \w8\w8\n\_q%(vera)\_q ah- \w8who are you..?"
+		"\1\s[-1]\0\s[11]\_q%(vera)\_q .\w8.\w8.\w8.\w8.\w8\i[1]oh. \w8\w4...huh? \w8\w8\n\_q%(vera)\_q have i... \w8seen you before? \w8\w8\n\_q%(vera)\_q ah- \w8no, it's probably just me. \w8whats your name..?"
 	}
 	--
 	"\![open,inputbox,OnFirstNameTeach]\_l[-10000,-10000]\*\q[ ,CANCEL]"
@@ -37,7 +37,7 @@ OnBoot //Normal booting
 	{
 		"\0\s[3]\_q%(vera)\_q hi, %(pername)! \w8\w8\s[2]\i[26]\i[41]\n\_q%(vera)\_q ...huh, \w8why am i feeling some kind of weird deja vu..?\e"
 	}
-	elseif "%(month)/%(day)" == birthday[1] && posfeel >= 25 //she has terrible memory and likely won't remember ur birthday unless youre on good terms with her
+	elseif "%(month)/%(day)" == birthday[1] && posfeel >= 20 //she has terrible memory and likely won't remember ur birthday unless youre on good terms with her
 	{
 		"\0\s[3]\_q%(vera)\_q happy birthday %(pername)!! \w8\i[19]\n\_q%(vera)\_q aren't ya surprised i remembered?\e"
 	}
@@ -62,11 +62,11 @@ TimeBoot //This will be called if it's been at least 3 months since you opened t
 	//Add as many stages to this as you like. Just write the number of days you want. If you want this to happen earlier than 3 months, you can edit it in OnBoot.
 	if _timesince >= 365 //A year
 	{
-		"\0\s[11]\_q%(vera)\_q .\w8.\w8.\w8.\w8.\w8\i[1]huh..?? \w8\w8\w8\n\_q%(vera)\_q i... \w8\w8\s[2]\i[1]\i[80]\i[17]\n\_q%(vera)\_q huh. \w8\w8\w8\s[3]\i[1]\i[80]\i[19]\i[26]\n\_q%(vera)\_q wow, \w2it feels like forever since i've seen this place...\e"
+		"\0\s[11]\_q%(vera)\_q .\w8.\w8.\w8.\w8.\w8\i[1]huh..?? \w8\w8\w8\n\_q%(vera)\_q i... \w8\w8\s[2]\i[1]\i[80]\i[17]\n\_q%(vera)\_q huh. \w8\w8\w8\s[3]\i[1]\i[80]\i[19]\i[26]\n\_q%(vera)\_q wow, \w2um, \w4%(pername)... \w6right? \w8\w8\n\_q%(vera)\_q i thought you were a dream... \w2but hey!\e"
 	}
 	else
 	{
-		"\0\s[11]\_q%(vera)\_q .\w8.\w8.\w8.\w8.\w8\i[1]ah... \w8\w8\w8\s[2]\i[17]\i[1]\i[80]\n\_q%(vera)\_q ...wow, \w2it's been a little while since i've been here...\e"
+		"\0\s[11]\_q%(vera)\_q .\w8.\w8.\w8.\w8.\w8\i[1]ah... \w8\w8\w8\s[2]\i[17]\i[1]\i[80]\n\_q%(vera)\_q ...oh, \w2hey %(pername)! \w8\w8\n\_q%(vera)\_q been a little bit, huh..?\e"
 	}
 }
 
@@ -115,13 +115,21 @@ OnClose
 {
 	CloseVars
 	--
+	if holdingObsidian
+	{
+		holdingObsidian = 0
+		
+		"\0\s[2]\i[1]\i[210]\_q%(vera)\_q ah, wait, \w2i can't just take obsidian with me... \w6\s[-1]\w8\w8\w8\n\s[3]\i[1]\i[80]\i[19]\_q%(vera)\_q hehe! \w8ok, see you!\w8\w8\w8\-\e"
+	}
+	else 
+	{
 	if x.up_mins >= 5 //If the ghost has been open longer than 5 minutes.
 	{
 		//band-aid patch, i want this singular dialogue to have a higher chance of appearing (scale as more dialogue pools are added)
 		parallel Pool_SleepyBye
 		
 		//pfft no one will see this but me, leaving it here for funsies
-		if x.up_mins >= 720
+		if x.up_hours >= 6
 		{
 			"\0\s[1]\i[1]\i[20]\i[80]\_q%(vera)\_q ...oh, huh?! \w8\w8\n\s[3]\i[19]\i[1]\i[27]\i[80]\_q%(vera)\_q wow, \w2and i thought you wouldn't get bored! \w8\w8\n\s[11]\i[1]\_q%(vera)\_q seeya, %(pername)....!!"
 		}
@@ -134,6 +142,7 @@ OnClose
 	}
 	--
 	"\w8\w8\w8\-\e"
+	}
 }
 
 //two part tired dialogue
@@ -153,11 +162,9 @@ Pool_SleepyBye
 									"\s[2]\i[1]\i[80]\_q%(vera)\_q oh..! \w8\s[1]\i[1]\i[80]is it starting to get dark now?"}
 	if timeslot == "latenight" {	"\s[3]\i[1]\i[80]\i[18]\_q%(vera)\_q hmm... \w6nice and dark."}
 	if timeslot == "midnight" {		"\s[3]\i[1]\i[80]\i[18]\_q%(vera)\_q oh, \w2it's midnight..."}
-	if x.up_mins >= 60 { 			"\s[2]\i[1]\i[80]\_q%(vera)\_q ah, \w4we've been hanging out for a while, \w4huh..?"}
+	if x.up_hours >= 1 { 			"\s[2]\i[1]\i[80]\_q%(vera)\_q ah, \w4we've been hanging out for a while, \w4huh..?"}
 	//-------------------------------
 	"\s[1]\i[1]\i[80]\_q%(vera)\_q oh, \w4you're going..?"
-	//-------end dialogue immediately
-	"\s[1]\i[1]\i[80]\_q%(vera)\_q oh, \w4you're going..? \w8\w8\n\s[11]\i[1]\_q%(vera)\_q um, \w4goodbye then, \w4%(pername)...\w8\w8\w8\-\e"
 	--
 	"\w8\w8\n\s[11]\i[1]\_q%(vera)\_q "
 	--
@@ -178,6 +185,7 @@ Pool_SleepyBye
 	if timeslot == "midnight" {		"the city is so nice around this time... \w8\w8\n\s[11]\_q%(vera)\_q maybe i can sleep by the window again..."
 									"the city at midnight... \w8\w8\n\s[11]\_q%(vera)\_q so many colorful street lights..."
 									"dunno what you're up to around midnight, \w6but stay safe..."}
+	if EFlag("FirstHoller") {		"i wonder what %(ANY('skul,ulys,lila')) is doing right now... \w8\w8\n\s[11]\_q%(vera)\_q seeya."}
 	//-------------------------------
 	"the city is so nice around this time... \w8\w8\n\s[11]\_q%(vera)\_q maybe i can sleep by the window again..."
 	"make sure you get something to eat if you're hungry, %(pername)..."
@@ -185,9 +193,6 @@ Pool_SleepyBye
 	"maybe i should take a nap... \w8\w8\n\s[11]\_q%(vera)\_q seeya."
 	"um, \w4goodbye then, \w4%(pername)..."
 	"seeya, \w4%(pername)..."
-	{
-	"i wonder what %(ANY('skul,ulys,lila')) is doing right now... \w8\w8\n\s[11]\_q%(vera)\_q seeya."
-	}
 }
 
 
@@ -195,12 +200,21 @@ Pool_SleepyBye
 //When you minimize the ghost
 OnWindowStateMinimize
 {
-	"\0\s[11]\i[1](She silently gets minimized into the task bar...)\w8\w8\w6\e"
+	if holdingObsidian
+    {
+        res_reference0 = "Dusty"
+        holdingObsidian = 0
+        "\0\_q(She silently gets minimized into the task bar.)\e VeraObsiMinimize"
+    }
+	else
+	{
+		"\0(She silently gets minimized into the task bar...)\w8\w8\w6\e"
+	}
 }
 
 OnWindowStateRestore //When you bring the ghost back up after minimizing it.
 {
-	"\0\s[1]\i[1]\i[80]\i[35](She's back!)\e"
+	"\0(She's back!)\e"
 }
 
 OnGhostChanging //Changing to another ghost.
@@ -229,8 +243,17 @@ OnGhostChanging //Changing to another ghost.
 	else
 	{
 		CloseVars
-		
-		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ah... \w8going to see %(TOLOWER(reference0))..? \w8\w6\s[11]\i[1]ok, \w6see you..."
+		--
+		if holdingObsidian
+		{
+			holdingObsidian = 0
+			
+			"\0\s[2]\i[1]\i[210]\_q%(vera)\_q ah, wait, \w2i can't just take obsidian with me... \w6\s[-1]\w8\w8\w8\n\s[3]\i[1]\i[80]\i[19]\_q%(vera)\_q hehe! \w8ok, see you!"
+		}
+		else
+		{
+			"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ah... \w8going to see %(TOLOWER(reference0))..? \w8\w6\s[11]\i[1]ok, \w6see you..."
+		}
 		--
 		"\w8\w8\w6\e"
 	}
@@ -273,10 +296,34 @@ OnGhostChanged //After switching.
 		}
 		else //Switching to this ghost from another ghost
 		{
-			if RAND(50) >= 40 {NormalBoot}
+			if RAND(50) >= 20 {NormalBoot}
 			else {
 			"\0\s[11]\_q%(vera)\_q .........\i[1]%(TOLOWER(reference0))..?\e"
 			}
+		}
+	}
+}
+
+OnOtherGhostChanged
+{
+	if holdingObsidian
+	{
+		if reference0 == "Dusty"
+		{
+			holdingObsidian = 0
+			"\0\s[2]\i[1]\i[210]\_q%(vera)\_q ah, mister, please wait!\w2\s[-1]\w8\w8\w8\w8\n\s[2]\i[1]\i[18]\i[80]\_q%(vera)\_q please have your kitty cat back before you go...\e"
+		}
+	}
+}
+
+OnOtherGhostClosed
+{
+	if holdingObsidian
+	{
+		if reference0 == "Dusty"
+		{
+			holdingObsidian = 0
+			"\0\s[2]\i[1]\i[210]\_q%(vera)\_q ah, mister, please wait!\w2\s[-1]\w8\w8\w8\w8\n\s[2]\i[1]\i[18]\i[80]\_q%(vera)\_q please have your kitty cat back before you go...\e"
 		}
 	}
 }
@@ -312,7 +359,7 @@ BootVars
 	
 	//--ok heres the temp vars we need to reset--
 	
-	if allrecenttouch > 0; {recenttouch = (0,0,0)}
+	if allrecenttouch > 0; {recenttouch = (0,0,0,0,0)}
 	if Flag("just apologized"); RemoveFlag("just apologized")
 	
 	//--...and other variables to set--
@@ -352,6 +399,7 @@ FirstBootVars
 	nowscale = (100,100) //Current scale, as a percentage
 	AcceptTopics=(1,1,1,1,1) //death, suicide, derealization, lgbtphobia, ableism
 	MiscFlags = IARRAY	 //For the flag system
+	EventFlags = IARRAY
 	offscreen = IARRAY
 	deleteshitai = "On"
 	AutoUpdates = ("On",0)
@@ -367,26 +415,22 @@ FirstBootVars
 	totaltouch[2] = 0 	 //total boops
 	totaltouch[3] = 0 	 //total punches
 	totaltouch[4] = 0 	 //total tugs
-	recenttouch[0] = 0	 //recent pets
-	recenttouch[1] = 0 	 //recent brushes
-	recenttouch[2] = 0 	 //recent boops
-	recenttouch[3] = 0 	 //recent punches
-	recenttouch[4] = 0 	 //recent tugs
+	recenttouch = (0,0,0,0,0)
 	//--act and item stuff--
 	//i swear i can keep track of all these numbers
 	//a dictionary would make this so much easier...
-	totalacts[0] = 0 	//total compliments
-	totalacts[1] = 0 	//total sing
-	totalacts[2] = 0 	//total comfort
-	totalacts[3] = 0 	//total jokey jokes
-	totalacts[4] = 0 	//total huggies
-	totalacts[5] = 0 	//total teasy teases
-	totalacts[6] = 0 	//total insults
-	
+	totalacs[0] = 0 	//total... uhh free space
+	totalact[1] = 0 	//total comfort
+	totalact[2] = 0 	//total compliment
+	totalact[3] = 0 	//total huggies
+	totalact[4] = 0 	//total jokey jokes
+	totalact[5] = 0 	//total heckles (turns into insults the more negfeel you accumulate)
+	recentact = (0,0,0,0,0,0)
 	totalgive[0] = 0 	//total snacks!
 	totalgive[1] = 0 	//total drinks!
 	totalgive[2] = 0 	//total hobby stuff
 	totalgive[3] = 0 	//total sleep stuff
+	recentgive = (0,0,0,0)
 	//--modez--
 	nowmode = "Tired" 	//MODES:
 						//asleep
@@ -401,6 +445,7 @@ FirstBootVars
 	KnowAbout = (0,0,0,0,0) //luce, mom, skul, ulys, lila
 	VBoots = 1
 	apologies = 0
+	holdingObsidian = 0
 	
 	
 	x.boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
@@ -425,22 +470,29 @@ OnResetConfirm
 //resets certain variables. hey dumbass remember to change this every update for new variables idiot head
 ResetVars
 {
+	x.up_all = x.up_total //please dont mess anything up
+	
 	//--menu/misc things to be reset---
 	lastTalk = ""
 	pronouns = "undef"
 	custompronouns = ("ey","em","eir","eirs")
 	pronounplur = "plur"
-	birthday[0] = "???"	 //The user's birthday, written out with words
-	birthday[1] = "???"	 //The user's birthday, written in DD/MM format
+	birthday[0] = "???"	//The user's birthday, written out with words
+	birthday[1] = "???"	//The user's birthday, written in DD/MM format
 	talkrate = "every 5 minutes"
 	aitalkinterval = 300
-	MiscFlags = IARRAY
-	x.boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
+	MiscFlags = IARRAY	//hey dont forget that these reset every flag ok
+	EventFlags = IARRAY
 	//---touch related variables---
 	stroke = (0,0,0)
 	pethighscore = (0,0)
 	totaltouch = (0,0,0,0,0)
 	recenttouch = (0,0,0,0,0)
+	//--act and item stuff--
+	totalact = (0,0,0,0,0,0)
+	recentact = (0,0,0,0,0,0)
+	totalgive = (0,0,0,0)
+	recentgive = (0,0,0,0)
 	//---mode + feelies---
 	nowmode = "Tired"
 	posfeel = 0
@@ -449,6 +501,9 @@ ResetVars
 	KnowAbout = (0,0,0,0,0) //luce, mom, skul, ulys, lila
 	VBoots = 1
 	apologies = 0
+	holdingObsidian = 0
+	
+	x.boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
 }
 
 //How many minutes the ghost was up in total, including current session

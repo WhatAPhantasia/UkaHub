@@ -6,7 +6,7 @@ charset.save, UTF-8
 charset.extension, UTF-8
 
 include, system_config.txt
-dic, xt_emerg.dic
+dic, ae_emerg.dic
 
 
 //log, ayame.log

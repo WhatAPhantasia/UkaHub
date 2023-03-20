@@ -17,7 +17,7 @@ OnNameTeach
 	
 	if _is_first_boot; "\_l[-10000,-10000]\q[ ,CANCEL]\_l[0,0]\*\t" //Prevents balloon from timing out if this is during first boot. Also prevents the user from closing out the input box
 	--
-	if _name == CleanTerm(username) && !(_is_first_boot && reset[0] < 1) 
+	if _name == CleanTerm(username) && !(_is_first_boot && reset[0] < 1) //&& _name != "stranger"
 	//this whole thing can be circumvented with the GRAND edge case of the user uninstalling vera through the menu and reinstalling or keeping your username as stranger THEN naming yourself stranger but. whatever LMAO
 	//wait ig i could do if _name == "stranger" but w/e
 	{
@@ -51,7 +51,15 @@ OnNameTeach
 	}
 	elseif _name == "vera"
 	{
-		"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q o-oh, \w2um. \w6that's my name... \w8\n\_q%(vera)\_q so, \w4um, \w8\n\_q%(vera)\_q i think \w2i should call you something else..."
+		"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q o-oh, \w2um. \w6that's my name...\w8\n\_q%(vera)\_q so, \w4um,\w8\n\_q%(vera)\_q i think \w2i should call you something else..."
+		--
+		if !_is_first_boot; "\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]"
+		--
+		"\![open,inputbox,%(_function),-1]\e"
+	}
+	elseif _name == "luce"
+	{
+		"\0\s[1]\i[1]\i[80]\i[26]\_q%(vera)\_q ...oh.\w8\w4\n\s[3]\i[1]\i[19]\i[26]\i[80]\_q%(vera)\_q um, \w4maybe a nickname would be better..."
 		--
 		if !_is_first_boot; "\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]"
 		--
@@ -59,7 +67,7 @@ OnNameTeach
 	}
 	elseif _name == "skul"
 	{
-		"\0\s[3]\i[1]\i[80]\i[26]\i[1030]\_q%(vera)\_q s-skul?? \w8\w6\n\i[19]\_q%(vera)\_q n-no, \w2um, \w2i don't think i can call you that..!"
+		"\0\s[3]\i[1]\i[80]\i[26]\i[1030]\_q%(vera)\_q s-skul??\w8\w6\n\i[19]\_q%(vera)\_q n-no, \w2um, \w2i don't think i can call you that..!"
 		--
 		if !_is_first_boot; "\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]"
 		--
@@ -67,7 +75,7 @@ OnNameTeach
 	}
 	elseif _name == "ulys"
 	{
-		"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q ulys..? \w8\n\i[19]\_q%(vera)\_q you aren't the ulys i know, \w2so i don't think i should call you that..."
+		"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q ulys..?\w8\n\i[19]\_q%(vera)\_q you aren't the ulys i know, \w2so i don't think i should call you that..."
 		--
 		if !_is_first_boot; "\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]"
 		--
@@ -75,7 +83,7 @@ OnNameTeach
 	}
 	elseif _name == "lila"
 	{
-		"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q lila..? \w8\n\i[19]\_q%(vera)\_q that might cause some confusion, so..."
+		"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q lila..?\w8\n\i[19]\_q%(vera)\_q that might cause some confusion, so..."
 		--
 		if !_is_first_boot; "\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]"
 		--
@@ -83,7 +91,7 @@ OnNameTeach
 	}
 	elseif _name == "instantiator"
 	{
-		"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q h-huh..?? \w8\n\_q%(vera)\_q that's my hollercode, \w2so..."
+		"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q h-huh..??\w8\n\_q%(vera)\_q that's my hollercode, \w2so..."
 		--
 		if !_is_first_boot; "\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]"
 		--
@@ -91,7 +99,7 @@ OnNameTeach
 	}
 	elseif _name == "ruminator" || _name == "prospector" || _name == "revisor"
 	{
-		"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q oh, um... \w8\n\_q%(vera)\_q that's a hollercode i know, so i don't think i should..."
+		"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q oh, um...\w8\n\_q%(vera)\_q that's a hollercode i know, so i don't think i should..."
 		--
 		if !_is_first_boot; "\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]"
 		--
@@ -102,16 +110,16 @@ OnNameTeach
 	{
 		username = SHIORI3FW.EscapeAllTags(_tempname) //Escape any tags the user might've stuck in there
 		
-		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q o-oh, \w6um. \w8\w8\n\i[26]\i[19]\_q%(vera)\_q is that really your..?"
+		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q o-oh, \w6um.\w8\w8\n\i[26]\i[19]\_q%(vera)\_q is that really your..?"
 	}
 	elseif _name == "" //If the user doesn't put in anything
 	{
 		if _is_first_boot {
 			username = "stranger"
-			"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q o-oh, \w6um... \w8\w8\n\i[19]\_q%(vera)\_q hi, \w2then, \w2stranger!"
+			"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q o-oh, \w6um...\w8\w8\n\i[19]\_q%(vera)\_q hi, \w2then, \w2stranger!"
 		}
 		else {
-			"\0\s[3]\i[41]\_q%(vera)\_q pfft, hehe... \w8\n\i[19]\_q%(vera)\_q guess i'll keep calling you %(TOLOWER(username)), \w6then!"
+			"\0\s[3]\i[41]\_q%(vera)\_q pfft, hehe...\w8\n\i[19]\_q%(vera)\_q guess i'll keep calling you %(TOLOWER(username)), \w6then!"
 		}
 	}
 	else //normal name response. u can add names that just have comments and can still be used, just don't add a \e at the end.
@@ -165,7 +173,7 @@ OnChangePronoun
 	"\![*]\q[They/Them/Their,OnPronouns,undef,%(reference1)]\n"
 	"\![*]\q[Something else...,OnPronouns,custom,%(reference1)]"
 	if reference1 != "firstboot" {
-	"\n\n\![*]\q[Back to Config,OnConfigMenu]    \![*]\q[Close Menu,CANCEL]\e"
+	"\n\n\f[align,right]\![*]\q[Back to Config,OnConfigMenu]    \![*]\q[Close Menu,CANCEL]\e"
 	}
 	}
 }
@@ -249,7 +257,7 @@ OnPronounsDone
 	{
 		"\0\s[3]\i[61]\_q%(vera)\_q ok, i'll remember..."
 		--
-		"\n\n\f[color,default]\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[Close,CANCEL]\e"
+		"\n\n\f[align,right]\f[color,default]\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[Close,CANCEL]\e"
 	}
 }
 
@@ -267,10 +275,7 @@ OnPronounsDone
 
 OnChangeTitle
 {
-	//if reference1 == "firstboot" 	{_customwtf = OnFirstCustomTitle}
-	//else 							{_customwtf = OnCustomTitle}
-	
-	"\0\![set,autoscroll,disable]\_q%(vera)\_q"
+	"\0\b2\![set,autoscroll,disable]\_q%(vera)\_q"
 	--
 	if reference0 == "custom" 
 	{
@@ -285,20 +290,51 @@ OnChangeTitle
 		"\s[1]\i[1]\i[80] o-of course! what title do you use?"
 	}
 	--
+	"\w8\n\n\_q\f[color,default]"
+	--
+	if EFlag("Formality") 
+	{
 	all:{
-	"\n\n\_q\f[color,default]"
+		"(VERA currently DOES"
+		if Flag("No Formality"); "N'T"
+		" use a title with you. "
+		"\![*]\q[Change it?,OnToggleTitle,menu])\n\n"
+		}
+	}
+	--
+	all:{
 	"\![*]\q[Mister,OnTitle,mister,%(reference1)]\n"
 	"\![*]\q[Miss,OnTitle,miss,%(reference1)]\n"
 	"\![*]\q[Mixter,OnTitle,mixter,%(reference1)]\n"
 	"\![*]\q[Mx,OnTitle,mx,%(reference1)]\n"
 	"\![*]\q[Misr,OnTitle,misr,%(reference1)]\n"
 	"\![*]\q[Something else,OnCustomTitle,,%(reference1)]"
-	//"\![*]\q[Please don't,OnTitle,none,%(reference1)]"
 	}
 	--
 	if reference1 != "firstboot" {
-	"\n\n\![*]\q[Back to Config,OnConfigMenu]    \![*]\q[Close,CANCEL]\e"
+	"\n\n\f[align,right]\f[color,default]\![*]\q[Back to Config,OnConfigMenu]    \![*]\q[Close,CANCEL]\e"
 	}
+}
+
+OnToggleTitle
+{
+	if !Flag("No Formality"); AddFlag("No Formality")
+	else; RemoveFlag("No Formality")
+	--
+	if negfeel >= 10
+	{
+		"\s[5]\i[1]\![anim,stop,15]\i[80]\_q%(vera)\_q ah, \w2of course, \w2i... \w8\w8\n\s[1]\i[1]\i[26]\i[80]%(pername)."
+	}
+	else
+	{
+		"\s[3]\i[19]\_q%(vera)\_q alright! \w8\w8\n\s[3]\_q%(vera)\_q "
+		--
+		"hey, %(pername) :)"
+		"%(pername) it is :)"
+	}
+	--
+	if reference0 == "menu"
+	{"\n\n\_q\f[align,right]\f[color,default]\![*]\q[Back to Title Config,OnChangeTitle]    \![*]\q[Close,CANCEL]\e"}
 }
 
 OnCustomTitle
@@ -323,7 +359,7 @@ OnTitle
 	if ASEARCH(_title,CanYouNotArray) != -1
 	{
 		reference3 = "redo"
-		negfeel += 5
+		negfeel += 3
 		
 		"\_q\s[1]\i[1]\i[80]\i[26]\i[35](...She looks very uncomfortable.)"
 		--
@@ -373,9 +409,9 @@ OnTitle
 		"\0\s[3]\i[1]\i[80]\i[26]\i[19]\_q%(vera)\_q"
 	}
 	--
+	//-------------------------------------------------
 	//i really dont want to put an end tag so uhhh yeah
 	if reference3 == "redo" {}
-	//-------------------------------------------------
 	elseif reference1 == "firstboot"
 	{
 		" hello, %(pername)! \w8\w8\n\s[5]\i[1]\i[80]\i[26]\_q%(vera)\_q .\w4.\w4.\w4ah, \w6that was way too much talking... \w8\w2\s[3]\i[1]\i[80]\i[26]i'm vera, \w6by the way... \w8\w4\n\i[18]\_q%(vera)\_q i guess i'll... \w8stay here until i wake up...\e"
@@ -389,7 +425,7 @@ OnTitle
 }
 
 
-OnChangeBirthday //Pulled a lot of this from the GT template, but I also modified it a lot
+OnChangeBirthday
 {
 	"\0\s[1]\_q%(vera)\_q oh..! \n\w8\_q%(vera)\_q yes, \w6of course, \w6what month were you born in?"
 	--
@@ -455,6 +491,8 @@ OnUserBornDay
 		{
 			"\0\s[1]\i[1]\i[80]\_q%(vera)\_q oh, wow, a christmas birthday... \n\w8\s[3]\i[80]\_q%(vera)\_q that's cool :)"
 		}
+		//elseif birthday[1] == "4/13"
+		//haha funny homestuck day
 		else //if the birthday is not listed above.
 		{
 			"\0\s[1]\i[18]\_q%(vera)\_q %(TOLOWER(birthday[0]))... \n\w8\w6\s[3]\i[26]\_q%(vera)\_q i'll try to remember..."

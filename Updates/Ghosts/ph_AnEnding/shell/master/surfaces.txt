@@ -1,13 +1,15 @@
 //VERA THANDI, AN ENDING - MASTER SHELL
 
+//meow meow meow aughhhhhhhhhhhhh
+
 version,1
 
 //THIS IS NEWDEF FORMAT BTW
 //animation#.pattern#,method,surface,pause,X,Y
 
 //======Plaaaaaaaning======
-//--------------SURFACES-INTERVALS----
-//surface0: fallback test
+//--------------SURFACES----
+//surface0: fallback sit
 //surface1: sitting neutral
 //surface2: sitting look
 //surface3: sitting smile
@@ -21,15 +23,16 @@ version,1
 //surface11: sleep idle
 //surface12: sit tablet idle
 //surface13: sit journal idle
-//surface14: 
+//surface14: sit cards idle
 //surface18: 
 //surface19: 
+//surface20: fallback stand
 //surface21: standing neutral
-//surface22: 
-//surface23: 
-//surface24: 
+//surface22: standing look
+//surface23: standing smile
+//surface24: standing smile look
 
-//------------------IDLE INTERVALS----
+//------------------INTERVALS----
 //	0-9: back legs
 //	10-14: body
 //	15-24: eyes
@@ -46,10 +49,11 @@ version,1
 //	203: resets mouth
 //	204: resets eyebrows
 //	205: stops extras (\i[205]\w1\i[80], etc)
-//	210: resets front arm
+
+//	210: holding obsidian
 
 //---------IMPORTANT: recalling her surfaces wont cause major flickering because her shell is small. therefore, her intervals are set up only to stop the runonce intervals. if you want to change her intervals, recall her surface first.
-//uh note to self i[35] should stop the mouth animation? though mayyyybeeee you could do ![stop,anim,32]?
+//uh note to self i[35] should stop the mouth animation? though you could do ![stop,anim,32]
 
 //-------------------------VERA-THANDI!-------------
 
@@ -92,6 +96,8 @@ surface0
 }
 
 //------------------------------------------------
+
+//i dont really think this is the best way to do it (depending on appends) because if you hover over the ghost in the task bar all you see is a blank sprite :( its ok though cause it looks good on your desktop right?
 
 //sitting looking forward + neutral
 surface1
@@ -213,6 +219,12 @@ surface.append6-7
 	animation35.interval,never
 	animation35.pattern0,stop,32
 	//interval 203 will continue talking!
+	
+	//holding obsidian
+	//This interval is in other places of surfaces.txt: use search to replace all instances.
+	animation210.interval,never
+	animation210.pattern0,parallelstop,(31,32,35)
+	animation210.pattern1,overlay,210,0,0,0
 }
 
 //sit journal talk + neutral
@@ -252,6 +264,12 @@ surface.append8-9
 	//stop that!!
 	animation35.interval,never
 	animation35.pattern0,stop,32
+	
+	//holding obsidian
+	//This interval is in other places of surfaces.txt: use search to replace all instances.
+	animation210.interval,never
+	animation210.pattern0,parallelstop,(31,32,33,35)
+	animation210.pattern1,overlay,210,0,0,0
 }
 
 //append for normal looking forward eyes
@@ -332,51 +350,14 @@ surface.append2,4,6-9
 	animation19.pattern1,overlay,195,0,0,0
 }
 
-//sit append 1, legs + body (base)
-surface.append1-9
-{
-	//--back leg
-	//relax
-	animation0.interval,runonce
-	animation0.pattern0,overlay,110,0,0,0
-	//curl up
-	animation1.interval,never
-	animation1.pattern0,stop,0
-	animation1.pattern1,overlay,111,0,0,0
-	
-	//normal sit body
-	animation10.interval,runonce
-	animation10.pattern0,overlay,100,0,0,0
-	
-	point.basepos.y,282
-}
+//sit append 0, body (absolute base)
+//removed bc its not needed for now. covered by sit append 1
 
-//sit append 2, (1-4, collisions + eyebrows)
-surface.append1-4,6-9
-{
-	//Collisions
-	collisionex0,Head,polygon,128,136,216,136,215,192,191,192,176,188,165,165,162,165,158,177,148,182,158,201,122,201
-	collision1,147,165,190,202,Face
-	collisionex2,Hair,polygon,216,192,190,192,183,200,201,209,211,276,224,292,246,276,239,232
-	
-	//--eyebrows
-	//neutral
-	animation25.interval,runonce
-	animation25.pattern0,overlay,125,0,0,0
-	//oh...
-	animation26.interval,never
-	animation26.pattern0,stop,25
-	animation26.pattern1,overlay,126,0,0,0
-	//angry
-	animation27.interval,never
-	animation27.pattern0,stop,25
-	animation27.pattern1,overlay,127,0,0,0
-	
-	//--extras
-	//bloosh
-	animation1030.interval,never
-	animation1030.pattern0,overlay,1030,0,0,0
-}
+//sit append 1, legs + body + basepos (base)
+//can be found lower down under surface 15
+
+//sit append 2, (3/4 collisions + eyebrows)
+//can be found lower down under surface 15
 
 //sit append 3, arms
 surface.append1-5
@@ -389,10 +370,15 @@ surface.append1-5
 	animation41.interval,never
 	animation41.pattern0,stop,40
 	animation41.pattern1,overlay,131,0,0,0
-	//on head
+	//on mouth
 	animation42.interval,never
 	animation42.pattern0,stop,40
 	animation42.pattern1,overlay,132,0,0,0
+	//OMFG 43 COVERS UP PART OF THE EYELASH AJEFIURRRRRRRRTSHJ its ok. no one will care but me (i dont want to change the number order.)
+	//on cheek
+	animation43.interval,never
+	animation43.pattern0,stop,40
+	animation43.pattern1,overlay,133,0,0,0
 	
 	//--front arms
 	//on ground
@@ -402,10 +388,14 @@ surface.append1-5
 	animation61.interval,never
 	animation61.pattern0,stop,60
 	animation61.pattern1,overlay,151,0,0,0
-	//on head
+	//on mouth
 	animation62.interval,never
 	animation62.pattern0,stop,60
 	animation62.pattern1,overlay,152,0,0,0
+	//on cheek
+	animation63.interval,never
+	animation63.pattern0,stop,60
+	animation63.pattern1,overlay,153,0,0,0
 	
 	//--both arms
 	//on knees
@@ -432,6 +422,26 @@ surface.append1-5
 	animation85.interval,never
 	animation85.pattern0,parallelstop,(40,60,80)
 	animation85.pattern1,overlay,175,0,0,0
+	//cards in hand
+	animation86.interval,never
+	animation86.pattern0,parallelstop,(40,60,80)
+	animation86.pattern1,overlay,176,0,0,0
+	//card stack
+	animation87.interval,never
+	animation87.pattern0,parallelstop,(40,60,80)
+	animation87.pattern1,overlay,177,0,0,0
+	//card stack shuffle
+	animation88.interval,never
+	animation88.pattern0,parallelstop,(40,60,80)
+	animation88.pattern1,overlay,178,0,0,0
+	
+	//holding obsidian
+	//REMEMBER TO ADD ARM INTERVALS TO PARALLELSTOP WHEN IMPLEMENTED
+	//This interval is in other places of surfaces.txt: use search to replace all instances.
+	animation210.interval,never
+	animation210.pattern0,parallelstop,(40,41,42,43,60,61,62,63,80,81,82,83,84,85,86,87,88)
+	animation210.pattern1,overlay,210,0,0,0
+	animation210.collision210,151,209,175,223,Obsidian
 	
 	//journal pen 1
 	animation1025.interval,never
@@ -538,9 +548,15 @@ surface.append1-7
 surface11
 {
 	element0,overlay,surface50.png,0,0
+	collisionex0,Hair,polygon,186,193,178,212,185,212,197,232,200,250,195,277,226,299,240,270,240,193
+	collisionex1,Hair,polygon,72,248,72,288,89,288,90,284,101,281,111,274,113,266,127,249
+	collision2,134,199,167,234,Face
+	collisionex3,Head,polygon,105,164,190,164,190,198,166,218,157,216,149,210,140,210,140,217,123,243,105,243
 	
 	animation1.interval,never
 	animation1.pattern0,overlay,51,0,0,0
+	animation2.interval,runonce
+	animation2.pattern0,stop,211
 	
 	animation5.interval,always
 	animation5.pattern0,overlay,61,0,125,212
@@ -557,6 +573,18 @@ surface11
 	animation10.pattern0,stop,5
 	animation10.pattern1,overlay,61,0,125,211
 	
+	//holding obsidian
+	//This interval is in other places of surfaces.txt: use search to replace all instances.
+	animation210.interval,never
+	animation210.pattern0,overlay,213,0,0,0
+	animation210.pattern1,start,211
+	animation210.collision210,129,139,158,156,Obsidian
+	
+	animation211.interval,random,4
+	animation211.pattern0,replace,214,0,178,144
+	animation211.pattern1,replace,215,300,178,144
+	animation211.pattern2,replace,-1,100,0,0
+	
 	point.basepos.y,282
 }
 
@@ -564,9 +592,6 @@ surface11
 //tablet
 surface12
 {
-	element0,overlay,surface110.png,0,0
-	element1,overlay,surface100.png,0,0
-	
 	//--eyes
 	//eye look
 	animation15.interval,runonce
@@ -587,20 +612,14 @@ surface12
 	animation30.pattern3,start,31
 	animation31.interval,always
 	animation31.pattern0,overlay,172,0,0,0
-	animation31.pattern1,overlay,-1,150-1000,0,0
+	animation31.pattern1,overlay,-1,150-700,0,0
 	animation31.pattern2,overlay,171,0,0,0
-	animation31.pattern3,overlay,-1,150-1000,0,0
-	
-	point.basepos.y,282
+	animation31.pattern3,overlay,-1,500-1000,0,0
 }
 
 //writing in journal
 surface13
 {
-	element0,overlay,surface110.png,0,0
-	element1,overlay,surface100.png,0,0
-	element2,overlay,surface173.png,0,0
-	
 	//--eyes
 	//eye look
 	animation15.interval,runonce
@@ -625,14 +644,108 @@ surface13
 	animation31.pattern2,overlay,1025,0,0,0
 	animation31.pattern3,overlay,-1,150-1000,0,0
 	
+	//journal arm
+	animation83.interval,runonce
+	animation83.pattern0,overlay,173,0,0,0
+	
+}
+
+//card shuffle
+surface14
+{
+	//--eyes
+	//eye look
+	animation15.interval,runonce
+	animation15.pattern0,overlay,192,0,0,0
+	//blink look
+	animation16.interval,random,4
+	animation16.pattern0,stop,15
+	animation16.pattern1,overlayfast,193,0,0,0
+	animation16.pattern2,overlayfast,194,120,0,0
+	animation16.pattern3,overlay,-1,80,0,0
+	animation16.pattern4,start,15
+	
+	//--shuffle shuffle
+	animation30.interval,runonce
+	animation30.pattern0,stop,31
+	animation30.pattern1,overlay,177,0,0,0
+	animation30.pattern2,overlay,-1,200,0,0
+	animation30.pattern3,start,31
+	animation31.interval,always
+	animation31.pattern0,overlay,178,0,0,0
+	animation31.pattern1,overlay,-1,150-1000,0,0
+	animation31.pattern2,overlay,177,0,0,0
+	animation31.pattern3,overlay,-1,150-1000,0,0
+}
+
+//sit idle append, mouths
+//(yeah these are weird bc you gotta call the mouths through the 40 range)
+surface.append12-14
+{
+	//open
+	animation40.interval,never
+	animation40.pattern0,overlay,120,0,0,0
+	//smile
+	animation41.interval,never
+	animation41.pattern0,overlay,121,0,0,0
+	//smile open
+	animation42.interval,never
+	animation42.pattern0,overlay,122,0,0,0
+}
+
+//sit append 1, legs + body + basepos (base)
+surface.append1-9,12-14
+{
+	//--back leg
+	//relax
+	animation0.interval,runonce
+	animation0.pattern0,overlay,110,0,0,0
+	//curl up
+	animation1.interval,never
+	animation1.pattern0,stop,0
+	animation1.pattern1,overlay,111,0,0,0
+	
+	//normal sit body
+	animation10.interval,runonce
+	animation10.pattern0,overlay,100,0,0,0
+	
 	point.basepos.y,282
 }
+
+//sit append 2, 3/4 eyebrows + collisions
+surface.append1-9,!5,12-14
+{
+	//Collisions
+	collisionex0,Head,polygon,128,136,216,136,215,192,191,192,176,188,165,165,162,165,158,177,148,182,158,201,122,201
+	collision1,147,165,190,202,Face
+	collisionex2,Hair,polygon,216,192,190,192,183,200,201,209,211,276,224,292,246,276,239,232
+	
+	//--eyebrows
+	//neutral
+	animation25.interval,runonce
+	animation25.pattern0,overlay,125,0,0,0
+	//oh...
+	animation26.interval,never
+	animation26.pattern0,stop,25
+	animation26.pattern1,overlay,126,0,0,0
+	//angry
+	animation27.interval,never
+	animation27.pattern0,stop,25
+	animation27.pattern1,overlay,127,0,0,0
+	
+	//--extras
+	//bloosh
+	animation1030.interval,never
+	animation1030.pattern0,overlay,1030,0,0,0
+}
+
 
 //--Standing Fallback Surface
 surface20 
 {
 	element0,overlay,surface500.png,0,0
 	element1,overlay,surface570.png,0,0
+	element6,overlay,surface525.png,0,0
 	
 	//Silly talkin
 	animation1.interval,talk,4
@@ -657,7 +770,224 @@ surface20
 	point.basepos.y,293
 }
 
+//-------STANDING--------
 
+//standing looking forward + neutral
+surface21
+{
+	element0,overlay,surface10.png,0,0
+}
+
+//standing peering sideways + neutral
+surface22
+{
+	element0,overlay,surface10.png,0,0
+}
+
+
+//standing looking forward + smiling
+surface23
+{
+	element0,overlay,surface10.png,0,0
+}
+
+//standing peering sideways + smiling
+surface24
+{
+	element0,overlay,surface10.png,0,0
+}
+
+//neutral talk append for standing
+surface.append21-22
+{
+	//talk
+	animation32.interval,talk,4
+	animation32.pattern0,overlay,520,100-140,0,0
+	animation32.pattern1,overlay,-1,100,0,0
+	//stop that!!
+	animation35.interval,never
+	animation35.pattern0,stop,32
+}
+
+//smile mouth append for sitting
+surface.append23-24
+{
+	//mouth overlay
+	animation31.interval,runonce
+	animation31.pattern0,overlay,521,0,0,0
+	//talk
+	animation32.interval,talk,4
+	animation32.pattern0,overlay,522,100-140,0,0
+	animation32.pattern1,overlay,-1,100,0,0
+	//stop that!!
+	animation35.interval,never
+	animation35.pattern0,stop,32
+}
+
+
+//append for forward standing eyes
+surface.append21,23
+{
+	//--eyes
+	//eye look
+	animation15.interval,runonce
+	//animation15.pattern0,stop,18
+	animation15.pattern0,overlay,590,0,0,0
+	//blink look
+	animation16.interval,random,4
+	animation16.pattern0,stop,15
+	animation16.pattern1,overlayfast,591,0,0,0
+	animation16.pattern2,overlayfast,594,120,0,0
+	animation16.pattern3,overlay,-1,80,0,0
+	animation16.pattern4,start,15
+	//lid look
+	animation17.interval,never
+	animation17.pattern0,parallelstop,(15,16)
+	animation17.pattern1,overlay,591,0,0,0
+	//u_u
+	animation18.interval,never
+	animation18.pattern0,parallelstop,(15,16)
+	animation18.pattern1,overlay,594,0,0,0
+	//^_^ (tba)
+	//animation19.interval,never
+	//animation19.pattern0,parallelstop,(15,16)
+	//animation19.pattern1,overlay,595,0,0,0
+	//0_0 (tba)
+	//animation20.interval,never
+	//animation20.pattern0,parallelstop,(15,16)
+	//animation20.pattern1,overlay,596,0,0,0
+}
+
+//stand peer eyes append
+surface.append22,24
+{
+	//--eyes
+	//eye look
+	animation15.interval,runonce
+	animation15.pattern0,overlay,592,0,0,0
+	//blink look
+	animation16.interval,random,4
+	animation16.pattern0,stop,15
+	animation16.pattern1,overlayfast,593,0,0,0
+	animation16.pattern2,overlayfast,594,120,0,0
+	animation16.pattern3,overlay,-1,80,0,0
+	animation16.pattern4,start,15
+	//lid look
+	animation17.interval,never
+	animation17.pattern0,parallelstop,(15,16)
+	animation17.pattern1,overlay,593,0,0,0
+	//u_u
+	animation18.interval,never
+	animation18.pattern0,parallelstop,(15,16)
+	animation18.pattern1,overlay,594,0,0,0
+	//^_^ (tba)
+	//animation19.interval,never
+	//animation19.pattern0,parallelstop,(15,16)
+	//animation19.pattern1,overlay,595,0,0,0
+}
+
+//stand append 1, body + basepos (base)
+surface.append21-24
+{
+	//normal stand body
+	animation10.interval,runonce
+	animation10.pattern0,overlay,500,0,0,0
+	
+	point.basepos.y,293
+}
+
+//stand append 2, 3/4 eyebrows + collisions
+surface.append21-24
+{
+	//Collisions (tba)
+	//head
+	//face
+	//hair
+	
+	//--eyebrows
+	//neutral
+	animation25.interval,runonce
+	animation25.pattern0,overlay,525,0,0,0
+	//oh...
+	animation26.interval,never
+	animation26.pattern0,stop,25
+	animation26.pattern1,overlay,526,0,0,0
+	//angry
+	animation27.interval,never
+	animation27.pattern0,stop,25
+	animation27.pattern1,overlay,527,0,0,0
+	
+	//--extras
+	//bloosh (tba)
+}
+
+//stand append 3, unawakened arms
+surface.append21-24
+{
+	//--back arms
+	//sides
+	animation40.interval,runonce
+	animation40.pattern0,overlay,530,0,0,0
+	
+	//--front arms
+	//sides
+	animation60.interval,runonce
+	animation60.pattern0,overlay,550,0,0,0
+	
+	//--both arms
+	//crossed arms
+	animation80.interval,never
+	animation80.pattern0,parallelstop,(40,60)
+	animation80.pattern1,overlay,570,0,0,0
+}
+
+
+//temp thing so i can see her awakened form :3
+surface900
+{
+	element0,overlay,surface900.png,0,0
+	
+	//Silly talkin
+	animation1.interval,talk,4
+	animation1.pattern0,alternativestart,(2,3)
+	animation2.interval,never
+	animation2.pattern0,overlay,920,100,0,0
+	animation2.pattern1,overlay,-1,100,0,0
+	animation3.interval,never
+	animation3.pattern0,overlay,920,140,0,0
+	animation3.pattern1,overlay,-1,100,0,0
+	
+	//blink blink
+	animation4.interval,runonce
+	animation4.pattern0,overlay,590,0,0,0
+	
+	animation5.interval,random,4
+	animation5.pattern0,stop,4
+	animation5.pattern1,overlayfast,594,0,0,0
+	animation5.pattern2,overlay,-1,80,0,0
+	animation5.pattern3,start,4
+	
+	point.basepos.y,293
+}
+
+
+
+//MISC STUFF
+
+//sitting obsidian drop surface
+surface211
+{
+	element0,overlay,surface211.png,0,0
+	animation0.interval,runonce
+	animation0.pattern0,replace,212,180,0,0
+	
+	//sleeping
+	animation11.interval,never
+	animation11.pattern0,replace,216,0,0,0
+	animation11.pattern1,replace,217,180,0,0
+	
+	point.basepos.y,282
+}
 
 //Here for reference. If you want your blink/talk frames in subfolders, you must define them first. This is where you can put the subfolder. You should be able to hide them from surface test again by putting that option into your surfacetable.
 //surface100

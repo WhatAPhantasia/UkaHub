@@ -1,14 +1,5 @@
 //-----Envelopes-----
 
-usersfolder
-{
-	"start bar"
-	"Documents folder"
-	"Pictures folder"
-	"Music folder"
-	"Games folder"
-}
-
 filetype
 {
 	".txt"
@@ -48,19 +39,68 @@ HollercodeArray
 	"instantiator","prospector","ruminator","revisor"
 }
 
+//debug func to be deleted later (and then i never deleted it)
+Count {_argc}
+
+//omfg
+//"card name,arcana"
+//make a function to identify suit by going if _TarotSuit[1] in card or whatever idk how to code /j
+TarotDeck {
+	_deck = ("The Fool,Major","The Magician,Major","The High Priestess,Major","The Empress,Major","The Emperor,Major","The Hierophant,Major","The Lovers,Major","The Chariot,Major","Strength,Major","The Hermit,Major","The Wheel of Fortune,Major","Justice,Major","The Hanged Man,Major","Death,Major","Temperance,Major","The Devil,Major","The Tower,Major","The Star,Major","The Moon,Major","The Sun,Major","Judgement,Major","The World,Major","Knight of Wands,Minor","King of Wands,Minor","Queen of Wands,Minor","Page of Wands,Minor","2 of Wands,Minor","3 of Wands,Minor","4 of Wands,Minor","5 of Wands,Minor","6 of Wands,Minor","7 of Wands,Minor","8 of Wands,Minor","9 of Wands,Minor","10 of Wands,Minor","Ace of Wands,Minor","Knight of Cups,Minor","King of Cups,Minor","Queen of Cups,Minor","Page of Cups,Minor","2 of Cups,Minor","3 of Cups,Minor","4 of Cups,Minor","5 of Cups,Minor","6 of Cups,Minor","7 of Cups,Minor","8 of Cups,Minor","9 of Cups,Minor","10 of Cups,Minor","Ace of Cups,Minor","Knight of Swords,Minor","King of Swords,Minor","Queen of Swords,Minor","Page of Swords,Minor","2 of Swords,Minor","3 of Swords,Minor","4 of Swords,Minor","5 of Swords,Minor","6 of Swords,Minor","7 of Swords,Minor","8 of Swords,Minor","9 of Swords,Minor","10 of Swords,Minor","Ace of Swords,Minor","Knight of Pentacles,Minor","King of Pentacles,Minor","Queen of Pentacles,Minor","Page of Pentacles,Minor","2 of Pentacles,Minor","3 of Pentacles,Minor","4 of Pentacles,Minor","5 of Pentacles,Minor","6 of Pentacles,Minor","7 of Pentacles,Minor","8 of Pentacles,Minor","9 of Pentacles,Minor","10 of Pentacles,Minor","Ace of Pentacles,Minor")
+	//_deck = TOSTR(_deck)
+	_rand = IARRAY
+	_out = IARRAY
+	
+	if _argv[0] == "rand" {RandCard(_deck)}
+	elseif _argv[0] == "all" {_deck}
+	else {PickCard(_deck[_argv])}
+}
+//"Name,Suit"
+CardDeck {
+	_deck = ("A,Spades","2,Spades","3,Spades","4,Spades","5,Spades","6,Spades","7,Spades","8,Spades","9,Spades","10,Spades","J,Spades","Q,Spades","K,Spades","A,Hearts","2,Hearts","3,Hearts","4,Hearts","5,Hearts","6,Hearts","7,Hearts","8,Hearts","9,Hearts","10,Hearts","J,Hearts","Q,Hearts","K,Hearts","A,Clubs","2,Clubs","3,Clubs","4,Clubs","5,Clubs","6,Clubs","7,Clubs","8,Clubs","9,Clubs","10,Clubs","J,Clubs","Q,Clubs","K,Clubs","A,Diamonds","2,Diamonds","3,Diamonds","4,Diamonds","5,Diamonds","6,Diamonds","7,Diamonds","8,Diamonds","9,Diamonds","10,Diamonds","J,Diamonds","Q,Diamonds","K,Diamonds","JOKER,JOKER")
+	_rand = IARRAY
+	_out = IARRAY
+	
+	if _argv[0] == "rand" {RandCard(_deck)}
+	elseif _argv[0] == "all" {_deck}
+	else {PickCard(_deck[_argv])}
+}
+//this functionality is mostly deprecated now because its WAYYY too hard to check for dupes when youre randomly pulling them individually like this. it has its use cases tho so thats why its still here.
+RandCard
+{
+	_rand = RAND(ARRAYSIZE(_argv)-1)
+	_out = _argv[_rand]
+	_out
+}
+//im TRYING to make it go _deck[desired number] RAGHHHHHHHHHH
+//this will call any item like "The Empress,Major" and you can do _card = "\![raise,OnTarotDeck,3]" then _card[1] or whatever
+//these lines of code are super uneccessary but i cant figure out how to make it work otherwise??? its a load bearing pillar i dont know how to replace
+PickCard
+{
+	_out = _argv
+	_out
+}
+
 
 //--name politeness determiner
-pername 		{if posfeel < 25 /*&& !Flag("peek hollerfeed")*/
-				{"%(prefix)%(TOLOWER(username))"}
+pername 		{if !Flag("No Formality")
+				{"%(usertitle) %(TOLOWER(username))"}
 				else
 				{"%(TOLOWER(username))"}
 				}
-//determines whether or not to add an honorific (remember to not put a space ig?)
+//--ALWAYS formal name output
+forname 		{"%(usertitle) %(TOLOWER(username))"}
+//determines whether or not to add an honorific
 prefix 			{
-				if usertitle == "none" 	{""}
-				else 					{"%(usertitle) "}
+				if Flag("No Formality")	{IARRAY}
+				else 					{"%(usertitle)"}
 				}
-menuprefix		{ if usertitle == "none" {"No Title"} else {"%(Capitalize(usertitle))"} }
+//currently not using this one
+menuprefix		{if Flag("No Formality") 
+				{"No Title"} 
+				else 
+				{"%(Capitalize(usertitle))"} 
+				}
 
 
 //--hollercode/name envelopes
@@ -165,10 +205,22 @@ divfeel
 	_out
 }
 
-allrecenttouch
-{
-	recenttouch[0] + recenttouch[1] + recenttouch[2]
-}
+
+//--JOINED ARRAYS--
+//touch
+allrecenttouch	{posrecenttouch + negrecenttouch}
+posrecenttouch	{recenttouch[0] + recenttouch[1] + recenttouch[2]}
+negrecenttouch	{recenttouch[3] + recenttouch[4]}
+alltotaltouch	{postotaltouch + negtotaltouch}
+postotaltouch	{totaltouch[0] + totaltouch[1] + totaltouch[2]}
+negtotaltouch	{totaltouch[3] + totaltouch[4]}
+//act
+
+//give
+alltotalgive	{totalgive[0] + totalgive[1] + totalgive[2] + totalgive[3]}
+
+alltotalact		{totalact[0] + totalact[1] + totalact[2] + totalact[3] + totalact[4] + totalact[5]}
+
 
 //-----Sleep Stuff----
 //both sleep/wake range from 0-100.
@@ -232,6 +284,16 @@ wakeyness
 
 //-----Shell Stuff----
 
+vidle
+{
+	if posfeel >= 20 {
+		vcasidle
+		if !holdingObsidian && EFlag("FirstHoller") && RAND(3) == 2
+		{vtabletidle}
+		}
+	else {vsleepyidle}
+}
+
 vsleepyidle
 {
 	"\s[2]\i[17]\i[1]\i[80]"
@@ -239,9 +301,23 @@ vsleepyidle
 	"\s[5]\i[1]\i[80]\![anim,clear,25]"
 }
 
-vcasidle
+vcasidle {"\s[%(ANY(2,5))]"}
+
+//tablet idle order: base, eyebrows, mouth, leg, blush
+//(no speechbubbles, feels kinda cluttery and limited)
+vtabletidle {"\s[12]\i[%(ANY(25,26,27))]\i[%(ANY(0,41))]\i[%(ANY(0,0,0,1))]\i[%(ANY(0,0,0,1030))]"}
+
+vattention
 {
-	"\s[%(ANY(2,5))]"
+	if posfeel >= 20
+	{
+		"\s[1]"
+		"\s[1]\i[41]"
+	}
+	else
+	{
+		"\s[1]\i[1]\i[80]"
+	}
 }
 
 //-----Menu stuff-----
@@ -280,6 +356,9 @@ nowmin
 
 //Total hours
 totalhours {x.up_total / 60}
+
+//current session hours
+x.up_hours {x.up_mins / 60}
 
 //Total hours + minutes
 totalruntime
@@ -545,17 +624,17 @@ loremipsum
 //--uh oh! bad word filter!--------
 //if ASEARCH(thingtosearch,InsertNameHereArray) != -1
 
-//slurs and whatever
-//ig ppl can circumvent this with like numbers n stuff but it's their fault at that point, not mine
-CanYouNotArray
-{
-	"tranny","retard","faggot","dyke","nigger","nigga","beaner","shemale"
-}
 
 //look man i gotta cover all the bases
 WeirdNameArray
 {
 	"mom","dad","mommy","daddy"
+}
+//slurs and whatever (BIG WARNING FOR ANYONE READING MY CODE OUGH)
+//ig ppl can circumvent this with like numbers n stuff but it's their fault at that point, not mine
+CanYouNotArray
+{
+	"tranny","retard","faggot","dyke","nigger","nigga","beaner","shemale"
 }
 
 SwearJarArray
