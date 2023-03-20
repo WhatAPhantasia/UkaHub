@@ -1,9 +1,9 @@
-//ok so. i really heavily referenced zi's ghosts for this. onaitalk and randomtalk is all her.
+//ok so. i really heavily referenced zi's ghosts for this. onaitalk and choosetalk is all her.
 OnAiTalk
 {
 	if CHAIN.IDName == ""
 	{
-		lastTalk = RandomTalk
+		lastTalk = OnChooseTalk
 	}
 	else
 	{
@@ -20,43 +20,86 @@ OnAiTalk
 	"\0\s[0]Yesterday was %(nowday('last'))!\e"
 */
 
-RandomTalk
+OnChooseTalk
 {
-	//idea: split event if/elses into a 50/50 chance to either go to events or straight to random talk, except for priority events. events like getting lila a hollercode under the right conditions (know about lila but havent had her have a hollercode yet), or to peek at hollerfeeds.
-//	if RAND(1)
-//	{
-//		if !Flag("Event FirstHoller") && (posfeel > 5 || negfeel > 5)
-//		{
-//			OnEventFirstHoller
-//		}
-//		else
-// 		{
-// 			Maintalk
-// 		}
-//	}
-//	else
-//	{
-		MainTalk
-//	}
+	//idea: split event if/elses into a 50/50 chance to either go to events or straight to random talk, except for priority events. events like getting lila a hollercode under the right conditions (know about lila but havent had her have a hollercode yet), or to peek at hollerfeeds. use a RAND(1).
+	//DANG ok references get passed down to OnChooseTalk from OnAiTalk! That's cool! I don't have to do any extra work lol
+	
+	_sleepcheck = RAND(100)
+	
+	//necessary events
+	if !EFlag("FirstHoller") && (posfeel > 5 || negfeel > 5); OnEventFirstHoller
+	elseif !EFlag("Formality") && (posfeel >= 25 || negfeel >= 15); OnEventFormality
+	//elseif !EFlag("WhyMean") && (negfeel >= 25 || totaltouch[4] > 0); OnEventWhyMean
+	//elseif !EFlag("FirstSleep") && (posfeel >= 30 || negfeel >= 30); OnEventFirstSleep
+	
+	//positive route rand talk
+	else
+	{
+		if posfeel >= 25; MainTalk
+		elseif posfeel > 5; MainTalk
+		else; JustMetTalk
+	}
 }
 
+//maintalk is the mostly positive route! stuff that isn't in pools is basic dialogue for all purposes and relationship levels.
 MainTalk : nonoverlap_pool
 {
-	"\0\s[1]\_q%(vera)\_q haaa... i'm so sleepy...\e"
-	
 	//hollerfeed talk - just a normal parallel pool for now
-	parallel Pool_HollerfeedOne 
+	//parallel Pool_HollerfeedTest
 	
+	"\0\s[1]\i[41]\_q%(vera)\_q hey %(pername), \w2are you working on anything interesting?\w8\w8\n\s[3]\i[19]\i[41]\_q%(vera)\_q ...i don't really work on much, so i guesss i get more curious about what you could be doing, you know?\e"
+	
+	"\0\s[2]\i[1]\_q%(vera)\_q i'm only good at sitting around and doing nothing, so\w8\n\s[3]\i[1]\i[19]\i[26]\_q%(vera)\_q i guess you don't mind that if you're still hanging around me, huh?\e"
+	
+	"\0\s[2]\_q%(vera)\_q my brain doesn't function as good as my dreamself's does.\w8\w8\n\s[3]\i[19]\_q%(vera)\_q is that weird? \w2she's way smarter than me!! \w4do you ever feel that way?\w8\w8\n\![anim,stop,19]\i[15]\_q%(vera)\_q like, having your dreams make more sense than whatever stream of consciousness being awake is..?\e:chain=awakevsdream%(ANY('1,2'))"
+	
+	"\0\s[2]\i[1]\i[17]\i[26]\i[43]\i[61]\_q%(vera)\_q s\w1i\w1g\w1h\w1h\w1h\w1, \w8\_a[https://www.youtube.com/watch?v=sP4NMoJcFd4]i'm thinking about cats again...\_a\w8\w8\n\_q%(vera)\_q i want to hug all of them but i cant... \w4that's crazy...\w8\w8\n\![anim,stop,17]\![anim,stop,61]\i[18]\i[63]\_q%(vera)\_q i \w2CAN'T \w2hug every cat...\e"
+	
+	"\0\s[2]\i[1]\i[26]\i[43]\_q%(vera)\_q i don't actually play all too many video games.\w8\w8\n\i[18]\_q%(vera)\_q i wish i COULD, \w2\i[1030]just so i could have more to talk about with h...\w8\w8\![anim,stop,18]\i[15]\![anim,stop,26]\i[25]\w8\n\_q%(vera)\_q ...u-um, \w2i mean, \w8\s[3]\i[1]\i[19]\i[26]\i[1030]it's a popular hobby, so i could talk to more people JUST IN GENERAL and for NO ONE IN PARTICULAR if i could get into it, right??\e:chain=gamesrfun"
+	//i have this as an any because it was originally in a pool and line delimiters messed up probability
+	"\0\s[1]\_q%(vera)\_q oh, \w2i dropped by the store recently and they had some really cheap %(ANY('easy-make dinner sets,party-sized chip bags,party-sized bag of popcorn kernels,massive blocks of tofu,bags of rice,bags of lentils')) on sale!!\w8\w8\n\s[3]\i[19]\_q%(vera)\_q i'm still super hyped from that... \w4i was running out of food, but now i don't have to think about it for a while when i get home :\]\e"
+	
+	"\0\s[1]\i[1]\i[18]\i[26]\i[42]\_q%(vera)\_q ooof, \w2my shoulders hurt from sitting in a weird position like this...\w8\w8\n\![anim,stop,18]\i[15]\![anim,stop,26]\i[27]\![anim,stop,42]\i[80]\_q%(vera)\_q make sure you're getting up now and again too, ok %(pername)?\w8\w8\n\_q%(vera)\_q don't end up like the silly 14 year old with 80 year old bones!! \w8\i[18]which is me, by the way.\e"
+	
+	{"\0\s[2]\i[26]\_q%(vera)\_q i tried picking up another job again.\w8\w8\n\_q%(vera)\_q cause we were low on funds, \w8\i[17]again.\w8\w8\n"
+	--
+	"\s[1]\_q%(vera)\_q it was this comic store a few blocks down, \w6where i had to work the register...\w8\w8\n\s[4]\i[17]\i[26]\_q%(vera)\_q my coworker was too talkative... \w8\![anim,stop,17]\i[18]not that they were bad, i'm just not good at talking.......\w8\w8\n\s[1]\i[18]\i[26]\_q%(vera)\_q also i kept sleeping during my shift........."
+	"\s[1]\_q%(vera)\_q it was a library...\w8\w8\n\s[4]\i[19]\i[26]\_q%(vera)\_q i thought i'd be perfect for it cause i like organizing stuff, and maybe they'd be ok with me napping, but....\w8\w8\n\![anim,stop,19]\i[15]\_q%(vera)\_q not only was i wrong, but the library was SO busy..??\w8\w8\n\s[2]\i[26]\_q%(vera)\_q i had no idea that many people went to libraries... \w8i couldn't talk to anyone..."
+	"\s[3]\i[26]\_q%(vera)\_q i tried being a cashier... \w8\i[19]BAD idea for me, obviously.\w8\w8\n\s[1]\i[18]\i[26]\_q%(vera)\_q why are people so mean... \w8just let me scan your stuff and you can go......."
+	"\s[1]\_q%(vera)\_q it was this pawn shop on the corner of the street over...\w8\w8\n\s[4]\i[26]\_q%(vera)\_q um, \w4i'm pretty sure everything there was haunted...\w8\w8\n\i[19]\_q%(vera)\_q good for discussion with the%(br)\_a[violetghost]violetghost forums\_a and my friends, but.\w8\w8\n\i[1]\i[80]\_q%(vera)\_q really scary people come there and i had no idea how to talk to them."
+	--
+	"\w8\w8\n\s[1]\i[18]\i[26]\_q%(vera)\_q so in the end i was fired... \w6the working world's so cruel..\e"}
+	
+	"\0\s[1]\i[18]\_q%(vera)\_q i try not to worry about ""not being interesting""... \w8\w8\n\s[4]\i[17]\i[26]\_q%(vera)\_q i always get those thoughts when i talk to someone, \w8\s[3]\i[27]but that shouldn't matter!\w8\w8\n\_q%(vera)\_q if someone wants to talk to me, \w2good for them! \w8\i[18]if they don't, that's their loss!\e"
+	
+	"\0\s[2]\i[1]\i[17]\i[26]\i[80]\_q%(vera)\_q ah, \w2do i have any assignments due..?\w8\w8\w8\n\s[3]\i[1]\i[19]\i[26]\i[80]\_q%(vera)\_q ...wait, \w2i don't need to worry about it... \w8s'not like i turn anything in, anyway...\e"
 	
 	//User Environment Ifs
 	//---Timeslots---
+	if daytime
+	{
+		"\0\s[2]\i[1]\i[80]\_q%(vera)\_q the daytime skies in this city are... \w8\i[18]um, \w2i only realized this a year ago, \w2but \w8\s[3]\i[1]\i[19]\i[26]\i[80]they're not supposed to look like THAT, \w2are they?\w8\w8\n\_q%(vera)\_q blue's the normal color, \w2right..?"
+		
+		"\0\s[1]\i[43]\i[61]\_q%(vera)\_q how's your day going, %(pername)? \w8\w8\n\s[3]\i[18]\i[43]\i[61]\_q%(vera)\_q just checking in..!\e"
+	}
+	else
+	{
+		{"\0\s[1]\i[1]\i[80]\_q%(vera)\_q hey %(pername), \w2have you ever REALLY seen the stars before..?\w8\w8\n"
+		--
+		"\s[4]\i[1]\i[26]\i[80]\_q%(vera)\_q i obviously can't, \w2and haven't. \w6the city, you know?\w8\w8\n\i[19]\_q%(vera)\_q i had no idea about light pollution for the longest time, \w2so i didn't know stars were supposed to look like that from here...\e"
+		"\s[2]\i[1]\i[80]\_q%(vera)\_q i mean, \w2pretending that the satellites and planes are stars are enough for me, kinda,\w8\w8\n\s[3]\i[1]\i[18]\i[80]\_q%(vera)\_q but if you have any stories about big starry night skies, i'm all ears...\e"}
+		
+		"\0\s[1]\i[43]\i[61]\_q%(vera)\_q how's your night going, %(pername)? \w8\w8\n\s[3]\i[18]\i[43]\i[61]\_q%(vera)\_q just checking in..!\e"
+	}
+	
 	if timeslot == "earlymorning" //5am - 8am
 	{
-		if x.up_mins >= 180 //Been open for 3 hours or more, so the user has probably been up all night
+		if x.up_hours >= 3 //user has probably been up all night
 		{
 			
 		}
-		else //Probably just got up
+		else
 		{
 			
 		}
@@ -198,6 +241,24 @@ MainTalk : nonoverlap_pool
 		
 	}
 	
+	//---Time passing dialogue---
+	
+	if x.up_hours >= 1
+	{
+		{"\0\s[2]\i[41]\_q%(vera)\_q yyeaah, i'm pretty sure i've been repeating myself for a bit by now, right?\w8\w8\n"
+		--
+		"\s[3]\i[17]\i[27]\_q%(vera)\_q look, \w2i've just got TONS of good lines saved up in this litle brain of mine. \w8\w8\n\![anim,stop,17]\i[19]\_q%(vera)\_q you can't blame me if i wanna use them again! \w2they're REALLY good lines!\e"
+		"\s[4]\i[19]\i[26]\_q%(vera)\_q when i have no idea what to do, \w2i just revert to my ""socially-safe-to-%(br)say-filler-statements,"" \w6and they haven't failed me yet..! \w8\w8\n\![anim,stop,19]\i[17]\_q%(vera)\_q ...actually, \w2no, \w2i'm pretty sure that's the reason why everyone at school says i'm boring...\e"}
+	}
+	
+	//---DIALOGUE RELATING TO USER ACTIVITY---
+	//like recenttouch, recentgive, recentact...
+	
+	{"\0\s[2]\i[1]\i[17]\i[27]\i[80]\_q%(vera)\_q i NEED more plushies and pillows n stuff...\w8\w8\n"
+	--
+	if totalgive[3] >= 5; "\s[3]\i[1]\i[26]\i[80]\_q%(vera)\_q a-ah, \w2i know you've given me a lot, though..!\w8\w8\n\i[19]\_q%(vera)\_q but i mean... \w6can you ever have enough?\w8\w8\n\![anim,stop,19]\![anim,stop,26]\i[15]\i[27]\_q%(vera)\_q that's a joke! \w6they're really cuddly and i like them, \w2but i know that i can't have everything!\e"
+	else; "\![anim,stop,17]\![anim,stop,27]\i[18]\i[26]\_q%(vera)\_q unfortunately, i have to spend money on FOOD and RENT...\w8\w8\s[1]\i[1]\i[27]\i[80]\n\_q%(vera)\_q the world is so cruel!! \w2\i[18]let me cuddle more plush cats!!!\e"}
+	
 	//---Noticing and commenting on other ghosts---
 	//Remember that you have to check for the sakura name of another ghost, not the ghost name.
 	if "Girl" _in_ ghostexlist
@@ -206,27 +267,52 @@ MainTalk : nonoverlap_pool
 	}
 }
 
-//user will barely see this so ykyk
-Pool_JustMet : array
+//user will barely see this so ykyk its short
+JustMetTalk : nonoverlap_pool
 {
 	"\0\s[2]\i[1]\i[80]\_q%(vera)\_q so, \w8um, \w8\w8\n\s[1]\i[1]\i[80]\_q%(vera)\_q what do you usually get up to around here..?\e"
 	"\0\s[2]\i[1]\i[80]\_q%(vera)\_q ...i'm not really interesting company. \w8\w8\n\s[1]\i[1]\i[80]\_q%(vera)\_q i'm \w4just curious why you...\e"
 	"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ...do you have any games, %(pername)?\e"
+	"\0\s[2]\i[1]\i[17]\i[41]\i[61]\_q%(vera)\_q geez, \w2i wish i could tell the difference between dreams and reality better, cause i have NO idea what's going on right now and i dunno if i should be worried or not. \w8\w8\n\s[1]\i[1]\i[41]\i[61]\_q%(vera)\_q but you seem... \w8ok, \w2i think."
+	"\0\s[1]\i[1]\i[80]\_q%(vera)\_q huh... \w8\w8\s[2]\i[1]\i[17]\i[80]\n\_q%(vera)\_q i'm not feeling all that sleepy. \w8weird."
 	
-	if x.up_mins >= 120
-	{
-		"\0\s[2]\i[1]\i[17]\i[41]\i[61]\_q%(vera)\_q ...oh, i wonder if my @dad... \w8\w8\n\s[3]\i[1]\i[19]\i[26]\i[41]\i[61]\_q%(vera)\_q -no, \w4no, \w4he couldn't be...\e"
-		"\0\s[2]\i[1]\i[80]\_q%(vera)\_q ...i'm not used to being around someone i barely know this long. \w8\w8\n\s[3]\i[1]\i[26]\i[80]\_q%(vera)\_q ...oh, i don't mean that in a bad way!\e"
-	}
-}
-Pool_JustMetNarra : array
-{
 	"\0\s[1]\i[35]\i[1]\i[18]\i[80](Her eyes are drooping... \w8Is that normal for her?)\e"
 	"\0\s[5]\i[1]\i[80](Looks like she's trying to get a sense of what you're doing.) \w8\w8\n\s[2]\i[1]\i[35]\i[80]\i[1030](...She glances away when she notices you looking at her.)\e"
 	"\0\s[1]\i[35]\i[1]\i[80](...She's staring at you awkwardly.)\e"
+	
+	//im basing this off of my own attention span for ghosts LOL (im sorry :sob:)
+	if x.up_mins >= 10 || VBoots > 1
+	{
+		//---DIALOGUE RELATING TO USER ACTIVITY---
+		//like recenttouch, recentgive, recentact...
+		
+		
+		
+		if x.up_mins >= 30 || VBoots > 1
+		{
+		"\0\s[2]\i[1]\i[17]\i[41]\i[61]\_q%(vera)\_q ...oh, i wonder if my @dad... \w8\w8\n\s[3]\i[1]\i[19]\i[26]\i[41]\i[61]\_q%(vera)\_q -no, \w4no, \w4he couldn't be...\e"
+		"\0\s[2]\i[1]\i[80]\_q%(vera)\_q ...i'm not used to being around someone i barely know this long. \w8\w8\n\s[3]\i[1]\i[26]\i[80]\_q%(vera)\_q ...oh, i don't mean that in a bad way!\e"
+		"\0\s[1]\i[1]\i[26]\i[80]\_q%(vera)\_q geeez, i've already run out of things to say at this point! \w8\w8\n\_q%(vera)\_q i don't really know what you're all about yet, \w2%(pername)...\e"
+		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q hey, what's your whole deal? \w8\w8\n\i[17]\_q%(vera)\_q do you just hang around me to do nothing? \w8i don't mind, but- \w8\w8\w8\n\s[4]\i[1]\i[17]\i[26]\i[41]\i[61]\_q%(vera)\_q wait, \w4i do the same things to my neighbors... \w8is that how they feel about me..??\e"
+		//TODO: add tips for relationship progression
+		}
+	}
 }
 
-Pool_HollerfeedOne : array
+//yeah these feel dangerous to include so ill make em inaccessible in normal use. dont worry about vera i care her and want her to be happy
+//suicide hotline + resources here. https://988lifeline.org/help-yourself/ remember there are still things worth fighting for! thats a quote from jade not me but shes very smart and its true :3
+Pool_SuiDeath : array
+{
+	"\0\s[2]\i[17]\i[41]\_q%(vera)\_q i used to try and get hit by the school bus whenever i went to school...\w8\w8\n\s[1]\i[41]\_q%(vera)\_q they could get me a scholarship or compensation from it, maybe?\w8\s[3]\i[19]\i[41]i definitely need better grades, hehehe.\w8\w8\n\s[2]\i[26]\_q%(vera)\_q i wasn't very successful with it, though- \w6\i[18]and it's been way too much effort to try and make it seem like an accident, so i've mostly stopped trying.\e"
+	"\0\s[2]\_q%(vera)\_q there's something about heights that's so scary \w2but calming... \w8\w8\n\s[3]\i[18]\_q%(vera)\_q sitting on the edge of the balcony at night and looking at all the moving lights below is always really fun, and the vertigo feeling it gives me always manages to wake me up. \w8\w8\n\s[1]\i[17]\i[27]\_q%(vera)\_q i DO NOT suggest trying it. \w6that is for ME and ME ONLY!! \w9\s[3]\i[17]\i[27]hehe.\e"
+	"\0\s[5]\i[1]\![anim,stop,25]\i[80]\_q%(vera)\_q ugh. \w2it's so damn hard. \w8\w8\n\s[11]\![anim,pause,5]\_q%(vera)\_q i wish i could sleep. i don't wanna go home.\e"
+	"\0\s[2]\i[1]\i[80]\_q%(vera)\_q that dreamy feeling i get when i lean over the balcony... \w8\w8\n\s[1]\i[1]\i[80]\_q%(vera)\_q is that what they call the call of the void? \w8\w8\w8\n\i[18]\_q%(vera)\_q ...not that i'd ever answer it. \w8it's more about the feeling than the end result, i think.\e"
+	"\0\s[2]\i[41]\_q%(vera)\_q falling from my balcony into the glittery city lights is ONE way to go, buuut... \w8\w8\n\s[1]\i[27]\_q%(vera)\_q that's BORING!! \w8\w8\n\s[3]\i[19]\i[27]\_q%(vera)\_q come on! \w8send a meteor down to smite me!! \w8if i'm gonna die, \w2i should make it EPIC, you know??\e"
+	"\0\s[2]\_q%(vera)\_q it's strange, being so insignificant.\w8\w8\n\i[18]\_q%(vera)\_q i mean, it already seems as if i don't exist. \w2fulfilling that feeling wouldn't change anything that matters.\w8\w8\n\s[3]\i[18]\_q%(vera)\_q @dad and @mom would be happier, too.\e"
+}
+
+//this was just me trying to figure out how to write hollerfeeds the skulvera stuff is NOT CANON!! hehe
+Pool_HollerfeedTest : array
 {
 	"\s[7]\i[502]\_q%(instantiator)\_q isn't that crazy that that happened? \n\w8\w8\w8\_q%(ruminator) And what, pray tell, are you referring to? \n\w8\w8\w8\w8%(ruminator) Do not leave us in the dark, my dear.\n\w8\w2\w8%(instantiator)\_q ok ok ok ok so!! you know how me and skul stole that street sign right\n\_q\w8\w8\w8\w2%(ruminator) Right...\n\w8\w8\i[26]%(instantiator)\_q the uh... the cops found out i did it lol\e"
 	
@@ -235,16 +321,53 @@ Pool_HollerfeedOne : array
 	"\s[6]\i[1030]\i[503]\_q%(revisor) PFFFT LOL whaaaaat are you TALKING abt vera?? Youre SUPER cute <33\n\w8\w8%(instantiator)\_q o-oh um,,, am i..??\e"
 }
 
+//user can tell her to stop hehehe
+//tons of these ARENT from 2009 but idc. she came up with these songs. plagiarism
+Pool_Singing : array
+{
+	//guys please listen to nowhere world (jk i havent released it yet so you cant :P)
+	"\0\s[3]\i[19]\_q%(vera)\_q hm hm hm ♪ \w2monday morning and i'm still asleep~♪\w8\n\_q%(vera)\_q ringing bustle from the city streets!! ♪\w8\n\_q%(vera)\_q languid afternoons pass me byyy ♪ \w8\i[27]and i'm dreaming of a blazing skyylinee!! ♫♫\e:chain=nowhereworld"
+	//i have to find SOME other way to reference imperial girl that song is so veracore
+	"\0\s[2]\i[18]\_q%(vera)\_q ...i gasped in the traffic jam~♪\w8\n\_q%(vera)\_q trap, \w2chiptune, \w2and neon- \w8a la carte~♫♫\e"
+	//ENDLESS SUMMER MALAISE!!!
+	"\0\s[4]\i[18]\_q%(vera)\_q ...waking up late in the morning ♪ no good news, only bad opinons~♪\w8\n\_q%(vera)\_q hell world! ♫ hell world! ♫ \w2i've lost all my hope \w2for the place \w2i~~ live~♫♫\e:chain=esm"
+	//get away!
+	"\0\s[4]\i[18]\_q%(vera)\_q ...so let's go and leave our cares and worries behind~!♪ \w3will the longing in my heeart \w2ever subside~♪\w8\n\_q%(vera)\_q i~~ just don't think that i \w2wass \w2built for the mundane~♪♪ \w8solve a mystery! find a ghost! \w2i don't care, let's just get away~♫♫\e"
+	//words might remainn
+	"\0\s[2]\i[18]\_q%(vera)\_q ...how long ♪ do we really last?~♪\w8\n\_q%(vera)\_q blending~ ♪ the future and past~♪\w8\n\_q%(vera)\_q soomeday~ ♪ i'll take my last breath~♪\w8\n\_q%(vera)\_q but it maakes me ♪ less afraid of death~♪\e"
+}
+
 
 //-----------Chains-----------
 
-//Example of a chain. The dialogues will play in order each time the ghost talks until it reaches chain=end.
-achain
+//Chain dialogues will play in order each time the ghost talks until it reaches chain=end.
+
+//no reason in particular why she has skul as a dialogue option here :3c
+awakevsdream1
 {{CHAIN
-	"\0\s[0]Here's another part of the chain!\e"
-	"\0\s[0]Here's a third part of the chain!\e"
-	"\0\s[0]Here's a fourth part of the chain!\e"
-	"\0\s[0]Here's the end of a chain!\e:chain=end"
+	"\0\s[2]\i[1]\i[17]\i[80]\_q%(vera)\_q ...well, i guess i can't really talk to %(ANY('my friends,@skul')) when i'm asleep. \w8\w8\n\s[3]\i[19]\_q%(vera)\_q so that's one point to being awake! \w4one massive point! \w8\w8\n\i[27]\_q%(vera)\_q now if only i could be awake for longer..!\e:chain=end"
+}}CHAIN
+awakevsdream2
+{{CHAIN
+	"\0\s[4]\i[1]\i[17]\i[80]\_q%(vera)\_q ...though i know the most likely reason for me being less conscious when i'm awake \w2is cause i sleep all the time. \w8\w8\n\![anim,stop,17]\i[19]\_q%(vera)\_q nope! \w6it's obvious but i don't wanna think about it! \w6let's forget about it!\e:chain=end"
+}}CHAIN
+gamesrfun
+{{CHAIN
+	"\0\s[4]\i[1]\i[17]\i[80]\_q%(vera)\_q ...plus, \w2i mean, \w2games just look FUN, you know? \w8\w8\n\s[2]\i[41]\_q%(vera)\_q like, \w2i saw this upcoming game%(br)called... \w8\s[1]\i[41]suburb, \w2or something? \w8\w8\n\_q%(vera)\_q everyone i've seen keeps talking about it! \w2even my friends! \w8\w8\n\_q%(vera)\_q it's multiplayer and it's about house building or whatever. \w8\w8\n\s[2]\i[26]\_q%(vera)\_q but i don't have anything that can scan discs, \w2so we can't play it together...\e:chain=end"
+}}CHAIN
+
+
+
+//songs
+nowhereworld
+{{CHAIN
+	"\0\s[3]\i[19]\_q%(vera)\_q ...i hear the cymbals crashing! ♪ metal gnashing! ♪\w2 the blue that shifts into sickly greens~! ♪ \w8\w8\n\_q%(vera)\_q and i know! \w8the answer to my dream..! ♫\w8\w8\n\_q%(vera)\_q cause i~~~ \w7never wanted to watch my life go\w2 byyyyy~~♫♫\e"
+	"\0\s[3]\i[1]\i[19]\i[80]\_q%(vera)\_q get up and see the shooting stars! ♪ \w2we'll watch them fall and shimmer into dust~♪ \w8\w2\n\_q%(vera)\_q an \w2ending, \w2juuuust \w2for \w2us~~♫ \w8\w8\n\_q%(vera)\_q hold my hand as the earth trembles in our\n\n\f[height,+4]\f[align,center]noooowheeerrrrreee\n\w8woooorrrlddd~~!!!!♫♫\e"
+	"\0\s[4]\i[1]\i[17]\i[80]\_q%(vera)\_q ...hehehe. \w8that's a song i've been hearing in my dreams. \w8\w8\n\![anim,stop,17]\i[19]\_q%(vera)\_q you won't find it anywhere else! \w8hopefully!\e:chain=end"
+}}CHAIN
+esm
+{{CHAIN
+	"\0\s[4]\i[18]\_q%(vera)\_q ...so it's back to sleep, \w3can't fall back asleep, \w4so i'll read a comic or stare directly into the sun~♫\e:chain=end"
 }}CHAIN
 
 
@@ -263,7 +386,7 @@ OnEventFirstHoller : all
 	"\0\t\*\s[2]\i[1]\i[35]\i[81](...She's taken out a tablet. \w8The design is bulky and outdated.)\w8\w8\n\n(The screen is in plain sight.) \x"
 	
 	"\_q\s[6]\i[1]\i[505]| \f[color,%(n.yellow)]Instantiator\f[color,default] began hollerin' at%(br)\f[color,%(n.red)]Prospector\f[color,default] and \f[color,%(n.blue)]Ruminator\f[color,default] at %(hour):%(nowmin) |\w8\w8\n"
-	"%(instantiator)\_q guys i'm having the weirdest %(_time) ever\w8\w8\n"
+	"%(instantiator)\_q guys i'm having the weirdest %(_time) ever\w8\w8\w6\n"
 	"\_q%(prospector) YOU'RE AWAKE?! THAT'S THE WEIRD THING ABOUT TO%(TOUPPER(_time))!!\w8\w8\w8\w8\n"
 	"\i[17]%(instantiator)\_q ha ha, \w4very funny.\w8\w8\n"
 	"\s[6]\i[1]\i[27]\i[505]\_q%(instantiator)\_q i'm being serious though!! \w6\i[17]this person i'm talking to is,, like,,\w8\w8\n"
@@ -272,16 +395,16 @@ OnEventFirstHoller : all
 	{"\![anim,stop,17]\i[18]\_q%(instantiator)\_q ...well, i can't tell WHAT %(they) feel%(_s) about me\w8\w8"}
 	elseif posfeel > negfeel
 	{
-		"\_q%(instantiator)\_q SUPER nice? \w8\w2"
+		"\_q%(instantiator)\_q SUPER nice? \w8\w2\![anim,stop,17]\i[18]\i[1030]"
 		if totaltouch[0] > 3
-		{"\![anim,stop,17]\i[18]\i[1030]%(they) keep%(_s) like. \w8touchin my head."}
+		{"%(they) keep%(_s) like. \w8touchin my head."}
 		else
-		{"\![anim,stop,17]\i[18]\i[1030]its like %(they) seem%(_s) to LIKE being around me."}
+		{"its like %(they) LIKE%(TOUPPER(_s)) being around me."}
 	}
 	else //technically possible if you have 0 in both posfeel and negfeel but that should be impossible by now
 	{"\_q%(instantiator)\_q kind of a jerk! \w4it sucks being around %(them) :T"}
 	
-	"\w8\w8\n\s[6]\i[1]\i[27]\i[505]\i[1030]\_q%(instantiator)\_q but point is \w2no one talks to me this long! \w6what is going on??\w8\w8\w8\n"
+	"\w8\w8\n\s[6]\i[1]\i[27]\i[505]\i[1030]\_q%(instantiator)\_q point is \w2no one talks to me this long! \w6what is going on??\w8\w8\w8\n"
 	"\_q%(prospector) HUH... SEEMS KIND OF SUSPICIOUS\w8\w8\w8\w8\w8\w8\w8\n"
 	
 	if posfeel > negfeel
@@ -290,7 +413,7 @@ OnEventFirstHoller : all
 	{"%(prospector) ESPECIALLY SINCE %(TOUPPER(they)) SEEM%(TOUPPER(_s)) TO BE BEING MEAN TO YOU! LIKE WHAT IF %(TOUPPER(they))%(TOUPPER(ve)) BEEN TARGETTING YOU?\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\n"}
 	
 	"\i[17]%(prospector) IT'S ALL OUT OF NO WHERE. WHO EVEN IS THIS PERSON?\w8\w8\w8\w8\w8\w8\w8\w8\n"
-	"%(ruminator) Skul, you think everything is suspicious. Stop being a silly goose.\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\n"
+	"%(ruminator) You think everything is suspicious. Stop being a silly goose.\w8\w8\w8\w8\w8\w8\w8\w8\w8\w8\n"
 	"\s[6]\i[1]\i[505]%(ruminator) He does have a point on how we do not know your new acquaintance's name, though.\w8\w8\w8\w8\w8\w8\n"
 	"%(instantiator)\_q ah it's like. \w6%(TOLOWER(username)) or so\w2m\w4e\w6t\w8h\w8\w8\s[1]\i[1]\i[35]\i[81]\i[505]\w8\w8\w8\w8\w8\n"
 	"\_q%(prospector) ...VERA????\w8\w8\w8\w8\n"
@@ -312,28 +435,56 @@ OnEventFirstHoller : all
 	"\s[3]\i[1]\i[19]\i[26]\i[80]\_q%(vera)\_q that was just,, my friends on hollercaller @_@; its like a chatroom type thing \w8\w8\n"
 	"\s[2]\i[1]\i[26]\i[80]\_q%(vera)\_q i-i didn't mean to talk about you like that i was just being dramatic \w8\w8\n"
 	"\_q%(vera)\_q ...ah \w8\w8\w8\n"
-	"\s[1]\i[1]\i[80]\_q%(vera)\_q ...you can watch me when i talk to my friends. \w8i don't mind."
+	"\s[1]\i[1]\i[80]\_q%(vera)\_q ...you can watch me when i talk to my friends."
 	}
 	
 	"\w8\w8\n\n\f[align,center]\f[color,default]\_q"
-	"\![*]\q[I don't mind,posfirstholler]\n\![*]\q[Is that what you think about me?,negfirstholler]"
+	"\![*]\q[You can do that,posfirstholler]\n"
+	"\![*]\q[Is that what you think about me?,rlyfirstholler]"
 }
 Select.posfirstholler
 {
 	posfeel++
-	AddFlag("Event FirstHoller")
+	AddEFlag("FirstHoller")
 	
 	"\s[3]\i[1]\i[26]\i[35]\i[80](You will now be able to see VERA's hollerfeeds.)\e"
 }
-Select.negfirstholler
+Select.rlyfirstholler
 {
-	if negfeel > posfeel; negfeel++
-	AddFlag("Event FirstHoller")
+	//if negfeel > posfeel; negfeel++
+	AddEFlag("FirstHoller")
 	
 	if negfeel > posfeel 
 	{"\s[2]\i[1]\i[26]\i[80]\_q%(vera)\_q n\w2-\w2n\w2o\w2, \w8i... \w8\w8\w8\n\n\f[color,default]\_q(...You will now be able to see VERA's hollerfeeds.)\e"}
 	else
-	{"\s[4]\i[1]\i[26]\i[80]\_q%(vera)\_q um... \w8kinda? \w8\w8\n\i[19]\_q%(vera)\_q s-sorry if you don't like me doing that, \w8but you're a good person! \w8i have nothing bad to say about you.\w8\w8\n\n\f[color,default]\_q(You will now be able to see VERA's hollerfeeds.)\e"}
+	{"\s[4]\i[1]\i[26]\i[80]\_q%(vera)\_q um... \w8kinda? \w8\w8\n\i[19]\_q%(vera)\_q s-sorry if you don't like me doing that, \w8but you're a good person, so i wouldn't say anything bad..!\w8\w8\n\n\f[color,default]\_q(You will now be able to see VERA's hollerfeeds.)\e"}
+}
+//TESTING TODO: test length, also not sure if this last confirmation is a good thing? i just wanna make sure the user has read through the whole thing.
+
+
+OnEventFormality : all
+{
+	AddEFlag("Formality")
+	
+	if negfeel >= 15
+	{
+	"\0\t\*\s[1]\i[1]\i[26]\i[35]\i[80](You ask VERA why she calls you %(usertitle).) \w8\w8"
+	"\n\s[2]\i[1]\i[26]\i[80]\_q%(vera)\_q y-you don't like it? \w8\s[3]\i[1]\i[26]\i[80]i can stop doing that!"
+	}
+	else
+	{
+	"\0\t\*\s[2]\i[41]\_q%(vera)\_q ...huh, \w4we're friends, \w2but i call you %(usertitle), \w6y'know? \w8\w8"
+	"\n\s[1]\i[41]\_q%(vera)\_q is that weird for you? \w6i can drop the %(usertitle), \w2if you want."
+	}
+	
+	"\w8\w8\n\n\f[align,center]\f[color,default]\_q"
+	"\![*]\q[Just call me %(username),OnToggleTitle]\n"
+	"\![*]\q[I like the title,keeptitle]"
+}
+Select.keeptitle
+{
+	AddFlag("No Formality")
+	"\![raise,OnToggleTitle]"
 }
 
 
@@ -343,12 +494,16 @@ OnMinuteChange
 {
 	if hour == 0 && minute == 0; AutoUpdates[1] = 0 //Resetting auto updates
 	
+	//i hope this doesn't break anything!
+	if x.up_mins % 60 == 0
+	{
+		if allrecenttouch > 0; {recenttouch = (0,0,0,0,0)}
+		if Flag("just apologized"); RemoveFlag("just apologized")
+		if x.up_hours < 18 && negfeel > 30; posfeel += 0.5
+	}
+	
 	if minute == 0
 	{
-		if allrecenttouch > 0; {recenttouch = (0,0,0)}
-		if Flag("just apologized"); RemoveFlag("just apologized")
-		
-		
 		if hour == 0 && day == 0 && month == 0 //New year's
 		{
 			"\0\s[0]\_q%(vera)\_q gasp!! \w8\w6\n\s[3]\i[19]\_q%(vera)\_q happy new year!!!\e"
@@ -391,7 +546,7 @@ OnSecondChange
 
 OnOffscreen
 {
-	//I've tinkered a lot with this function to get it working for multiple characters. If you need more than 2, just copy the format below very carefully, and make sure you increment the numbers. It's not perfect; if you have multiple characters off screen at once it might pick the wrong dialogues, but you can add more elseifs to handle those cases if you really want them.
+	//[Zi] I've tinkered a lot with this function to get it working for multiple characters. If you need more than 2, just copy the format below very carefully, and make sure you increment the numbers. It's not perfect; if you have multiple characters off screen at once it might pick the wrong dialogues, but you can add more elseifs to handle those cases if you really want them.
 	offscreen = TOSTR(reference0)
 	CVSTR(reference0)
 	CVSTR(reference1)
@@ -424,7 +579,7 @@ OffscreenTalk //Off the screen dialogue.
 {
 	if _argv[0] == "0" //If the sakura is off screen
 	{
-		"\0\_q\i[35](Looks like she's offscreen... You can press Ctrl Shift F12 to bring her back.)\w8\w8\n\f[color,gray](You can also turn these messages off in SSP preferences > Ghost(1) > Disable Screen Boundary Check.)\_q\e"
+		"\0\_q\i[35](Looks like she's offscreen... You can press Ctrl Shift F12 to bring her back.)\w8\w8\n\f[color,disable](You can also turn these messages off in SSP preferences > Ghost(1) > Disable Screen Boundary Check.)\_q\e"
 	}
 }
 
@@ -435,10 +590,11 @@ EndOffscreenTalk //Being brought back on the screen.
 
 OnSurfaceRestore //OnSurfaceRestore happens around 30 seconds after the ghost's last dialogue. reference0 here stores the number of the previous surface, so you can have them comment when they change back if you like.
 {
-	"\1\s[-1]\0%(vsleepyidle)\e"
+	"\1\s[-1]\0%(vidle)\e"
 }
 
 //plopping the pool func in here since i think this is where its most relevant... thanks zi!!!!!!
+//LOL i just use pools for organizational purposes. it just makes sense to me i suppose
 
 //parallel Pool("Pool_Example","%(example == 'True')")
 //parallel Pool("Pool_Example",example == 'True')

@@ -1,0 +1,663 @@
+=========================================================
+2023/04/07 14:56:24.545
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnSecondChange
+Reference0: 493
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 0
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:25.563
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnSecondChange
+Reference0: 493
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 0
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:26.552
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnSecondChange
+Reference0: 493
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 0
+
+
+-----response--------------------
+***CallTime:15msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:27.550
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnSecondChange
+Reference0: 493
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 0
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:28.553
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnSecondChange
+Reference0: 493
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 0
+
+
+-----response--------------------
+***CallTime:15msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:28.567
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnMouseEnterAll
+Reference0: 197
+Reference1: 180
+Reference2: 0
+Reference3: 0
+Reference4: Head
+Reference5: 0
+Reference6: mouse
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:28.571
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnMouseEnter
+Reference0: 197
+Reference1: 180
+Reference2: 0
+Reference3: 0
+Reference4: Head
+Reference5: 0
+Reference6: mouse
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:28.579
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnMouseMove
+Reference0: 197
+Reference1: 180
+Reference2: 0
+Reference3: 0
+Reference4: Head
+Reference5: 0
+Reference6: mouse
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:28.584
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnMouseLeave
+Reference0: 173
+Reference1: 183
+Reference2: 0
+Reference3: 0
+Reference4: Head
+Reference5: 0
+Reference6: mouse
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:28.588
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnMouseEnter
+Reference0: 173
+Reference1: 183
+Reference2: 0
+Reference3: 0
+Reference4: Face
+Reference5: 0
+Reference6: mouse
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:28.597
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnMouseMove
+Reference0: 173
+Reference1: 183
+Reference2: 0
+Reference3: 0
+Reference4: Face
+Reference5: 0
+Reference6: mouse
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:28.602
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnMouseLeave
+Reference0: 148
+Reference1: 183
+Reference2: 0
+Reference3: 0
+Reference4: Face
+Reference5: 0
+Reference6: mouse
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:28.605
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnMouseEnter
+Reference0: 148
+Reference1: 183
+Reference2: 0
+Reference3: 0
+Reference4: Head
+Reference5: 0
+Reference6: mouse
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:28.609
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnMouseMove
+Reference0: 148
+Reference1: 183
+Reference2: 0
+Reference3: 0
+Reference4: Head
+Reference5: 0
+Reference6: mouse
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:28.613
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnMouseLeave
+Reference0: 108
+Reference1: 183
+Reference2: 0
+Reference3: 0
+Reference4: 
+Reference5: 0
+Reference6: mouse
+
+
+-----response--------------------
+***CallTime:16msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:28.618
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnMouseLeaveAll
+Reference0: 108
+Reference1: 183
+Reference2: 0
+Reference3: 0
+Reference4: 
+Reference5: 0
+Reference6: mouse
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:29.279
+
+-----send------------------------
+GET SHIORI/3.0
+ID: OnTranslate
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Reference0: \![raise,OnTarotDeck,13]\e
+Reference1: 
+Reference2: 
+Reference3: 
+
+
+-----response--------------------
+SHIORI/3.0 200 OK
+Sender: AYA
+Charset: UTF-8
+Value: \![raise,OnTarotDeck,13]\e
+
+
+=========================================================
+2023/04/07 14:56:29.288
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal,raise
+Status: talking,online
+ID: OnTarotDeck
+Reference0: 13
+
+
+-----response--------------------
+SHIORI/3.0 200 OK
+Sender: AYA
+Charset: UTF-8
+Value: The Fool
+
+
+=========================================================
+2023/04/07 14:56:29.292
+
+-----send------------------------
+GET SHIORI/3.0
+ID: OnTranslate
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal,raise
+Reference0: The Fool
+Reference1: 
+Reference2: OnTarotDeck
+Reference3: 13
+
+
+-----response--------------------
+SHIORI/3.0 200 OK
+Sender: AYA
+Charset: UTF-8
+Value: The Fool
+
+
+=========================================================
+2023/04/07 14:56:29.554
+
+-----send------------------------
+NOTIFY SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: talking,online,balloon(0=0)
+ID: OnSecondChange
+Reference0: 493
+Reference1: 0
+Reference2: 0
+Reference3: 0
+Reference4: 0
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:30.574
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online,balloon(0=0)
+ID: OnSecondChange
+Reference0: 493
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 0
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:30.659
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnBalloonClose
+Reference0: The Fool
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:31.569
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnSecondChange
+Reference0: 493
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 0
+
+
+-----response--------------------
+***CallTime:16msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:32.567
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnSecondChange
+Reference0: 493
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 0
+
+
+-----response--------------------
+***CallTime:16msec.
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:32.599
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: log_path
+
+
+-----response--------------------
+***CallTime:15msec.
+SHIORI/3.0 200 OK
+Sender: AYA
+Charset: UTF-8
+Value: C:\Users\eshal\Downloads\SSP\ghost\ph_AnEnding\ghost\master\yaya_ssp_debug.log
+
+
+=========================================================
+2023/04/07 14:56:33.561
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnSecondChange
+Reference0: 493
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 0
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:34.563
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnSecondChange
+Reference0: 493
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 0
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+
+=========================================================
+2023/04/07 14:56:35.581
+
+-----send------------------------
+GET SHIORI/3.0
+Charset: UTF-8
+SecurityLevel: local
+Sender: SSP
+SenderType: internal
+Status: online
+ID: OnSecondChange
+Reference0: 493
+Reference1: 0
+Reference2: 0
+Reference3: 1
+Reference4: 0
+
+
+-----response--------------------
+SHIORI/3.0 204 No Content
+Charset: UTF-8
+
+

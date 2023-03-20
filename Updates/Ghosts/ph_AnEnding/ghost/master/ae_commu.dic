@@ -83,6 +83,10 @@ ReplyToGhost //This is your ghost receiving a communication.
 			--
 			"::%(_speech)" //Reflects back what the other ghost said, only put it here if you're talking to a ghost that uses the same system or things may break
 		}
+		when "Dusty"
+		{
+			"%(TalkToDusty)"
+		}
 		others //Responses to unknown ghosts. AlreadyResponded keeps them from getting stuck in a loop.
 		{
 			if "\![commu-%(reference0)]" !_in_ SHIORI3FW.LastTalk //This checks for that commu tag up above! So, if the last dialogue was NOT a response to the ghost that just pinged us, give a normal response
@@ -124,6 +128,68 @@ TalkToGirl //All responses to Girl would be here. Make one of these for each gho
 	}
 }
 
+TalkToDusty
+{
+	if "CanYouHoldObsidian? 0" _in_ ConvoTag //Respond to Dusty's ping
+	{
+		res_reference0 = "Dusty"
+		
+		"\e ICanHoldObsidian,0"
+	}
+	elseif "VeraPickupObsidian02" _in_ ConvoTag //Actually picking her up
+	{
+		res_reference0 = "Dusty"
+		holdingObsidian = 1
+		
+		if !Flag("FirstObsi")
+		{"\0\s[2]\i[1]\i[1030]\_q%(vera)\_q o-oh..! \w8\w8\n\_q%(vera)\_q the kitty cat!! \w2is letting me hold them!!\w8\w8\e VeraPickupObsidian03"}
+		else 
+		{"\0\s[2]\i[1]\i[1030]\_q%(vera)\_q o-oh..! \w8\w8\n\s[4]\i[1]\i[1030]\_q%(vera)\_q hi there kitty cat <3\w8\w8\e VeraPickupObsidian03"}
+	}
+	elseif "VeraPickupObsidian04" _in_ ConvoTag //Response to Dusty's comment
+	{
+		res_reference0 = ""
+		
+		if !Flag("FirstObsi")
+		{
+			AddFlag("FirstObsi")
+			"\0\s[2]\i[1]\i[1030]\_q%(vera)\_q really..?!?!\w8\w8\n\s[3]\i[1]\i[19]\i[1030]\_q%(vera)\_q i will protect obsidian with my life...\e"
+		}
+		else
+		{"\0\s[3]\i[1]\i[19]\i[1030]\_q%(vera)\_q hehehe... \w8isn't that right, obsidian?\e"}
+	}
+	elseif "Vera,0ObsiJumpDown01" _in_ reference1
+	{
+		"\0\![get,property,OnObsidianJumpDown,currentghost.scope(0).rect]"
+	}
+	elseif "VeraObsiJumpDown03" _in_ ConvoTag //Commenting on Obsidian leaving
+	{
+		res_reference0 = ""
+		holdingObsidian = 0
+		
+		"\0\s[3]\i[1]\i[19]\i[26]\i[80]\_q%(vera)\_q oh... \w8byebye, obsidian...\e"
+	}
+	elseif "DustyMinimizedVera 0" _in_ ConvoTag //Dusty was minimized
+	{
+		res_reference0 = ""
+		holdingObsidian = 0
+		
+		"\0\s[2]\i[1]\i[35]\i[80](Obsidian disappears into the taskbar with Dusty.)\w8\w8\n\n\s[3]\i[1]\i[19]\i[26]\i[80]\_q%(vera)\_q ah, \w2byebye then...\e"
+	}
+}
+
+OnObsidianJumpDown
+{
+	_silly = ""
+    res_reference0 = "Dusty"
+    _XCoord = TOINT(reference0[0])
+    _YCoord = TOINT(reference0[3])
+	if nowmode == "Asleep" {_silly = "\s[211]\i[11]"}
+	else {_silly = "\s[211]"}
+	
+    "\0%(_silly)\e VeraObsiJumpDown02,%(_XCoord),%(_YCoord)\e"
+}
+
 RemovePauses //Removes pauses and quicksections
 {
 	_argv[0] = RE_REPLACE(_argv[0],"\\!\[quicksection,(true|false|1|0)\]","")
@@ -147,7 +213,7 @@ OnCommuPingMenu
 
 OnCustomPing
 {
-	"What do you want to send?\![open,inputbox,OnCustomCommu,-1]"
+	"\_q%(vera)\_q what do you want to send?\![open,inputbox,OnCustomCommu,-1]"
 }
 
 OnCustomCommu
@@ -157,7 +223,7 @@ OnCustomCommu
 	{
 		_display += "\![*]\q[%(_ghost),OnCustomPingSend,%(_ghost),""%(reference0)""]\n"
 	}
-	"Send to which ghost?\n\n"
+	"\_q%(vera)\_q send to which ghost?\n\n"
 	--
 	_display
 }

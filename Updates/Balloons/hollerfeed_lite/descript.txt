@@ -87,6 +87,9 @@ arrow1.y,-12
 onlinemarker.x,-14
 onlinemarker.y,-26
 
+clickwaitmarker.x,-16
+clickwaitmarker.y,-9
+
 sstpmarker.x,6
 sstpmarker.y,-14
 

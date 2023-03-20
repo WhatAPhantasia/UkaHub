@@ -16,7 +16,7 @@ OpenSakuraMenu
 	{
 		"\0\b2"
 		--
-		"\s[1]\i[1]\i[80]\i[35]"
+		"%(vattention)\i[35]"
 		--
 		"\_q(She picks her head up to look at you.)\w8\w6\_q"
 		"\_q(Looks like you have her attention.)\w8\w6\_q"
@@ -48,10 +48,11 @@ OnMenuRun : all //Main menu. The all modifier here means every string will be ou
 	
 	"(You ask her...)\n"
 	if lastTalk != "" {"\![*]\q[To repeat what she said,OnLastTalk]"}
-	else {"\f[color,gray]\![*]To repeat what she said\f[color,default]"}
+	else {"\f[color,disable]\![*]To repeat what she said\f[color,default]"}
 	"\n"
 	"\![*]To talk \_a[OnAiTalk,userprompt]to you\_a"
-		" or \_a[OnAiTalk,holler]her friends\_a\n"
+	if EFlag("FirstHoller"); " or \_a[OnAiTalk,holler]her friends\_a"
+	"\n"
 	"\![*]To talk to \_a[OnStartTalking]another ghost\_a\n"
 	"\![*]\q[To do something for you,OnFunctionMenu]\n"
 	"\![*]\q[Some questions,OnQuestionMenu]\n\n"
@@ -93,7 +94,7 @@ OnQuestionMenu : all
 	"\![*]\q[People she knows,OnPeopleMenu]\n" 	//family, friends, enemies, acquaintances
 	"\![*]\q[Dreams & sleeping,DreamMenu]\n" 	//dream menu, talk abt horrorterrors and dreamselves and all that
 	"\![*]\q[Yourself,AboutYou]\n" 				//what she thinks of you based on stats and flags and stuff
-	"\![*]\q[Your computer,SnoopingOoh]\n" 		//eventual snoop function hehehehehe
+	"\![*]\q[What you're doing,SnoopingOoh]\n" 	//eventual snoop function hehehehehe
 	
 	"\n\f[align,right]\![*]\q[Back to Main Menu,OnMenuRun]  \![*]\q[Cancel,CANCEL]\e"
 }
@@ -107,31 +108,31 @@ Select.AboutVera : nonoverlap_pool
 	if posfeel >= 25 //starting to see u like a friend
 	{
 		posfeel += 0.5
-		"\0\s[2]\i[41]\_q%(vera)\_q you know i use the \w6\1\s[1050]\0\s[1]\i[41]origami \w6fetch modus by now, \w6right..? \w8\w4\n\s[3]\i[19]\i[41]\i[26]\_q%(vera)\_q i've had it so long i don't remember where i got it, \w2but it's pretty neat. \w8\w4\n\s[2]\i[84]\_q%(vera)\_q if i ever wanna pull something from my sylladex, \w2i have to fold a paper approximation of it... \w8\w4\n\1\s[-1]\0\s[1]\i[85]\i[17]\_q%(vera)\_q it can get kinda finnicky."
-		"\0\s[2]\i[18]\_q%(vera)\_q i really like pillowkind as my kind abstratus... \w8\w8\n\s[3]\_q%(vera)\_q i've been able to allocate even slightly ""pillowy"" things to my strife deck, \w2\i[19]like plushies and stuff..!! \w8\w8\n\i[26]\_q%(vera)\_q um, \w6i know that sounds useless, \w6but-! \w8\w8\n\s[5]\i[27]\i[1]\i[80]\_q%(vera)\_q ...agh, it's hard to explain!!"
+		"\0\s[2]\i[41]\_q%(vera)\_q you know i use the \w6\1\s[1050]\0\s[1]\i[41]origami \w6\_a[fetchmodus]fetch modus\_a by now, \w6right..? \w8\w4\n\s[3]\i[19]\i[41]\i[26]\_q%(vera)\_q i've had it so long i don't remember where i got it, \w2but it's pretty neat. \w8\w4\n\s[2]\i[84]\_q%(vera)\_q if i ever wanna pull something from my \_a[sylladex]sylladex\_a, \w2i have to fold a paper approximation of it... \w8\w4\n\1\s[-1]\0\s[1]\i[85]\i[17]\_q%(vera)\_q it can get kinda finnicky."
+		"\0\s[2]\i[18]\_q%(vera)\_q i really like pillowkind as my%(br)\_a[strifespecibus]kind abstratus...\_a \w8\w8\n\s[3]\_q%(vera)\_q i've been able to allocate even slightly ""pillowy"" things to my \_a[strifespecibus]strife deck,\_a \w2\i[19]like plushies and stuff..!! \w8\w8\n\i[26]\_q%(vera)\_q um, \w6i know that sounds useless, \w6but!! \w8\w8\n\s[5]\i[27]\i[1]\i[80]\_q%(vera)\_q they're soft and VERY throwable!!"
 		"\0\s[1]\_q%(vera)\_q oh, \w2did i tell you that i like making candles..? \w8\w8\n\s[2]\_q%(vera)\_q um, \w6not very well, \w6\i[26]because we don't really have money for, like, supplies? \w8\w8\n\s[3]\i[19]\i[27]\_q%(vera)\_q but \w2i just think they're neat..!"
 		"\0\s[2]\_q%(vera)\_q ...my perscription is really outdated. \w8\w6\n\s[3]\i[19]\i[26]\_q%(vera)\_q but then again, \w6most of the things we have are..."
 		"\0\s[1]\i[18]\_q%(vera)\_q i live in a nice apartment with a balcony... \w8\w8\n\s[3]\i[26]\_q%(vera)\_q it's nice and cozy, \w2and we have everything we need in it."
 		"\0\s[2]\i[41]\_q%(vera)\_q i forget if i told you this, but \w8\w8\n\s[3]\_q%(vera)\_q i like this shirt cause the rest of my friends have street sign shirts too \:\)"
+		"\0\s[1]\_q%(vera)\_q for the longest time, \w2i REALLY hated living in the city \w2cause i wanted to go out and have a big grand adventure,,\w8\w2\n\i[17]\i[27]\_q%(vera)\_q and all these big metal buildings and streets kinda don't fit that image...\w8\w8\n\s[4]\i[17]\_q%(vera)\_q but then i realized i could just \w8\s[3]explore the city?\w8\w8\n\i[19]\_q%(vera)\_q so that's been really fun! \w6i've found so many new places!\w8\w8\n\s[3]\_q%(vera)\_q i also get to sleep on the metro on trips when i have money to spare :\)"
 		if posfeel >= 70
 		{
-			"\0\s[2]\i[17]\i[41]\_q%(vera)\_q mm, \w2random thought, \w2but \w8\w2\n\s[1]\i[18]\i[41]\i[27]\_q%(vera)\_q i forget if i got my origami fetch modus BECAUSE i liked origami, \w8\w8\n\s[2]\i[17]\i[41]\i[27]\_q%(vera)\_q or if having the modus made me like origami in the first place..."
+			"\0\s[2]\i[17]\i[41]\_q%(vera)\_q mm, \w2random thought, \w2but \w8\w2\n\s[1]\i[18]\i[41]\i[27]\_q%(vera)\_q i forget if i got my origami \_a[fetchmodus]fetch modus\_a BECAUSE i liked origami, \w8\w8\n\s[2]\i[17]\i[41]\i[27]\_q%(vera)\_q or if having the modus made me like origami in the first place..."
 			"\0\s[2]\i[1]\i[80]\i[17]\_q%(vera)\_q i really want to travel and escape my apartment one day... \w8\w4\n\s[1]\i[1]\i[80]\i[26]\_q%(vera)\_q all the travel blogs make the world look so \w2beautiful. \w8\w8\w8\n\s[11]\i[1]\i[10]\_q%(vera)\_q ...i want to visit my friends, too."
-			"\0\_q%(vera)\_q i don't... \w8\w8\n\s[5]\i[1]\i[80]\![anim,clear,25]\_q%(vera)\_q i don't go to school much anymore. \w8\w8\w2\n\_q%(vera)\_q i just skip and stay home. \w8\w8\w2\n\_q%(vera)\_q it started all cause dad stopped being around, \w8and i kept losing track of time by falling asleep, \w8so..."
+			"\0\_q%(vera)\_q i don't... \w8\w8\n\s[5]\i[1]\i[80]\![anim,clear,25]\_q%(vera)\_q i don't go to school much anymore. \w8\w8\w2\n\_q%(vera)\_q i just skip and stay home. \w8\w8\w2\n\_q%(vera)\_q it started around when @dad stopped being around, \w8and i kept losing track of time by falling asleep, \w8so..."
 			"\0\s[5]\i[62]\_q%(vera)\_q ...i have tons of irritation in my left eye. \w8\w6\n\s[1]\_q%(vera)\_q it's my weak eye, \w6basically. \w8\w6\n\s[2]\i[26]\_q%(vera)\_q i don't really know why the irritation is a thing, \w6but it's not like we have the money to check it%(br)out..."
 		}
 	}
 	else //not negative route, not friendly enough yet
 	{
 		posfeel += 0.5
-		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ...oh, \w6um, \w8\w8\n\s[2]\i[41]\i[1]\i[26]\_q%(vera)\_q i'm tired \w6and forget stuff \w4a%(br)lot... \w8\w8\n\s[3]\i[1]\i[26]\_q%(vera)\_q i'm trying my best, \w4though..!"
+		sequential:{
 		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ...ah, \w6my name is vera \w6\i[26]thandi..? \w8\w8\n\s[2]\i[17]\i[1]\i[80]\i[26]\_q%(vera)\_q i don't really know what else there is to say..."
+		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ...oh, \w6um, \w8\w8\n\s[2]\i[41]\i[1]\i[26]\_q%(vera)\_q i'm tired \w6and forget stuff \w4a%(br)lot... \w8\w8\n\s[3]\i[1]\i[26]\_q%(vera)\_q i'm trying my best, \w4though..!"
 		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q i'm 14 years old..! \w8\w8\n\s[3]\i[18]\i[1]\i[80]\_q%(vera)\_q put my name in the naming box and everything a long time ago, \w6heheh."
-		"\0\s[1]\i[1]\_q%(vera)\_q ...the thing on my shirt? \w8\w8\n\s[2]\i[1]\_q%(vera)\_q there's no meaning to it or anything, \w6i've just had it for a long time and i really like it..."
-		if posfeel >= 5 //stuff i dont want user to see until vera at least knows them a lil bit YKYK
-		{
-			"\0\s[1]\i[1]\i[80]\_q%(vera)\_q um, \w4i use an \w6\1\s[1050]\0origami \w6fetch%(br)modus... \w8\w4\n\s[2]\i[1]\i[84]\_q%(vera)\_q it's not that complicated, \w6\![anim,clear,84]\i[85]i just need to make origami of what i want to get out of my sylladex... \w8\w4\n\1\s[-1]\0\s[1]\i[1]\i[80]\i[18]\_q%(vera)\_q i like it."
-			"\0\s[3]\i[26]\i[1]\i[80]\_q%(vera)\_q ah, \w6my current kind abstratus is kinda weird... \w8\w8\n\i[19]\_q%(vera)\_q it's, \w6um, \w6pillowkind. \w8\w8\n\s[4]\i[17]\i[26]\i[1]\i[80]\_q%(vera)\_q it looks dumb in a strife, \w6but it's gotten pretty useful for me..."
+		"\0\s[1]\i[1]\_q%(vera)\_q ...the thing on my shirt? \w8\w8\n\s[2]\i[1]\_q%(vera)\_q i mean, \w6i've just had it for a long time and i really like it..."
+		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q um, \w4i use an \w6\1\s[1050]\0origami \w6\_a[fetchmodus]fetch%(br)modus...\_a \w8\w4\n\s[2]\i[1]\i[84]\_q%(vera)\_q it's not that complicated, \w6\![anim,clear,84]\i[85]i just need to make origami of what i want to get out of my \_a[sylladex]sylladex...\_a \w8\w4\n\1\s[-1]\0\s[1]\i[1]\i[80]\i[18]\_q%(vera)\_q i like it."
+		"\0\s[3]\i[26]\i[1]\i[80]\_q%(vera)\_q ah, \w6my current \_a[strifespecibus]kind abstratus\_a is kinda weird... \w8\w8\n\i[19]\_q%(vera)\_q it's, \w6um, \w6pillowkind. \w8\w8\n\s[4]\i[17]\i[26]\i[1]\i[80]\_q%(vera)\_q it looks dumb in a \_a[strife]strife,\_a \w6but it's gotten pretty useful for me..."
 		}
 	}
 	--
@@ -155,12 +156,13 @@ OnPeopleMenu : all
 	"\![*]\q[Others,genother]\n"
 	
 	"\n(SPECIFIC)\n"
-	"\f[height,-2]\f[color,gray](Click arrow by name to see their original profiles)\f[height,default]\f[color,default]\n"
+	"\f[height,-2]\f[color,disable](Click arrow by name to see their original profiles)\f[height,default]\f[color,default]\n"
 	if KnowAbout[0] != 0 {"\_a[AUTO_ANCHOR:dad]\![*]\_a\q[Her dad,abtluce]  "} else {"\![*]--- ---  "}
 	if KnowAbout[1] != 0 {"\_a[AUTO_ANCHOR:mom]\![*]\_a\q[Her mom,abtmom]\n"} else {"\![*]--- ---\n"}
 	if KnowAbout[2] != 0 {"\_a[AUTO_ANCHOR:skul]\![*]\_a\q[Skul,abtskul]  "} else {"\![*]----  "}
 	if KnowAbout[3] != 0 {"\_a[AUTO_ANCHOR:ulys]\![*]\_a\q[Ulys,abtulys]  "} else {"\![*]----  "}
 	if KnowAbout[4] != 0 {"\_a[AUTO_ANCHOR:lila]\![*]\_a\q[Lila,abtlila]"} else {"\![*]----"}
+	//i have it set up as != 0 because im planning on NOT just using 0 and 1
 	
 	"\n \n\f[align,right]\![*]\q[Back,OnQuestionMenu]  \![*]\q[Cancel,CANCEL]\e"
 }
@@ -193,7 +195,7 @@ Select.genfamily : nonoverlap_pool
 
 Select.genfriend : nonoverlap_pool
 {
-	if posfeel >= 20 //starting to see u like a friend
+	if EFlag("FirstHoller")
 	{
 		posfeel += 0.5
 		
@@ -205,7 +207,7 @@ Select.genfriend : nonoverlap_pool
 			"\0\s[2]\_q%(vera)\_q ...we've been throwing around the idea of meeting up, \w8\w8\n\s[3]\i[26]\_q%(vera)\_q but, \w2uh, \w2there's so many reasons we can't... \w8\w8\n\s[4]\i[17]\i[26]\_q%(vera)\_q @dad wouldn't let me, \w4we're all 14, \w4@ulys and @lila live waaay out in alaska, \w4@skul will NOT tell us anything about himself- \w2\w8\w8\n\s[3]\i[19]\i[27]\_q%(vera)\_q um, \w6it makes it VERY hard to take the idea seriously right now..!"
 		}
 	}
-	else //not negative route, not friendly enough yet
+	else //you have not seen vera's friends yet!!
 	{
 		posfeel += 0.5
 		
@@ -218,6 +220,7 @@ Select.genfriend : nonoverlap_pool
 			"\s[3]\i[1]\i[80]\i[19]\_q%(vera)\_q one of them is a very eloquent writer, and they make the best cakes..."
 			"\s[1]\i[1]\i[80]\i[27]\_q%(vera)\_q one of them has a weirdly good ability to make people look nice..!! \w8\n\s[2]\i[27]\i[41]\i[1]\i[61]\i[17]\_q%(vera)\_q like, \w2um, \w2make-up and stuff..!"
 		}
+		"\0\s[3]\i[1]\i[17]\i[27]\i[80]\_q%(vera)\_q my friends?? \w4oh, i have TONS!! \w8\w8\n\![anim,stop,17]\i[18]\_q%(vera)\_q you'd understand if you met them all, %(pername)."
 	}
 	--
 	" \n\n\f[color,default]\![*]\q[Ask something else,OnPeopleMenu]\n\![*]\q[I'm done,CANCEL]\e"
@@ -231,7 +234,12 @@ Select.genother
 		
 		"\0\s[2]\i[17]\i[26]\_q%(vera)\_q ...i don't see my neighbors very often, \w4but i'm kinda scared about what they think of me... \w8\w8\n\s[5]\i[26]\_q%(vera)\_q i can't tell what the looks on their face mean when they see me."
 		"\0\s[2]\i[1]\i[80]\_q%(vera)\_q there's this really nice lady who lives in the apartment directly above us... \w8\w8\n\i[18]\_q%(vera)\_q she always talks about her art whenever we have the chance to talk. \w8\w8\n\s[4]\i[1]\i[80]\i[17]\_q%(vera)\_q it's nice..."
-		"\0\_q%(vera)\_q i don't really have a problem with any of my teachers... \w8\w8\n\_q%(vera)\_q i just wish they'd stop giving out so much work."
+		"\0\s[2]\i[1]\i[43]\_q%(vera)\_q i don't really have a problem with any of my teachers... \w8\w8\n\s[1]\i[1]\i[17]\i[43]\_q%(vera)\_q i just wish they'd stop giving out so much work."
+		
+		{"\0\s[2]\i[41]\_q%(vera)\_q well, ah... \w8\w8\n\i[18]\_q%(vera)\_q living in the city lets me see a lot of really strange people just... \w6\s[1]\i[41]around. \w8\w8\n"
+		--
+		"\_q%(vera)\_q have i told you about the weird blond shades kid who keeps getting followed around by crows? \w8\w2\n\s[1]\i[27]\_q%(vera)\_q he's SO weird and i HATE that i keep having to see him around and yet i know ABSOLUTELY NOTHING about him! \w8\w8\n\i[18]\i[41]\_q%(vera)\_q i see him on the rooftop three buildings over \_a[strife]strifing\_a with someone super regularly, too. \w8\s[1]\i[27]i've had enough of that dude! \w8why does he have to live three buildings from me?!\![raise,OnDialogueVars,dave]"
+		}
 		
 		if posfeel >= 70
 		{
@@ -240,7 +248,7 @@ Select.genother
 	}
 	else //not negative route, not friendly enough yet
 	{
-		"\0\s[1]\i[1]\i[80]\i[26]\_q%(vera)\_q ...do i need to tell you about the people i know? \w8\w8\n\s[2]\i[17]\i[1]\i[80]\i[26]\_q%(vera)\_q i-i don't mean to be a jerk, \w2but i don't know how to answer that, \w2%(pername)..."
+		"\0\s[1]\i[1]\i[80]\i[26]\_q%(vera)\_q other people i know..? \w8\w8\n\s[2]\i[17]\i[1]\i[80]\i[26]\_q%(vera)\_q um, \w2i don't know how to answer that, \w2%(pername)..."
 		"\0\s[1]\i[1]\i[80]\i[18]\_q%(vera)\_q ...i get along with the people around me, \w2i guess. \w8\w8\n\s[1]\i[1]\i[80]\i[26]\_q%(vera)\_q um, \w2sorry, \w2i don't really know what you're asking..."
 		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ...other than friends and family?\w8\w8\w8\n\s[2]\i[1]\i[41]\i[61]\_q%(vera)\_q ...hm. \w8\w8\n\i[17]\i[26]\_q%(vera)\_q i don't feel like telling you that... \w8\w8\s[1]\i[1]\i[80]\i[26]\i[18]s\w2-\w2sorry."
 	}
@@ -254,16 +262,15 @@ Select.abtluce : nonoverlap_pool
 	{
 		posfeel += 0.5
 		
-		
+		"\0\s[2]\i[1]\i[17]\i[80]\_q%(vera)\_q i guess...\w8\w8\n\_q%(vera)\_q he's not a bad person. \w8\![anim,stop,17]\i[18]kind of...\w8\w8\n\_q%(vera)\_q i keep just saying he's busy, but like...\w8\w8\n\s[4]\i[1]\i[17]\i[26]\i[80]\_q%(vera)\_q can't you visit your daughter just once? \w8please?\e"
 	}
-	elseif posfeel >= 20 //starting to see u like a friend
+	elseif posfeel >= 25
 	{
 		
 	}
 	else //not negative route, not friendly enough yet
 	{
-		"\0\s[2]\i[1]\i[80]\_q%(vera)\_q ...uh, \w2yeah, \w6my dad. \w8\w8\n\s[5]\![anim,stop,25]\i[1]\i[80]\_q%(vera)\_q he's fine."
-		"\0\s[1]\i[1]\i[80]\i[17]\_q%(vera)\_q ...what's YOUR dad like, %(pername)?"
+		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ...oh, \w2um, \w6my dad? \w8\w8\n\s[5]\![anim,stop,25]\i[1]\i[80]\_q%(vera)\_q he's fine."
 	}
 	--
 	" \n\n\f[color,default]\![*]\q[Ask something else,OnPeopleMenu]\n\![*]\q[I'm done,CANCEL]\e"
@@ -275,12 +282,8 @@ Select.abtmom : nonoverlap_pool
 	{
 		posfeel += 0.2
 		
-		"\0\s[2]\i[17]\_q%(vera)\_q ...is having a mom nice? \w8\w8\n\s[5]\![anim,stop,25]\_q%(vera)\_q would it be better than having..?"
-		"\0\s[2]\_q%(vera)\_q i know @skul has a mom, \w4but she also... \w8\w8\n\i[17]\i[26]\_q%(vera)\_q seems... kinda like my @dad? \w8\w8\n\s[5]\i[26]\_q%(vera)\_q i mean, @skul doesn't really talk about it either, i shouldn't make assumptions..."
-	}
-	elseif posfeel >= 20 //starting to see u like a friend
-	{
-		
+		"\0\s[2]\i[17]\_q%(vera)\_q ...is having a mom nice? \w8\w8\n\s[5]\![anim,stop,25]\_q%(vera)\_q would it be better than having a..?"
+		"\0\s[2]\_q%(vera)\_q i know @skul has a mom, \w4but she also... \w8\w8\n\i[17]\i[26]\_q%(vera)\_q seems... \w2kinda like my @dad? \w8\w8\n\s[5]\i[26]\_q%(vera)\_q i mean, @skul doesn't really talk about it either, i shouldn't make assumptions..."
 	}
 	else //not negative route, not friendly enough yet
 	{
@@ -312,18 +315,17 @@ Select.abtulys : nonoverlap_pool
 	posfeel += 0.5
 	
 	"\0\s[1]\_q%(vera)\_q the food and recipes they send in the hollerfeed look sooooo good! \w8\w8\n\s[3]\i[27]\i[19]\_q%(vera)\_q makes me wanna fly over to alaska no matter what..!!"
-	"\0\s[2]\_q%(vera)\_q i like reading the short stories they put up on their website... \w8\w8\n\s[1]\_q%(vera)\_q they could make money off of that stuff, it's really good and thought-provoking!"
+	"\0\s[2]\_q%(vera)\_q i like reading the short stories they put up on their website... \w8\w8\n\s[1]\_q%(vera)\_q they deserve money for it!! its so investing and makes me think more than my brain usually lets me think..."
 	"\0\s[3]\i[27]\_q%(vera)\_q they lecture us about being too reckless and stuff, but i KNOW they do just as much crime as we do!! \w8\w8\n\i[18]\_q%(vera)\_q just cause you don't get caught doesn't mean it doesn't count!"
 	"\0\s[2]\i[41]\_q%(vera)\_q it's usually morning for them when it's my noon... \w8\w8\n\s[1]\_q%(vera)\_q like, just a few hours behind. \w8\w8\n\s[4]\i[17]\_q%(vera)\_q unlike @skul."
 	"\0\s[2]\i[1]\i[80]\_q%(vera)\_q they're a really stabilizing presence to have around... \w8\w8\n\s[3]\i[1]\i[80]\i[18]\_q%(vera)\_q they know just what to say \w2and just how to word things... \w8\w8\n\s[4]\i[1]\i[80]\i[17]\_q%(vera)\_q um, \w4if you ignore \w6the sarcasm."
 	
-	{
-	"\0\s[2]\i[1]\i[80]\_q%(vera)\_q ...they seem to live such a peaceful life. \w8\w8\n\_q%(vera)\_q like, a tiny village in the countryside surrounded by plants and animals,, "
+	{"\0\s[2]\i[1]\i[80]\_q%(vera)\_q ...they seem to live such a peaceful life. \w8\w8\n\_q%(vera)\_q like, a village in the countryside surrounded by plants and animals,,"
 	--
-	if posfeel >= 50; "\w8\w8\n\i[18]\i[26]\_q%(vera)\_q am i just jealous of what i don't have..?"
-	}
+	if posfeel >= 50; "\w8\w8\n\i[18]\i[26]\_q%(vera)\_q but i guess they say you only want what you don't have, right?"}
+	
 	--
-	" \n\n\f[color,default]\![*]\q[Ask something else,OnPeopleMenu]\n\![*]\q[I'm done,CANCEL]\e"
+	"\n\n\f[color,default]\![*]\q[Ask something else,OnPeopleMenu]\n\![*]\q[I'm done,CANCEL]\e"
 }
 
 Select.abtlila : nonoverlap_pool
@@ -387,7 +389,7 @@ Select.SnoopingOoh
 }
 
 //created this mostly for 'about you', to abort it early if needed
-backtoq {" \n\n\f[color,default]\![*]\q[Ask something else,OnQuestionMenu]\n\![*]\q[I'm done,CANCEL]\e"}
+backtoq {"\n\n\f[color,default]\![*]\q[Ask something else,OnQuestionMenu]\n\![*]\q[I'm done,CANCEL]\e"}
 
 //----------Interact Menu----------
 
@@ -399,21 +401,23 @@ OnInteractMenu : all
 	"\n"
 	
 	"\![*]\q[CHECK SYLLADEX,OnSylladex]"
-	"\n\f[height,-1]\f[color,gray]INVENTORY: Has unlocked games/activites.\f[color,default]\f[height,default]\n"
+	"\n\f[height,-1]\f[color,disable]INVENTORY: Has unlocked games/activites.\f[color,default]\f[height,default]\n"
 	
+	//everything DEFINITELY needs more dialogue pools but ill keep it smol for now
 	"\n(DO)\n"
 	if negfeel > 0; "\![*]\q[Apologize,apologizev]"
-	else; "\f[color,gray]\![*]Apologize\f[color,default]"	
+	else; "\f[color,disable]\![*]Apologize\f[color,default]"	
 	//conditional. can pop up as soon as your negfeel is more than 0, but you can only apologize a few times per day + other parameters
 	"\n"
-	//"\![*]\q[Compliment,complimentv]  "
 	"\![*]\q[Story,storyv]  "
 	"\![*]\q[Comfort,comfortv]  "
-	"\![*]\q[Joke,jokev]"
+	//"\![*]\q[Compliment,complimentv]" 
+	//i don't recommend uncommenting this, her compliment function isnt complete
 	"\n"
 	"\![*]\q[Hug,hugv]  "
-	"\![*]\q[Tease,teasev]  "
-	"\![*]\q[Insult,insultv]"
+	"\![*]\q[Joke,jokev]  "
+	if negfeel < 15; "\![*]\q[Heckle,hecklev]"
+	else; "\![*]\q[Insult,hecklev]"
 	"\n"
 	
 	//games and such: move to sylladex? might be hard to find...
@@ -445,7 +449,7 @@ Select.apologizev //ooohhhhhhrjg BIG apology function
 			negfeel = 0
 			AddFlag("just apologized")
 			
-			"\s[3]\i[1]\i[26]\i[80]\_q%(vera)\_q ...it's okay, \w2%(pername). \w8\w8\n"
+			"\s[3]\i[1]\i[26]\i[80]\_q%(vera)\_q ...it's ok, \w2%(pername). \w8\w8\n"
 			"\s[3]\i[1]\i[26]\i[80]\_q%(vera)\_q ...it's fine, \w2%(pername). \w8\w8\n"
 			--
 			if posfeel >= 25
@@ -495,8 +499,8 @@ Select.apologizev //ooohhhhhhrjg BIG apology function
 			{
 				"\s[1]\i[1]\i[26]\i[80]\_q%(vera)\_q ...really? \w8\w8\n\s[4]\i[1]\i[26]\i[80]\_q%(vera)\_q "
 				--
-				"i forgive you, %(pername). \w6just don't be mean again, okay?"
-				"it's okay, %(pername). \w6you won't do it again, right?"
+				"i forgive you, %(pername). \w6just don't be mean again, ok?"
+				"it's ok, %(pername). \w6you won't do it again, right?"
 			}
 			else
 			{
@@ -560,43 +564,251 @@ Select.apologizev //ooohhhhhhrjg BIG apology function
 	" \n\n\f[color,default]\![*]\q[Go back,OnInteractMenu]\n\![*]\q[Close,CANCEL]\e"
 }
 
-//UGH i have no idea how to properly implement this function the way i want to. i am leaving it out. compliments are so hard.
-Select.complimentv
+//if user ACTUALLY wants to read a story theyre gonna have to unlock the dream journal.
+//this just kinda acts as nifty references + silly stories and telling stories to vera.
+Select.storyv : nonoverlap_pool
+{
+	if negfeel >= 15 //negative routes?
+	{
+		
+	}
+	elseif posfeel < 5 && negfeel < 5
+	{
+		"\0\s[1]\i[1]\i[35]\i[80](You try to come up with a story, but you're not sure what she likes to read...)"
+	}
+	else //ALLLLLL positive routes
+	{
+		if recentact[0] <= 5 
+		{
+			if posfeel < 20; posfeel += 0.5
+			else; posfeel += 0.8
+		}
+		totalact[0]++
+		recentact[0]++
+		
+		//let me tell you about homestuck
+		{"\0\s[1]\i[35](You start telling her about \_a[https://bambosh.dev/unofficial-homestuck-collection/]four kids who play a game\_a about the forces of light and dark, and how they ended the world to receive the greatest reward.)\w6\n\n[half]\s[3]\i[26]\i[35](You barely start the story and she looks completely lost.)\w8\w6\n\n"
+		--
+		"\s[4]\i[1]\i[17]\i[26]\i[80]\_q%(vera)\_q huh... \w6i don't completely get it, but it's giving me this really intense sense of deja vu..."
+		"\s[3]\i[1]\i[26]\i[80]\_q%(vera)\_q that sounds like a really interesting story, \w2but maybe it's not the best one to be told verbally..."}
+		
+		//im not a whatpumpkin bootlicker. personally i hate homestuck
+		"\0\s[1]\i[35](You start telling her about \_a[https://www.hiveswap.com/hiveswap-act-1]a girl who swaps places with an alien from another planet\_a on the brink of rebellion, and has to find a way back to Earth.)\w6\n(While back home, her brother has to deal with the alien whose stranded in their monster-ravaged home. \w2Homeswapped, if you will.)\w8\w6\n\n\s[2]\i[18]\_q%(vera)\_q ...ah, \w2it's stories like that that that make me start daydreaming..... \w8\w8\n\s[3]\i[18]\_q%(vera)\_q getting whisked away to another planet! \w2how cool!"
+		
+		//i'm watching the 1988 osomatsu-kun anime as i write this LOL (not -san. don't tell her about that. she is baby.)
+		{"\0\s[1]\i[35](You start telling her about some sextuplets who use their identical faces to get into trouble. "
+		--
+		"Like having one of them get adopted by a rich family and the rest of the brothers try to switch places with him!"
+		--
+		")\w8\w8\n\s[3]\_q%(vera)\_q hehehe... that sounds fun :o"}
+		
+		//invader zim came out in 2001, soooo
+		//ugh fix this later ig
+		{"\0\s[1]\i[35](You tell her about an alien who gets exiled to Earth with the belief that he's there to conquer it, but fails his self-imposed mission at the hands of his own ego and a rivalry with a local paranormal investigator.)\w8\w6\n\n"
+		--
+		if !Flag("KnowZim"); "\s[3]\i[19]\i[26]\_q%(vera)\_q ...isn't this the plot of that one cartoon... \w4uhm, \w2invader zim, \w2right?\w8\w8\n\_q%(vera)\_q i watch tv sometimes! \w2i know what it is! \w6do you know about it too, %(pername)..??"
+		else; ""}
+	}
+	--
+	"\n\n\f[color,default]\![*]\q[Go back,OnInteractMenu]\n\![*]\q[I'm done,CANCEL]\e"
+}
+
+Select.comfortv : nonoverlap_pool
+{
+	_justmet = 0
+	if posfeel <= 5 && negfeel <= 5; _justmet = 1
+	//this ^ can be circumvented by apologizing, but hopefully it shouldnt be too weird
+	
+	if negfeel >= 15 //negative routes?
+	{
+		
+	}
+	elseif posfeel < 20 //not friends yet
+	{
+		if recentact[1] <= 3; posfeel += 0.4
+		totalact[1]++
+		recentact[1]++
+		
+		//i originally had negfeel pools for these but i think the elses actually kinda work (if youre nice to her she will scrounge for any positive action you give her </3 IM SORRYYYY
+		all:{"\0\s[1]\i[1]\i[35]\i[80](You tell her that she's safe here!)\w8\w8\n\n"
+		if _justmet; "\s[4]\i[1]\i[26]\i[80]\_q%(vera)\_q ...oh,, um, \w8thank you \w2for the sentiment?\w8\w8\n\i[19]\_q%(vera)\_q you said it so out of the blue i wasn't sure what to say..."
+		else; "\s[3]\i[1]\i[26]\i[80]\i[1030]\_q%(vera)\_q ...thank you, %(pername)..."}
+		
+		all:{"\0\s[1]\i[1]\i[35]\i[80](You tell her that she's fun to be around!)\w8\w8\n\n"
+		if _justmet; "\s[3]\i[1]\i[19]\i[26]\i[80]\_q%(vera)\_q ...is it?\w8\w8\n\i[1030]\_q%(vera)\_q well, if you think that by now, then i must be doing something right!"
+		else; "\s[3]\i[1]\i[19]\i[26]\i[42]\i[61]\i[1030]\_q%(vera)\_q you really think that..?"}
+		
+		all:{"\0\s[1]\i[1]\i[35]\i[80](You tell her that spending time with her is nice!)\w8\w8\n\n"
+		if _justmet; "\s[3]\i[1]\i[19]\i[26]\i[80]\_q%(vera)\_q ...is it? \w8\w8\n\i[1030]\_q%(vera)\_q well, if you think that by now, then i must be doing something right!"
+		else; "\s[2]\i[1]\i[80]\i[1030]\_q%(vera)\_q a-ah, um, t\w8\n\i[18]\i[27]\_q%(vera)\_q t-thank you......."}
+		
+		all:{"\0\s[1]\i[1]\i[35]\i[80](You tell her that she's worth it!)\w8\w8\n\n"
+		if _justmet; "\s[3]\i[1]\i[19]\i[26]\i[80]\_q%(vera)\_q um, \w2worth what..?\w8\w8\n\_q%(vera)\_q i mean, thank you, but i don't think you know much about me, right..?"
+		else; "\s[2]\i[1]\i[17]\i[26]\i[80]\i[1030]\_q%(vera)\_q i-i don't think....\w8\w8\n\![anim,stop,17]\i[18]\_q%(vera)\_q um, thank you..."}
+		
+		all:{"\0\s[1]\i[1]\i[35]\i[80](You tell her that she's a good person!)\w8\w8\n\n"
+		if _justmet; "\s[4]\i[1]\i[17]\i[26]\i[80]\_q%(vera)\_q ...how do you know that? \w8\![anim,stop,17]\i[19]thank you, though..."
+		else; "\s[5]\i[1]\![anim,stop,15]\i[80]\i[1030](...She seems too overwhelmed to say anything to that.)"}
+		
+		all:{"\0\s[1]\i[1]\i[35]\i[80](You tell her that she can talk to you if she's feeling down.)\w8\w8\n\n"
+		if _justmet; "\s[2]\i[1]\i[80]\_q%(vera)\_q ...um, thank you for the offer, \w2even though i dunno if i could..."
+		else; "\s[3]\i[1]\i[26]\i[80]\i[1030]\_q%(vera)\_q ...thank you, %(pername)..."}
+	}
+	else //should be positive routes above 20 posfeel
+	{
+		if recentact[1] <= 5; posfeel += 0.6
+		totalact[1]++
+		recentact[1]++
+		
+		all:{"\0\s[1]\i[35](You tell her that she's fun to hang out with.)\w8\w8\n\n"
+		if posfeel >= 75; "\s[3]\i[19]\i[1030]\_q%(vera)\_q hehe, you mean it?\w8\w8\n\![anim,stop,19]\i[15]\_q%(vera)\_q you're one of the coolest people i've met, %(pername), so that means a lot..."
+		else; "\s[4]\i[1030]\i[35](...Doesn't look like she can respond to that.)"} //tbh i think i was just too lazy to write anything here
+		
+		all:{"\0\s[1]\i[35](You tell her that you appreciate her presence.)\w8\w8\n\n"
+		if posfeel >= 75; "\s[3]\i[19]\i[26]\i[1030]\_q%(vera)\_q aww, you do..?\w8\w8\n\![anim,stop,19]\i[15]\_q%(vera)\_q thank you! \w2i appreciate you too, %(pername)."
+		else; "\s[3]\i[26]\i[1030]\_q%(vera)\_q you do..?\w8\w8\n\i[1030]\_q%(vera)\_q um, thank you..........."}
+		
+		all:{"\0\s[1]\i[35](You tell her that she's worth it, no matter what.)\w8\w8\n\n"
+		if posfeel >= 75; "\s[3]\i[26]\i[1030]\_q%(vera)\_q ...thank you.\w8\w8\n\i[19]\_q%(vera)\_q i think... \w2i'm getting better at accepting that sentiment..."
+		else; "\s[4]\i[26]\i[1030]\_q%(vera)\_q ...um, thank you...\w8\w8\n\i[19]\_q%(vera)\_q i-i don't know how to respond to that,,"}
+		
+		all:{"\0\s[1]\i[35](You tell her that she's safe around you, if she needs it.)\w8\w8\n\n"
+		if posfeel >= 75; "\s[3]\i[26]\i[1030]\_q%(vera)\_q thank you.... \w8\![anim,stop,26]\i[18]\i[25]it's nice and comfy around you, so..."
+		else; "\s[4]\i[26]\i[1030]\_q%(vera)\_q a-ah, it's still a little strange for someone to say that to me, but \w4i get the sentiment...\w8\w8\n\![anim,stop,26]\i[25]\i[18]\_q%(vera)\_q thank you..."}
+		
+		all:{"\0\s[1]\i[35](You tell her that she's a good person.)\w8\w8\n\n"
+		if posfeel >= 75; "\s[3]\i[26]\i[1030]\_q%(vera)\_q ...ah, i... \w8\w8\n\i[19]\_q%(vera)\_q if its YOU saying that, \w2i think i'll try to start believing it..."
+		else; "\s[5]\i[1030]\![anim,stop,25](...She seems too overwhelmed to respond. \w2She didn't hate the sentiment, at least.)"}
+		
+		all:{"\0\s[1]\i[35](You tell her that you enjoy listening to her talk.)\w8\w8\n\n"
+		if posfeel >= 75; "\s[3]\i[1030]\_q%(vera)\_q ...um, thank you..! \w8\w8\n\i[19]\i[26]\_q%(vera)\_q i mean, i know we're friends, but i always worry if%(br)i'm getting annoying, so thank you..."
+		else; "\s[1]\i[1]\i[1030]\i[80]\_q%(vera)\_q o-oh.\w8\w8\n\_q%(vera)\_q t-thank you! \w4\s[2]\i[1]\i[1030]\i[80]i always worry if i'm getting annoying, so..."}
+		
+		all:{"\0\s[1]\i[35](You tell her that she's really interesting, and that you enjoy talking to her.)\w8\w8\n\n"
+		if posfeel >= 75; "\s[3]\i[1030]\_q%(vera)\_q ...um, thank you..! \w8\w8\n\i[19]\i[26]\_q%(vera)\_q i mean, i know we're friends, but i always worry if%(br)i'm getting annoying, so thank you..."
+		else; "\s[1]\i[1]\i[1030]\i[80]\_q%(vera)\_q o-oh.\w8\w8\n\_q%(vera)\_q t-thank you! \w4\s[2]\i[1]\i[1030]\i[80]i always worry if i'm getting annoying, so..."}
+		
+		all:{"\0\s[1]\i[35](You tell her she can talk to you if she needs to get anything off her mind.)\w8\w8\n\n"
+		if posfeel >= 75; "\s[3]\i[18]\i[1030]\_q%(vera)\_q i'll definitely keep it in mind, %(pername).\w8\w8\n\_q%(vera)\_q t-thank you..."
+		else; "\s[1]\i[1030]\_q%(vera)\_q o-oh, i...\w8\w8\n\s[3]\i[26]\i[1030]\_q%(vera)\_q y-yeah! \w2thank you, %(pername)..."}
+		
+		"\0\s[1]\i[35](You tell her about a new coping strategy you picked up.)\w8\w8\n\n\s[2]\_q%(vera)\_q o-oh, thank you... \w8\w8\n\i[18]\_q%(vera)\_q i should try that when i can...."
+		
+		//TODO: make these conditional to # of times an activity has been done.
+		//		also these still need responses
+		"\0\s[1]\i[35](You tell her that you enjoy making candles with her.)"
+		
+		"\0\s[1]\i[35](You tell her that you enjoy making origami with her.)"
+		
+		"\0\s[1]\i[35](You tell her that you enjoy reading tarot with her.)"
+		
+		"\0\s[1]\i[35](You tell her that you enjoy playing cards with her.)"
+		
+		
+		if posfeel >= 75
+		{
+			if KnowAbout[0] >= 1; "\0\s[1]\i[35](You tell her that her dad shouldn't treat her that way, and that she's going to be okay.)"
+			if alltotalgive >= 25; "\0\s[1]\i[35](You tell her that she deserves good things, and that everything you've given her is something you wanted to give to her.)"
+		}
+	}
+	--
+	"\n\n\f[color,default]\![*]\q[Go back,OnInteractMenu]\n\![*]\q[I'm done,CANCEL]\e"
+}
+
+//ive been going back and forth on this RAGHHHHHHH (ngl i think comforting covers this base...)
+//commenting out because WOAH is it distracting me. im just like "hey wait a minute why is there an incomplete interaction" and its just this chunk of code. augh
+/*
+Select.complimentv : nonoverlap_pool
+{
+	if negfeel >= 15 //negative routes?
+	{
+		
+	}
+	elseif posfeel < 20 //just met
+	{
+		if recentact[2] <= 3; posfeel += 0.3
+		totalact[2]++
+		recentact[2]++
+		
+		all:{"\0\s[1]\i[1]\i[35]\i[80](You tell her that her shirt is cool.)\w8\w8\n\n\s[2]\i[1]\i[80]\i[1030]\_q%(vera)\_q o-oh...\w8\w8\n\s[1]\i[1]\i[80]\i[1030]\_q%(vera)\_q um, \w4thank you."
+		if negfeel < 5; " \w8\s[2]\i[1]\i[80]\i[1030]i think it's cool, \w2too..."}
+		
+		all:{"\0\s[1]\i[1]\i[35]\i[80](You tell her that her hair is nice.)\w8\w8\n\n\s[2]\i[1]\i[80]\i[1030]\_q%(vera)\_q ...oh,\w8\w8\n\s[1]\i[1]\i[80]\i[1030]\_q%(vera)\_q um, \w4thank you..."
+		if negfeel < 5; "\w8\w8\n\_q%(vera)\_q i, um, don't do anything to it at all, so......."}
+		
+		all:{"\0\s[1]\i[1]\i[35]\i[80](You tell her that she looks comfy in her outfit!)\w8\w8\n\n\s[2]\i[1]\i[80]\i[1030]\_q%(vera)\_q h-huh? \w8\w8\n\s[1]\i[1]\i[80]\i[1030]\_q%(vera)\_q um, \w4i guess i am..?"
+		if negfeel < 5; "\w8\w8\n\s[2]\i[1]\i[80]\i[1030]\_q%(vera)\_q i like my clothes, too...\w8\w8\n\s[3]\i[1]\i[26]\i[80]\i[1030]\_q%(vera)\_q i don't think they're compliment worthy, \w2but thank you..."}
+		
+		all:{"\0\s[1]\i[1]\i[35]\i[80](You tell her that her glasses look nice.)\w8\w8\n\n\s[2]\i[1]\i[80]\i[1030]\_q%(vera)\_q oh, \w6um, \w8\w8\n\s[1]\i[1]\i[80]\i[1030]\_q%(vera)\_q t-thank you..."
+		if negfeel < 5; " \w8\s[2]\i[1]\i[80]\i[1030]i've had these frames for a long time...\w8\w8\n\_q%(vera)\_q my @dad picked them out for me."}
+		
+		all:{"\0\s[1]\i[1]\i[35]\i[80](You say that her eyes are pretty.)\w8\w8\n\n\s[1]\i[1]\i[80]\i[1030]\_q%(vera)\_q o-oh...\w8\w8\n\s[1]\i[1]\i[80]\i[1030]\_q%(vera)\_q ...are they?"
+		if negfeel < 5; "\w8\w8\n\_q%(vera)\_q it's weird for me for people to compliment my eyes... \w8but thanks, i think :)"}
+	}
+	else //should be positive routes above 20 posfeel
+	{
+		if recentact[2] <= 3; posfeel += 0.4
+		totalact[2]++
+		recentact[2]++
+		
+		if totaltouch[1] >= 35; "\0\s[1]\i[35](You tell her that her hair is nice, and very brushable.)"
+		"\0\s[1]\i[35](You tell her that she's pretty.)"
+	}
+	--
+	"\n\n\f[color,default]\![*]\q[Go back,OnInteractMenu]\n\![*]\q[I'm done,CANCEL]\e"
+}
+*/
+
+Select.jokev : nonoverlap_pool
 {
 	if negfeel >= 15
 	{
 		
 	}
-	elseif posfeel < 5
+	elseif posfeel < 20
 	{
-		if negfeel <= 5
+		if recentact[4] <= 5; posfeel += 0.3
+		totalact[4]++
+		recentact[4]++
+		
+		"\0(Placeholder jokes!)"
+	}
+	else
+	{
+		if recentact[4] <= 5; posfeel += 0.3
+		totalact[4]++
+		recentact[4]++
+		
+		"\0(Placeholder jokes!)"
+	}
+	--
+	"\n\n\f[color,default]\![*]\q[Go back,OnInteractMenu]\n\![*]\q[I'm done,CANCEL]\e"
+}
+
+
+Select.hugv : nonoverlap_pool
+{
+	if negfeel >= 15
+	{
+		
+	}
+	elseif posfeel < 20
+	{
+		if recentact[3] <= 3
 		{
-			"\0\s[1]\i[1]\i[35]\i[80](You tell her that her shirt is cool.) \w8\w8\n\s[2]\i[1]\i[80]\_q%(vera)\_q um... \w8\w8\n\s[1]\i[1]\i[80]\_q%(vera)\_q thanks..?"
+			"\0\s[1]\i[1]\i[35]\i[80](You ask her if you can hug her.)\w8\w6\n\n"
+			--
+			"\s[2]\i[1]\i[35]\i[80](...She looks away at the suggestion. \w2That's a no, then.)"
 		}
 		else
 		{
 			
 		}
 	}
-	else 
+	elseif posfeel < 75
 	{
-		
-	}
-	--
-	" \n\n\f[color,default]\![*]\q[Go back,OnInteractMenu]\n\![*]\q[I'm done,CANCEL]\e"
-}
-
-Select.storyv
-{
-	if negfeel >= 15
-	{
-		
-	}
-	elseif posfeel < 5
-	{
-		if negfeel <= 5
+		if recentact[3] <= 3
 		{
-			posfeel += 0.1
 			
 		}
 		else
@@ -604,71 +816,712 @@ Select.storyv
 			
 		}
 	}
-	else 
+	else
+	{
+		if recentact[3] <= 5
+		{
+			
+		}
+		else
+		{
+			
+		}
+	}
+	--
+	"\n\n\f[color,default]\![*]\q[Go back,OnInteractMenu]\n\![*]\q[I'm done,CANCEL]\e"
+}
+
+Select.hecklev : nonoverlap_pool
+{
+	if negfeel >= 15
+	{
+		
+	}
+	elseif posfeel < 20
+	{
+		
+	}
+	else
 	{
 		
 	}
 	--
-	" \n\n\f[color,default]\![*]\q[Go back,OnInteractMenu]\n\![*]\q[I'm done,CANCEL]\e"
-}
-
-Select.comfortv
-{
-	"(Placeholder comforting!)"
-	--
-	" \n\n\f[color,default]\![*]\q[Go back,OnInteractMenu]\n\![*]\q[I'm done,CANCEL]\e"
-}
-
-
-Select.jokev
-{
-	"(Placeholder jokes!)"
-	--
-	" \n\n\f[color,default]\![*]\q[Go back,OnInteractMenu]\n\![*]\q[I'm done,CANCEL]\e"
-}
-
-
-Select.hugv
-{
-	"(Placeholder hugs!)"
-	--
-	" \n\n\f[color,default]\![*]\q[Go back,OnInteractMenu]\n\![*]\q[I'm done,CANCEL]\e"
-}
-
-Select.teasev
-{
-	"(Placeholder teasing!)"
-	--
-	" \n\n\f[color,default]\![*]\q[Go back,OnInteractMenu]\n\![*]\q[I'm done,CANCEL]\e"
-}
-
-Select.insultv
-{
-	"(Placeholder insulting!)"
-	--
-	" \n\n\f[color,default]\![*]\q[Go back,OnInteractMenu]\n\![*]\q[I'm done,CANCEL]\e"
+	"\n\n\f[color,default]\![*]\q[Go back,OnInteractMenu]\n\![*]\q[I'm done,CANCEL]\e"
 }
 
 OnSylladex : all
 {
 	"\_q"
-	"\![*]\q[Make Origami,OnOrigamiMenu]\n" 	//} else {"\![*]---- -------\n"}
-	"\![*]\q[Tarot Cards,OnTarotQ]\n" 			//} else {"\![*]----- -----\n"}
-	"\![*]\q[Candle Making,OnCandleMenu]\n" 	//} else {"\![*]------ ------\n"}
+	"\![close,inputbox,__SYSTEM_ALL_INPUT__]"
 	"\![*]\q[Dream Journal,OnJournalMenu]\n" 	//} else {"\![*]----- -------\n"}
+	"\![*]\q[Make Origami,OnOrigamiMenu]\n" 	//} else {"\![*]---- -------\n"}
+	"\![*]\q[Candle Making,OnCandleMenu]\n" 	//} else {"\![*]------ ------\n"}
+	"\![*]\q[Tarot Cards,Ontarotinit]\n" 		//} else {"\![*]----- -----\n"}
+	"\![*]\q[Play Eights,Oneightsinit]\n"		//} else {"\![*]---- ------\n"}
+	// use this link for the eights explanation lol https://en.wikipedia.org/w/index.php?title=Crazy_Eights&oldid=280476316
 	
-	" \n\f[align,right]\![*]\q[Back,OnInteractMenu]  \![*]\q[Cancel,CANCEL]\e"
+	"\n\f[align,right]\![*]\q[Back,OnInteractMenu]  \![*]\q[Cancel,CANCEL]\e"
+}
+
+OnJournalMenu
+{
+	//this should track dreams/story methinks
 }
 
 OnOrigamiMenu
 {
-	
+	//holy shit how am i going to do this
 }
 
-OnTarotQ
+//TODO: actually draw tarot cards LOL
+//also add flag for first tarot, and circumstantial dialogue for it + relationship
+Ontarotinit : all
 {
-	//"hm, ok, i can only do general daily/3 card readings, so..."
-	//idk abt eventually adding the option to ask her a question before the reading but ehhhh
+	if reference0 == "redo"
+	{"\0\s[1]\_q%(vera)\_q i can do another! \w6you sure?"}
+	elseif reference0 == "explain"
+	{"\0\b2\s[1]\_q%(vera)\_q oh!\w8\n\s[2]\i[41]\_q%(vera)\_q um, my basic 3 card readings pull 3 cards, \w2obviously, \w2and from what we get, the cards gauge what you're thinking, feeling, and doing.\w8\n\_q%(vera)\_q from that, you can get a better idea of yourself and what you should do...\w8\n\i[18]\_q%(vera)\_q i can also just pull some cards and tell you what they represent, vaguely.\w8\w4\n\s[3]\i[26]\_q%(vera)\_q i don't take it too seriously, but it's fun!\w8\w4\n\s[1]\_q%(vera)\_q oh, and i don't do reversals. \w6\s[3]\i[19]\i[26]i'm not good enough at reading tarot to do that..."}
+	else
+	{"\0\s[1]\_q%(vera)\_q oh! \w6wanna do a basic reading \w2or just have me pull some cards?"}
+	
+	"\n\n\f[color,default]\![*]\q[Basic reading,OnTarot]\n"
+	"\![*]\q[Pull Some Cards...,OnTarotCustom]\n"
+	if reference0 != "explain"; "\![*]\q[Explain,Ontarotinit,explain]\n"
+	"\![*]\q[Back to Sylladex,OnSylladex]\n"
+	"\![*]\q[Close,CANCEL]\e"
+}
+
+OnTarotCustom : all
+{
+	"\0\s[3]\i[19]\i[87]\_q%(vera) ok! \w8how many cards do you want me to pull?"
+	"\![open,sliderinput,OnTarot,-1,1,1,10,--reference=custom]"
+	"\n\n"
+	
+	"\f[color,default]"
+	"\![*]\q[Back to Sylladex,OnSylladex]\n"
+	"\![*]\q[Close,uhhcloseinputpls]\e"
+}
+//god why'd i create an entirely new thing for this. cant do an eval or whatever and i dont want to add a conditional to my cancel statement so. yeah
+Select.uhhcloseinputpls
+{"\![close,inputbox,__SYSTEM_ALL_INPUT__]"}
+
+//my need to keep everything to local variables will be the death of me
+//add reversals in the future? lol (absolute hell that would double the amount of shit i have to write
+OnTarot : all
+{
+	_istg = TarotDeck('all')
+	//man i hate variable bloat :sob:
+	_yourfate = IARRAY
+	_card = IARRAY
+	_arcana = IARRAY
+	_indexpos = IARRAY
+	_dis1 = IARRAY
+	_dis2 = IARRAY
+	
+	_pulls = 3
+	if reference2 == "custom"; _pulls = TOINT(reference0)
+	
+	//im scared of loops i hope these dont break anything
+	for _f = 0; _f < _pulls; _f++
+	{
+		_rand = RAND(ARRAYSIZE(_istg)-1)
+		
+		_yourfate ,= _istg[_rand]
+		_istg[_rand] = IARRAY
+			
+		_card ,= _yourfate[_f][0]
+		_arcana ,= _yourfate[_f][1]
+		_indexpos ,= ASEARCH(_yourfate[_f],TarotDeck('all'))
+	}
+	/*
+	//super inefficient code below lol
+	while ARRAYSIZE(_yourfate) < 3; {_yourfate ,= TarotDeck('rand')}
+	while _yourfate[1] == _yourfate[0] || _yourfate[1] == _yourfate[2]; {_yourfate[1] = TarotDeck('rand')}
+	while _yourfate[2] == _yourfate[0] || _yourfate[2] == _yourfate[1]; {_yourfate[2] = TarotDeck('rand')}
+	//yes i know while and for loops have the same use, i just think for loops are more useful for card and arcana (and i prefer while formatting 4 the above)
+	for _c = 0; _c < 3; _c++ {_card ,= _yourfate[_c][0]}
+	//these variables are for the "interpreting your cards" section.
+	for _a = 0; _a < 3; _a++ {_arcana ,= _yourfate[_a][1]}
+	for _i = 0; _i < 3; _i++ {_indexpos ,= ASEARCH(_yourfate[_i],TarotDeck('all'))}
+	*/
+	
+	//ughhh gotta change this whenever i add images. ewwwwwww ok yeah its fine. sighhhhh
+	for _c = 0; _c < ARRAYSIZE(_card); _c++
+	{
+		_dis1 += "\_b[img\cardback.png,inline,--option=use_self_alpha]"
+		if _c == 0; _dis2 += "- %(_card[_c]) -"
+		else; _dis2 += " %(_card[_c]) -"
+	}
+	
+	//-----------------------------
+	
+	"\0\*\s[1]\i[18]\i[87]\i[35](Setting intention... \w4\s[14]Shuffling in progress...)\w8\w8\w8\w8\n\x"
+	
+	
+	"\_q\b2\s[2]\i[86]"
+	"\f[align,center]%(_dis1)"
+	"\n\n(Click to reveal!)\x"
+	
+	//TODO: draw and implement images.
+	"\b2\f[align,center]%(_dis2)\_q\w8\w8\w4\n\f[align,default]"
+	
+	//load bearing pillar. do not remove under any circumstances
+	//(jk you can move it around just make sure its not separate from the != "custom" pool because it messes up w the switch function)
+	if reference0 == "debug"
+	{"debug: %(_yourfate)\n%(_card)\n%(_arcana)\n%(_indexpos)\n"}
+	//"debug: %(reference0), %(reference1), %(reference2)"
+	
+	"\n"
+	if ARRAYSIZE(_card) > 2 {
+	if ASEARCH("Minor",_arcana) == -1
+	{"\_q%(vera)\_q wow, all major arcana cards... \w8\s[1]\i[86]are you going through a big change right now?\w8\w8\n"}
+	
+	//suit
+	//THANK FUCKING GOD. idek what re_asearchex does but it works /j
+	//having it need to equal the array size of the cards makes this impossible to show up on custom pulls over like 6 unless u have uber super ultra luck or something LOL
+	if ARRAYSIZE(RE_ASEARCHEX("Wands",_card)) == ARRAYSIZE(_card)
+	{"\s[2]\i[86]\_q%(vera)\_q all wands? \w8\s[1]\i[86]feeling big shifts in your energy and ambitions lately..?\w8\w8\n"}
+	if ARRAYSIZE(RE_ASEARCHEX("Cups",_card)) == ARRAYSIZE(_card)
+	{"\s[2]\i[86]\_q%(vera)\_q all cups? \w8\s[1]\i[86]that usually means this is a big emotional period for you, \w2or your inspirations and relationships are shifting...\w8\w8\n"}
+	if ARRAYSIZE(RE_ASEARCHEX("Swords",_card)) == ARRAYSIZE(_card)
+	{"\s[2]\i[86]\_q%(vera)\_q all swords? \w8\s[1]\i[86]your sense of logic must be changing a lot...\w8\w8\n"}
+	if ARRAYSIZE(RE_ASEARCHEX("Pentacles",_card)) == ARRAYSIZE(_card)
+	{"\s[2]\i[86]\_q%(vera)\_q all pentacles? \w8\s[1]\i[86]has your sense of stability or your possessions changed a bunch?\w8\w8\n"}
+	
+	//rank
+	/*
+	if ARRAYSIZE(RE_ASEARCHEX("Ace",_card)) == 3
+	{"\s[2]\i[86]\_q%(vera)\_q ah, all aces! \w8that usually means \w8\w8\n"}
+	elseif ARRAYSIZE(RE_ASEARCHEX("Knight",_card)) == 3
+	{"\s[2]\i[86]\_q%(vera)\_q ah, all knights! \w8that \w8\w8\n"}
+	elseif ARRAYSIZE(RE_ASEARCHEX("Queen",_card)) == 3
+	{"\s[2]\i[86]\_q%(vera)\_q ah, all queens! \w8that \w8\w8\n"}
+	elseif ARRAYSIZE(RE_ASEARCHEX("King",_card)) == 3
+	{"\s[2]\i[86]\_q%(vera)\_q ah, all kings! \w8that usually means \w8\w8\n"}
+	elseif ARRAYSIZE(RE_ASEARCHEX("Page",_card)) == 3
+	{"\s[2]\i[86]\_q%(vera)\_q ah, all pages! \w8that \w8\w8\n"}
+	elseif ARRAYSIZE(RE_ASEARCHEX("2",_card)) == 3
+	{"\s[2]\i[86]\_q%(vera)\_q ah, all twos! \w8that usually means \w8\w8\n"}
+	elseif ARRAYSIZE(RE_ASEARCHEX("3",_card)) == 3
+	{"\s[2]\i[86]\_q%(vera)\_q ah, all threes! \w8that usually means \w8\w8\n"}
+	elseif ARRAYSIZE(RE_ASEARCHEX("4",_card)) == 3
+	{"\s[2]\i[86]\_q%(vera)\_q ah, all fours! \w8that usually means \w8\w8\n"}
+	elseif ARRAYSIZE(RE_ASEARCHEX("5",_card)) == 3
+	{"\s[2]\i[86]\_q%(vera)\_q ah, all fives! \w8that usually means \w8\w8\n"}
+	elseif ARRAYSIZE(RE_ASEARCHEX("6",_card)) == 3
+	{"\s[2]\i[86]\_q%(vera)\_q ah, all sixes! \w8that usually means \w8\w8\n"}
+	elseif ARRAYSIZE(RE_ASEARCHEX("7",_card)) == 3
+	{"\s[2]\i[86]\_q%(vera)\_q ah, all sevens! \w8that usually means \w8\w8\n"}
+	elseif ARRAYSIZE(RE_ASEARCHEX("8",_card)) == 3
+	{"\s[2]\i[86]\_q%(vera)\_q ah, all eights! \w8that usually means \w8\w8\n"}
+	elseif ARRAYSIZE(RE_ASEARCHEX("9",_card)) == 3
+	{"\s[2]\i[86]\_q%(vera)\_q ah, all nines! \w8that usually means \w8\w8\n"}
+	elseif ARRAYSIZE(RE_ASEARCHEX("10",_card)) == 3
+	{"\s[2]\i[86]\_q%(vera)\_q ah, all tens! \w8that usually means \w8\w8\n"}
+	*/
+	}
+	
+	if reference2 != "custom"
+	{
+		//oh god. this is. the individual card readings. im going to kms.
+		//TODO: write tarot definitions.
+		//--THINKING--
+		switch _indexpos[0]
+		{
+			"\s[2]\i[86]\_q%(vera)\_q hm, \w2i think the fool shows that you're on a completely new slate- or you SHOULD start anew- on how you're thinking.\w8\n\s[1]\i[86]\_q%(vera)\_q it might be that new circumstances call for it, or maybe it's just to get you out of a logical rut? \w2\s[1]\i[86]could also mean there's more to think about ahead, but i wouldn't worry about it...\w8\w8\n"
+			"\s[2]\i[86]\_q%(vera)\_q the magician shows that you're really focused on creation, or thinking about what you can make... \w6\s[1]\i[86]but you're not working on it!\w8\i[18]\n\_q%(vera)\_q that's not a bad thing- ideas are the root of creation! \w2\s[3]\i[86]it's up to you to recognize your ideas and do anything with them.\w8\w8\n"
+			"\s[2]\i[86]\_q%(vera)\_q the high priestess shows that your mind has been- or is- full of intuitive thoughts, \w2for better or for worse.\w8\n\s[2]\i[86]\_q%(vera)\_q it's up to you to recognize if that unconscious voice is one to follow or not.\w8\w8\n"
+			"\_q%(vera)\_q the empress\w8\w8\n"
+			"\_q%(vera)\_q the emperor\w8\w8\n"
+			"\_q%(vera)\_q the heirophant\w8\w8\n"
+			"\_q%(vera)\_q the lovers\w8\w8\n"
+			"\_q%(vera)\_q the chariot\w8\w8\n"
+			"\_q%(vera)\_q strength\w8\w8\n"
+			"\_q%(vera)\_q the hermit\w8\w8\n"
+			"\_q%(vera)\_q The Wheel of Fortune\w8\w8\n"
+			"\_q%(vera)\_q Justice\w8\w8\n"
+			"\_q%(vera)\_q The Hanged Man\w8\w8\n"
+			"\_q%(vera)\_q Death\w8\w8\n"
+			"\_q%(vera)\_q Temperance\w8\w8\n"
+			"\_q%(vera)\_q The Devil\w8\w8\n"
+			"\_q%(vera)\_q The Tower\w8\w8\n"
+			"\_q%(vera)\_q The Star\w8\w8\n"
+			"\_q%(vera)\_q The Moon\w8\w8\n"
+			"\_q%(vera)\_q The Sun\w8\w8\n"
+			"\_q%(vera)\_q Judgement\w8\w8\n"
+			"\_q%(vera)\_q The World\w8\w8\n"
+			"\_q%(vera)\_q Knight of Wands\w8\w8\n"
+			"\_q%(vera)\_q King of Wands\w8\w8\n"
+			"\_q%(vera)\_q Queen of Wands\w8\w8\n"
+			"\_q%(vera)\_q Page of Wands\w8\w8\n"
+			"\_q%(vera)\_q 2 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 3 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 4 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 5 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 6 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 7 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 8 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 9 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 10 of Wands\w8\w8\n"
+			"\_q%(vera)\_q Ace of Wands\w8\w8\n"
+			"\_q%(vera)\_q Knight of Cups\w8\w8\n"
+			"\_q%(vera)\_q King of Cups\w8\w8\n"
+			"\_q%(vera)\_q Queen of Cups\w8\w8\n"
+			"\_q%(vera)\_q Page of Cups\w8\w8\n"
+			"\_q%(vera)\_q 2 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 3 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 4 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 5 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 6 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 7 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 8 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 9 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 10 of Cups\w8\w8\n"
+			"\_q%(vera)\_q Ace of Cups\w8\w8\n"
+			"\_q%(vera)\_q Knight of Swords\w8\w8\n"
+			"\_q%(vera)\_q King of Swords\w8\w8\n"
+			"\_q%(vera)\_q Queen of Swords\w8\w8\n"
+			"\_q%(vera)\_q Page of Swords\w8\w8\n"
+			"\_q%(vera)\_q 2 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 3 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 4 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 5 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 6 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 7 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 8 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 9 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 10 of Swords\w8\w8\n"
+			"\_q%(vera)\_q Ace of Swords\w8\w8\n"
+			"\_q%(vera)\_q Knight of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q King of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q Queen of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q Page of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 2 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 3 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 4 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 5 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 6 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 7 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 8 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 9 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 10 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q Ace of Pentacles\w8\w8\n"
+		}
+		
+		//brb im watching the owl house
+		//THE WORLD TREMBLES WHEN A HE/THEY LOSES HIS TEMPER :scream:
+		//YOOOO WATCHING AND DREAMING WAS SO GOOOOOOOOD i love toh.
+		
+		//--FEELING--
+		switch _indexpos[1]
+		{
+			"\s[2]\i[86]\_q%(vera)\_q the fool for how you're feeling shows that you have- or should- start your feelings anew...\w8\n\s[1]\i[86]\_q%(vera)\_q that's a good thing! you need a blank slate so your feelings stop weighing on you! \w5\s[3]\i[19]\i[86]relax! \w6\![anim,stop,19]\i[15]\i[26]just don't lose sight of your responsibilites for too long, ok?\w8\w8\n"
+			"\s[3]\i[86]\_q%(vera)\_q the magician means you're feeling concentrated and your willpower is at all all-time high! \w8\i[19]perfect for making or doing- \w2\i[26]no idea if you have anything to do, though. \w8\![anim,stop,19]\![anim,stop,26]\i[15]\i[25]make use of it if you can, even if it's small!\w8\w8\n"
+			"\_q%(vera)\_q the high priestess means a lot of your feelings are coming from your subconscious... is there something you've \w8\w8\n"
+			"\_q%(vera)\_q the empress\w8\w8\n"
+			"\_q%(vera)\_q the emperor\w8\w8\n"
+			"\_q%(vera)\_q the heirophant\w8\w8\n"
+			"\_q%(vera)\_q the lovers\w8\w8\n"
+			"\_q%(vera)\_q the chariot\w8\w8\n"
+			"\_q%(vera)\_q strength\w8\w8\n"
+			"\_q%(vera)\_q the hermit\w8\w8\n"
+			"\_q%(vera)\_q The Wheel of Fortune\w8\w8\n"
+			"\_q%(vera)\_q Justice\w8\w8\n"
+			"\_q%(vera)\_q The Hanged Man\w8\w8\n"
+			"\_q%(vera)\_q Death\w8\w8\n"
+			"\_q%(vera)\_q Temperance\w8\w8\n"
+			"\_q%(vera)\_q The Devil\w8\w8\n"
+			"\_q%(vera)\_q The Tower\w8\w8\n"
+			"\_q%(vera)\_q The Star\w8\w8\n"
+			"\_q%(vera)\_q The Moon\w8\w8\n"
+			"\_q%(vera)\_q The Sun\w8\w8\n"
+			"\_q%(vera)\_q Judgement\w8\w8\n"
+			"\_q%(vera)\_q The World\w8\w8\n"
+			"\_q%(vera)\_q Knight of Wands\w8\w8\n"
+			"\_q%(vera)\_q King of Wands\w8\w8\n"
+			"\_q%(vera)\_q Queen of Wands\w8\w8\n"
+			"\_q%(vera)\_q Page of Wands\w8\w8\n"
+			"\_q%(vera)\_q 2 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 3 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 4 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 5 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 6 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 7 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 8 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 9 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 10 of Wands\w8\w8\n"
+			"\_q%(vera)\_q Ace of Wands\w8\w8\n"
+			"\_q%(vera)\_q Knight of Cups\w8\w8\n"
+			"\_q%(vera)\_q King of Cups\w8\w8\n"
+			"\_q%(vera)\_q Queen of Cups\w8\w8\n"
+			"\_q%(vera)\_q Page of Cups\w8\w8\n"
+			"\_q%(vera)\_q 2 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 3 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 4 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 5 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 6 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 7 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 8 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 9 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 10 of Cups\w8\w8\n"
+			"\_q%(vera)\_q Ace of Cups\w8\w8\n"
+			"\_q%(vera)\_q Knight of Swords\w8\w8\n"
+			"\_q%(vera)\_q King of Swords\w8\w8\n"
+			"\_q%(vera)\_q Queen of Swords\w8\w8\n"
+			"\_q%(vera)\_q Page of Swords\w8\w8\n"
+			"\_q%(vera)\_q 2 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 3 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 4 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 5 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 6 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 7 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 8 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 9 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 10 of Swords\w8\w8\n"
+			"\_q%(vera)\_q Ace of Swords\w8\w8\n"
+			"\_q%(vera)\_q Knight of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q King of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q Queen of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q Page of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 2 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 3 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 4 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 5 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 6 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 7 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 8 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 9 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 10 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q Ace of Pentacles\w8\w8\n"
+		}
+		//--DOING--
+		switch _indexpos[2]
+		{
+			"\s[2]\i[86]\_q%(vera)\_q for doing, maybe you're starting a new project or phase in your life! \w6\s[3]\i[86]it's still in those hopeful early stages, and that's great!\w8\n\i[26]\_q%(vera)\_q i'd watch out for taking off more than you can chew, though. \w4you can't maintain a big change in your life with dreams alone, you know?\w8\w8\n"
+			"\s[2]\i[86]\_q%(vera)\_q the magician is perfect for doing, cause it represents pure willpower! \w4\s[1]\i[86]it's a card telling you to take action! \w2your current activity or choice is a big one- keep going with it if it makes you safe and happy!\w8\w8\n"
+			"\_q%(vera)\_q the high priestess\w8\w8\n"
+			"\_q%(vera)\_q the empress\w8\w8\n"
+			"\_q%(vera)\_q the emperor\w8\w8\n"
+			"\_q%(vera)\_q the heirophant\w8\w8\n"
+			"\_q%(vera)\_q the lovers\w8\w8\n"
+			"\_q%(vera)\_q the chariot\w8\w8\n"
+			"\_q%(vera)\_q strength\w8\w8\n"
+			"\_q%(vera)\_q the hermit\w8\w8\n"
+			"\_q%(vera)\_q The Wheel of Fortune\w8\w8\n"
+			"\_q%(vera)\_q Justice\w8\w8\n"
+			"\_q%(vera)\_q The Hanged Man\w8\w8\n"
+			"\_q%(vera)\_q Death\w8\w8\n"
+			"\_q%(vera)\_q Temperance\w8\w8\n"
+			"\_q%(vera)\_q The Devil\w8\w8\n"
+			"\_q%(vera)\_q The Tower\w8\w8\n"
+			"\_q%(vera)\_q The Star\w8\w8\n"
+			"\_q%(vera)\_q The Moon\w8\w8\n"
+			"\_q%(vera)\_q The Sun\w8\w8\n"
+			"\_q%(vera)\_q Judgement\w8\w8\n"
+			"\_q%(vera)\_q The World\w8\w8\n"
+			"\_q%(vera)\_q Knight of Wands\w8\w8\n"
+			"\_q%(vera)\_q King of Wands\w8\w8\n"
+			"\_q%(vera)\_q Queen of Wands\w8\w8\n"
+			"\_q%(vera)\_q Page of Wands\w8\w8\n"
+			"\_q%(vera)\_q 2 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 3 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 4 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 5 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 6 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 7 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 8 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 9 of Wands\w8\w8\n"
+			"\_q%(vera)\_q 10 of Wands\w8\w8\n"
+			"\_q%(vera)\_q Ace of Wands\w8\w8\n"
+			"\_q%(vera)\_q Knight of Cups\w8\w8\n"
+			"\_q%(vera)\_q King of Cups\w8\w8\n"
+			"\_q%(vera)\_q Queen of Cups\w8\w8\n"
+			"\_q%(vera)\_q Page of Cups\w8\w8\n"
+			"\_q%(vera)\_q 2 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 3 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 4 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 5 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 6 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 7 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 8 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 9 of Cups\w8\w8\n"
+			"\_q%(vera)\_q 10 of Cups\w8\w8\n"
+			"\_q%(vera)\_q Ace of Cups\w8\w8\n"
+			"\_q%(vera)\_q Knight of Swords\w8\w8\n"
+			"\_q%(vera)\_q King of Swords\w8\w8\n"
+			"\_q%(vera)\_q Queen of Swords\w8\w8\n"
+			"\_q%(vera)\_q Page of Swords\w8\w8\n"
+			"\_q%(vera)\_q 2 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 3 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 4 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 5 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 6 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 7 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 8 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 9 of Swords\w8\w8\n"
+			"\_q%(vera)\_q 10 of Swords\w8\w8\n"
+			"\_q%(vera)\_q Ace of Swords\w8\w8\n"
+			"\_q%(vera)\_q Knight of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q King of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q Queen of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q Page of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 2 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 3 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 4 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 5 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 6 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 7 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 8 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 9 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q 10 of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q Ace of Pentacles\w8\w8\n"
+		}
+	}
+	//this just lists general card symbolism, no interpretation whatsoever
+	else
+	{
+		//DEFINITELY dont wanna iterate over this more than 10 times istg
+		foreach _indexpos; _i
+		{
+			switch _i
+			{
+				"\_q%(vera)\_q the fool\w8\w8\n"
+				"\_q%(vera)\_q the magician\w8\w8\n"
+				"\_q%(vera)\_q the high priestess\w8\w8\n"
+				"\_q%(vera)\_q the empress\w8\w8\n"
+				"\_q%(vera)\_q the emperor\w8\w8\n"
+				"\_q%(vera)\_q the heirophant\w8\w8\n"
+				"\_q%(vera)\_q the lovers\w8\w8\n"
+				"\_q%(vera)\_q the chariot\w8\w8\n"
+				"\_q%(vera)\_q strength\w8\w8\n"
+				"\_q%(vera)\_q the hermit\w8\w8\n"
+				"\_q%(vera)\_q The Wheel of Fortune\w8\w8\n"
+				"\_q%(vera)\_q Justice\w8\w8\n"
+				"\_q%(vera)\_q The Hanged Man\w8\w8\n"
+				"\_q%(vera)\_q Death\w8\w8\n"
+				"\_q%(vera)\_q Temperance\w8\w8\n"
+				"\_q%(vera)\_q The Devil\w8\w8\n"
+				"\_q%(vera)\_q The Tower\w8\w8\n"
+				"\_q%(vera)\_q The Star\w8\w8\n"
+				"\_q%(vera)\_q The Moon\w8\w8\n"
+				"\_q%(vera)\_q The Sun\w8\w8\n"
+				"\_q%(vera)\_q Judgement\w8\w8\n"
+				"\_q%(vera)\_q The World\w8\w8\n"
+				"\_q%(vera)\_q Knight of Wands\w8\w8\n"
+				"\_q%(vera)\_q King of Wands\w8\w8\n"
+				"\_q%(vera)\_q Queen of Wands\w8\w8\n"
+				"\_q%(vera)\_q Page of Wands\w8\w8\n"
+				"\_q%(vera)\_q 2 of Wands\w8\w8\n"
+				"\_q%(vera)\_q 3 of Wands\w8\w8\n"
+				"\_q%(vera)\_q 4 of Wands\w8\w8\n"
+				"\_q%(vera)\_q 5 of Wands\w8\w8\n"
+				"\_q%(vera)\_q 6 of Wands\w8\w8\n"
+				"\_q%(vera)\_q 7 of Wands\w8\w8\n"
+				"\_q%(vera)\_q 8 of Wands\w8\w8\n"
+				"\_q%(vera)\_q 9 of Wands\w8\w8\n"
+				"\_q%(vera)\_q 10 of Wands\w8\w8\n"
+				"\_q%(vera)\_q Ace of Wands\w8\w8\n"
+				"\_q%(vera)\_q Knight of Cups\w8\w8\n"
+				"\_q%(vera)\_q King of Cups\w8\w8\n"
+				"\_q%(vera)\_q Queen of Cups\w8\w8\n"
+				"\_q%(vera)\_q Page of Cups\w8\w8\n"
+				"\_q%(vera)\_q 2 of Cups\w8\w8\n"
+				"\_q%(vera)\_q 3 of Cups\w8\w8\n"
+				"\_q%(vera)\_q 4 of Cups\w8\w8\n"
+				"\_q%(vera)\_q 5 of Cups\w8\w8\n"
+				"\_q%(vera)\_q 6 of Cups\w8\w8\n"
+				"\_q%(vera)\_q 7 of Cups\w8\w8\n"
+				"\_q%(vera)\_q 8 of Cups\w8\w8\n"
+				"\_q%(vera)\_q 9 of Cups\w8\w8\n"
+				"\_q%(vera)\_q 10 of Cups\w8\w8\n"
+				"\_q%(vera)\_q Ace of Cups\w8\w8\n"
+				"\_q%(vera)\_q Knight of Swords\w8\w8\n"
+				"\_q%(vera)\_q King of Swords\w8\w8\n"
+				"\_q%(vera)\_q Queen of Swords\w8\w8\n"
+				"\_q%(vera)\_q Page of Swords\w8\w8\n"
+				"\_q%(vera)\_q 2 of Swords\w8\w8\n"
+				"\_q%(vera)\_q 3 of Swords\w8\w8\n"
+				"\_q%(vera)\_q 4 of Swords\w8\w8\n"
+				"\_q%(vera)\_q 5 of Swords\w8\w8\n"
+				"\_q%(vera)\_q 6 of Swords\w8\w8\n"
+				"\_q%(vera)\_q 7 of Swords\w8\w8\n"
+				"\_q%(vera)\_q 8 of Swords\w8\w8\n"
+				"\_q%(vera)\_q 9 of Swords\w8\w8\n"
+				"\_q%(vera)\_q 10 of Swords\w8\w8\n"
+				"\_q%(vera)\_q Ace of Swords\w8\w8\n"
+				"\_q%(vera)\_q Knight of Pentacles\w8\w8\n"
+				"\_q%(vera)\_q King of Pentacles\w8\w8\n"
+				"\_q%(vera)\_q Queen of Pentacles\w8\w8\n"
+				"\_q%(vera)\_q Page of Pentacles\w8\w8\n"
+				"\_q%(vera)\_q 2 of Pentacles\w8\w8\n"
+				"\_q%(vera)\_q 3 of Pentacles\w8\w8\n"
+				"\_q%(vera)\_q 4 of Pentacles\w8\w8\n"
+				"\_q%(vera)\_q 5 of Pentacles\w8\w8\n"
+				"\_q%(vera)\_q 6 of Pentacles\w8\w8\n"
+				"\_q%(vera)\_q 7 of Pentacles\w8\w8\n"
+				"\_q%(vera)\_q 8 of Pentacles\w8\w8\n"
+				"\_q%(vera)\_q 9 of Pentacles\w8\w8\n"
+				"\_q%(vera)\_q 10 of Pentacles\w8\w8\n"
+				"\_q%(vera)\_q Ace of Pentacles\w8\w8\n"
+			}
+		}
+	}
+	
+	"\n\f[color,default]\![*]\q[Again!,Ontarotinit,redo]\n\![*]\q[Back to Sylladex,OnSylladex]\n\![*]\q[Close,CANCEL]\e"
+}
+
+Oneightsinit : all
+{
+	if reference0 == "redo"
+	{"\0\s[3]\i[19]\_q%(vera)\_q hehe, sure you wanna play again?"}
+	elseif reference0 == "forfeit"
+	{ERASEVAR("vhand","uhand","discard","deck")
+	"\0\s[1]\i[86]\_q%(vera)\_q oh! \w8\s[3]\i[19]hehehehe, guess i win!\w8\w2\n\![anim,stop,19]\i[15]\_q%(vera)\_q you sure you don't wanna try again?"}
+	elseif reference0 == "rules"
+	{"\0\s[1]\_q%(vera)\_q oh! \w8\s[2]\i[41]um, yeah, i use a lot of house rules for eights.\w8\n\i[18]\_q%(vera)\_q so i get 7 cards, you get 7 cards, \w4\s[3]and the goal of the game is to lose all of your cards first!\w8\w2\n\_q%(vera)\_q you need to match the suit or rank of the card on top of the discard pile to discard it, and there are special cards:\w8\n\i[18]\_q%(vera)\_q queens skip the other player's turn, 2s force the other player to draw 2 cards, and 8s can be played on anything to change the current suit! \w8\![anim,stop,18]\i[17]\i[27]...and if you get a joker, you can make the other player draw 4 cards and change the suit, hehehe..."}
+	else
+	{"\0\s[1]\_q%(vera)\_q oh, eights! \w8\s[3]\i[19]up for a game?"}
+	
+	"\n\n\f[color,default]\![*]\q[Play the game,OnEights,start]\n"
+	if reference0 != "rules"; "\![*]\q[Hear the rules,Oneightsinit,rules]\n"
+	"\![*]\q[Back to Sylladex,OnSylladex]\n"
+	"\![*]\q[Close,CANCEL]\e"
+}
+
+//do you want to see me attempt to keep this minigame within local variables. because i will.
+//update: i failed. the variables are erased once the game ends tho <3
+OnEights : all
+{
+	_display = IARRAY
+	_display2 = IARRAY
+	
+	//RAGHHHHHHHH I HATE VARIABLE BLOAT X2 !!!!!
+	//deck could definitely be axed completely but i dont feel like coding the alternative (which is using the CardDeck function)
+	deck = CardDeck('all')
+	discard = IARRAY
+	vhand = IARRAY
+	uhand = IARRAY
+	
+	//wow i hope these loops don't break anything.
+	for _h = 0; _h < 14; _h++
+	{
+		_rand = RAND(ARRAYSIZE(deck)-1)
+		
+		if _h < 7; vhand ,= deck[_rand]
+		else; uhand ,= deck[_rand]
+		//_index ,= ASEARCH(vhand[_vh],deck[_rand])
+		deck[_rand] = IARRAY
+	}
+	
+	//back from the original system for removing cards on hand from deck pile. SUPER inefficient
+	//keeping it only so i can look back on my old code and go "haha WOW how bad!! glad ive improved"
+	/*
+	for _i = 0; _i < 14; _i++
+	{
+		_what = (_vhand ,= _uhand)
+		_index = ASEARCH(_discard,_what)
+		_discard[_index] = IARRAY
+		_what[_i] = IARRAY
+	}
+	foreach _index; _i
+	{if _ugh > 0; _i -= _ugh
+	_discard[_i] = IARRAY
+	_ugh++}
+	*/
+	
+	deck = Shuffle(deck)
+	//okay the shuffle function is weird because it ends up with empty strings in the middle + some array items just get LOST. its with the way that duplicate index positions aren't accounted for i think.
+	for _d = 0; _d < ARRAYSIZE(deck); _d++
+	{
+		_r = ""
+		_name = ""
+		
+		if deck[_d] == ""; deck[_d] = IARRAY
+		if _d == (ARRAYSIZE(deck)-1) 
+		{
+			discard ,= deck[_d]
+			
+			case discard[(ARRAYSIZE(discard)-1)][0]{
+			when "A" {_r = "Ace"}
+			when "Q" {_r = "Queen"}
+			when "K" {_r = "King"}
+			when "J" {_r = "Jack"}
+			others {_r = "%(discard[(ARRAYSIZE(discard)-1)][0])"}}
+			
+			//TODO: add conditional 
+			if _r != "JOKER"; _name = "%(_r) of %(discard[(ARRAYSIZE(discard)-1)][1])"
+			else; _name = "JOKER: Play any card!"
+			
+			_display2 = "%(_name)"
+		}
+	}
+	//_display needs to format everything in _uhand so it can be selected to be played.
+	//later change these to be images (unfriendly to those who are blind so have alt text?)
+	foreach uhand; _uh
+	{
+		_rank = ""
+		_cardname = ""
+		
+		//omfg this is so inefficient
+		case _uh[0] {
+		when "A" {_rank = "Ace"}
+		when "Q" {_rank = "Queen"}
+		when "K" {_rank = "King"}
+		when "J" {_rank = "Jack"}
+		others {_rank = "%(_uh[0])"}}
+		if _rank != "JOKER"; _cardname = "%(_rank) of %(_uh[1])"
+		else; _cardname = "JOKER"
+		
+		_display += "\![*]\_a[OnEightsPlay,%(_uh)]%(_cardname)\_a\n"
+	}
+	
+	_display += "\n\![*]\_a[OnEightsPlay,draw]Draw A Card\_a\n"
+	
+	//i have never seen the joker card pulled before, tell me if it ever comes up for you lol?
+	
+	//--------------
+	
+	"\0\*\b2\s[14]\i[35](She shuffles the deck for a moment, \w8\s[1]\i[86]\i[35]then gives you seven cards.)\x"
+	
+	"\b2\_q\f[align,center]"
+	"\f[bold,1]--TOP OF DISCARD PILE--\n\f[bold,0]"
+	"%(_display2)\w8\n\n"
+	"\f[bold,1]--YOUR HAND--\n\f[align,default]\f[bold,0]"
+	//if reference0 == "debug"; "debug:\n%(vhand)\n%(uhand)\n%(discard)\n"
+	"%(_display)"
+	
+	"\n\f[align,default]\![*]\q[Forfeit,Oneightsinit,forfeit]\e"
+}
+
+OnEightsPlay
+{
+	//reference0: played rank (can also be "draw" or 
+	//reference0: played suit
+	_display = IARRAY
+	foreach uhand; _uh
+	{
+		_rank = ""
+		_cardname = ""
+		
+		case _uh[0] {
+		when "A" {_rank = "Ace"}
+		when "Q" {_rank = "Queen"}
+		when "K" {_rank = "King"}
+		when "J" {_rank = "Jack"}
+		others {_rank = "%(_uh[0])"}}
+		if _rank != "JOKER"; _cardname = "%(_rank) of %(_uh[1])"
+		else; _cardname = "JOKER"
+		
+		_display += "\![*]\_a[OnEightsPlay,%(_uh)]%(_cardname)\_a\n"
+	}
+	
+	//ehhhhhh edge cases to deal with are if a joker is at the top of the discard pile......
+	//thats actually easy to deal with because the discard suit will be JOKER rather than what you'd set the suit to when a joker is pulled, soooo yay!
+	case reference0
+	{
+		
+		
+	}
 }
 
 OnCandleMenu
@@ -690,7 +1543,7 @@ OnStatMenu : all
 	
 	"\f[align,center]—STATS—\n"
 	if _d 	{"\![*]\q[Quick reset,quickreset] \n"
-			"\f[height,-2]\f[color,gray](no i wont explain setting variables, WYSIWYG. please don't break anything by setting negatives...) \n\f[height,default]\f[color,default]\n"}
+			"\f[height,-2]\f[color,disable](no i wont explain setting variables, WYSIWYG. please don't break anything by setting negatives...) \n\f[height,default]\f[color,default]\n"}
 	else 	{"\n\n"}
 	
 	"\f[align,default]"
@@ -724,7 +1577,7 @@ OnStatMenu : all
 	else 	{"Negative feelings: "}
 			"%(PrintStat(negfeel))\n "
 	
-	"\n\n\f[align,center]\_a[OnReset][RESET GAME]\_a "
+	"\n\n\f[align,center]\_a[resetinit][RESET GAME]\_a  \_a[OnCredits][CREDITS]\_a"
 	"\n\n\f[align,right]\q[Back to the menu,OnMenuRun] \![*]\e"
 }
 
@@ -751,7 +1604,7 @@ Select.yesqr
 	totaltouch[2] = 0 	 //total boops
 	posfeel = 0
 	negfeel = 0
-	if allrecenttouch > 0; {recenttouch = (0,0,0)}
+	if allrecenttouch > 0; {recenttouch = (0,0,0,0,0)}
 	--
 	"\![raise,OnStatMenu,]"
 }
@@ -787,7 +1640,39 @@ OnSetStat
 	"\![raise,OnStatMenu,]"
 }
 
-OnReset
+OnCredits : all
+{
+	"\0\b2\_q\![set,autoscroll,disable]"
+	"\f[align,center]\f[bold,1]—CREDITS—\n\n\f[align,default]\f[bold,0]"
+	
+	
+	"\f[bold,1]\_a[http://www.ashido.com/]zarla\_a\f[bold,0] - "
+	"thank you so much for handplates gaster! never thought i'd release one of these hehe\n"
+	
+	"\f[bold,1]\_a[https://zichqec.github.io/s-the-skeleton/]zichqec\_a\f[bold,0] - "
+	"STOLE ALL MY CODING KNOWLEDGE FROM HER. also created x. template, the template i'm using for vera.\n"
+	
+	"\f[bold,1]\_a[https://listography.com/thatoddhaystack]vita\_a\f[bold,0] - "
+	"base card game code!\n"
+	
+	//i-i dont know where to link credits
+	"\f[bold,1]\_a[https://ev-n-learning.tumblr.com/]smokycinnamonroll\_a\f[bold,0] - "
+	"base custom pronoun code!\n"
+	
+	"\f[bold,1]\_a[https://digi-056.tumblr.com/]digi\_a\f[bold,0] - "
+	"there's some unused replace surface code in anchor.dic thats from her?? UNUSED but i still feel bad for not crediting\n"
+	
+	"\f[bold,1]\_a[https://ukagakadreamteam.com/wiki/info/ukagaka_dream_team]and the rest of the ukgk dream team!\_a\f[bold,0]\n"
+	"ily udt discord server! my anxiety cant let me talk on there outside my thread but it is so helpful\n"
+	
+	"\f[bold,1]\f[color,default.anchor]no i'm not crediting anyone from homestuck\f[color,default]\f[bold,0] - "
+	"i hate homestuck\n"
+	
+	
+	"\n\f[align,right]\q[Back,OnStatMenu,] \![*]  \q[Close,CANCEL] \![*]\e"
+}
+
+Select.resetinit
 {
 	"\0\_q(Are you sure? Your game progress cannot be restored. The same may not be said for your memories.) "
 	--
@@ -801,7 +1686,6 @@ OnFunctionMenu : all
 {
 	"\0\b2"
 	
-	//This will make the opening dialogue random (ignoring the all modifier) with a nonoverlap modifier, if you add more dialogues
 	nonoverlap:{ 
 	"\s[1]\_q%(vera)\_q huh..? \w4yeah, \w1i can do things..!"
 	"\s[1]\i[1]\i[80]\_q%(vera)\_q o-oh, \w2um, \w2yes..!"
@@ -809,15 +1693,22 @@ OnFunctionMenu : all
 	"\n\n\f[color,default]\_q"
 	
 	"\![*]\q[Check for SSP updates,script:\![update,platform\]]\n"
-	"\![*]\q[Check for Vera updates,UpdateCheck]\n\n"
+	"\![*]\q[Check for Vera updates,script:\![updatebymyself\]]\n"
+	"\![*]\q[Check for balloon updates,script:\![update,balloon\]]\n"
+	"\n[half]"
 	
 	"\![*]\q[Check Email,script:\![biff\]]\n"
 	"\![*]\q[Fix the Clock,script:\![execute,sntp\]]\n"
 	"\![*]\q[Open Calendar,OpenCalendar]\n"
 	"\![*]\q[Open SSP Preferences,SSPPrefs]\n"
 	"\![*]\q[Empty Recycle Bin,RecycleBin]\n"
-	"\![*]\q[Show System Information,SystemInfo]\n"
 	"\![*]\q[Report a bug,BugReport]\n"
+	"\n[half]"
+	
+	//I HAVE NO IDEA WHERE ELSE TO PUT THIS GRGRGRGR
+	"\f[align,center]"
+	"\![*]\q[Wait here: you'll be gone for a bit,OnAFKInit,userinit]\n" //TODO: actually make this function
+	"\f[align,default]"
 	
 	"\n"
 	"\f[align,right]\q[Back to main menu,OnMenuRun] \![*]\e"
@@ -858,27 +1749,6 @@ Select.RecycleBin
 	"\n\n\f[color,default]\![*]\q[Back to functions menu,OnFunctionMenu]\n\![*]\q[I'm done,CANCEL]\e"
 }
 
-Select.SystemInfo : all //Partially copied from the GT template, but I tweaked a few things
-{
-	os_name = FUNCTIONEX("saori/saori_cpuid.dll","os.name")
-	os_version = FUNCTIONEX("saori/saori_cpuid.dll","os.version")
-	cpu_name = FUNCTIONEX("saori/saori_cpuid.dll","cpu.name")
-	cpu_clockex = FUNCTIONEX("saori/saori_cpuid.dll","cpu.clockex")
-	
-	"\0\b[2]\_q\f[anchorstyle,none]"
-	
-	"OS: \_a[OnBlank]%(os_name) %(os_version)\_a\n"
-	"Memory Load: \_a[OnBlank]%(memoryload)%\_a\n"
-	"Physical Memory: \_a[OnBlank]%(memoryavailphys) KB\_a\n"
-	"CPU: \_a[OnBlank]%(cpu_name) %(cpu_clockex)MHz\_a\n"
-	"Uptime: \_a[OnBlank]%(systemuphour):%(systemupminute):%(systemupsecond)\_a\n\n"
-	
-	"Ukagaka: \_a[OnBlank]%property[baseware.version]\_a\n\n"
-	
-	"\![*]\q[Back to functions,OnFunctionMenu]\n"
-	"\![*]\q[Done,CANCEL]\e"
-}
-
 Select.BugReport
 {
 	"\0\s[3]\i[26]\_q%(vera)\_q there's bugs here..?? \w8\i[19]i think you should tell \_a[https://whataphantasia.carrd.co]'phantasia'\_a about%(br)that... \w8\n\s[3]\i[41]\i[26]\_q%(vera)\_q um, \w4at least, \w6that's what this bug exterminator card says. \w8found it when i got here!"
@@ -886,11 +1756,29 @@ Select.BugReport
 	"\n\n\f[color,default]\![*]\q[Back to functions,OnFunctionMenu]\n\![*]\q[I'm done,CANCEL]\e"
 }
 
-Select.UpdateCheck //Starts an update check
+//she'll go into this mode automatically if  you haven't interacted with her in a bit.
+//function for when you want her to be quiet but dont wanna change her talk interval/close her, or if you're leaving your computer for a bit and don't want her to be sad about it (no one will use this function but me, i think)
+OnAFKInit
 {
-	"\![updatebymyself]\e"
+	if reference0 == "userinit"
+	{
+		//TODO: add dialogue for different routes
+		//TODO: actually add in the state code that puts her in afk mode
+		if posfeel <= 5 && negfeel <= 5
+		{"\0\s[1]\i[1]\i[26]\i[80]\_q%(vera)\_q ...i barely know you, %(pername)..? \w8\w8\n\_q%(vera)\_q ...but, \w2um, \w6guess i'm not really going anywhere.\e"}
+		elseif posfeel >= 25 && negfeel < 15
+		{"\0\s[1]\_q%(vera)\_q oh, \w2ok! \w8\w8\n\s[3]\i[19]\i[26]\_q%(vera)\_q yeah, \w2i'm good with waiting around. \w8don't forget about me, \w2ok?\e"}
+		else //these should be negative/neutral routes...
+		{"\0\s[1]\i[1]\i[80]\i[35](She nods, slowly.)\e"}
+	}
+	else
+	{
+		if posfeel >= 25
+		{"\0\s[1]\_q%(vera)\_q ...oh, \w2%(they) left..? \w8\w8\n\s[2]\_q%(vera)\_q guess i'll wait.\e"}
+		else
+		{"\0\s[5]\i[1]\![anim,stop,15]\i[80]\_q%(vera)\_q ...%(they)%(re) ignoring me...\e"}
+	}
 }
-
 
 
 //----------Config Menu----------
@@ -904,7 +1792,7 @@ OnConfigMenu : all //stuff like name/pronouns/birthday is in user.dic :D
 	
 	"\f[align,center]—CONFIG—\n\n\f[align,default]"
 	
-	"Your name: \![*]\_a[OnChangeTitle]%(menuprefix)\_a \![*]\_a[OnChangeName]%(username)\_a\n"
+	"Your name: \![*]\_a[OnChangeTitle]%(Capitalize(usertitle))\_a \![*]\_a[OnChangeName]%(username)\_a\n"
 	"Hollercode: \![*]\_a[OnChangeCode]placeholder\_a\n" //TODO: implement asking for hollercode
 	"Your pronouns: \![*]\_a[OnChangePronoun]%(Capitalize(they))/%(Capitalize(them))\_a\n"
 	"Your birthday: \![*]\_a[OnChangeBirthday]%(birthday[0])\_a\n"
@@ -937,6 +1825,12 @@ FixDefaultOptions
 	if readability == ""; readability = "Full Color"
 	if AutoUpdates[0] == ""; AutoUpdates[0] = "On"
 	if HourNotifs == ""; HourNotifs = "On"
+	
+	//set these to only be checked if user has eights unlocked.
+	if ISVAR("vhand"); ERASEVAR("vhand")
+	if ISVAR("uhand"); ERASEVAR("uhand")
+	if ISVAR("deck"); ERASEVAR("deck") //this is a super general name i hope this doesnt cause any problems in the future
+	if ISVAR("discard"); ERASEVAR("discard")
 }
 
 OnToggleRead
@@ -1018,6 +1912,7 @@ OnChangeTalk : all
 	"\![*]\q[Every minute,OnTalkRate,60]\n"
 	"\![*]\q[Every 3 minutes,OnTalkRate,180]\n"
 	"\![*]\q[Every 5 minutes,OnTalkRate,300]\n"
+	"\![*]\q[Every 10 minutes,OnTalkRate,600]\n"
 	"\![*]\q[Don't speak,OnTalkRate,0]\n\n"
 	
 	"\f[align,right]\q[Nevermind,OnConfigMenu] \![*]\e"
@@ -1053,9 +1948,10 @@ OnTalkRate
 		
 		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ok, i can do that!"
 	}
-	elseif reference0 == "300"
+	elseif reference0 == "300" || reference0 == "600"
 	{
-		talkrate = "every 5 minutes"
+		if reference0 == "300"; talkrate = "every 5 minutes"
+		else; talkrate = "every 10 minutes"
 		
 		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q oh, \w6ok. \w8\w8\i[18]\n\_q%(vera)\_q hmm... \w6lots of time to think..."
 	}
@@ -1102,23 +1998,14 @@ Select.CANCEL
 	//"i wonder what %(PeopleArray[(_num)]) is doing right now...\e"
 	//%(ANY('skul,ulys,lila'))
 
-OnTestVar
+OnTestVar : nonoverlap_pool
 {
-	"\0\s[1]\_q%(vera)\_q anchor test! @skul, @ulys, @lila, @dad!!\e"
+	parallel Pool_Singing
+	
+	//"\s[900]\_q%(vera)\_q anchor test! @skul, @ulys, @lila, @dad!!\e"
 	//LOGGING("This is a debug function! This text will show up in Tama, or in the SHIORI log! You can also output variables and such with this function. This is super handy for debugging without having to output data to your ghost's balloon! Especially for things like loops, where you need to see certain variables at every step of the loop. Make good use of it!")
 }
 
 
-//============Kero Menu============
-
-OpenKeroMenu
-{
-	"\1\s[10]Uh... You shouldn't be able to see this haha"
-	--
-	OnKeroMenu
-}
-
-OnKeroMenu : all
-{
-	//Fill in as you like
-}
+//things like kero menu would go here! i dont have one so theres no need.
+//meow meow meow aughhhhhhhhhhhhhhhaughaughg

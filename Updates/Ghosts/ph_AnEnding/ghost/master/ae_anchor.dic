@@ -24,12 +24,44 @@ OnTranslate
 		_talk = REPLACE(_talk,"@%(_name)","\_a[AUTO_ANCHOR:%(_funcname)]%(_name)\_a") //Replace the @name in the script with an anchor. Since the auto anchor tag uses a :, and : is already cleaned out of the anchor name, you should never be able to interfere with that tag.
 	}
 	
-	foreach HollercodeArray; _code
+	
+	//obsidian stuff
+	//	- later define for standing and awakened forms
+	//	- vera shouldnt be able to go into her idles 12-14 when holding obsidian
+	//	- 210 is coded into 6-9 surfaces but it might cause unwanted shell/text behavior.
+	//	- vera's hollercode talks are unavailble while holding obsidian.
+	
+	//sit surfaces whose arms are cancelled out by \s[210]
+	_verasitsurfaces = "\s[0],\s[1],\s[2],\s[3],\s[4],\s[5],\s[11]"
+	//sit surfaces that ARENT cancelled out
+	_verasitidle = "\s[6],\s[7],\s[8],\s[9],\s[12],\s[13],\s[14]"
+	
+	if holdingObsidian
 	{
-		_funccode = _code
-		
-		_talk = REPLACE(_talk, "@&(_code)","\_a[AUTO_ANCHOR:%(_funccode)]%(_code)\_a")
+		foreach _verasitsurfaces; _s
+		{
+			_talk = REPLACE(_talk, "%(_s)", "%(_s)\i[210]")
+		}
+		foreach _verasitidle; _ss
+		{
+			//hopefully this works lol
+			_talk = REPLACE(_talk, "%(_ss)", "\![get,property,OnObsidianJumpDown,currentghost.scope(0).rect]\e")
+		}
 	}
+	//(this is digi's code for replacing all surface tags automatically!! reason for commenting out below the replace code
+	/*
+	if holdingObsidian
+	{
+		_suregex = RE_GREP(_talk, '(?<=\\s\[).+?(?=\])')
+		_surnum = RE_GETSTR()
+		foreach _surnum; _surface
+		{
+			LOGGING("ForEachLoop" + _surface)
+			_talk = REPLACE(_talk, "\s[%(_surface)]", "\s[%(_surface)]\i[210]")
+			//ehh i hope this doesnt do anything weird with keros... i only use it once in vera but im planning to use it MORE soon so it might be an issue...
+		}
+	}
+	*/
 	
 	
 	//---Manual Anchors---
@@ -37,6 +69,7 @@ OnTranslate
 	_talk = REPLACE(_talk,"Example Anchor","\_a[exampleanchor]Example Anchor\_a")
 	_talk = REPLACE(_talk,"Example Anchor with OnFunction","\_a[OnSomeAnchor]Since this links to OnSomeAnchor, you could create a function called OnSomeAnchor that would be called directly by clicking this\_a")
 	_talk = REPLACE(_talk,"Example word swap","You don't have to just make anchors, you could also use this to insert images and such")
+	
 	
 	
 	//---Important other stuff, written by Ponapalt---
@@ -70,9 +103,33 @@ OnAnchorSelect
 	{
 		case reference0
 		{
-			when "exampleanchor"
+			//---HOMESTUCK TERMINOLOGY: for those who havent read homestuck and have no idea what this stuff means
+			when "fetchmodus"
 			{
-				"\0\s[0]You clicked the example!\e"
+				"\0\b2\s[3]\i[26]\_q%(vera)\_q ah, \w2yeah, \w2i'm not good with fetch modi either. \w8\w8\n\s[2]\i[41]\_q%(vera)\_q they're ""data structures,"" \w6\i[17]but i don't know what that means- \w8\s[1]\i[41]just think of them as the process of how you get stuff out of your \_a[sylladex]sylladex.\_a \w8\w8\n\s[3]\i[41]\_q%(vera)\_q like my origami modus, which makes you fold an approximation of what you want from your \_a[sylladex]sylladex!\_a"
+				--
+				"\n\n\f[align,center]\_b[img\origamimodus.png,inline,--option=use_self_alpha]\x\e"
+			}
+			when "sylladex"
+			{
+				"\0\b2\s[3]\i[26]\_q%(vera)\_q a sylladex?? \w8\w8\n\i[19]\_q%(vera)\_q everyone has one. \w8\w8\n\s[2]\_q%(vera)\_q it's where you store all your stuff on hand, \w2and you get stuff out of it through your \_a[fetchmodus]fetch modus.\_a \w8\w8\n\s[1]\_q%(vera)\_q simple stuff! \w8\s[3]\i[19]here's one of my empty sylladex cards :D"
+				--
+				"\n\n\f[align,center]\_b[img\sylladexcardempty.png,inline,--option=use_self_alpha]\x\e"
+			}
+			when "strifespecibus"
+			{
+				"\0\b2\s[3]\i[26]\_q%(vera)\_q oh, the strife specibus is pretty convoluted for those not used to it. \w8\w8\n\s[1]\i[41]\_q%(vera)\_q it contains everything you need to \_a[strife]strife,\_a like your kind abstrati and strife deck and all that. \w8\w8\n\s[2]\i[41]\_q%(vera)\_q hmm... \w6\s[1]\i[41]ok, the kind abstratus determines what kind of weapons you can use, \w6and the strife deck contains all of the things you've assigned under that kind abstratus. \w8\w8\n\s[3]\_q%(vera)\_q take for example my pillowkind abstratus! \w8i can allocate pillows and plushies and stuff to it, so i can proficiently use them in a \_a[strife]strife\_a :D \w8\w8\n\i[19]\_q%(vera)\_q make sense?\x\e"
+			}
+			when "strife"
+			{
+				"\0\b2\s[1]\i[1]\i[43]\i[61]\_q%(vera)\_q ...a strife? \w8\w8\n\_q%(vera)\_q have you never been in one? \w8\w8\n\s[2]\_q%(vera)\_q it's like, \w4when someone engages you in... \w2a battle, \w2or a fight. \w8\w8\n\s[1]\_q%(vera)\_q conflicts happen all the time and you just gotta strife it out. \w8\w8\n\s[2]\i[26]\i[41]\_q%(vera)\_q i don't like it when they get more violent, but everyday strifes are more like puzzles..! \w8\w8\n\s[3]\i[26]\_q%(vera)\_q i dunno %(pername), i've never had to think about this before. \w8\w8\n\_q%(vera)\_q it's just a process for disagreements and stuff. \w6you don't fight without initiating a strife first. \w4\i[19]dunno why you wouldn't!"
+				--
+				"\n\n\f[align,right]\_b[img\abscond(s).png,inline,--option=use_self_alpha]\x\e"
+			}
+			//-------------------
+			when "violetghost"
+			{
+				"\0\s[1]\_q%(vera)\_q oh, \w6the violetghost forums are pretty obscure... \w8\w8\n\s[2]\i[41]\_q%(vera)\_q it's just focused on talking about ghost stories and paranormal encounters. \w8i mostly check it because the stories are interesting, not that i completely believe whats on there. \w8\w8\n\s[1]\_q%(vera)\_q the userbase is small and nice, and i met by friends on there, so... \w8\w8\n\s[3]\i[19]\_q%(vera)\_q it's cool!\e"
 			}
 		}
 	}
@@ -172,6 +229,32 @@ Capitalize
 	TOUPPER(_first) + _rest
 }
 
+//thanks zi! do Shuffle('string') or Shuffle(AnArray)
+Shuffle
+{
+    _output = IARRAY
+    if GETTYPE(_argv) == 4 //If it's an array. General purpose arrays only!
+    {
+        while ARRAYSIZE(_argv) > 0
+        {
+            _rand = RAND(ARRAYSIZE(_argv))
+            _output ,= _argv[_rand]
+            _argv[_rand] = IARRAY
+        }
+    }
+    else //If it's anything else it'll be treated as a string
+    {
+        _argv = TOSTR(_argv)
+        while STRLEN(_argv) > 0
+        {
+            _rand = RAND(STRLEN(_argv))
+            _output += SUBSTR(_argv,_rand,1)
+            _argv = ERASE(_argv,_rand,1)
+        }
+    }
+    _output
+}
+
 //Searches the start of a string for the requested substring.
 //Argument 0 is the source string to search, argument 1 is the substring to search for.
 //Returns 1 if true, 0 if false.
@@ -240,34 +323,65 @@ CleanTerm
 //If you want to set a flag back to 0, you can remove it like so:
 //RemoveFlag("My Flag")
 
-//Flag names can be just about anything you want! They're just stored as strings. For example, for S I have "Saw Gaster with googly eyes", and for Lulo I have things like "Unlocked MP3 player" and "Unlocked journal". If you want to see what flags are set, you can just put %(FlagArray) into script input, so it's helpful to have names that describe the flag!
+//Flag names can be just about anything you want! They're just stored as strings. For example, for S I have "Saw Gaster with googly eyes", and for Lulo I have things like "Unlocked MP3 player" and "Unlocked journal". If you want to see what flags are set, you can just put %(MiscFlags) into script input, so it's helpful to have names that describe the flag!
 
 //Checks to see if a flag exists. Returns 1 if yes, returns 0 if no
 Flag
 {
-	if !ISVAR("FlagArray"); FlagArray = IARRAY
-	if ASEARCH(_argv[0],FlagArray) != -1; 1
+	if !ISVAR("MiscFlags"); MiscFlags = IARRAY
+	if ASEARCH(_argv[0],MiscFlags) != -1; 1
 	else; 0
 }
 
 //Adds a flag to the array
 AddFlag
 {
-	if !ISVAR("FlagArray"); FlagArray = IARRAY
-	if !Flag(_argv); FlagArray ,= _argv
+	if !ISVAR("MiscFlags"); MiscFlags = IARRAY
+	if !Flag(_argv); MiscFlags ,= _argv
 }
 
 //Removes all instances of a flag in the array
 RemoveFlag
 {
-	if !ISVAR("FlagArray"); FlagArray = IARRAY
-	_elements = ASEARCHEX(_argv[0],FlagArray)
+	if !ISVAR("MiscFlags"); MiscFlags = IARRAY
+	_elements = ASEARCHEX(_argv[0],MiscFlags)
 	if ARRAYSIZE(_elements) > 0
 	{
 		for _i = ARRAYSIZE(_elements) - 1; _i >= 0; _i-- //Goes from the end of the list to the start, so the elements stay in the same positions while we erase
 		{
 			_current = _elements[_i]
-			FlagArray[_current] = IARRAY
+			MiscFlags[_current] = IARRAY
+		}
+	}
+}
+
+//--EVENT FLAGS
+//Checks to see if a flag exists. Returns 1 if yes, returns 0 if no
+EFlag
+{
+	if !ISVAR("EventFlags"); EventFlags = IARRAY
+	if ASEARCH(_argv[0],EventFlags) != -1; 1
+	else; 0
+}
+
+//Adds a flag to the array
+AddEFlag
+{
+	if !ISVAR("EventFlags"); EventFlags = IARRAY
+	if !EFlag(_argv); EventFlags ,= _argv
+}
+
+//Removes all instances of a flag in the array
+RemoveEFlag
+{
+	if !ISVAR(EventFlags); EventFlags = IARRAY
+	_elements = ASEARCHEX(_argv[0],EventFlags)
+	if ARRAYSIZE(_elements) > 0
+	{
+		for _i = ARRAYSIZE(_elements) - 1; _i >= 0; _i-- //Goes from the end of the list to the start, so the elements stay in the same positions while we erase
+		{
+			_current = _elements[_i]
+			EventFlags[_current] = IARRAY
 		}
 	}
 }
@@ -279,9 +393,9 @@ OnDialogueVars
 {
 	case reference0
 	{
-		when "example"
+		when "dave"
 		{
-			_example += 1
+			AddFlag("KnowDave")
 		}
 	}
 }
