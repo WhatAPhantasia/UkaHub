@@ -1,0 +1,4 @@
+charset,UTF-8
+type,balloon
+name,Stitched Together
+directory,stitched_together

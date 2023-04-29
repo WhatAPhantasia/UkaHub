@@ -1,0 +1,123 @@
+//--Descript.txt
+
+//1. -- Basic information
+
+
+charset,UTF-8
+type,balloon
+name,Stitched Together
+
+craftman,WhatAPhantasia
+craftmanw,WhatAPhantasia
+craftmanurl,https://phantasiaukahub.carrd.co
+
+homeurl,https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/master/Updates/Balloons/stitched_together
+
+use_self_alpha,1
+use_input_alpha,1
+overlay_outside_balloon,1
+
+
+//2. -- Defining Text Areas
+
+origin.x,60
+origin.y,35
+
+validrect.left,60
+validrect.top,30
+validrect.right,-44
+validrect.bottom,-24
+
+wordwrappoint.x,-50
+wordwrappoint.y,0
+
+//contenders: 	berlin sans fb
+//		gill sans mt
+
+font.name,Gill Sans MT
+font.height,15
+font.color.r,0
+font.color.g,0
+font.color.b,0
+
+//font.bold,1
+//the bold for berlin sans is kinda ugly
+
+//3. -- Balloon Position
+
+windowposition.x,0
+windowposition.y,0
+
+
+//4. -- Other String
+
+
+font.shadowcolor.r,-1
+font.shadowcolor.g,-1
+font.shadowcolor.b,-1
+
+anchor.font.color.r,140
+anchor.font.color.g,0
+anchor.font.color.b,140
+
+
+//5. -- Choice Markers
+
+cursor.blendmethod,none
+cursor.style,underline
+
+cursor.pen.color.r,125
+cursor.pen.color.g,125
+cursor.pen.color.b,125
+
+cursor.brush.color.r,85
+cursor.brush.color.g,83
+cursor.brush.color.b,95
+
+cursor.font.color.r,125
+cursor.font.color.g,125
+cursor.font.color.b,125
+
+
+//6. -- Image Markers
+
+arrow0.x,-38
+arrow0.y,31
+
+arrow1.x,-38
+arrow1.y,-36
+
+onlinemarker.x,16
+onlinemarker.y,-55
+
+sstpmarker.x,54
+sstpmarker.y,25
+
+sstpmessage.font.name,Consolas
+sstpmessage.font.height,9
+sstpmessage.font.color.r,255
+sstpmessage.font.color.g,255
+sstpmessage.font.color.b,255
+sstpmessage.x,66
+sstpmessage.y,25
+
+number.font.name,Consolas
+number.font.height,9
+number.font.color.r,255
+number.font.color.g,255
+number.font.color.b,255
+number.xr,-30
+number.y,8
+
+//instead of using the top LEFT pixel as you have for all other aspects of your balloon, you will want the top RIGHT pixel instead. Instead of going from left to right, it will go right to left. Remember this.
+//Also note that number.xr has an r in it, that's important.
+//In Balloon Test Mode, this shows up as Test 128/256.
+
+
+//7. -- Communication Box
+
+communicatebox.x,60
+communicatebox.y,17
+
+communicatebox.width,276
+communicatebox.height,24
