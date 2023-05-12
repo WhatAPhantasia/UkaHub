@@ -1,0 +1,422 @@
+//LUMI DEFAULT SHELL
+
+descript 
+{
+	version,1
+}
+//animation#.pattern#,method,surface,pause,X,Y
+
+//PLANNING
+//----------Image ranges
+//0-10: rasterized backups
+//50-99: bodies
+//100-199: backarm
+//200-299: frontarm
+//300-349: mouth
+//350-399: eyes
+//400-449: eyebrows
+//500-599: extrass!! like blushing and lightning for arms and hair
+//	500: hair lightning
+//	501>: back lightning
+//	540>: front lightning
+//	OOPS I MESSED UP
+//	580>: ACTUAL extras. not too many
+//====BEYOND THIS POINT IS POSTJAM====
+//600-649: front body 
+//600-649: front backarm
+//650-699: front frontarm
+//700-749: front mouth
+//750-799: front eyes
+//800-849: front eyebrows
+//850-899: front extras
+//900-949: recline body
+//960-999: recline backarm
+//1000-1049: recline frontarm
+//1050-1099: recline mouth
+//1100-1149: recline eyes
+//1150-1199: recline eyebrows
+//1200-1249: recline extras
+//1250 > : unique sakura surfaces i suppose?
+//2000 > : any potential kero surfaces?
+//----------Surfaces
+//surface0: fallback 3/4
+//surface1: 3/4 :3
+//surface2: 3/4 :)
+//surface3: 3/4 :<
+//surface4: 3/4 >:(
+//surface5: human 3/4 :3
+//surface6: human 3/4 :)
+//surface7: human 3/4 :<
+//surface8: human 3/4 >:(
+//surface9: 
+//surface10: NULL 
+//====BEYOND THIS POINT IS POSTJAM====
+//surface11: front :3
+//surface12: front :)
+//surface13: front :<
+//surface14: front >:(
+//surface15: human front :3
+//surface16: human front :)
+//surface17: human front :<
+//surface18: human front >:(
+//surface19: recline :3
+//surface20: recline :)
+//surface21: recline :<
+//surface22: recline >:(
+//----------Intervals
+//0-9: base image interaction + anything i need there for some reason??
+//10-39: backarm (29)
+//40-49: mouth (9)
+//50-59: eye (9)
+//60-69: eyebrow (9)
+//70-99: frontarm (29)
+//100>: extras
+//	100: blushing
+//	101: black gradient 1
+//	110: cloudhair lightning
+//	111-139: backarm lightning
+//	170-199: frontarm lightning
+
+//—————————————————————————————— Sakura surfaces ——————————————————————————————
+
+//fallback surface
+surface0
+{
+	collisionex0,cloudhair,polygon,176,118,344,118,344,278,278,278,278,204,207,204,207,258,176,258
+	
+	//no animation bc fuck that!! its in surface1 and up
+	element0,overlay,surface100.png,0,0
+	element1,overlay,surface50.png,0,0
+	element2,overlay,surface200.png,0,0
+	element3,overlay,surface400.png,0,0
+	
+	//mouth
+	animation1.interval,runonce
+	animation1.pattern0,overlay,300,0,0,0
+	animation2.interval,talk,3
+	animation2.pattern0,stop,1
+	animation2.pattern1,overlay,301,0,0,0
+	animation2.pattern2,overlay,-1,200-250,0,0
+	animation2.pattern3,start,1
+	
+	//eyes
+	animation3.interval,runonce
+	animation3.pattern0,overlay,350,0,0,0
+	animation4.interval,random,4
+	animation4.pattern0,stop,3
+	animation4.pattern1,overlay,351,0,0,0
+	animation4.pattern2,overlay,-1,70-80,0,0
+	animation4.pattern3,overlay,352,0,0,0
+	animation4.pattern4,overlay,-1,100-120,0,0
+	animation4.pattern5,overlay,351,0,0,0
+	animation4.pattern6,overlay,-1,90,0,0
+	animation4.pattern7,start,3
+}
+
+//3/4 :3
+surface1
+{
+	
+}
+
+//3/4 :)
+surface2
+{
+	
+}
+
+//3/4 :<
+surface3
+{
+	
+}
+
+//3/4 >:(
+surface4
+{
+	
+}
+
+//villain 3/4 body append
+surface.append1-4
+{
+	element0,overlay,surface50.png,0,0
+	
+	animation0.interval,always
+	animation0.pattern0,replace,51,1000,0,0
+	animation0.pattern1,replace,50,1000,0,0
+	
+	collisionex0,cloudhair,polygon,176,118,344,118,344,278,278,278,278,204,207,204,207,258,176,258
+}
+
+//human :3
+surface5
+{
+	
+}
+
+//human :)
+surface6
+{
+	
+}
+
+//human :<
+surface7
+{
+	
+}
+
+//human >:(
+surface8
+{
+	
+}
+
+//3/4 :3 append
+surface.append1,5
+{
+	animation40.interval,runonce
+	animation40.pattern0,overlay,300,0,0,0
+	
+	animation41.interval,talk,3
+	animation41.pattern0,stop,40
+	animation41.pattern1,overlay,301,0,0,0
+	animation41.pattern2,overlay,-1,200-250,0,0
+	animation41.pattern3,start,40
+	
+	//just do \![stop,anim,41] for stopping talking anims.
+	
+	//open mouf
+	animation42.interval,never
+	animation42.pattern0,parallelstop,(40,41)
+	animation42.pattern1,overlay,301,0,0,0
+}
+
+//3/4 :) append
+surface.append2,6
+{
+	animation40.interval,runonce
+	animation40.pattern0,overlay,302,0,0,0
+	
+	animation41.interval,talk,3
+	animation41.pattern0,stop,40
+	animation41.pattern1,overlay,303,0,0,0
+	animation41.pattern2,overlay,-1,200-250,0,0
+	animation41.pattern3,start,40
+	
+	//open mouf
+	animation42.interval,never
+	animation42.pattern0,parallelstop,(40,41)
+	animation42.pattern1,overlay,303,0,0,0
+}
+
+//3/4 :< append
+surface.append3,7
+{
+	animation40.interval,runonce
+	animation40.pattern0,overlay,304,0,0,0
+	
+	animation41.interval,talk,3
+	animation41.pattern0,stop,40
+	animation41.pattern1,overlay,305,0,0,0
+	animation41.pattern2,overlay,-1,200-250,0,0
+	animation41.pattern3,start,40
+	
+	//open mouf
+	animation42.interval,never
+	animation42.pattern0,parallelstop,(40,41)
+	animation42.pattern1,overlay,305,0,0,0
+}
+
+//3/4 :( append
+surface.append4,8
+{
+	animation40.interval,runonce
+	animation40.pattern0,overlay,306,0,0,0
+	
+	animation41.interval,talk,3
+	animation41.pattern0,stop,40
+	animation41.pattern1,overlay,307,0,0,0
+	animation41.pattern2,overlay,-1,200-250,0,0
+	animation41.pattern3,start,40
+	
+	//open mouf
+	animation42.interval,never
+	animation42.pattern0,parallelstop,(40,41)
+	animation42.pattern1,overlay,307,0,0,0
+}
+
+//human 3/4 body append
+surface.append5-8
+{
+	//add collision for hair.
+	
+	element0,overlay,surface52.png,0,0
+}
+
+//all 3/4 append
+surface.append1-8
+{
+	//--backarms
+	//hip
+	animation10.interval,runonce
+	animation10.pattern0,interpolate,100,0,0,0
+	//point mid
+	animation11.interval,never
+	animation11.pattern0,stop,10
+	animation11.pattern1,interpolate,101,0,0,0
+	//out mid
+	animation12.interval,never
+	animation12.pattern0,stop,10
+	animation12.pattern1,interpolate,102,0,0,0
+	//down surprise
+	animation13.interval,never
+	animation13.pattern0,stop,10
+	animation13.pattern1,interpolate,103,0,0,0
+	//down relax
+	animation14.interval,never
+	animation14.pattern0,stop,10
+	animation14.pattern1,interpolate,104,0,0,0
+	
+	//--eyes
+	//open
+	animation50.interval,runonce
+	animation50.pattern0,overlay,350,0,0,0
+	//lid
+	animation51.interval,never
+	animation51.pattern0,parallelstop,(50,56)
+	animation51.pattern1,overlay,351,0,0,0
+	//u_u
+	animation52.interval,never
+	animation52.pattern0,parallelstop,(50,56)
+	animation52.pattern1,overlay,352,0,0,0
+	//^_^
+	animation53.interval,never
+	animation53.pattern0,parallelstop,(50,56)
+	animation53.pattern1,overlay,353,0,0,0
+	//O_<
+	animation54.interval,never
+	animation54.pattern0,parallelstop,(50,56)
+	animation54.pattern1,overlay,354,0,0,0
+	//T_<
+	animation55.interval,never
+	animation55.pattern0,parallelstop,(50,56)
+	animation55.pattern1,overlay,355,0,0,0
+	//open blink
+	//im only doing blink animations for open because i dont want to die
+	animation56.interval,random,4
+	animation56.pattern0,stop,50
+	animation56.pattern1,overlay,351,0,0,0
+	animation56.pattern2,overlay,-1,70-80,0,0
+	animation56.pattern3,overlay,352,0,0,0
+	animation56.pattern4,overlay,-1,100-120,0,0
+	animation56.pattern5,overlay,351,0,0,0
+	animation56.pattern6,overlay,-1,90,0,0
+	animation56.pattern7,start,50
+	
+	//--eyebrows
+	//angry (yes this is the default)
+	animation60.interval,runonce
+	animation60.pattern0,overlay,400,0,0,0
+	//oh
+	animation61.interval,never
+	animation61.pattern0,stop,60
+	animation61.pattern1,overlay,401,0,0,0
+	//uh oh
+	animation62.interval,never
+	animation62.pattern0,stop,60
+	animation62.pattern1,overlay,402,0,0,0
+	//eh?
+	animation63.interval,never
+	animation63.pattern0,stop,60
+	animation63.pattern1,overlay,403,0,0,0
+	
+	//--frontarms
+	//hip
+	animation70.interval,runonce
+	animation70.pattern0,overlay,200,0,0,0
+	//point mid
+	animation71.interval,never
+	animation71.pattern0,stop,70
+	animation71.pattern1,overlay,201,0,0,0
+	//out mid
+	animation72.interval,never
+	animation72.pattern0,stop,70
+	animation72.pattern1,overlay,202,0,0,0
+	//down surprise
+	animation73.interval,never
+	animation73.pattern0,stop,70
+	animation73.pattern1,overlay,203,0,0,0
+	//down relax
+	animation74.interval,never
+	animation74.pattern0,stop,70
+	animation74.pattern1,overlay,204,0,0,0
+	//cross arms
+	animation75.interval,never
+	animation75.pattern0,parallelstop,(10,70)
+	animation75.pattern1,overlay,205,0,0,0
+	//phone ear
+	animation76.interval,never
+	animation76.pattern0,stop,70
+	animation76.pattern1,overlay,206,0,0,0
+	//phone both hands mid
+	animation77.interval,never
+	animation77.pattern0,parallelstop,(10,70)
+	animation77.pattern1,overlay,207,0,0,0
+	
+	//--extras
+	//blush
+	animation100.interval,never
+	animation100.pattern0,overlay,580,0,0,0
+	//gradient (TODO: change to be a global thing)
+	animation101.interval,never
+	animation101.pattern0,overlayfast,581,0,0,0
+	//cloudhair lightning
+	animation110.interval,never
+	animation110.pattern0,overlay,500,0,0,0
+	animation110.pattern1,overlay,-1,150-200,0,0
+	animation110.pattern2,overlay,500,150-200,0,0
+	animation110.pattern3,overlay,-1,200-250,0,0
+	animation110.pattern4,overlay,500,150-200,0,0
+	animation110.pattern5,overlay,-1,350-400,0,0
+	//backpointmid lightning
+	animation111.interval,never
+	animation111.pattern0,overlay,501,0,0,0
+	animation111.pattern1,overlay,-1,150-200,0,0
+	animation111.pattern2,overlay,501,150-200,0,0
+	animation111.pattern3,overlay,-1,200-250,0,0
+	animation111.pattern4,overlay,501,150-200,0,0
+	animation111.pattern5,overlay,-1,350-400,0,0
+	//backoutmid lightning
+	animation112.interval,never
+	animation112.pattern0,overlay,502,0,0,0
+	animation112.pattern1,overlay,-1,150-200,0,0
+	animation112.pattern2,overlay,502,150-200,0,0
+	animation112.pattern3,overlay,-1,200-250,0,0
+	animation112.pattern4,overlay,502,150-200,0,0
+	animation112.pattern5,overlay,-1,350-400,0,0
+	//frontpointmid lightning
+	animation141.interval,never
+	animation141.pattern0,overlay,541,0,0,0
+	animation141.pattern1,overlay,-1,150-200,0,0
+	animation141.pattern2,overlay,541,150-200,0,0
+	animation141.pattern3,overlay,-1,200-250,0,0
+	animation141.pattern4,overlay,541,150-200,0,0
+	animation141.pattern5,overlay,-1,350-400,0,0
+	//frontoutmid lightning
+	animation142.interval,never
+	animation142.pattern0,overlay,542,0,0,0
+	animation142.pattern1,overlay,-1,150-200,0,0
+	animation142.pattern2,overlay,542,150-200,0,0
+	animation142.pattern3,overlay,-1,200-250,0,0
+	animation142.pattern4,overlay,542,150-200,0,0
+	animation142.pattern5,overlay,-1,350-400,0,0
+}
+
+//—————————————————————————————— Kero surfaces ——————————————————————————————
+//pretty much uneeded sooo
+surface10
+{
+	
+}

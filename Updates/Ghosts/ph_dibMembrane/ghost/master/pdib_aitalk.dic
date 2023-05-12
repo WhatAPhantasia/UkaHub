@@ -449,3 +449,8 @@ OnSurfaceRestore //TODO: change choosing an idle to be separate from OnSurfaceRe
 	"%(choosedibidle)\e" //\1%(keroneutral)
 	//}
  }
+ 
+Pool
+{
+    if TOINT(_argv[1]); EVAL("%(_argv[0])")
+}

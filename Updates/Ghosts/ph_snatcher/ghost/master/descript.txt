@@ -14,4 +14,5 @@ kero.name,Subcon Minion
 
 sstp.allowunspecifiedsend,0
 
+icon,snatcher.ico
 balloon,Subcon Small Talk

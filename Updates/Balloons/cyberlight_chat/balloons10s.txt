@@ -1,0 +1,5 @@
+font.color.r,0
+font.color.g,0
+font.color.b,0
+
+//todo: give arrows a black border...

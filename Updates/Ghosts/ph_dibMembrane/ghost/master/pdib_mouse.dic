@@ -18,12 +18,28 @@ OnMouseMove
 	}
 }
 
+OnMouseWheel
+{
+	if reference3 == 0
+	{
+		PetCheck(20,160)
+	}
+}
+
+MouseMoveSakura
+{
+	if reference3 == 0
+	{
+		PetCheck(40,160)
+	}
+}
+
 //--MouseMoveSakura
 //The petting function for your main character. Remember how it was referred to as sakura in some of the descript.txt and install.txt files?
 
 //x template stuff! thanks zi
 //stroke is an array here, to save on variables. stroke[0] is the original stroke value, which resets after every successful pet. stroke[1] is the continuous stroking. It's the same as stroke[0], but it does not reset until your mouse leaves the character. stroke[2] is the number of successful pets in a row. I haven't used it here but you can if you want.
-MouseMoveSakura
+PetCheck
 {
 	if reference4 == "Head"
 	{
@@ -129,8 +145,8 @@ MouseMoveKero
  {
 	if reference4 != ""
  	{
- 		stroke++
- 		if stroke >= 40
+ 		stroke[0]++
+ 		if stroke[0] >= 40
 		{
 			stroke = 0
 			if reference4 == "Face" //Put in the name of your collision area you set up for your secondary character here.
@@ -150,7 +166,7 @@ MouseMoveKero
  	else
 	{
  		// If the mouse isn't over the ghost, it'll zero out the stroke value.
-		stroke = 0
+		stroke[0] = 0
  	}
 }
 

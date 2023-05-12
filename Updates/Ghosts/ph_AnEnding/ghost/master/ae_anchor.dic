@@ -127,9 +127,9 @@ OnAnchorSelect
 				"\n\n\f[align,right]\_b[img\abscond(s).png,inline,--option=use_self_alpha]\x\e"
 			}
 			//-------------------
-			when "violetghost"
+			when "violentghost"
 			{
-				"\0\s[1]\_q%(vera)\_q oh, \w6the violetghost forums are pretty obscure... \w8\w8\n\s[2]\i[41]\_q%(vera)\_q it's just focused on talking about ghost stories and paranormal encounters. \w8i mostly check it because the stories are interesting, not that i completely believe whats on there. \w8\w8\n\s[1]\_q%(vera)\_q the userbase is small and nice, and i met by friends on there, so... \w8\w8\n\s[3]\i[19]\_q%(vera)\_q it's cool!\e"
+				"\0\s[1]\_q%(vera)\_q oh, \w6the violentghost forums are pretty obscure... \w8\w8\n\s[2]\i[41]\_q%(vera)\_q it's just focused on talking about ghost stories and paranormal encounters. \w8i mostly check it because the stories are interesting, not that i completely believe whats on there. \w8\w8\n\s[1]\_q%(vera)\_q the userbase is small and nice, and i met by friends on there, so... \w8\w8\n\s[3]\i[19]\_q%(vera)\_q it's cool!\e"
 			}
 		}
 	}
@@ -396,6 +396,14 @@ OnDialogueVars
 		when "dave"
 		{
 			AddFlag("KnowDave")
+		}
+		when "abtvera"
+		{
+			abtvcount++
+			if abtvcount >= 8 {
+				AddFlag("FirstAbtVera")
+				ERASEVAR("abtvcount")
+			}
 		}
 	}
 }

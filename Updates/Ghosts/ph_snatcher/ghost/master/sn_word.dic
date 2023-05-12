@@ -5,7 +5,6 @@
 kidname //randomizes whether or not to call the user kid or their name.
 {
 	"%(username)"
-	"%(username)"
 	"kid"
 	"kiddo"
 }
@@ -22,7 +21,60 @@ name
 	}
 }
 
+//--PRONOUNS!!
 
+//"%(they) left that there."
+//"%(their) work is really cool."
+//"I'll ask %(them) later."
+//"%(they)%(re) really good at it."
+//"%(they) %(are) thinking about cheese!"
+//"%(they) %(were) lost in their code, but %(they) fixed it!!"
+//use %(capitalize(they)) to use it properly at the start of sentences.
+//use _s = "s"; if pronouns == "undef"; _s = "re" and other temp vars if needed for more specific pronoun talk
+their
+{
+	if pronouns == "masc"; "his"
+	elseif pronouns == "fem"; "her"
+	elseif pronouns == "custom"; "%(custompronouns[2])"
+	else; "their"
+}
+theirs
+{
+	if pronouns == "masc"; "his"
+	elseif pronouns == "fem"; "hers"
+	elseif pronouns == "custom"; "%(custompronouns[3])"
+	else; "theirs"
+}
+they
+{
+	if pronouns == "masc"; "he"
+	elseif pronouns == "fem"; "she"
+	elseif pronouns == "custom"; "%(custompronouns[0])"
+	else; "they"
+}
+them
+{
+	if pronouns == "masc"; "him"
+	elseif pronouns == "fem"; "her"
+	elseif pronouns == "custom"; "%(custompronouns[1])"
+	else; "them"
+}
+//CHECK CONTEXT SINGULAR OR PLURAL!!
+were
+{
+	if pronounplur == "plur" || pronouns == "undef"; "were"
+	else; "was"
+}
+re
+{
+	if pronounplur == "plur" || pronouns == "undef"; "'re"
+	else; "'s"
+}
+are
+{
+	if pronounplur == "plur" || pronouns == "undef"; "are"
+	else; "is"
+}
 
 
 //--USEFUL X TEMPLATE STUFF!!

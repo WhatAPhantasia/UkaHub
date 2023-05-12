@@ -1,0 +1,491 @@
+SakuraMenuGreetings : nonoverlap
+{
+	"%(smileidle)Yeah yeah~?"
+	"%(smileidle)Hey hey! \w4I'm ALWAYS here to talk!!"
+	"%(smileidle)Wehehehe... Yeah, %(user)?"
+	"\s[1]\i[53]You have my attention... Be grateful!!"
+	"%(smileidle)HELLO!!"
+	"%(smileidle)Oh? \w2Be honored that you have my time!!"
+	"%(smileidle)Yess? \w2Need something, %(user)?"
+	"%(smileidle)Heyy!! Hello!!"
+	"%(smileidle)Greetings, %(user)~!!"
+	"%(smileidle)You're talking to the great Plasmaegis!"
+}
+
+//Because there is an all modifier here, you don't need to write -- between menu options
+OnSakuraMenu : all
+{
+	"\0\b2\![set,autoscroll,disable]"
+	if SHIORI3FW.Eventid == "OnMouseDoubleClick"; SakuraMenuGreetings //The check here is so they won't comment if you click the back button. Remove if you prefer
+	
+	"\n\n\_q"
+	
+	"\![*]\q[Talk to me,OnAiTalk]"
+	if LastTalk != ""; "  \![*]\q[Say that again,OnLastTalk]"
+	"\n\n"
+	
+	"\![*]\q[Lets Talk Weather,OnWeatherMenu]\n\n"
+	
+	"\![*]\q[Check,OnPlasmaegisInfo]\n"
+	"\![*]\q[Ask Questions,OnQuestionMenu]\n"
+	"\![*]\q[Change Settings,OnSettingsMenu]\n"
+	
+	"\n\![*]\q[Nevermind,blank]\n"
+	"\n\![*]\q[Goodbye,OnClose,bye]"
+	
+	"\n\n\f[align,center]"
+	"Runtime: %(runtime) || Version v1.0.0"
+}
+
+OnLastTalk
+{
+	LastTalk
+}
+
+//—————————————————————————————— Check ——————————————————————————————
+
+OnPlasmaegisInfo : all
+{
+	//change this according to mode ofc
+	"\0\b2\![set,autoscroll,disable]"
+	"\_q\f[align,center]\f[bold,1]--PLASMAEGIS--\n\n\f[align,default]\f[bold,default]"
+	
+	"A quick Toogle Search says:\n"
+	
+	//add more of these....
+	nonoverlap:{
+		"tHE BEST SUPERVILLAIN EVER!!! AWESOME WEATHER POWERS AND CAUSES THE BEST DESTRUCTION (Plasmaegis Fan Club)"
+		"Made it specifically storm for three days at my house because I annoyed %(them(1)). 10/10 experience (Meowler Post)"
+		"Hard to make articles on because rain and thunder surrounds %(them(1)) and it messes up my papers. We make do here at HeartRadar for all %(their(1)) fans! (Anon Journalist)"
+		"please stop terrorizing people at the second central park i actually kinda wanna see what it's like when its NOT a complete mess (Gumblr Post)"
+		"%(TOUPPER(they(1)))'%(lp('S','RE')) 16??????? DUDE I THOUGHT %(TOUPPER(they(1))) %(lp('WAS','WERE')) LIKE. 12 (Gumblr Post)"
+	}
+	"\n\n"
+	
+	"\![*]Currently feels like: \f[color,default.anchor]%(Capitalize(lgender))\n"
+	"\![*]%(Capitalize(they(1)))/%(them(1))/%(their(1))/%(theirs(1))/%(themself(1))\n\f[color,default]"
+	
+	"\n\![*]\q[Back,OnSakuraMenu]   \![*]\q[Nevermind,blank]"
+}
+
+//—————————————————————————————— Questions ——————————————————————————————
+
+OnQuestionMenu : all
+{
+	"\0\b2\![set,autoscroll,disable]"
+	"\_q\f[align,center]\f[bold,1]You ask %(them(1)) about...\n\n\f[align,default]\f[bold,default]"
+	
+	//TODO: actually add more stuff to this menu...
+	
+	"\![*]\q[%(Capitalize(themself(1))),OnAbtLumi]\n"
+	"\![*]\q[The Disaster Troupe,OnAbtTroupe]\n"
+	"\![*]\q[Cyber Light City,OnAbtCLC]\n"
+	"\![*]\q[CLC Heroes,OnAbtHeroes]\n"
+	
+	//STORYLINE!! at least. planned story ig.
+	if !Flag("PandoraFight"); "\n\![*]\q[Why do you come here? What did Pandora do?,OnPandoraFight]\n"
+	else; "\n\![*]\q[Tell me why you come here again!,OnPandoraFight]\n"
+	
+	"\n\![*]\q[Back,OnSakuraMenu]   \![*]\q[Nevermind,blank]"
+}
+
+OnAbtLumi : nonoverlap_pool
+{
+	"\0\s[1]\i[63]\i[75]PFFFT, \w2what is there to explain about ME? \w8\w8\n\![anim,stop,63]\i[53]\i[60]I'm just the best villain EVER! \w8I have the presence, the power, everything!! \w8Only Calamity does it better than me!!"
+	--
+	"\n\n\![*]\q[Back,OnQuestionMenu]   \![*]\q[Close,blank]"
+}
+
+OnAbtTroupe : nonoverlap_pool
+{
+	if !Flag("AskTroupe"); AddFlag("AskTroupe")
+	"\0\b2\s[1]\i[53]\i[75]Welll~! \w8We're Cyber Light City's resident supervillains, who constantly oppose and TOTALLY destroy the Light Heroes!!\w8\w8\w8\n\s[2]Hmm, \w4\i[11]Calamity the God of Destruction is our leader, and \i[53]RIGHTFULLY SO!! \w8He's SUPER powerful and cool and scares everyone with his natural disaster powers!!!\w8\w8\w8\n\s[1]\i[12]\i[52]\i[72]I'm PLASMAEGIS, of course, and I have the best weather powers!! You know this!\w8\w8\n\s[3]\i[51]Er, \w8then there's Pandora... \w8\w8Kinda lame, but she's a demon who can explode stuff and set things on fire...\w8\w8\n\![anim,stop,51]\i[52]And then there's her friend Gomi, who \w8I'm pretty sure is a raccoon she found in the trashcan behind our house.\w8\w8\w8\n\n\s[1]\i[12]\i[72]But long story short, WE'RE AWESOME!! \w2\i[53]We get SO MUCH merch!! \w8\![anim,stop,53]\i[54]If you're gonna live here, you should at least know us~"
+	--
+	"\n\n\![*]\q[Back,OnQuestionMenu]   \![*]\q[Close,blank]"
+}
+
+OnAbtCLC : nonoverlap_pool
+{
+	if !Flag("AskCLC")
+	{AddFlag("AskCLC")
+	"\0\s[3]\i[14]\i[63]Hmm? \w8Uh, \w2what do YOU want me to say about the place? \w8\w8\s[1]\i[12]\i[53]\i[72]It's the synthwave capital of the world~! \w8It's big and bright and poppy- And TONS of superheroes and supervillains make their home here. \w2Like MEEE!!\w8\w8\n\s[1]Ask more about the place from me if you want!! \w2\i[53]I just gave you the generic rundown for now~"}
+	else
+	{
+		"\0\s[3]Hmm, the city is close to the Regaelas Sea... \w8\i[52]I like going down there, cause the sand is all sparkly and the water looks SUPER pretty when under the neon lights and sun. \w8\s[1]\i[51]Plus, there's TONS of water for me to use when it evaporates~"
+		"\0\s[2]Going down to the art district is fun! \w8\i[52]CLC is big on art and fashion, \w4and I get to look at so many pretty things down there... \w6\s[1]\i[12]\i[72]Including fanart~!!"
+		"\0\s[3]\i[75]Ehh, the border of \w4Wickholm Woods is around on the outskirts of the city... \w8\s[4]\i[51]\i[62]\i[75]There's really nothing there anymore, \w2it's just all acidic soil and fires and stuff. \w8Don't go there, ever."
+	}
+	--
+	"\n\n\![*]\q[Back,OnQuestionMenu]   \![*]\q[Close,blank]"
+}
+
+OnAbtHeroes : nonoverlap_pool
+{
+	if !Flag("AskHeroes"); AddFlag("AskHeroes")
+	"\0\b2\s[3]\i[75]Oh, bleh, the heroes. \w8\w8There's a whole lot of them, but the only ones that are any match for us are NEO's whole group.\w8\w8\w8\n\s[3]\i[71]NEO's the leader, and his telekinesis is REALLY tough to deal with! \w4He can do anything with it, and it totally fits his whole synthwave vibe!! \w4I want his fashion sense!!!\w8\w8\w8\n\i[52]Uhmm, Heartattack is also in their group, and they have these weird super empathy powers that are actually like. \w6REALLY hard to deal with.\w8\w8\w8\n\s[3]\i[61]\i[75]Aaand I think there's another person..? \w8She's their mechanic, \w2but we don't know much about her except that she exists...\w8\w8\w8\n\n\i[52]Hm... There's also the Azure Dragon or whatever her name is... \w8\s[4]\i[12]\i[63]\i[72]She's some vigilante who has some sort of personal vendetta against me? \w8Dunno, but that's all the heroes are."
+	--
+	"\n\n\![*]\q[Back,OnQuestionMenu]   \![*]\q[Close,blank]"
+}
+
+
+OnPandoraFight : all
+{
+	if !Flag("AskTroupe") && up_total <= 30 && recenttouch[0] >= 3
+	{"\0\_qYou get the feeling Plasmaegis wouldn't like to talk about that to you, "
+	if up_total <= 30; "probably because you haven't spent enough time around %(them(1)) yet. Maybe just spend more time with them before asking?"
+	elseif !Flag("AskTroupe"); "because you don't really even know who Pandora IS. Maybe ask about their whole villain troupe first?"
+	else; "probably because %(they(1))'%(lp('s','re')) still grumpy about you touching %(their(1)) hair. Maybe say bye and wait until you see them again next time to ask."
+	"\n\n\![*]\q[Back,OnQuestionMenu]   \![*]\q[Close,blank]"}
+	elseif !Flag("PandoraFight")
+	{
+		"\0\b2\t\*"
+		"\s[3]\i[61]\i[75]Huh..? \w8\w8\i[51]Well, I... \w8\w8\w4\s[3]\i[51]\i[14]\i[74]Oh, WHATEVER. \w8Just don't go telling people on the internet about this or something.\w8\w4\n"
+		"\s[3]\i[75]It was Calamity who first told me about this place, really. \w8\w8He goes here often cause he says this place has the best view of the whole city, so... \w8\i[52]Be grateful you actually own this place, %(user).\w8\w8\n"
+		"\s[3]\i[61]\i[75]And, er... \w8He also went here a lot whenever he wanted to think, \w4or was mad about something, \w4so I started coming over here too, \w4and it just kinda became our THING, right? \w8\i[51]So... \w8Yeah.\w4\x[noclear]"
+		"\![anim,stop,51]\i[52]Anyways, \w6Pandora and I always fight like this and make up after, really. \w8She just... \w2\s[3]\i[51]\i[75]This time I broke her dumb dollhouse cause she stole something from my room, and THEN she called me... \w8Yeah, now that I'm saying it, I kinda... I'm not too mad about it. \w8I just don't want to be the one to \w6say sorry to her? \w2Like, ew.\w8\w8\w8\n"
+		"But... Yeah. What do I even do, right?\w6\n\n"
+		
+		//TODO: finish this event
+		"\![*]\q[Lets Apologize,OnPandoraFight1]"
+		//"\![*]\q[]"
+	}
+	else
+	{
+		"\0\b2"
+		"\s[3]\i[75]It was Calamity who first told me about this place, really. \w8\w8He goes here often cause he says this place has the best view of the whole city, so... \w8\i[52]Be grateful you actually own this place, %(user).\w8\w8\n"
+		"\s[3]\i[61]\i[75]And, er... \w8He also went here a lot whenever he wanted to think, \w4or was mad about something, \w4so I started coming over here too, \w4and it just kinda became our THING, right? \w8\i[51]So... \w8Yeah.\w4"
+		"\n\n\![*]\q[Back,OnQuestionMenu]   \![*]\q[Close,blank]"
+	}
+}
+
+OnPandoraFight1 : all
+{
+	//TODO: FINISH THIS OMFG
+	AddFlag("PandoraFight")
+	"\0\s[2]\i[62]...Yeah, okay. \w8\w8\s[3]\i[61]\i[52]\i[76]Give me a sec... \w8\w8\s[2]\i[62]\i[76]But thanks, %(user).\w8\w8\w8\n"
+	"\s[3]\i[51]\i[76]...Huh... Why DO I call you mortal..? \w8What even is your name...?? \w8Eh, whatever.\w8\w8"
+	
+	"\_q(You feel like you've gotten closer to Plasmaegis.)\e"
+}
+
+//OnPandoraFight2
+
+//—————————————————————————————— Weather Menu ——————————————————————————————
+//weird order from the remnants of how the menu used to be ordered.
+
+OnInstallWeather : all
+{
+	"\0\b2\![set,autoscroll,disable]\_q"
+	"(Please install Zichqec's \_a[https://zichqec.github.io/s-the-skeleton/saoris_plugins_tools#weather_station]Weather Station\_a plugin if you want to see this menu! Also, a lot of Plasmaegis' features have to do with real time weather interaction that comes with the plugin!)\n"
+	"(I plan on adding simulated weather without an API for people who don't want the plugin, mostly after Jam and if I feel like it. For now, they just respond to the weather station :3)\n"
+	
+	"\n\![*]\q[Back,OnSakuraMenu]   \![*]\q[Close,blank]"
+}
+
+WeatherMGreet
+{
+	_p = ""
+	if lgender == "girl" || lgender = "boy"; _p = lgender
+	else; _p = "person"
+	
+	"Oho?! \w2I'm ALWAYS here to talk about the weather!"
+	"Of course! I work hard on my weather~!"
+	"Yes yes~!! The weather!"
+	"Oh? I know ALL about the weather!"
+	"You're asking the right %(_p)!!"
+	"I ~am~ CLC's resident weather%(_p)~!"
+}
+
+OnWeatherMenu : all
+{
+	if !WeatherStationInstalled
+	{
+		OnInstallWeather
+	}
+	else
+	{
+		//MENU TIIME!!!!!!
+		
+		"\0\b2\![set,autoscroll,disable]"
+		WeatherMGreet
+		"\n\n\_q"
+		
+		//"\![*]\q[Thoughts on weather right now?,OnCurrentWeatherTalk]\n"
+		"\![*]\f[color,disable]Thoughts on weather right now?\n\f[color,default]"
+		"\![*]\q[Weather Predictions?,OnWeatherPrediction]\n\n"
+		
+		"\![*]\q[Toggle Weather Idle Dialogue,OnToggleAW] "
+		if Flag("IdleWeather"); "(ON)\n"
+		else; "(OFF)\n"
+		
+		//"\n\![*]\q[DEBUG,OnWeatherPrint]\n"
+		
+		"\n\![*]\q[Back,OnSakuraMenu]   \![*]\q[Close,blank]"
+		
+		"\n\n\f[size,-2]\f[align,center](I recommend changing the API key for the plugin in its main.dic if you haven't already!)"
+	}
+}
+
+//ALL OTHER WEATHER STUFF IS IN sl_other.dic.
+
+OnToggleAW
+{
+	if !Flag("IdleWeather"); AddFlag("IdleWeather")
+	else; RemoveFlag("IdleWeather")
+	OnWeatherMenu
+}
+
+OnWeatherPrint : all
+{
+	GetWeatherData
+	OnGetForecastData
+	"%(weatherdata)\n%(forecastdata)"
+}
+
+//forecast data array order here
+//rain chance, snow chance, max temp, min temp, avg temp, windspeed, precipitation, visibility, humidity
+
+//weatherdata array order here
+//weather condition, humidity, day/night, temp, feel temp, wind speed, precipitation, visibility, cloud cover percentage, rain, snow
+
+OnCurrentWeatherTalk
+{
+	"\0\_q"
+	--
+	"(CURRENTLY NOT IMPLEMENTED!! SORRY I COULDN'T DO A LOT OF COOL WEATHER STUFF FOR JAM LOL)"
+	--
+	"\n\n\![*]\q[Back,OnWeatherMenu]   \![*]\q[Close,blank]"
+}
+
+OnWeatherPrediction
+{
+	//TODO: add more holy shit
+	"\0"
+	--
+	if forecastdata[0] >= 75; "\s[3]\i[61]\i[75]Oh! \w8Yeah, I've been in a bit of a rainy mood, so I'll probably throw down some rain tomorrow..."
+	elseif forecastdata[0] >= 35; "\s[3]\i[61]\i[75]Hmm... \w8Been a bit so-and-so, might put down some rain tomorrow? \w8Might not."
+	else; "\s[3]\i[61]\i[75]Oh! \w8Yeah, probably won't rain tomorrow. \w8It's good to be dry once and a while, yeah?"
+	--
+	"\w8\w8\n"
+	--
+	if forecastdata[1] >= 75; "\s[3]\i[61]\i[75]I think Cyber Light City could definitely use some snow tomorrow, so look out for that!"
+	elseif forecastdata[1] >= 35; "\s[2]\i[51]\i[61]\i[75]Might throw some snow down on the city tomorrow, but it could go either way."
+	else; ""
+	--
+	"\w8\w8\n"
+	--
+	//TODO: optimize this
+	if weatherconfig[0] == "Imperial" {
+	if forecastdata[4] <= 0; "\s[3]\i[75]And! I think maybe CLC could use a big cold front... \w8\s[1]\i[53]\i[75]Hehehe, make sure to be EXTRA cozy tomorrow~"
+	elseif forecastdata[4] <= 60; "\s[3]\i[75]And I'm in a bit of a chilly mood, so watch out for that~"
+	elseif forecastdata[4] <= 80; "\s[3]\i[75]Don't wanna do anything too exciting with the temperature tomorrow though."
+	elseif forecastdata[4] <= 95; "\s[3]\i[75]Will probably make it hot tomorrow... \w4I wanna go down to the beach, you know?"
+	else; "\s[1]\i[51]And I think CLC could use a BIG wave of heat tomorrow, wehehehe~!! \w4Watch out~~"
+	}
+	else {
+	if forecastdata[4] <= -17; "\s[3]\i[75]And! I think maybe CLC could use a big cold front... \w8\s[1]\i[53]\i[75]Hehehe, make sure to be EXTRA cozy tomorrow~"
+	elseif forecastdata[4] <= 15; "\s[3]\i[75]And I'm in a bit of a chilly mood, so watch out for that~"
+	elseif forecastdata[4] <= 26; "\s[3]\i[75]Don't wanna do anything too exciting with the temperature tomorrow though."
+	elseif forecastdata[4] <= 35; "\s[3]\i[75]Will probably make it hot tomorrow... \w4I wanna go down to the beach, you know?"
+	else; "\s[1]\i[51]And I think CLC could use a BIG wave of heat tomorrow, wehehehe~!! \w4Watch out~~"
+	}
+	--
+	"\w8\w8\n"
+	--
+	"Aaand... \w8I think that's all I have to say about tomorrow, hehe..."
+	--
+	"\n\n\![*]\q[Back,OnWeatherMenu]   \![*]\q[Close,blank]"
+}
+
+//—————————————————————————————— Master Settings ——————————————————————————————
+
+OnSettingsMenu : all
+{
+	"\0\![set,autoscroll,disable]"
+	"\_q\f[align,center]\f[bold,1]--MASTER SETTINGS--\n\n\f[align,default]\f[bold,default]"
+	
+	"\![*]Right now, %(they(1)) call%(lp('s','')) you \_a[OnChangeName]%(user)\_a.\n"
+	"\![*]Your Pronouns: \_a[OnChangePronouns]%(Capitalize(they))/%(Capitalize(them))\_a\n"
+	"\![*]\q[Change talk rate,OnTalkRateMenu]\n"
+	"\![*]\q[Toggle Idle Motion,OnToggleMotion]\n"
+	
+	"\n\![*]\q[Back,OnSakuraMenu]   \![*]\q[Nevermind,blank]"
+}
+
+OnChangeName : all
+{
+	if !Flag("PandoraFight")
+	{"\0\s[3]\i[63]Huh? \w6Can't hear ya, mortal. \w8\w2\s[1]\i[53]Don't you wanna go back to talking about me~?\![anim,stop,41]\i[40]\w8\w8\w8\n\n"
+	"(...Looks like %(they(1)) won't listen to you. \w8Maybe if you got to know %(them(1)) better...)\w4\n"}
+	else
+	{"\0\s[3]Oh, yeah. \w8What should I call you?\w4"
+	"\![set,balloontimeout,-1]\![open,inputbox,OnName,-1]"}
+
+	"\n\![*]\q[Back,OnSettingsMenu]   \![*]\q[Nevermind,blank]"
+}
+
+OnName
+{
+	//X TEMPLATE CODE!!!!!!
+	
+	//TODO: move this to cleanterm post jam. im not sure if cleanterm would make my entry invalid so im just using x template code
+	_tempname = CUTSPACE(reference.raw[0]) //this stores the original name in _tempname
+	_name = reference.raw[0] //putting the raw name into _name to do some tests on it
+	_name = TOLOWER(_name) //changes it to lowercase
+	_name = REPLACE(_name," ","") //removes spaces
+	_name = REPLACE(_name,".","") //removes periods
+	_name = REPLACE(_name,"-","") //removes dashes
+	
+	if ISVAR("olduser") {
+	_old = olduser
+	_old = TOLOWER(_old) //changes it to lowercase
+	_old = REPLACE(_old," ","") //removes spaces
+	_old = REPLACE(_old,".","") //removes periods
+	_old = REPLACE(_old,"-","") //removes dashes
+	}
+	
+	"\0"
+	--
+	if _name == _old
+	{
+		user = SHIORI3FW.EscapeAllTags(_tempname)
+		if ISVAR("olduser"); ERASEVAR("olduser")
+		"\s[3]\i[61]\i[75]Huh... \w8Eugh, \w4don't like that feeling of deja vu, \w8\i[52]but never mind that! \w8%(Capitalize(user)) it is!"
+	}
+	//----------------------------------
+	elseif VillainNames _in_ _name
+	{
+		"\s[1]\![anim,stop,41]\i[40](Please pick a different name!! Don't wanna make lore confusing you know??)"
+		--
+		"\n\n\![*]\q[Cancel,OnConfigMenu,OnSettingsMenu]\![open,inputbox,OnName,-1]\e"
+	}
+	elseif HeroNames _in_ _name
+	{
+		"\s[1]\![anim,stop,41]\i[40](Please pick a different name!! Don't wanna make lore confusing you know??)"
+		--
+		"\n\n\![*]\q[Cancel,OnConfigMenu,OnSettingsMenu]\![open,inputbox,OnName,-1]\e"
+	}
+	elseif NeutralNames _in_ _name
+	{
+		"\s[1]\![anim,stop,41]\i[40](Please pick a different name!! Don't wanna make lore confusing you know??)"
+		--
+		"\n\n\![*]\q[Cancel,OnConfigMenu,OnSettingsMenu]\![open,inputbox,OnName,-1]\e"
+	}
+	//----------------------------------
+	elseif _name == "phantasia" || _name == "whataphantasia" || _name == "eshal"
+	{
+		user = SHIORI3FW.EscapeAllTags(_tempname) 
+		"\s[1]\i[51]Yeah, yeah, okayy. \w8If you're Phantasia, maybe actually finish coding me!"
+	}
+	else //normal name response.
+	{
+		user = SHIORI3FW.EscapeAllTags(_tempname)
+		"\s[1]\i[53]Got it~!!"
+	}
+	--
+	"\n\![*]\q[Back,OnSettingsMenu]   \![*]\q[Close,blank]"
+}
+
+OnChangePronouns : all
+{
+	"\0\_q\f[align,center]\f[bold,1]--Choose Pronouns--\n\n\f[align,default]\f[bold,default]"
+	
+	"\![*]\q[He/Him,OnPronouns,masc]\n"
+	"\![*]\q[She/Her,OnPronouns,fem]\n"
+	"\![*]\q[They/Them,OnPronouns,undef]\n"
+	"\![*]\q[Custom,OnPronouns,custom]\n"
+	
+	"\n\![*]\q[Back,OnSettingsMenu]   \![*]\q[Close,blank]"
+}
+//ehhh lets see if i remember how to do this..
+OnPronouns
+{
+	upronouns[0] = reference0
+	
+	if reference0 == "custom"
+	all:{"\0\t\*\b2\_q"
+	"\![open,inputbox,OnCustomPronouns,-1]"
+	"Insert pronouns like:\nthey/them/their/theirs/themself\nshe/her/her/hers/herself\nhe/him/his/his/himself\n"
+	"You must insert five. Make sure to use the correct dashes. See specific usage below.\n\n"
+	"1: THEY talked.\n"
+	"2: I talked to THEM.\n"
+	"3: That is THEIR word.\n"
+	"4: Those words of THEIRS are cool!\n"
+	"5: They talked to THEMSELF.\n\n"
+	"\n\![*]\q[Back,OnChangePronouns]   \![*]\q[Nevermind,blank]"}
+	else 
+	{"\![raise,OnPronounsDone,%(reference0)]"}
+}
+//FUDGE uhhhhh i think this.. takes the input, makes the slash the delimiter, then checks for array size to see if its valid... yeah
+//im preeeetttyy sure i originally got this from smoky? yes i got it from smoky. just altering it a bit
+OnCustomPronouns
+{
+	_pronouns = IARRAY
+	_pronouns = SPLIT(reference0,"/")
+	
+	if ARRAYSIZE(_pronouns) != 5
+	{"\![raise,OnPronouns,custom]"}
+	else
+	all:{
+		ucustompronouns = SPLIT(reference0,"/")
+		
+		"\0\t\*\_q"
+		"Is that plural or singular?\n"
+		"Plural:%(ucustompronouns[0]) are cool\n"
+		"Singular:%(ucustompronouns[0]) is cool\n\n"
+		
+		"\![*]\q[Plural,OnPronounsDone,1]\n"
+		"\![*]\q[Singular,OnPronounsDone,0]"
+	}
+}
+//set plural, pronouns, etc, then just redirect back to settings.
+OnPronounsDone
+{
+	if upronouns[0] == "custom"
+	{upronouns[1] = reference0}
+	else
+	{
+		if upronouns[0] == "undef" 
+		{upronouns[1] = 1}
+		else 
+		{upronouns[1] = 0}
+	}
+	
+	"\![raise,OnSettingsMenu]"
+}
+
+OnTalkRateMenu : all
+{	
+	//This is just setting up a label, you may need to add to it or tweak it if you change what rates are available
+	_talkrate = "Off"
+	if aitalkinterval == 30; _talkrate = "30 seconds"
+	elseif aitalkinterval == 60; _talkrate = "1 minute"
+	elseif aitalkinterval == 180; _talkrate = "3 minutes"
+	elseif aitalkinterval == 300; _talkrate = "5 minutes"
+	elseif aitalkinterval == 600; _talkrate = "10 minutes"
+	
+	"\0\b2\![set,autoscroll,disable]\_q"
+	"Current interval: %(_talkrate)\n\n"
+	
+	"\![*]\q[Off,OnTalkRateChange,0]\n"
+	"\![*]\q[30 seconds,OnTalkRateChange,30]\n"
+	"\![*]\q[1 minute,OnTalkRateChange,60]\n"
+	"\![*]\q[3 minutes,OnTalkRateChange,180]\n"
+	"\![*]\q[5 minutes,OnTalkRateChange,300]\n"
+	"\![*]\q[10 minutes,OnTalkRateChange,600]\n"
+	"\n"
+	"\![*]\q[Back,OnSettingsMenu]  \![*]\q[Nevermind,blank]"
+}
+
+OnTalkRateChange
+{
+	aitalkinterval = TOINT(reference0)
+}
+
+OnToggleMotion
+{
+	if !Flag("NoMotion"); AddFlag("NoMotion")
+	else; RemoveFlag("NoMotion")
+	
+	"%(smileidle)\![raise,OnSettingsMenu]"
+}

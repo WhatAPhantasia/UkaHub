@@ -19,18 +19,18 @@ OnChangeName
 //--NameDone
 //Continue with firstboot message or go onto ending namechange sequence
 
-NameDone
+OnNameDone
 {
-	if firstboot == 1
+	if reference1 == "firstboot"
 	{
 		"And how should I refer to you?"
 		--
 		all:{
 		"\n\n\_q\*"
-		"\![*]\q[He/Him/His,OnPronouns,masc]\n"
-		"\![*]\q[She/Her/Hers,OnPronouns,fem]\n"
-		"\![*]\q[They/Them/Their,OnPronouns,undef]\n"
-		"\![*]\q[Something else...,OnPronouns,custom]"
+		"\![*]\q[He/Him/His,OnPronouns,masc,firstboot]\n"
+		"\![*]\q[She/Her/Hers,OnPronouns,fem,firstboot]\n"
+		"\![*]\q[They/Them/Their,OnPronouns,undef,firstboot]\n"
+		"\![*]\q[Something else...,OnPronouns,custom,firstboot]"
 		}
 	}
 	else
@@ -47,97 +47,81 @@ NameDone
 OnNameTeach
 {
 	_tempname = CUTSPACE(reference.raw[0]) //this stores the original name in _tempname
-	_name = reference.raw[0] //putting the raw name into _name to do some tests on it
-	_name = TOLOWER(_name) //changes it to lowercase
-	_name = REPLACE(_name," ","") //removes spaces
-	_name = REPLACE(_name,".","") //removes periods
-	_name = REPLACE(_name,"-","") //removes dashes
+	_name = CleanTerm(reference.raw[0]) //find CleanTerm in anchor.dic, basically removes spaces and dashes and case and whatever
 	
+	_is_first_boot = 0; if reference1 == "firstboot"; _is_first_boot = 1
+	_function = "OnNameTeach"; if _is_first_boot; _function = "OnFirstNameTeach"
+	
+	if _is_first_boot; "\_l[-10000,-10000]\q[ ,CANCEL]\_l[0,0]\*\t" //Prevents balloon from timing out if this is during first boot. Also prevents the user from closing out the input box
 	
 	//-----------Nope, try again--------------------------------------------
 	if _name == "dib"
 	{
-		if firstboot == 1 //&& uninstallStatus == 0
-		{
-		"\0\s[0]\i[92]\i[76]...Huh? \w6Not many people I know with that name. \w4Because it's \w4\i[204]\i[91]my name. \w8\w8\i[76]\i[96]Can I call you something else? \w8\![open,inputbox,OnNameTeach,-1]\_l[-10000,-10000]\*\q[ ,CANCEL]"
-		}
+		if _is_first_boot //&& uninstallStatus == 0
+		{"\0\s[0]\i[92]\i[76]...Huh? \w6Not many people I know with that name. \w4Because it's \w4\i[204]\i[91]my name. \w8\w8\i[76]\i[96]Can I call you something else? \w8\![open,inputbox,%(_function),-1]\_l[-10000,-10000]\*\q[ ,CANCEL]\e"}
 		else
-		{
-		"\0\s[2]\i[77]\i[91]Come on, you know that's my name.\w8\![open,inputbox,OnNameTeach,-1]"
-		}
+		{"\0\s[2]\i[77]\i[91]Come on, you know that's my name.\w8\![open,inputbox,OnNameTeach,-1]\e"}
 	}
 	elseif _name == "mothman"
 	{
-		"\0\s[11]\i[92]Oh... \w8\0\s[0]\i[92]I actually use the same name, \w4\i[21]kind of. \w8\w2\i[91]\i[201]\i[76]Just so we don't get confused, can I call you something else?\w8\![open,inputbox,OnNameTeach,-1]"
+		"\0\s[11]\i[92]Oh... \w8\0\s[0]\i[92]I actually use the same name, \w4\i[21]kind of. \w8\w2\i[91]\i[201]\i[76]Just so we don't get confused, can I call you something else?\w8\![open,inputbox,%(_function),-1]"
 		--
-		if firstboot == 1 {
-			"\_l[-10000,-10000]\*\q[ ,CANCEL]"
-		}
+		if _is_first_boot {"\_l[-10000,-10000]\q[ ,CANCEL]"}
+		--
+		"\e"
 		//not sure if i should keep this one. eh
 	}
 	elseif _name == "dad" || _name == "daddy" || _name == "father" || _name == "dadd" || _name == "mrmembrane" || _name == "professormembrane" || _name == "profmembrane" || _name == "mrsbitters" || _name == "msbitters" || _name == "mrdwicky" || _name == "torquesmackey"
 	{
-		"\0\s[0]\i[70]...No, you aren't.\w8\![open,inputbox,OnNameTeach,-1]"
+		"\0\s[0]\i[70]...No, you aren't.\w8\![open,inputbox,%(_function),-1]"
 		--
-		if firstboot == 1 {
-			"\_l[-10000,-10000]\*\q[ ,CANCEL]"
-		}
+		if _is_first_boot {"\_l[-10000,-10000]\q[ ,CANCEL]"}
+		--
+		"\e"
 	}
 	elseif _name == "dibby" || _name == "dibothy" || _name == "dibble" || _name == "diblet" || _name == "dibbly" || _name == "dibbley" || _name == "dibshit" || _name == "dibster" || _name == "feebly" || _name == "feebley"
 	//TODO: let the user assign dib a nickname! transfer this to that.
 	{
-		if firstboot == 1 && uninstallStatus == 0
-		{
-		"\0\s[0]\i[70]...I'm not calling you that.\w8\![open,inputbox,OnNameTeach,-1]\_l[-10000,-10000]\*\q[ ,CANCEL]"
-		}
+		if _is_first_boot && !uninstallStatus
+		{"\0\s[0]\i[70]...I'm not calling you that.\w8\![open,inputbox,%(_function),-1]\_l[-10000,-10000]\q[ ,CANCEL]\e"}
 		else
-		{
-		"\0\s[0]\i[70]\i[91]...Are you making fun of me? \w2At least use my actual name. I'm not calling you that.\w8\![open,inputbox,OnNameTeach,-1]"
-		}
+		{"\0\s[0]\i[70]\i[91]...Are you making fun of me? \w2At least use my actual name. I'm not calling you that.\w8\![open,inputbox,%(_function),-1]\e"}
 	}
 	elseif _name == "gaz" || _name == "gazlene"
 	{
-		if firstboot == 1
-		{
-		"\0\s[0]Oh- \w8Wow! Hi, Gaz!! \w2Wait, no, this isn't her desktop... \w4Uh, can I call you something else? \w6It just feels weird, y'know?\w8\![open,inputbox,OnNameTeach,-1]\_l[-10000,-10000]\*\q[ ,CANCEL]"
-		}
+		if _is_first_boot
+		{"\0\s[0]Oh- \w8Wow! Hi, Gaz!! \w2Wait, no, this isn't her desktop... \w4Uh, can I call you something else? \w6It just feels weird, y'know?\w8\![open,inputbox,%(_function),-1]\_l[-10000,-10000]\q[ ,CANCEL]\e"}
 		else
-		{
-		"\0\s[0]Hm... \w2That's my sister's name. \w6Can I call you something else? I don't want to confuse you, y'know?\w8\![open,inputbox,OnNameTeach,-1]"
-		}
+		{"\0\s[0]Hm... \w2That's my sister's name. \w6Can I call you something else? I don't want to confuse you, y'know?\w8\![open,inputbox,OnNameTeach,-1]\e"}
 	}
 	elseif _name == "zim"
 	{
-		"\0\s[0]\i[76]...Really? \w8It's just- I know a guy, and he \w1sucks. \w8You'd probably get a little uncomfortable when I talk about him.\w8\![open,inputbox,OnNameTeach,-1]"
-		//TODO: make a variable for whether or not dib has told the user about zim and plan accordingly >:)
+		"\0\s[0]\i[76]...Really? \w8It's just- I know a guy, and he \w1sucks. \w8You'd probably get a little uncomfortable when I talk about him.\w8\![open,inputbox,%(_function),-1]"
 		--
-		if firstboot == 1 {
-			"\_l[-10000,-10000]\*\q[ ,CANCEL]"
-		}
+		if _is_first_boot {"\_l[-10000,-10000]\q[ ,CANCEL]"}
+		--
+		"\e"
+		//TODO: make a variable for whether or not dib has told the user about zim and plan accordingly >:)
 	}
 	//----------Unique responses that allow you to be that name-------------------------------------
-	elseif _tempname == username && firstboot != 1
+	if _name == CleanTerm(username) && !_is_first_boot
 	{
 		username = SHIORI3FW.EscapeAllTags(_tempname)
-		"\0\s[0]Oh, didn't want to change anything? \w8\x%(NameDone)"
+		"\0\s[0]Oh, didn't want to change anything? \w8\x"
 	}
 	elseif _name == "ely"
 	{
-		if firstboot == 1
-		{
-		username = SHIORI3FW.EscapeAllTags(_tempname)
-		"\0\s[3]\i[33]\i[85]E-Ely?! Out of all the places- \w8\i[72]\i[78]Agh, no, no, no. This isn't even their desktop. \w2\s[3]\i[72]It's a common name... \x%(NameDone)\e"
-		}
+		if firstboot
+		{username = SHIORI3FW.EscapeAllTags(_tempname)
+		"\0\s[3]\i[33]\i[85]E-Ely?! Out of all the places- \w8\i[72]\i[78]Agh, no, no, no. This isn't even their desktop. \w2\s[3]\i[72]It's a common name... \x%(NameDone)\e"}
 		else
-		{
-		username = SHIORI3FW.EscapeAllTags(_tempname)
-		"\0\s[0]Huh? \w2Oh, that name... \w5It's a good name. \w2The Ely I already know is really cool. \x%(NameDone)"
-		}
+		{username = SHIORI3FW.EscapeAllTags(_tempname)
+		"\0\s[0]Huh? \w2Oh, that name... \w5It's a good name. \w2The Ely I already know is really cool. \x"}
 	}
 	elseif _name == "gir"
 	{
 		username = SHIORI3FW.EscapeAllTags(_tempname)
-		"\0\s[0]\i[76]...Really? \w2Didn't think anyone else but ZIM's weird robot dog had that name. \w8\x%(NameDone)"
+		"\0\s[0]\i[76]...Really? \w2Didn't think anyone else but ZIM's weird robot dog had that name. \w8\x"
 	}
 	elseif _name == "tak" || _name == "mimi" || _name == "gretchen" || _name == "torque" || _name == "dwicky" || _name == "bitters" || _name == "groyna" || _name == "fizzmitz" || _name == "zib" || _name == "zita" || _name == "keef" || _name == "melvin" || _name == "rob" || _name == "sara" || _name == "willy"
 	{
@@ -147,34 +131,32 @@ OnNameTeach
 	elseif _name == "neil" || _name == "neilc" || _name == "neilcic" || _name == "neilcicierega" || _name == "cicierega" || _name == "lemondemon"
 	{
 		username = SHIORI3FW.EscapeAllTags(_tempname)
-		"\0\s[0]\i[43]NEIL CICIEREGA?!?! \w6\s[2]\i[73]I'M A BIG FAN!! \w2\i[65](how did you find this one lmao) \x%(NameDone)"
+		"\0\s[0]\i[43]NEIL CICIEREGA?!?! \w6\s[2]\i[73]I'M A BIG FAN!! \w2\i[65](how did you find this one lmao) \x"
 	}
 	elseif _name == "eshal" || _name == "phantasia" || _name == "whataphantasia"
 	{
 		username = SHIORI3FW.EscapeAllTags(_tempname)
-		"\0\s[0]Looking for secrets, huh? \w2I'll allow it. \w6\x%(NameDone)"
+		"\0\s[0]Looking for secrets, huh? \w2I'll allow it. \w6\x"
 	}
 	elseif _name == "zi" || _name == "zichqec" || _name == "zar" || _name == "zarla" || _name == "levidre" || _name == "azura" || _name == "quo" || _name == "quonit" || _name == "smoky" || _name == "vita" || _name == "kai" || _name == "gale" //ADD MORE LMAO
 	{
 		username = SHIORI3FW.EscapeAllTags(_tempname)
-		"\0\s[2]\i[91]Oh! \w4That's a cool name! \w6\i[73]You're a cool person! \w8\x%(NameDone)"
+		"\0\s[2]\i[91]Oh! \w4That's a cool name! \w6\i[73]You're a cool person! \w8\x"
 	}
-	elseif ("shit" _in_ _name || "fuck" _in_ _name || "bitch" _in_ _name || "dick" _in_ _name || "crap" _in_ _name || "slut" _in_ _name || "cock" _in_ _name)
+	elseif ASEARCH(_name,WeirdNameArray) != -1
 	{
 		username = SHIORI3FW.EscapeAllTags(_tempname)
-		"\0\s[0]Woah, \w4um, \w5okay. \w8Is that really your..? \w8\x%(NameDone)"
+		"\0\s[0]Woah, \w4um, \w5okay. \w8Is that really your..? \w8\x"
 	}
 	elseif _name == "" 
 	{
 		username = "you"
-		
-		"\0\s[0]Well, I didn't hear anything, so... \x%(NameDone)"
+		"\0\s[0]Well, I didn't hear anything, so... \x"
 	}
 	else
-	{
-		username = SHIORI3FW.EscapeAllTags(_tempname)
-		NameDone
-	}
+	{username = SHIORI3FW.EscapeAllTags(_tempname)}
+	--
+	OnNameDone
 }
 
 OnChangePronoun
@@ -192,13 +174,12 @@ OnChangePronoun
 	--
 	all:{
 	"\n\n\_q"
-	"\![*]\q[He/Him/His,OnPronouns,masc]\n"
-	"\![*]\q[She/Her/Hers,OnPronouns,fem]\n"
-	"\![*]\q[They/Them/Their,OnPronouns,undef]\n"
-	"\![*]\q[Something else...,OnPronouns,custom]"
-	if firstboot != 1 {
-	"\n\n\![*]\q[Back to Config,OnConfigMenu]    \![*]\q[Close Menu,CANCEL]\e"
-	}
+	"\![*]\q[He/Him/His,OnPronouns,masc,%(reference1)]\n"
+	"\![*]\q[She/Her/Hers,OnPronouns,fem,%(reference1)]\n"
+	"\![*]\q[They/Them/Their,OnPronouns,undef,%(reference1)]\n"
+	"\![*]\q[Something else...,OnPronouns,custom,%(reference1)]"
+	if reference1 != "firstboot" 
+	{"\n\n\f[align,right]\![*]\q[Back to Config,OnConfigMenu]    \![*]\q[Close Menu,CANCEL]\e"}
 	}
 }
 
@@ -208,38 +189,15 @@ OnPronouns
 	--
 	if pronouns == "custom" {
         "\0\s[0]Got it. \w8Write them down like... \w8\n\_q'they/them/their/theirs', \w8\n'he/him/his/his', or \w8\n'she/her/her/hers',\_q \w8without the quotes.\n\n\*\![*]\q[Nevermind,OnChangePronoun,custom]\![open,inputbox,OnCustomPronouns,-1]"
-    }
-	else {
-	OnPronounsDone
-	}
-}
-	
-OnPronounsDone 
-{
-	if pronouns == "custom"
-	{
-		pronounplur = reference0
-	}
-	else 
-	{
-		if pronouns == "undef" { pronounplur = "plur" }
-		else { pronounplur = "sing" }
-	}
-	--
-	if firstboot == 1 //This is the end of the firstboot dialogue
-	{
-		firstboot = 0
-		
-		"\0\s[0]Okay, %(username), cool! \w2My name is Dib Membrane. \w2I'll be sticking around for a bit! \w6Now where do I put- \w5\w5\w5\w5\w5\n\n[half]Oh. \w5That's pretty useful. A pocket dimension in my briefcase! \w8And- \w3A bunch of my stuff is in here! \n\n[half]\w8Hey, I could play you some music, I think. And while I'm here, I could tell you all about the files on cryptids I have on hand!\w8\w8\n\nOh, This is going to be very, very interesting.\e"
-		//TODO: dialogue where dib puts spelldrive into dimensional briefcase. cool! also explains that he'll play music for you
-	}
-	else //This is if the user is changing their pronouns through the menu
-	{
-		"\0\s[0]\i[91]Cool, I'll remember."
 		--
-		"\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[I'm done,CANCEL]\e"
-	}
+		if reference1 == "firstboot" 	{"\t\![*]\q[Nevermind,OnChangePronoun,custom,firstboot]\![open,inputbox,OnFirstCustomPronouns,-1]"}
+		else 							{"\*\![*]\q[Nevermind,OnChangePronoun,custom]\![open,inputbox,OnCustomPronouns,-1]"}
+    }
+	else 
+	{"\![raise,OnPronounsDone,%(reference0),%(reference1)]"}
 }
+
+OnFirstCustomPronouns {"\![raise,OnCustomPronouns,%(reference0),firstboot]"}
 
 OnCustomPronouns 
 {
@@ -250,7 +208,10 @@ OnCustomPronouns
 	
 	if ARRAYSIZE(_pronouns) != 4
 	{
-		"\0\s[0]\_qOh, uh, I don't think you inputted them right. \w5Are you using forward slashes? \w5Or did you put in the wrong number of pronouns? \w8\n\n[half]Write them down like... \n'they/them/their/theirs', \n'he/him/his/his', or \n'she/her/her/hers', without the quotes. \n\n\*\![*]\q[Nevermind,OnChangePronoun,custom]\_q\![open,inputbox,OnCustomPronouns,-1,]"
+		"\0\s[0]\_qOh, uh, I don't think you inputted them right. \w5Are you using forward slashes? \w5Or did you put in the wrong number of pronouns? \w8\n\n[half]Write them down like... \n'they/them/their/theirs', \n'he/him/his/his', or \n'she/her/her/hers', without the quotes. \n\n\*"
+		--
+		if reference1 == "firstboot"	 {"\t\![*]\q[Nevermind,OnChangePronoun,custom,firstboot]\![open,inputbox,OnFirstCustomPronouns,-1]"}
+		else							 {"\![*]\q[Nevermind,OnChangePronoun,custom]\_q\![open,inputbox,OnCustomPronouns,-1,]"}
 	}
 	else 
 	{
@@ -266,15 +227,40 @@ OnCustomPronouns
 		}
 	}
 }
+	
+OnPronounsDone 
+{
+	if pronouns == "custom"
+	{
+		pronounplur = reference0
+	}
+	else 
+	{
+		if pronouns == "undef" { pronounplur = "plur" }
+		else { pronounplur = "sing" }
+	}
+	--
+	if reference1 == "firstboot" //This is the end of the firstboot dialogue
+	{
+		"\0\s[0]Okay, %(username), cool! \w2My name is Dib Membrane. \w2I'll be sticking around for a bit! \w6Now where do I put- \w5\w5\w5\w5\w5\n\n[half]Oh. \w5That's pretty useful. A pocket dimension in my briefcase! \w8And- \w3A bunch of my stuff is in here! \n\n[half]\w8Hey, I could play you some music, I think. And while I'm here, I could tell you all about the files on cryptids I have on hand!\w8\w8\n\nOh, This is going to be very, very interesting.\e"
+		//TODO: dialogue where dib puts spelldrive into dimensional briefcase. cool! also explains that he'll play music for you
+	}
+	else //This is if the user is changing their pronouns through the menu
+	{
+		"\0\s[0]\i[91]Cool, I'll remember."
+		--
+		"\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[I'm done,CANCEL]\e"
+	}
+}
 
+//PRONOUNS!!
 //"%(they) left that there."
 //"%(their) work is really cool."
 //"I'll ask %(them) later."
-//"%(they)%(re) really good at it."
-//"%(they) %(are) thinking about cheese!"
-//"%(they) %(were) lost in their code, but %(they) fixed it!!"
+//"%(they)%(p('re','s')) really good at it."
+//"%(they) %(p('are','is')) thinking about cheese!"
+//"%(they) %(p('were','was')) lost in their code, but %(they) fixed it!!"
 //use %(capitalize(they)) to use it properly at the start of sentences.
-//use _s = "s"; if pronouns == "undef"; _s = "re" and other temp vars if needed for more specific pronoun talk
 
 //PRONOUN ENVELOPES!!!!!!!! moved to word.dic
 

@@ -1,0 +1,71 @@
+//Separate from the menus because you could put other interactions here, like poking or booping or punching or asking about various hotspots
+OnMouseDoubleClick
+{
+	if reference5 == 0 //reference5 is the mouse button being clicked, in this case a left click
+	{
+		//reference3 is which character is being clicked
+		//If you want to add double click interactions, reference4 will be the name of the hitbox the mouse is over
+		if reference3 == 0
+		{
+			OnSakuraMenu
+		}
+		else
+		{
+			OnKeroMenu
+		}
+	}
+}
+
+OnMouseWheel
+{
+	if reference3 == 0
+	{OnSakuraMouse(20)}
+}
+OnMouseMove
+{
+	if reference3 == 0
+	{OnSakuraMouse(40)}
+}
+
+OnSakuraMouse : nonoverlap_pool
+{
+	if reference4 == "cloudhair"
+	{
+		stroke++
+		
+		if stroke >= _argv[0]
+		{
+			stroke = 0
+			totaltouch[0]++
+			recenttouch[0]++
+			
+			if !Flag("PandoraFight")
+			{
+				if recenttouch[0] <= 3 {
+				"\0\t"
+				--
+				"\s[4]\i[51]\i[75]\i[110]Hey, hands off the hair. \w8\w8\![anim,stop,51]\i[52]It takes a lot of work to make it look this way, you know.\e"
+				"\s[3]\i[51]\i[75]\i[110]No touching. \w8\w8\![anim,stop,51]\i[52]You are beneath me, mortal.\e"
+				"\s[3]\i[51]\i[75]\i[110]No touching my hair. \w8\w8You do realize that I'm the demi-god here, correct?\e"}
+				elseif recenttouch[0] < 5 {
+				"\s[4]\i[51]\i[72]\i[110]\i[142]Stop annoying me before I flood your apartment.\e"
+				"\s[4]\i[51]\i[72]\i[110]\i[142]You are testing my patience, mortal. \w8\w8It'd be wise to stop.\e"
+				"\s[4]\i[51]\i[72]\i[110]\i[142]Be grateful that I am so merciful, mortal. \w8\w8I would have struck your apartment with lightning a long time ago, if I didn't like this place so much.\e"}
+				else {
+				AddFlag("CloudHairBoot")
+				"\s[4]\i[12]\i[51]\i[72]\i[110]So that's your answer? \w8\w8\s[1]\i[12]\i[53]\i[72]\i[112]\i[142]Very unwise, and also very unfunny! \w8You know what's funny? \w8\w6\s[1]\i[11]\i[71]\i[110]\i[111]\i[141]A stormy cloud over the rest of your day~! \w8\i[53]Byeee~!!\w8\w8\-"
+				}
+			}
+			else
+			{
+				
+			}
+		}
+	}
+}
+
+
+OnMouseLeaveAll
+{
+	stroke = 0
+}

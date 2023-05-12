@@ -1,0 +1,16 @@
+charset,UTF-8
+
+name,Faeia & Tahir
+type,ghost
+
+shiori,yaya.dll
+
+craftman,WhatAPhantasia
+craftmanurl,https://phantasiaukahub.carrd.co
+
+sakura.name,Faeia
+kero.name,Tahir
+
+icon,icon.ico
+
+sstp.allowunspecifiedsend,0

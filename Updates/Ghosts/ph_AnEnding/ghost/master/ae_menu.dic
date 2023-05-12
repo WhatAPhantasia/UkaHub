@@ -89,25 +89,49 @@ OnQuestionMenu : all
 	
 	"\n[half]\f[align,center](You ask her about...)\n\n\f[align,default]"
 	
-	"\![*]\q[Herself,AboutVera]\n" 				//hobbies, interests, life, other stuff
-	"\![*]\q[How she's doing,CheckIn]\n" 		//tiredness checker + thoughts on recent events/flags
-	"\![*]\q[People she knows,OnPeopleMenu]\n" 	//family, friends, enemies, acquaintances
-	"\![*]\q[Dreams & sleeping,DreamMenu]\n" 	//dream menu, talk abt horrorterrors and dreamselves and all that
-	"\![*]\q[Yourself,AboutYou]\n" 				//what she thinks of you based on stats and flags and stuff
-	"\![*]\q[What you're doing,SnoopingOoh]\n" 	//eventual snoop function hehehehehe
+	"\![*]\q[Herself,OnAboutVera]\n" 				//hobbies, interests, life, other stuff
+	"\![*]\q[How she's doing,OnCheckIn]\n" 			//tiredness checker + thoughts on recent events/flags
+	"\![*]\q[People she knows,OnPeopleMenu]\n" 		//family, friends, enemies, acquaintances
+	"\![*]\q[Dreams & sleeping,OnDreamMenu]\n" 		//dream menu, talk abt horrorterrors and dreamselves and all that
+	"\![*]\q[Yourself,OnAboutYou]\n" 				//what she thinks of you based on stats and flags and stuff
+	"\![*]\q[What you're doing,OnSnoopingOoh]\n" 	//eventual snoop function hehehehehe
 	
 	"\n\f[align,right]\![*]\q[Back to Main Menu,OnMenuRun]  \![*]\q[Cancel,CANCEL]\e"
 }
 
-Select.AboutVera : nonoverlap_pool
+OnAboutVera : nonoverlap_pool
 {
 	//general: life, feelings, aspiration, sylladex, strife deck, past
 	//hobbies: origami, candles, aromatherapy, travelling
 	//you can ask her to play with her sylladex and origami and stuff in the interaction menu
 	
+	//ehh other info...
+	//she's jat sikh caste. she doesn't know this ofc. she's been whitewashed by america </3
+	//agnostic. dad is pretty much the same tbh: he never covered his hair, and he cut it... yeah he's not sikh anymore, obviously. he grew up sikh tho so theres some lifestyle influences yk.
+	//(i have way more knowledge abt sunni islam. bc im muslim. GOD i need to have more muslim characters. vera is not one of them)
+	
 	if posfeel >= 25 //starting to see u like a friend
 	{
 		posfeel += 0.5
+		
+		if !Flag("FirstAbtVera")
+		{
+			if !ISVAR("abtvcount"); abtvcount = 0
+			switch abtvcount
+			{
+				"\0\s[1]\_q%(vera)\_q ...ah, \w6my name is vera \w6\i[26]thandi..? \w8\w8\n\s[4]\i[17]\i[26]\_q%(vera)\_q i think i never actually told you that, \w2haha."
+				"\0\s[2]\i[35](It's pronounced Veera.)"
+				"\0\s[2]\_q%(vera)\_q uh, \w6i mostly come up here instead of staying in my apartment room because \w4it gets super stuffy in there...\w8\w8\n\i[17]\_q%(vera)\_q i don't wanna be stuck in that routine, sleeping on the couch and waking up in the middle of the night... \w8\s[3]\i[19]\i[26]i got sick of it."
+				"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ...oh, \w6um, \w8\w8\n\s[2]\i[41]\i[1]\i[26]\_q%(vera)\_q i'm tired \w6and forget stuff \w4a%(br)lot... \w8\w8\n\s[3]\i[1]\i[26]\_q%(vera)\_q i'm trying my best, \w4though..!"
+				"\0\s[1]\_q%(vera)\_q i'm 14 years old..! \w8\w8\n\s[3]\i[18]\i[1]\i[80]\_q%(vera)\_q put my name in the naming box and everything a long time ago, \w6heheh."
+				"\0\s[1]\_q%(vera)\_q ...the thing on my shirt? \w8\w8\n\s[2]\i[1]\_q%(vera)\_q oh, \w2yeah, \w2it's mostly cause the rest of my friends have street sign shirts, too...\w8\w8\n\s[3]\i[19]\_q%(vera)\_q it's a cute coincidence, isn't it?"
+				"\0\s[1]\i[1]\i[80]\_q%(vera)\_q um, \w4i use an \w6\1\s[1050]\0origami \w6\_a[fetchmodus]fetch%(br)modus...\_a \w8\w4\n\s[2]\i[1]\i[84]\_q%(vera)\_q it's not that complicated, \w6\![anim,clear,84]\i[85]i just need to make origami of what i want to get out of my \_a[sylladex]sylladex...\_a \w8\w4\n\1\s[-1]\0\s[1]\i[1]\i[80]\i[18]\_q%(vera)\_q i like it."
+				"\0\s[3]\i[26]\i[1]\i[80]\_q%(vera)\_q ah, \w6my current \_a[strifespecibus]kind abstratus\_a is kinda weird... \w8\w8\n\i[19]\_q%(vera)\_q it's, \w6um, \w6pillowkind. \w8\w8\n\s[4]\i[17]\i[26]\i[1]\i[80]\_q%(vera)\_q it looks dumb in a \_a[strife]strife,\_a \w6but it's gotten pretty useful for me..."
+			}
+			--
+			"\![raise,OnDialogueVars,abtvera]"
+		}
+		else {
 		"\0\s[2]\i[41]\_q%(vera)\_q you know i use the \w6\1\s[1050]\0\s[1]\i[41]origami \w6\_a[fetchmodus]fetch modus\_a by now, \w6right..? \w8\w4\n\s[3]\i[19]\i[41]\i[26]\_q%(vera)\_q i've had it so long i don't remember where i got it, \w2but it's pretty neat. \w8\w4\n\s[2]\i[84]\_q%(vera)\_q if i ever wanna pull something from my \_a[sylladex]sylladex\_a, \w2i have to fold a paper approximation of it... \w8\w4\n\1\s[-1]\0\s[1]\i[85]\i[17]\_q%(vera)\_q it can get kinda finnicky."
 		"\0\s[2]\i[18]\_q%(vera)\_q i really like pillowkind as my%(br)\_a[strifespecibus]kind abstratus...\_a \w8\w8\n\s[3]\_q%(vera)\_q i've been able to allocate even slightly ""pillowy"" things to my \_a[strifespecibus]strife deck,\_a \w2\i[19]like plushies and stuff..!! \w8\w8\n\i[26]\_q%(vera)\_q um, \w6i know that sounds useless, \w6but!! \w8\w8\n\s[5]\i[27]\i[1]\i[80]\_q%(vera)\_q they're soft and VERY throwable!!"
 		"\0\s[1]\_q%(vera)\_q oh, \w2did i tell you that i like making candles..? \w8\w8\n\s[2]\_q%(vera)\_q um, \w6not very well, \w6\i[26]because we don't really have money for, like, supplies? \w8\w8\n\s[3]\i[19]\i[27]\_q%(vera)\_q but \w2i just think they're neat..!"
@@ -122,24 +146,43 @@ Select.AboutVera : nonoverlap_pool
 			"\0\_q%(vera)\_q i don't... \w8\w8\n\s[5]\i[1]\i[80]\![anim,clear,25]\_q%(vera)\_q i don't go to school much anymore. \w8\w8\w2\n\_q%(vera)\_q i just skip and stay home. \w8\w8\w2\n\_q%(vera)\_q it started around when @dad stopped being around, \w8and i kept losing track of time by falling asleep, \w8so..."
 			"\0\s[5]\i[62]\_q%(vera)\_q ...i have tons of irritation in my left eye. \w8\w6\n\s[1]\_q%(vera)\_q it's my weak eye, \w6basically. \w8\w6\n\s[2]\i[26]\_q%(vera)\_q i don't really know why the irritation is a thing, \w6but it's not like we have the money to check it%(br)out..."
 		}
+		}
 	}
 	else //not negative route, not friendly enough yet
 	{
 		posfeel += 0.5
+		//yes. i know. please don't tell me how inefficient this is. /lh
+		if Flag("FirstAbtVera") {
 		sequential:{
 		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ...ah, \w6my name is vera \w6\i[26]thandi..? \w8\w8\n\s[2]\i[17]\i[1]\i[80]\i[26]\_q%(vera)\_q i don't really know what else there is to say..."
+		"\0\s[2]\i[1]\i[80]\i[35](It's pronounced Veera.)" //reference to it is pronounced ah-rah-de-uh
+		"\0\s[2]\i[1]\i[80]\_q%(vera)\_q uh, \w6i mostly come up here instead of staying in my apartment room because \w4it gets super stuffy in there...\w8\w8\n\i[17]\_q%(vera)\_q there's no real complicated reason behind it, you know..?"
+		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ...oh, \w6um, \w8\w8\n\s[2]\i[41]\i[1]\i[26]\_q%(vera)\_q i'm tired \w6and forget stuff \w4a%(br)lot... \w8\w8\n\s[3]\i[1]\i[26]\_q%(vera)\_q i'm trying my best, \w4though..!"
+		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q i'm 14 years old..! \w8\w8\n\s[3]\i[18]\i[1]\i[80]\_q%(vera)\_q put my name in the naming box and everything a long time ago, \w6heheh."
+		"\0\s[1]\i[1]\_q%(vera)\_q ...the thing on my shirt? \w8\w8\n\s[2]\i[1]\_q%(vera)\_q i mean, \w6i've just had it for a long time and i really like it..."
+		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q um, \w4i use an \w6\1\s[1050]\0origami \w6\_a[fetchmodus]fetch%(br)modus...\_a \w8\w4\n\s[2]\i[1]\i[84]\_q%(vera)\_q it's not that complicated, \w6\![anim,clear,84]\i[85]i just need to make origami of what i want to get out of my \_a[sylladex]sylladex...\_a \w8\w4\n\1\s[-1]\0\s[1]\i[1]\i[80]\i[18]\_q%(vera)\_q i like it."
+		"\0\s[3]\i[26]\i[1]\i[80]\_q%(vera)\_q ah, \w6my current \_a[strifespecibus]kind abstratus\_a is kinda weird... \w8\w8\n\i[19]\_q%(vera)\_q it's, \w6um, \w6pillowkind. \w8\w8\n\s[4]\i[17]\i[26]\i[1]\i[80]\_q%(vera)\_q it looks dumb in a \_a[strife]strife,\_a \w6but it's gotten pretty useful for me..."
+		}}
+		else {
+		if !ISVAR("abtvcount"); abtvcount = 0
+		switch abtvcount {
+		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ...ah, \w6my name is vera \w6\i[26]thandi..? \w8\w8\n\s[2]\i[17]\i[1]\i[80]\i[26]\_q%(vera)\_q i don't really know what else there is to say..."
+		"\0\s[2]\i[1]\i[80]\i[35](It's pronounced Veera.)"
+		"\0\s[2]\i[1]\i[80]\_q%(vera)\_q uh, \w6i mostly come up here instead of staying in my apartment room because \w4it gets super stuffy in there...\w8\w8\n\i[17]\_q%(vera)\_q there's no real complicated reason behind it, you know..?"
 		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ...oh, \w6um, \w8\w8\n\s[2]\i[41]\i[1]\i[26]\_q%(vera)\_q i'm tired \w6and forget stuff \w4a%(br)lot... \w8\w8\n\s[3]\i[1]\i[26]\_q%(vera)\_q i'm trying my best, \w4though..!"
 		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q i'm 14 years old..! \w8\w8\n\s[3]\i[18]\i[1]\i[80]\_q%(vera)\_q put my name in the naming box and everything a long time ago, \w6heheh."
 		"\0\s[1]\i[1]\_q%(vera)\_q ...the thing on my shirt? \w8\w8\n\s[2]\i[1]\_q%(vera)\_q i mean, \w6i've just had it for a long time and i really like it..."
 		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q um, \w4i use an \w6\1\s[1050]\0origami \w6\_a[fetchmodus]fetch%(br)modus...\_a \w8\w4\n\s[2]\i[1]\i[84]\_q%(vera)\_q it's not that complicated, \w6\![anim,clear,84]\i[85]i just need to make origami of what i want to get out of my \_a[sylladex]sylladex...\_a \w8\w4\n\1\s[-1]\0\s[1]\i[1]\i[80]\i[18]\_q%(vera)\_q i like it."
 		"\0\s[3]\i[26]\i[1]\i[80]\_q%(vera)\_q ah, \w6my current \_a[strifespecibus]kind abstratus\_a is kinda weird... \w8\w8\n\i[19]\_q%(vera)\_q it's, \w6um, \w6pillowkind. \w8\w8\n\s[4]\i[17]\i[26]\i[1]\i[80]\_q%(vera)\_q it looks dumb in a \_a[strife]strife,\_a \w6but it's gotten pretty useful for me..."
 		}
+		--
+		"\![raise,OnDialogueVars,abtvera]"}
 	}
 	--
 	"%(backtoq)"
 }
 
-Select.CheckIn
+OnCheckIn
 {
 	"\0(Placeholder for check ins!! gasp)"
 	--
@@ -151,23 +194,23 @@ OnPeopleMenu : all
 	"\0\_q\n\f[align,center]"
 	
 	"\n[half](GENERAL)\n"
-	"\![*]\q[Family,genfamily]  "
-	"\![*]\q[Friends,genfriend]  "
-	"\![*]\q[Others,genother]\n"
+	"\![*]\q[Family,Ongenfamily]  "
+	"\![*]\q[Friends,Ongenfriend]  "
+	"\![*]\q[Others,Ongenother]\n"
 	
 	"\n(SPECIFIC)\n"
 	"\f[height,-2]\f[color,disable](Click arrow by name to see their original profiles)\f[height,default]\f[color,default]\n"
-	if KnowAbout[0] != 0 {"\_a[AUTO_ANCHOR:dad]\![*]\_a\q[Her dad,abtluce]  "} else {"\![*]--- ---  "}
-	if KnowAbout[1] != 0 {"\_a[AUTO_ANCHOR:mom]\![*]\_a\q[Her mom,abtmom]\n"} else {"\![*]--- ---\n"}
-	if KnowAbout[2] != 0 {"\_a[AUTO_ANCHOR:skul]\![*]\_a\q[Skul,abtskul]  "} else {"\![*]----  "}
-	if KnowAbout[3] != 0 {"\_a[AUTO_ANCHOR:ulys]\![*]\_a\q[Ulys,abtulys]  "} else {"\![*]----  "}
-	if KnowAbout[4] != 0 {"\_a[AUTO_ANCHOR:lila]\![*]\_a\q[Lila,abtlila]"} else {"\![*]----"}
+	if KnowAbout[0] != 0 {"\_a[AUTO_ANCHOR:dad]\![*]\_a\q[Her dad,Onabtluce]  "} else {"\![*]--- ---  "}
+	if KnowAbout[1] != 0 {"\_a[AUTO_ANCHOR:mom]\![*]\_a\q[Her mom,Onabtmom]\n"} else {"\![*]--- ---\n"}
+	if KnowAbout[2] != 0 {"\_a[AUTO_ANCHOR:skul]\![*]\_a\q[Skul,Onabtskul]  "} else {"\![*]----  "}
+	if KnowAbout[3] != 0 {"\_a[AUTO_ANCHOR:ulys]\![*]\_a\q[Ulys,Onabtulys]  "} else {"\![*]----  "}
+	if KnowAbout[4] != 0 {"\_a[AUTO_ANCHOR:lila]\![*]\_a\q[Lila,Onabtlila]"} else {"\![*]----"}
 	//i have it set up as != 0 because im planning on NOT just using 0 and 1
 	
 	"\n \n\f[align,right]\![*]\q[Back,OnQuestionMenu]  \![*]\q[Cancel,CANCEL]\e"
 }
 
-Select.genfamily : nonoverlap_pool
+Ongenfamily : nonoverlap_pool
 {
 	if posfeel >= 70
 	{
@@ -193,7 +236,7 @@ Select.genfamily : nonoverlap_pool
 	" \n\n\f[color,default]\![*]\q[Ask something else,OnPeopleMenu]\n\![*]\q[I'm done,CANCEL]\e"
 }
 
-Select.genfriend : nonoverlap_pool
+Ongenfriend : nonoverlap_pool
 {
 	if EFlag("FirstHoller")
 	{
@@ -226,7 +269,7 @@ Select.genfriend : nonoverlap_pool
 	" \n\n\f[color,default]\![*]\q[Ask something else,OnPeopleMenu]\n\![*]\q[I'm done,CANCEL]\e"
 }
 
-Select.genother
+Ongenother
 {
 	if posfeel >= 20 //starting to see u like a friend
 	{
@@ -256,7 +299,7 @@ Select.genother
 	" \n\n\f[color,default]\![*]\q[Ask something else,OnPeopleMenu]\n\![*]\q[I'm done,CANCEL]\e"
 }
 
-Select.abtluce : nonoverlap_pool
+Onabtluce : nonoverlap_pool
 {
 	if posfeel >= 70
 	{
@@ -276,7 +319,7 @@ Select.abtluce : nonoverlap_pool
 	" \n\n\f[color,default]\![*]\q[Ask something else,OnPeopleMenu]\n\![*]\q[I'm done,CANCEL]\e"
 }
 
-Select.abtmom : nonoverlap_pool
+Onabtmom : nonoverlap_pool
 {
 	if posfeel >= 70
 	{
@@ -294,7 +337,7 @@ Select.abtmom : nonoverlap_pool
 	" \n\n\f[color,default]\![*]\q[Ask something else,OnPeopleMenu]\n\![*]\q[I'm done,CANCEL]\e"
 }
 
-Select.abtskul : nonoverlap_pool
+Onabtskul : nonoverlap_pool
 {
 	//later add negfeel routes
 	
@@ -310,7 +353,7 @@ Select.abtskul : nonoverlap_pool
 	" \n\n\f[color,default]\![*]\q[Ask something else,OnPeopleMenu]\n\![*]\q[I'm done,CANCEL]\e"
 }
 
-Select.abtulys : nonoverlap_pool
+Onabtulys : nonoverlap_pool
 {
 	posfeel += 0.5
 	
@@ -328,7 +371,7 @@ Select.abtulys : nonoverlap_pool
 	"\n\n\f[color,default]\![*]\q[Ask something else,OnPeopleMenu]\n\![*]\q[I'm done,CANCEL]\e"
 }
 
-Select.abtlila : nonoverlap_pool
+Onabtlila : nonoverlap_pool
 {
 	posfeel += 0.5
 	
@@ -338,14 +381,14 @@ Select.abtlila : nonoverlap_pool
 	" \n\n\f[color,default]\![*]\q[Ask something else,OnPeopleMenu]\n\![*]\q[I'm done,CANCEL]\e"
 }
 
-Select.DreamMenu
+OnDreamMenu
 {
 	"\0(Placeholder for dream menu)\e"
 	--
 	"%(backtoq)"
 }
 
-Select.AboutYou
+OnAboutYou
 {
 	"\0\_q%(vera)\_q my thoughts on %(pername)..? \w8\w8\n"
 	-- //general friendship check
@@ -381,7 +424,7 @@ Select.AboutYou
 	"%(backtoq)"
 }
 
-Select.SnoopingOoh
+OnSnoopingOoh
 {
 	"\0(Placeholder for snooping menu)"
 	--
@@ -647,7 +690,7 @@ Select.comfortv : nonoverlap_pool
 		else; "\s[2]\i[1]\i[17]\i[26]\i[80]\i[1030]\_q%(vera)\_q i-i don't think....\w8\w8\n\![anim,stop,17]\i[18]\_q%(vera)\_q um, thank you..."}
 		
 		all:{"\0\s[1]\i[1]\i[35]\i[80](You tell her that she's a good person!)\w8\w8\n\n"
-		if _justmet; "\s[4]\i[1]\i[17]\i[26]\i[80]\_q%(vera)\_q ...how do you know that? \w8\![anim,stop,17]\i[19]thank you, though..."
+		if _justmet; "\s[4]\i[1]\i[17]\i[26]\i[80]\_q%(vera)\_q ...i don't think you know me enough \w4to make that conclusion? \w8\![anim,stop,17]\i[19]thank you, though..."
 		else; "\s[5]\i[1]\![anim,stop,15]\i[80]\i[1030](...She seems too overwhelmed to say anything to that.)"}
 		
 		all:{"\0\s[1]\i[1]\i[35]\i[80](You tell her that she can talk to you if she's feeling down.)\w8\w8\n\n"
@@ -799,6 +842,7 @@ Select.hugv : nonoverlap_pool
 			"\0\s[1]\i[1]\i[35]\i[80](You ask her if you can hug her.)\w8\w6\n\n"
 			--
 			"\s[2]\i[1]\i[35]\i[80](...She looks away at the suggestion. \w2That's a no, then.)"
+			"\s[2]\i[1]\i[35]\i[80]\i[26](...She looks uncomfortable at the suggestion, \w2so you apologize and disregard it.)"
 		}
 		else
 		{
@@ -978,7 +1022,7 @@ OnTarot : all
 	
 	//suit
 	//THANK FUCKING GOD. idek what re_asearchex does but it works /j
-	//having it need to equal the array size of the cards makes this impossible to show up on custom pulls over like 6 unless u have uber super ultra luck or something LOL
+	//having it need to equal the array size of the cards makes this impossible to show up on custom pulls over like 6 unless u have uber super ultra luck or something LOL.
 	if ARRAYSIZE(RE_ASEARCHEX("Wands",_card)) == ARRAYSIZE(_card)
 	{"\s[2]\i[86]\_q%(vera)\_q all wands? \w8\s[1]\i[86]feeling big shifts in your energy and ambitions lately..?\w8\w8\n"}
 	if ARRAYSIZE(RE_ASEARCHEX("Cups",_card)) == ARRAYSIZE(_card)
@@ -1285,84 +1329,84 @@ OnTarot : all
 		{
 			switch _i
 			{
-				"\_q%(vera)\_q the fool\w8\w8\n"
-				"\_q%(vera)\_q the magician\w8\w8\n"
-				"\_q%(vera)\_q the high priestess\w8\w8\n"
-				"\_q%(vera)\_q the empress\w8\w8\n"
-				"\_q%(vera)\_q the emperor\w8\w8\n"
-				"\_q%(vera)\_q the heirophant\w8\w8\n"
-				"\_q%(vera)\_q the lovers\w8\w8\n"
-				"\_q%(vera)\_q the chariot\w8\w8\n"
-				"\_q%(vera)\_q strength\w8\w8\n"
-				"\_q%(vera)\_q the hermit\w8\w8\n"
-				"\_q%(vera)\_q The Wheel of Fortune\w8\w8\n"
-				"\_q%(vera)\_q Justice\w8\w8\n"
-				"\_q%(vera)\_q The Hanged Man\w8\w8\n"
-				"\_q%(vera)\_q Death\w8\w8\n"
-				"\_q%(vera)\_q Temperance\w8\w8\n"
-				"\_q%(vera)\_q The Devil\w8\w8\n"
-				"\_q%(vera)\_q The Tower\w8\w8\n"
-				"\_q%(vera)\_q The Star\w8\w8\n"
-				"\_q%(vera)\_q The Moon\w8\w8\n"
-				"\_q%(vera)\_q The Sun\w8\w8\n"
-				"\_q%(vera)\_q Judgement\w8\w8\n"
-				"\_q%(vera)\_q The World\w8\w8\n"
-				"\_q%(vera)\_q Knight of Wands\w8\w8\n"
-				"\_q%(vera)\_q King of Wands\w8\w8\n"
-				"\_q%(vera)\_q Queen of Wands\w8\w8\n"
-				"\_q%(vera)\_q Page of Wands\w8\w8\n"
-				"\_q%(vera)\_q 2 of Wands\w8\w8\n"
-				"\_q%(vera)\_q 3 of Wands\w8\w8\n"
-				"\_q%(vera)\_q 4 of Wands\w8\w8\n"
-				"\_q%(vera)\_q 5 of Wands\w8\w8\n"
-				"\_q%(vera)\_q 6 of Wands\w8\w8\n"
-				"\_q%(vera)\_q 7 of Wands\w8\w8\n"
-				"\_q%(vera)\_q 8 of Wands\w8\w8\n"
-				"\_q%(vera)\_q 9 of Wands\w8\w8\n"
-				"\_q%(vera)\_q 10 of Wands\w8\w8\n"
-				"\_q%(vera)\_q Ace of Wands\w8\w8\n"
-				"\_q%(vera)\_q Knight of Cups\w8\w8\n"
-				"\_q%(vera)\_q King of Cups\w8\w8\n"
-				"\_q%(vera)\_q Queen of Cups\w8\w8\n"
-				"\_q%(vera)\_q Page of Cups\w8\w8\n"
-				"\_q%(vera)\_q 2 of Cups\w8\w8\n"
-				"\_q%(vera)\_q 3 of Cups\w8\w8\n"
-				"\_q%(vera)\_q 4 of Cups\w8\w8\n"
-				"\_q%(vera)\_q 5 of Cups\w8\w8\n"
-				"\_q%(vera)\_q 6 of Cups\w8\w8\n"
-				"\_q%(vera)\_q 7 of Cups\w8\w8\n"
-				"\_q%(vera)\_q 8 of Cups\w8\w8\n"
-				"\_q%(vera)\_q 9 of Cups\w8\w8\n"
-				"\_q%(vera)\_q 10 of Cups\w8\w8\n"
-				"\_q%(vera)\_q Ace of Cups\w8\w8\n"
-				"\_q%(vera)\_q Knight of Swords\w8\w8\n"
-				"\_q%(vera)\_q King of Swords\w8\w8\n"
-				"\_q%(vera)\_q Queen of Swords\w8\w8\n"
-				"\_q%(vera)\_q Page of Swords\w8\w8\n"
-				"\_q%(vera)\_q 2 of Swords\w8\w8\n"
-				"\_q%(vera)\_q 3 of Swords\w8\w8\n"
-				"\_q%(vera)\_q 4 of Swords\w8\w8\n"
-				"\_q%(vera)\_q 5 of Swords\w8\w8\n"
-				"\_q%(vera)\_q 6 of Swords\w8\w8\n"
-				"\_q%(vera)\_q 7 of Swords\w8\w8\n"
-				"\_q%(vera)\_q 8 of Swords\w8\w8\n"
-				"\_q%(vera)\_q 9 of Swords\w8\w8\n"
-				"\_q%(vera)\_q 10 of Swords\w8\w8\n"
-				"\_q%(vera)\_q Ace of Swords\w8\w8\n"
-				"\_q%(vera)\_q Knight of Pentacles\w8\w8\n"
-				"\_q%(vera)\_q King of Pentacles\w8\w8\n"
-				"\_q%(vera)\_q Queen of Pentacles\w8\w8\n"
-				"\_q%(vera)\_q Page of Pentacles\w8\w8\n"
-				"\_q%(vera)\_q 2 of Pentacles\w8\w8\n"
-				"\_q%(vera)\_q 3 of Pentacles\w8\w8\n"
-				"\_q%(vera)\_q 4 of Pentacles\w8\w8\n"
-				"\_q%(vera)\_q 5 of Pentacles\w8\w8\n"
-				"\_q%(vera)\_q 6 of Pentacles\w8\w8\n"
-				"\_q%(vera)\_q 7 of Pentacles\w8\w8\n"
-				"\_q%(vera)\_q 8 of Pentacles\w8\w8\n"
-				"\_q%(vera)\_q 9 of Pentacles\w8\w8\n"
-				"\_q%(vera)\_q 10 of Pentacles\w8\w8\n"
-				"\_q%(vera)\_q Ace of Pentacles\w8\w8\n"
+				"\_q%(vera)\_q the fool represents new beginnings and innocence.\w8\w8\n"
+				"\_q%(vera)\_q the magician represents willpower and the desire to create.\w8\w8\n"
+				"\_q%(vera)\_q the high priestess represents intuition and the unconscious inner voice.\w8\w8\n"
+				"\_q%(vera)\_q the empress represents ""motherhood and femininity"", like nature and love and all that.\w8\w8\n"
+				"\_q%(vera)\_q the emperor represents authority, structure, and control.\w8\w8\n"
+				"\_q%(vera)\_q the heirophant represents tradition, conformity, and morality.\w8\w8\n"
+				"\_q%(vera)\_q the lovers represent union and duality, or sometimes choices.\w8\w8\n"
+				"\_q%(vera)\_q the chariot represents direction, control, and self-discipline.\w8\w8\n"
+				"\_q%(vera)\_q strength represents... \w2STRENGTH, \w2and also bravery, compassion, and inner power.\w8\w8\n"
+				"\_q%(vera)\_q the hermit represents contemplation, the search for truth, and inner guidance.\w8\w8\n"
+				"\_q%(vera)\_q the wheel of fortune represents changes, especially in regards to cycles and fate.\w8\w8\n"
+				"\_q%(vera)\_q justice represnets cause and effect, as well as the clarity and truth that come from it.\w8\w8\n"
+				"\_q%(vera)\_q the hanged man represents martyrdom and sacrifice... as well as contemplation and uncertainty.\w8\w8\n"
+				"\_q%(vera)\_q death represents the end of a cycle and big change, or it might mean letting go of something.\w8\w8\n"
+				"\_q%(vera)\_q temperance represents the middle path, patience, and finding meaning.\w8\w8\n"
+				"\_q%(vera)\_q the devil represents materialism, play, and addiction.\w8\w8\n"
+				"\_q%(vera)\_q the tower represents disaster, indicating a sudden upheaval and general destruction.\w8\w8\n"
+				"\_q%(vera)\_q the star- my favorite card- represents hope, faith, and healing.\w8\w8\n"
+				"\_q%(vera)\_q the moon represents the unconscious and intuition, as well as illusions and hidden complexity.\w8\w8\n"
+				"\_q%(vera)\_q the sun represents joy, success, celebration, and the truth.\w8\w8\n"
+				"\_q%(vera)\_q judgement represents reflection, the reckoning, and awakening.\w8\w8\n"
+				"\_q%(vera)\_q the world represents fulfillment, harmony, and completion.\w8\w8\n"
+				"\_q%(vera)\_q the knight of wands represents action, adventure, and fearlessness.\w8\w8\n"
+				"\_q%(vera)\_q the king of wands represents leadership, as well as overcoming challenges and seeing the bigger picture.\w8\w8\n"
+				"\_q%(vera)\_q the queen of wands represents courage, determination, and joy.\w8\w8\n"
+				"\_q%(vera)\_q the page of wands represents exploration, excitement, and freedom.\w8\w8\n"
+				"\_q%(vera)\_q the 2 of wands represents planning, making decisions, and leaving home.\w8\w8\n"
+				"\_q%(vera)\_q the 3 of wands represents expanding, looking ahead, and quick growth.\w8\w8\n"
+				"\_q%(vera)\_q the 4 of wands represents community, support, home, and celebration.\w8\w8\n"
+				"\_q%(vera)\_q the 5 of wands represents competition, rivalry, and conflict.\w8\w8\n"
+				"\_q%(vera)\_q the 6 of wands represents victory, success, reward, and recognition.\w8\w8\n"
+				"\_q%(vera)\_q the 7 of wands represents protection, perserverence, and maintaining control.\w8\w8\n"
+				"\_q%(vera)\_q the 8 of wands represents quick actions and decisions- \w2or sometimes sudden changes.\w8\w8\n"
+				"\_q%(vera)\_q the 9 of wands represents resilience and grit- \w2like a last stand close to victory.\w8\w8\n"
+				"\_q%(vera)\_q the 10 of wands represents accomplishment, as well as the responsibility and burdens of it.\w8\w8\n"
+				"\_q%(vera)\_q the ace of wands represents creation, new desire, energy, and inspiration.\w8\w8\n"
+				"\_q%(vera)\_q the knight of cups represents idealism and romanticism- \w2to follow your own heart.\w8\w8\n"
+				"\_q%(vera)\_q the king of cups represents wisdom, compassion, and balanced control (especially between the head and the heart.)\w8\w8\n"
+				"\_q%(vera)\_q the queen of cups represents compassion, calm, and comfort- like a counsellor, almost.\w8\w8\n"
+				"\_q%(vera)\_q the page of cups represents dreams and sensitivity- the unexpected that comes to us from the unconscious.\w8\w8\n"
+				"\_q%(vera)\_q the 2 of cups represents unity, partnership, and mutual respect.\w8\w8\n"
+				"\_q%(vera)\_q the 3 of cups represents friendship, community, and happiness.\w8\w8\n"
+				"\_q%(vera)\_q the 4 of cups represents apathy, disconnection, and contemplation.\w8\w8\n"
+				"\_q%(vera)\_q the 5 of cups represents loss, grief, and self-pity.\w8\w8\n"
+				"\_q%(vera)\_q the 6 of cups represents familiarity, happy memories, and healing.\w8\w8\n"
+				"\_q%(vera)\_q the 7 of cups represents daydreaming, choices, and searching for purpose.\w8\w8\n"
+				"\_q%(vera)\_q the 8 of cups represents disillusionment and leaving things behind.\w8\w8\n"
+				"\_q%(vera)\_q the 9 of cups represents satisfaction, emotional stability, and luxury.\w8\w8\n"
+				"\_q%(vera)\_q the 10 of cups represents inner happiness and fulfilled dreams.\w8\w8\n"
+				"\_q%(vera)\_q the ace of cups represents new feelings, spirituality, and intuition.\w8\w8\n"
+				"\_q%(vera)\_q the knight of swords represents action, impulsiveness, and defending your beliefs.\w8\w8\n"
+				"\_q%(vera)\_q the king of swords represents placing logic over emotions: it shows discipline and truth.\w8\w8\n"
+				"\_q%(vera)\_q the queen of swords represents complexity, perceptiveness, and having a clear mind.\w8\w8\n"
+				"\_q%(vera)\_q the page of swords represents curiousity, restlessness, and mental energy.\w8\w8\n"
+				"\_q%(vera)\_q the 2 of swords represents difficult choices, indecision, and stalemates.\w8\w8\n"
+				"\_q%(vera)\_q the 3 of swords represents heartbreak, suffering, and grief.\w8\w8\n"
+				"\_q%(vera)\_q the 4 of swords represents rest, recuperation, and contemplation- especially after grief.\w8\w8\n"
+				"\_q%(vera)\_q the 5 of swords represents pure ambition to succeed at any cost, often resulting in conflict, hostility, and stress.\w8\w8\n"
+				"\_q%(vera)\_q the 6 of swords represents transition, leaving things behind, and moving on... like accepting something.\w8\w8\n"
+				"\_q%(vera)\_q the 7 of swords represents deception, trickery, tactics, and strategy.\w8\w8\n"
+				"\_q%(vera)\_q the 8 of swords represents imprisonment and self-victimization.\w8\w8\n"
+				"\_q%(vera)\_q the 9 of swords represents anxiety, hopelessness, nightmares, and isolation.\w8\w8\n"
+				"\_q%(vera)\_q the 10 of swords represents failure, collapse, and defeat- sometimes even betrayal.\w8\w8\n"
+				"\_q%(vera)\_q the ace of swords represents breakthroughs and the clarity of mind that comes with it.\w8\w8\n"
+				"\_q%(vera)\_q the knight of pentacles represents efficiency, hard work, and responsibility.\w8\w8\n"
+				"\_q%(vera)\_q the king of pentacles represents abundance, prosperity, and material sense.w8\w8\n"
+				"\_q%(vera)\_q the queen of pentacles represents practicality, financial security, and the comforts that come with it.\w8\w8\n"
+				"\_q%(vera)\_q the page of pentacles represents goals, grounded ambition, and diligence.\w8\w8\n"
+				"\_q%(vera)\_q the 2 of pentacles represents balancing decisions, priorities, and adapting to change.\w8\w8\n"
+				"\_q%(vera)\_q the 3 of pentacles represents teamwork, collaboration, and the success that comes from it.\w8\w8\n"
+				"\_q%(vera)\_q the 4 of pentacles represents conservation, frugality, and security.\w8\w8\n"
+				"\_q%(vera)\_q the 5 of pentacles represents need, poverty, and insecurity.\w8\w8\n"
+				"\_q%(vera)\_q the 6 of pentacles represents charity, generosity, and sharing.\w8\w8\n"
+				"\_q%(vera)\_q the 7 of pentacles represents perserverence, hard work, patuence, and progress: as well as the rewards that come from it!\w8\w8\n"
+				"\_q%(vera)\_q the 8 of pentacles represents apprenticeship and craftsmanship- like skill, mastery, passion, and dedication!\w2a\w8\w8\n"
+				"\_q%(vera)\_q the 9 of pentacles represents luxury, achievement, leisure, and self-sufficency.\w8\w8\n"
+				"\_q%(vera)\_q the 10 of pentacles represents legacy, culmination, privilege, and inheritance.\w8\w8\n"
+				"\_q%(vera)\_q the ace of pentacles represents opportunities, prosperity, and new ventures.\w8\w8\n"
 			}
 		}
 	}
@@ -1372,11 +1416,15 @@ OnTarot : all
 
 Oneightsinit : all
 {
-	if reference0 == "redo"
-	{"\0\s[3]\i[19]\_q%(vera)\_q hehe, sure you wanna play again?"}
-	elseif reference0 == "forfeit"
+	if reference0 == "wtf"
+	{ERASEVAR("vhand","uhand","discard","deck")
+	"\0\s[3]\i[17]\_q%(vera)\_q actually yeah let's stop.\w8\n\![anim,stop,17]\i[19]\i[26]\_q%(vera)\_q sorry %(pername), you're being a little TOO silly for me right now and you need to calm down!!\e"}
+	elseif reference0 == "verawin"
 	{ERASEVAR("vhand","uhand","discard","deck")
 	"\0\s[1]\i[86]\_q%(vera)\_q oh! \w8\s[3]\i[19]hehehehe, guess i win!\w8\w2\n\![anim,stop,19]\i[15]\_q%(vera)\_q you sure you don't wanna try again?"}
+	elseif reference0 == "userwin"
+	{ERASEVAR("vhand","uhand","discard","deck")
+	"\0\s[3]\i[86]\i[19]\i[27]\_q%(vera)\_q aww, what!! \w8\![anim,stop,19]\![anim,stop,27]\i[15]\i[25]good game, %(pername), \w4but i'm totally gonna beat you next time!!\w8\w2\n\s[4]\i[41]\i[17]\i[27]\_q%(vera)\_q actually, can we play again..??"}
 	elseif reference0 == "rules"
 	{"\0\s[1]\_q%(vera)\_q oh! \w8\s[2]\i[41]um, yeah, i use a lot of house rules for eights.\w8\n\i[18]\_q%(vera)\_q so i get 7 cards, you get 7 cards, \w4\s[3]and the goal of the game is to lose all of your cards first!\w8\w2\n\_q%(vera)\_q you need to match the suit or rank of the card on top of the discard pile to discard it, and there are special cards:\w8\n\i[18]\_q%(vera)\_q queens skip the other player's turn, 2s force the other player to draw 2 cards, and 8s can be played on anything to change the current suit! \w8\![anim,stop,18]\i[17]\i[27]...and if you get a joker, you can make the other player draw 4 cards and change the suit, hehehe..."}
 	else
@@ -1395,93 +1443,93 @@ OnEights : all
 	_display = IARRAY
 	_display2 = IARRAY
 	
-	//RAGHHHHHHHH I HATE VARIABLE BLOAT X2 !!!!!
-	//deck could definitely be axed completely but i dont feel like coding the alternative (which is using the CardDeck function)
-	deck = CardDeck('all')
-	discard = IARRAY
-	vhand = IARRAY
-	uhand = IARRAY
-	
-	//wow i hope these loops don't break anything.
-	for _h = 0; _h < 14; _h++
+	if reference0 == "start" 
 	{
-		_rand = RAND(ARRAYSIZE(deck)-1)
+		//RAGHHHHHHHH I HATE VARIABLE BLOAT X2 !!!!!
+		//deck could definitely be axed completely but i dont feel like coding the alternative (which is using the CardDeck function)
+		deck = CardDeck('all')
+		discard = IARRAY
+		vhand = IARRAY
+		uhand = IARRAY
 		
-		if _h < 7; vhand ,= deck[_rand]
-		else; uhand ,= deck[_rand]
-		//_index ,= ASEARCH(vhand[_vh],deck[_rand])
-		deck[_rand] = IARRAY
-	}
-	
-	//back from the original system for removing cards on hand from deck pile. SUPER inefficient
-	//keeping it only so i can look back on my old code and go "haha WOW how bad!! glad ive improved"
-	/*
-	for _i = 0; _i < 14; _i++
-	{
-		_what = (_vhand ,= _uhand)
-		_index = ASEARCH(_discard,_what)
-		_discard[_index] = IARRAY
-		_what[_i] = IARRAY
-	}
-	foreach _index; _i
-	{if _ugh > 0; _i -= _ugh
-	_discard[_i] = IARRAY
-	_ugh++}
-	*/
-	
-	deck = Shuffle(deck)
-	//okay the shuffle function is weird because it ends up with empty strings in the middle + some array items just get LOST. its with the way that duplicate index positions aren't accounted for i think.
-	for _d = 0; _d < ARRAYSIZE(deck); _d++
-	{
-		_r = ""
-		_name = ""
-		
-		if deck[_d] == ""; deck[_d] = IARRAY
-		if _d == (ARRAYSIZE(deck)-1) 
+		//wow i hope these loops don't break anything.
+		for _h = 0; _h < 14; _h++
 		{
-			discard ,= deck[_d]
+			_rand = RAND(ARRAYSIZE(deck)-1)
 			
-			case discard[(ARRAYSIZE(discard)-1)][0]{
-			when "A" {_r = "Ace"}
-			when "Q" {_r = "Queen"}
-			when "K" {_r = "King"}
-			when "J" {_r = "Jack"}
-			others {_r = "%(discard[(ARRAYSIZE(discard)-1)][0])"}}
-			
-			//TODO: add conditional 
-			if _r != "JOKER"; _name = "%(_r) of %(discard[(ARRAYSIZE(discard)-1)][1])"
-			else; _name = "JOKER: Play any card!"
-			
-			_display2 = "%(_name)"
+			if _h < 7; vhand ,= deck[_rand]
+			else; uhand ,= deck[_rand]
+			//_index ,= ASEARCH(vhand[_vh],deck[_rand])
+			deck[_rand] = IARRAY
+		}
+		
+		deck = Shuffle(deck)
+		//okay the shuffle function is weird because it ends up with empty strings in the middle + some array items just get LOST. its with the way that duplicate index positions aren't accounted for i think.
+		for _d = 0; _d < ARRAYSIZE(deck); _d++
+		{
+			if deck[_d] == ""; deck[_d] = IARRAY
+			if _d == (ARRAYSIZE(deck)-1); discard ,= deck[_d]
 		}
 	}
+	elseif reference0 == "redodeck"
+	{
+		if ARRAYSIZE(discard) <= 5
+		{"\0\t\*\s[3]\i[86]\i[27]\_q%(vera)\_q ...um, \w2%(pername), \w4can i ask what you're doing..???\w8\w8\n\_q%(vera)\_q if you're just going to keep drawing cards, i. \w6\i[19]am going to stop playing with you.\x\![raise,Oneightsinit,wtf]"}
+		
+		deck = discard
+		discard = IARRAY
+		
+		deck = Shuffle(deck)
+		for _d = 0; _d < ARRAYSIZE(deck); _d++
+		{
+			if deck[_d] == ""; deck[_d] = IARRAY
+			if _d == (ARRAYSIZE(deck)-1); discard ,= deck[_d]
+		}
+	}
+	
+	case discard[(ARRAYSIZE(discard)-1)][0]{
+	when "A" {_display2 = "Ace"}
+	when "Q" {_display2 = "Queen"}
+	when "K" {_display2 = "King"}
+	when "J" {_display2 = "Jack"}
+	others {_display2 = "%(discard[(ARRAYSIZE(discard)-1)][0])"}}
+	
+	//TODO: add conditional? for like, a joker that's been played but the suit was changed
+	if _display2 != "JOKER"; _display2 += " of %(discard[(ARRAYSIZE(discard)-1)][1])"
+	else; _display2 = "JOKER: Play any card!"
+	
 	//_display needs to format everything in _uhand so it can be selected to be played.
 	//later change these to be images (unfriendly to those who are blind so have alt text?)
 	foreach uhand; _uh
 	{
-		_rank = ""
 		_cardname = ""
 		
 		//omfg this is so inefficient
 		case _uh[0] {
-		when "A" {_rank = "Ace"}
-		when "Q" {_rank = "Queen"}
-		when "K" {_rank = "King"}
-		when "J" {_rank = "Jack"}
-		others {_rank = "%(_uh[0])"}}
-		if _rank != "JOKER"; _cardname = "%(_rank) of %(_uh[1])"
+		when "A" {_cardname = "Ace"}
+		when "Q" {_cardname = "Queen"}
+		when "K" {_cardname = "King"}
+		when "J" {_cardname = "Jack"}
+		others {_cardname = "%(_uh[0])"}}
+		if _cardname != "JOKER"; _cardname += " of %(_uh[1])"
 		else; _cardname = "JOKER"
 		
 		_display += "\![*]\_a[OnEightsPlay,%(_uh)]%(_cardname)\_a\n"
 	}
-	
 	_display += "\n\![*]\_a[OnEightsPlay,draw]Draw A Card\_a\n"
 	
 	//i have never seen the joker card pulled before, tell me if it ever comes up for you lol?
 	
 	//--------------
 	
-	"\0\*\b2\s[14]\i[35](She shuffles the deck for a moment, \w8\s[1]\i[86]\i[35]then gives you seven cards.)\x"
+	"\0\t\*\b2"
+	
+	if reference0 == "start"; "\s[14]\i[35](She shuffles the deck for a moment, \w8\s[1]\i[86]\i[35]then gives you seven cards.)\x"
+	elseif reference0 == "skip" 
+	{nonoverlap:{
+		"\s[3]\i[86]\i[27]\_q%(vera)\_q what!! \w4\i[19]%(pername), you're so mean!!!!!!\x"
+		"\s[1]\i[86]\i[27]\_q%(vera)\_q gasp,, \w4%(pername), why have you forsaken me,,,\x"
+	}}
 	
 	"\b2\_q\f[align,center]"
 	"\f[bold,1]--TOP OF DISCARD PILE--\n\f[bold,0]"
@@ -1490,38 +1538,98 @@ OnEights : all
 	//if reference0 == "debug"; "debug:\n%(vhand)\n%(uhand)\n%(discard)\n"
 	"%(_display)"
 	
-	"\n\f[align,default]\![*]\q[Forfeit,Oneightsinit,forfeit]\e"
+	"\n\f[align,default]\![*]\q[Forfeit,Oneightsinit,verawin]"
 }
-
-OnEightsPlay
+//function for the USER playing a card in eights
+OnEightsPlay : all
 {
-	//reference0: played rank (can also be "draw" or 
-	//reference0: played suit
-	_display = IARRAY
-	foreach uhand; _uh
-	{
-		_rank = ""
-		_cardname = ""
-		
-		case _uh[0] {
-		when "A" {_rank = "Ace"}
-		when "Q" {_rank = "Queen"}
-		when "K" {_rank = "King"}
-		when "J" {_rank = "Jack"}
-		others {_rank = "%(_uh[0])"}}
-		if _rank != "JOKER"; _cardname = "%(_rank) of %(_uh[1])"
-		else; _cardname = "JOKER"
-		
-		_display += "\![*]\_a[OnEightsPlay,%(_uh)]%(_cardname)\_a\n"
-	}
+	//reference0: played rank (can also be "draw", etc)
+	//reference1: played suit
+	
+	_playcard = "%(reference0),%(reference1)"
+	_displaycard == ""
+	_i == 0
+	
+	case _playcard[0] {
+		when "A" {_displaycard = "Ace"}
+		when "Q" {_displaycard = "Queen"}
+		when "K" {_displaycard = "King"}
+		when "J" {_displaycard = "Jack"}
+		others {_displaycard = "%(_playcard[0])"}}
+	if _displaycard != "JOKER"; _displaycard += " of %(_displaycard[1])"
+	//else; _displaycard = "JOKER"
+	
+	"\0\t\*\s[1]\i[86]\i[35]"
+	
+	//DEBUG
+	"debug: %(_playcard)\n%(deck[(ARRAYSIZE(deck)-1)])\n%(discard[(ARRAYSIZE(discard)-1)])\n\n"
 	
 	//ehhhhhh edge cases to deal with are if a joker is at the top of the discard pile......
 	//thats actually easy to deal with because the discard suit will be JOKER rather than what you'd set the suit to when a joker is pulled, soooo yay!
-	case reference0
+	if reference0 == "draw"
 	{
+		discard ,= deck[(ARRAYSIZE(deck)-1)]
+		deck[(ARRAYSIZE(deck)-1)] == IARRAY
+		_displaycard == discard[(ARRAYSIZE(discard)-1)]
 		
-		
+		if ARRAYSIZE(deck) < 1
+		{
+			"\_q(You take a %(_displaycard) from the deck, \w2which just so happens to be the last card!)\w8\n\n"
+			if uhand >= 40; "\s[3]\i[86]\i[26]\_q%(vera)\_q ...%(pername), what are you doing..?? \w8um,"
+			else; "\s[2]\i[86]\_q%(vera)\_q oh, dang!"
+			" \w6\s[14]give me a second to shuffle the discard pile again...\x\![raise,OnEights,redodeck]"
+		}
+		else
+		{"\_q(You take a %(_displaycard) from the deck.)\x\![raise,OnEights]"}
 	}
+	else
+	{
+		if _playcard != discard[(ARRAYSIZE(discard)-1)] && (reference0 != "JOKER" || reference0 != "8" || reference0 != "2" || reference0 != "Q")
+		{"\_q(You can't play your %(_displaycard) because the suit doesn't match the discard!)\x\![raise,OnEights]"}
+		else 
+		{
+			_i = ASEARCH(_playcard,uhand)
+			discard ,= uhand[_i]
+			uhand[_i] = IARRAY
+			//-------
+			if ARRAYSIZE(uhand) < 1
+			{"\_q(You play your last card- %(_displaycard)! \w8YOU WIN!!)\x\![raise,Oneightsinit,userwin]"}
+			elseif reference0 == "JOKER" //wild +2
+			{"\_q(You play your JOKER!! \w8What suit would you like to change to?)\x\![raise,OnEightsSuit,user,joker]"}
+			elseif reference0 == "8" //wild
+			{"\_q(You play your %(TOUPPER(_displaycard))! \w8What suit would you like to change to?)\x\![raise,OnEightsSuit,user]"}
+			elseif reference0 == "2" //+2
+			{"\_q(You play your %(TOUPPER(_displaycard))! \w8Vera is forced to draw two cards!)\x\![raise,OnEightsVera,two]"}
+			elseif reference0 == "Q" //skip
+			{"\_q(You play your %(TOUPPER(_displaycard))! \w8Vera's turn is skipped!)\x\![raise,OnEights,skip]"}
+			else
+			{"\_q(You place your %(_displaycard) on the discard pile and end your turn.)\x\![raise,OnEightsVera]"}
+		}
+	}
+}
+//vera's turn in eights.
+//shes gonna have a super simple fake ai for now bc you think i wanna code difficulties and quirks into her. HELL NO!
+OnEightsVera
+{
+	//reference0: has two if the user played a plus two. eh. this can also be checked by seeing the rank of the top discarded card but i dont wanna do extra work.
+	
+	_lcard = discard[(ARRAYSIZE(discard)-1)]
+	_displaycard = ""
+	
+	
+	
+	//----- this is the part where text is printed about what shes doing, what she played, and if she has anything to say abt it :>
+	
+	"\0\t\*"
+	
+	"(Vera looks over her cards, \w8then places a %(_displaycard) on the discard pile.)"
+	
+}
+//for changing the suit thru 8 or joker in eights.
+OnEightsSuit
+{
+	//reference0: info on if its the user or vera changing the suit.
+	//reference1: joker or no joker (special behavior)
 }
 
 OnCandleMenu
@@ -1577,7 +1685,7 @@ OnStatMenu : all
 	else 	{"Negative feelings: "}
 			"%(PrintStat(negfeel))\n "
 	
-	"\n\n\f[align,center]\_a[resetinit][RESET GAME]\_a  \_a[OnCredits][CREDITS]\_a"
+	"\n\n\f[align,center]\_a[Onresetinit][RESET GAME]\_a  \_a[OnCredits][CREDITS]\_a"
 	"\n\n\f[align,right]\q[Back to the menu,OnMenuRun] \![*]\e"
 }
 
@@ -1672,7 +1780,7 @@ OnCredits : all
 	"\n\f[align,right]\q[Back,OnStatMenu,] \![*]  \q[Close,CANCEL] \![*]\e"
 }
 
-Select.resetinit
+Onresetinit
 {
 	"\0\_q(Are you sure? Your game progress cannot be restored. The same may not be said for your memories.) "
 	--
@@ -1705,9 +1813,10 @@ OnFunctionMenu : all
 	"\![*]\q[Report a bug,BugReport]\n"
 	"\n[half]"
 	
-	//I HAVE NO IDEA WHERE ELSE TO PUT THIS GRGRGRGR
+	//I HAVE NO IDEA WHERE ELSE TO PUT THESE GRGRGRGR
 	"\f[align,center]"
 	"\![*]\q[Wait here: you'll be gone for a bit,OnAFKInit,userinit]\n" //TODO: actually make this function
+	//also add option to ask her to continue/stop singing
 	"\f[align,default]"
 	
 	"\n"
@@ -1751,7 +1860,7 @@ Select.RecycleBin
 
 Select.BugReport
 {
-	"\0\s[3]\i[26]\_q%(vera)\_q there's bugs here..?? \w8\i[19]i think you should tell \_a[https://whataphantasia.carrd.co]'phantasia'\_a about%(br)that... \w8\n\s[3]\i[41]\i[26]\_q%(vera)\_q um, \w4at least, \w6that's what this bug exterminator card says. \w8found it when i got here!"
+	"\0\s[3]\i[26]\_q%(vera)\_q ah, geez, of course there's bugs, we're outside..!!\w8\w8\n\i[19]\_q%(vera)\_q hm, i think you should tell%(br)\_a[https://whataphantasia.carrd.co]'phantasia'\_a about that...\w8\w4\n\s[3]\i[41]\i[26]\_q%(vera)\_q um, \w4at least, \w6that's what this bug exterminator card says. \w8\i[19]and also i don't have any bugspray on me right now."
 	--
 	"\n\n\f[color,default]\![*]\q[Back to functions,OnFunctionMenu]\n\![*]\q[I'm done,CANCEL]\e"
 }
@@ -1776,7 +1885,7 @@ OnAFKInit
 		if posfeel >= 25
 		{"\0\s[1]\_q%(vera)\_q ...oh, \w2%(they) left..? \w8\w8\n\s[2]\_q%(vera)\_q guess i'll wait.\e"}
 		else
-		{"\0\s[5]\i[1]\![anim,stop,15]\i[80]\_q%(vera)\_q ...%(they)%(re) ignoring me...\e"}
+		{"\0\s[5]\i[1]\![anim,stop,15]\i[80]\_q%(vera)\_q ...%(they)'%(p('re','s')) gone...\e"}
 	}
 }
 

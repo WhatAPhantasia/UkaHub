@@ -1,3 +1,9 @@
+//VERA BOOT STUFF
+//since i keep forgetting: 
+//	\t makes it so event notifications for mouse events wont get triggered until a script break or an \e tag.
+//	\* causes menu choices to not time out. 
+//	these two sillyguys joined together let me FORCE USERS to click through shit HEHEHEHEHAHAHAHHHAA!!!!! YEAHH!!!!!! FUCK YEAH!!!!!!!!! HAHAHAHAHAHA
+
 OnFirstBoot //Dialogue when you first open the ghost
 {
 	FirstBootVars //Initialize all your variables at the very bottom!
@@ -7,26 +13,27 @@ OnFirstBoot //Dialogue when you first open the ghost
 }
 OnFirstBootTalk
 {
-	"\t"
+	"\t\*"
 	--
-	if reference0 == 0 //Very first boot - this dialogue finishes over in nameteach.dic after the user gives their name, make sure you check there.
+	if reference0 == 0 //Very first boot
 	{
-		"\1\s[-1]\0\s[11]\_q%(vera)\_q .\w8.\w8.\w8.\w8.\w8\i[1]? \w8\w4.\w4.\w4.\w4o-oh, \w8\w8\n\_q%(vera)\_q um, \4who are you..? \w6your name..."
+		"\1\s[-1]\0\s[11]\_q%(vera)\_q .\w8.\w8.\w8.\w8.\w8\i[1]? \w8\w4.\w4.\w4.\w4o-oh,\w8\w8\n\_q%(vera)\_q um, \w8you're not gonna tell the landlord or anyone that i'm up here, \w8are you..?\w8\w8\w8\n\s[2]\i[1]\i[17]\i[80]\_q%(vera)\_q oh. \w8okay. \w8\w8\![anim,stop,17]\i[18]thank you...\w8\w8\w8\n\s[1]\i[1]\i[80]\_q%(vera)\_q ...uh, \w8you just want to hang out on the roof too..?\w2?\w8\w8\w8\n\s[2]\i[1]\i[17]\i[80]\_q%(vera)\_q um. \w8sure, \w8i guess.\e"
 	}
 	else //Reference0 is the number of times you've uninstalled the ghost, so this is if you're reinstalling them.
 	{
 		reset[0]++
-		"\1\s[-1]\0\s[11]\_q%(vera)\_q .\w8.\w8.\w8.\w8.\w8\i[1]oh. \w8\w4...huh? \w8\w8\n\_q%(vera)\_q have i... \w8seen you before? \w8\w8\n\_q%(vera)\_q ah- \w8no, it's probably just me. \w8whats your name..?"
+		"\1\s[-1]\0\s[11]\_q%(vera)\_q .\w8.\w8.\w8.\w8.\w8\i[1]? \w8\w4.\w4.\w4.\w4huh, \w8have i seen you before..?\w8\w8\n\_q%(vera)\_q wait, \w8you're not gonna tell the landlord or anyone that i'm up here, \w8are you..?\w8\w8\w8\n\s[2]\i[1]\i[17]\i[80]\_q%(vera)\_q oh. \w8okay. \w8\w8\![anim,stop,17]\i[18]thank you...\w8\w8\w8\n\s[1]\i[1]\i[80]\_q%(vera)\_q ...uh, \w8you just want to hang out on the roof too..?\w2?\w8\w8\w8\n\s[2]\i[1]\i[17]\i[80]\_q%(vera)\_q um. \w8sure, \w8i guess.\e"
 	}
 	--
-	"\![open,inputbox,OnFirstNameTeach]\_l[-10000,-10000]\*\q[ ,CANCEL]"
+	"\e"
 }
 
 OnFirstNameTeach {"\![raise,OnNameTeach,""%(reference0)"",firstboot]"}
 
 OnBoot //Normal booting
 {
-	if reference1 != "test" { //\![raise,OnBoot,VERA - DEFAULT,test]
+	//\![raise,OnBoot,VERA - DEFAULT,test] (wait lol i forgot i did this)
+	if reference1 != "test" { 
 	BootVars //This sets variables you want to be set on a normal boot, like resetting the variable that saves the previous dialogue. Again, make sure you set these up at the bottom.
 	_timesince = FUNCTIONEX("saori/time_check.dll","how_many_days",lastclosed[0],lastclosed[1],lastclosed[2],0,0,0)
 	_timesince *= -1 //Multiply it by -1 to get rid of the negative sign, or to add one if the user traveled back in time.
@@ -62,7 +69,7 @@ TimeBoot //This will be called if it's been at least 3 months since you opened t
 	//Add as many stages to this as you like. Just write the number of days you want. If you want this to happen earlier than 3 months, you can edit it in OnBoot.
 	if _timesince >= 365 //A year
 	{
-		"\0\s[11]\_q%(vera)\_q .\w8.\w8.\w8.\w8.\w8\i[1]huh..?? \w8\w8\w8\n\_q%(vera)\_q i... \w8\w8\s[2]\i[1]\i[80]\i[17]\n\_q%(vera)\_q huh. \w8\w8\w8\s[3]\i[1]\i[80]\i[19]\i[26]\n\_q%(vera)\_q wow, \w2um, \w4%(pername)... \w6right? \w8\w8\n\_q%(vera)\_q i thought you were a dream... \w2but hey!\e"
+		"\0\s[11]\_q%(vera)\_q .\w8.\w8.\w8.\w8.\w8\i[1]huh..?? \w8\w8\w8\n\_q%(vera)\_q i... \w8\w8\s[2]\i[1]\i[80]\i[17]\n\_q%(vera)\_q huh. \w8\w8\w8\s[3]\i[1]\i[80]\i[19]\i[26]\n\_q%(vera)\_q wow, \w2um, \w4%(pername)... \w6right? \w8\w8\n\_q%(vera)\_q i thought you were a dream... \w2but hey, roof buddy!\e"
 	}
 	else
 	{
@@ -119,7 +126,7 @@ OnClose
 	{
 		holdingObsidian = 0
 		
-		"\0\s[2]\i[1]\i[210]\_q%(vera)\_q ah, wait, \w2i can't just take obsidian with me... \w6\s[-1]\w8\w8\w8\n\s[3]\i[1]\i[80]\i[19]\_q%(vera)\_q hehe! \w8ok, see you!\w8\w8\w8\-\e"
+		"\0\s[2]\i[1]\i[210]\_q%(vera)\_q ah, wait, \w2i can't just keep obsidian with me... \w6\s[-1]\w8\w8\w8\n\s[3]\i[1]\i[80]\i[19]\_q%(vera)\_q hehe! \w8ok, see you!\w8\w8\w8\-\e"
 	}
 	else 
 	{
@@ -136,9 +143,10 @@ OnClose
 	}
 	else //If the ghost has been open less than 5 minutes.
 	{
-		"\0\s[11](Ah... \w2Looks like she barely registers her departure, silently going back to sleep.)\w8"
-		"\0\s[11]\i[1]\_q%(vera)\_q already..? \w8\w8\n\s[11]\_q%(vera)\_q good night then, \w4%(pername)..."
-		"\s[1]\i[1]\i[80]\_q%(vera)\_q o-oh, \w4you're going..? \w8\w8\n\s[11]\i[1]\_q%(vera)\_q um, \w4goodbye then, \w4%(pername)..."
+		"\0\s[11](Ah... \w2Looks like she barely registers your departure, silently going back to sleep.)\w8"
+		"\0\s[11]\i[1]\_q%(vera)\_q already..?\w8\w8\n\s[11]\_q%(vera)\_q bye then, \w4%(pername)..."
+		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q o-oh, \w4you're going already..?\w8\w8\n\s[11]\i[1]\_q%(vera)\_q um, \w4goodbye then, \w4%(pername)..."
+		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q oh, \w4just stopping by..?\w8\w8\n\s[11]\i[1]\_q%(vera)\_q seeya then, \w4%(pername)..."
 	}
 	--
 	"\w8\w8\w8\-\e"
@@ -154,12 +162,12 @@ Pool_SleepyBye
 	if daytime {					"\s[1]\i[1]\i[80]\i[18]\i[26]\_q%(vera)\_q daytime..."}
 	if !daytime {					"\s[3]\i[1]\i[80]\i[18]\_q%(vera)\_q hmm... \w6nice and dark."}
 	if timeslot == "earlymorning" {	"\s[1]\i[1]\i[80]\i[18]\i[26]\_q%(vera)\_q ahh, \w2it's still so early..."}
-	if timeslot == "morning" {		"\s[5]\i[26]\i[1]\i[80]\_q%(vera)\_q mmm, \w2isn't it bright out now..?"}
+	if timeslot == "morning" {		"\s[5]\i[26]\i[1]\i[80]\_q%(vera)\_q mmm, \w2bright out now, isn't it..?"}
 	if timeslot == "lunch" {		"\s[2]\i[1]\i[80]\i[17]\_q%(vera)\_q ...middle of the day, huh?"}
 	if timeslot == "afternoon" {	"\s[1]\i[1]\i[80]\i[18]\i[26]\_q%(vera)\_q ah, \w2a lot of the day is gone..."
 									"\s[1]\i[1]\i[80]\i[18]\_q%(vera)\_q afternoon already..?"}
 	if timeslot == "evening" {		"\s[2]\i[1]\i[80]\_q%(vera)\_q oh... \w6i usually get up around this time..."
-									"\s[2]\i[1]\i[80]\_q%(vera)\_q oh..! \w8\s[1]\i[1]\i[80]is it starting to get dark now?"}
+									"\s[2]\i[1]\i[80]\_q%(vera)\_q oh..! \w8\s[1]\i[1]\i[80]it's starting to get dark now, isnt it?"}
 	if timeslot == "latenight" {	"\s[3]\i[1]\i[80]\i[18]\_q%(vera)\_q hmm... \w6nice and dark."}
 	if timeslot == "midnight" {		"\s[3]\i[1]\i[80]\i[18]\_q%(vera)\_q oh, \w2it's midnight..."}
 	if x.up_hours >= 1 { 			"\s[2]\i[1]\i[80]\_q%(vera)\_q ah, \w4we've been hanging out for a while, \w4huh..?"}
@@ -168,10 +176,9 @@ Pool_SleepyBye
 	--
 	"\w8\w8\n\s[11]\i[1]\_q%(vera)\_q "
 	--
-	if daytime {					"i wonder if it's sunny where you are, %(pername)..."
-									"have a good day, \w4%(pername)..."
-									"i hope it's sunny... \w6taking a nap in the sunlight is so nice..."}
-	if !daytime {					"got something to do at night..? \w8i wouldn't know..."
+	if daytime {					"have a good day, \w4%(pername)..."
+									"i hope it's still nice and sunny when i get back to my apartment room... \w6taking a nap in the sunlight is so nice..."}
+	if !daytime {					"got something to do tonight..? \w8i wouldn't know..."
 									"have a good night, \w4%(pername)..."}
 	if timeslot == "earlymorning" {	"got something to do so early..? \w8i wouldn't know..."
 									"i wonder what it's like to wake up early... \w8\w8\n\_q%(vera)\_qseeya."}
@@ -179,7 +186,8 @@ Pool_SleepyBye
 									"i think people eat breakfast around now... \w8maybe i should..."}
 	if timeslot == "lunch" {		"make sure you get something to eat if you're hungry, %(pername)..."}
 	if timeslot == "afternoon" {	"the sun going down always makes me sleepy... \w8\w8\n\_q%(vera)\_qseeya."}
-	if timeslot == "evening" {		"do you get home around now? \w8well, i wouldn't know..."
+	if timeslot == "evening" {		"do you usually get back to your apartment room around now? \w8well, i wouldn't know..."
+									"i should probably get back to my apartment room now, too..."
 									"the sun going down always makes me sleepy... \w8\w8\n\_q%(vera)\_qseeya."}
 	if timeslot == "latenight" {	"...i wish i could just sleep at a normal time..."}
 	if timeslot == "midnight" {		"the city is so nice around this time... \w8\w8\n\s[11]\_q%(vera)\_q maybe i can sleep by the window again..."
@@ -388,10 +396,19 @@ FirstBootVars
 	lastTalk = ""
 	nowshell = "VERA - DEFAULT" //shell name
 	username = "stranger"
-	usertitle = "mixter"
-	pronouns = "undef"
+	if SHIORI3FW.UserSex == "male"{
+		usertitle = "mister"
+		pronouns = "masc"
+		pronounplur = "sing"}
+	elseif SHIORI3FW.UserSex == "female"{
+		usertitle = "miss"
+		pronouns = "fem"
+		pronounplur = "sing"}
+	else{
+		usertitle = "misr"
+		pronouns = "undef"
+		pronounplur = "plur"} //THE RAVERS CODE
 	custompronouns = ("ey","em","eir","eirs")
-	pronounplur = "plur" //THE RAVERS CODE
 	birthday[0] = "???"	 //The user's birthday, written out with words
 	birthday[1] = "???"	 //The user's birthday, written in DD/MM format
 	talkrate = "every 5 minutes"
@@ -471,12 +488,16 @@ OnResetConfirm
 ResetVars
 {
 	x.up_all = x.up_total //please dont mess anything up
+	olduser = username
 	
 	//--menu/misc things to be reset---
 	lastTalk = ""
-	pronouns = "undef"
-	custompronouns = ("ey","em","eir","eirs")
-	pronounplur = "plur"
+	username = "stranger"
+	//for these, it feels kinda like a hassle to reset? she just gets a Feel of your pronouns. its the dreambubble memory
+	//usertitle = "misr"
+	//pronouns = "undef"
+	//custompronouns = ("ey","em","eir","eirs")
+	//pronounplur = "plur"
 	birthday[0] = "???"	//The user's birthday, written out with words
 	birthday[1] = "???"	//The user's birthday, written in DD/MM format
 	talkrate = "every 5 minutes"

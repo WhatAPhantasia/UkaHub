@@ -13,128 +13,160 @@ OnNameTeach
 	_name = REPLACE(_name,".","") //removes periods
 	_name = REPLACE(_name,"-","") //removes dashes
 	
-	//_is_first_boot = 0; if reference1 == "firstboot"; _is_first_boot = 1
-	//_function = "OnNameTeach"; if _is_first_boot; _function = "OnFirstNameTeach"
+	_is_first_boot = 0; if reference1 == "firstboot"; _is_first_boot = 1
+	_function = "OnNameTeach"; if _is_first_boot; _function = "OnFirstNameTeach"
 	
-	//if _is_first_boot; "\_l[-10000,-10000]\q[ ,__VERY_FIRST_BOOT__]\_l[0,0]\*\t" //Prevents balloon from timing out if this is during first boot. Also prevents the user from closing out the input box
+	if _is_first_boot; "\_l[-10000,-10000]\q[ ,__VERY_FIRST_BOOT__]\_l[0,0]\*\t" //Prevents balloon from timing out if this is during first boot. Also prevents the user from closing out the input box
 	
 	if ("snatcher" _in_ _name)
 	{
 		if foundinnocent <= 1
-		{
-		"\0\s[0]Oh, \f[bold,1]very\f[bold,0] funny. \w4Steal my stuff, \w1my minions, \w1me, \w1and now \w1my name. \w6You can never be the real deal, kid!\![open,inputbox,OnNameTeach,-1]"
-		}
+		{"\0\s[0]Oh, \f[bold,1]very\f[bold,0] funny. \w4Steal my stuff, \w1my minions, \w1ME, \w1and now \w1my name. \w6You can never be the real deal, kid!"}
 		else
-		{
-		"\0\s[0]Nope, that name isn't for you, kiddo.\w8\![open,inputbox,OnNameTeach,-1]"
+		{"\0\s[0]Nope, that name isn't for you, kiddo."}
+		--
+		if !_is_first_boot; "\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]" //If changing name through the menu
+		--
+		"\![open,inputbox,%(_function),-1]\e"
 		}
 	}
 	elseif _name == "vanessa"
 	{
 		username = SHIORI3FW.EscapeAllTags(_tempname)
-		"\0\s[0]...Ah. w6What a lovely name. \w6\x%(namedone)"
+		"\0\s[0]...Ah. w6What a lovely name. \w6\x"
 	}
 	elseif _name == "queenvanessa" || _name == "moonjumper" || _name == "hatkid" || _name == "bowkid" || _name == "mustachegirl" || _name == "conductor" || _name == "theconductor" || _name == "djgrooves" || _name == "restingking" || _name == "therestingking" || _name == "mafiaboss"
 	{
-		"\0\s[0]\i[1]\b[4]That name already belongs to someone, and stealing is wrong! Try again.\w8\![open,inputbox,OnNameTeach,-1]"
+		"\0\s[0]\i[1]\b[4]That name already belongs to someone, and stealing is wrong! Try again.\w8"
+		--
+		if !_is_first_boot; "\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]" //If changing name through the menu
+		--
+		"\![open,inputbox,%(_function),-1]\e"
 		//TODO: check surface where it cancels snatcher's talking anim
 		//TODO: make unique dialogues for some of these
 	}
-	elseif _name == "timmy" || _name == "minion" || _name == "kid" || _name == "darling" || _name == "love"
+	elseif _name == "timmy" || _name == "minion" || _name == "kid" || _name == "darling" || _name == "love" //OOMWEFIJEF OMG LOL I FORGOT ABOUT THESE LAST TWO
 	{
 		username = SHIORI3FW.EscapeAllTags(_tempname)
-		"\0\s[0]Pfft- Hahaha, okay, sure. \w6\x%(namedone)"
+		"\0\s[0]Pfft- Hahaha, okay, sure. \w6\x"
 	}
 	elseif _name == "eshal" || _name == "phantasia" || _name == "whataphantasia"
 	{
 		username = SHIORI3FW.EscapeAllTags(_tempname)
-		"\0\s[0]Hahahaha! Looking for secrets, are we? \w6\x%(namedone)"
+		"\0\s[0]Hahahaha! Looking for secrets, are we? \w6\x"
 	}
 	elseif reference0 == "" 
 	{
 		username = "kid"
 		
-		"\0\s[0]Huh? What's that? At a loss for words? \w6\x%(namedone)"
+		"\0\s[0]Huh? What's that? At a loss for words? \w6\x"
 	}
 	else
 	{
 		username = SHIORI3FW.EscapeAllTags(_tempname)
-		"%(namedone)"
 	}
-
-}
-namedone
-{
-	if firstboot == 1
-	{		
-		"\0\s[0]\i[1]\b[4]And what are your pronouns?"
+	--
+	if !_is_first_boot
+	{
+		"\0\s[0]Alright, your name is %(username) now. \w4You should be grateful legalities are so lenient here."
 		--
-		"\w5\n\n\_q\![*]\q[He/Him,choicemasc]   \![*]\q[She/Her,choicefem]   \![*]\q[They/Them,choiceneither]\e"
-		//TODO: check \i[1] where it cancels snatcher's talking anim
+		"\n\n\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[I'm done,CANCEL]\e"
 	}
 	else
 	{
-		"\0\s[0]Alright, your name is %(username) now. \w4You should be grateful legalities are so lenient here. \x\e"
+		"\0\s[0]\i[1]\b[4]And what are your pronouns? "
+		--
+		all:{
+		"\w5\x\f[align,center]\_q"
+		"\![*]\q[He/Him,OnPronouns,masc,firstboot]\n"
+		"\![*]\q[She/Her,OnPronouns,fem,firstboot]\n"
+		"\![*]\q[They/Them,OnPronouns,undef,firstboot]\n"
+		"\![*]\q[Other,OnPronouns,custom,firstboot]"
+		}
+		//TODO: check \i[1] where it cancels snatcher's talking anim
+	}
+}
+
+OnChangePronoun
+{
+	if reference0 == "custom" 
+	{
+		if reference1 == "firstboot"	 {"\![close,inputbox,OnFirstCustomPronouns]\*"}
+		else							 {"\![close,inputbox,OnCustomPronouns]"}
+	}
+	"\0\s[0]\i[1]\b[4]Choose your pronouns! "
+	--
+	all:{
+	"\w5\x\f[align,center]\_q"
+	"\![*]\q[He/Him,OnPronouns,masc,firstboot]\n"
+	"\![*]\q[She/Her,OnPronouns,fem,firstboot]\n"
+	"\![*]\q[They/Them,OnPronouns,undef,firstboot]\n"
+	"\![*]\q[Other,OnPronouns,custom,firstboot]\e"
+	if reference1 != "firstboot" {
+	"\n\n\![*]\q[Back to Config,OnConfigMenu]    \![*]\q[Close Menu,CANCEL]\e"
+	}
+	}
+}
+
+OnPronouns
+{
+	pronouns = reference0
+	--
+	if pronouns == "custom" {
+        "\i[1]\b[4]\_qTell him your pronouns like: \w8\n\_q'they/them/their/theirs', \w8\n'he/him/his/his', or \w8\n'she/her/her/hers',\_q \w8without the quotes.\n\n\f[color,default]"
+		--
+		if reference1 == "firstboot" 	{"\t\![*]\q[Nevermind,OnChangePronoun,custom,firstboot]\![open,inputbox,OnFirstCustomPronouns,-1]"}
+		else 							{"\*\![*]\q[Nevermind,OnChangePronoun,custom]\![open,inputbox,OnCustomPronouns,-1]"}
+    }
+	else {
+		"\![raise,OnPronounsDone,%(reference0),%(reference1)]"
+	}
+}
+
+OnFirstCustomPronouns {"\![raise,OnCustomPronouns,%(reference0),firstboot]"}
+
+OnCustomPronouns 
+{
+	//This code is by smoky, posted onto the free-codes-snippet channel on the udt discord server! i just changed it a bit (and by a bit i mean separate into a billion functions)
+	
+	_pronouns = IARRAY
+	_pronouns = SPLIT(reference0,"/")
+	
+	if ARRAYSIZE(_pronouns) != 4
+	{
+		"\i[1]\b[4]\0\_qThe input cannot be parsed. Check if you have the right amount or kind of slash.\w8\n\n[half]Tell him your pronouns like: \n'they/them/their/theirs', \n'he/him/his/his', or \n'she/her/her/hers', without the quotes.\n\n\f[color,default]"
+		--
+		if reference1 == "firstboot"	 {"\t\![*]\q[Nevermind,OnChangePronoun,custom,firstboot]\![open,inputbox,OnFirstCustomPronouns,-1]"}
+		else							 {"\*\![*]\q[Nevermind,OnChangePronoun,custom]\_q\![open,inputbox,OnCustomPronouns,-1,]"}
+	}
+	else 
+	{
+		custompronouns = SPLIT(reference0,"/")
+		--
+		"\i[1]\b[4]\_qIs that plural or singular? Singular: '%(they) is cool' vs Plural: '%(they) are cool'."
+		--
+		all:{
+		"\n\n\_q\*\f[color,default]"
+		"\![*]\q[Singular,OnPronounsDone,sing,%(reference1)]\n"
+		"\![*]\q[Plural,OnPronounsDone,plur,%(reference1)]\n\n"
+		}
 	}
 }
 	
-OnChangePronoun
+OnPronounsDone 
 {
-	"\0\s[0]\i[1]\b[4]Choose your pronouns!\e"
-	--
-	"\w5\_q\![*]\q[He/Him,choicemasc]\n\![*]\q[She/Her,choicefem]\n\![*]\q[They/Them,choiceneither]\e"
-}
-
-Select.choicemasc
-{
-	presuffix = "masculine"
-	their = "his"
-	theirs = "his"
-	they = "he"
-	them = "him"
-	theyre = "he's"
-	theywere = "he was"
-	--
-	pronoundone
-}
-
-Select.choicefem
-{
-	presuffix = "feminine"
-	their = "her"
-	theirs = "hers"
-	they = "she"
-	them = "her"
-	theyre = "she's"
-	theywere = "she was"
-	--
-	pronoundone
-}
-
-Select.choiceneither
-{
-	presuffix = "undefine"
-	their = "their"
-	theirs = "theirs"
-	they = "they"
-	them = "them"
-	theyre = "they're"
-	theywere = "they were"
-	--
-	pronoundone
-}
-//planning on adding neos.....
-
-
-pronoundone
-{
-	if firstboot == 1
+	if pronouns == "custom"
 	{
-		firstboot = 0
-		--
-		//^ might be redundant but oh well
-		"\![leave,passivemode]"
-		--
+		pronounplur = reference0
+	}
+	else 
+	{
+		if pronouns == "undef" 	{ pronounplur = "plur" }
+		else 					{ pronounplur = "sing" }
+	}
+	--
+	if reference1 == "firstboot"
+	{
 		if soulcustody == 0 && foundinnocent != 2
 		{
 			"\0\s[0]AHAHAHHA! That seals the deal, %(username)! Alright, how do I get your soul from here... \w6\x"
@@ -154,9 +186,22 @@ pronoundone
 	}
 	else
 	{
-		"\0\s[0]Oh? I'll keep it in mind. \x\e"
+		"\0\s[0]Oh? I'll keep it in mind."
+		--
+		"\n\n\_q\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[Close,CANCEL]\e"
 	}
 }
+
+//"%(they) left that there."
+//"%(their) work is really cool."
+//"I'll ask %(them) later."
+//"%(they)%(re) really good at it."
+//"%(they) %(are) thinking about cheese!"
+//"%(they) %(were) lost in their code, but %(they) fixed it!!"
+//use %(capitalize(they)) to use it properly at the start of sentences.
+//use _s = "s"; if pronouns == "undef"; _s = "re" and other temp vars if needed for more specific pronoun talk
+
+//PRONOUN ENVELOPES!!!!!!!! moved to word.dic
 
 
 //Change this later, just taking from x template so i can get this ghost done in time lmao------------
