@@ -1,0 +1,29 @@
+//default lumi
+//look i could NOT do this without a surfacetable istg
+
+charset,UTF-8
+version,1
+option,DisableNoDefineSurfaces
+
+group,V3/4
+{
+	scope,0
+	0,Fallback
+	1,:3
+	2,:)
+	3,:<
+	4,>:(
+}
+group,H3/4
+{
+	scope,0
+	5,:3
+	6,:)
+	7,:<
+	8,>:(
+}
+group
+{
+	scope,0
+	10,null
+}

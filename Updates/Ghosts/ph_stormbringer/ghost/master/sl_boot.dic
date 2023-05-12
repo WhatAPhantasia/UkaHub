@@ -1,0 +1,225 @@
+OnFirstBoot : all
+{
+	OnResetVars
+	OnLSetGender
+
+	"\*\t\1\s[-1]"
+	"\0\s[4]\i[51]\i[75]\i[101]uuUGHH!! \w4It wasn't even my fault!! \w6Pandora was the one who started it! \w2When I get back, I'm going to--\w8\w8\w2\s[3]\i[61]\i[75]\w8\n\n[half]HUH?! \w8\w8\w2\s[4]\i[75]Wait wait wait, \w4what are you doing here?! \w8No one's supposed to be here!\w4\_q\n\n"
+
+	"\![*]\q[This is my balcony?? Who are you?!,OnFB2]\n"
+	"\![*]\q[HOLY SHIT PLASMAEGIS IS IN MY APARTMENT,OnFB3]"
+}
+OnFB2 : all
+{
+	AddFlag("FBWho")
+	"\*\t\0\s[4]\i[13]\i[61]\i[73]...Wait, \w8you don't know who I am? \w8\w8\w2\s[1]\i[13]\i[63]You- \w8\w2You're joking. \w8\w8\s[1]\i[12]\i[62]\i[72]You live in CYBER LIGHT CITY and you don't know about the Disaster Troupe's best member?! \w2Plasmaegis?? \w2The Stormbringer?? \w2Calamity's right hand?!?!\w4\x"
+	"\s[4]\i[51]\i[75]Ugh, whatever! \w8\w2\![anim,stop,51]\i[52]I thought no one still lived here. \w6Your balcony is REALLY empty, \w4so I couldn't tell, \w4and this is OUR spot anyway!!\w8\w8\w4\n\n[half]"
+	"\s[1]\i[52]\i[75]I'm staying, and you're gonna learn about me no matter what!! \w4Hehehe... \w4\![anim,stop,52]\![anim,stop,75]\i[10]\i[53]\i[70]WAHAHAHAHAHAHA!! \w4BE HONORED!!!\e"
+}
+OnFB3 : all
+{
+	AddFlag("FBKnow")
+	"\t\*\0\s[1]\i[61]\i[100]Oh?? \w8\i[53]A fan~! Of course! \w8\![anim,stop,61]\i[60]You should be honored that you're even allowed to be in my presence!!\w8\w8\w6\n\n[half]\s[3]\i[63]...""Your apartment,"" \w8\w4though? \w8\w8This place has been empty for months, \w4and it \w8\i[51]still \w8kinda is. \w8\w8\s[3]\i[52]Seriously! \w6Decorate a bit! \w6We thought no one lived here!\w4\x"
+	"\s[1]Still, \w2you're lucky that I like this place, \w8\i[53]because you get to experience my amazing presence for even longer! \w8\w2\![anim,stop,53]\i[51]Just don't annoy me and we'll get along just swell, okaysies?\e"
+}
+
+OnResetVars
+{
+	if ISVAR("user"); olduser = user
+	if ISVAR("boot_min"); up_all = up_total
+	else; up_all = 0
+	
+	if reference0 != "reset" {
+	if SHIORI3FW.UserSex == "male"
+		{upronouns = ("masc",0)}
+	elseif SHIORI3FW.UserSex == "female"
+		{upronouns = ("fem",0)}
+	else 
+		{upronouns = ("undef",1)}
+	ucustompronouns = ("ey","em","eir","eirs","emself")
+	
+	ResetWeatherData
+	}
+	
+	lastTalk = ""
+	user = "mortal"
+	nowshell = "DEFAULT"
+	//lumis gender is set in firstboot and not reset per reset.
+	aitalkinterval = 300
+	MiscFlags = IARRAY
+	//----petting and stuff!!!!
+	stroke = 0				//reset, not reset, streak
+	totaltouch = (0,0)		//cloudhair, hair
+	recenttouch = (0,0)		//later make reset per hour?
+	//----WOWWWWW MORE STUUUFFF
+	Mode = 0 	//0: Villain time
+				//1: Off duty
+	//----weather variables are under !reset up there
+	//see each index value in sl_other.dic
+
+	boot_min = GETSECCOUNT / 60 //epoch time
+}
+
+OnInitialize
+{
+	//If you want some variables to reset on boot, put them here. This event will happen even if you add other events like OnGhostChanged
+	//OnInitialize is a NOTIFY event! That means it cannot return scripts. This event is only meant for things like variable changes. See this page on Ukadoc for more info: https://ukagakadreamteam.github.io/ukadoc/manual/spec_shiori3.html
+	
+	//If you add new variables in updates, I recommend initializing them like so:
+	//if !ISVAR("NewVariable"); NewVariable = 0
+	//This means that it will only set the new variable if the user doesn't already have it, so that their variables don't get overwritten
+	
+	if reference0 != "reload" //For things you want to reset EXCEPT when just reloading; a convenience for you the dev, basically
+	{
+		LastTalk = ""
+		recenttouch = (0,0)
+		boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
+		OnLSetGender //kinda annoying that it sets everytime you switch to/boot them, i'd rather it be per day, but ill code that later
+		if WeatherStationInstalled 
+		{GetWeatherData
+		OnGetForecastData}
+	}
+}
+
+//putting this here because its most relevant here
+OnLSetGender
+{
+	_c = RAND(10) + 1
+	
+	//could be more efficient but idc
+	case _c {
+		when 1 {
+			lgender = "girl"
+			lpronouns = ("fem",0)
+		}
+		when 2,3 {
+			lgender = "boy"
+			lpronouns = ("masc",0)
+		}
+		when 4,5,6 {
+			lgender = "creature"
+			lpronouns = ("undef",1)
+		}
+		//these genders down below affect the weather they predict/talk about.
+		when 7 {
+			lgender = "cloud"
+			lpronouns = ("custom",0)
+			lcustompronouns = ("cie","cir","cirs","cirs","cirruself")
+		}
+		when 8 {
+			lgender = "lightning"
+			lpronouns = ("custom",0)
+			lcustompronouns = ("bolt","bolt","bolts","bolts","boltself")
+		}
+		when 9 {
+			lgender = "zephyr"
+			lpronouns = ("custom",0)
+			lcustompronouns = ("ze","zer","zephyr","zeph","zephyrself")
+		}
+		when 10 {
+			lgender = "weatherfluid" //gender changes with the current weather
+			OnWeatherPronouns
+		}
+	}
+	//--
+	//"%(_c)" //debug
+}
+
+//\![raise,OnLSetGender]
+//%(lgender) %(they(1))
+
+OnWeatherPronouns
+{
+	//ill do this one eventually. do a check for if weatherplugin is installed.
+	//AND THEN I NEVER DID. after jam after jam~
+	lcustompronouns = ("cie","cir","cirs","cirs","cirruself")
+	lpronouns = ("custom",0)
+}
+
+OnBoot : nonoverlap_pool
+{
+	_temp = SPLIT(SHIORI3FW.UserBirthday,":")
+	_user_birthday = "%(_temp)[1]/%(_temp[2])" //M/D, if you want it D/M you can switch it around
+	_today = "%(_month)/%(_day)" //Again, switch this around if using D/M
+	
+	"\1\s[-1]\0"
+	--
+	if _today == _user_birthday && Flag("PandoraFight")
+	{
+		//i want unique cake for this lol.
+		"\s[2]Soooo... Guess whose special day it is today..?? \w8\w2\s[1]\i[53]IT'S YOURS!!! \w2Happy birthday, %(user)!!!!!\w8\w8\n\n[half]Wehehehe~ \w8Of course I know about your birthday!! \w8A villain has %(their(1)) ways~!!\e"
+	}
+	elseif _today == "1/1" //You can add whatever cool dates you want with more elseifs here
+	{
+		"\0\s[1]\i[53]WOOOOOO!! \w8\i[12]\i[72]Happy %(year),\w4 %(user)!! \w8\![anim,stop,53]\i[51]Can't wait to wreck more havoc this year~\e"
+	}
+	elseif Flag("CloudHairBoot")
+	{
+		RemoveFlag("CloudHairBoot")
+		
+		_p = "person"
+		if lgender == "girl"; _p = "girl"
+		elseif lgender == "boy"; _p = "guy"
+		
+		"\0"
+		--
+		"\s[1]\i[51]\i[75]Wehehehe... \w8\![anim,stop,51]\i[53]Sending all those storms around the apartment building was ~really~ fun! \w8\![anim,stop,53]\i[52]Really, I can't stay mad at you, mortal- \w8\![anim,stop,52]\i[50]Your reactions are just so priceless!\e"
+		"\s[1]\i[51]\i[75]Sooo...! \w8\![anim,stop,51]\i[53]How did the thunderstorm treat you?! \w4Wasn't that just so fun?! \w8\w8\w8\s[3]\i[51]\i[75]But yes. \w8I am still mad. \w8\w5\s[3]\i[12]\i[52]\i[61]It's whatever, though~\e"
+		"\s[1]\i[53]\i[75]WAHAHAHAHAHA!! \w8I feel MUCH better after wrecking that much havoc on your apartment's laundromat. \w8\w8\w4\s[2]\i[51]\i[75]Don't touch my hair again, 'kay? \w8\w4\![anim,stop,51]\i[52]I really can't stay mad though, \w4it's just not the kinda %(_p) I am~\e"
+	}
+	else //Normal boot
+	{
+		_time = "day"
+		if !daytime; _time = "night"
+
+		"\0"
+		--
+
+		//Villain mode
+		"\s[1]\i[13]\i[53]Oh, hey! \w8\w2\![anim,stop,13]\i[12]\i[53]It's my ~favorite~ mortal!! \w8\w2\![anim,stop,53]\i[50]How's your %(_time) been treating you?\e"
+		"\s[1]\i[75]Oooh, still here, huh %(user)? \w8\w2\i[53]Can't fault me for thinking you'd move out~!\e"
+		"\s[1]\i[12]\i[53]Hey hey hey!! \w8What's going on, %(user)? \w8\![anim,stop,53]\i[51]Bet you didn't have as cool as a %(_time) as I did... \w8\w2\![anim,stop,51]\i[53]If you saw me on the news, you know what I mean..!!\e"
+		"\s[1]\i[53]WAHAHAHAHAHA!!! \w8And Plasmaegis the Stormbringer returns again!! \w8\w2\![anim,stop,53]\i[50]How's it hanging, %(user)?\e"
+		"\s[3]\i[61]\i[73]Oh, dang! \w8You're already out on the balcony? \w8\w2\s[1]\i[53]Were you waiting for good ol' me?? \w8Of course you were! \w4I'm Plasmaegis!!\e"
+		"\s[1]\i[53]WahahAHAHAHA-!! \w4\s[4]\i[13]\i[53]\i[73]Cough couhg-- \w4OUGH, \w8I've been doing that WAY too much today. \w8\w8\w2\s[3]\i[51]\i[75]You get no evil laugh from me right now, %(user). \w8\w8\s[2]\i[52]\i[75]Poor you!\e"
+		"\s[1]\i[53]\i[72]Heyyy %(user)!! \w8Out on the balcony again, huh?? \w8\s[1]\i[53]It's because I visit you out here, right? \w8Of course you'd be here!\e"
+		"\s[1]\i[12]\i[53]\i[72]Heeeyyy, %(user)! \w8\w4\s[2]\i[12]\i[52]\i[62]\i[72]It's been a tough %(_time) for me... \w8\w8\w8\s[1]\i[72]\i[51]I was just too good out there today! \w8I was swarmed with fans!! \w8\![anim,stop,51]\i[52]\i[62]Woe is me... \w8\w8\s[1]\i[53]But now, \w2I get to relax~!!\e"
+		"\s[1]\i[12]\i[53]\i[72]%(Capitalize(user)), %(user)! \w8You're out on the balcony already? \w8Wehehe~ \w8What a nice welcome~!\e"
+		"\s[1]\i[13]\i[72]Greeeeettinngsss, %(user)! \w8\w2\i[53]Didya like the weather I arranged to%(_time)??\e"
+		"\s[1]\i[52]Wehehehe! \w4It's m\w2e\w2e\w2e\w1! \w6You know who I am, don't you? \w8Of course you do!\e"
+		"\s[1]\i[14]%(TOUPPER(user))! \w8\i[52]\i[71]I shall be making use of your balcony again to%(_time)!! \w8Be honored!!!\e"
+		"\s[1]%(Capitalize(user))! \w8Plasmaegis is back for the use of your balcony! \w8\i[52]The view is nice and it is my spot!! \w8I am staying!!!\e"
+
+		//stuff specifically NOT for villain mode
+		//"\s[0]Oh, hey %(user). \w4Nice view to%(_time) as always, yeah?"
+	}
+}
+
+OnClose : nonoverlap_pool 
+{
+	up_all = up_total
+	
+	"\0"
+	--
+	if reference0 == "bye" //byebye through menu
+	{
+	"\s[3]What! You're ALREADY leaving?! \w8\i[51]I totally just got here, %(user)!! \w8\i[75]Hmph! \w8\![anim,stop,51]\i[52]Go have fun elsewhere, then! \w8Your balcony is mine!!"
+	"\s[2]\i[75]Aww, you're leaving?? \w8\i[53]Guess I get your balcony all to myself now! \w4Wehehehe..."
+	"\s[2]\i[14]Hmmm? Oh, you're going? \w8\i[52]Kaaay. \w8Seeyaaaa %(user)."
+	"\s[2]\i[14]\i[52]Oh, I know, I know, you're leaving, aren't ya? \w8\![anim,stop,52]\i[53]Fine by me! \w6I get to steal your apartment room!! \w8\w4\s[1]...What do you mean when you say that you're locking the door behind you? \w2\i[62]%(Capitalize(user))??\w2\-"
+	"\s[2]\i[14]\i[63]\i[74]Aww, you're actually going to go do somethinggg? \w8\![anim,stop,63]\i[52]\i[61]Or not. \w6But stiillll! Be like me and do nothing for longeerr!"
+	"\s[1]\i[12]\i[53]\i[72]Bye!! Farewell!! Salutations!!! \w4I wanna work on my vocabulary so my dramatic speeches are cooler! \w6May our fates conspire to have us meet again!!!"
+	"\s[3]\i[13]\i[73]What! I was just about to go, too! \s[3]\i[75]No fair!! \w4I need to leave before you do-- \s[1]\i[12]\i[53]\i[72]BYEBYE!! I WIN!!"	
+	}
+	else //clicking close instead of saying goodbye
+	{
+	"\s[3]\i[61]\i[77]Oh, dang! \w8Gotta go, Pandora got her horns stuck in the gutter again. \w8\w4\i[51]If she's asking ME for help, you know it's bad..."
+	"\s[3]\i[51]\i[75]Ehh... Feeling a little better... \s[1]\i[13]\i[73]I-I mean, er, \s[1]\i[12]\i[53]\i[72]I HAVE TO GO!!! CHAOS CALLS!!! WAHAHAHAHAHAHAHAHAAAA!!"
+	"\s[3]\i[61]\i[77]Huh?! \w8Calamity needs me to %(ANY('throw a thunderstorm over the second central park','throw lightning at the light spire','help him put potholes all over the central district','help him fight his boyf- I mean, NEO again','help him with our evil publicity campaign','scare the mayor with thunderstorms around his house again','put out the fire in the house again','make it cloudy over the beach','throw some winds over the Regaelus Sea','go throw some lightning at some buildings'))!! \w8\s[1]\i[53]SO sorry to cut your time with amazing little me short, \w2but villainy calls~!!"
+	"\s[3]\i[51]Huh, \w4don't I have that thing I need to get around to..? \w8\s[4]\i[52]Grr, I know I have to do it now, \w4or else I'll NEVER get it done, \w4and then Calamity will lecture me again... \w8\w6\s[3]\i[12]\i[52]\i[61]\i[72]So duty calls, I suppose! \w8\w4\s[1]\i[12]\i[53]\i[61]\i[72]Seeya, %(user)!!"
+	"\s[4]\i[13]\i[53]\i[73]Ughhhh! \w8\s[3]\i[51]\i[75]I think I should get around to actually DOING stuff now... \w8\![anim,stop,51]\i[52]\i[61]Gotta go, %(user)!!"
+	"\s[1]\i[13]Oh?? \w6\i[53]It's that annoying rich guy I keep seing around! \w8\s[1]\i[51]I've GOTTA throw some rain on him, \w2\![anim,stop,51]\i[53]SEEYA %(TOUPPER(user))!!!" //hypocrite
+	}
+	--
+	"\w8\w8\-" //This is what makes the ghost close (after a short pause), do not remove the \- , and MAKE SURE you don't use a \e before this point or it won't work
+}

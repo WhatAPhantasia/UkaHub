@@ -1,0 +1,450 @@
+OnTranslate
+{
+	_talk = reference0
+	
+	//This is what makes %(embedded_elements) work in script input
+	if reference1 == "" && reference2 == "" //If this is from the input box
+	{ //send input box : no event (ref2) , no special flag (ref1)
+		_talk = EVAL('"' + REPLACE(_talk,'"','""') + '"')
+	}
+	
+	//If you want to add anything to OnTranslate, like text replacement, I would put it after this point, generally. Just make sure it's before the TOSTR(_talk)
+	
+	//handles pauses in texting dialogue
+	//taken out bc if you dont use the right balloon it doesn't work </3
+	/*
+	if RE_ASEARCH("\b[10]") && !RE_ASEARCH("NOTEXTPAUSE",_talk)
+	{
+		_talk = REPLACE(_talk, "\n", "\w8\w8\w8\w8\w8\w8\w8\n")
+	}
+	*/
+	//dont want to set it to the texting balloon if youre not even using the right balloon
+	if SHIORI3FW.BalloonName != "Cyber Light Chat"
+	{
+		_talk = REPLACE(_talk, "\b[10]", "")
+	}
+	
+	//---------------shell modes
+	
+	//PURPOSE: turn off motion for surfaces that have motion.
+	_motions = "\s[1],\s[2],\s[3],\s[4]"
+	if Flag("NoMotion")
+	{
+		foreach _motions; _s
+		{
+			_talk = REPLACE(_talk, "%(_s)", "%(_s)\![anim,pause,0]")
+		}
+	}
+	
+	//PURPOSE: change villain surfaces to raincoat human surfaces
+	//hrm hrm.. get index position...
+	_raincoats = "\s[5],\s[6],\s[7],\s[8]"
+	if Mode > 0
+	{
+		_i = IARRAY
+		foreach _motions; _s
+		{
+			//kinda roundabout but i dont remember how to do this LOL
+			_i ,= ASEARCH(_s,_motions)
+			_talk = REPLACE(_talk, "%(_s)", "%(_raincoats[_i])")
+		}
+	}
+	
+	TOSTR(_talk)
+}
+
+//This is just here so you can use anchors to link to websites if you want. You can link to websites with normal menu choice tags! If you do, a handy URL preview will show up in the balloon!
+OnAnchorSelect
+{
+	if "http://" _in_ reference0 || "https://" _in_ reference0; "\j[""%(reference0)""]"
+}
+
+//Hotkeys
+OnKeyPress
+{
+	if reference0 == "f1"; "\![open,readme]"
+	elseif reference0 == "t"; OnAiTalk
+	elseif reference0 == "r"; OnLastTalk
+	elseif reference0 == "f5"; "\![reload,ghost]" //renove in post? yeah so no one yeets themself out of the firstboot unintentionally...
+}
+
+//Happens about 30 seconds after a script ends, by default, to bring them back to normal poses
+OnSurfaceRestore
+{
+	"\1\s[-1]\0%(plasmaidle)"
+	"\1\s[-1]\0%(phoneidle)"
+}
+
+//Happens when the ghost is unminimized. You *can* include dialogue, but you don't *have* to. I have included this event because if you don't, it defaults to \0\s[0]\1\s[10], which you don't want in some cases, such as if your ghost uses different surfaces or has a different number of characters.
+OnWindowStateRestore
+{
+	"\1\s[-1]\0%(plasmaidle)"
+}
+
+//Network update url. Make sure you have a / on the end of the url or it will give a warning every time users try to update! If you don't plan to use network updates you can remove this
+//IF YOU'RE USING GITHUB FOR NETWORK UPDATES: DO NOT USE github.io URLS! It will cause you pain and suffering. USE raw.githubusercontent!!!
+//To get the raw.githubusercontent link super easy:
+//• Open your ghost's repo online
+//• navigate to the ghost's folder (the top level one, with install.txt, readme.txt, etc)
+//• Click on install.txt, or another text file on that level
+//• Once on that page, click the "raw" button. You should see the url now starts with raw.githubusercontent
+//• Copy that url exactly as is, but *leave off the "install.txt" or whatever file name at the end.*
+//Tada! That's your url! Make sure you test it! The dev palette and script/network log can help with that
+On_homeurl {"https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/master/Updates/Ghosts/ph_stormbringer/"}
+
+
+//—————————————————————————————— Right click menu links ——————————————————————————————
+
+//Takes an array of alternating names and urls, and formats them for use with the right click menu
+FormatLinks : all
+{
+	for _i = 0; _i < ARRAYSIZE(_argv); _i++
+	{
+		_argv[_i] //Add the link/title
+		//Alternate between adding %ASC(1) or %ASC(2)
+		if _i % 2 == 1; "%ASC(2)"
+		else; "%ASC(1)"
+	}
+}
+
+On_sakura.recommendsites {FormatLinks(recommendsites_sakura)}
+On_recommendrootbutton.caption {"sNO Links"}
+
+//These are the websites linked in the top option of the sakura's right click menu. The format is simple; write the label of the link on the left followed by a semicolon, and then on the right, the url to link to. These should be separate strings.
+recommendsites_sakura : array
+{
+	"Lumi's Toyhou.se Page"; "https://toyhou.se/18059593.lumi"
+	"sNO Info G. Doc"; "https://docs.google.com/document/d/10djS_XVg944NYmU5-8ATwNrzs00s3UQuv8JNErr0FOY/edit?usp=sharing"
+	"sNO Youtube Playlist"; "https://youtube.com/playlist?list=PL0LkeuRFFKdGkBagPa-jENiqZN9gVZOdV" 
+	"sNO Pinterest Board"; "https://www.pinterest.com/thenats789/sno/"
+	"sNO Insta Tag"; "https://www.instagram.com/explore/tags/supernaturaloccurrences/"
+	"sNO Tumblr Tag"; "https://www.tumblr.com/tagged/superNatural%20Occurrences?sort=top"
+}
+
+On_sakura.portalsites {FormatLinks(portalsites_sakura)}
+On_portalrootbutton.caption {"Misc Links + Credit"}
+
+//These are the websites linked in the second option of the sakura's right click menu. Same as above
+portalsites_sakura : array
+{
+	"Download Page"; "https://phantasiaukahub.carrd.co/#lumi"
+	"Changelog (G. Docs)"; "https://docs.google.com/document/d/10yy69A5hkizTPMh1mmRISIDg8M3JMfOdL9abrYmme20/edit?usp=sharing"
+	"Phantasia's Carrd"; "https://whataphantasia.carrd.co/"
+	""; ""
+	"Simplicity v1.0.3"; "https://github.com/Zichqec/simplicity_template"
+	"Ukagaka Dream Team Wiki"; "https://ukagakadreamteam.com/wiki/"
+}
+
+On_kero.recommendsites {FormatLinks(recommendsites_kero)}
+
+//These are the websites linked in the first option of the kero's right click menu. Same as above
+recommendsites_kero : array
+{
+	"How are you seeing this";	""
+}
+
+
+//—————————————————————————————— User pronoun related ——————————————————————————————
+
+they
+{
+	_p = upronouns[0]
+	_pr = ucustompronouns
+	if _argv[0] == 1 {_p = lpronouns[0]; _pr = lcustompronouns}
+
+	if _p == "masc"; "he"
+	elseif _p == "fem"; "she"
+	elseif _p == "custom"; "%(_pr[0])"
+	else; "they"
+}
+them
+{
+	_p = upronouns[0]
+	_pr = ucustompronouns
+	if _argv[0] == 1 {_p = lpronouns[0]; _pr = lcustompronouns}
+
+	if _p == "masc"; "him"
+	elseif _p == "fem"; "her"
+	elseif _p == "custom"; "%(_pr[1])"
+	else; "them"
+}
+their
+{
+	_p = upronouns[0]
+	_pr = ucustompronouns
+	if _argv[0] == 1 {_p = lpronouns[0]; _pr = lcustompronouns}
+
+	if _p == "masc"; "his"
+	elseif _p == "fem"; "her"
+	elseif _p == "custom"; "%(_pr[2])"
+	else; "their"
+}
+theirs
+{
+	_p = upronouns[0]
+	_pr = ucustompronouns
+	if _argv[0] == 1 {_p = lpronouns[0]; _pr = lcustompronouns}
+
+	if _p == "masc"; "his"
+	elseif _p == "fem"; "hers"
+	elseif _p == "custom"; "%(_pr[3])"
+	else; "theirs"
+}
+themself //mostly here to set up neopronouns
+{
+	_p = upronouns[0]
+	_pr = ucustompronouns
+	if _argv[0] == 1 {_p = lpronouns[0]; _pr = lcustompronouns}
+
+	if _p == "masc"; "himself"
+	elseif _p == "fem"; "herself"
+	elseif _p == "custom"; "%(_pr[4])"
+	else; "themself"
+}
+//%(they) %(p('are','is'))
+//You can change the name of this function if you want! I kept it short so it's fast to type
+p
+{
+	if !upronouns[1]; _argv[0] //they are
+	else; _argv[1] //he is/she is
+}
+lp //i hate that i split them up but i dont wanna make it more complex so yeah
+{
+	if !lpronouns[1]; _argv[0] 
+	else; _argv[1]
+}
+
+/*
+An example of the above setup:
+"%(they) %(p('were','was')) looking for that earlier, I'll ask if %(they)'%('ve','s') found it."
+
+If using they, the %(p) functions will return the first word specified, resulting in:
+"they were looking for that earlier, I'll ask if they've found it."
+
+If not using they, for example if using she, it will return the second specified word instead, resulting in:
+"she was looking for that earlier, I'll ask if she's found it."
+
+With this function, you can quickly customize words that need to change based on whether it should be singular or plural. Just remember; the %(p) function is set up so that the first word you specify matches with the 'they' labels used on the pronoun functions. You can always switch that around if you like, too.
+*/
+
+//Copied from the base SHIORI files, but with the username variable added
+OnNotifyUserInfo : void
+{
+	SHIORI3FW.UserName = reference[0]
+	SHIORI3FW.UserNameFull = reference[1]
+	SHIORI3FW.UserBirthday = SPLIT(reference[2],',',3)
+	for _i = 0 ; _i < 3 ; _i++ {
+		SHIORI3FW.UserBirthday[_i] = TOINT(SHIORI3FW.UserBirthday[_i])
+	}
+	SHIORI3FW.UserSex = reference[3]
+}
+
+
+//---------------------
+//qol time stuff from x template because I LIKE IT
+
+//How many minutes the ghost was up in total, including current session
+up_total {up_all + up_mins}
+
+//How long the ghost has been up in the current session
+up_mins {(GETSECCOUNT / 60) - boot_min}
+
+//Total hours
+totalhours {up_total / 60}
+
+//current session hours
+up_hours {up_mins / 60}
+
+//Total hours + minutes
+totalruntime
+{
+	_hours = up_total / 60
+	_mins = up_total % 60
+	if _mins <= 9; _mins = "0%(_mins)"
+	
+	"%(_hours):%(_mins)"
+}
+
+//Current runtime as hours + minutes
+runtime
+{
+	_hours = up_mins / 60
+	_mins = up_mins % 60
+	if _mins <= 9; _mins = "0%(_mins)"
+	
+	"%(_hours):%(_mins)"
+}
+
+//AM or PM - ampm is 0 during am, and 1 during pm
+ap
+{
+ 	if ampm == 0; "AM"
+ 	else; "PM"
+}
+
+//---------------------
+//WEATHER TIME OGURGHEUTGHETHOJRG
+//Weather station code. this is in dev resources so i hope its alright
+On_installedplugin
+{
+    pluginlist = IARRAY
+    foreach reference; _ref
+    {
+        pluginlist ,= _ref[0]
+    }
+}
+
+WeatherStationInstalled
+{
+    if RE_ASEARCH("Weather Station",pluginlist) != -1; 1
+    else; 0
+}
+
+OnWeatherStation.Weather
+{
+	weatherconfig[0] = reference35		//current unit
+	
+	weathererror = ""
+	//weatherdata array order here
+	//weather condition, humidity, day/night, temp, feel temp, wind speed, precipitation, visibility, cloud cover percentage, rain, snow
+	weatherdata[0] = reference0			//current weather condition
+	weatherdata[1] = TOINT(reference8)	//humidity
+	weatherdata[2] = TOINT(reference3)	//day or night
+	
+	if weatherconfig[0] == "Metric"
+	{weatherdata[3] = TOINT(reference5) //temp
+	weatherdata[4] = TOINT(reference7)	//feel temp
+	weatherdata[5] = TOINT(reference10)	//wind speed
+	weatherdata[6] = TOINT(reference16)	//precipitation
+	weatherdata[7] = TOINT(reference23) //visibility
+	}
+	else //Imperial
+	{weatherdata[3] = TOINT(reference4)
+	weatherdata[4] = TOINT(reference6)
+	weatherdata[5] = TOINT(reference9)
+	weatherdata[6] = TOINT(reference15)
+	weatherdata[7] = TOINT(reference22)
+	}
+	
+	weatherdata[8] = TOINT(reference17)	//cloud cover percentage
+	weatherdata[9] = TOINT(reference18)	//will it rain? y/n
+	weatherdata[10] = TOINT(reference20)//will it snow? y/n
+	//chance of rain is in forecastdata.
+}
+
+OnWeatherStation.Forecast.Day
+{
+	//CALLED WITH REFERENCE0 AS THE DAY OF THE FORECAST DESIRED!! 
+	//right now the default that lumi calls is 1, which is the next day.
+	
+	//forecast data array order here
+	//rain chance, snow chance, max temp, min temp, avg temp, windspeed, precipitation, visibility, humidity
+	forecastdata[0]=TOINT(reference13)	//rain chance percentage
+	forecastdata[1]=TOINT(reference15)	//snow chance percentage
+	
+	if weatherconfig[0] == "Metric"
+	{forecastdata[2]=TOINT(reference2)	//max temp
+	forecastdata[3]=TOINT(reference4)	//min temp
+	forecastdata[4]=TOINT(reference6)	//avg temp
+	forecastdata[5]=TOINT(reference9)	//avg windspeed
+	forecastdata[6]=TOINT(reference11)	//precipitation
+	forecastdata[7]=TOINT(reference17)	//visibility
+	}
+	else //Imperial
+	{forecastdata[2]=TOINT(reference1)
+	forecastdata[3]=TOINT(reference3)
+	forecastdata[4]=TOINT(reference5)
+	forecastdata[5]=TOINT(reference8)
+	forecastdata[6]=TOINT(reference10)
+	forecastdata[7]=TOINT(reference16)
+	}
+	
+	forecastdata[8]=TOINT(reference7)	//humidity
+}
+
+//i cant do hourly i think i'll dieee
+//TODO: hourly weather for a later update~
+
+ResetWeatherData
+{
+	weathererror = ""
+	weatherdata = ("","","","","","","","","")
+	weatherconfig = ("")
+	forecastdata = ("","","","","","","","","")
+	forecastdata.hour = ("","","","","","","","","")
+}
+
+OnWeatherStation.Error
+{
+	ResetWeatherData
+	weathererror = reference0
+}
+
+GetWeatherData : all
+{
+	"\![raiseplugin,Weather Station,OnWeatherStation.Weather]"
+	"\![raiseplugin,Weather Station,OnWeatherStation.Astro]"
+}
+
+OnGetForecastData
+{
+	"\![raiseplugin,Weather Station,OnWeatherStation.Forecast.Day]"
+}
+
+//---------------------
+//ough doing this off the top of my head.. i'm just gonna do general times?
+
+//hemisphere: check if weather plugin is installed and location data is set, and set hemisphere to that. if not, make manual.
+
+//same thing for seasons
+
+daytime 
+{
+	if WeatherStationInstalled 
+	{GetWeatherData
+	weatherdata[3]}
+	else
+	{if hour > 7 && hour < 19; 1
+	else; 0}
+}
+
+//Written by Zichqec V im not doing new assets challenge anyway
+Capitalize
+{
+	_buffer = SUBSTR(_argv[0],0,1) //Storing the first character in _buffer
+	_argv[0] = ERASE(_argv[0],0,1) //Erasing the first character from _argv[0]
+	_argv[0] = INSERT(_argv[0],0,TOUPPER(_buffer)) //Making the character in _buffer uppercase and inserting it back into _argv[0]
+	_argv[0] //Returns the capitalized word
+}
+
+//----------FLAG CODE, by zi
+
+//Checks to see if a flag exists. Returns 1 if yes, returns 0 if no
+Flag
+{
+	if !ISVAR("MiscFlags"); MiscFlags = IARRAY
+	if ASEARCH(_argv[0],MiscFlags) != -1; 1
+	else; 0
+}
+
+//Adds a flag to the array
+AddFlag
+{
+	if !ISVAR("MiscFlags"); MiscFlags = IARRAY
+	if !Flag(_argv); MiscFlags ,= _argv
+}
+
+//Removes all instances of a flag in the array
+RemoveFlag
+{
+	if !ISVAR("MiscFlags"); MiscFlags = IARRAY
+	_elements = ASEARCHEX(_argv[0],MiscFlags)
+	if ARRAYSIZE(_elements) > 0
+	{
+		for _i = ARRAYSIZE(_elements) - 1; _i >= 0; _i-- //Goes from the end of the list to the start, so the elements stay in the same positions while we erase
+		{
+			_current = _elements[_i]
+			MiscFlags[_current] = IARRAY
+		}
+	}
+}

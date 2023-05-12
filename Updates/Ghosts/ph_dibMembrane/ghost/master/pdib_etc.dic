@@ -768,7 +768,7 @@ OnUpdateFailure //If the update fails
 	elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
 	{
 		_currentfile = SPLITPATH(reference1)[2] + SPLITPATH(reference1)[3] //This gets the name and extension of the offending file
-		"\0\s[0]\i[99]\i[23]\i[76]...Huh, looks like the MD5 values don't match.\w8\w8 %(dibarmfiddle)\i[201]\i[204]You should contact Phantasia through the creator links in the right click menu and let them know that '%(_currentfile)' is giving an MD5 error.\e"
+		"\0\s[0]\i[99]\i[23]\i[76]...Huh, looks like the MD5 values don't match.\w8\w8 %(dibarmfiddle)\i[201]\i[204]You should contact Phantasia through the creator links in the right click menu and let nim know that '%(_currentfile)' is giving an MD5 error.\e"
 	}
 	elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
 	{
@@ -1107,5 +1107,15 @@ OnKeyPress
 		when "f8"; {if debug; "\![reload,balloon]"}
 		when "v"; {if debug; OnTestVar}
 		when "c"; {if debug; OnCommuPingMenu}
+	}
+}
+
+//When the user closes an input box. I've only put this here so that the user can't accidentally close it during the first boot, you don't need to mess with it if you don't want to.
+//reference0 here is the event that the input box was going to lead to, and reference1 is either timeout or close based on if it timed out or was closed by the user
+OnUserInputCancel
+{
+	if reference0 == "OnFirstNameTeach"
+	{
+		"\![raise,OnNameTeach,,firstboot]"
 	}
 }

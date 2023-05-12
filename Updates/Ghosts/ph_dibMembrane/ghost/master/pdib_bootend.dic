@@ -45,7 +45,6 @@ OnFirstBootVar
 	birthday[1] = "???"	 //The user's birthday, written in DD/MM format
 	talkrate = "every 5 minutes"
 	aitalkinterval = 300
-	totalpunches = 0
 	nowscale = (100,100) //Current scale, as a percentage
 	teachusername = 0
 	//---Petting related variables---
@@ -55,8 +54,9 @@ OnFirstBootVar
 	pethighscore[0] = 0	 //The petting high score, as the number of the stroke value
 	pethighscore[1] = 0	 //The petting high score, as the number of pets
 	totalpets = 0		 //The total times the ghost has been pet
-	offscreen = IARRAY
+	totalpunches = 0
 	//---
+	offscreen = IARRAY
 	deleteshitai = "OFF"
 	//AutoUpdates = ("On",0)
 	//nowmode = "Default" //Uncomment if you plan to add more modes
@@ -75,7 +75,6 @@ x.up_mins {(GETSECCOUNT / 60) - x.boot_min}
 OnFirstBoot
 {
 	uninstallStatus = reference0
-	firstboot = 1
 	OnFirstBootVar
 	installdate = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)","%(ghostver)") 
 	//The above tracks the exact day and time the ghost was installed, in case you want to mess around with that later. It also tracks what version the user installed, which may be helpful for debugging!
@@ -121,7 +120,7 @@ Select.installirken
 		if "%(_i)" != ""
 		{
 			hastranslator = -1
-			"(There has been an issue installing the Irken font : %(_i))\n(You can install it manually with the files in the Swollen Eyeball balloon. All irken dialogue will be locked until the font is installed.)\x"
+			"(There's been an issue installing the Irken font : %(_i))\n(You can install it manually with the files in the Swollen Eyeball balloon. All irken dialogue will be locked until the font is installed.)\x"
 		}
 		else
 		{
@@ -156,18 +155,18 @@ OnFirstBootTalk
 	if uninstallStatus == 0
  	{
 		//temp expressions: replace with actual static poses w/ spelldrives in post
-		"\1\s[-1]\0\s[0]\i[79]\i[92]\i[23]Ah- \w4It worked! The spelldrives still work!! I can't believe I'm... \w2Uh, wherever here is! \w8Wait, what does Digital Jump mean, anyway? And- \w2Why did it only cost two power points? \w4\xOh, nevermind that!! \w2This looks like... \w4A desktop! \w6Pretty cool... \w5\w5If this is a desktop, then it must belong to someone, right? \w8\n.\w2.\w2.\w8\w8\n\n[half]Oh. \w5Hi! \w8I've just been \w2talking to myself this whole time, I didn't even notice you were- \w4Whatever! \w8\xWhat's the name of the person whose computer I'm on, anyway?\n\n[half]"
-		--
-		"\w5\_q\![open,inputbox,OnNameTeach,-1]\_l[-10000,-10000]\*\q[ ,CANCEL]"
+		"\1\t\*\s[-1]\0\s[0]\i[79]\i[92]\i[23]Ah- \w4It worked! The spelldrives still work!! I can't believe I'm... \w2Uh, wherever here is! \w8Wait, what does Digital Jump mean, anyway? And- \w2Why did it only cost two power points? \w4\xOh, nevermind that!! \w2This looks like... \w4A desktop! \w6Pretty cool... \w5\w5If this is a desktop, then it must belong to someone, right? \w8\n.\w2.\w2.\w8\w8\n\n[half]Oh. \w5Hi! \w8I've just been \w2talking to myself this whole time, I didn't even notice you were- \w4Whatever! \w8\xWhat's the name of the person whose computer I'm on, anyway?\n\n[half]"
  	}
 	else
  	{
 		//---- You'll see this if you try to run OnFirstBootTalk using ![raise] without the extra 0 as mentioned above. except i cant actually get it to work?? prob bc i separated onfirstboot and onfirstboottalk lmaoooooooo there's no set reference0 for this function
- 		"\1\s[-1]\0\s[0]Aha! Now- \w8Wait, here again? \w5I guess I should have expected that... \w8\n\n[half]Hey again. \w5I mean, \w1\f[bold,1]are\f[bold,0]\w1 you the same person? \w2What's your name?\n\n[half]"
-		--
-		"\w5\_q\![open,inputbox,OnNameTeach,-1]\_l[-10000,-10000]\*\q[ ,CANCEL]"
+ 		"\1\t\*\s[-1]\0\s[0]Aha! Now- \w8Wait, here again? \w5I guess I should have expected that... \w8\n\n[half]Hey again. \w5I mean, \w1\f[bold,1]are\f[bold,0]\w1 you the same person? \w2What's your name?\n\n[half]"
  	}
+	--
+	"\w6\![open,inputbox,OnFirstNameTeach]\_l[-10000,-10000]\*\q[ ,CANCEL]"
 }
+
+OnFirstNameTeach {"\![raise,OnNameTeach,""%(reference0)"",firstboot]"}
 
 
 //-----------------------Normal Booting----------------------------
@@ -185,6 +184,10 @@ OnBootVar
 	FixDefaultOptions
  	lastTalk = "" //This is part of how chained conversations work (see aitalk.dic).
 	x.boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
+	
+	//--
+	
+	
 }
 OnBoot
 {
@@ -271,12 +274,8 @@ NormalBootTalk : pool
 		{
 		"\0\s[21]\i[21]...\w6\s[21]Oh, \w4hey %(username). \w8\s[0]\i[91]Guess here isn't a bad place to spend "
 		--
-			if weekday != weekend && month != nonskoolmonths {
-			"some time after skool.\e"
-			}
-			else {
-			"an evening.\e"
-			}
+		if weekday != weekend && month != nonskoolmonths 	{"some time after skool.\e"}
+		else 												{"an evening.\e"}
 		}
 	}
 	elseif timeslot == "latenight"
@@ -443,7 +442,7 @@ OnGhostChanging
 	}
 	elseif reference2 == "S the Skeleton" || reference2 == "Multiverse Sans" || reference2 == "Dr. W.D. Gaster" || reference2 == "sans" || reference2 == "Sans" || reference2 == "Papyrus" || reference2 == "Dreamtale Sans" || reference2 == "Jazz"
 	{
-		"\s[12]\i[94]Oh, wow, a skeleton! \w6\i[28]%(reference2)? \w6It's been a while since I messed with the undead... \w8\s[2]\i[93]\i[77]\i[21]\i[80]Last time didn't go so well.\w8\w8\e"
+		"\s[12]\i[94]Oh, wow, a skeleton! \w6\i[28]%(reference2)? \w6It's been a while since I've messed with the undead... \w8\s[2]\i[93]\i[77]\i[21]\i[80]Last time didn't go so well.\w8\w8\e"
 	}
 	elseif reference2 == "FLUX" || reference2 == "flele" //TODO: check if flele is actually correct
 	{
@@ -451,7 +450,7 @@ OnGhostChanging
 	}
  	else
 	{
-		"\0\s[0]\i[91]Hmm... %(reference0)? Interesting!\w8\w8\e"
+		"\0\s[0]\i[91]Hmm... %(reference0)? \w8Interesting!\w8\w8\e"
 		"\0\s[0]\i[92]\i[76]How did %(reference0) get here? \w3I doubt they have spelldrives.\w8\w8\e"
 		"\0\s[0]\i[92]\i[76]Hm, %(reference0)? \w6\0\s[0]\i[96]\i[76]Your desktop seems to be a popular hangout place.\w8\w8\e"
 	}
@@ -609,9 +608,7 @@ if reference0 == 0 //in OnDressupChanged, reference0 refers to the character, th
 				"\0\s[13]\i[43]What- \w8\w4\0\s[13]\i[78]\i[91]Hey! \w4Give that back!"
 				--
 				if nowshell == "Florpus"
-				{
-					"\0\s[3]\i[78]\i[91]\i[65]\w8\n\n[half](You barely notice a difference...)"
-				}
+				{"\s[3]\i[78]\i[91]\i[65]\w8\n\n[half](You barely notice a difference...)"}
 				--
 				"\e"
 			}

@@ -1,0 +1,17 @@
+charset,UTF-8
+
+name,sNO - STORMBRINGER!!
+type,ghost
+
+shiori,yaya.dll
+
+craftman,WhatAPhantasia
+craftmanurl,https://phantasiaukahub.carrd.co
+
+sakura.name,Lumi
+kero.name,
+
+icon,stormy.ico
+balloon,Cyber Light Chat
+
+sstp.allowunspecifiedsend,0

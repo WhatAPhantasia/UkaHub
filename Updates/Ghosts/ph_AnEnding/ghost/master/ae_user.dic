@@ -11,24 +11,17 @@ OnNameTeach
 {	
 	_tempname = CUTSPACE(reference.raw[0]) //this stores the original name in _tempname
 	_name = CleanTerm(reference.raw[0]) //find CleanTerm in anchor.dic, basically removes spaces and dashes and case and whatever
-	
-	_is_first_boot = 0; if reference1 == "firstboot"; _is_first_boot = 1
-	_function = "OnNameTeach"; if _is_first_boot; _function = "OnFirstNameTeach"
-	
-	if _is_first_boot; "\_l[-10000,-10000]\q[ ,CANCEL]\_l[0,0]\*\t" //Prevents balloon from timing out if this is during first boot. Also prevents the user from closing out the input box
 	--
-	if _name == CleanTerm(username) && !(_is_first_boot && reset[0] < 1) //&& _name != "stranger"
-	//this whole thing can be circumvented with the GRAND edge case of the user uninstalling vera through the menu and reinstalling or keeping your username as stranger THEN naming yourself stranger but. whatever LMAO
-	//wait ig i could do if _name == "stranger" but w/e
+	if _name == CleanTerm(olduser)
 	{
 		username = SHIORI3FW.EscapeAllTags(_tempname)
-		
-		if _is_first_boot {
-			"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ...huh? \w8\w8\n\s[2]\i[1]\i[80]\i[17]\_q%(vera)\_q that name sounds... \w8\w8\n\![anim,clear,17]\i[18]\i[26]\_q%(vera)\_q hm.\w8"
-		}
-		else {
-			"\0\s[3]\i[26]\_q%(vera)\_q ...oh! \w8\w8\n\i[19]\_q%(vera)\_q i'll just keep calling you %(TOLOWER(username)), then."
-		}
+		if ISVAR("olduser"); ERASEVAR("olduser")
+		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ...huh?\w8\w8\n\s[2]\i[1]\i[80]\i[17]\_q%(vera)\_q that name sounds...\w8\w8\n\![anim,clear,17]\i[18]\i[26]\_q%(vera)\_q huh.\w8"
+	}
+	elseif _name == CleanTerm(username) || _name == ""
+	{
+		username = SHIORI3FW.EscapeAllTags(_tempname)
+		"\0\s[3]\i[26]\_q%(vera)\_q ...oh! \w8\w8\n\i[19]\_q%(vera)\_q i'll just keep calling you %(TOLOWER(username)), then."
 	}
 	//-------------------------------------------------------ur gonna hafta reconsider that name bucko
 	elseif ASEARCH(_name,CanYouNotArray) != -1
@@ -36,120 +29,80 @@ OnNameTeach
 		negfeel += 3
 		"\0\s[1]\i[1]\i[80]\i[26]\i[35](She looks really uncomfortable. You can't name yourself that.)"
 		--
-		if !_is_first_boot; "\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]" //If changing name through the menu
-		--
-		"\![open,inputbox,%(_function),-1]\e"
+		"\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]\![open,inputbox,OnNameTeach,-1]\e"
 	}
 	elseif ASEARCH(_name,WeirdNameArray) != -1
 	{
 		negfeel += 0.2
 		"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q u-um, \w8\w4\i[19]no????"
 		--
-		if !_is_first_boot; "\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]"
-		--
-		"\![open,inputbox,%(_function),-1]\e"
+		"\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]\![open,inputbox,OnNameTeach,-1]\e"
 	}
 	elseif _name == "vera"
 	{
 		"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q o-oh, \w2um. \w6that's my name...\w8\n\_q%(vera)\_q so, \w4um,\w8\n\_q%(vera)\_q i think \w2i should call you something else..."
 		--
-		if !_is_first_boot; "\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]"
-		--
-		"\![open,inputbox,%(_function),-1]\e"
+		"\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]\![open,inputbox,OnNameTeach,-1]\e"
 	}
 	elseif _name == "luce"
 	{
 		"\0\s[1]\i[1]\i[80]\i[26]\_q%(vera)\_q ...oh.\w8\w4\n\s[3]\i[1]\i[19]\i[26]\i[80]\_q%(vera)\_q um, \w4maybe a nickname would be better..."
 		--
-		if !_is_first_boot; "\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]"
-		--
-		"\![open,inputbox,%(_function),-1]\e"
+		"\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]\![open,inputbox,OnNameTeach,-1]\e"
 	}
 	elseif _name == "skul"
 	{
 		"\0\s[3]\i[1]\i[80]\i[26]\i[1030]\_q%(vera)\_q s-skul??\w8\w6\n\i[19]\_q%(vera)\_q n-no, \w2um, \w2i don't think i can call you that..!"
 		--
-		if !_is_first_boot; "\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]"
-		--
-		"\![open,inputbox,%(_function),-1]\e"
+		"\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]\![open,inputbox,OnNameTeach,-1]\e"
 	}
 	elseif _name == "ulys"
 	{
 		"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q ulys..?\w8\n\i[19]\_q%(vera)\_q you aren't the ulys i know, \w2so i don't think i should call you that..."
 		--
-		if !_is_first_boot; "\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]"
-		--
-		"\![open,inputbox,%(_function),-1]\e"
+		"\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]\![open,inputbox,OnNameTeach,-1]\e"
 	}
 	elseif _name == "lila"
 	{
 		"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q lila..?\w8\n\i[19]\_q%(vera)\_q that might cause some confusion, so..."
 		--
-		if !_is_first_boot; "\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]"
-		--
-		"\![open,inputbox,%(_function),-1]\e"
+		"\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]\![open,inputbox,OnNameTeach,-1]\e"
 	}
 	elseif _name == "instantiator"
 	{
 		"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q h-huh..??\w8\n\_q%(vera)\_q that's my hollercode, \w2so..."
 		--
-		if !_is_first_boot; "\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]"
-		--
-		"\![open,inputbox,%(_function),-1]\e"
+		"\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]\![open,inputbox,OnNameTeach,-1]\e"
 	}
 	elseif _name == "ruminator" || _name == "prospector" || _name == "revisor"
 	{
 		"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q oh, um...\w8\n\_q%(vera)\_q that's a hollercode i know, so i don't think i should..."
 		--
-		if !_is_first_boot; "\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]"
-		--
-		"\![open,inputbox,%(_function),-1]\e"
+		"\n\n\f[color,default]\![*]\q[Cancel,OnConfigMenu,OnNameTeach]\![open,inputbox,OnNameTeach,-1]\e"
 	}
 	//---------------------------------------------------------unique responses that let u be that name
 	elseif ASEARCH(_name,SwearJarArray) != -1
 	{
 		username = SHIORI3FW.EscapeAllTags(_tempname) //Escape any tags the user might've stuck in there
-		
 		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q o-oh, \w6um.\w8\w8\n\i[26]\i[19]\_q%(vera)\_q is that really your..?"
 	}
-	elseif _name == "" //If the user doesn't put in anything
+	elseif _name == "wiki"
 	{
-		if _is_first_boot {
-			username = "stranger"
-			"\0\s[3]\i[1]\i[80]\i[26]\_q%(vera)\_q o-oh, \w6um...\w8\w8\n\i[19]\_q%(vera)\_q hi, \w2then, \w2stranger!"
-		}
-		else {
-			"\0\s[3]\i[41]\_q%(vera)\_q pfft, hehe...\w8\n\i[19]\_q%(vera)\_q guess i'll keep calling you %(TOLOWER(username)), \w6then!"
-		}
+		username = SHIORI3FW.EscapeAllTags(_tempname) 
+		"\0%(vattention)\_q%(vera)\_q oh..! \w8\s[2]\i[1]\i[80]are you putting things on the wiki, or..?"
 	}
-	else //normal name response. u can add names that just have comments and can still be used, just don't add a \e at the end.
+	elseif _name == "phantasia" || _name == "whataphantasia" || _name == "eshal"
+	{
+		username = SHIORI3FW.EscapeAllTags(_tempname) 
+		"\0\s[2]\i[1]\i[80]\_q%(vera)\_q really? \w6hehe, okay."
+	}
+	else //normal name response.
 	{
 		username = SHIORI3FW.EscapeAllTags(_tempname)
-		
-		if !_is_first_boot {
-			"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ok, %(TOLOWER(username))! \w4got it..."
-		}
-		else {
-			"\0\s[1]\i[1]\i[80]\_q%(vera)\_q %(TOLOWER(username))..? \w4got it..."
-		}
+		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q %(TOLOWER(username))..? \w4got it..."
 	}
 	--
-	if !_is_first_boot //If the user was changing their name through the config menu
-	{
-		"\n\n\f[color,default]\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[I'm done,CANCEL]\e"
-	}
-	else //This is continuing from FirstBoot
-	{
-		"\w8\w8\n\s[4]\i[1]\i[80]\i[26]\_q%(vera)\_q oh, \w2it feels a bit weird to not say a title... \w8\i[17]i-i just \w2don't know how to refer to you..."
-		--
-		all:{
-		"\n\n\t\*\f[color,default]"
-		"\![*]\q[He/Him/His,OnPronouns,masc,firstboot]\n"
-		"\![*]\q[She/Her/Hers,OnPronouns,fem,firstboot]\n"
-		"\![*]\q[They/Them/Their,OnPronouns,undef,firstboot]\n"
-		"\![*]\q[Something else...,OnPronouns,custom,firstboot]"
-		}
-	}
+	"\n\n\f[color,default]\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[I'm done,CANCEL]\e"
 }
 
 OnChangePronoun
@@ -168,13 +121,12 @@ OnChangePronoun
 	--
 	all:{
 	"\n\n\_q\f[color,default]"
-	"\![*]\q[He/Him/His,OnPronouns,masc,%(reference1)]\n"
-	"\![*]\q[She/Her/Hers,OnPronouns,fem,%(reference1)]\n"
-	"\![*]\q[They/Them/Their,OnPronouns,undef,%(reference1)]\n"
-	"\![*]\q[Something else...,OnPronouns,custom,%(reference1)]"
-	if reference1 != "firstboot" {
+	"\![*]\q[He/Him/His,OnPronouns,masc]\n"
+	"\![*]\q[She/Her/Hers,OnPronouns,fem]\n"
+	"\![*]\q[They/Them/Their,OnPronouns,undef]\n"
+	"\![*]\q[Something else...,OnPronouns,custom]"
+	
 	"\n\n\f[align,right]\![*]\q[Back to Config,OnConfigMenu]    \![*]\q[Close Menu,CANCEL]\e"
-	}
 	}
 }
 
@@ -183,19 +135,14 @@ OnPronouns
 	pronouns = reference0
 	--
 	if pronouns == "custom" {
-		if reference1 == "firstboot" {"\s[3]\i[1]\i[80]\i[26]"}
-		--
         "\_q%(vera)\_q ok, \w4tell me like... \w8\n\_q'they/them/their/theirs', \w8\n'he/him/his/his', or \w8\n'she/her/her/hers',\_q \w8without the quotes.\n\n\f[color,default]"
 		--
-		if reference1 == "firstboot" 	{"\t\![*]\q[Nevermind,OnChangePronoun,custom,firstboot]\![open,inputbox,OnFirstCustomPronouns,-1]"}
-		else 							{"\*\![*]\q[Nevermind,OnChangePronoun,custom]\![open,inputbox,OnCustomPronouns,-1]"}
+		"\*\![*]\q[Nevermind,OnChangePronoun,custom]\![open,inputbox,OnCustomPronouns,-1]"
     }
 	else {
-		"\![raise,OnPronounsDone,%(reference0),%(reference1)]"
+		"\![raise,OnPronounsDone,%(reference0)]"
 	}
 }
-
-OnFirstCustomPronouns {"\![raise,OnCustomPronouns,%(reference0),firstboot]"}
 
 OnCustomPronouns 
 {
@@ -208,8 +155,7 @@ OnCustomPronouns
 	{
 		"\0\_q%(vera) um... i don't think you inputted them right. \w8\n\n[half]write them down like... \n'they/them/their/theirs', \n'he/him/his/his', or \n'she/her/her/hers', without the quotes. \n\n\f[color,default]"
 		--
-		if reference1 == "firstboot"	 {"\t\![*]\q[Nevermind,OnChangePronoun,custom,firstboot]\![open,inputbox,OnFirstCustomPronouns,-1]"}
-		else							 {"\*\![*]\q[Nevermind,OnChangePronoun,custom]\_q\![open,inputbox,OnCustomPronouns,-1,]"}
+		"\*\![*]\q[Nevermind,OnChangePronoun,custom]\_q\![open,inputbox,OnCustomPronouns,-1,]"
 	}
 	else 
 	{
@@ -220,8 +166,8 @@ OnCustomPronouns
 		--
 		all:{
 		"\n\n\_q\*\f[color,default]"
-		"\![*]\q[Singular,OnPronounsDone,sing,%(reference1)]\n"
-		"\![*]\q[Plural,OnPronounsDone,plur,%(reference1)]\n\n"
+		"\![*]\q[Singular,OnPronounsDone,sing]\n"
+		"\![*]\q[Plural,OnPronounsDone,plur]\n\n"
 		}
 	}
 }
@@ -237,38 +183,19 @@ OnPronounsDone
 		if pronouns == "undef" 	{ pronounplur = "plur" }
 		else 					{ pronounplur = "sing" }
 	}
+	
+	"\0\s[3]\i[61]\_q%(vera)\_q ok, i'll remember..."
 	--
-	if reference1 == "firstboot" //continuing firstboot sequence...
-	{
-		"\0\s[1]\i[1]\i[80]\i[35](It seems that she's insisting on using a title with you...)"
-		--
-		all:{
-		"\n\n\_q\*\f[color,default]"
-		"\![*]\q[Mister,OnTitle,mister,firstboot]\n"
-		"\![*]\q[Miss,OnTitle,miss,firstboot]\n"
-		"\![*]\q[Mixter,OnTitle,mixter,firstboot]\n"
-		"\![*]\q[Mx,OnTitle,mx,firstboot]\n"
-		"\![*]\q[Misr,OnTitle,misr,firstboot]\n"
-		"\![*]\q[Something else,OnCustomTitle,,firstboot]\n"
-		//"\![*]\q[Please don't,OnTitle,none,firstboot]\_q"
-		}
-	}
-	else //This is if the user is changing their pronouns through the menu
-	{
-		"\0\s[3]\i[61]\_q%(vera)\_q ok, i'll remember..."
-		--
-		"\n\n\f[align,right]\f[color,default]\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[Close,CANCEL]\e"
-	}
+	"\n\n\f[align,right]\f[color,default]\![*]\q[Back to config,OnConfigMenu]\n\![*]\q[Close,CANCEL]\e"
 }
 
 //"%(they) left that there."
 //"%(their) work is really cool."
 //"I'll ask %(them) later."
-//"%(they)%(re) really good at it."
-//"%(they) %(are) thinking about cheese!"
-//"%(they) %(were) lost in their code, but %(they) fixed it!!"
+//"%(they)%(p('re','s')) really good at it."
+//"%(they) %(p('are','is')) thinking about cheese!"
+//"%(they) %(p('were','was')) lost in their code, but %(they) fixed it!!"
 //use %(capitalize(they)) to use it properly at the start of sentences.
-//use _s = "s"; if pronouns == "undef"; _s = "re" and other temp vars if needed for more specific pronoun talk
 
 //PRONOUN ENVELOPES!!!!!!!! moved to word.dic
 
@@ -303,12 +230,12 @@ OnChangeTitle
 	}
 	--
 	all:{
-	"\![*]\q[Mister,OnTitle,mister,%(reference1)]\n"
-	"\![*]\q[Miss,OnTitle,miss,%(reference1)]\n"
-	"\![*]\q[Mixter,OnTitle,mixter,%(reference1)]\n"
-	"\![*]\q[Mx,OnTitle,mx,%(reference1)]\n"
-	"\![*]\q[Misr,OnTitle,misr,%(reference1)]\n"
-	"\![*]\q[Something else,OnCustomTitle,,%(reference1)]"
+	"\![*]\q[Mister,OnTitle,mister]\n"
+	"\![*]\q[Miss,OnTitle,miss]\n"
+	"\![*]\q[Mixter,OnTitle,mixter]\n"
+	"\![*]\q[Mx,OnTitle,mx]\n"
+	"\![*]\q[Misr,OnTitle,misr]\n"
+	"\![*]\q[Something else,OnCustomTitle,]"
 	}
 	--
 	if reference1 != "firstboot" {
@@ -341,12 +268,11 @@ OnCustomTitle
 {
 	"\i[35]\_q(Please enter the title/honorific you use. Lowercase preferred.)"
 	--
-	"\![open,inputbox,OnCustomTitleTwo,-1,--reference=%(reference1)]"
-	--
-	"\n\n\*\![*]\q[Nevermind,OnChangeTitle,custom,%(reference1)]"
+	"\*\![open,inputbox,OnCustomTitleTwo,-1]\n\n\![*]\q[Nevermind,OnChangeTitle,custom]"
 }
 
 //assigns custom to ref2. assigns firstboot to ref1 if present. also gives user input to OnTitle
+//this is from the remnants from when vera had a firstboot sequence. she doesnt. but i dont want to rewrite this lol
 OnCustomTitleTwo {"\![raise,OnTitle,%(reference0),%(reference2),custom]"}
 
 OnTitle
@@ -363,9 +289,7 @@ OnTitle
 		
 		"\_q\s[1]\i[1]\i[80]\i[26]\i[35](...She looks very uncomfortable.)"
 		--
-		"\![open,inputbox,OnCustomTitleTwo,-1]"
-		--
-		"\n\n\*\![*]\q[Nevermind,OnChangeTitle,custom,%(reference1)]"
+		"\![open,inputbox,OnCustomTitleTwo,-1]\n\n\*\![*]\q[Nevermind,OnChangeTitle,custom]"
 	}
 	elseif ASEARCH(_title,WeirdNameArray) != -1
 	{
@@ -373,9 +297,7 @@ OnTitle
 		
 		"\s[3]\i[80]\i[1]\i[26]\i[19]\_q%(vera)\_q ...um... \w8no..?\f[color,default]"
 		--
-		"\![open,inputbox,OnCustomTitleTwo,-1]"
-		--
-		"\n\n\*\![*]\q[Nevermind,OnChangeTitle,custom,%(reference1)]"
+		"\![open,inputbox,OnCustomTitleTwo,-1]\n\n\*\![*]\q[Nevermind,OnChangeTitle,custom]"
 	}
 	elseif ASEARCH(_title,PeopleArray) != -1 || ASEARCH(_title,HollercodeArray) != -1
 	{
@@ -383,9 +305,7 @@ OnTitle
 		
 		"\_q\i[35](Not that, please. Enter your title.)\n\n"
 		--
-		"\![open,inputbox,OnCustomTitleTwo,-1]"
-		--
-		"\n\n\*\![*]\q[Nevermind,OnChangeTitle,custom,%(reference1)]"
+		"\![open,inputbox,OnCustomTitleTwo,-1]\n\n\*\![*]\q[Nevermind,OnChangeTitle,custom]"
 	}
 	elseif _title == CleanTerm(username) //can easily Not Work but i don't really care about ironing it out. will people even see this. no
 	{
@@ -393,15 +313,18 @@ OnTitle
 		
 		"\_q\i[35](Isn't that your name..? An actual title, please.)\n\n"
 		--
-		"\![open,inputbox,OnCustomTitleTwo,-1]"
-		--
-		"\n\n\*\![*]\q[Nevermind,OnChangeTitle,custom,%(reference1)]"
+		"\![open,inputbox,OnCustomTitleTwo,-1]\n\n\*\![*]\q[Nevermind,OnChangeTitle,custom]"
 	}
 	//----------------END OF CUSTOM TITLE CHECK----------------------------
 	elseif _title == "none" || _title == "" //eeehhhhhhhhhhhhhhhhhh ill leave this here why not
 	{
 		usertitle = "none"
 		"\0\s[1]\i[1]\i[80]\i[26]\_q%(vera)\_q a-are you sure? \w8\s[3]\i[1]\i[80]\i[26]i'll try...\w8\w8\n\_q%(vera)\_q"
+	}
+	elseif _title == CleanTerm(_oldtitle)
+	{
+		usertitle = SHIORI3FW.EscapeAllTags(_temptitle)
+		"\0\s[3]\i[1]\i[80]\i[26]\i[19]\_q%(vera)\_q oh, \w2ok!\w8\w4\n\_q%(vera)\_q we'll keep it the same, then.\w8\w8\n\_q%(vera)\_q"
 	}
 	else
 	{
@@ -412,10 +335,6 @@ OnTitle
 	//-------------------------------------------------
 	//i really dont want to put an end tag so uhhh yeah
 	if reference3 == "redo" {}
-	elseif reference1 == "firstboot"
-	{
-		" hello, %(pername)! \w8\w8\n\s[5]\i[1]\i[80]\i[26]\_q%(vera)\_q .\w4.\w4.\w4ah, \w6that was way too much talking... \w8\w2\s[3]\i[1]\i[80]\i[26]i'm vera, \w6by the way... \w8\w4\n\i[18]\_q%(vera)\_q i guess i'll... \w8stay here until i wake up...\e"
-	}
 	else
 	{
 		" got it, thank you..."

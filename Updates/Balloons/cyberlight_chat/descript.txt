@@ -26,7 +26,7 @@ origin.y,16
 validrect.left,26
 validrect.top,14
 validrect.right,-30
-validrect.bottom,-26
+validrect.bottom,-20
 
 wordwrappoint.x,-32
 wordwrappoint.y,0
@@ -112,8 +112,8 @@ number.y,-17
 
 //7. -- Communication Box
 
-communicatebox.x,30
-communicatebox.y,18
+communicatebox.x,26
+communicatebox.y,8
 
-communicatebox.width,300
-communicatebox.height,28
+communicatebox.width,310
+communicatebox.height,20

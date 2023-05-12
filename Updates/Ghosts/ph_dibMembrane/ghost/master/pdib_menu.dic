@@ -11,6 +11,8 @@ OpenSakuraMenu
 	{
 		firstboot = 0
 		"\0\s[0]Oh, uh, I don't think I finished introducing myself... I guess you can tell me more about yourself later, yeah? \n\i[65](Update your information in the settings!)\x"
+		--
+		MenuRun
 	}
 	else
 	{

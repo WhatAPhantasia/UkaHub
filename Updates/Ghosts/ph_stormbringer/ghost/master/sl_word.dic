@@ -1,0 +1,101 @@
+//I'm just gonna put my envelopes here!!!!!!!! ALLLLLL OF THEM!!
+
+//SURFACE ENVELOPES
+
+plasmaidle
+{
+	smileidle
+	neutralidle
+}
+smileidle
+{
+	//order: mouth, backarm, eye, eyebrow, frontarm,
+	"\s[%(ANY(1,1,2))]\i[%(ANY(10,10,13,14))]\i[%(ANY(50,50,52))]\i[%(ANY(60,61))]\i[%(ANY(70,70,73,74))]"
+	//special one for cross arms and stuff because i want to completely cancel out the backarm
+	"\s[%(ANY(1,1,2))]\i[%(ANY(50,50,52))]\i[%(ANY(60,61))]\i[75]"
+}
+neutralidle
+{
+	//ok this is a surface specifically for the :< mouth bc i dont want the angry brows
+	"\s[3]\i[%(ANY(10,10,13,14))]\i[%(ANY(50,50,52))]\i[61]\i[%(ANY(70,70,73,74))]"
+	//crossarm :<
+	"\s[3]\i[%(ANY(50,50,52))]\i[61]\i[75]"
+}
+
+phoneidle
+{
+	phonehap
+	phonesad
+}
+phonehap
+{
+	//both hand phone: mouth, eye, eyebrow.
+	//smile
+	"\s[%(ANY(1,1,2))]\i[%(ANY(50,50,52))]\i[%(ANY(60,61))]\i[77]"
+	//phone ear: mouth, backarm, eye, eyebrow.
+	//smile
+	"\s[%(ANY(1,1,2))]\i[%(ANY(10,10,13,14))]\i[%(ANY(50,50,52))]\i[%(ANY(60,61))]\i[76]"
+}
+phonesad
+{
+	//both hand phone
+	"\s[3]\i[%(ANY(50,50,52))]\i[61]\i[77]"
+	//phone ear
+	"\s[3]\i[%(ANY(10,10,13,14))]\i[%(ANY(50,50,52))]\i[61]\i[76]"
+}
+
+//--------OTHER WORD ENVELOPES
+
+chatw1
+{"\w8\w8\w8\w8\n"}
+chatw2
+{"\w8\w8\w8\w8\w8\w8\n"}
+
+
+//--------WEATHER ENVELOPES
+
+//TODO: all of this is for post jam.
+
+/*
+	ZI'S WEATHER TYPES!!!!!!!1 god i hope this is okay to put in my ghost
+
+	Clear			Partly Cloudy	Showers in the Vicinity
+	Mostly Clear	Mostly Cloudy	Few Showers
+	Sunny			Cloudy			Showers
+	Mostly Sunny					Rain Shower
+	Fair							Light Rain
+									Rain
+									Heavy Rain
+	
+	Rain and Snow	Fog				Isolated Thunderstorms
+	Snow Shower		Haze			Scattered Thunderstorms
+	Snow							Thunderstorm
+	Light Snow						Heavy Thunderstorm
+	Wintry Mix
+*/
+
+
+
+//--TEMPERATURE ENVELOPES
+//i need to do this or else i die
+
+temp
+{
+	if weatherconfig[0] == "Metric"
+	{
+		
+	}
+	else
+	{
+		
+	}
+}
+
+
+//ARRAYS OF STUFF IG
+
+VillainNames {"Plasmaegis","Stormbringer","Lumi","Calamity","Wesley","Pandora","Gomi"}
+
+HeroNames {"Neo","Nathaniel","Aspin","Heartattack","Ronnie","Seishi"}
+
+NeutralNames{"Juniper","Cindy","Candy","Corey"}

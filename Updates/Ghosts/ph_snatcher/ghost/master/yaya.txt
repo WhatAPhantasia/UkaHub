@@ -21,4 +21,5 @@ dic, sn_menusub.dic //sub section for menu choices, like what snatcher thinks ab
 
 //TODO: add dic as needed, like anchors/ontranslate stuff. i could merge it with word.
 
+msglang,english
 messagetxt,messagetxt/english.txt

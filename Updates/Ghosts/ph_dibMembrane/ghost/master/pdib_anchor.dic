@@ -158,6 +158,17 @@ RemoveFlag //Removes all instances of a flag in the array.
 	}
 }
 
+//basically the name cleaning function in OnName. returns the cleaned term!!
+CleanTerm
+{	
+	_term = _argv[0] //putting the raw input into _term to do some tests on it
+	_term = TOLOWER(_term) //changes it to lowercase
+	_term = REPLACE(_term," ","") //removes spaces
+	_term = REPLACE(_term,".","") //removes periods
+	_term = REPLACE(_term,"-","") //removes dashes
+	_term
+}
+
 //Setting variables in random dialogue
 //You can use this to do detailed variable changes and such in dialogue. If you only need to set one variable, I recommend using EVAL in the line of dialogue, like so:
 //"Some dialogue that changes a variable.\e:eval=somevar='some value'"
