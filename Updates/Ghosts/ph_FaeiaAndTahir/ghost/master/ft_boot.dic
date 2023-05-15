@@ -1,11 +1,38 @@
-OnFirstBoot
+OnFirstBoot : all
 {
-	//If you add variables, make sure to initialize them here!
-	//Note - I haven't added anything about username or pronouns here because it's all handled by the SSP prefs
+	OnFirstBootVars
+	
+	"\1\s[10]\0\s[0]\t\*\b2"
+	
+	"Eugh... \w8Even though all the Caretakers' Stewards are nice and all, it's always so scary when we come up here...\w8\w8\1"
+	"Yeah. \w2Feels sterile, doesn't it?. \w8Let's just take this artifact and get out of here...\w8\w8\0\n\n"
+	"Yeah- \w8Wait, huh? \w8\w8Tahir, there... \w8There's someone else here.\w8\w8\1\n\n"
+}
+
+OnFirstBootVars
+{
 	stroke = 0
 	LastTalk = ""
-	
-	"\1\s[10]\0\s[0]Hello, and welcome to the Simplicity Template, %(username).\w8 As the name implies, this template is very simple.\w8 You will notice there is not much here.\w8 That's on purpose!\w8 This template's primary goal is to make ghost creation less intimidating.\w8 You really need almost nothing to make a ghost;\w4 a basic shell with some interesting randomtalk can be an incredible and fun experience.\w8 So all those boring functions to do with email checking and such?\w8 Not here, unless you decide you want to add them.\w8 Don't let tedious functions tire you out before you can finish your ghost!\w8 Make something simple and fun, or start small and expand upon it later!\w8 Embrace the freedom of simplicity!"
+
+	if reference0 != "reset"
+	{
+		if SHIORI3FW.UserSex == "male" 
+		{pronouns = ("he","him","his","his","himself",0)}
+		elseif SHIORI3FW.UserSex == "female"
+		{pronouns = ("she","her","her","hers","herself",0)}
+		else
+		{pronouns = ("they","them","their","theirs","themself",1)}
+	}
+
+	user = "stranger"
+	//userinfo: species, occupation, resonance color
+	userinfo = ("rabbit","wanderer","unknown")
+	totaltouch = (0,0)
+	recenttouch = (0,0)
+	MiscFlags = IARRAY
+	aitalkinterval = 300
+
+	boot_min = GETSECCOUNT / 60 //epoch time, x. template
 }
 
 OnInitialize
@@ -20,36 +47,60 @@ OnInitialize
 	if reference0 != "reload" //For things you want to reset EXCEPT when just reloading; a convenience for you the dev, basically
 	{
 		LastTalk = ""
+		boot_min = GETSECCOUNT / 60 //x. template epoch
+		recenttouch = (0,0)
 	}
 }
 
 OnBoot
 {
-	_temp = SPLIT(SHIORI3FW.UserBirthday,":")
-	_user_birthday = "%(_temp)[1]/%(_temp[2])" //M/D, if you want it D/M you can switch it around
-	_today = "%(_month)/%(_day)" //Again, switch this around if using D/M
+	_temp = (SHIORI3FW.UserBirthday) //okay this set up works for me and NOT the original set up, why is that?
+	_user_birthday = "%(_temp[1])/%(_temp[2])" //M/D, if you want it D/M you can switch it around
+	_today = "%(month)/%(day)" //Again, switch this around if using D/M
 	
 	"\1\s[10]\0\s[0]"
 	--
 	if _today == _user_birthday
 	{
-		"\0\s[0]It is %(username)'s birthday today.\w8 Happy birthday, %(username).\w8 Developer,\w4 you can add an interesting message here.\w8 It can be as long as you like.\w8 Or, you can remove it entirely."
+		"\1\s[-1]\0\s[0]Woah woah woah, waiit!! \w8%(Capitalize(user))!!! \w8Is that you?! \w8Hey! Isn't it your birthday today?! \w2%(nowmonth) %(day), right?!\w8\w8\1\s[10]Faeia, what are you- \w8Oh.\w8\w8\0\n\nShshshh no time to talk.. \w8It's time to celebrate!!!! \w8Happy birthday, %(user)~!\w8\w8\1\n\nAh, I see. \w6Happy birthday as well, %(user). \w4May the Caretakers smile upon you.\w8\w8\0\n\nPfft, what? \w8I've never heard you say that before! \w4He's just trying to stick to formalities.\w8\w8\1\n\nAh- \w8Y-Yeah, \w4you're right. \w6Sorry, \w2I%(br)don't really say stuff like this often... \w8Um, my sentiments are real, though...\w8\w8\0\n\n(Hehe~!)\e"
 	}
-	elseif _today == "1/1" //You can add whatever cool dates you want with more elseifs here
+	elseif _today == "1/23" //faeia's birthday
 	{
-		"\0\s[0]It's new year's day.\w8 Happy %(year),\w4 %(username)."
+		"Gassp! \w4No way! \w4It's %(user)!! \w8This is the greatest coincidence ever!! EEEEE!!\w8\w8\1Pff- \w8What Fai means to say is that it's her birthday today. \w8YOU would not stop talking about wanting to see %(them) today, and now you got what you wanted.\w8\w8\0\n\nHehe! \w2Yes I did~~ \w8Heyy, %(user), are you gonna get me anything coooool this Jahan 23rd~~~??\w8\w8\1\n\nAaand there she goes.\w8\w8\0\n\nHey, what's that supposed to mean..?!\e"
+	}
+	elseif _today == "7/20" //tahir's birthday
+	{
+		"\1Ah- \w8H-Hello, %(user).\w8\w8\0PFFT, what was that?! \w8Weren't you JUST saying how cool it would be to see them today?!\w8\w8\1\n\nH-Huh? \w4I never said anything like-\w4\0\n\n%(Capitalize(user))~! \w6It's Augin 20th! \w6Which is Tahir's birthday!! Happy birthday Tahir!!!\w8\w8\1\n\nAgh, yes, yeah, it's my birthday. \w6G-Good to see you today, %(user)...\e"
 	}
 	else //Normal boot
 	{
-		"\0\s[0]Hello %(username).\w8 Good to see you."
-		"\0\s[0]Hello.\w8 Ready to make something cool?"
+		"Oh, %(user), is that you? \w8Wow! \w8Never thought we'd see eachother again so soon!\w8\w8\1Ah... Yes. It's good to see you again. \w8You doing okay?\e"
+		"Oh!! Hey!! %(Capitalize(user)), over here~!\w8\w8\1Pfft- \w4Yes, \w4hello %(user). \w6How have you been since we last saw eachother?\e"
+		"Gaaasp! \w4Hey, %(user)! \w8You will not BELIEVE what me and Tahir just did~!\w8\w8\1Faeia, are you going to brag to EVERYONE about that Resonance dragon we redirected from Lanerei Town..?\w8\w8\0\n\nOf course! \w4Big Resonance Monsters don't just appear like that every day, you know!\w8\w8\1\n\n(I suppose so...)\e"
+		"Oh, hey %(user)! \w8Fancy seeing you here!\w8\w8\1...I think this situation deserves more than a ""fancy seeing you here"", Fai. \w8We JUST left %(esotericlocale).\w8\w8\0\n\nTahir, \w4%(user) just has %(their) ways, and we have to accept that! \w6How else would we have first met %(them) at The Highest Daycare?!\w8\w8\1\n\nAh, I guess that's true...\e"
+		"\1Ah, it's %(user). \w4Hello.\w8\w8\0Huh?! Oh, %(user)! \w8Hey!! \w8Wow, I almost didn't see ya there! \w8How's it been~?\e"
+		"\1Oh... Hey, %(user). \w8\w8Ah, \w8I-I'm not too good at greetings, \w2I'm not too sure why I said hi first... \w8Faeia usually covers this part...\w8\w8\0Pfft-- Awww, sorry about that Tahir! I was busy trying to remember this rune I made up in my head... \w8I lost it, alas......\w8\w8\1\n\nAh... \w8Of course.\e"
 	}
 }
 
 OnClose
 {
-	"\0\s[0]Farewell."
-	"\0\s[0]Goodbye."
+	up_all = up_total
+
+	{"\1\s[10]\0\s[0]Aww, you're going?\w8\w8\1It's about time we get going as well, Fai. \w8"
+	--
+	"We still have that request from the Artema King to sort out..."
+	"Weren't we going to check on the gates to The Caretaker's Domain?"
+	"Namii is still instigating us about the ""stealing Resonance"" thing..."
+	"Your diary is still missing. \w4...We were looking for that."
+	"I think those bounty hunter guys from Fellspire might still be on our trail..."
+	"I think we still have those quests to wrap up..."
+	"We have a meeting with Namii. \w4They'll probably be mad if we're late again..."
+	"We still have to deliver this parcel to %(esotericlocale)..."
+	--
+	"\w8\w8\0\n\nOh, SHOOT, you're right! \w8Seeya, %(user)!"}
+	"\0\s[0]Oh, yeah! \w6You've got things to do, don't you %(user)?\w8\w8\1Mhmm. \w6Farewell. \w8I wish you luck, where ever you're going."
+	"Oh, of course! \w8See you around then, %(user)!\w8\w8\1Yes, goodbye. \w6I hope we'll see eachother again soon. \w6You're pleasant company.\w8\w8\0\n\nHehe, awww~ \w8Tahirr~~\w8\w8\1\n\nW-What? \w8\w4I-It's true..."
 	--
 	"\w8\w8\-" //This is what makes the ghost close (after a short pause), do not remove the \- , and MAKE SURE you don't use a \e before this point or it won't work
 }

@@ -68,83 +68,56 @@ FormatLinks : all
 	}
 }
 
-On_sakura.recommendsites
-{
-	FormatLinks(recommendsites_sakura)
-}
+On_sakura.recommendsites {FormatLinks(recommendsites_sakura)}
+On_recommendrootbutton.caption {"Bramblebrush Links"}
 
 //These are the websites linked in the top option of the sakura's right click menu. The format is simple; write the label of the link on the left followed by a semicolon, and then on the right, the url to link to. These should be separate strings.
 recommendsites_sakura : array
 {
-	"Link label";	"https://link.example.com/link/to/whatever/here/"
+	"Bramblebrush Toyhou.se"; "https://toyhou.se/WhatAPhantasia/characters/folder:2534157"
+	"Faeia's Toyhou.se Page"; "https://toyhou.se/18058359.faeia"
 }
 
-On_sakura.portalsites 
-{
-	FormatLinks(portalsites_sakura)
-}
+On_sakura.portalsites {FormatLinks(portalsites_sakura)}
+On_portalrootbutton.caption {"Misc Links + Credit"}
 
 //These are the websites linked in the second option of the sakura's right click menu. Same as above
 portalsites_sakura : array
 {
-	"Another link label";	"https://link.example.com/link/to/whatever/here/again/"
-	"A third link label";	"https://link.example.com/link/to/whatever/a/third/time/you/can/add/as/many/as/you/want/"
+	"Download Page"; "https://phantasiaukahub.carrd.co/#faeia-and-tahir"
+	"Changelog (G. Docs)"; "https://docs.google.com/document/d/10yy69A5hkizTPMh1mmRISIDg8M3JMfOdL9abrYmme20/edit?usp=sharing"
+	"Phantasia's Carrd"; "https://whataphantasia.carrd.co/"
+	""; ""
+	"Simplicity v1.0.3"; "https://github.com/Zichqec/simplicity_template"
+	"Ukagaka Dream Team Wiki"; "https://ukagakadreamteam.com/wiki/"
 }
 
-On_kero.recommendsites
-{
-	FormatLinks(recommendsites_kero)
-}
+On_kero.recommendsites {FormatLinks(recommendsites_kero)}
 
 //These are the websites linked in the first option of the kero's right click menu. Same as above
 recommendsites_kero : array
 {
-	"These labels can be anything you want";	"https://link.example.com/link/to/whatever/here/once/more/"
+	"Tahir's Toyhou.se Page"; "https://toyhou.se/18059353.tahir"
 }
 
 
 //—————————————————————————————— User pronoun related ——————————————————————————————
 
-they
-{
-	if SHIORI3FW.UserSex == "male"; "he"
-	elseif SHIORI3FW.UserSex == "female"; "she"
-	else; "they"
-}
+they		{"%(pronouns[0])"}
 
-them
-{
-	if SHIORI3FW.UserSex == "male"; "him"
-	elseif SHIORI3FW.UserSex == "female"; "her"
-	else; "them"
-}
+them		{"%(pronouns[1])"}
 
-their
-{
-	if SHIORI3FW.UserSex == "male"; "his"
-	elseif SHIORI3FW.UserSex == "female"; "her"
-	else; "their"
-}
+their		{"%(pronouns[2])"}
 
-theirs
-{
-	if SHIORI3FW.UserSex == "male"; "his"
-	elseif SHIORI3FW.UserSex == "female"; "hers"
-	else; "theirs"
-}
+theirs		{"%(pronouns[3])"}
 
-themself
-{
-	if SHIORI3FW.UserSex == "male"; "himself"
-	elseif SHIORI3FW.UserSex == "female"; "herself"
-	else; "themself"
-}
+themself	{"%(pronouns[4])"}
 
 //%(they) %(p('are','is'))
 //You can change the name of this function if you want! I kept it short so it's fast to type
 p
 {
-	if SHIORI3FW.UserSex == "undef"; _argv[0] //they are
+	if pronouns[5] == 1; _argv[0] //they are
 	else; _argv[1] //he is/she is
 }
 
@@ -167,7 +140,6 @@ With this function, you can quickly customize words that need to change based on
 OnNotifyUserInfo : void
 {
 	SHIORI3FW.UserName = reference[0]
-	username = reference[0]
 	SHIORI3FW.UserNameFull = reference[1]
 	SHIORI3FW.UserBirthday = SPLIT(reference[2],',',3)
 	for _i = 0 ; _i < 3 ; _i++ {
