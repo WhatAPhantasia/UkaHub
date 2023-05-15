@@ -1,4 +1,5 @@
 //Separate from the menus because you could put other interactions here, like poking or booping or punching or asking about various hotspots
+
 OnMouseDoubleClick
 {
 	if reference5 == 0 //reference5 is the mouse button being clicked, in this case a left click
