@@ -130,7 +130,7 @@ OnAbtHeroes : nonoverlap_pool
 
 OnPandoraFight : all
 {
-	if !Flag("AskTroupe") && up_total <= 30 && recenttouch[0] >= 3
+	if !Flag("AskTroupe") || up_total <= 30 || recenttouch[0] >= 3
 	{"\0\_qYou get the feeling Plasmaegis wouldn't like to talk about that to you, "
 	if up_total <= 30; "probably because you haven't spent enough time around %(them(1)) yet. Maybe just spend more time with them before asking?"
 	elseif !Flag("AskTroupe"); "because you don't really even know who Pandora IS. Maybe ask about their whole villain troupe first?"

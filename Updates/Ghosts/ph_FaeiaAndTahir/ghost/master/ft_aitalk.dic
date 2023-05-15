@@ -29,3 +29,20 @@ RandomTalk : nonoverlap_pool
 	
 	"\0\s[0]Make something cool, %(username)!\w8 You've got this!"
 }
+
+
+//im going to put misc dialogue in aitalk. it just fits~
+
+OnOverlap
+{
+	if ("0-1" _in_ reference0 || "1-0" _in_ reference0) && RAND(10) == 0
+	{
+		"\1\f[size,-2]O-Oh...\e"
+		/* commented out bc tbh i dont want faeia to move. movement weird
+		"\1O-Oh...\w8\w8\0Hm? \w4Oh, are we too close? \w6Sorry about that, Tahir. \w8Gimme a sec...\w8\![move,--X=100,--time=1000,--base=me] \w8\w8Is that better?\w8\w8\1\n\n"
+		--
+		if "0-1" _in_ reference0 || "1-0" _in_ reference0; "U-uhmmm...\e"
+		else; "R-Right, yes, thank you...\e"
+		*/
+	}
+}
