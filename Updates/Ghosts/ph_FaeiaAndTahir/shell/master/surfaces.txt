@@ -1,14 +1,54 @@
-//Some quick notes:
-//1: SERIKO does NOT support same line comments. If you want to write a comment, ALWAYS PUT IT ON ITS OWN LINE. If you put comments after other bits of code in the same line, it may seem to work at first, but it can cause cryptic errors down the line. Save yourself the trouble. Always put comments on their own lines in here. Additionally, it doesn't do block comments with /* and */
-//2: The example blink code is set up with the new definition, which I recommend you use. Here is my guide to what that means: https://zichqec.github.io/s-the-skeleton/olddef_vs_newdef
-//If you want to use old definition, make sure to erase that 'version,1' bit.
-//3: It is very common for people to feel stuck on how to start, because they don't know what expressions to make without having dialogue, but they don't know what dialogue to write without having expressions. If you're feeling that way, I highly suggest using emoji as substitutes just to get you started! That may sound weird if you're not fond of emoji, but seriously, just give it a try. I've found that just writing a few messages in Discord and using the emoji to signify surface changes is a great help to get me past that initial hump where it feels impossible.
+//FAEIA AND TAHIR DEFAULT SHELL
 
-
-descript
+descript 
 {
 	version,1
 }
+//animation#.pattern#,method,surface,pause,X,Y
+
+//this should be simpler than lumis shell
+
+//PLANNING
+//----------Image ranges
+//0-99: rasterized backups
+//----FAEIA
+//100: neutral 3/4
+//200: shocked
+//250: ^U^
+//300: think
+//350: worry
+//400: grumpy
+//450: magic front
+//500: magic 3/4
+//550: swing front
+//600: swing 3/4
+//----TAHIR
+//1100: neutral 3/4
+//1200: shocked
+//1250: TUT
+//1300: think
+//1350: worry
+//1400: grumpt
+//1450: kunai front
+//1500: kunai 3/4
+//1550: scythe front
+//1600: scythe 3/4
+//----------Surfaces
+//surface0: fallback faeia default
+//surface10: fallback tahir default
+//----------Intervals
+//0-9: base image interaction + anything i need there for some reason??
+//10-39: backarm (29)
+//40-49: mouth (9)
+//50-59: eye (9)
+//60-69: eyebrow (9)
+//70-99: frontarm (29)
+//100>: extras
+//	100: blushing
+//	101: black gradient 1
+//	110: cloudhair lightning
+//	111-139: backarm lightning
+//	170-199: frontarm lightning
 
 //—————————————————————————————— Sakura surfaces ——————————————————————————————
 

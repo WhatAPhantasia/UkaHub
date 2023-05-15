@@ -7,14 +7,15 @@ charset.extension, UTF-8
 
 dicdir, yaya_base
 
-dic, aitalk.dic
-dic, boot.dic
-dic, kero_menu.dic
-dic, mouse.dic
-dic, meta.dic
-dic, other.dic
-dic, sakura_menu.dic
-dic, word.dic
+//dic, emerg.dic
+dic, faeia_menu.dic
+dic, tahir_menu.dic
+dic, ft_aitalk.dic
+dic, ft_boot.dic
+dic, ft_meta.dic
+dic, ft_mouse.dic
+dic, ft_other.dic
+dic, ft_word.dic
 
 msglang,english
 

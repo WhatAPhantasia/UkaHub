@@ -11,6 +11,7 @@ craftmanurl,https://phantasiaukahub.carrd.co
 sakura.name,Faeia
 kero.name,Tahir
 
-icon,icon.ico
+icon,stardiamond.ico
 
 sstp.allowunspecifiedsend,0
+balloon,Stitched Together
