@@ -117,26 +117,23 @@ themself	{"%(pronouns[4])"}
 //You can change the name of this function if you want! I kept it short so it's fast to type
 p
 {
-	if pronouns[5] == 1; _argv[0] //they are
-	else; _argv[1] //he is/she is
+	if pronouns[5] == 1; _argv[1] //they are
+	else; _argv[0] //he is/she is
 }
 
-/*
+//using input cancel for firstboot, from x. template
+OnUserInputCancel
+{
+	//OnNameTeach, close, , firstboot
+	//"%(reference0)\n%(reference1)\n%(reference2)\n%(reference3)"
 
-An example of the above setup:
-"%(they) %(p('were','was')) looking for that earlier, I'll ask if %(they)'%('ve','s') found it."
+	if reference0 == "OnNameTeach" && reference3 == "firstboot"
+	{
+		"\C\![open,inputbox,OnNameTeach,-1,--reference=firstboot]\_l[-10000,-10000]\*\t\q[ ,__VERY_FIRST_BOOT__]"
+	}
+}
 
-If using they, the %(p) functions will return the first word specified, resulting in:
-"they were looking for that earlier, I'll ask if they've found it."
-
-If not using they, for example if using she, it will return the second specified word instead, resulting in:
-"she was looking for that earlier, I'll ask if she's found it."
-
-With this function, you can quickly customize words that need to change based on whether it should be singular or plural. Just remember; the %(p) function is set up so that the first word you specify matches with the 'they' labels used on the pronoun functions. You can always switch that around if you like, too.
-
-*/
-
-//Copied from the base SHIORI files, but with the username variable added
+//Copied from the base SHIORI files
 OnNotifyUserInfo : void
 {
 	SHIORI3FW.UserName = reference[0]
