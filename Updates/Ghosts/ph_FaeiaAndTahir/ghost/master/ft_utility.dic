@@ -57,6 +57,24 @@ EndsWith
 	SUBSTR(_argv[0],_teststr_len - _substr_len,_substr_len) == _argv[1]
 }
 
+//returns 1 if argv0 starts with a vowel.
+//could be more efficient
+VowelCheck
+{
+	_output = 0
+	_vowels = ("a","e","i","o","u")
+	foreach _vowels; _v {if StartsWith(_argv[0],_v); _output++}
+	if _output > 0; 1
+}
+
+//same thing as simplicity template's p function
+//%(vwl('userinfo[0]','a','an'))
+vwl
+{
+	if VowelCheck(_argv[0]); _argv[2] //a rabbit
+	else; _argv[1] //an aetherbunny
+}
+
 //Sets the appropriate suffix for whatever number you pass in
 NumSuffix : all
 {
