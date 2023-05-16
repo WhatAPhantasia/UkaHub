@@ -11,7 +11,8 @@ craftmanurl,https://phantasiaukahub.carrd.co
 sakura.name,Faeia
 kero.name,Tahir
 
-icon,stardiamond.ico
+//icon,stardiamond.ico
+//i JUST realized i cant use this bc its extracted from my stitched together balloon, which i made BEFORE jam. oopsie poopsie its gone now
 
 sstp.allowunspecifiedsend,0
 balloon,Stitched Together

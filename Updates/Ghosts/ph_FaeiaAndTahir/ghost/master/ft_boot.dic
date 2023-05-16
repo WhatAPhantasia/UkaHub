@@ -2,10 +2,10 @@ OnFirstBoot : all
 {
 	OnFirstBootVars
 	
-	"\1\s[10]\0\s[0]\t\*\b2"
+	"\1\b2\s[10]\0\b2\s[0]\t\*"
 	
 	"Eugh... \w8Even though all the Caretakers' Stewards are nice and all, it's always so scary when we come up here...\w8\w8\1"
-	"Yeah. \w2Feels sterile, doesn't it?. \w8Let's just take this artifact and get out of here...\w8\w8\0\n\n"
+	"Yeah. \w2Feels sterile. \w8Let's just take this \w8\w8\0\n\n"
 	"Yeah- \w8Wait, huh? \w8\w8Tahir, there... \w8There's someone else here.\w8\w8\1\n\n"
 }
 

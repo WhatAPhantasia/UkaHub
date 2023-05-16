@@ -15,6 +15,7 @@ dic, ft_boot.dic
 dic, ft_meta.dic
 dic, ft_mouse.dic
 dic, ft_other.dic
+dic, ft_utility.dic
 dic, ft_word.dic
 
 msglang,english

@@ -10,11 +10,21 @@ descript
 
 //PLANNING
 //----------Image ranges
-//0-99: rasterized backups
+//0-99: lets uhh reserve this for the surfaces... except for 0 and 10 yeah
 //----FAEIA
 //100: neutral 3/4
+//	100-109: base images
+//	110-129: mouth
+//	130-159: eyes
+//	160-189: eyebrows
+//	190-199: extras
 //200: shocked
+//	200-234: base image
+//	235-249: extras
 //250: ^U^
+//	250-284: base image
+//	285-299: extras
+//	(you get the pattern.)
 //300: think
 //350: worry
 //400: grumpy
@@ -28,44 +38,648 @@ descript
 //1250: TUT
 //1300: think
 //1350: worry
-//1400: grumpt
+//1400: grumpy
 //1450: kunai front
 //1500: kunai 3/4
 //1550: scythe front
 //1600: scythe 3/4
+//----ETC
+//2000: dummy images
+//3000: extra effects, like magic and gradient
 //----------Surfaces
 //surface0: fallback faeia default
+//surface1: 3/4 Faeia (+ magic)
+//surface2: Shock Faeia
+//surface3: Happy Faeia
+//surface4: Think Faeia
+//surface5: Worry Faeia
+//surface6: Grumpy Faeia
+//surface7: Magic Front
+//surface8: Swing Front
+//surface9: Swing 3/4
 //surface10: fallback tahir default
-//----------Intervals
-//0-9: base image interaction + anything i need there for some reason??
-//10-39: backarm (29)
-//40-49: mouth (9)
-//50-59: eye (9)
-//60-69: eyebrow (9)
-//70-99: frontarm (29)
-//100>: extras
-//	100: blushing
-//	101: black gradient 1
-//	110: cloudhair lightning
-//	111-139: backarm lightning
-//	170-199: frontarm lightning
+//surface11: Ehh more Faeia surfaces
+//surface111: 3/4 Tahir (+ kunai)
+//surface112: Shock Tahir
+//surface113: Happy Tahir
+//surface114: Think Tahir
+//surface115: Worry Tahir
+//surface116: Grumpy Tahir
+//surface117: Kunai Front
+//surface118: Scythe Front
+//surface119: Scythe 3/4
+
+sakura.surface.alias
+{
+	f.base,[1]
+	f.shock,[2]
+	f.yay,[3]
+	f.think,[4]
+	f.worry,[5]
+	f.grumpy,[6]
+	f.magicf,[7]
+	f.swingf,[8]
+	f.swing34,[9]
+}
+
+kero.surface.alias
+{
+	//tahir
+	t.base,[11]
+	t.shock,[12]
+	t.yay,[13]
+	t.think,[14]
+	t.worry,[15]
+	t.grumpy,[16]
+	t.kunaif,[17]
+	t.scythef,[18]
+	//t.scythe34,[19]
+	
+	//dummy
+	d.base,[90]
+}
 
 //—————————————————————————————— Sakura surfaces ——————————————————————————————
 
+//Fallback Faeia
 surface0
 {
-	collision,0,0,130,65,head
+	element0,overlay,surface100.png,0,0
+	element1,overlay,surface160.png,0,0
 	
-	//Example code for blink animation - uncomment if you want it
-	//animation0.interval,random,4
-	//animation0.pattern1,overlay,101,0,0,0
-	//animation0.pattern2,overlay,102,100,0,0
-	//animation0.pattern3,overlay,-1,50,0,0
+	//mouth
+	animation1.interval,runonce
+	animation1.pattern0,overlay,110,0,0,0
+	animation2.interval,talk,3
+	animation2.pattern0,stop,1
+	animation2.pattern1,overlay,111,0,0,0
+	animation2.pattern2,overlay,-1,200-250,0,0
+	animation2.pattern3,start,1
+	
+	//eyes
+	animation3.interval,runonce
+	animation3.pattern0,overlay,130,0,0,0
+	animation4.interval,random,4
+	animation4.pattern0,stop,3
+	animation4.pattern1,overlay,131,0,0,0
+	animation4.pattern2,overlay,-1,70-80,0,0
+	animation4.pattern3,overlay,134,0,0,0
+	animation4.pattern4,overlay,-1,100-120,0,0
+	animation4.pattern5,overlay,131,0,0,0
+	animation4.pattern6,overlay,-1,90,0,0
+	animation4.pattern7,start,3
+}
+
+//base pose
+surface1
+{
+	element0,overlay,surface100.png,0,0
+	
+	//---replace body pose
+	//yes i know it starts at 0 but 1 makes more sense lol
+	//point up
+	animation1.interval,never
+	animation1.pattern0,replace,101,0,0,0
+	
+	//hold staff
+	animation2.interval,never
+	animation2.pattern0,replace,500,0,0,0
+	
+	//bring staff forward!!
+	animation3.interval,never
+	animation3.pattern0,replace,501,0,0,0
+	
+	//---mouth
+	//:3
+	animation10.interval,runonce
+	animation10.pattern0,overlay,110,0,0,0
+	
+	//:D
+	animation11.interval,never
+	animation11.pattern0,parallelstop,(10,29)
+	animation11.pattern1,overlay,111,0,0,0
+	
+	//:D teef
+	animation12.interval,never
+	animation12.pattern0,parallelstop,(10,29)
+	animation12.pattern1,overlay,112,0,0,0
+	
+	//:<
+	animation13.interval,never
+	animation13.pattern0,parallelstop,(10,29)
+	animation13.pattern1,overlay,113,0,0,0
+	
+	//:o
+	animation14.interval,never
+	animation14.pattern0,parallelstop,(10,29)
+	animation14.pattern1,overlay,114,0,0,0
+	
+	//:3 talking
+	animation29.interval,talk,3
+	animation29.pattern0,stop,10
+	animation29.pattern1,overlay,111,0,0,0
+	animation29.pattern2,overlay,-1,200-250,0,0
+	animation29.pattern3,start,10
+	
+	// eughh scrapped remains of attempts to have talking anims for both :3 and :< mouths...
+	//:<
+	//animation13.interval,never
+	//animation13.pattern0,parallelstop,(10,26)
+	//animation13.pattern1,start,28
+	//animation13.pattern2,overlay,113,0,0,0
+	
+	//:o
+	//animation14.interval,never
+	//animation14.pattern0,parallelstop,(10,26,28)
+	//animation14.pattern1,overlay,114,0,0,0
+	
+	//:3 talking
+	//animation26.interval,talk,3
+	//animation26.pattern0,stop,11
+	//animation26.pattern1,overlay,111,0,0,0
+	//animation26.pattern2,overlay,-1,200-250,0,0
+	//animation26.pattern3,start,11
+	
+	//:< talking
+	//animation27.interval,runonce
+	//animation27.pattern0,stop,28
+	//animation28.interval,talk,3
+	//animation28.pattern0,stop,14
+	//animation28.pattern1,overlay,114,0,0,0
+	//animation28.pattern2,overlay,-1,200-250,0,0
+	//animation28.pattern3,start,14
+	
+	//---eyes
+	//norm eye
+	animation30.interval,runonce
+	animation30.pattern0,overlay,130,0,0,0
+	
+	//norm lid
+	animation31.interval,never
+	animation31.pattern0,parallelstop,(30,59)
+	animation31.pattern1,overlay,131,0,0,0
+	
+	//look eye
+	animation32.interval,never
+	animation32.pattern0,parallelstop,(30,59)
+	animation32.pattern1,overlay,132,0,0,0
+	
+	//look lid
+	animation33.interval,never
+	animation33.pattern0,parallelstop,(30,59)
+	animation33.pattern1,overlay,133,0,0,0
+	
+	//close eye
+	animation34.interval,never
+	animation34.pattern0,parallelstop,(30,59)
+	animation34.pattern1,overlay,134,0,0,0
+	
+	//yippee close eye
+	animation35.interval,never
+	animation35.pattern0,parallelstop,(30,59)
+	animation35.pattern1,overlay,135,0,0,0
+	
+	//blink blink
+	animation59.interval,random,4
+	animation59.pattern0,stop,30
+	animation59.pattern1,overlay,131,0,0,0
+	animation59.pattern2,overlay,-1,70-80,0,0
+	animation59.pattern3,overlay,134,0,0,0
+	animation59.pattern4,overlay,-1,100-120,0,0
+	animation59.pattern5,overlay,131,0,0,0
+	animation59.pattern6,overlay,-1,90,0,0
+	animation59.pattern7,start,30
+	
+	//---eyebrows
+	//norm
+	animation60.interval,runonce
+	animation60.pattern0,overlay,160,0,0,0
+	
+	//angry
+	animation61.interval,never
+	animation61.pattern0,stop,60
+	animation61.pattern1,overlay,161,0,0,0
+	
+	//uh oh
+	animation62.interval,never
+	animation62.pattern0,stop,60
+	animation62.pattern1,overlay,162,0,0,0
+	
+	//---extras
+	//blush
+	animation90.interval,never
+	animation90.pattern0,overlay,190,0,0,0
+}
+//OH THANK VALA the hard part is over
+
+//shock faeia
+surface2
+{
+	element0,overlay,surface200.png,0,0,0
+	
+	//blush
+	animation90.interval,never
+	animation90.pattern0,overlay,237,0,0,0
+	
+	//effect!!!
+	//do \![anim,stop,91] if you dont want this
+	animation91.interval,always
+	animation91.pattern0,overlay,235,0,0,0
+	animation91.pattern1,overlay,-1,350,0,0
+	animation91.pattern2,overlay,236,0,0,0
+	animation91.pattern3,overlay,-1,350,0,0
+}
+
+//yay faeia
+surface3
+{
+	element0,overlay,surface250.png,0,0,0
+	
+	//tail wag
+	//do \![anim,stop,0] if you dont want this, and \![anim,stop,90] for no blushies
+	animation0.interval,always
+	animation0.pattern0,replace,251,350,0,0
+	animation0.pattern1,replace,250,350,0,0
+	
+	//blush
+	animation90.interval,runonce
+	animation90.pattern0,overlay,285,0,0,0
+}
+
+//think faeia
+surface4
+{
+	element0,overlay,surface300.png,0,0,0
+}
+
+//worry faeia
+surface5
+{
+	element0,overlay,surface350.png,0,0,0
+	//why did i set this up like this... give me a sec
+	
+	//hold self base
+	animation1.interval,never
+	animation1.pattern0,replace,351,0,0,0
+	
+	//happy mouth
+	animation10.interval,runonce
+	animation10.pattern0,overlay,352,0,0,0
+	
+	//sad mouth
+	animation11.interval,never
+	animation11.pattern0,stop,10
+	animation11.pattern1,overlay,353,0,0,0
+	
+	//norm eye
+	animation30.interval,runonce
+	animation30.pattern0,overlay,354,0,0,0
+	
+	//look eye
+	animation31.interval,never
+	animation31.pattern0,stop,30
+	animation31.pattern1,overlay,355,0,0,0
+	
+	//blush
+	animation90.interval,never
+	animation90.pattern0,overlay,387,0,0,0
+	
+	//effect!!!
+	//do \![anim,stop,91] if you dont want this
+	animation91.interval,always
+	animation91.pattern0,overlay,385,0,0,0
+	animation91.pattern1,overlay,-1,500,0,0
+	animation91.pattern2,overlay,386,0,0,0
+	animation91.pattern3,overlay,-1,500,0,0
+}
+
+//grumpy faeia
+surface6
+{
+	element0,overlay,surface400.png,0,0,0
+	
+	//blush
+	animation90.interval,never
+	animation90.pattern0,overlay,437,0,0,0
+	
+	//effect!!!
+	//do \![anim,stop,91] if you dont want this
+	animation91.interval,always
+	animation91.pattern0,overlay,435,0,0,0
+	animation91.pattern1,overlay,-1,500,0,0
+	animation91.pattern2,overlay,436,0,0,0
+	animation91.pattern3,overlay,-1,500,0,0
+}
+
+//front magic faeia
+surface7
+{
+	element0,overlay,surface450.png,0,0,0
+}
+
+//front swing faeia
+surface8
+{
+	element0,overlay,surface550.png,0,0,0
+}
+
+//3/4 swing faeia
+surface9
+{
+	element,overlay,surface600.png,0,0,0
+	
+	animation10.interval,never
+	animation10.pattern0,replace,601,0,0,0
 }
 
 //—————————————————————————————— Kero surfaces ——————————————————————————————
 
+//Fallback Tahir
 surface10
 {
-	collision,0,0,130,65,head
+	element0,overlay,surface1100.png,0,0
+	element1,overlay,surface1160.png,0,0
+	
+	//mouth
+	animation1.interval,runonce
+	animation1.pattern0,overlay,1110,0,0,0
+	animation2.interval,talk,3
+	animation2.pattern0,stop,1
+	animation2.pattern1,overlay,1111,0,0,0
+	animation2.pattern2,overlay,-1,200-250,0,0
+	animation2.pattern3,start,1
+	
+	//eyes
+	animation3.interval,runonce
+	animation3.pattern0,overlay,1130,0,0,0
+	animation4.interval,random,4
+	animation4.pattern0,stop,3
+	animation4.pattern1,overlay,1131,0,0,0
+	animation4.pattern2,overlay,-1,70-80,0,0
+	animation4.pattern3,overlay,1134,0,0,0
+	animation4.pattern4,overlay,-1,100-120,0,0
+	animation4.pattern5,overlay,1131,0,0,0
+	animation4.pattern6,overlay,-1,90,0,0
+	animation4.pattern7,start,3
+}
+
+//tahir base
+surface11
+{
+	element0,overlay,surface1100.png,0,0
+	
+	//---replace body pose
+	//hood up
+	animation1.interval,never
+	animation1.pattern0,replace,1101,0,0,0
+	
+	//hood up true resonance (spoilers? lol)
+	animation2.interval,never
+	animation2.pattern0,replace,1102,0,0,0
+	
+	//hold kunai
+	animation3.interval,never
+	animation3.pattern0,replace,1500,0,0,0
+	
+	//---mouth
+	//:<
+	animation10.interval,runonce
+	animation10.pattern0,overlay,1110,0,0,0
+	
+	//:0
+	animation11.interval,never
+	animation11.pattern0,parallelstop,(10,29)
+	animation11.pattern1,overlay,1111,0,0,0
+	
+	//:)
+	animation12.interval,never
+	animation12.pattern0,parallelstop,(10,29)
+	animation12.pattern1,overlay,1112,0,0,0
+	
+	//:D
+	animation13.interval,never
+	animation13.pattern0,parallelstop,(10,29)
+	animation13.pattern1,overlay,1113,0,0,0
+	
+	//:< talking
+	animation29.interval,talk,3
+	animation29.pattern0,stop,10
+	animation29.pattern1,overlay,1111,0,0,0
+	animation29.pattern2,overlay,-1,200-250,0,0
+	animation29.pattern3,start,10
+	
+	//---eyes
+	//norm eye
+	animation30.interval,runonce
+	animation30.pattern0,overlay,1130,0,0,0
+	
+	//norm lid
+	animation31.interval,never
+	animation31.pattern0,parallelstop,(30,59)
+	animation31.pattern1,overlay,1131,0,0,0
+	
+	//look eye
+	animation32.interval,never
+	animation32.pattern0,parallelstop,(30,59)
+	animation32.pattern1,overlay,1132,0,0,0
+	
+	//look lid
+	animation33.interval,never
+	animation33.pattern0,parallelstop,(30,59)
+	animation33.pattern1,overlay,1133,0,0,0
+	
+	//close eye
+	animation34.interval,never
+	animation34.pattern0,parallelstop,(30,59)
+	animation34.pattern1,overlay,1134,0,0,0
+	
+	//yippee close eye
+	animation35.interval,never
+	animation35.pattern0,parallelstop,(30,59)
+	animation35.pattern1,overlay,1135,0,0,0
+	
+	//blink blink
+	animation59.interval,random,4
+	animation59.pattern0,stop,30
+	animation59.pattern1,overlay,1131,0,0,0
+	animation59.pattern2,overlay,-1,70-80,0,0
+	animation59.pattern3,overlay,1134,0,0,0
+	animation59.pattern4,overlay,-1,100-120,0,0
+	animation59.pattern5,overlay,1131,0,0,0
+	animation59.pattern6,overlay,-1,90,0,0
+	animation59.pattern7,start,30
+	
+	//---eyebrows
+	//norm
+	animation60.interval,runonce
+	animation60.pattern0,overlay,1160,0,0,0
+	
+	//angry
+	animation61.interval,never
+	animation61.pattern0,stop,60
+	animation61.pattern1,overlay,1161,0,0,0
+	
+	//uh oh
+	animation62.interval,never
+	animation62.pattern0,stop,60
+	animation62.pattern1,overlay,1162,0,0,0
+	
+	//---extras
+	//blush
+	animation90.interval,never
+	animation90.pattern0,overlay,1190,0,0,0
+}
+//i have mostly everything set up so that tahir is the same as faeia copy pasted but with slightly different numbers so its easy to make. i am a genius /j
+
+//ah nevermind. i gave tahir like a gajillion hoods. kms /j
+//shock tahir
+surface12
+{
+	element0,overlay,surface1200.png,0,0,0
+	
+	//oooh mmysterious who could it be
+	animation1.interval,never
+	animation1.pattern0,replace,1201,0,0,0
+	
+	//mystery + true resonance
+	animation2.interval,never
+	animation2.pattern0,replace,1202,0,0,0
+	
+	//raise hood open eye
+	animation3.interval,never
+	animation3.pattern0,replace,1203,0,0,0
+	
+	//raise hood close eye
+	animation4.interval,never
+	animation4.pattern0,replace,1204,0,0,0
+	
+	//blush
+	animation90.interval,never
+	animation90.pattern0,overlay,1235,0,0,0
+}
+
+//yay tahir
+surface13
+{
+	element0,overlay,surface1250.png,0,0,0
+	
+	//look away
+	animation1.interval,never
+	animation1.pattern0,replace,1251,0,0,0
+	
+	//blush
+	animation90.interval,runonce
+	animation90.pattern0,overlay,1285,0,0,0
+}
+
+//think tahir
+surface14
+{
+	element0,overlay,surface1300.png,0,0,0
+	
+	//look away
+	animation1.interval,never
+	animation1.pattern0,replace,1301,0,0,0
+}
+
+//worry tahir
+surface15
+{
+	element0,overlay,surface1350.png,0,0,0
+	
+	//down ear base
+	animation1.interval,never
+	animation1.pattern0,replace,1351,0,0,0
+	
+	//look left sweat
+	animation30.interval,runonce
+	animation30.pattern0,overlay,1352,0,0,0
+	
+	//look right sweat
+	animation31.interval,never
+	animation31.pattern0,stop,30
+	animation31.pattern1,overlay,1353,0,0,0
+	
+	//eye REGRET
+	animation32.interval,never
+	animation32.pattern0,stop,30
+	animation32.pattern1,overlay,1354,0,0,0
+	
+	//blush
+	animation90.interval,never
+	animation90.pattern0,overlay,1387,0,0,0
+	
+	//effect!!!
+	//do \![anim,stop,91] if you dont want this
+	animation91.interval,always
+	animation91.pattern0,overlay,1385,0,0,0
+	animation91.pattern1,overlay,-1,500,0,0
+	animation91.pattern2,overlay,1386,0,0,0
+	animation91.pattern3,overlay,-1,500,0,0
+}
+
+//grumpy tahir
+surface16
+{
+	element0,overlay,surface1400.png,0,0,0
+	
+	//look right
+	animation30.interval,runonce
+	animation30.pattern0,overlay,1401,0,0,0
+	
+	//look user
+	animation31.interval,never
+	animation31.pattern0,stop,30
+	animation31.pattern1,overlay,1402,0,0,0
+	
+	//close eye
+	animation32.interval,never
+	animation32.pattern0,stop,30
+	animation32.pattern1,overlay,1403,0,0,0
+	
+	//angry brow
+	animation60.interval,runonce
+	animation60.pattern0,overlay,1404,0,0,0
+	
+	//angry brow
+	animation61.interval,never
+	animation61.pattern0,stop,60
+	animation61.pattern1,overlay,1405,0,0,0
+	
+	//blush
+	animation90.interval,never
+	animation90.pattern0,overlay,1435,0,0,0
+}
+
+//front kunai tahir
+surface17
+{
+	element0,overlay,surface1450.png,0,0,0
+}
+
+//front scythe tahir
+surface18
+{
+	element0,overlay,surface1550.png,0,0,0
+}
+
+//3/4 scythe tahir
+//surface19
+//{
+//	element,overlay,surface1600.png,0,0,0
+//}
+
+
+surface.append0-19
+{
+	animation3000.interval,never
+	animation3000.pattern0,overlayfast,3000,0,0,0
+}
+
+
+//ITS THE DUMMY!!!!!!! BEST CHARADCTER FR
+
+surface90
+{
+	element0,overlay,surface2000.png,0,0,0
 }
