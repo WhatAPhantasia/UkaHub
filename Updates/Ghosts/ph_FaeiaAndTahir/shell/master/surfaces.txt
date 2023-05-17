@@ -428,6 +428,9 @@ surface11
 {
 	element0,overlay,surface1100.png,0,0
 	
+	//collisionex0,hair,polygon,158,158,324,158,324,292,277,277,298,236,298,208,236,208,217,292,158,292
+	//ehhh.. do collisions later
+	
 	//---replace body pose
 	//hood up
 	animation1.interval,never
@@ -674,6 +677,9 @@ surface.append0-19
 {
 	animation3000.interval,never
 	animation3000.pattern0,overlayfast,3000,0,0,0
+
+	animation3001.interval,never
+	animation3001.pattern0,overlayfast,3001,0,0,0
 }
 
 

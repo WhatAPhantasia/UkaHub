@@ -39,6 +39,7 @@ OnSakuraSettings : all
 	if userinfo[0] == "unknown"; "they don't know\nwhat \_a[OnSpecies]species\_a you are."
 	else; "you are\n%(vwl(userinfo[0],'a','an')) %(userinfo[0])."
 	"\n"
+	
 	"\![*]They also think\nyou're %(vwl(userinfo[1],'a','an')) \_a[OnClass]%(userinfo[1])\_a\n"
 	"with %(vwl(userinfo[2],'a','an')) \_a[OnResonance]%(userinfo[2])\_a resonance.\n\n"
 
@@ -172,10 +173,11 @@ OnSpecies : all
 {
 	"\0\_q\f[align,center]\f[bold,1]--Who Are You?--\n\n\f[align,default]\f[bold,default]"
 	
-	"\![*]\q[He/Him,OnPronouns,masc]\n"
-	"\![*]\q[She/Her,OnPronouns,fem]\n"
-	"\![*]\q[They/Them,OnPronouns,undef]\n"
-	"\![*]\q[Custom,OnPronouns,custom]\n"
+	"\![*]\q[A rabbit,OnSpecies,rabbit,firstboot]\n"
+	"\![*]\q[A hare,OnSpecies,hare,firstboot]\n"
+	"\![*]\q[A pika,OnSpecies,pika,firstboot]\n"
+	if !Flag("FBMemories"); "\![*]\q[I'm not from here,other,firstboot]\n"
+	else; "\![*]\q[I don't think I'm from here,other,firstboot]\n"
 	
 	"\n\![*]\q[Back,OnSettingsMenu]   \![*]\q[Close,blank]"
 }
