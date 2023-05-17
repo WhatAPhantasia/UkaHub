@@ -14,38 +14,82 @@ OnFirstBoot : all
 	"\0\s[1]\i[14]"
 	"Wait, huh? \w8\w8Tahir, \w8there's someone else here..!\w8\w8\1\n\n"
 	"\!![anim,stop,1]\i[3]"
-	"...Huh. \w8That's... \w8Weird. \w8\w4Who are you? \w8\![anim,stop,3]\i[4]I suppose a name to start would be appropriate...\w4"
+	"...Huh. \w8That's... \w8Weird. \w8\w4Who are you?\w4"
 
 	//x. template teehee
 	"\0\![open,inputbox,OnNameTeach,-1,--reference=firstboot,--reference=1]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
 }
 
-OnFirstBootTwo
+OnFirstBootTwo : all
 {
 	"\t\*"
 	"\0\s[1]\i[13]\i[32]\1\s[11]"
 	"What are you doing in The Caretaker's Domain..? \w8\s[14]People from the Bramblebrush usually aren't capable of getting up here.\w8\w8\0"
-	"Yeah!! \w8It's like, super high up and FULL of strong Resonance! \w4Geez, you're definitely not okay, I can see it being seeped out of you...\w4\n\n"
+	"Yeah!! \w8It's like, super high up and FULL of strong Resonance...\w4\n\n"
 
 	"\_q"
+	"\![*]\q[I'm just exploring.,OnFirstBootThree,wanderer]\n"
 	"\![*]\q[I'm a mage looking for runes.,OnFirstBootThree,mage]\n"
 	"\![*]\q[I wanted to fight strong monsters.,OnFirstBootThree,fight]\n"
 	"\![*]\q[I wanted to see The Caretakers.,OnFirstBootThree,caretakers]\n"
-	"\![*]\q[I'm just exploring.,OnFirstBootThree,wanderer]"
-	"\![*]\q[I don't have any memories...,OnFirstBootThree,idk]\n"
+	"\![*]\q[I don't really remember anything...,OnFirstBootThree,idk]"
 }
 
-OnFirstBootThree
+OnFirstBootThree : all
 {
 	"\t\*"
 
-	"\_q"
-	"\![*]\q[A rabbit,OnSpecies,rabbit,firstboot]\n"
-	"\![*]\q[A hare,OnSpecies,hare,firstboot]\n"
-	"\![*]\q[A pika,OnSpecies,pika,firstboot]\n"
-	if reference0 != "idk"; "\![*]\q[I'm not from here,other,firstboot]\n"
-	else; "\![*]\q[I don't think I'm from here,other,firstboot]\n"
-	"\![*]\q[...Human??,OnSpecies,human,firstboot]"
+	if reference0 == "wanderer"
+	{
+		"\0E-- \W8EXPLORING?!\w8\w8\1"
+		"Pfft- \w8Oh, of course. \w8That's the whole reason Faeia first wanted to go here, too. \w8I think it was something about wanting to--\w8\0\n\n"
+		"AHH!! \w8T-Tahir, you don't need to tell %(them) that..!!\w8\w8\1\n\n"
+		"Ah, sorry, sorry... \w8I just find it funny that places like this attract the same kind of people.\w8\w8\0\n\n"
+		"A-Anyways! \w8\w8We NEED to get you out of here. \w8The thing about the Resonance around here is that it's really dangerous if you don't have the proper preparations and all that... \w8And you look really drained. \w8\w4Come on!"
+	}
+	elseif reference0 == "mage"
+	{
+		userinfo[1] = "mage"
+		"\0Oh- \w8Well, YEAH, right?! \w8All the good stuff is up here..!!\w8\w8\1"
+		"Regardless, \w4you won't be keeping any of those runes if you stay here any longer. \w8The Resonance up here is really dangerous, and it's taking it's toll on you. \w8Faeia?\w8\w8\0\n\n"
+		"Ah, right, right! \w8Hey hey, \w4I'll share some of my runes with you! \w8I'm PRETTY good at making them..!\w8\w8\1\n\n"
+		"She's not being arrogant when she says that, but... \w8Discuss this later?\w8\w8\0\n\n"
+		"Right..!! \w8Alright, come on..."
+	}
+	elseif reference0 == "fight"
+	{
+		userinfo[1] = "fighter"
+		"\1I don't doubt your strength if you've been able to get up here, \w8but we can tell you're drained. \w8You will most definitely faint in the next few minutes or so with all the Resonance in the air.\w8\w8\0"
+		"Mhmm... \w8Yeah, it just wouldn't be responsible of us to leave you here... \w8But, oh! \w8You can totally spar with us! \w8Right, Tahir?\w8\w8\1\n\n"
+		"Yeah, I wouldn't mind that. \w8You can always come back, just... \w8Know your limits.\w8\w8\0\n\n"
+		"A-Anyways! \w8\w8We NEED to get you out of here. \w8\w8Come on!"
+	}
+	elseif reference0 == "caretakers"
+	{
+		AddFlag("FBCaretakers")
+		"\1The Caretakers..? \w8Nothing against that, but you won't be able to make it to them. \w8You looked drained... \w8The Resonance up here takes it's toll on people.\w8\w8\0"
+		"Mhmm... \w8Yeah, it just wouldn't be responsible of us to leave you here... \w8But you can always come back here! \w6We can even bring you if you'd like!!\w8\w8\1\n\n"
+		"That can wait until later.\w8\w8\0\n\n"
+		"Ahh, right, right! \w8Well, come on!"
+	}
+	else
+	{
+		AddFlag("FBMemories")
+		"\0Oh dang, really..?\w8\w8\1"
+		"I suppose it makes it even more important that you get out of here.\w8\w8\0\n\n"
+		"Yeah, the Resonance up here can REALLY mess you up, \w4and all the big monsters up here can seriously hurt you... \w8We have a quick way out of here, though! \w8Come with us!!"
+	}
+
+	"\x\1\i[3001]\0\i[3001]"
+	 
+	 "\_q(A flash of white. Teleport runes are always disorientating...)\w4\x"
+
+	 ""
+}
+
+OnFirstBootFour : all
+{
+	"\0\t\*"
 }
 
 OnFirstBootVars
@@ -65,11 +109,13 @@ OnFirstBootVars
 
 	//user: name, faeia nickname, tahir nickname
 	user = ("stranger","strangey","stranger")
-	//userinfo: species, occupation, resonance color
-	userinfo = ("unknown","wanderer","unknown")
+	//userinfo: species, occupation, resonance color, caretaker
+	userinfo = ("unknown","wanderer","unknown","none")
 	totaltouch = (0,0)
 	recenttouch = (0,0)
 	MiscFlags = IARRAY
+	KnowSpells = IARRAY
+	KnowAttack = IARRAY
 	aitalkinterval = 300
 
 	boot_min = GETSECCOUNT / 60 //epoch time, x. template
@@ -98,28 +144,28 @@ OnBoot
 	_user_birthday = "%(_temp[1])/%(_temp[2])" //M/D, if you want it D/M you can switch it around
 	_today = "%(month)/%(day)" //Again, switch this around if using D/M
 	
-	"\1\s[10]\0\s[0]"
+	"\1\s[11]\0\s[1]"
 	--
 	if _today == _user_birthday
 	{
-		"\1\s[-1]\0\s[0]Woah woah woah, waiit!! \w8%(Capitalize(user[1]))!!! \w8Is that you?! \w8Hey! Isn't it your birthday today?! \w2%(nowmonth) %(day), right?!\w8\w8\1\s[10]Faeia, what are you- \w8Oh.\w8\w8\0\n\nShshshh no time to talk.. \w8It's time to celebrate!!!! \w8Happy birthday, %(user[0])~!\w8\w8\1\n\nAh, I see. \w6Happy birthday as well, %(user[0]). \w4May the Caretakers smile upon you.\w8\w8\0\n\nPfft, what? \w8I've never heard you say that before! \w4He's just trying to stick to formalities.\w8\w8\1\n\nAh- \w8Y-Yeah, \w4you're right. \w6Sorry, \w2I%(br)don't really say stuff like this often... \w8Um, my sentiments are real, though...\w8\w8\0\n\n(Hehe~!)\e"
+		"\1\s[-1]\0\s[2]Woah woah woah, waiit!! \w8%(Capitalize(user[1]))!!! \w8Is that you?! \w8\w8\s[3]Hey! Isn't it your birthday today?! \w2%(nowmonth) %(day), right?!\w8\w8\w8\1\s[16]Faeia, what are you- \w8\w8\s[11]Oh.\w8\w8\w8\i[32]\0\n\n\s[1]\i[1]\i[34]Shshshh no time to talk.. \w8\w8\s[3]It's time to celebrate!!!! \w8\w8Happy birthday, %(user[0])~!\w8\w8\w8\1\n\n\![anim,stop,32]\i[34]Ah, I see. \w8\w8\s[13]\![anim,stop,90]\i[1]Happy birthday as well, %(user[0]). \w8May the Caretakers smile upon you.\w8\w8\w8\0\n\nPfft, what? \w8\w8\s[1]\i[32]I've never heard you say that before! \w8\![anim,stop,32]\i[35]He's just trying to stick to formalities.\w8\w8\w8\1\n\n\s[11]\i[32]\i[90]Ah- \w8\s[15]\![anim,stop,91]\i[90]Y-Yeah, \w4you're right. \w8\w4Sorry, \w2I%(br)don't really say stuff like this often... \w8\w8\i[31]Um, my sentiments are real, though...\w8\w8\w8\0\n\n(Hehe~!)\e"
 	}
 	elseif _today == "1/23" //faeia's birthday
 	{
-		"Gassp! \w4No way! \w4It's %(user[1])!! \w8This is the greatest coincidence ever!! EEEEE!!\w8\w8\1Pff- \w8What Fai means to say is that it's her birthday today. \w8YOU would not stop talking about wanting to see %(them) today, and now you got what you wanted.\w8\w8\0\n\nHehe! \w2Yes I did~~ \w8Heyy, %(user[1]), are you gonna get me anything coooool this Jahan 23rd~~~??\w8\w8\1\n\nAaand there she goes.\w8\w8\0\n\nHey, what's that supposed to mean..?!\e"
+		"\s[2]Gassp! \w4No way! \w4It's %(user[1])!! \w8\w8\s[3]This is the greatest coincidence ever!! EEEEE!!\w8\w8\w8\1\s[13]\i[1]Pff- \w8\w8\s[13]What Fai means to say is that it's her birthday today. \w8\w8\s[16]\i[32]\i[61]She would NOT stop talking about wanting to see you today, and now she got what she wanted!\w8\w8\w8\0\n\nHehe! \w2Yes I did~~ \w8Heyy, %(user[1]), are you gonna get me anything coooool this Jahan 23rd~~~??\w8\w8\w8\1\n\nAaand there she goes.\w8\w8\w8\0\n\n\s[1]\i[35]\i[61]Hey, what's that supposed to mean..?!\e"
 	}
 	elseif _today == "7/20" //tahir's birthday
 	{
-		"\1Ah- \w8H-Hello, %(user[0]).\w8\w8\0PFFT, what was that?! \w8Weren't you JUST saying how cool it would be to see them today?!\w8\w8\1\n\nH-Huh? \w4I never said anything like-\w4\0\n\n%(Capitalize(user[1]))~! \w6It's Augin 20th! \w6Which is Tahir's birthday!! Happy birthday Tahir!!!\w8\w8\1\n\nAgh, yes, yeah, it's my birthday. \w6G-Good to see you today, %(user[2])...\e"
+		"\1\i[90]Ah- \w8H-Hello, %(user[0]).\w8\w8\0\i[35]\i[61]PFFT, what was that?! \w8Weren't you JUST saying how cool it would be to see them today?!\w8\w8\1\n\n\i[32]H-Huh? \w4I never said anything like-\w4\0\n\n\s[3]%(Capitalize(user[1]))~! \w6It's Augin 20th! \w6Which is Tahir's birthday!! Happy birthday Tahir!!!\w8\w8\1\n\n\s[15]\i[90]Agh, yes, yeah, it's my birthday. \w8\w8\s[11]\i[12]\i[90]G-Good to see you today, %(user[2])...\e"
 	}
 	else //Normal boot
 	{
-		"Oh, %(user[0]), is that you? \w8Wow! \w8Never thought we'd see eachother again so soon!\w8\w8\1Ah... Yes. It's good to see you again. \w8You doing okay?\e"
-		"Oh!! Hey!! %(Capitalize(user[1])), over here~!\w8\w8\1Pfft- \w4Yes, \w4hello %(user[2]). \w6How have you been since we last saw eachother?\e"
-		"Gaaasp! \w4Hey, %(user[1])! \w8You will not BELIEVE what me and Tahir just did~!\w8\w8\1Faeia, are you going to brag to EVERYONE about that Resonance dragon we redirected from Lanerei Town..?\w8\w8\0\n\nOf course! \w4Big Resonance Monsters don't just appear like that every day, you know!\w8\w8\1\n\n(I suppose so...)\e"
-		"Oh, hey %(user[0])! \w8Fancy seeing you here!\w8\w8\1...I think this situation deserves more than a ""fancy seeing you here"", Fai. \w8We JUST left %(esotericlocale).\w8\w8\0\n\nTahir, \w4%(user[1]) just has %(their) ways, and we have to accept that! \w6How else would we have first met %(them) at The Highest Daycare?!\w8\w8\1\n\nAh, I guess that's true...\e"
-		"\1Ah, it's %(user[0]). \w4Hello.\w8\w8\0Huh?! Oh, %(user[1])! \w8Hey!! \w8Wow, I almost didn't see ya there! \w8How's it been~?\e"
-		"\1Oh... Hey, %(user[2]). \w8\w8Ah, \w8I-I'm not too good at greetings, \w2I'm not too sure why I said hi first... \w8Faeia usually covers this part...\w8\w8\0Pfft-- Awww, sorry about that Tahir! I was busy trying to remember this rune I made up in my head... \w8I lost it, alas......\w8\w8\1\n\nAh... \w8Of course.\e"
+		"\i[14]Oh, %(user[0]), is that you? \w8\s[1]\i[35]Wow! \w8Never thought we'd see eachother again so soon!\w8\w8\w8\1\i[32]Ah... Yes. \w8\![anim,stop,32]\i[30]It's good to see you again. \w8You doing okay?\e"
+		"\s[3]Oh!! Hey!! %(Capitalize(user[1])), over here~!\w8\w8\1\s[13]\![anim,stop,90]Pfft- \w4Yes, \w4\s[13]\i[1]\![anim,stop,90]hello %(user[2]). \w6How have you been since we last saw eachother?\e"
+		"\i[14]Gaaasp! \w8\s[3]Hey, %(user[1])! \w8You will not BELIEVE what me and Tahir just did~!\w8\w8\1\s[16]\i[61]Faeia, are you going to brag to EVERYONE about that Resonance dragon we redirected from Lanerei Town..?\w8\w8\0\n\nOf course! \w8\s[1]\i[1]\i[34]Big Resonance Monsters don't just appear like that every day, you know!\w8\w8\1\n\n\i[32](I suppose so...)\e"
+		"Oh, hey %(user[0])! \w8Fancy seeing you here!\w8\w8\1\s[16]\i[61]...I think this situation deserves more than a ""fancy seeing you here"", Fai. \w8We JUST left %(esotericlocale).\w8\w8\0\n\n\i[1]\i[34]Tahir, \w4%(user[1]) just has %(their) ways, and we have to accept that! \w6How else would we have first met %(them) in The Caretaker's Domain?!\w8\w8\1\n\n\i[32]Ah, I guess that's true...\e"
+		"\i[34]\1Ah, it's %(user[0]). \w4Hello.\w8\w8\0\s[1]\i[14]Huh?! \w8\s[1]\i[35]Oh, %(user[1])! \w8Hey!! \w8Wow, I almost didn't see ya there! \w8How's it been~?\e"
+		"\s[4]\1Oh... Hey, %(user[2]). \w8\w8\s[15]Ah, \w8I-I'm not too good at greetings, \w2I'm not too sure why I said hi first... \w8\0\s[1]\i[14]\i[32]\1\i[31]Faeia usually covers this part...\w8\w8\0\s[1]\i[35]\i[62]Pfft-- Awww, sorry about that Tahir! I was busy trying to remember this rune I made up in my head... \w8\![anim,stop,35]\i[34]I lost it, alas......\w8\w8\1\n\n\s[11]\i[33]\i[62]\i[90]Ah... \w8Of course...\e"
 	}
 }
 
@@ -127,7 +173,7 @@ OnClose
 {
 	up_all = up_total
 
-	{"\1\s[10]\0\s[0]Aww, you're going?\w8\w8\1It's about time we get going as well, Fai. \w8"
+	{"\1\s[11]\0\s[1]\i[35]Aww, you're going?\w8\w8\1\i[32]It's about time we get going as well, Fai. \w8"
 	--
 	"We still have that request from the Artema King to sort out..."
 	"Weren't we going to check on the gates to The Caretaker's Domain?"
@@ -138,9 +184,9 @@ OnClose
 	"We have a meeting with Namii. \w4They'll probably be mad if we're late again..."
 	"We still have to deliver this parcel to %(esotericlocale)..."
 	--
-	"\w8\w8\0\n\nOh, SHOOT, you're right! \w8Seeya, %(user[1])!"}
-	"\0\s[0]Oh, yeah! \w6You've got things to do, don't you %(user[0])?\w8\w8\1Mhmm. \w6Farewell. \w8I wish you luck, where ever you're going."
-	"Oh, of course! \w8See you around then, %(user[1])!\w8\w8\1Yes, goodbye. \w6I hope we'll see eachother again soon. \w6You're pleasant company.\w8\w8\0\n\nHehe, awww~ \w8Tahirr~~\w8\w8\1\n\nW-What? \w8\w4I-It's true..."
+	"\w8\w8\0\n\n\s[1]\i[14]\i[32]Oh, SHOOT, you're right! \w8\s[1]\i[35]Seeya, %(user[1])!"}
+	"\1\s[11]\0\s[1]Oh, yeah! \w6You've got things to do, don't you %(user[0])?\w8\w8\1Mhmm. \w6Farewell. \w8I wish you luck, where ever you're going."
+	"\1\s[11]\0\s[1]Oh, of course! \w8See you around then, %(user[1])!\w8\w8\1Yes, goodbye. \w6I hope we'll see eachother again soon. \w6\i[34]You're pleasant company.\w8\w8\0\n\n\s[3]Hehe, awww~ \w8Tahirr~~\w8\w8\1\n\n\s[11]\i[33]\i[90]W-What? \w8\w4I-It's true..."
 	--
 	"\w8\w8\-" //This is what makes the ghost close (after a short pause), do not remove the \- , and MAKE SURE you don't use a \e before this point or it won't work
 }
