@@ -177,11 +177,11 @@ OnPronouns : all
 
 	"\_q\f[align,center]\f[bold,1]--Choose Pronouns--\n\n\f[align,default]\f[bold,default]"
 	
-	"\![*]\q[He/Him,OnPronounsTeach,masc,reference0]\n"
-	"\![*]\q[She/Her,OnPronounsTeach,fem,reference0]\n"
-	"\![*]\q[They/Them,OnPronounsTeach,undef,reference0]\n"
+	"\![*]\q[He/Him,OnPronounsTeach,masc,%(reference0)]\n"
+	"\![*]\q[She/Her,OnPronounsTeach,fem,%(reference0)]\n"
+	"\![*]\q[They/Them,OnPronounsTeach,undef,%(reference0)]\n"
 	"\![*]\f[color,disable]Custom\f[color,default]\n"
-	//"\![*]\q[Custom,OnPronounsTeach,custom,reference0]\n"
+	//"\![*]\q[Custom,OnPronounsTeach,custom,%(reference0)]\n"
 	
 	"\n\![*]\q[Back,%(_settings)]   \![*]\q[Close,blank]"
 }
@@ -213,11 +213,44 @@ OnSpecies : all
 
 	"\_q\f[align,center]\f[bold,1]--Who Are You?--\n\n\f[align,default]\f[bold,default]"
 	
-	"\![*]\q[A rabbit,OnSpeciesTeach,rabbit]\n"
-	"\![*]\q[A hare,OnSpeciesTeach,hare]\n"
-	"\![*]\q[A pika,OnSpeciesTeach,pika]\n"
-	if !Flag("FBMemories"); "\![*]\q[I'm not from here,OnSpeciesTeach,other]\n"
-	else; "\![*]\q[I don't think I'm from here,OnSpeciesTeach,other]\n"
+	"\![*]\q[A rabbit,OnSpeciesTeach,rabbit,%(reference0)]\n"
+	"\![*]\q[A hare,OnSpeciesTeach,hare,%(reference0)]\n"
+	"\![*]\q[A pika,OnSpeciesTeach,pika,%(reference0)]\n"
+	if !Flag("FBMemories"); "\![*]\q[I'm not from here,OnSpeciesTeach,other,%(reference0)]\n"
+	else; "\![*]\q[I don't think I'm from here,OnSpeciesTeach,other,%(reference0)]\n"
+	
+	"\n\![*]\q[Back,%(_settings)]   \![*]\q[Close,blank]"
+}
+
+OnSpeciesTeach : all
+{
+	_settings = "OnSakuraSettings"; if reference1; _settings = "OnKeroSettings"
+    "\%(reference1)"
+
+	/*
+	userinfo[0] = reference0
+
+	case reference0
+	{
+		when "rabbit"
+		{
+			""
+		}
+		when "hare"
+		{
+			""
+		}
+		when "pika"
+		{
+
+		}
+		others
+		{
+
+		}
+	}
+	*/
+	"\_q(Wait, sorry!! This feature isn't implemented yet!!!!! SORRY it will be... later...)"
 	
 	"\n\![*]\q[Back,%(_settings)]   \![*]\q[Close,blank]"
 }

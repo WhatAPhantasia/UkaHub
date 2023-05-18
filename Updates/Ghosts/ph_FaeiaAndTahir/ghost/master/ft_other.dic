@@ -13,6 +13,26 @@ OnTranslate
 	TOSTR(_talk)
 }
 
+GodBlurb
+{
+	"The Caretakers create all life in The Bramblebrush: The Grand Two are Vala and Fenr, of the moons and sun respectively, and they've been feuding since most people can remember. This is the main reason why the two nations are constantly at conflict, as many of the people from the Bramblebrush were crafted to fight their battles... Or so the legend goes.\nOther minor Caretakers exist, and a few people commit themselves to them in addition to the Grand Two. These include Linn (Of the Bramblebrush) and Pont (Of the Aetherbrush)."
+}
+
+WorldBlurb
+{
+	"The Bramblebrush is the name for the planet as a whole, crafted and patched together by the collective efforts of all The Caretakers. The main species are different kinds of lagomorphs, with rabbits being the most common out of hares and pikas. Vala's lands are cold and to the west, and Fenr's lasts are more hot and to the east.\n\n(Phantasia will... Eventually add more to this. Tell them what you'd like to know!)"
+}
+
+ResonanceBlurb
+{
+	"Resonance is the inherent energy in the Bramblebrush and residents of the Bramblebrush, and came from The Caretakers to facilitate life on the planet. Resonance is also patched into every single person, focused in a single point of their body, and the color of it indicates their element proficiency and which Caretaker favors them the most. It can be manifested and controlled through Runes, the language of The Caretakers."
+}
+
+BattleBlurb
+{
+	"Monsters and creatures are created from the coalesced stray Resonance from The Caretakers and their feud. They manifest as different things, from sprites, spirits, and slimes to dragons and hydras. And, with the constant wars and conflicts that erupt every few 100 years between Vala and Fenr, weapons and methods of fighting have become necessary to the regular person."
+}
+
 //This is just here so you can use anchors to link to websites if you want. You can link to websites with normal menu choice tags! If you do, a handy URL preview will show up in the balloon!
 OnAnchorSelect
 {
@@ -24,98 +44,135 @@ OnAnchorSelect
 			//==================================FAEIA QUESTIONS
 			when "AFQ.Faeia"
 			{
-				""
+				"\0\b2\_q\![set,autoscroll,disable]"
+				--
+				"23-year old rabbit mage. Grew up in Valaria, in a small rabbit-pika town called Stoneveil, in the rocky base of a snowy mountain. She thinks of herself as an optimist and a go-getter, and CONSTANTLY looks for adventure and the attainment of knowledge. She thinks the feud between the two main Caretakers is dumb, and is currently on an adventure around the Bramblebrush to take quests, help people, and unravel the mystery about shifting Resonance and growing national tensions."
 				--
 				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			when "AFQ.Tahir"
 			{
-				""
+				"\0\b2\_q\![set,autoscroll,disable]"
+				--
+				"One of Faeia's best friends, her and main travelling companion. He's a mid-20-something rabbit-hare rogue, who grew up wandering around Fenara. They met when Faeia was in her first year at the Valarian Elevated Academy of Resonance: He was cornered in the Academy town, and she helped him!! As her real first look into Fenara life, she loved sticking around and bothering him, and they just became friends :)"
 				--
 				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			when "AFQ.People"
 			{
-				""
+				"\0\b2\_q\![set,autoscroll,disable]"
+				--
+				"\f[bold,1]NAMII:\f[bold,default] Half-rabbit half-mystery with a white Resonance, and a weird anti-hero in Faeia and Tahir's quest. Confused and mad about their place in the world, and hates The Caretakers to an almost personal degree. Seems to know about why Resonance is fluctuating more intensely recently.\n"
+				--
+				"\f[bold,1]LOPEI:\f[bold,default] Faeia's dormmate at the academy, friendly and good at potions.\n"
+				--
+				"\f[bold,1]UHIR:\f[bold,default] Older pika in Stoneveil, runs the resident bakery."
 				--
 				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			when "AFQ.Vala"
 			{
-				""
+				"\0\b2\_q\![set,autoscroll,disable]"
+				--
+				//write more...
+				"One of the two big nations, named after Vala. Valarian lands are cold and often snowy, with mountains, hills, evergreen forests, rivers, and oceans. On the ""western"" hemisphere of The Bramblebrush.\n\nCurrently at a tenuous peace with Fenara, but tensions have been rising."
 				--
 				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			when "AFQ.Gods"
 			{
-				""
+				"\0\b2\_q\![set,autoscroll,disable]"
+				--
+				GodBlurb
 				--
 				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			when "AFQ.World"
 			{
-				""
+				"\0\b2\_q\![set,autoscroll,disable]"
+				--
+				WorldBlurb
 				--
 				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			when "AFQ.Magic"
 			{
-				""
+				"\0\b2\_q\![set,autoscroll,disable]"
+				--
+				ResonanceBlurb
 				--
 				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			when "AFQ.Battle"
 			{
-				""
+				"\0\b2\_q\![set,autoscroll,disable]"
+				--
+				BattleBlurb
 				--
 				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			//==================================TAHIR QUESTIONS
 			when "ATQ.Tahir"
 			{
-				""
+				"\1\b2\_q\![set,autoscroll,disable]"
+				--
+				"Mid-20s wandering rabbit-hare rogue from Fenara. Known at least a little across the Bramblebrush, and his outward seriousness betrays his shy nature. He mostly acts for his own gain, looking for new experiences and doing quests to make ends meet. He mostly tags along with Faeia because he acts as a guide to her, as well as the fact that he enjoys her company and has a few loose ends to tie up on her quest."
 				--
 				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			when "ATQ.Faeia"
 			{
-				""
+				"\1\b2\_q\![set,autoscroll,disable]"
+				--
+				"A close companion to Tahir. Met Faeia during her first year at her academy, when she saved him from Fellspire assassins. First irked by her constant insistence on talking to him and frightening ability of finding him, but grew to admire her tenacity and knowledge."
 				--
 				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			when "ATQ.People"
 			{
-				""
+				"\1\b2\_q\![set,autoscroll,disable]"
+				--
+				"\f[bold,1]NAMII:\f[bold,default] Half-rabbit half-mystery with a white Resonance, and a weird anti-hero in Faeia and Tahir's quest. Confused and mad about their place in the world, and hates The Caretakers to an almost personal degree. Seems to know about why Resonance is fluctuating more intensely recently.\n"
 				--
 				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 			}
-			when "ATQ.Vala"
+			when "ATQ.Fenr"
 			{
-				""
+				"\1\b2\_q\![set,autoscroll,disable]"
+				--
+				"One of the two big nations, named after Fenr. Fenara lands are hot and sometimes arid, but the nation is big and ranges from sweltering rainforests, expansive deserts, savannas, and coastal areas. In the ""eastern"" hemisphere.\n\nCurrently at a tenuous peace with Valaria, but tensions have been rising."
 				--
 				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			when "ATQ.Gods"
 			{
-				""
+				"\1\b2\_q\![set,autoscroll,disable]"
+				--
+				GodBlurb
 				--
 				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			when "ATQ.World"
 			{
-				""
+				"\1\b2\_q\![set,autoscroll,disable]"
+				--
+				WorldBlurb
 				--
 				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			when "ATQ.Magic"
 			{
-				""
+				"\1\b2\_q\![set,autoscroll,disable]"
+				--
+				ResonanceBlurb
 				--
 				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			when "ATQ.Battle"
 			{
-				""
+				"\1\b2\_q\![set,autoscroll,disable]"
+				--
+				BattleBlurb
 				--
 				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 			}
