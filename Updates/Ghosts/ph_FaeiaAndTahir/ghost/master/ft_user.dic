@@ -1,0 +1,235 @@
+//i cant live without a user.dic....
+
+OnName : all
+{
+    "\%(reference0)"
+	"\_q(What's your name?)\n\n"
+	"\![set,balloontimeout,-1]\![open,inputbox,OnNameTeach,-1,--reference=0,--reference=%(reference0)]"
+	"\![*]\q[Back,OnSettingsMenu]  \![*]\q[Nevermind,blank]"
+}
+
+OnNameTeach : all
+{
+	//reference0: input
+	//reference2: _is_firstboot
+	//reference3: faeia (0) or tahir (1)
+
+	//x. template code.
+	_tempname = CUTSPACE(reference.raw[0]) //this stores the original name in _tempname
+	_name = reference.raw[0] //putting the raw name into _name to do some tests on it
+	_name = TOLOWER(_name) //changes it to lowercase
+	_name = REPLACE(_name," ","") //removes spaces
+	_name = REPLACE(_name,".","") //removes periods
+	_name = REPLACE(_name,"-","") //removes dashes
+
+	_is_firstboot = 0; if reference2 == "firstboot"; _is_firstboot = 1
+	
+	if _is_firstboot; "\_l[-10000,-10000]\q[ ,__VERY_FIRST_BOOT__]\_l[0,0]\*\t" //Prevents balloon from timing out if this is during first boot. Also prevents the user from closing out the input box
+
+    _settings = "OnSakuraSettings"; if reference3 == 1; _settings = "OnKeroSettings"
+	
+	if _name == "faeia"
+	{
+		if !reference3; "\0\s[1]\i[35]\i[62]Oh, no, that's my name! \w6I can't call you that..!"
+		else; "\1\s[11]\i[31]...Hm. \w8I think that'd get confusing.\w8\w8\0\s[1]\i[35]Pfft, yeah."
+		
+		if !_is_firstboot; "\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Nevermind,blank]"
+		else; "\1"
+		"\![open,inputbox,OnNameTeach,-1,--reference=reference2,--reference=reference3]\e"
+	}
+	elseif _name == "tahir"
+	{
+		if !reference3; "\0\s[1]\i[35]\i[62]Hey, if I call you Tahir, I think the poor guy would get confused..!"
+		else; "\1\s[11]\i[31]...Hm. \w8I think that'd get confusing.\w8\w8\0\s[1]\i[35]Pfft, yeah."
+
+		if !_is_firstboot; "\w4\_q\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Nevermind,blank]"
+		"\![open,inputbox,OnNameTeach,-1,--reference=reference2,--reference=reference3]\e"
+	}
+	elseif _name == "namii" || _name == "alnoth" || _name == "vala" || _name == "fenr"
+	{
+        "\%(reference3)"
+
+		"\_q(Please choose another name!)"
+
+		if !_is_firstboot; "\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Nevermind,blank]"
+		"\![open,inputbox,OnNameTeach,-1,--reference=reference2,--reference=reference3]\e"
+	}
+	elseif _name == ""
+	{
+		if _is_firstboot 
+		{
+			user = ("friend","friendy","friend")
+
+			"\1Ah... \w6Well, I hope %(user[0]) is fine...\w8\x"
+			OnFirstBootTwo
+		}
+		else
+		{
+            if reference3 == 0; "\0"
+            else; "\1"
+
+			"Hm? We'll just keep calling you %(user[0]), then."
+			"\w4\_q\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Close,blank]"
+		}
+	}
+	else
+	{
+        user[0] = SHIORI3FW.EscapeAllTags(_tempname)
+        user[1] = SHIORI3FW.EscapeAllTags(_tempname)
+        user[2] = SHIORI3FW.EscapeAllTags(_tempname)
+
+		if !_is_firstboot 
+		{
+            "\%(reference3)"
+
+			"Alright, %(user[0]) it is."
+			"\w4\_q\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Close,blank]"
+		}
+		else 
+        {
+			OnFirstBootTwo
+		}
+	}
+}
+
+OnNickname : all
+{
+	if reference0 == 0 //Faeia
+	{
+		"\0\_q(What would you like Faeia to nickname you?)\n(She likes cutesy spins on names, like ""Linny"" for Linn. She also likes puns!)"
+		"\![set,balloontimeout,-1]\![open,inputbox,OnNicknameTeach,-1,--reference=0]"
+		"\n\n\![*]\q[Back,OnSakuraSettings]  \![*]\q[Nevermind,blank]"
+	}
+	else //Tahir
+	{
+		"\1\_q(What would you like Tahir to nickname you?)\n(He likes shortening names if possible, like ""Fai"" for Faeia and ""Fen"" for Fenr.)"
+		"\![set,balloontimeout,-1]\![open,inputbox,OnNicknameTeach,-1,--reference=1]"
+		"\n\n\![*]\q[Back,OnKeroSettings]  \![*]\q[Nevermind,blank]"
+	}
+}
+
+OnNicknameTeach : all
+{
+	//reference0: input
+	//reference2: faeia (0) or tahir (1)
+
+	//x. template code.
+	_tempname = CUTSPACE(reference.raw[0]) //this stores the original name in _tempname
+	_name = reference.raw[0] //putting the raw name into _name to do some tests on it
+	_name = TOLOWER(_name) //changes it to lowercase
+	_name = REPLACE(_name," ","") //removes spaces
+	_name = REPLACE(_name,".","") //removes periods
+	_name = REPLACE(_name,"-","") //removes dashes
+
+    _settings = "OnSakuraSettings"; if reference2 == 1; _settings = "OnKeroSettings"
+	
+	if _name == "faeia"
+	{
+		if !reference2; "\0\s[1]\i[35]\i[62]Oh, no, that's my name! \w6I can't call you that..!"
+		else; "\1\s[11]\i[31]...Hm. \w8I think that'd get confusing.\w8\w8\0\s[1]\i[35]Pfft, yeah."
+		
+		"\w4\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Nevermind,blank]"
+		"\![open,inputbox,OnNameTeach,-1,--reference=%(reference2)]\e"
+	}
+	elseif _name == "tahir"
+	{
+		if !reference2; "\0\s[1]\i[35]\i[62]Hey, if I call you Tahir, I think the poor guy would get confused..!"
+		else; "\1\s[11]\i[31]...Hm. \w8I think that'd get confusing.\w8\w8\0\s[1]\i[35]Pfft, yeah."
+
+		"\w4\_q\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Nevermind,blank]"
+		"\![open,inputbox,OnNameTeach,-1,--reference=%(reference2)]\e"
+	}
+	elseif _name == "namii" || _name == "alnoth" || _name == "vala" || _name == "fenr"
+	{
+        "\%(reference2)"
+
+		"\_q(Please choose another name!)"
+
+		"\w4\_q\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Nevermind,blank]"
+		"\![open,inputbox,OnNameTeach,-1,--reference=%(reference2)]\e"
+	}
+	elseif _name == ""
+	{
+		if !reference2; "\0Oh, I didn't hear that... \w8I'll just keep calling you %(user[1]), okay?"
+		else; "\1...Huh? \w8\w2Um, \w4I hope you're still okay with %(user[2]), then..."
+
+		"\w4\_q\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Close,blank]"
+	}
+	else
+	{
+		if !reference2 {
+            user[1] = SHIORI3FW.EscapeAllTags(_tempname)
+			"\0Alright! \w8%(Capitalize(user[1])) it is~!"
+		}
+		else {
+            user[2] = SHIORI3FW.EscapeAllTags(_tempname)
+			"\1Alright, I'm calling you %(user[2])."
+		}
+
+		"\w4\_q\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Close,blank]"
+	}
+}
+
+OnPronouns : all
+{
+    _settings = "OnSakuraSettings"; if reference0; _settings = "OnKeroSettings"
+    "\%(reference2)"
+
+	"\_q\f[align,center]\f[bold,1]--Choose Pronouns--\n\n\f[align,default]\f[bold,default]"
+	
+	"\![*]\q[He/Him,OnPronounsTeach,masc,reference0]\n"
+	"\![*]\q[She/Her,OnPronounsTeach,fem,reference0]\n"
+	"\![*]\q[They/Them,OnPronounsTeach,undef,reference0]\n"
+	"\![*]\f[color,disable]Custom\f[color,default]\n"
+	//"\![*]\q[Custom,OnPronounsTeach,custom,reference0]\n"
+	
+	"\n\![*]\q[Back,%(_settings)]   \![*]\q[Close,blank]"
+}
+
+OnPronounsTeach : all
+{
+	if reference0 == "masc" 
+	{pronouns = ("he","him","his","his","himself",0)}
+	elseif reference0 == "fwm"
+	{pronouns = ("she","her","her","hers","herself",0)}
+	elseif reference0 == "custom"
+	{OnCustomPronouns}
+	else
+	{pronouns = ("they","them","their","theirs","themself",1)}
+
+	if !reference1; OnSakuraSettings
+	else; OnKeroSettings
+}
+
+OnCustomPronouns
+{
+    "\_qThis will be implemented post jam. idk if i can copy paste the code i did this jam for lumi over into f&t...\e"
+}
+
+OnSpecies : all
+{
+    _settings = "OnSakuraSettings"; if reference0; _settings = "OnKeroSettings"
+    "\%(reference0)"
+
+	"\_q\f[align,center]\f[bold,1]--Who Are You?--\n\n\f[align,default]\f[bold,default]"
+	
+	"\![*]\q[A rabbit,OnSpeciesTeach,rabbit]\n"
+	"\![*]\q[A hare,OnSpeciesTeach,hare]\n"
+	"\![*]\q[A pika,OnSpeciesTeach,pika]\n"
+	if !Flag("FBMemories"); "\![*]\q[I'm not from here,OnSpeciesTeach,other]\n"
+	else; "\![*]\q[I don't think I'm from here,OnSpeciesTeach,other]\n"
+	
+	"\n\![*]\q[Back,%(_settings)]   \![*]\q[Close,blank]"
+}
+
+OnClass : all
+{
+    "\%(reference0)"
+    "\_q(This isn't implemented yet! Please come back later.)\e"
+}
+
+OnResonance : all
+{
+    "\%(reference0)"
+    "\_q(This isn't implemented yet! Please come back later.)\e"
+}

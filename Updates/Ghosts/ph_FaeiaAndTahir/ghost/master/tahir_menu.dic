@@ -1,31 +1,52 @@
 KeroMenuGreetings : nonoverlap
 {
-	"\1Hi."
-	"\1What's up?"
+	"\1Yes?"
 }
 
 //Because there is an all modifier here, you don't need to write -- between menu options
 OnKeroMenu : all
 {
-	"\1\b2\![set,autoscroll,disable]"
-	if SHIORI3FW.Eventid == "OnMouseDoubleClick"; KeroMenuGreetings //The check here is so they won't comment if you click the back button. Remove if you prefer
+	"\1\s[11]\b2\![set,autoscroll,disable]"
+	if SHIORI3FW.Eventid == "OnMouseDoubleClick"; KeroMenuGreetings
 	"\n\n\_q"
+
+	"\![*]\q[Ask Questions,OnFQuestionMenu]\n\n"
+
+	"\![*]\q[Open Strategy Log,OnStratlog]\n"
+	"\![*]\q[Let's Battle!,OnTahirBattle]\n\n"
 	
-	//Put anything you want here, anything at all. For example, here's how you can add your own menu... You can make as many like this as you want! Uncomment if you want to test it out, or erase if you don't want it
-	//"\![*]\q[Some menu option,OnSomeMenu]\n\n"
+	"\![*]\q[Change Settings,OnKeroSettings]\n\n"
 	
 	"\![*]\q[Nevermind,blank]"
 }
 
-/*
-OnSomeMenu : all
+//-------------------------QUESTION MENU-------------------------
+
+OnFQuestionMenu : all
 {
-	"\1Some other menu."
-	"\n\n\_q"
-	
-	//Presumably more fun stuff here. Ask the character questions? Bug report information? Minigames? Utilities? Puzzles? Anything you can think of! Just make up a name for your menu function that starts with On, and put it in the \q tag like in the menu above
-	
-	"\![*]\q[Back to main menu,OnKeroMenu]\n"
-	"\![*]\q[Nevermind,blank]"
+	""
 }
-*/
+
+//-------------------------BATTLE STUFF-------------------------
+
+OnStratlog : all
+{
+	""
+}
+
+//-------------------------MASTER SETTINGS-------------------------
+
+OnKeroSettings : all
+{
+	"\1\b2\![set,autoscroll,disable]\_q"
+	"\f[align,center]\f[bold,1]--MASTER SETTINGS--\n\n\f[align,default]\f[bold,default]"
+
+	"\![*]Your name is \_a[OnName,1]%(user[0])\_a.\n"
+	"\![*]Tahir calls you \_a[OnNickname,1]%(user[2])\_a.\n"
+	"\![*]Your pronouns: \_a[OnPronouns,1]%(Capitalize(they))/%(Capitalize(them))\_a\n\n"
+
+	"\![*]\q[Change talk rate,OnTalkRateMenu,1]\n"
+	"\![*]\q[RESET,OnResetConfirm,1]\n\n"
+	
+	"\![*]\q[Back,OnKeroMenu]  \![*]\q[Nevermind,blank]"
+}

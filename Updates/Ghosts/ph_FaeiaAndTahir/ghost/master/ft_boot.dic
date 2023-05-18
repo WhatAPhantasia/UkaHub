@@ -2,6 +2,11 @@ OnFirstBoot : all
 {
 	OnFirstBootVars
 
+	OnFirstBootOne
+}
+
+OnFirstBootOne : all
+{
 	"\t\*"
 	"\1\s[11]\i[1]\i[32]\i[3000]"
 	"\0\s[5]\![anim,stop,91]\i[11]\i[31]\i[3000]"
@@ -13,7 +18,7 @@ OnFirstBoot : all
 	"\1\s[12]\i[1]"
 	"\0\s[1]\i[14]"
 	"Wait, huh? \w8\w8Tahir, \w8there's someone else here..!\w8\w8\1\n\n"
-	"\!![anim,stop,1]\i[3]"
+	"\![anim,stop,1]\i[3]"
 	"...Huh. \w8That's... \w8Weird. \w8\w4Who are you?\w4"
 
 	//x. template teehee
@@ -24,8 +29,8 @@ OnFirstBootTwo : all
 {
 	"\t\*"
 	"\0\s[1]\i[13]\i[32]\1\s[11]"
-	"What are you doing in The Caretaker's Domain..? \w8\s[14]People from the Bramblebrush usually aren't capable of getting up here.\w8\w8\0"
-	"Yeah!! \w8It's like, super high up and FULL of strong Resonance...\w4\n\n"
+	"What are you doing in The Caretaker's Domain..? \w8\s[14]People from the Bramblebrush usually aren't capable of getting up here.\w8\w8\0\b2"
+	"\![anim,stop,13]\i[14]Yeah!! \w8It's like, super high up and FULL of strong Resonance...\w4\n\n"
 
 	"\_q"
 	"\![*]\q[I'm just exploring.,OnFirstBootThree,wanderer]\n"
@@ -41,55 +46,86 @@ OnFirstBootThree : all
 
 	if reference0 == "wanderer"
 	{
-		"\0E-- \W8EXPLORING?!\w8\w8\1"
-		"Pfft- \w8Oh, of course. \w8That's the whole reason Faeia first wanted to go here, too. \w8I think it was something about wanting to--\w8\0\n\n"
-		"AHH!! \w8T-Tahir, you don't need to tell %(them) that..!!\w8\w8\1\n\n"
-		"Ah, sorry, sorry... \w8I just find it funny that places like this attract the same kind of people.\w8\w8\0\n\n"
-		"A-Anyways! \w8\w8We NEED to get you out of here. \w8The thing about the Resonance around here is that it's really dangerous if you don't have the proper preparations and all that... \w8And you look really drained. \w8\w4Come on!"
+		"\1\s[11]\i[32]\0\s[5]"
+		"E-- \w8EXPLORING?! \w8Up here?!?!\w8\w8\1"
+		"\s[13]Pfft- \w8Oh, of course. \w8That's the whole reason Faeia first wanted to go here, too. \w8I think it was something about wanting to--\w8\0\n\n"
+		"\s[1]\i[13]\i[35]\i[61]AHH!! \w8\s[6]T-Tahir, you don't need to tell %(them) that..!!\w8\w8\1\n\n"
+		"Ah, sorry, sorry... \w8I just find it funny that places like this attract the same kind of people.\w8\w8\s[11]\0\n\n"
+		"\s[1]\i[35]A-Anyways! \w8\w8We NEED to get you out of here. \w8\s[4]The thing about the Resonance around here is that it's really dangerous if you don't have the proper preparations and all that... \w8\s[1]\i[62]And you look really drained. \w8\w4\s[1]\i[2]Come on!"
 	}
 	elseif reference0 == "mage"
 	{
 		userinfo[1] = "mage"
-		"\0Oh- \w8Well, YEAH, right?! \w8All the good stuff is up here..!!\w8\w8\1"
-		"Regardless, \w4you won't be keeping any of those runes if you stay here any longer. \w8The Resonance up here is really dangerous, and it's taking it's toll on you. \w8Faeia?\w8\w8\0\n\n"
-		"Ah, right, right! \w8Hey hey, \w4I'll share some of my runes with you! \w8I'm PRETTY good at making them..!\w8\w8\1\n\n"
-		"She's not being arrogant when she says that, but... \w8Discuss this later?\w8\w8\0\n\n"
-		"Right..!! \w8Alright, come on..."
+		"\1\s[11]\i[32]\0\s[1]\i[14]"
+		"Oh- \w8\s[3]Well, YEAH, right?! \w8All the good stuff is up here..!!\w8\w8\1"
+		"\![anim,stop,32]\i[33]Regardless, \w4you won't be keeping any of those runes if you stay here any longer. \w8\w4\s[11]The Resonance up here is really dangerous, and it's taking it's toll on you. \w8\w4\i[32]Faeia?\w8\w8\0\n\n"
+		"\s[1]\i[35]\i[62]Ah, right, right! \w8\s[1]\i[1]\i[31]But hey hey, \w4I'll share some of my runes with you later! \w8I'm PRETTY good at making them..!\w8\w8\1\n\n"
+		"\s[16]\i[32]\i[61]She's not being arrogant when she says that, but... \w8\![anim,stop,32]\i[30]Discuss this later?\w8\w8\0\n\n"
+		"\s[1]\i[35]\i[62]Right..!! \w8\w4\s[1]\i[2]\i[13]\i[34]Alright, come on..."
 	}
 	elseif reference0 == "fight"
 	{
 		userinfo[1] = "fighter"
-		"\1I don't doubt your strength if you've been able to get up here, \w8but we can tell you're drained. \w8You will most definitely faint in the next few minutes or so with all the Resonance in the air.\w8\w8\0"
-		"Mhmm... \w8Yeah, it just wouldn't be responsible of us to leave you here... \w8But, oh! \w8You can totally spar with us! \w8Right, Tahir?\w8\w8\1\n\n"
-		"Yeah, I wouldn't mind that. \w8You can always come back, just... \w8Know your limits.\w8\w8\0\n\n"
-		"A-Anyways! \w8\w8We NEED to get you out of here. \w8\w8Come on!"
+		"\0\s[1]\i[13]\1\s[16]\i[31]\i[61]"
+		"I don't doubt your strength if you've been able to get up here, \w8but we can tell you're drained. \w8You will most definitely faint in the next few minutes or so with all the Resonance in the air.\w8\w8\0"
+		"\i[34]Mhmm... \w8Yeah, it just wouldn't be responsible of us to leave you here... \w8\s[1]\i[1]\i[35]But, oh! \w8You can totally spar with us! \w8Right, Tahir?\w8\w8\1\n\n"
+		"\![anim,stop,31]\i[32]Yeah, I wouldn't mind that. \w8You can always come back, just... \w8\s[11]Know your limits.\w8\w8\0\n\n"
+		"A-Anyways! \w8\w8\s[1]\i[2]\i[14]We NEED to get you out of here. \w8\w8Come on!"
 	}
 	elseif reference0 == "caretakers"
 	{
 		AddFlag("FBCaretakers")
-		"\1The Caretakers..? \w8Nothing against that, but you won't be able to make it to them. \w8You looked drained... \w8The Resonance up here takes it's toll on people.\w8\w8\0"
-		"Mhmm... \w8Yeah, it just wouldn't be responsible of us to leave you here... \w8But you can always come back here! \w6We can even bring you if you'd like!!\w8\w8\1\n\n"
-		"That can wait until later.\w8\w8\0\n\n"
-		"Ahh, right, right! \w8Well, come on!"
+		"\0\s[1]\i[13]\1\s[11]"
+		"The Caretakers..? \w8\i[34]Nothing against that, but you won't be able to make it to them. \w8\s[14]\i[1]You looked drained... \w8The Resonance up here takes it's toll on people.\w8\w8\0"
+		"\i[34]Mhmm... \w8Yeah, it just wouldn't be responsible of us to leave you here... \w8\s[1]\i[1]\i[35]But you can always come back here! \w6We can even bring you if you'd like!!\w8\w8\1\n\n"
+		"\s[11]\i[34]That can wait until later.\w8\w8\0\n\n"
+		"\s[1]\i[35]\i[62]Ahh, right, right! \w8\1\s[11]\0\s[1]\i[2]Well, come on!"
 	}
 	else
 	{
 		AddFlag("FBMemories")
-		"\0Oh dang, really..?\w8\w8\1"
-		"I suppose it makes it even more important that you get out of here.\w8\w8\0\n\n"
-		"Yeah, the Resonance up here can REALLY mess you up, \w4and all the big monsters up here can seriously hurt you... \w8We have a quick way out of here, though! \w8Come with us!!"
+		"\1\s[11]\0\s[1]\i[14]\i[62]"
+		"Oh dang, really..?\w8\w8\1"
+		"\i[34]I suppose it makes it even more important that you get out of here.\w8\w8\0\n\n"
+		"\i[35]Yeah, the Resonance up here can REALLY mess you up, \w4and all the big monsters up here can seriously hurt you... \w8\s[1]\i[2]We have a quick way out of here, though! \w8\i[35]Come with us!!"
 	}
 
 	"\x\1\i[3001]\0\i[3001]"
 	 
-	 "\_q(A flash of white. Teleport runes are always disorientating...)\w4\x"
+	"\_q(A flash of white. Teleport runes are always disorientating...)\_q\w4\x"
 
-	 ""
-}
+	"\1\s[11]\i[34]\0\s[1]\i[1]\i[34]"
+	"Alright..! \w8"
+	"\1\![anim,stop,34]\i[32]\0\![anim,stop,34]\i[30]"
+	"Back down in the Bramblebrush. \w8\w8\s[4]I think this is... \w8\s[1]\i[34]Yup, we're in Rock Bottom Town, \w8riiight at the base of Skypatch mountain. \w8\w4\![anim,stop,34]\i[30]We should be good.\w8\w8\1"
+	"\![anim,stop,32]\i[34]Hm. \w8\![anim,stop,34]\i[30]How about you hang around us for a bit while you recover? \w8\w8"
 
-OnFirstBootFour : all
-{
-	"\0\t\*"
+	if reference0 == "wanderer" || reference0 == "caretakers"
+	{
+		"We mostly just go where ever as well, and we can help you get back up whenever you're able."
+		if reference0 == "caretakers"
+		{"\n\w8\i[34]...Just be careful of The Caretakers. \w6They're pretty detached from the Bramblebrush, so... \w8\s[11]Yeah. \w8Still, the offer's available."}
+		"\w8\w8\0\n\n"
+		"Yeah!! \w6And it's nice to meet someone new, you know? \w8\s[3]\![anim,stop,0]\![anim,stop,90]Nice to meet you, %(user[1])~\e"
+	}
+	elseif reference0 == "mage"
+	{
+		"\i[32]Faeia's good at the whole ""Resonance"" thing, so you can get runes and spar with her if you'd like.\w8\w8\0\n\n"
+		"\s[3]Hehe, well, I don't want to BRAG... \w8\s[1]\i[1]\i[35]\i[90]And I won't!! \w8\![anim,stop,35]\i[30]Seriously though, would LOVE to talk mage stuff with you, if you have the time!\w8\w8\1\n\n"
+		"\![anim,stop,32]\i[34]Mhmm. \w8And we can bring you back up, when you can. \w8\s[11]Nice to meet you, %(user[2]).\e"
+	}
+	elseif reference0 == "fight"
+	{
+		"\0\n\n\s[1]\i[14]"
+		"Oh! \w8\s[1]\i[1]\i[35]Tahir is REALLY good at fighting, so you can bother him for that if you'd like~!\w8\w8\1\n\n"
+		"\i[34]Mhmm. \w8And we can bring you back up, when you can. \w8\![anim,stop,34]\i[30]Nice to meet you, %(user[2]).\e"
+	}
+	else
+	{
+		"We don't mind helping you get your bearings. \w8This is probably really confusing, yeah?\w8\w8\0\n\n"
+		"\s[1]\i[13]\i[34]Mhmm... \w8\s[4]Why WERE you up there with no memories..? \w8We'll probably have to go back up for clues, if you want to do that, \w8\s[1]but that's for later!! \w8\w8\s[3]\![anim,stop,0]\![anim,stop,90]For now, it's just nice to meet you, \w2%(user[1])~!\w8\w8\1\n\n"
+		"\i[34]Likewise. \w8\![anim,stop,34]\i[30]If you have any questions, let me or Faeia know.\e"
+	}
 }
 
 OnFirstBootVars
@@ -111,6 +147,8 @@ OnFirstBootVars
 	user = ("stranger","strangey","stranger")
 	//userinfo: species, occupation, resonance color, caretaker
 	userinfo = ("unknown","wanderer","unknown","none")
+	//battlewins: user, faeia, tahir
+	battlewins = (0,0,0)
 	totaltouch = (0,0)
 	recenttouch = (0,0)
 	MiscFlags = IARRAY
@@ -119,6 +157,12 @@ OnFirstBootVars
 	aitalkinterval = 300
 
 	boot_min = GETSECCOUNT / 60 //epoch time, x. template
+}
+
+OnResetYes : all
+{
+	"\![raise,OnFirstBootVars,reset]"
+	"\![raise,OnFirstBootOne]"
 }
 
 OnInitialize
@@ -165,7 +209,7 @@ OnBoot
 		"\i[14]Gaaasp! \w8\s[3]Hey, %(user[1])! \w8You will not BELIEVE what me and Tahir just did~!\w8\w8\1\s[16]\i[61]Faeia, are you going to brag to EVERYONE about that Resonance dragon we redirected from Lanerei Town..?\w8\w8\0\n\nOf course! \w8\s[1]\i[1]\i[34]Big Resonance Monsters don't just appear like that every day, you know!\w8\w8\1\n\n\i[32](I suppose so...)\e"
 		"Oh, hey %(user[0])! \w8Fancy seeing you here!\w8\w8\1\s[16]\i[61]...I think this situation deserves more than a ""fancy seeing you here"", Fai. \w8We JUST left %(esotericlocale).\w8\w8\0\n\n\i[1]\i[34]Tahir, \w4%(user[1]) just has %(their) ways, and we have to accept that! \w6How else would we have first met %(them) in The Caretaker's Domain?!\w8\w8\1\n\n\i[32]Ah, I guess that's true...\e"
 		"\i[34]\1Ah, it's %(user[0]). \w4Hello.\w8\w8\0\s[1]\i[14]Huh?! \w8\s[1]\i[35]Oh, %(user[1])! \w8Hey!! \w8Wow, I almost didn't see ya there! \w8How's it been~?\e"
-		"\s[4]\1Oh... Hey, %(user[2]). \w8\w8\s[15]Ah, \w8I-I'm not too good at greetings, \w2I'm not too sure why I said hi first... \w8\0\s[1]\i[14]\i[32]\1\i[31]Faeia usually covers this part...\w8\w8\0\s[1]\i[35]\i[62]Pfft-- Awww, sorry about that Tahir! I was busy trying to remember this rune I made up in my head... \w8\![anim,stop,35]\i[34]I lost it, alas......\w8\w8\1\n\n\s[11]\i[33]\i[62]\i[90]Ah... \w8Of course...\e"
+		"\s[4]\1Oh... Hey, %(user[2]). \w8\w8\s[15]Ah, \w8I-I'm not too good at greetings, \w2I'm not sure why I said hi first... \w8\0\s[1]\i[14]\i[32]\1\i[31]Faeia usually covers this part...\w8\w8\0\s[1]\i[35]\i[62]Pfft-- Awww, sorry about that, Tahir! \w8I was busy trying to remember this rune I made up in my head... \w8\![anim,stop,35]\i[34]I lost it, alas......\w8\w8\1\n\n\s[11]\i[33]\i[62]\i[90]Ah... \w8Of course...\e"
 	}
 }
 
@@ -178,7 +222,7 @@ OnClose
 	"We still have that request from the Artema King to sort out..."
 	"Weren't we going to check on the gates to The Caretaker's Domain?"
 	"Namii is still instigating us about the ""stealing Resonance"" thing..."
-	"Your diary is still missing. \w4...We were looking for that."
+	"Your diary is still missing. \w4\![stop,anim,32]\i[33]...We were looking for that."
 	"I think those bounty hunter guys from Fellspire might still be on our trail..."
 	"I think we still have those quests to wrap up..."
 	"We have a meeting with Namii. \w4They'll probably be mad if we're late again..."

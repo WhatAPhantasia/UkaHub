@@ -4,8 +4,35 @@ esotericlocale
 {
 	"The Aetherbrush"
 	"Skypatch Peak"
-	"Deep Dark Castle City"
+	"Deep Dark Castle Kingdom"
 	"The Daycare Of The Sun"
 	"The Daycare Of The Moons"
 	"The Underbrush Neverend Ruins"
+}
+
+pastry //plural
+{
+	"croissants"
+	"ice flaked croissants"
+	"snowpoffles"
+	"snowbuns"
+	"snow mochi"
+}
+
+//shell envelopes
+
+fidle
+{
+	"\s[1]"
+	"\s[1]\i[32]"
+	"\s[1]\i[13]"
+	"\s[1]\i[13]\i[32]"
+}
+
+tidle
+{
+	"\s[11]"
+	"\s[11]\i[32]"
+	"\s[11]\i[33]"
+	"\s[16]\i[61]\i[%(ANY(30,30,32))]"
 }
