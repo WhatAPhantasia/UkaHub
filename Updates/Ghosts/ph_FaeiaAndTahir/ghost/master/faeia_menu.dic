@@ -1,6 +1,9 @@
 SakuraMenuGreetings : nonoverlap
 {
-	"Hey hey~! \wNeed me for something?"
+	"Hey hey~! \w4Need me for something?"
+	"Hey %(user[1])! \w4Always here to chat!"
+	"Ooh, yeah? \w4I can help!"
+	"What's up, %(user[1])?"
 }
 
 OnSakuraMenu : all
@@ -14,10 +17,14 @@ OnSakuraMenu : all
 	if LastTalk != ""; "  \![*]\q[Say that again,OnLastTalk]"
 	"\n\n"
 
+	"\![*]\q[Stats,OnFaeiaCheck]\n"
+
 	"\![*]\q[Ask Questions,OnFQuestionMenu]\n\n"
 
-	"\![*]\q[Open Spellbook,OnSpellbook]\n"
-	"\![*]\q[Let's Battle!,OnFaeiaBattle]\n\n"
+	//"\![*]\q[Open Spellbook,OnSpellbook]\n"
+	//"\![*]\q[Let's Battle!,OnFaeiaBattle]\n\n
+	"\![*]\f[color,disable]Open Spellbook\n"
+	"\![*]Let's Battle!\f[color,default]\n\n"
 
 	"\![*]\q[Change Settings,OnSakuraSettings]\n\n"
 	
@@ -29,12 +36,123 @@ OnLastTalk
 	LastTalk
 }
 
+//—————————————————————————————— Faeia's Stats ——————————————————————————————
+
+FaeiaBlurb
+{
+	//maybe this can be used in the future for user feelings..?
+	"23-year-old Resonance Prodigy and very-forward revolutionary."
+	"Chaotic neutral with VERY STRONG opinions."
+}
+
+OnFaeiaCheck : all
+{
+	"\0\b2\_q\![set,autoscroll,disable]"
+	"\f[align,center]\f[bold,1]-- FAEIA --\n\n\f[align,default]\f[bold,default]"
+
+	FaeiaBlurb
+	"\n\n"
+
+	"\![*]Caretaker: \f[color,default.anchor]Vala\n\f[color,default]"
+	"\![*]Resonance: \f[color,default.anchor]Cyan (Strong Air + Water)\n\f[color,default]"
+	"\![*]Species: \f[color,default.anchor]Rabbit\n\f[color,default]"
+	"\![*]Class: \f[color,default.anchor]Mage\n\f[color,default]"
+
+	"\n\![*]\q[Back,OnSakuraMenu]  \![*]\q[Close,blank]"
+}
+
+//—————————————————————————————— Question Menu ——————————————————————————————
+
+OnFQuestionMenu : all
+{
+	"\0\b2\_q\![set,autoscroll,disable]"
+	"\f[align,center]\f[bold,1]-- YOU ASK FAEIA ABOUT... --\n\f[bold,default]"
+	"\f[color,disable]\f[size,-2](Click the pin next to the question for an overall rundown!)\n\n\f[color,default]\f[size,default]"
+
+	"\_a[AFQ.Faeia]\![*]\_a\q[Herself,OnFQ.Faeia]\n"
+	"\_a[AFQ.Tahir]\![*]\_a\q[Tahir,OnFQ.Tahir]\n"
+	//"\_a[AFQ.Namii]\![*]\_a\q[Namii,OnFQ.Namii]\n" 
+	//they talk a lot abt namii and theyre an important character but idk if its enough to warrant their own question section
+	"\_a[AFQ.People]\![*]\_a\q[Other People,OnFQ.People]\n"
+	"\n"
+	"\_a[AFQ.Vala]\![*]\_a\q[Vala Life,OnFQ.Vala]\n"
+	"\_a[AFQ.Gods]\![*]\_a\q[The Caretakers,OnFQ.Gods]\n"
+	"\_a[AFQ.World]\![*]\_a\q[The Bramblebrush,OnFQ.World]\n"
+	"\_a[AFQ.Magic]\![*]\_a\q[Resonance & Runes,OnFQ.Magic]\n"
+	"\_a[AFQ.Battle]\![*]\_a\q[Enemies & Combat,OnFQ.Battle]\n"
+	
+	"\n\![*]\q[Back,OnSakuraMenu]  \![*]\q[Close,blank]"
+}
+
+OnFQ.Faeia
+{
+	""
+	--
+	"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+}
+
+OnFQ.Tahir
+{
+	""
+	--
+	"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+}
+
+OnFQ.People
+{
+	""
+	--
+	"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+}
+
+OnFQ.Vala
+{
+	""
+	--
+	"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+}
+
+OnFQ.Gods
+{
+	""
+	--
+	"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+}
+
+OnFQ.World
+{
+	""
+	--
+	"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+}
+
+OnFQ.Magic
+{
+	""
+	--
+	"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+}
+
+OnFQ.Battle
+{
+	""
+	--
+	"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+}
+
+//—————————————————————————————— Battle Stuff ——————————————————————————————
+
+OnSpellbook : all
+{
+	""
+}
+
 //—————————————————————————————— Master Settings ——————————————————————————————
 
 OnSakuraSettings : all
 {
 	"\0\b2\![set,autoscroll,disable]\_q"
-	"\f[align,center]\f[bold,1]--MASTER SETTINGS--\n\n\f[align,default]\f[bold,default]"
+	"\f[align,center]\f[bold,1]-- MASTER SETTINGS --\n\n\f[align,default]\f[bold,default]"
 
 	"\![*]Your name is \_a[OnName,0]%(user[0])\_a.\n"
 	"\![*]Faeia calls you \_a[OnNickname,0]%(user[1])\_a.\n"

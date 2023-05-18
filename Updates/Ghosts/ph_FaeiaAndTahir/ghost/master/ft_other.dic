@@ -17,6 +17,110 @@ OnTranslate
 OnAnchorSelect
 {
 	if "http://" _in_ reference0 || "https://" _in_ reference0; "\j[""%(reference0)""]"
+	else
+	{
+		case reference0
+		{
+			//==================================FAEIA QUESTIONS
+			when "AFQ.Faeia"
+			{
+				""
+				--
+				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+			}
+			when "AFQ.Tahir"
+			{
+				""
+				--
+				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+			}
+			when "AFQ.People"
+			{
+				""
+				--
+				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+			}
+			when "AFQ.Vala"
+			{
+				""
+				--
+				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+			}
+			when "AFQ.Gods"
+			{
+				""
+				--
+				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+			}
+			when "AFQ.World"
+			{
+				""
+				--
+				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+			}
+			when "AFQ.Magic"
+			{
+				""
+				--
+				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+			}
+			when "AFQ.Battle"
+			{
+				""
+				--
+				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+			}
+			//==================================TAHIR QUESTIONS
+			when "ATQ.Tahir"
+			{
+				""
+				--
+				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+			}
+			when "ATQ.Faeia"
+			{
+				""
+				--
+				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+			}
+			when "ATQ.People"
+			{
+				""
+				--
+				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+			}
+			when "ATQ.Vala"
+			{
+				""
+				--
+				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+			}
+			when "ATQ.Gods"
+			{
+				""
+				--
+				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+			}
+			when "ATQ.World"
+			{
+				""
+				--
+				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+			}
+			when "ATQ.Magic"
+			{
+				""
+				--
+				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+			}
+			when "ATQ.Battle"
+			{
+				""
+				--
+				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+			}
+		}
+	}
 }
 
 //Hotkeys

@@ -1,6 +1,9 @@
 KeroMenuGreetings : nonoverlap
 {
-	"\1Yes?"
+	"Yes?"
+	"Mhmm?"
+	"..?"
+	"%(Capitalize(user[2]))?"
 }
 
 //Because there is an all modifier here, you don't need to write -- between menu options
@@ -10,31 +13,134 @@ OnKeroMenu : all
 	if SHIORI3FW.Eventid == "OnMouseDoubleClick"; KeroMenuGreetings
 	"\n\n\_q"
 
-	"\![*]\q[Ask Questions,OnFQuestionMenu]\n\n"
+	"\![*]\q[Stats,OnTahirCheck]\n"
 
-	"\![*]\q[Open Strategy Log,OnStratlog]\n"
-	"\![*]\q[Let's Battle!,OnTahirBattle]\n\n"
+	"\![*]\q[Ask Questions,OnTQuestionMenu]\n\n"
+
+	//"\![*]\q[Open Strategy Log,OnStratlog]\n"
+	//"\![*]\q[Let's Battle!,OnTahirBattle]\n\n"
+	"\![*]\f[color,disable]Open Strategy Log\n"
+	"\![*]Let's Battle!\f[color,default]\n\n"
 	
 	"\![*]\q[Change Settings,OnKeroSettings]\n\n"
 	
 	"\![*]\q[Nevermind,blank]"
 }
 
-//-------------------------QUESTION MENU-------------------------
+//—————————————————————————————— Tahir's Stats ——————————————————————————————
 
-OnFQuestionMenu : all
+TahirBlurb
 {
-	""
+	//ehh... a lot of this can go to the question menu. maybe this can be used in the future for user feelings..?
+	"Mid 20-something wanderer. Never kept track of the year he was born, anyway."
+	"True neutral who doesn't really care about Fenr and Vala's feud."
+	//"The crop top is a fashion choice, not a practical choice."
+	//"The seriousness is an intimidation tactic to hide his timidness. Gap moe <3"
+	//"Never really set down roots anywhere, and he prefers it that way."
+	//"Doesn't really use his Resonance. It seems weak, anyway."
 }
 
-//-------------------------BATTLE STUFF-------------------------
+OnTahirCheck : all
+{
+	"\1\b2\_q\![set,autoscroll,disable]"
+	"\f[align,center]\f[bold,1]-- TAHIR --\n\n\f[align,default]\f[bold,default]"
+
+	TahirBlurb
+	"\n\n"
+
+	"\![*]Caretaker: \f[color,default.anchor]Fenr, Linn\n\f[color,default]" //technically true
+	"\![*]Resonance: \f[color,default.anchor]Dusty Orange (Weak Earth, Mid Fire)\n\f[color,default]" //not true at all
+	"\![*]Species: \f[color,default.anchor]Rabbit-Hare\n\f[color,default]"
+	"\![*]Class: \f[color,default.anchor]Rogue\n\f[color,default]"
+
+	"\n\![*]\q[Back,OnKeroMenu]  \![*]\q[Close,blank]"
+}
+
+//—————————————————————————————— Question Menu ——————————————————————————————
+
+OnTQuestionMenu : all
+{
+	"\1\b2\_q\![set,autoscroll,disable]"
+	"\f[align,center]\f[bold,1]-- YOU ASK TAHIR ABOUT... --\n\f[bold,default]"
+	"\f[color,disable]\f[size,-2](Click the pin next to the question for an overall rundown!)\n\n\f[color,default]\f[size,default]"
+
+	"\_a[ATQ.Tahir]\![*]\_a\q[Himself,OnTQ.Tahir]\n"
+	"\_a[ATQ.Faeia]\![*]\_a\q[Faeia,OnTQ.Faeia]\n"
+	"\_a[ATQ.People]\![*]\_a\q[Other People,OnTQ.People]\n"
+	"\n"
+	"\_a[ATQ.Fenr]\![*]\_a\q[Fenr Life,OnTQ.Fenr]\n"
+	"\_a[ATQ.Gods]\![*]\_a\q[The Caretakers,OnTQ.Gods]\n"
+	"\_a[ATQ.World]\![*]\_a\q[The Bramblebrush,OnTQ.World]\n"
+	"\_a[ATQ.Magic]\![*]\_a\q[Resonance & Runes,OnTQ.Magic]\n"
+	"\_a[ATQ.Battle]\![*]\_a\q[Enemies & Combat,OnTQ.Battle]\n"
+	
+	"\n\![*]\q[Back,OnSakuraMenu]  \![*]\q[Close,blank]"
+}
+
+OnTQ.Faeia
+{
+	""
+	--
+	"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+}
+
+OnTQ.Tahir
+{
+	""
+	--
+	"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+}
+
+OnTQ.People
+{
+	""
+	--
+	"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+}
+
+OnTQ.Vala
+{
+	""
+	--
+	"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+}
+
+OnTQ.Gods
+{
+	""
+	--
+	"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+}
+
+OnTQ.World
+{
+	""
+	--
+	"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+}
+
+OnTQ.Magic
+{
+	""
+	--
+	"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+}
+
+OnTQ.Battle
+{
+	""
+	--
+	"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+}
+
+//—————————————————————————————— Battle Stuff ——————————————————————————————
 
 OnStratlog : all
 {
 	""
 }
 
-//-------------------------MASTER SETTINGS-------------------------
+//—————————————————————————————— Master Settings ——————————————————————————————
 
 OnKeroSettings : all
 {

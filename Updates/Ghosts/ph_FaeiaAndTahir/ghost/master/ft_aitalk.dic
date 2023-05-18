@@ -17,7 +17,8 @@ RandomTalk : nonoverlap_pool
 	"Ooh! \w8\i[1]\![anim,stop,32]\i[34]Tahir, I've been thinking about something..!\w8\w8\1"
 	"\![anim,stop,32]\i[33]...What.\w8\w8\0\n\n"
 	random:{
-		"Isn't it weird how "
+		"\s[2]Are Vala and Fenr even rabbits, like us..?! \w8What if they're aliens?!?! \w8\w8\s[1]\i[1]\i[34]All the old manuscripts show them with rabbit like features, but I notice that they're kinda off, you know..?!\w8\w8\1\n\n\s[16]\i[61]Isn't that just the Chimera Caretaker theory..?\w8\w8\0\n\n\s[5]Urk--! \w8There's already a THEORY for this..?! \w8Nooo! \w8I thought I was being original!\w8\w8\1\n\nI thought you KNEW. \w8You went to a big fancy academy of magic, and I KNOW they teach ancient history.\w8\w8\0\n\n\i[31]Well, they DO, I just FORGET history a lot... \w8I'm not too good at that kind of memorization, you know..?!\w8\w8\1\n\n\i[32]Ha... \w8Well, now you remember.\e"
+		
 	}}
 
 	all:{"\1\s[11]\i[32]\0\s[3]"
@@ -36,10 +37,23 @@ RandomTalk : nonoverlap_pool
 	"\![anim,stop,32]\i[34]Of course you are, Ms. Top-of-her-class.\w8\w8\0\n\n"
 	"\s[1]\i[32]\i[61]A- \w8\s[6]Well, SURE, but it wasn't ALL easy!! \w8And ME being GOOD AT STUFF isn't what I'm nostalgic for, mostly! \w8"
 	random:{
-		"\s[3]Really, the FOOD was where it's at! \w8Thank you scholarship exam for letting me get into the rich school for free, cause I got SO MANY good meals~!\w8\w8\1\n\n\s[16]\i[61]So it wasn't the education, I see... \w8\i[32]...I can respect that, actually...\e"
-		"\s[3]The library was soooo big! \w8Thank you scholarship exam for letting me get into the rich school for free, cause WOW do they have SUPER BIG repositories of knowledge..!! \w8\w8\s[1]\i[33]\i[90]And, \w8um, \w8they also have the best materials to build the SICKEST pillow forts in the library...\w8\w8\1\n\n\s[6]\i[61](Ah, I see...)\e"
+		"\s[3]Really, the FOOD was where it's at! \w8Thank you scholarship exam for letting me get into the rich school for free, cause I got SO MANY good meals~!\w8\w8\1\n\n\s[16]\i[61]So it wasn't the education, I see... \w8\i[32]But you get a point for leeching off of rich people.\w8\w8\0\n\nHehe!\e"
+		"\s[3]The library was soooo big! \w8Thank you scholarship exam for letting me get into the rich school for free, cause WOW do they have SUPER BIG repositories of knowledge..!! \w8\w8\s[1]\i[33]\i[90]And, \w8um, \w8they also have the best materials to build the SICKEST pillow forts in the library...\w8\w8\1\n\n\s[16]\i[61](Ah, I see...)\e"
 		"\s[3]My dorm room was SOOO big..!! \w8And my dorm mate was really funny and nice!!\w8\w8\1\n\n\s[6]\i[61]Oh, Lana, right?\w8\w8\0\n\nYup~! \w8She never minded whenever I made big messes on potions assignments..!\e"
 	}}
+
+	all:{"\1\s[11]\i[32]\0\s[1]\i[14]\i[32]"
+	"...Hey, \w8I dunno if you're okay with me asking, \w8but are there any places you, like... \w8Miss?\w8\w8\1"
+	"Miss..? \w8\w6"
+	random:{
+		"\s[16]\i[61]Just because I don't really have a home means I can't miss anyplace? \w8Fai??\w8\w8\0\n\n\s[5]AHH did I mess up?! \w8Sorry!! \w8I didn't mean it that way!! \w8I meant, like, nostalgia!!\w8\w8\1\n\n\s[13]\![anim,stop,90]PFFT, no, I'm not offended, I knew what you meant.\w8\w8\0\n\n\s[1]\i[35]\i[62]OH, phew... \w8Still, sorry..!!\w8\w8\1\n\nIt's fine. \w8\s[14]Nostalgia, though... \w8"
+		""}
+	random:{
+		"\s[14]I guess I miss the Fenr Capitol, \w4even with all the anti-Vala stuff... \w8\s[11]\i[34]It's the people and the food. \w8It was a nice constant in my life for a few years... \w8\s[11]\i[32]So yeah.\w8\w8\0\n\nOh, wow, The Fenr Capitol..? \w8\s[3]\![anim,stop,90]Would love to visit it, \w6if that ever becomes possible, haha!\w8\w8\1\n\n\![anim,stop,32]\i[34]Mhmm. \w8\s[16]\i[61]I'll try to get a souvenir for you from there if I drop by.\w8\w8\0\n\nReally?! \w8Thank you!!\e"
+		"\s[14]I miss the Chateau Plateau... \w8I stopped by really often for Scorch Squash and Popumpkins. \w8I wonder if they still grow them...\w8\w8\0\n\nWoah..! \w8I never get the chance to eat those! \w8\s[3]\![anim,stop,90]That sounds really cool~~\w8\w8\1\n\n\s[13]\![anim,stop,90]Mhmm. \w8Maybe I'll get you some, if the chance arises.\w8\w8\0\n\nReally?! \w8Thank you!!\e"
+	}}
+
+	all:{"\0\s[1]"}
 }
 
 
