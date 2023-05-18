@@ -67,15 +67,20 @@ OnFQuestionMenu : all
 {
 	"\0\b2\_q\![set,autoscroll,disable]"
 	"\f[align,center]\f[bold,1]-- YOU ASK FAEIA ABOUT... --\n\f[bold,default]"
-	"\f[color,disable]\f[size,-2](Click the pin next to the question for an overall rundown!)\n\n\f[color,default]\f[size,default]"
+	"\f[color,disable]\f[size,-2](Click the pin next to the question for an overall rundown!)\n\n"
+	"\f[color,default]\f[size,default]\f[align,default]"
 
-	"\_a[AFQ.Faeia]\![*]\_a\q[Herself,OnFQ.Faeia]\n"
-	"\_a[AFQ.Tahir]\![*]\_a\q[Tahir,OnFQ.Tahir]\n"
-	//"\_a[AFQ.Namii]\![*]\_a\q[Namii,OnFQ.Namii]\n" 
-	//they talk a lot abt namii and theyre an important character but idk if its enough to warrant their own question section
+	if !Flag("FQFaeia"); "\![*]\q[Herself,OnFQ.Faeia]\n"
+	else; "\_a[AFQ.Faeia]\![*]\_a\q[Herself,OnFQ.Faeia]\n"
+	
+	if !Flag("FQTahir"); "\![*]\q[Tahir,OnFQ.Tahir]\n"
+	else; "\_a[AFQ.Tahir]\![*]\_a\q[Tahir,OnFQ.Tahir]\n"
+
 	"\_a[AFQ.People]\![*]\_a\q[Other People,OnFQ.People]\n"
-	"\n"
-	"\_a[AFQ.Vala]\![*]\_a\q[Vala Life,OnFQ.Vala]\n"
+
+	"\n[half]"
+
+	"\_a[AFQ.Vala]\![*]\_a\q[Valarian Life,OnFQ.Vala]\n"
 	"\_a[AFQ.Gods]\![*]\_a\q[The Caretakers,OnFQ.Gods]\n"
 	"\_a[AFQ.World]\![*]\_a\q[The Bramblebrush,OnFQ.World]\n"
 	"\_a[AFQ.Magic]\![*]\_a\q[Resonance & Runes,OnFQ.Magic]\n"
@@ -86,58 +91,79 @@ OnFQuestionMenu : all
 
 OnFQ.Faeia
 {
-	""
+	if !Flag("FQFaeia")
+	{AddFlag("FQFaeia")
+	"\0\b2\s[1]\i[14]Oh! \w8\s[1]\i[35]\i[62]Yeah, I guess I haven't really introduced you to ME yet... \w8\s[1]I'm Faeia! \w8From Stoneveil, in Valaria!! \w8\w8\i[34]I'm a mage, and I'm mostly just going around the Bramblebrush for more experience outside of my home, you know? \w8Taking quests and all that? \w8\w8\s[5]\![anim,stop,91]\i[31]But also... \w8Tensions between Valarians and Fenaras are getting kinda bad, and there's something weird going on with the Resonance around the Bramblebrush. \w8\s[5]\![anim,stop,91]Since I'm already out here, I figured I should try to sort some of that out as well, you know..?\w8\w8\1\s[11]\i[34]Mm. \w8A lofty goal, but we've made progress on it.\w8\w8\0\n\n\s[1]\i[35]Mhmm! \w8\w4\s[3]\![anim,stop,90]But other than that, I'm just here to experience more stuff~!"}
+	else 
+	{
+		"\0\s[4]Hmmm... \w8I actually just graduated with a Silver Degree from the Valarian Academy of Resonance, like, a few months ago, and I got tons of certificates for Resonance use... \w8\s[4]\![anim,stop,90]It was fun, and I learned a lot! \w8\w8I figure once I've done all I wanted to out here, maybe I can go back and get a higher degree..."
+		"\0\s[4]I love pastries... \w6Especially if they're sweet!! \w8\w8\s[1]\i[31]Hehehe, maybe you can buy me some..?!?!\w8\w8\1\s[11]\i[33]Fai, we're not extorting %(user[2])."
+		"\0\s[1]\i[14]My hair isn't naturally white... \w8\s[1]\i[33]Um, obviously. \w8\w8\s[1]\i[35]\i[62]Big Resonance accident happened. \w8Free hair dye, I guess??"
+	}
 	--
-	"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }
 
 OnFQ.Tahir
 {
-	""
+	if !Flag("FQTahir")
+	{AddFlag("FQTahir")
+	"\0\b2\s[1]\i[14]Hm? \w8Oh, Tahir? \w8\w8\s[1]\i[34]Yeah, he's a Fenara, and a rogue. \w8\s[6]And YES, we're friends!! \w6If you have an issue with that, I'm bonking you with my staff!\w8\w8\1\s[16]\i[61]%(Capitalize(user[2])) is fine with it, obviously. \w8\i[32]They would've reacted MUCH earlier if they weren't...\w8\w8\0\n\nI know, but I have to be sure!! \w8There are TONS of jerks out there! \w8\w4\s[1]ANYWAYS, I met him in my first year at the academy. \w8He ended up in the academy town in disguise and got some thugs on his trail, \w2and I just helped him out! \w8\s[3]We're besties now~"}
+	else 
+	{
+		"\0\s[3]Tahir is the coolest~! \w8Best travelling companion I could ask for! \w8SOOO strong!!\w8\w8\1\s[11]\i[33]\i[90]...Um, thank you..? \w8I don't think that was what %(user[2]) was asking, though..."
+		"\0\s[1]\i[1]\i[34]The great thing about Tahir is that he totally doesn't mind when I mess up Rune experiments~~\w8\w8\1\s[11]\i[32]That's because you don't really mess them up at all. \w6\![anim,stop,32]\i[34]Every one of your Runes has a use.\w8\w8\0\n\n\s[3]SEE??? \w8\1\s[11]\i[31]\i[90]\0He's amazing..!"
+		"\0\s[1]\i[1]\i[14]Tahir's crop top is a fashion choice, not a practical one. \w8\i[34]This is something I keep telling him when we're in battle!!\w8\w8\1\s[16]Wha- \w6\i[32]Yes, it's a fashion choice, but I never get seen or hit in the first place. \w8\s[16]\i[61]Even if I am, my cloak and gauntlets are enchanted, remember?\w8\w8\0\n\n\s[6]\![anim,stop,91]Yess, I know, still!!\w8\w8\1\n\nYour sweater and dress aren't very practical too, you know?\w8\w8\0\n\nAhhh, fine!! \w8\s[1]\i[13]\i[34]You have a point. \w8I'll just accept that we have to look fashionable when beating monsters up..!!!"
+		"\0\s[1]\i[34]Tahir's bad at being honest about how he feels... \w8\![anim,stop,34]\i[35]\i[1]Don't take it personally if he's being all seriousy and stoic, okay? \w8He's really a big softie~~\w8\w8\1\s[11]\i[33]\i[90](...What does that mean..?)"
+	}
 	--
-	"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }
 
 OnFQ.People
 {
-	""
-	--
-	"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+	//yeah sorry this redirects to the anchor bc i don't have. any ideas atm
+	"\![raise,OnAnchorSelect,AFQ.People]"
+	//--
+	//"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }
 
 OnFQ.Vala
 {
-	""
+	"\0\s[1]I like adventuring around, but at the end of the day, Valaria's where I'm most comfortable... \w8\i[34]\i[62]All the crunchy snow and soft lantern lighs~~ \w8The familiar stone architecture~~ \w8\s[3]No place like home, y'know?"
 	--
-	"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }
 
 OnFQ.Gods
 {
-	""
+	"\0\s[4]You probably already know this, but \s[1]\i[35]\i[61]YEAH, the feud between Vala and Fenr is STUPID!! \w8\w8\i[1]Like, why'd you make people to fight your battles FOR you? \w8Manage your own problems! \w8Sheesh! \w8\w4\s[5]\i[1]\i[31]\![anim,stop,91]Sucks even more cause people between Valaria and Fenara just hate each other for no reason now..."
+	"\0\s[1]\i[1]Vala's fashion in all the old manuscripts of her... \w8\i[35]I hope those manuscripts are accurate, because WOW are they COOL!! \w8\s[3]\![anim,stop,0]I totally don't model anything after them or anything..."
 	--
-	"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }
 
 OnFQ.World
 {
-	""
+	"\1\s[11]\i[32]\0\s[1]\i[1]\i[32]Ooh, one of my favorite places we've gone is definitely Melody Mine City! \w8It's on the b"
+	"\0\s[1]\i[1]The place we found you was in The Aetherbrush, which is what the lands in the clouds above the surface of the Bramblebrush is called. \w8\i[34]Patchwork mountain is the point most people ascend to get there, cause it's also the one pathway to The Caretaker's domain... \w8\w8\s[5]\i[31]Ooph, it's always a pain to go up, though..."
 	--
-	"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }
 
 OnFQ.Magic
 {
-	""
+	"\0I'm GOOD at making runes~~!! \w8I wasn't top of my class for nothing!"
 	--
-	"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }
 
 OnFQ.Battle
 {
-	""
+	"\0\s[1]\i[14]\i[34]\i[62]I'm gonna be honest, I'm not too great at close range attacks, when it comes to Resonance... \w8\s[4]If I were to use a rune, I'd use an explosion one... \w8\w2\s[1]\i[1]\i[35]But also, it's way easier to just hit people with my staff!! \w8\w8\s[9]The blade is made from SOLID eucanium! \w8\s[1]\i[2]\i[35]Of course I'm gonna use it!!!"
+	"\0\s[1]\i[1]\i[34]Hehe... \w8My favorite monster is DEFINITELY water slimes. \w8\s[3]There's just so many variations of them, and they're sooo cute and squishy!! \w8There's so much research into the benefits of every one of their byproducts... \w8It's just so interesting~~"
 	--
-	"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }
 
 //—————————————————————————————— Battle Stuff ——————————————————————————————

@@ -49,7 +49,7 @@ OnTahirCheck : all
 	"\n\n"
 
 	"\![*]Caretaker: \f[color,default.anchor]Fenr, Linn\n\f[color,default]" //technically true
-	"\![*]Resonance: \f[color,default.anchor]Dusty Orange (Weak Earth, Mid Fire)\n\f[color,default]" //not true at all
+	"\![*]Resonance: \f[color,default.anchor]Dusty Orange (Weak Earth, Weak Fire)\n\f[color,default]" //not true at all
 	"\![*]Species: \f[color,default.anchor]Rabbit-Hare\n\f[color,default]"
 	"\![*]Class: \f[color,default.anchor]Rogue\n\f[color,default]"
 
@@ -62,75 +62,95 @@ OnTQuestionMenu : all
 {
 	"\1\b2\_q\![set,autoscroll,disable]"
 	"\f[align,center]\f[bold,1]-- YOU ASK TAHIR ABOUT... --\n\f[bold,default]"
-	"\f[color,disable]\f[size,-2](Click the pin next to the question for an overall rundown!)\n\n\f[color,default]\f[size,default]"
+	"\f[color,disable]\f[size,-2](Click the pin next to the question for an overall rundown!)\n\n"
+	"\f[color,default]\f[size,default]\f[align,default]"
 
-	"\_a[ATQ.Tahir]\![*]\_a\q[Himself,OnTQ.Tahir]\n"
-	"\_a[ATQ.Faeia]\![*]\_a\q[Faeia,OnTQ.Faeia]\n"
+	if !Flag("TQTahir"); "\![*]\q[Himself,OnTQ.Tahir]\n"
+	else; "\_a[ATQ.Tahir]\![*]\_a\q[Himself,OnTQ.Tahir]\n"
+
+	if !Flag("TQFaeia"); "\![*]\q[Faeia,OnTQ.Faeia]\n"
+	else; "\_a[ATQ.Faeia]\![*]\_a\q[Faeia,OnTQ.Faeia]\n"
+
 	"\_a[ATQ.People]\![*]\_a\q[Other People,OnTQ.People]\n"
-	"\n"
-	"\_a[ATQ.Fenr]\![*]\_a\q[Fenr Life,OnTQ.Fenr]\n"
+
+	"\n[half]"
+
+	"\_a[ATQ.Fenr]\![*]\_a\q[Fenara Life,OnTQ.Fenr]\n"
 	"\_a[ATQ.Gods]\![*]\_a\q[The Caretakers,OnTQ.Gods]\n"
 	"\_a[ATQ.World]\![*]\_a\q[The Bramblebrush,OnTQ.World]\n"
 	"\_a[ATQ.Magic]\![*]\_a\q[Resonance & Runes,OnTQ.Magic]\n"
 	"\_a[ATQ.Battle]\![*]\_a\q[Enemies & Combat,OnTQ.Battle]\n"
 	
-	"\n\![*]\q[Back,OnSakuraMenu]  \![*]\q[Close,blank]"
-}
-
-OnTQ.Faeia
-{
-	""
-	--
-	"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+	"\n\![*]\q[Back,OnKeroMenu]  \![*]\q[Close,blank]"
 }
 
 OnTQ.Tahir
 {
-	""
+	if !Flag("TQTahir")
+	{AddFlag("TQTahir")
+	"\0\s[1]\1\b2\s[11]Me? \w8\w4\s[14]I guess I haven't introduced myself yet... \w8\s[11]My name is Tahir. \w8\i[33]I'm mostly just tagging along with Faeia because she has absolutely no idea where she's going, while I do.\w8\w8\0\s[6]Hey!! \w2I know what I'm doing, kind of!! \w8Also, that's not true! \w8We're friends! \w4You have things you want to do on this journey, too!\w8\w8\1\n\n\s[13]Pfft... \w8Sorry. I was teasing you. \w8\i[1]\![anim,stop,90]Fai's right, \w8but you don't need to know the details. \w8\s[11]\i[13]\i[34]I'm just here to explore.\w8\w8\0\n\n\s[1]\i[35]\i[62]Awww, staying mysterious..."}
+	else 
+	{
+		"\1"
+	}
 	--
-	"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+}
+
+OnTQ.Faeia
+{
+	if !Flag("TQFaeia")
+	{AddFlag("TQFaeia")
+	"\0\s[1]\i[13]\i[32]\1\b2\s[11]\i[33]Hm. \w8Fai is... \w8\s[16]\i[61]Very interesting, \w4if that's the word I'm looking for.\w8\w8\0\s[1]\i[35]\i[61](...?!)\w8\1\n\n\i[32]...In a good way. \w8I suppose I'm somewhat indebted to her when she first saved me from those... \w8\![anim,stop,32]\i[31]Eh, \w8bounty hunters, \w8\s[16]\i[61]but she kept pestering me after the fact because she wanted to know more about Fenara...\w8\w8\0\n\n\s[6]Tahir, stop pretending like you don't like me..!!\w8\w8\1\n\n\s[11]\i[12]\i[32]\i[62]Ah, \w2sorry. \w8I really don't mean to sound too harsh when I recount when we met... \w8\w8\0\s[1]\i[13]\i[32]\1\s[16]\i[61]I'm not annoyed by her now. \w8She's very smart and I admire her tenacity... \w8\s[11]\i[12]\i[34]Which is part of why I'm tagging along with her now.\w8\w8\0\n\n\s[3](Hehehe~)"}
+	else 
+	{
+		"\1"
+	}
+	--
+	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
 
 OnTQ.People
 {
 	""
 	--
-	"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
 
 OnTQ.Vala
 {
 	""
 	--
-	"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
 
 OnTQ.Gods
 {
 	""
 	--
-	"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
 
 OnTQ.World
 {
 	""
 	--
-	"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
 
 OnTQ.Magic
 {
-	""
+	"\1\s[11]I don't use my Resonance much at all. \w8\i[34]It's weak, so it's not viable for fighting."
+	"\1\s[11]\i[33]I don't like to talk about my Resonance. \w8\![anim,stop,33]\i[34]There's not much to discuss, really."
 	--
-	"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
 
 OnTQ.Battle
 {
 	""
 	--
-	"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
 
 //—————————————————————————————— Battle Stuff ——————————————————————————————

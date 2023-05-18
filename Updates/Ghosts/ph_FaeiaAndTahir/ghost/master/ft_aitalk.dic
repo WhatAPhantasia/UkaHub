@@ -39,7 +39,7 @@ RandomTalk : nonoverlap_pool
 	random:{
 		"\s[3]Really, the FOOD was where it's at! \w8Thank you scholarship exam for letting me get into the rich school for free, cause I got SO MANY good meals~!\w8\w8\1\n\n\s[16]\i[61]So it wasn't the education, I see... \w8\i[32]But you get a point for leeching off of rich people.\w8\w8\0\n\nHehe!\e"
 		"\s[3]The library was soooo big! \w8Thank you scholarship exam for letting me get into the rich school for free, cause WOW do they have SUPER BIG repositories of knowledge..!! \w8\w8\s[1]\i[33]\i[90]And, \w8um, \w8they also have the best materials to build the SICKEST pillow forts in the library...\w8\w8\1\n\n\s[16]\i[61](Ah, I see...)\e"
-		"\s[3]My dorm room was SOOO big..!! \w8And my dorm mate was really funny and nice!!\w8\w8\1\n\n\s[6]\i[61]Oh, Lana, right?\w8\w8\0\n\nYup~! \w8She never minded whenever I made big messes on potions assignments..!\e"
+		"\s[3]My dorm room was SOOO big..!! \w8And my dorm mate was really funny and nice!!\w8\w8\1\n\n\s[6]\i[61]Oh, Lopei, right?\w8\w8\0\n\nYup~! \w8She never minded whenever I made big messes on potions assignments..!\e"
 	}}
 
 	all:{"\1\s[11]\i[32]\0\s[1]\i[14]\i[32]"
@@ -49,11 +49,18 @@ RandomTalk : nonoverlap_pool
 		"\s[16]\i[61]Just because I don't really have a home means I can't miss anyplace? \w8Fai??\w8\w8\0\n\n\s[5]AHH did I mess up?! \w8Sorry!! \w8I didn't mean it that way!! \w8I meant, like, nostalgia!!\w8\w8\1\n\n\s[13]\![anim,stop,90]PFFT, no, I'm not offended, I knew what you meant.\w8\w8\0\n\n\s[1]\i[35]\i[62]OH, phew... \w8Still, sorry..!!\w8\w8\1\n\nIt's fine. \w8\s[14]Nostalgia, though... \w8"
 		""}
 	random:{
-		"\s[14]I guess I miss the Fenr Capitol, \w4even with all the anti-Vala stuff... \w8\s[11]\i[34]It's the people and the food. \w8It was a nice constant in my life for a few years... \w8\s[11]\i[32]So yeah.\w8\w8\0\n\nOh, wow, The Fenr Capitol..? \w8\s[3]\![anim,stop,90]Would love to visit it, \w6if that ever becomes possible, haha!\w8\w8\1\n\n\![anim,stop,32]\i[34]Mhmm. \w8\s[16]\i[61]I'll try to get a souvenir for you from there if I drop by.\w8\w8\0\n\nReally?! \w8Thank you!!\e"
+		"\s[14]I guess I miss the Fenara Capitol, \w4even with all the anti-Vala stuff... \w8\s[11]\i[34]It's the people and the food. \w8It was a nice constant in my life for a few years... \w8\s[11]\i[32]So yeah.\w8\w8\0\n\nOh, wow, The Fenara Capitol..? \w8\s[3]\![anim,stop,90]Would love to visit it, \w6if that ever becomes possible, haha!\w8\w8\1\n\n\![anim,stop,32]\i[34]Mhmm. \w8\s[16]\i[61]I'll try to get a souvenir for you from there if I drop by.\w8\w8\0\n\nReally?! \w8Thank you!!\e"
 		"\s[14]I miss the Chateau Plateau... \w8I stopped by really often for Scorch Squash and Popumpkins. \w8I wonder if they still grow them...\w8\w8\0\n\nWoah..! \w8I never get the chance to eat those! \w8\s[3]\![anim,stop,90]That sounds really cool~~\w8\w8\1\n\n\s[13]\![anim,stop,90]Mhmm. \w8Maybe I'll get you some, if the chance arises.\w8\w8\0\n\nReally?! \w8Thank you!!\e"
 	}}
 
-	all:{"\0\s[1]"}
+	all:{"\1\s[11]\0\s[4]"
+	"Hey %(user[1]), have you gotten any good fooood lately~?\w8\w8\1\i[33]"
+	"Please don't tell me you're going to beg %(them) for food, Fai...\w8\w8\0\n\n\s[1]\i[32]\i[62]"
+	"I'm nooot! \w6We have our own money, anyway! \w8I just wanna know if they've stopped by any cool restaurants is all!\w8\w8\1\n\n"
+	"\![anim,stop,33]\i[34]"
+	"Mhmm... \w8\s[14]\i[1]Really though, do you have recommendations? \w8It's been a bit since we've stopped by for good food...\e"}
+
+	all:{"\0\s[]"}
 }
 
 
