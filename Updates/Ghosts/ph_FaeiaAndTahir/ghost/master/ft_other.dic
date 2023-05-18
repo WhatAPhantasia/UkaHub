@@ -30,13 +30,13 @@ OnKeyPress
 //Happens about 30 seconds after a script ends, by default, to bring them back to normal poses
 OnSurfaceRestore
 {
-	"\1\s[10]\0\s[0]"
+	"\1%(tidle)\0%(fidle)"
 }
 
 //Happens when the ghost is unminimized. You *can* include dialogue, but you don't *have* to. I have included this event because if you don't, it defaults to \0\s[0]\1\s[10], which you don't want in some cases, such as if your ghost uses different surfaces or has a different number of characters.
 OnWindowStateRestore
 {
-	"\1\s[10]\0\s[0]"
+	"\1%(tidle)\0%(fidle)"
 }
 
 //Network update url. Make sure you have a / on the end of the url or it will give a warning every time users try to update! If you don't plan to use network updates you can remove this
@@ -48,10 +48,7 @@ OnWindowStateRestore
 //• Once on that page, click the "raw" button. You should see the url now starts with raw.githubusercontent
 //• Copy that url exactly as is, but *leave off the "install.txt" or whatever file name at the end.*
 //Tada! That's your url! Make sure you test it! The dev palette and script/network log can help with that
-On_homeurl
-{
-	""
-}
+On_homeurl {"https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/master/Updates/Ghosts/ph_FaeiaAndTahir/"}
 
 
 //—————————————————————————————— Right click menu links ——————————————————————————————
@@ -129,7 +126,7 @@ OnUserInputCancel
 
 	if reference0 == "OnNameTeach" && reference3 == "firstboot"
 	{
-		"\C\![open,inputbox,OnNameTeach,-1,--reference=firstboot]\_l[-10000,-10000]\*\t\q[ ,__VERY_FIRST_BOOT__]"
+		"\C\![open,inputbox,OnNameTeach,-1,--reference=firstboot,--reference=1]\_l[-10000,-10000]\*\t\q[ ,__VERY_FIRST_BOOT__]"
 	}
 }
 

@@ -3,7 +3,7 @@
 //—————————————————————————————— Installing something ——————————————————————————————
 OnInstallComplete
 {
-	"\0\s[0]Installed a %(reference0),\w4 called %(reference1)."
+	"\1\s[11]\0\s[1](Installed a %(reference0),\w4 called %(reference1).)"
 	--
 	if "ghost" _in_ reference0 //A little menu to open or change to the ghost that was installed immediately
 	{
@@ -33,7 +33,7 @@ OnNarCreated
 {
 	_nar = "\_a[OnNarLocation,""%(reference1)""]%(reference0)\_a" //Makes a clickable link that'll open the location of the file they just made
 	
-	"\0\s[0]Successfully created %(_nar)."
+	"\1\s[11]\0\s[1](Successfully created %(_nar).)"
 }
 
 OnNarLocation
@@ -48,7 +48,7 @@ OnNarLocation
 //Starting an update
 OnUpdateBegin
 {
-	"\0\s[0]Checking for updates.\w8"
+	"\1\s[11]\i[32]\0\s[1]Ooh, is that a carrier rune..?! \w8\i[35]I wonder if we have any cool updates...\w8"
 }
 
 //reference0 is the number of new files, starting from 0
@@ -59,7 +59,7 @@ OnUpdateReady
 	//plural checks, adds an s and changes is to are if there's more than 1 file
 	_s = ""; _are = "is"; if reference0 != 1; _s = "s"; _are = "are"
 	
-	"\0\s[0]There %(_are) %(reference0) new file%(_s).\w8"
+	"\1\s[11]\0\s[1]Looks like %(reference0) new file%(_s)! \w8\i[34]Alright, give me a sec to read through this...\w8"
 }
 
 //When the update finishes. Don't forget to initialize any new variables you've created! I highly highly recommend using OnInitialize for this (it's in boot.dic), in case the user updates via the ghost explorer or some other means.
@@ -68,11 +68,11 @@ OnUpdateComplete
 {
 	if reference0 == "none"
 	{
-		"\0\s[0]There are no new files."
+		"\1\s[11]\i[32]\0\s[1]\i[35]\i[62]Aw, there's nothing new...\w8\w8\1\s[11]\i[12]\i[35]\i[62]I was actually kind of hoping for a letter..."
 	}
 	else
 	{
-		"\0\s[0]Update complete."
+		"\1\s[11]\i[32]\0\s[1]Done!! \w8\i[35]Yaay, we got some new stuff in the mail~!\e"
 	}
 }
 
@@ -81,20 +81,20 @@ OnUpdateFailure //If the update fails
 {
 	if reference0 == "timeout" //If it timed out
 	{
-		"\0\s[0]Connection timed out."
+		"\1\s[11]\i[32]\0\s[6]Aw, what?! The mail's gone...\w8\w8\1I think the rune timed out or something..."
 	}
 	elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
 	{
 		_file = SPLITPATH(reference1)[2] + SPLITPATH(reference1)[3] //This gets the name and extension of the offending file
 		
-		"\0\s[0]The MD5 values don't match.\w8 Contact the ghost author and let them know that '%(_file)' is giving an MD5 error."
+		"\1\s[11]\i[32]\0\s[1]\i[34]\i[62]Aw, looks like the MD5 values don't match.\w8\w8\n\n\_q(Contact Phantasia and let them know that '%(_file)' is giving an MD5 error.)"
 	}
 	elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
 	{
-		"\0\s[0]Update cancelled."
+		"\1\s[11]\i[32]\0\s[1]\i[14]Wait, huh..?! \w8\![anim,stop,14]\i[13]\i[34]\i[62]Guess there's no mail for us after all..."
 	}
 	else //Any other errors
 	{
-		"\0\s[0]Error while updating:\w4 ""%(reference0)""."
+		"\1\s[11]\i[32]\0\s[6]Aw, what?! \w8Something went wrong, I think..? \w8\s[1]\i[14]It just says, um...\w4 ""%(reference0)""."
 	}
 }

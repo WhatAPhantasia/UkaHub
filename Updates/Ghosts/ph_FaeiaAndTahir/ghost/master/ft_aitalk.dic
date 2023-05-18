@@ -13,7 +13,33 @@ OnAiTalk
 
 RandomTalk : nonoverlap_pool
 {
-	"\0\s[0]Fill this with lots of random dialogue."
+	all:{"\1\s[11]\i[32]\0\s[1]\i[32]"
+	"Ooh! \w8\i[1]\![anim,stop,32]\i[34]Tahir, I've been thinking about something..!\w8\w8\1"
+	"\![anim,stop,32]\i[33]...What.\w8\w8\0\n\n"
+	random:{
+		"Isn't it weird how "
+	}}
+
+	all:{"\1\s[11]\i[32]\0\s[3]"
+	"Hehehee~\w8\w8\1"
+	"\![anim,stop,32]\i[33]...Okay, \w8I'll bite. \w8\w8\s[16]\i[61]What's gotten you like this, Fai?\w8\w8\0\n\n"
+	random:{
+		"Nothing muuuch..! \w8I'm just remembering this one time Namii-Namii called me pretty, and it's REALLY doing wonders for my self esteem~~\w8\w8\1\n\n\s[11]\i[32]They complimented you..? \w8\w6\s[14]That's rare...\w8\w8\0\n\nExaaactly!!\e"
+	}}
+
+	all:{"\1\s[11]\i[32]\0\s[1]\i[14]"
+	"Oh! \w8\s[1]\i[35]Hey, Tahir, %(user[1]), I just remembered! \w8\![anim,stop,35]\i[32]\i[1]I got some %(pastry) from Uhir's place, back when I visited my hometown a day or so ago, and it's still good! \w8\![anim,stop,32]\i[35]Do you two want annyy?\w8\w8\1"
+	"\![anim,stop,32]\i[34]...Well, can't really go wrong with anything he makes... \w8\![anim,stop,34]\i[32]Yes, thank you."}
+
+	all:{"\1\s[11]\i[32]\0\s[1]\i[34]\i[62]"
+	"Guys... \w8I'm suddenly really nostalgic for my days in the academy...\w8\w8\1"
+	"\![anim,stop,32]\i[34]Of course you are, Ms. Top-of-her-class.\w8\w8\0\n\n"
+	"\s[1]\i[32]\i[61]A- \w8\s[6]Well, SURE, but it wasn't ALL easy!! \w8And ME being GOOD AT STUFF isn't what I'm nostalgic for, mostly! \w8"
+	random:{
+		"\s[3]Really, the FOOD was where it's at! \w8Thank you scholarship exam for letting me get into the rich school for free, cause I got SO MANY good meals~!\w8\w8\1\n\n\s[16]\i[61]So it wasn't the education, I see... \w8\i[32]...I can respect that, actually...\e"
+		"\s[3]The library was soooo big! \w8Thank you scholarship exam for letting me get into the rich school for free, cause WOW do they have SUPER BIG repositories of knowledge..!! \w8\w8\s[1]\i[33]\i[90]And, \w8um, \w8they also have the best materials to build the SICKEST pillow forts in the library...\w8\w8\1\n\n\s[6]\i[61](Ah, I see...)\e"
+		"\s[3]My dorm room was SOOO big..!! \w8And my dorm mate was really funny and nice!!\w8\w8\1\n\n\s[6]\i[61]Oh, Lana, right?\w8\w8\0\n\nYup~! \w8She never minded whenever I made big messes on potions assignments..!\e"
+	}}
 }
 
 
@@ -23,7 +49,7 @@ OnOverlap
 {
 	if ("0-1" _in_ reference0 || "1-0" _in_ reference0) && RAND(10) == 0
 	{
-		"\1\f[size,-2]O-Oh...\e"
+		"\1\s[11]\i[32]\i[90]\f[size,-2]O-Oh...\e"
 		/* commented out bc tbh i dont want faeia to move. movement weird
 		"\1O-Oh...\w8\w8\0Hm? \w4Oh, are we too close? \w6Sorry about that, Tahir. \w8Gimme a sec...\w8\![move,--X=100,--time=1000,--base=me] \w8\w8Is that better?\w8\w8\1\n\n"
 		--
