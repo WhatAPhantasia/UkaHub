@@ -88,10 +88,10 @@ OnTQ.Tahir
 {
 	if !Flag("TQTahir")
 	{AddFlag("TQTahir")
-	"\0\s[1]\1\b2\s[11]Me? \w8\w4\s[14]I guess I haven't introduced myself yet... \w8\s[11]My name is Tahir. \w8\i[33]I'm mostly just tagging along with Faeia because she has absolutely no idea where she's going, while I do.\w8\w8\0\s[6]Hey!! \w2I know what I'm doing, kind of!! \w8Also, that's not true! \w8We're friends! \w4You have things you want to do on this journey, too!\w8\w8\1\n\n\s[13]Pfft... \w8Sorry. I was teasing you. \w8\i[1]\![anim,stop,90]Fai's right, \w8but you don't need to know the details. \w8\s[11]\i[13]\i[34]I'm just here to explore.\w8\w8\0\n\n\s[1]\i[35]\i[62]Awww, staying mysterious..."}
+	"\0\s[1]\1\b2\s[11]Me? \w8\w4\s[14]I guess I haven't introduced myself yet... \w8\s[11]My name is Tahir. \w8\i[33]I'm mostly just tagging along with Faeia because she has absolutely no idea where she's going, while I do.\w8\w8\0\s[6]Hey!! \w2I know what I'm doing, kind of!! \w8Also, that's not true! \w8We're friends! \w4You have things you want to do on this journey, too!\w8\w8\1\n\n[half]\s[13]Pfft... \w8Sorry. I was teasing you. \w8\i[1]\![anim,stop,90]Fai's right, \w8but you don't need to know the details. \w8\s[11]\i[13]\i[34]I'm just here to explore.\w8\w8\0\n\n[half]\s[1]\i[35]\i[62]Awww, staying mysterious..."}
 	else 
 	{
-		"\1"
+		"\1\s[11]I've spent a lot of time going inbetween Fenara and Valaria, even when I was younger. \w8\i[34]I doubt I'd be able to wander as freely as I have been if not for this tenuous peace..."
 	}
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
@@ -101,10 +101,11 @@ OnTQ.Faeia
 {
 	if !Flag("TQFaeia")
 	{AddFlag("TQFaeia")
-	"\0\s[1]\i[13]\i[32]\1\b2\s[11]\i[33]Hm. \w8Fai is... \w8\s[16]\i[61]Very interesting, \w4if that's the word I'm looking for.\w8\w8\0\s[1]\i[35]\i[61](...?!)\w8\1\n\n\i[32]...In a good way. \w8I suppose I'm somewhat indebted to her when she first saved me from those... \w8\![anim,stop,32]\i[31]Eh, \w8bounty hunters, \w8\s[16]\i[61]but she kept pestering me after the fact because she wanted to know more about Fenara...\w8\w8\0\n\n\s[6]Tahir, stop pretending like you don't like me..!!\w8\w8\1\n\n\s[11]\i[12]\i[32]\i[62]Ah, \w2sorry. \w8I really don't mean to sound too harsh when I recount when we met... \w8\w8\0\s[1]\i[13]\i[32]\1\s[16]\i[61]I'm not annoyed by her now. \w8She's very smart and I admire her tenacity... \w8\s[11]\i[12]\i[34]Which is part of why I'm tagging along with her now.\w8\w8\0\n\n\s[3](Hehehe~)"}
+	"\0\s[1]\i[13]\i[32]\1\b2\s[11]\i[33]Hm. \w8Fai is... \w8\s[16]\i[61]Very interesting, \w4if that's the word I'm looking for.\w8\w8\0\s[1]\i[35]\i[61](...?!)\w8\1\n\n[half]\i[32]...In a good way. \w8I suppose I'm somewhat indebted to her when she first saved me from those... \w8\![anim,stop,32]\i[31]Eh, \w8, \w8\s[16]\i[61]but she kept pestering me after the fact because she wanted to know more about Fenara...\w8\w8\0\n\n[half]\s[6]Tahir, stop pretending like you don't like me..!!\w8\w8\1\n\n[half]\s[11]\i[12]\i[32]\i[62]Ah, \w2sorry. \w8I really don't mean to sound too harsh when I recount when we met... \w8\w8\0\s[1]\i[13]\i[32]\1\s[16]\i[61]I'm not annoyed by her now. \w8She's very smart and I admire her tenacity... \w8\s[11]\i[12]\i[34]Which is part of why I'm tagging along with her now.\w8\w8\0\n\n[half]\s[3](Hehehe~)"}
 	else 
 	{
-		"\1"
+		"\1\s[11]\i[33]...It's hard for me to tell her how I feel about her without being mean about it. \w8\s[16]\i[31]I don't want to be that honest about liking people, let alone her... \w8\w8\n\n[half]\![anim,stop,31]\i[32](Ah... Did I do it again..?)"
+		"\1\s[11]She means well, even if she can't word her intentions the best at times. \w8\w6\i[34]...Not an excuse for any missteps she makes, \w2but please be mindful."
 	}
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
@@ -112,28 +113,29 @@ OnTQ.Faeia
 
 OnTQ.People
 {
-	""
-	--
-	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+	"\![raise,OnAnchorSelect,ATQ.People]"
+	//--
+	//"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
 
-OnTQ.Vala
+OnTQ.Fenr
 {
-	""
+	"\1\s[14]I've been all over Fenara, \w2and it all makes it hard for me to choose a favorite place. \w8\s[11]\i[34]I do consider it my home, though."
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
 
 OnTQ.Gods
 {
-	""
+	"\1\s[11]I partially devoted myself to Linn because xe played a big part in my life when I was younger... \w8\s[16]\i[32]\i[61]And I suppose, since my resonance is so weak, I should be closer to the Caretaker that's closest to me..."
+	"\1\s[11]\i[33]I'll be honest, \w2Fenr hasn't done much for me.\w8\w8\0Pfft- \w4Sorry, that was funny! \w2I wasn't expecting you to say that!\w8\w8\1\n\n[hlaf]"
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
 
 OnTQ.World
 {
-	""
+	"\0\s[1]\i[13]\i[32]\1\s[11]\i[34]I think one of my favorite places from our adventures would be... \w8Hm. \w8Deep Dark Castle Kingdom.\w8\w8\0\![anim,stop,13]\i[14]Woah, really?! \w8Personally, that place was too dark for me...\w8\w8\1\n\n[half]\s[1Mm, for me, I liked the winding streets and the architecture... \w8No one there was weird about the whole Vala/Fenr thing either. \w8That was nice."
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
@@ -148,7 +150,7 @@ OnTQ.Magic
 
 OnTQ.Battle
 {
-	""
+	"\1\s[14]I have a few weapons up my sleeve... \w8\i[1]Mostly just small throwing knives and poisons and things, other than my scythe. \w8\s[11]\i[13]\i[34]\i[62]I don't think I could handle a bigger weapon, really..."
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
