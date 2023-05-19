@@ -19,6 +19,14 @@ pastry //plural
 	"snow mochi"
 }
 
+element
+{
+	"sun"
+	"moon"
+	"bramble"
+	"aether"
+}
+
 //shell envelopes
 
 fidle

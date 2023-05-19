@@ -93,10 +93,10 @@ OnFQ.Faeia
 {
 	if !Flag("FQFaeia")
 	{AddFlag("FQFaeia")
-	"\0\b2\s[1]\i[14]Oh! \w8\s[1]\i[35]\i[62]Yeah, I guess I haven't really introduced you to ME yet... \w8\s[1]I'm Faeia! \w8From Stoneveil, in Valaria!! \w8\w8\i[34]I'm a mage, and I'm mostly just going around the Bramblebrush for more experience outside of my home, you know? \w8Taking quests and all that? \w8\w8\s[5]\![anim,stop,91]\i[31]But also... \w8Tensions between Valarians and Fenaras are getting kinda bad, and there's something weird going on with the Resonance around the Bramblebrush. \w8\s[5]\![anim,stop,91]Since I'm already out here, I figured I should try to sort some of that out as well, you know..?\w8\w8\1\s[11]\i[34]Mm. \w8A lofty goal, but we've made progress on it.\w8\w8\0\n\n\s[1]\i[35]Mhmm! \w8\w4\s[3]\![anim,stop,90]But other than that, I'm just here to experience more stuff~!"}
+	"\0\b2\s[1]\i[14]Oh! \w8\s[1]\i[35]\i[62]Yeah, I guess I haven't really introduced you to ME yet... \w8\s[1]I'm Faeia! \w8From Stoneveil, in Valaria!! \w8\w8\i[34]I'm a mage, and I'm mostly just going around the Bramblebrush for more experience outside of my home, you know? \w8Taking quests and all that? \w8\w8\s[5]\![anim,stop,91]\i[31]But also... \w8Tensions between Valarians and Fenaras are getting kinda bad, and there's something weird going on with the Resonance around the Bramblebrush. \w8\s[5]\![anim,stop,91]Since I'm already out here, I figured I should try to sort some of that out as well, you know..?\w8\w8\1\s[11]\i[34]Mm. \w8A lofty goal, but we've made progress on it.\w8\w8\0\n\n[half]\s[1]\i[35]Mhmm! \w8\w4\s[3]\![anim,stop,90]But other than that, I'm just here to experience more stuff~!"}
 	else 
 	{
-		"\0\s[4]Hmmm... \w8I actually just graduated with a Silver Degree from the Valarian Academy of Resonance, like, a few months ago, and I got tons of certificates for Resonance use... \w8\s[4]\![anim,stop,90]It was fun, and I learned a lot! \w8\w8I figure once I've done all I wanted to out here, maybe I can go back and get a higher degree..."
+		"\0\s[4]Hmmm... \w8I actually just graduated with a Silver Degree from the Valarian Academy of Resonance, like, a few months ago, and I got tons of certificates for Resonance use... \w8\s[3]\![anim,stop,90]It was fun, and I learned a lot! \w8\w8I figure once I've done all I wanted to out here, maybe I can go back and get a higher degree..."
 		"\0\s[4]I love pastries... \w6Especially if they're sweet!! \w8\w8\s[1]\i[31]Hehehe, maybe you can buy me some..?!?!\w8\w8\1\s[11]\i[33]Fai, we're not extorting %(user[2])."
 		"\0\s[1]\i[14]My hair isn't naturally white... \w8\s[1]\i[33]Um, obviously. \w8\w8\s[1]\i[35]\i[62]Big Resonance accident happened. \w8Free hair dye, I guess??"
 	}
@@ -108,12 +108,12 @@ OnFQ.Tahir
 {
 	if !Flag("FQTahir")
 	{AddFlag("FQTahir")
-	"\0\b2\s[1]\i[14]Hm? \w8Oh, Tahir? \w8\w8\s[1]\i[34]Yeah, he's a Fenara, and a rogue. \w8\s[6]And YES, we're friends!! \w6If you have an issue with that, I'm bonking you with my staff!\w8\w8\1\s[16]\i[61]%(Capitalize(user[2])) is fine with it, obviously. \w8\i[32]They would've reacted MUCH earlier if they weren't...\w8\w8\0\n\nI know, but I have to be sure!! \w8There are TONS of jerks out there! \w8\w4\s[1]ANYWAYS, I met him in my first year at the academy. \w8He ended up in the academy town in disguise and got some thugs on his trail, \w2and I just helped him out! \w8\s[3]We're besties now~"}
+	"\0\b2\s[1]\i[14]Hm? \w8Oh, Tahir? \w8\w8\s[1]\i[34]Yeah, he's a Fenara, and a rogue. \w8\s[6]And YES, we're friends!! \w6If you have an issue with that, I'm bonking you with my staff!\w8\w8\1\s[16]\i[61]%(Capitalize(user[2])) is fine with it, obviously. \w8\i[32]They would've reacted MUCH earlier if they weren't...\w8\w8\0\n\n[half]I know, but I have to be sure!! \w8There are TONS of jerks out there! \w8\w4\s[1]ANYWAYS, I met him in my first year at the academy. \w8He ended up in the academy town in disguise and got some thugs on his trail, \w2and I just helped him out! \w8\s[3]We're besties now~"}
 	else 
 	{
 		"\0\s[3]Tahir is the coolest~! \w8Best travelling companion I could ask for! \w8SOOO strong!!\w8\w8\1\s[11]\i[33]\i[90]...Um, thank you..? \w8I don't think that was what %(user[2]) was asking, though..."
-		"\0\s[1]\i[1]\i[34]The great thing about Tahir is that he totally doesn't mind when I mess up Rune experiments~~\w8\w8\1\s[11]\i[32]That's because you don't really mess them up at all. \w6\![anim,stop,32]\i[34]Every one of your Runes has a use.\w8\w8\0\n\n\s[3]SEE??? \w8\1\s[11]\i[31]\i[90]\0He's amazing..!"
-		"\0\s[1]\i[1]\i[14]Tahir's crop top is a fashion choice, not a practical one. \w8\i[34]This is something I keep telling him when we're in battle!!\w8\w8\1\s[16]Wha- \w6\i[32]Yes, it's a fashion choice, but I never get seen or hit in the first place. \w8\s[16]\i[61]Even if I am, my cloak and gauntlets are enchanted, remember?\w8\w8\0\n\n\s[6]\![anim,stop,91]Yess, I know, still!!\w8\w8\1\n\nYour sweater and dress aren't very practical too, you know?\w8\w8\0\n\nAhhh, fine!! \w8\s[1]\i[13]\i[34]You have a point. \w8I'll just accept that we have to look fashionable when beating monsters up..!!!"
+		"\0\s[1]\i[1]\i[34]The great thing about Tahir is that he totally doesn't mind when I mess up Rune experiments~~\w8\w8\1\s[11]\i[32]That's because you don't really mess them up at all. \w6\![anim,stop,32]\i[34]Every one of your Runes has a use.\w8\w8\0\n\n[half]\s[3]SEE??? \w8\1\s[11]\i[31]\i[90]\0He's amazing..!"
+		"\0\s[1]\i[1]\i[14]Tahir's crop top is a fashion choice, not a practical one. \w8\i[34]This is something I keep telling him when we're in battle!!\w8\w8\1\s[16]Wha- \w6\i[32]Yes, it's a fashion choice, but I never get seen or hit in the first place. \w8\s[16]\i[61]Even if I am, my cloak and gauntlets are enchanted, remember?\w8\w8\0\n\n[half]\s[6]\![anim,stop,91]Yess, I know, still!!\w8\w8\1\n\n[half]Your sweater and dress aren't very practical too, you know?\w8\w8\0\n\n[half]Ahhh, fine!! \w8\s[1]\i[13]\i[34]You have a point. \w8I'll just accept that we have to look fashionable when beating monsters up..!!!"
 		"\0\s[1]\i[34]Tahir's bad at being honest about how he feels... \w8\![anim,stop,34]\i[35]\i[1]Don't take it personally if he's being all seriousy and stoic, okay? \w8He's really a big softie~~\w8\w8\1\s[11]\i[33]\i[90](...What does that mean..?)"
 	}
 	--
@@ -145,7 +145,7 @@ OnFQ.Gods
 
 OnFQ.World
 {
-	"\1\s[11]\i[32]\0\s[1]\i[1]\i[32]Ooh, one of my favorite places we've gone is definitely Melody Mine City! \w8It's on the b"
+	"\1\s[11]\i[32]\0\s[1]\i[1]\i[32]Ooh, one of my favorite places we've gone is definitely Melody Mine City! \w8\![anim,stop,32]\i[34]It's on the Fenara coast, and the vibes are just so... \w8\i[62]Ahh, what's the word? \w8Beachy? \w2Vacationy? \w8\s[6]It's sooo cool! \w8They're even more lenient on Valarian presence there~\w8\w8\1I enjoy visiting it as well... \w4ust didn't expect you to like it so much. \w8It's nice.\0"
 	"\0\s[1]\i[1]The place we found you was in The Aetherbrush, which is what the lands in the clouds above the surface of the Bramblebrush is called. \w8\i[34]Patchwork mountain is the point most people ascend to get there, cause it's also the one pathway to The Caretaker's domain... \w8\w8\s[5]\i[31]Ooph, it's always a pain to go up, though..."
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
@@ -154,6 +154,8 @@ OnFQ.World
 OnFQ.Magic
 {
 	"\0I'm GOOD at making runes~~!! \w8I wasn't top of my class for nothing!"
+	"\0\s[1]\i[1]My cyan Resonance makes it so I'm just more naturally inclined towards the Aether and Moons, \i[35]but that doesn't mean I can't do any Bramble or Sun Runes! \w8\i[62]It just takes a little more effort, haha..."
+	"\0\s[1]\i[13]\i[33]...I guess I was lucky for being made with such a vivid Resonance. \w8\s[6]\![anim,stop,91]Really, though, I'd like to imagine much of my proficiency comes from me putting so much effort into studying this stuff!"
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }
