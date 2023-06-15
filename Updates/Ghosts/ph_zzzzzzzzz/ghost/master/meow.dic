@@ -1,0 +1,159 @@
+OnAiTalk
+{
+    //i love you needle.
+    aitalkinterval = (RAND(65) + 1) * 10
+
+	if CHAIN.IDName == ""
+	{
+		LastTalk = RandomTalk
+	}
+	else
+	{
+		LastTalk = ChainTalk
+	}
+	LastTalk
+}
+
+RandomTalk
+{
+    //"AUGHEIRUGH YOU ARE CUTTING ME OPEN AGUWHIGAJG OUAGWHIFUHE MY BONES MY SPINE THE BLOOD IS EVERYWHERE"
+    //"teehee just kidding! hello friend! you are welcome to peek into my internals! i love you!"
+    //"it's only fair. i do have your heart after all <3"
+
+    "meeeeeeeeeowwwwwwwwww"
+    "zzzzzzzzzzzzzzzzzzzzz am imirmimrimrimirrr"
+    "wobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwob"
+    "wobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwobwob"
+    "meow"
+    "meowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeowmeow"
+    "best friend best frient! did you know that"
+    "teehee........ i am looking at you. why are you so silly my friend"
+    "sometimes when i stare into space i remember all my little friends that are up there"
+    "shhhhhh. i can't hear the static. it is qutie pleasing to the ear you have to give me a minute"
+    "i enjoy the rain but not when its poundin g at my window like HELLO CHILD I WANT YOURE SKIN"
+    "remember to drink friuit punch"
+    "got any sunnyds on you. im quite Parched"
+    "pour some sodly pop on your favorite person. fun activity for all"
+    "i do enjoy myself some moobies"
+    "do you think im cute 🥺"
+    "please be mindful. i am quite small"
+    "best friend look. look at me. \w8\s[1]when you hurt me this is who you are hurting. don't hurt me again\w8\s[0]"
+    "awaaaaaaaaaaaaaaaaaaaaa\s[2]WAOOOJAWOAAA\s[0]aaaa"
+    "eat him! eat him! eat him!"
+    "saaaaaave meeeee saaaavvveeeeeeee meeeeeeeeeeee"
+    "i think you could suffice to be a little stranger my little friend"
+    "have you tried playing jenga with your ribs? i think you should"
+    "tell me all your deepest desires. i will do nothing but listen"
+    "pleasep lllleaaaaaaase please please give me pats i promise i wont bite your hand this time i prommy :3\![raise,OnBPetPls]"
+    "owo"
+    "i miss you already best friend :]"
+    "im the best desktop decoration. to the point you don't need anyone else >:3"
+    "let people enjoy things. also let people be little haters. like me >:3"
+    "beware the jesters priviledge of the salient"
+    "soundcore life q10 %(ANY('not playing sound laptop','buzzes when playing audio help'))"
+    "the delusions are invadin gmy brain (LIKE INVADER ZIM?!!!?)"
+    "when the teeth skin go sheowmp shwomp"
+    "奇mer"
+    "its my first day at neurotypical high school i hope they don't realize im autistic"
+    "slime time :3"
+    "my favorite slimes are cloud slimes and crunchy slimes. personally i think bingsu slimes could do better"
+    "\s[1]*sniffle* a heem heem heem.., t-tb;;tbhj..,.;. *sniff*"
+    "liam, i want my car keys back"
+    "Did nothing on The Plane that happened mattered to you?! I know you wouldn't wanna think about it but I still exist! AIRY still exists! Do you REALLY not care enough to keep this from happening to other people?! We were taken to The Plane in Febuary 10th and just last week was the first day I got out, on the way here, I did the math, I was on The Plane for 224 days, Soda Bottle. I know you were affected and I dont discount that at all." //LOL no one will get this but me idc (is this panic inducing for people who dont know)
+    "is that what you said to pickle?" //THOSE WHO KNOW KNOW
+    "neil cicierega"
+    "\s[2]mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm.m BEEP BEEP BEEP BEEP"
+    "\s[2]la creatura"
+    "milw (man i love my wife)"
+    "and yet a trace of the true self exists in the false self. i am still thinking about the fake cement tree fences at nature reserves"
+    "laksa yummy. bestie you should treat yourself to some laksa"
+    "mentally i am \s[1]"
+    "me watching the fork i left on the plate spark in the microwave"
+    "harvests your teeth juice"
+    "oooh im coming for you!! to give you a big hug <3"
+    "i'm living on the edge with my ne/nim pronouns because it makes me everyone's nem/ne/nis. please laugh"
+    "this is your reminder that i love you. please remember that"
+    "sleepy time"
+    "ooooooooh ahhhhhhh the sleepy tired has taken me\e:chain=sleepytired"
+    "ok WHO took a bite out of the can of spam?!"
+    "i really liked that sushi you made for me in 10th grade. can we have that again?"
+    "the extant part of a dream... how i miss it."
+    "quite upset i am not getting enough forehead kisses. hmph"
+    "its quite cool how 100 gecs invented music. i like music"
+    "seeya, i'm off to the morning market"
+    "thanks, keep the change <3"
+    "i'm home! :D (sigh i wish)"
+    "i wanna go  hoooooooooome"
+    "to all those wishing i would have longer dialogue: no i simply do not have that much brain space. how dare you demand tha tmuch of me. shushies."
+    "bold words from an eyeball. you have no authority here you silly goose"
+    "woe! there another goes into the crusher. rookie mistake......."
+    "you're doing a good job! thank you for all that you do. i love you"
+    "tbh i think fiction peaked when dib membrane was created. no other characters needed to be created after he was i think"
+    "normalize stream of consciousness dialoguel. im quite great at it you are tuning live into my brainy brain RIGHT NOW!!"
+    "guys does anyone want some nasi lemak. just made some. quite delicious. please eat some with me i am just a teensy bit lonely </3"
+    "aeiou"
+    "don't be mad at your teeth for not statying in place! theyre a little antsy and theyre trying their best, i think!"
+    "playing w/ laser blasts like theyre synthesizer keys. shwoom shwoom!"
+    "lab grown citrus? you're telling me a lab grew this citrus? oh that's actually what it means? ok. thank you. i appreciate this information"
+    "be careful with your wireless bass boosting headphones. make sure to thank them every once in a while for their hard work or else it might stop connecting to your devices for you, or stop playing your favorite dubstep track at full volume :("
+    "make sure to go a little crazy every once in a while. growl at the postperson. do it before its too late"
+    "mrep :3"
+
+    parallel Pool("Pool_motion",Flag('nomotion') == 0)
+
+    //lyrics
+    "endless staining and fading the scars indefinite"
+    "hell world! hell world! ive lost all my hope for the place i live"
+    "frog on the floor\e:chain=gecfrog"
+    "can we pretend that airpl"
+    "bfdi ost: ballers playing on repeat in my brainy brain"
+    "reheating gourmet hot chocolate from the soda fountain. blueberry muffins taste better in the morning"
+    "old thoughts floating above a new horizon. something ill never doubt: i know im rotten"
+    "memories i've felt before. again and again, those blind my sight\n\n(hold my hand even if i cry: i need to feel like i'm human through you)"
+    "do u wanna party malibu barbie are u gonna pack that shit up when it all comes tumbling down"
+    "im going crazy little tiny hollywood baby"
+    //some of my favorite malay proverbs (also just me and my choppy malay lol)
+    "ada udang di sebalik batu"
+    "bagai bulan jatuh ke riba... :0"
+    "saya patut bercakap dengan ibu saya..."
+    "bagai kucing lepas senja :3"
+    "saya sayang awak <3"
+    "tetek 😈😈" //this is for harith specifically (did you know this was my first word /hj)
+    "gajah bergajah-gajah... pelanduk mati tersepit."
+    "apa gunanya kemenyan sebesar tungku kalau tidak dibakar?"
+    "hidup tidak kerana kaul, mati tidak kerana sumpah"
+    "mulut tempayan boleh ditutup... mulut manusia bagaimana menetupnya"
+    "ikan busuk mula dari kepalanya."
+    "merajuk pada yang sudi"
+    "tidak akan gunung lari dikejar. ingat tak?"
+    "dimana bumi dipijak disitu langit dijunjung."
+}
+
+Pool_motion
+{
+    "%(LoopImage('img\fiji',68,2,1,,,1,,1))\nstay hydrated"
+}
+
+OnBPetPls {AddFlag("plspet")}
+
+gecfrog
+{{CHAIN
+    "where'd he come from"
+    "nobody knows where he'll go"
+    "he's been chillin in the basement for a minute"
+    "i just think its time we moved him to the kitchen"
+    "give him some space and let him do his thing"
+    "make him feel safe and listen to him sing\e:chain=end"
+}}CHAIN
+sleepytired
+{{CHAIN
+    "zzzzzzzzzz honk mimimimir:e:chain=end"
+}}CHAIN
+
+//parallel Pool("Pool_Example","%(example == 'True')")
+//parallel Pool("Pool_Example",example == 'True')
+
+Pool
+{
+    if TOINT(_argv[1]); EVAL("%(_argv[0])")
+}

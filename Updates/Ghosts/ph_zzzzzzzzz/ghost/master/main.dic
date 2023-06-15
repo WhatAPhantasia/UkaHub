@@ -1,0 +1,805 @@
+OnSurfaceRestore
+{
+    RemoveFlag("plspet")
+
+	"\1\s[-1]"
+	--
+	"\0\s[0]"
+}
+
+OnFirstBoot : all
+{
+    LastTalk = ""
+    stroke = 0
+    stepnum = 0
+    totaltouch = (0,0,0)
+    recenttouch = (0,0,0)
+
+    "\1\s[-1]\0\s[0]"
+    "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz mgegnmwjiug nhello new frieemd!! \w6hello!! hii hi hi X3 haiiizzzzzzzzzzzzzzzzzzz"
+}
+
+OnBoot
+{
+    _temp = (SHIORI3FW.UserBirthday)
+	_user_birthday = "%(_temp[1])/%(_temp[2])"
+	_today = "%(month)/%(day)"
+    _timesince = FUNCTIONEX("saori/time_check.dll","how_many_days",lastclosed[0],lastclosed[1],lastclosed[2],0,0,0)
+	_timesince *= -1 //Multiply it by -1 to get rid of the negative sign, or to add one if the user traveled back in time.
+
+    "\1\s[-1]\0\s[0]"
+    --
+    if _timesince < 0
+    {
+        "ooh you silly little goose. you little time traveller you. what are you doing here?!!?!"
+        "sigh tsk tsk tsk dont you knwo that time fluctuations upset my little tummy. look at what youve done ouuuuuhgo ughhgnrooough"
+    }
+    elseif _today == _user_birthday
+	{
+		"friend.. ily..... happpymey birmethhyday... you sillyl ittle guy. zzzzzz have goode dream today <3 ily"
+	}
+	elseif _timesince >= 365 //a year. how dare you leave her for that long. you should feel ashamed.
+	{
+		"friend..... why hyoou leave me......... why you hurt little ol me..... your best firned...... is ok tho i forgive you bc u are silly and ily. silly silly silly"
+	}
+    elseif _today == "6/8"
+    {
+        "it's my birthyday :3 thank you for coming here today best firned,, pls give me gifts too :33 teehee"
+    }
+	else //Normal boot
+	{
+		"zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+        "haaaaaaai X3 hai ! hello!! hello hiiii hi :3 haiiiiiiiiii"
+        "omg its mhy,,,,,,,, best friend :3"
+        "hello silly"
+        "zzzzzzz a mimimimir hello"
+        "yum"
+        "i missed u. did you miss me. thank you. ily"
+        "isnt me so cool!????????! i love you."
+        "haaaaaaaaaaaaaaaaaaaaaaai freind :3c hai"
+        "ily u silly. hello i missy u!!!!! X3"
+        "the void is lonely and dark. pls let me stay here longer friend maybe ? :3c"
+        "\_qError in the dic files, cannot load. Check the error log for details.\x\_qIM JOKING did i prank you :3"
+	}
+}
+
+OnInitialize
+{
+    if reference0 != "reload"; LastTalk = ""
+
+    UpdateVars
+}
+
+UpdateVars {}
+
+OnClose
+{
+    lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)") //This tracks the last time the ghost was closed.
+	up_all = up_total
+    
+    //these don't actually stop you from closing her if you do it from the right click menu </3 unfortunate
+    "you leaving :( why. explain yourself. no leaving. you're not allowed\e"
+    "no\e"
+    "stay pls ily friend\e"
+    "fine. i know when i'm not wanted hmmmmmmmph"
+    "\s[1]looks at you with my little eyes. is this what you wanted"
+    "ooooooughrgui ouugh my heart. you hurting my little heart leaving me so soon. waaaaa"
+    "if patience is the key of joy then haste is the key of sorrow"
+    "he who has not tasted the grape says sour"
+    "the ant shall never crawl on its knees"
+    "biar putih tulang jangan putih mata"
+    "this silliness is too much. too much to the point that you leave your best friend. i see how it is"
+    "baaaaaaaaai X33 i'll miss you baaaaaaaaaaaai"
+    "zzzzzzzzzzzzzzzzzzzz"
+    --
+    "\w8\w8\-"
+}
+
+On_homeurl {"https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/master/Updates/Ghosts/ph_zzzzzzzzz/"}
+
+FormatLinks : all
+{
+	for _i = 0; _i < ARRAYSIZE(_argv); _i++
+	{
+		_argv[_i] //Add the link/title
+		//Alternate between adding %ASC(1) or %ASC(2)
+		if _i % 2 == 1; "%ASC(2)"
+		else; "%ASC(1)"
+	}
+}
+
+On_sakura.recommendsites {FormatLinks(recommendsites_sakura)}
+On_recommendrootbutton.caption {"the wind blows"}
+
+recommendsites_sakura : array
+{
+	"proverbs"; "https://www.jstor.org/stable/592351?seq=14"
+}
+
+On_sakura.portalsites {FormatLinks(portalsites_sakura)}
+On_portalrootbutton.caption {"and yet you remain"}
+
+portalsites_sakura : array
+{
+	"Download Page"; "https://phantasiaukahub.carrd.co/#zzzzzzzzz"
+	"Changelog (G. Docs)"; "https://docs.google.com/document/d/10yy69A5hkizTPMh1mmRISIDg8M3JMfOdL9abrYmme20/edit?usp=sharing"
+	"Phantasia's Carrd"; "https://whataphantasia.carrd.co/"
+	""; ""
+	"Ukagaka Dream Team Wiki"; "https://ukagakadreamteam.com/wiki/"
+}
+
+OnTranslate
+{
+    _talk = reference0
+
+    if Flag("tbh")
+    {
+        _talk = REPLACE(_talk, "\s[0]", "\s[1]")
+    }
+    if Flag("btw")
+    {
+        _talk = REPLACE(_talk, "\s[0]", "\s[2]")
+    }
+
+    //This is what makes %(embedded_elements) work in script input
+	if reference1 == "" && reference2 == "" //If this is from the input box
+	{ //send input box : no event (ref2) , no special flag (ref1)
+		_talk = EVAL('"' + REPLACE(_talk,'"','""') + '"')
+	}
+	
+	//-------------------------
+	
+	TOSTR(_talk)
+}
+
+OnAnchorSelect
+{
+	if "http://" _in_ reference0 || "https://" _in_ reference0; "\j[""%(reference0)""]"
+}
+
+OnKeyPress
+{
+	if reference0 == "f1"; "\![open,readme]"
+	elseif reference0 == "r"; OnNo
+    //------------thanks steve02081504
+    //the way its set up makes it a little wonk (you have to retype it if it doesnt work) but it works so yk
+    _step=TOINT(stepnum)
+    _tbh=('t','b','h')
+    _tbh_len=ARRAYSIZE(_tbh)
+    _btw=('b','t','w')
+    _btw_len=ARRAYSIZE(_btw)
+    if reference0 == _tbh[_step]
+    {
+        _step++
+        if _step == _tbh_len
+        {
+            OnTBH
+            _step = 0
+            return
+        }
+        stepnum = _step
+    }
+    elseif reference0 == _btw[_step]
+    {
+        _step++
+        if _step == _btw_len
+        {
+            OnBTW
+            _step = 0
+            return
+        }
+        stepnum = _step
+    }
+    else; stepnum = 0
+}
+
+OnNo
+{
+    "nuh uh"
+    "nuh uh!!!!"
+    "no"
+    "no!!!!"
+    "waaaaaa dont wanna"
+    "i will not :3"
+    "why"
+    "absolutely not"
+    "terrible idea"
+    "NOOOO not gonna"
+    "i dont have a menu. you're demanding too much from me" //doesnt make sense out of context but it works
+    "🤨 no thanks"
+    "and the crowd says no thanks 🔥🔥🔥🔥🔥"
+    "grrrr! no"
+    "bites you r hand. no"
+    "i refuse"
+    "ewwwww no"
+    "thats kidna gross... no thanks"
+    "yea.. no"
+    "ehhh."
+    "wdym. no"
+    "nah"
+    "im too busy eeping. stopit"
+    "never!!"
+    "horrible suggestion"
+    "bite bite btie"
+}
+
+OnTalk
+{
+    "sigh fine"
+    "ugh ok i talk"
+    "ok u've convinced me i will talk :3"
+    "ok"
+    "i will talkies then :3"
+    "oh u just wanted me to talk. ok"
+    "why can't you be patient. fine"
+    "i will grant you the ability to talk to me"
+    "got it chief. i'll talk"
+    --
+    "\x\![raise,OnAiTalk]"
+}
+
+//pfft you can just interrupt her by petting her but its in character so ill allow it. i just want her to be as annoying as possible tbh
+OnBalloonBreak
+{
+    "wtf why'd you do that. anyway%(ContinueTalk)"
+    "oh how would you like it if i popped your balloon. uhhuh. exactly%(ContinueTalk)"
+    "excuse me i was talking !!%(ContinueTalk)"
+    "what..... fine...... ill shut up....... hmph........"
+    "stop interrupting me >:(%(ContinueTalk)"
+    "what. fine. i know when i'm not wanted. goodbye\w8\w8\-" //LOL
+}
+
+//originally had this with \t\* for the ultimate combo but tbh i think infinite onballoonbreak events is funnier
+ContinueTalk
+{
+    if LastTalk != ""; "\x%(LastTalk)"
+}
+
+OnTBH
+{
+    if !Flag("tbh")
+    {
+        RemoveFlag("btw")
+        AddFlag("tbh")
+
+        "\0\s[1]"
+        --
+        if RAND(1000) == 0
+        {
+        "but at what cost"
+        }
+        else
+        {
+        "yippee!!!!!"
+        "yippeeee!!"
+        "yippeeeeeee!!!!!"
+        "yippee!!!"
+        "yippee X3"
+        "yippee!!!!! XD"
+        }
+    }
+    else
+    {
+        RemoveFlag("tbh")
+
+        "\0\s[0]"
+        --
+        if RAND(1000) == 0
+        {
+        "the pain, the agony of transforming"
+        }
+        else
+        {
+        "ok enough of that"
+        "flops"
+        "fwomp"
+        "bwomp"
+        "that was fun"
+        "fwooooooooomp."
+        }
+    }
+}
+OnBTW
+{
+    if !Flag("btw")
+    {
+        RemoveFlag("tbh")
+        AddFlag("btw")
+
+        "\0\s[2]"
+        --
+        if RAND(1000) == 0
+        {
+        "but at what cost"
+        }
+        else
+        {
+        "yaaay!!!!!"
+        "wowie!!"
+        "yaaaaaaaaaay!!!!!"
+        "wowzers!!!"
+        "amazeballs!!!!!!!!"
+        "epic X3"
+        "epic!!!!! XD"
+        }
+    }
+    else
+    {
+        RemoveFlag("btw")
+
+        "\0\s[0]"
+        --
+        if RAND(1000) == 0
+        {
+        "the pain, the agony of transforming"
+        }
+        else
+        {
+        "ok enough of that"
+        "flops"
+        "fwomp"
+        "bwomp"
+        "that was fun"
+        "fwooooooooomp."
+        }
+    }
+}
+
+//Written by Zichqec https://zichqec.github.io/s-the-skeleton/
+//Function to loop images, like loading icons and gifs
+/*
+Arguments: (you'll probably only want a couple of these but i wanted OPTIONS ok)
+
+0: image path. Omit the number and the extension
+1: the number of the highest image in the loop. so if your last image is pic7.png, write 7
+2: the number of times to loop the image, minimum is 1
+3: The pause time between images. 1-9 will use the regular \w1, \w2, etc (these are n * 50 milliseconds). Higher than 10 will use \_w[], which is milliseconds
+4: The extension of the image. .png is default, override it if you need to
+5: The position of the image. Default is "inline", but you can set it to whatever
+6: Special options for the image. If you put a 1, it will use self alpha (just as a shortcut because it's a lot to type)
+7: Whether or not to add leading 0s. Put a 1 if you don't want them. Leading 0s are used if you have numbers that go higher than 10, to make the numbers all the same length. So if you have more than 10 images, you would have 00, 01, 02... 10, 11, 12... etc. Without leading 0s, you get 0, 1, 2... 10, 11, 12... etc. If you want to force a single 0 at the start even though it's less than 10 (because... I do this lol), put a 2.
+8: If your images start at 1 instead of 0, put a 1 here
+
+So it'd look kinda like this: %(LoopImage('img\Moon',9,3,3,,,1,2,1))
+
+%(LoopImage('img\fiji',68,10,1,,,1,,1))
+
+*/
+LoopImage
+{
+	//Just setting up some options and defaults
+	_img = _argv[0]
+	
+	_num = TOINT(_argv[1])
+	if _num < 1; _num = 1
+	
+	_loops = TOINT(_argv[2])
+	if _loops < 1; _loops = 1
+	
+	_pause = TOINT(_argv[3])
+	if _pause >= 10; _pause = "\_w[%(_pause)]"
+	else; _pause = "\w%(_pause)"
+	
+	_ext = _argv[4]
+	if _ext == ""; _ext = ".png"
+	
+	_pos = _argv[5]
+	if _pos == ""; _pos = "inline"
+	
+	_opt = _argv[6]
+	if _opt == 1; _opt = "--option=use_self_alpha"
+	
+	_add0 = 1
+	if _argv[7] == 1; _add0 = 0
+	elseif _argv[7] == 2; _add0 = 2
+	
+	_1index = 0
+	if _argv[8] == 1; _1index = 1
+	
+	
+	_output = ""
+	
+	//Main loop for the number of times to run the full set of images
+	_i = 0
+	while _i < _loops
+	{
+		//Run each image
+		for _ii = _1index; _ii < _num; _ii++
+		{
+			_num_to_add = TOSTR(_ii)
+			//Should take care of leading 0s?
+			if _add0 >= 1
+			{
+				_str = TOSTR(_num)
+				
+				if STRLEN(_str) > 1
+				{
+					while STRLEN(_num_to_add) < STRLEN(_str)
+					{
+						_num_to_add = "0" + _num_to_add
+					}
+				}
+				elseif _add0 == 2 //Because I'm a silly
+				{
+					_num_to_add = "0" + _num_to_add
+				}
+			}
+			
+			//Clear just the last image and not the whole balloon
+			if _output != ""; _output += "\c[char,1]"
+			
+			_output += "\_b[%(_img)%(_num_to_add)%(_ext),%(_pos),%(_opt)]%(_pause)"
+		}
+		_i++
+	}
+	
+	_output
+}
+
+//----Drag and Drop----
+
+//When you drop a file on the ghost that isn't something it can install
+//reference0 is the file path, which is split up amongst the local variables below
+OnFileDrop2
+{
+	_filepath = SPLITPATH(reference0)
+	_filename = _filepath[2]
+	_fileext = TOLOWER(_filepath[3])
+	case _fileext
+	{
+		when ".jpg", ".jpeg", ".bmp", ".png" //These are pictures that they can set to wallpapers. Png works for me, but if it doesn't work for you let us know please, I'm curious about this.
+		{
+			_file = REPLACE(reference0,"]","\]")
+			
+			"oh hello silly littol image! i like looking at images. this one is neat. thank u best frined"
+            "hrm.... %(_filename)%(_fileext),,,,,, it has a crunchy eye feel. i like it :3"
+		}
+		when ".mid", ".wav", ".mp3", ".wma", ".au", ".ogg", ".flac"
+		{
+			"WOA i love music!!!! music is so cool! i can't play it tho </3"
+            "hehehehe..... music :] has a crunchy ear feel"
+            "oooooooooooooooooooooooh wavy air. i love wavy air. puts it in my mouth"
+		}
+		others
+		{
+			if _fileext == "" //If it's a folder. Using \_? lets you display the slashes and such in dialogue, but you have to toggle it off after you no longer need it
+			{
+				"hrmmmmm? whats in this silly littol folder?? %(_filepath[1])..?!?! suspicious."
+			}
+			else //If it's a file
+			{
+				"comeon bestie what do u want me to do w %(_filename)%(_fileext)?! eat it?! because i will >:3"
+                "imma be honest bestie idk what this is. like what even is a %(_filename)%(_fileext)?! i will SLEEP on it."
+			}
+		}
+	}		
+}
+
+OnInstallBegin
+{
+	"ok :3"
+    "i like installing things :33"
+    "oh :0 a thing..!!!!!!"
+}
+
+//Finished installing something ghost related. You can remove any of the ifs here if you like, and just have it go to the else.
+//reference0 is the type of installed item, reference1 is the name.
+OnInstallComplete
+{
+    if reference1 == "zzzzzzzzz"
+    {
+        "you can always use more of me teehee :3"
+    }
+    elseif reference1 == "Needle" || reference1 == "Radio Nowhere" || reference1 == "Paper" || reference1 == "Hydrate" || reference1 == "Balloons" || reference1 == "Pet Rock" || reference1 == "Plushie Base" || reference1 == "Skrunkly" || reference1 == "Noodle"
+    {
+        "ohmygosh it is a fellow silly friend :3 hai %(TOLOWER(reference1)) :3"
+    }
+    else
+    {
+        "ok done :] hai %(TOLOWER(reference1)) :3"
+    }
+}
+
+//reference0 is the reason the install failed
+OnInstallFailure //If the install fails
+{
+	if reference0 == "artificial" //If the user cancels by double clicking the balloon
+	{
+		"WHAT...... you want me to stop installing this....... grrrrr........ ok :]"
+        "yea youre right, no more of that. back to me :3"
+	}
+	else
+	{
+		"WHAT i cant install it....... "
+		--
+		if reference0 == "unsupported" //File is not supported
+		{
+			"apparently its unsupported >:C"
+		}
+		elseif reference0 == "extraction" //Couldn't extract
+		{
+			"imma be honest i have no idea how to extract this >:C"
+		}
+		elseif reference0 == "invalid type" //install.txt isn't set up properly
+		{
+			"this install.txt is so weird, can't do it >:C"
+		}
+		else
+		{
+			"'%(reference0)'?! what does that even mean?! anyway."
+		}
+	}
+}
+
+//reference0 is the Sakura name of the ghost the item was meant for, reference1 (since SSP 2.4.85) is the type of item you tried to install
+OnInstallRefuse
+{
+	"grrrr its meant for %(reference0)..... LET ME IN I WANT IT!!"
+}
+
+//Creating an updates2.dau
+OnUpdatedataCreating
+{
+	"woooooow you're actually deving. thats crazy :]"
+    "ok :] update time"
+    "i love update files! yay yay yay yay"
+    "mmmmmmmmmm creating update files all day"
+    "crunching them up"
+    "updates. makin it stinky"
+    "crunches the updates in my mouth"
+    "sleeps on the update"
+    "updates are not good to sleep on"
+    "mewifjwoign rupdate"
+}
+
+//Finished creating
+OnUpdatedataCreated
+{
+	"ok done :)"
+    "look at those updates"
+    "ngl update files confuse me, frien :["
+    "yaaaaay i did it :)"
+    "pls pet. i did good job making update files :3"
+}
+
+//Creating a .nar
+//reference0 is the name of what you're making a nar for, reference2 is what you're making (balloon/ghost/etc)
+OnNarCreating
+{
+	if reference2 == "ghost" && reference0 == "zzzzzzzzz"
+	{
+		"multiplies"
+        "more >:3"
+	}
+	else
+	{
+		"yaaaaaaaaay i love making nars theyre so crunchy"
+        "mmmmmm yum yum yum nar time"
+        "are ya deving son?"
+        "nar nar nar nar"
+        "nar time :D"
+        "gonna crunch up your files into one nifty nar"
+	}
+}
+
+//Finished creating
+//reference0 is the name of what you're making a nar for, reference2 is what you're making (balloon/ghost/etc)
+OnNarCreated
+{
+	"yaaaaaay done :3 look \_a[OnNarLocation,%(reference1)]here\_a plssssss X3"
+    "gotcha nar for u right \_a[OnNarLocation,%(reference1)]here\_a >:3"
+    "good. be productive. \_a[OnNarLocation,%(reference1)]here\_a :D"
+}
+
+//When you click on the anchor in the OnNarCreated dialogue, this function will open the folder you created the .nar in
+OnNarLocation
+{
+	_path = SPLITPATH(reference0)[0] + SPLITPATH(reference0)[1]
+	
+	"\C\![open,file,%(_path)]"
+}
+
+//----Uninstalling----
+
+//Bringing up the uninstall option
+OnVanishSelecting
+{
+	"hey what are you doing there. you're not allowed to leave >:C"
+    "grrrrrrrrrr! friend! where are you going!"
+    "what!! are you telling me you want to leave?!?!"
+}
+
+//Deciding to uninstall
+OnVanishSelected
+{
+    OnClose
+    //hope this doesnt break anything LOL
+}
+
+//Changing your mind
+OnVanishCancel 
+{
+	"good choice :3"
+}
+
+//Canceling uninstallation by double clicking the balloon
+OnVanishButtonHold
+{
+	"......HEY what are you doing?! not funny. hmph! i might just leave anyway! \w8\w8jk :3 \w8i forgive u friend <3"
+}
+
+//----Network update---
+
+//Starting to actually update
+OnUpdateBegin
+{
+	"wait do i have an update :Vc weird"
+    "updates time..?!?!?!?!"
+    "oh i love new things :3 esp when theyre for ME!!!!!"
+    "ok"
+}
+
+//reference0 is the number of new files, starting from 0
+OnUpdateReady
+{
+	reference0++ //Number of files starts from 0, so this displays the correct amount
+	_s = ""; if reference0 != 1; _s = "s"; //plural checks, adds an s and changes is to are if there's more than 1 file
+	
+	"no way. %(reference0) new file%(_s)?!?!"
+}
+
+//When the update finishes. Don't forget to initialize any new variables you've created, more on that in Bootend.
+//reference0 is 'none' if there were no new files to update with, reference1 is a list of new file names, separated by commas
+OnUpdateComplete
+{
+	if reference0 == "none"
+	{
+		"hey what the heck theres nothing new >:( grrrrrr"
+        "theres nothing new but thats ok :3 im perfect just the way i am"
+        "no updates for u silly goose"
+	}
+	else
+	{
+		"ok im done. i DO have a changelog but im not gonna show u :3"
+        "doooooooone :D das it"
+        "yaaaaaaay im updated. im so shiny now :3"
+	}
+}
+
+//Revamped this code! It's a lot more concise now
+//reference0 is the name of the file currently being downloaded
+OnUpdate.OnDownloadBegin
+{
+	_progress = TOINT(reference1) + 1
+	_total = TOINT(reference2) + 1
+	
+	"\0\b2\t\_q"
+	--
+	if "meow" _in_ reference0
+	{
+		"i will never stop having things to say"
+	}
+	elseif "mouse" _in_ reference0
+	{
+		"more pets pls :3"
+	}
+	else
+	{
+		"boop boop %(reference0)"
+        "downloading yay yay yay"
+        "i'm doing work see"
+        "wtf is a %(reference0)"
+        "like a well oiled machine"
+        "updates updates updates"
+        "i eat files like chips"
+        "crunch on the new files"
+        "nom nom nom"
+	}
+	--
+	"\n\n\f[bold,0]"
+	--
+	_display = ""
+	for _i = 0; _i < _total; _i++
+	{
+		//Loading bar display - customize with text or images or whatever
+		_filled = "■" //Files that have already been downloaded
+		_empty = "□" //Files that have not been downloaded yet
+
+		//This is a bit like a ternary operator, for anyone familiar with those... It's just an array with the symbols/images/text specified above, and then the index it picks is based on whether _i < _progress is true or not. Ha, take that, languages like Python that use True/False (but have actual ternary operators)!
+		_display += (_empty,_filled)[_i < _progress]
+	}
+	--
+	"%(_display)\n\n%(_progress)/%(_total)"
+}
+
+//reference0 is the reason the update failed
+OnUpdateFailure //If the update fails
+{
+	if reference0 == "timeout" //If it timed out
+	{
+		"oopsies it timed out. no update for you :("
+	}
+	elseif reference0 == "md5 miss" //If the update files have not been uploaded correctly and don't match the updates2.dau
+	{
+		_currentfile = SPLITPATH(reference1)[2] + SPLITPATH(reference1)[3] //This gets the name and extension of the offending file
+		"awww its a good ol md5 error </3 i hate those. maybe tell my creator idk"
+	}
+	elseif reference0 == "artificial" //If the user cancels the update by double clicking the balloon
+	{
+		"yea you don't need to update me. im already perfect :3"
+	}
+	else //Any other errors
+	{
+		"oh nooooooooo look at the error :( look\n'%(reference0)'"
+	}
+}
+
+//----Misc----
+
+//lol you cant even access this. bc she doesnt have a menu to get to this
+//reference0 is the name of the server it's connecting to
+OnSNTPBegin
+{
+	"uhhh give me a sec i dont even know what time it is"
+}
+
+//Grabbed this from the GT template, don't see a reason to redo this
+//**** 미카 (http://homepage2.nifty.com/ko-ki/)의 사전을 참고했습니다．감사＞こ 나무 성
+//Above comment from the person who originally coded these functions
+//reference0 is the name of the server it's connecting to, reference1 is the server's time, reference2 is the computer's time, reference3 is the difference (in seconds)
+OnSNTPCompare
+{
+ 	"retrieved time: %reference1[1]/%reference1[2]/%reference1[0] %reference1[3]:%reference1[4]:%reference1[5]\w2\n"
+	--
+	"your time: %reference2[1]/%reference2[2]/%reference2[0] %reference2[3]:%reference2[4]:%reference2[5]\w2\n\n"
+	--
+ 	if reference3 == 0 //if your clock is already accurate.
+	{
+		"ya that looks good :3"
+	}
+ 	else //if your clock doesn't match
+	{
+		"oopsie doopsie thats no good!"
+		--
+		all:{
+		"\n\n"
+		"\![*]\q[fix it pls,OnSNTPExecute]\n"
+		"\![*]\q[nah im good w this,OnSNTPCancel]\e"
+		}
+	}
+}
+
+//The \6 is what actually changes the clock
+OnSNTPExecute
+{
+	"\6"
+	--
+	"ba boom ez stuff"
+}
+
+OnSNTPCancel
+{
+	"why'd you force me to get the tim e then....... i could have been sleeping frien....."
+    "oh ok :] now i know what the two times are"
+}
+
+//reference0 is the name of the SNTP server - Note that this may happen before any other STNP dialogue is said! Keep in mind when writing your dialogue that the user will not necessarily have clicked the yes button.
+OnSNTPFailure
+{
+	"oh nvm i cant get to the servers that be. try again later :3"
+}
+
+OnScreenSaverEnd
+{
+	"please don't leave me in the void again"
+    "......please..."
+}
+
+//Usually at 20% battery or less
+//reference0 should be the exact percentage left
+OnBatteryLow
+{
+	"charge yourself...... NOW!!"
+    "wuh uh battery go byebye"
+    "ur battery is sleepy just like me"
+}

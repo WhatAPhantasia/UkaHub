@@ -1,0 +1,31 @@
+//ZZZZZZZZZ DEFAULT SHELL
+
+descript 
+{
+	version,1
+}
+//animation#.pattern#,method,surface,pause,X,Y
+
+//meow
+
+surface0
+{
+	element0,overlay,surface0.png,0,0
+	collisionex0,pet,regions,hotspot0.png,0,255,0
+	collisionex1,bow,regions,hotspot0.png,255,0,0
+	collisionex2,hair,regions,hotspot0.png,0,0,255
+}
+surface1
+{
+	element0,overlay,surface1.png,0,0
+	collisionex0,pet,regions,hotspot1.png,0,255,0
+	collisionex1,bow,regions,hotspot1.png,255,0,0
+	collisionex2,hair,regions,hotspot1.png,0,0,255
+}
+surface2
+{
+	element0,overlay,surface2.png,0,0
+	collisionex0,pet,regions,hotspot2.png,0,255,0
+	collisionex1,bow,regions,hotspot2.png,255,0,0
+	collisionex2,hair,regions,hotspot2.png,0,0,255
+}
