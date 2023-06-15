@@ -1,0 +1,16 @@
+charset,UTF-8
+
+name,zzzzzzzzz
+type,ghost
+
+shiori,yaya.dll
+
+craftman,WhatAPhantasia
+craftmanurl,https://phantasiaukahub.carrd.co
+
+sakura.name,Phanta
+kero.name,Your Heart
+
+icon,silly.ico
+
+sstp.allowunspecifiedsend,0

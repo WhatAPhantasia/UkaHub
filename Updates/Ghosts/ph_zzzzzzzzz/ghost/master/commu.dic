@@ -1,0 +1,103 @@
+//she does not have a true commu. she just pretends to sleep on people when overlapping them LOL
+
+//this is taken STRAIGHT from needle. i claim no property over it at all
+//this has issues when overlapping two or more ghosts :Vc zi seems to have fixed this but hasnt updated needle yet so :oc
+OnOtherOverlap : all
+{
+	_overlap = SPLIT(reference.raw[0],C_BYTE1)
+	_unoverlap = SPLIT(reference.raw[1],C_BYTE1)
+	//_newoverlap = IARRAY
+	_command = ""
+    _char = ""
+	
+	foreach _overlap; _mlep
+	{
+		if "Phanta/0" _in_ _mlep && ASEARCH(_mlep,_unoverlap) == -1 //If overlap AND not in the unoverlap array
+		{
+			//Figure out which side shes on and get the other side as the ghost name
+			_char = ""
+			if "-Phanta" _in_ _mlep; _char = REPLACE(_mlep,"-Phanta/0","")
+			else; _char = REPLACE(_mlep,"Phanta/0-","")
+			
+			//Some ghost names may have slashes, so make _sure_ we've got the full ghost name. And also, grab the final number
+            //thank you needle team. ily for figuring this out
+			_char = SPLIT(_char,"/")
+			_num = ""
+			_final = ""
+			for _i = 0; _i < ARRAYSIZE(_char); _i++
+			{
+				if _i == (ARRAYSIZE(_char) - 1)
+				{
+					_num = _char[_i]
+					break
+				}
+				
+				if _i != 0; _final += "/"
+				_final += _char[_i]
+			}
+			
+			_command += "\![raiseother,%(_final),OnPhantaEepy,%(_num)]"
+		}
+	}
+	if _command != ""
+	{
+		"%(_command)"
+		"\![raise,OnSheEepy,%(_char)]"
+	}
+}
+
+eepygeneral
+{
+    "sleeps on you"
+    "zzzzzz amimimir"
+    "ooooh what a comfy cozy little bedzzzzzzzzzzmmimimimirrr"
+    "sooooooo coooozyyyyyyyyyyyyy zzzzzzzzzzzzzzzzzzzzmmmmmimimimimimi"
+    "oh hello %(_name)........ zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+}
+
+OnSheEepy
+{
+    _name = "friend"
+    if reference0 != ""; _name = TOLOWER(reference0)
+
+    //dang this is really roundabout :Vc optimize later
+    //at least it makes the probability higher so \_(O_O)_/
+    if RAND(10) <= 5 {
+        case _name {
+            when "phanta" {
+                "the coziest place to sleep is always yourself"
+                "haiiiiiii myself :3 zzzzzzzzzz"}
+            when "squish", "slime" {
+                "hehehe... slime time... zzzz"
+                "squish squish slime zzzz"
+                "sliiiiiiiiiimezzzzzzz"}
+            when "vera" {
+                "hai vera :3 ily zzzzzzz"
+                "sleepy buddies........ zzzzz"}
+            when "dib" {
+                "big headed kid means bigger pillow zzzzzzz"
+                "why IS his head so biiiiiiig?! whyyyyyy is his head so big?!?!"}
+            when "faeia", "tahir" {
+                "bun bun bun bun zzzzzzzz"
+                "sof fur make me go eepy zzzzz"}
+            when "lumi" {
+                "comfy cloub go zzzzzzzzzzzzzzz"
+                "eats your hair zzzzzzzzz"}
+            when "conch" {
+                "tucks self inside shell. night night"
+                "i love ocean noises :3 zzzzzzzz"}
+            when "needle" {
+                "ahhhhhhhh oh noooooo ouchie youchiessssss zzzzzzzz"
+                "no YOU poke poke zzzzzzzzzzzz"}
+            when "balloons" {
+                "float float zzzzzzzzzz"}
+            when "hydrate" {
+                "drinks all the water then climbs inside. zzzzzz"
+                "i always love a midnight water drinke. zzzzzzz"}
+            when "skrunkly" {
+                "hello fellow skrunkltky. zzzzzzzz"}
+            others {eepygeneral}
+        }
+    }
+    else {eepygeneral}
+}

@@ -1,0 +1,129 @@
+//Separate from the menus because you could put other interactions here, like poking or booping or punching or asking about various hotspots
+OnMouseDoubleClick
+{
+	if reference5 == 0 //reference5 is the mouse button being clicked, in this case a left click
+	{
+		if reference4 == "bow"
+        {
+            totaltouch[2]++
+            recenttouch[2]++
+
+            "wa!!!!!!1"
+            "awawawawa!!!"
+            "AWAWAWAWAWAA"
+            "waaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            "that is my antenna that is Rude"
+            "اتّق شرّ الحليم إذا غضب"
+            "cacing menelan naga"
+            "waaaaaaawawawaaaaa"
+            "wawawaaaa!!!!!!11!"
+            "waaaaogruhegwrughg"
+            "eqogueofqjegurh"
+            "aoQJIUODWFifauwofihajrgh"
+            "woiwofeuifowuef"
+            "awwwwwwAWWaWAWAaaaaa"
+            "oooh aaaahhhh youchie"
+            "youchie!!"
+            "aaaaaaaaaaaaaaaaaaaaaa"
+            "waaaaaaaaaaaa"
+            "nowawjoaiwjfaiuwdhlaw"
+            "OUCHEICHEIS"
+        }
+        else
+        {
+            if RAND(50) > 3
+            {OnNo}
+            else
+            {OnTalk}
+        }
+	}
+}
+
+OnMouseWheel
+{
+	if reference3 == 0
+	{OnSakuraMouse(20)}
+}
+OnMouseMove
+{
+	if reference3 == 0
+	{OnSakuraMouse(40)}
+}
+
+OnSakuraMouse : nonoverlap_pool
+{
+	if reference4 == "pet"
+	{
+		stroke++
+		
+		if stroke >= _argv[0]
+		{
+			stroke = 0
+			totaltouch[0]++
+			recenttouch[0]++
+
+            if Flag("plspet")
+            {
+                RemoveFlag('plspet')
+                "yaaaaaaay see i no bitey :3 im so nice see"
+                "YIPPEEEEE!!!!!! no biteys see"
+                "yaaaaaaaaaaaaay see :3"
+                "BITE BITE BITE BITE REEROEROEOROROR"
+            }
+			else
+            {
+                "pet"
+                "pet pet"
+                "peeeeeeet"
+                "oughrgyhhgtug"
+                "zzzzzzzmimimrimir"
+                "mmmmmmmmrmrmrr"
+                "sufficient offering"
+                "mmmmmmmmmwrngjwrngngr"
+                "zzzzzzzzzzzmimiemirmr"
+                "awawawawawawawawawawawaaaaaa"
+                "awawawaaaaaaaaaa"
+                "waaaaaaaaaaa"
+                "happy +1"
+                "best friend so nice"
+                "waow"
+                "vaccuum noises"
+                "lawn mower"
+                "fridge hum"
+            }
+		}
+	}
+    elseif reference4 == "hair"
+    {
+        stroke++
+
+        if stroke >= _argv[0]
+        {
+            stroke = 0
+            totaltouch[1]++
+            recenttouch[1]++
+
+            "brush"
+            "brush brush"
+            "bruuuuuush"
+            "broosh broosh"
+            "cloud hair go swhojmop"
+            "floofy floofy"
+            "poof poof"
+            "poof"
+            "brushy brushy"
+            "mmmmmmmmmmmmmmrmrmrmrr"
+            "mmmmrrrrrrrrr"
+            "mmmrrmrmrr"
+            "float float"
+            "happy +1"
+            "waow"
+        }
+    }
+}
+
+
+OnMouseLeaveAll
+{
+	stroke = 0
+}
