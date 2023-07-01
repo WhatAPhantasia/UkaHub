@@ -1,6 +1,23 @@
 //Pure functions and other utilities
 //Taken from X. Template! I can't live without my utility functions...
 
+//The deflicker effect works thusly:
+// \C _must_ come first in whatever script it is in. This makes the previous balloon instantly reopen itself to whatever it displayed last. Then we lock the balloon so it stops drawing for a bit, and clear it so that we can add new content. Once the new content has been added, we then unlock the balloon. This makes it appear to the user that the previous content has switched to the new content instantly, with no flicker of a blank balloon inbetween.
+
+//OnTranslateInternal functions will automatically run in YAYA for each event if they exist, just like OnTranslate
+OnTranslateInternal.Deflicker
+{
+    _talk = _argv[0]
+    if "\![deflicker]" _in_ _talk //Only apply this effect if the user wants it
+    {
+        _talk = REPLACE(_talk,"\![deflicker]","")
+        _talk = "\C\![lock,balloonrepaint]\c" + _talk
+        if "\e" _in_ _talk; _talk = REPLACE(_talk,"\e","\![unlock,balloonrepaint]\e") //Make sure it comes before \e so it runs properly
+        else; _talk += "\![unlock,balloonrepaint]"
+        _talk
+    }
+}
+
 //If you write all your envelopes as lowercase, you can send them through this function whenever you need the first letter capitalized! It'd look something like this: "%(Capitalize(exampleenvelope))"
 Capitalize
 {
@@ -146,7 +163,7 @@ MonthName
 		"augin"
 		"septa"
 		"octae"
-		"novea"
+		"novae"
 		"decta"
 	}
 }
@@ -161,31 +178,43 @@ loremipsum
 //Checks to see if a flag exists. Returns 1 if yes, returns 0 if no
 Flag
 {
-	if !ISVAR("FlagArray"); FlagArray = IARRAY
-	if ASEARCH(_argv[0],FlagArray) != -1; 1
+	if !ISVAR("MiscFlags"); MiscFlags = IARRAY
+	if ASEARCH(_argv[0],MiscFlags) != -1; 1
 	else; 0
 }
 
 //Adds a flag to the array
 AddFlag
 {
-	if !ISVAR("FlagArray"); FlagArray = IARRAY
-	if !Flag(_argv); FlagArray ,= _argv
+	if !ISVAR("MiscFlags"); MiscFlags = IARRAY
+	if !Flag(_argv); MiscFlags ,= _argv
 }
 
 //Removes all instances of a flag in the array
 RemoveFlag
 {
-	if !ISVAR("FlagArray"); FlagArray = IARRAY
-	_elements = ASEARCHEX(_argv[0],FlagArray)
+	if !ISVAR("MiscFlags"); MiscFlags = IARRAY
+	_elements = ASEARCHEX(_argv[0],MiscFlags)
 	if ARRAYSIZE(_elements) > 0
 	{
 		for _i = ARRAYSIZE(_elements) - 1; _i >= 0; _i-- //Goes from the end of the list to the start, so the elements stay in the same positions while we erase
 		{
 			_current = _elements[_i]
-			FlagArray[_current] = IARRAY
+			MiscFlags[_current] = IARRAY
 		}
 	}
+}
+
+//basically the name cleaning function in OnTitle and OnName. returns the cleaned term!!
+//if that above text makes no sense its bc i took this from vera and i would rather write a whole blurb than change the event names
+CleanTerm
+{	
+	_term = _argv[0] //putting the raw input into _term to do some tests on it
+	_term = TOLOWER(_term) //changes it to lowercase
+	_term = REPLACE(_term," ","") //removes spaces
+	_term = REPLACE(_term,".","") //removes periods
+	_term = REPLACE(_term,"-","") //removes dashes
+	_term
 }
 
 //Current season
@@ -351,7 +380,7 @@ nowmonth
 		"Augin"
 		"Septa"
 		"Octae"
-		"Novea"
+		"Novae"
 		"Decta"
 	}
 }
@@ -414,5 +443,45 @@ timeslot
 		when 18-20; "evening" //6-8pm
 		when 21-23; "latenight" //9-11pm
 		others; "midnight" //12-4am
+	}
+}
+
+//returns 1 if yes, it is daytime
+daytime
+{
+	if season == "Summer" && hour >= 6 && hour <= 19; 1 
+	//6am-7pm
+	elseif hour >= 8 && hour <= 17; 1
+	//8am-5pm
+	else; 0
+}
+
+//----------
+
+//--JOINED ARRAYS--
+//f_touch: pet, hair, boop, ears, resonance
+//t_touch: pet, hair, boop, ear, bad ear, resonance
+//touch
+allrecenttouch	{frecenttouch + trecenttouch}
+frecenttouch	{rf_touch[0] + rf_touch[1] + rf_touch[2] + rf_touch[3] + rf_touch[4]}
+trecenttouch	{rt_touch[0] + rt_touch[1] + rt_touch[2] + rt_touch[3] + rt_touch[4] + rt_touch[5]}
+alltotaltouch	{ftotaltouch + ttotaltouch}
+ftotaltouch 	{tf_touch[0] + tf_touch[1] + tf_touch[2] + tf_touch[3] + tf_touch[4]}
+ttotaltouch 	{tt_touch[0] + tt_touch[1] + tt_touch[2] + tt_touch[3] + tt_touch[4] + tt_touch[5]}
+
+//------------
+
+OnDialogueVars
+{
+	case reference0
+	{
+		when "test"
+		{
+			AddFlag("TestVar")
+		}
+		others
+		{
+			AddFlag("%(reference0)")
+		}
 	}
 }

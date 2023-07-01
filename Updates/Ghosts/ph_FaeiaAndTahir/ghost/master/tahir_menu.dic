@@ -13,7 +13,8 @@ OnKeroMenu : all
 	if SHIORI3FW.Eventid == "OnMouseDoubleClick"; KeroMenuGreetings
 	"\n\n\_q"
 
-	"\![*]\q[Stats,OnTahirCheck]\n"
+	"\![*]\q[Your Stats,OnUserCheck,1]\n"
+	"\![*]\q[Tahir's Stats,OnTahirCheck]\n"
 
 	"\![*]\q[Ask Questions,OnTQuestionMenu]\n\n"
 
@@ -33,7 +34,7 @@ TahirBlurb
 {
 	//ehh... a lot of this can go to the question menu. maybe this can be used in the future for user feelings..?
 	"Mid 20-something wanderer. Never kept track of the year he was born, anyway."
-	"True neutral who doesn't really care about Fenr and Vala's feud."
+	"True neutral with a mysterious past (and present)."
 	//"The crop top is a fashion choice, not a practical choice."
 	//"The seriousness is an intimidation tactic to hide his timidness. Gap moe <3"
 	//"Never really set down roots anywhere, and he prefers it that way."
@@ -49,7 +50,7 @@ OnTahirCheck : all
 	"\n\n"
 
 	"\![*]Caretaker: \f[color,default.anchor]Fenr, Linn\n\f[color,default]" //technically true
-	"\![*]Resonance: \f[color,default.anchor]Dusty Orange (Weak Earth, Weak Fire)\n\f[color,default]" //not true at all
+	"\![*]Resonance: \f[color,default.anchor]Dusty Orange (Weak Bramble + Sun)\n\f[color,default]" //not true at all
 	"\![*]Species: \f[color,default.anchor]Rabbit-Hare\n\f[color,default]"
 	"\![*]Class: \f[color,default.anchor]Rogue\n\f[color,default]"
 
@@ -65,12 +66,8 @@ OnTQuestionMenu : all
 	"\f[color,disable]\f[size,-2](Click the pin next to the question for an overall rundown!)\n\n"
 	"\f[color,default]\f[size,default]\f[align,default]"
 
-	if !Flag("TQTahir"); "\![*]\q[Himself,OnTQ.Tahir]\n"
-	else; "\_a[ATQ.Tahir]\![*]\_a\q[Himself,OnTQ.Tahir]\n"
-
-	if !Flag("TQFaeia"); "\![*]\q[Faeia,OnTQ.Faeia]\n"
-	else; "\_a[ATQ.Faeia]\![*]\_a\q[Faeia,OnTQ.Faeia]\n"
-
+	"\_a[ATQ.Tahir]\![*]\_a\q[Himself,OnTQ.Tahir]\n"
+	"\_a[ATQ.Faeia]\![*]\_a\q[Faeia,OnTQ.Faeia]\n"
 	"\_a[ATQ.People]\![*]\_a\q[Other People,OnTQ.People]\n"
 
 	"\n[half]"
@@ -84,7 +81,7 @@ OnTQuestionMenu : all
 	"\n\![*]\q[Back,OnKeroMenu]  \![*]\q[Close,blank]"
 }
 
-OnTQ.Tahir
+OnTQ.Tahir : nonoverlap_pool
 {
 	if !Flag("TQTahir")
 	{AddFlag("TQTahir")
@@ -97,14 +94,16 @@ OnTQ.Tahir
 	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
 
-OnTQ.Faeia
+OnTQ.Faeia : nonoverlap_pool
 {
 	if !Flag("TQFaeia")
 	{AddFlag("TQFaeia")
+	//the way that he has more to say about faeia than himself :thinking:
+	//ok im gonna clarify right here, whether they are friends or lovers is VERY NEBULOUS. it could go either or tbh. they dont take it too seriously, and neither do i LOL its wtv
 	"\0\s[1]\i[13]\i[32]\1\b2\s[11]\i[33]Hm. \w8Fai is... \w8\s[16]\i[61]Very interesting, \w4if that's the word I'm looking for.\w8\w8\0\s[1]\i[35]\i[61](...?!)\w8\1\n\n[half]\i[32]...In a good way. \w8I suppose I'm somewhat indebted to her when she first saved me from those... \w8\![anim,stop,32]\i[31]Eh, \w8, \w8\s[16]\i[61]but she kept pestering me after the fact because she wanted to know more about Fenara...\w8\w8\0\n\n[half]\s[6]Tahir, stop pretending like you don't like me..!!\w8\w8\1\n\n[half]\s[11]\i[12]\i[32]\i[62]Ah, \w2sorry. \w8I really don't mean to sound too harsh when I recount when we met... \w8\w8\0\s[1]\i[13]\i[32]\1\s[16]\i[61]I'm not annoyed by her now. \w8She's very smart and I admire her tenacity... \w8\s[11]\i[12]\i[34]Which is part of why I'm tagging along with her now.\w8\w8\0\n\n[half]\s[3](Hehehe~)"}
 	else 
 	{
-		"\1\s[11]\i[33]...It's hard for me to tell her how I feel about her without being mean about it. \w8\s[16]\i[31]I don't want to be that honest about liking people, let alone her... \w8\w8\n\n[half]\![anim,stop,31]\i[32](Ah... Did I do it again..?)"
+		"\1\s[11]\i[33](...It's hard for me to tell her how I feel about her without being mean about it. \w8\s[16]\i[31]I don't want to be that honest about \w8enjoying being around someone, \w8let alone her. \w8\w8\![anim,stop,31]\i[30]I still feel so immature about this...)"
 		"\1\s[11]She means well, even if she can't word her intentions the best at times. \w8\w6\i[34]...Not an excuse for any missteps she makes, \w2but please be mindful."
 	}
 	--
@@ -118,37 +117,38 @@ OnTQ.People
 	//"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
 
-OnTQ.Fenr
+OnTQ.Fenr : nonoverlap_pool
 {
 	"\1\s[14]I've been all over Fenara, \w2and it all makes it hard for me to choose a favorite place. \w8\s[11]\i[34]I do consider it my home, though."
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
 
-OnTQ.Gods
+OnTQ.Gods : nonoverlap_pool
 {
-	"\1\s[11]I partially devoted myself to Linn because xe played a big part in my life when I was younger... \w8\s[16]\i[32]\i[61]And I suppose, since my resonance is so weak, I should be closer to the Caretaker that's closest to me..."
-	"\1\s[11]\i[33]I'll be honest, \w2Fenr hasn't done much for me.\w8\w8\0Pfft- \w4Sorry, that was funny! \w2I wasn't expecting you to say that!\w8\w8\1\n\n[hlaf]"
+	"\1\s[11]I partially devoted myself to Linn because xe played a big part in my life when I was younger... \w8\s[16]\i[32]\i[61]And I suppose, since my resonance is so weak, I should be closer to the Caretaker that's more devoted to me..."
+	"\1\s[11]\i[33]I'll be honest, \w2Fenr hasn't done much for me... \w8\![anim,stop,33]\i[31]I'm only really close to them because I like Fenara, but other than that, they've been counteractive in my life so far."
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
 
-OnTQ.World
+OnTQ.World : nonoverlap_pool
 {
-	"\0\s[1]\i[13]\i[32]\1\s[11]\i[34]I think one of my favorite places from our adventures would be... \w8Hm. \w8Deep Dark Castle Kingdom.\w8\w8\0\![anim,stop,13]\i[14]Woah, really?! \w8Personally, that place was too dark for me...\w8\w8\1\n\n[half]\s[1Mm, for me, I liked the winding streets and the architecture... \w8No one there was weird about the whole Vala/Fenr thing either. \w8That was nice."
+	"\0\s[1]\i[13]\i[32]\1\s[11]\i[34]I think one of my favorite places from our adventures would be... \w8Hm. \w8Deep Dark Castle Kingdom.\w8\w8\0\![anim,stop,13]\i[14]Woah, really?! \w8Personally, that place was too dark for me...\w8\w8\1\n\n[half]\s[14]Mm, for me, I liked the winding streets and the architecture... \w8\s[11]No one there was weird about the whole Vala/Fenr thing either. \w8\i[34]That was nice."
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
 
-OnTQ.Magic
+OnTQ.Magic : nonoverlap_pool
 {
 	"\1\s[11]I don't use my Resonance much at all. \w8\i[34]It's weak, so it's not viable for fighting."
 	"\1\s[11]\i[33]I don't like to talk about my Resonance. \w8\![anim,stop,33]\i[34]There's not much to discuss, really."
+	//"\1\s[11]\i[13]\i[34]\i[62]Having a Resonance point on my forehead has it's benefits, but I get really bad throbbing headaches when I overdrive it..."
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
 
-OnTQ.Battle
+OnTQ.Battle : nonoverlap_pool
 {
 	"\1\s[14]I have a few weapons up my sleeve... \w8\i[1]Mostly just small throwing knives and poisons and things, other than my scythe. \w8\s[11]\i[13]\i[34]\i[62]I don't think I could handle a bigger weapon, really..."
 	--
@@ -173,7 +173,8 @@ OnKeroSettings : all
 	"\![*]Tahir calls you \_a[OnNickname,1]%(user[2])\_a.\n"
 	"\![*]Your pronouns: \_a[OnPronouns,1]%(Capitalize(they))/%(Capitalize(them))\_a\n\n"
 
-	"\![*]\q[Change talk rate,OnTalkRateMenu,1]\n"
+	"\![*]\q[Change talk rate,OnTalkRateMenu,1]\n\n"
+
 	"\![*]\q[RESET,OnResetConfirm,1]\n\n"
 	
 	"\![*]\q[Back,OnKeroMenu]  \![*]\q[Nevermind,blank]"

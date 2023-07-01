@@ -16,11 +16,7 @@ OnNameTeach : all
 
 	//x. template code.
 	_tempname = CUTSPACE(reference.raw[0]) //this stores the original name in _tempname
-	_name = reference.raw[0] //putting the raw name into _name to do some tests on it
-	_name = TOLOWER(_name) //changes it to lowercase
-	_name = REPLACE(_name," ","") //removes spaces
-	_name = REPLACE(_name,".","") //removes periods
-	_name = REPLACE(_name,"-","") //removes dashes
+	_name = CleanTerm(reference.raw[0])
 
 	_is_firstboot = 0; if reference2 == "firstboot"; _is_firstboot = 1
 	
@@ -102,7 +98,7 @@ OnNickname : all
 	}
 	else //Tahir
 	{
-		"\1\_q(What would you like Tahir to nickname you?)\n(He likes shortening names if possible, like ""Fai"" for Faeia and ""Fen"" for Fenr.)"
+		"\1\_q(What would you like Tahir to nickname you?)\n(He likes shortening names if possible, like ""Fai"" for Faeia and ""Vi"" for Violet.)"
 		"\![set,balloontimeout,-1]\![open,inputbox,OnNicknameTeach,-1,--reference=1]"
 		"\n\n\![*]\q[Back,OnKeroSettings]  \![*]\q[Nevermind,blank]"
 	}
@@ -115,154 +111,707 @@ OnNicknameTeach : all
 
 	//x. template code.
 	_tempname = CUTSPACE(reference.raw[0]) //this stores the original name in _tempname
-	_name = reference.raw[0] //putting the raw name into _name to do some tests on it
-	_name = TOLOWER(_name) //changes it to lowercase
-	_name = REPLACE(_name," ","") //removes spaces
-	_name = REPLACE(_name,".","") //removes periods
-	_name = REPLACE(_name,"-","") //removes dashes
+	_name = CleanTerm(reference.raw[0])
 
     _settings = "OnSakuraSettings"; if reference2 == 1; _settings = "OnKeroSettings"
 	
-	if _name == "faeia"
+	case _name 
 	{
-		if !reference2; "\0\s[1]\i[35]\i[62]Oh, no, that's my name! \w6I can't call you that..!"
-		else; "\1\s[11]\i[31]...Hm. \w8I think that'd get confusing.\w8\w8\0\s[1]\i[35]Pfft, yeah."
-		
-		"\w4\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Nevermind,blank]"
-		"\![open,inputbox,OnNameTeach,-1,--reference=%(reference2)]\e"
-	}
-	elseif _name == "tahir"
-	{
-		if !reference2; "\0\s[1]\i[35]\i[62]Hey, if I call you Tahir, I think the poor guy would get confused..!"
-		else; "\1\s[11]\i[31]...Hm. \w8I think that'd get confusing.\w8\w8\0\s[1]\i[35]Pfft, yeah."
-
-		"\w4\_q\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Nevermind,blank]"
-		"\![open,inputbox,OnNameTeach,-1,--reference=%(reference2)]\e"
-	}
-	elseif _name == "namii" || _name == "alnoth" || _name == "vala" || _name == "fenr"
-	{
-        "\%(reference2)"
-
-		"\_q(Please choose another name!)"
-
-		"\w4\_q\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Nevermind,blank]"
-		"\![open,inputbox,OnNameTeach,-1,--reference=%(reference2)]\e"
-	}
-	elseif _name == ""
-	{
-		if !reference2; "\0Oh, I didn't hear that... \w8I'll just keep calling you %(user[1]), okay?"
-		else; "\1...Huh? \w8\w2Um, \w4I hope you're still okay with %(user[2]), then..."
-
-		"\w4\_q\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Close,blank]"
-	}
-	else
-	{
-		if !reference2 {
-            user[1] = SHIORI3FW.EscapeAllTags(_tempname)
-			"\0Alright! \w8%(Capitalize(user[1])) it is~!"
+		when "faeia"
+		{
+			if !reference2; "\0\s[1]\i[35]\i[62]Oh, no, that's my name! \w6I can't call you that..!"
+			else; "\1\s[11]\i[31]...Hm. \w8I think that'd get confusing.\w8\w8\0\s[1]\i[35]Pfft, yeah."
+			
+			"\w4\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Nevermind,blank]"
+			"\![open,inputbox,OnNameTeach,-1,--reference=%(reference2)]\e"
 		}
-		else {
-            user[2] = SHIORI3FW.EscapeAllTags(_tempname)
-			"\1Alright, I'm calling you %(user[2])."
-		}
+		when "tahir"
+		{
+			if !reference2; "\0\s[1]\i[35]\i[62]Hey, if I call you Tahir, I think the poor guy would get confused..!"
+			else; "\1\s[11]\i[31]...Hm. \w8I think that'd get confusing.\w8\w8\0\s[1]\i[35]Pfft, yeah."
 
-		"\w4\_q\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Close,blank]"
+			"\w4\_q\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Nevermind,blank]"
+			"\![open,inputbox,OnNameTeach,-1,--reference=%(reference2)]\e"
+		}
+		when "namii", "alnoth", "vala", "fenr", "linn"
+		{
+			"\%(reference2)"
+
+			"\_q(Please choose another name!)"
+
+			"\w4\_q\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Nevermind,blank]"
+			"\![open,inputbox,OnNameTeach,-1,--reference=%(reference2)]\e"
+		}
+		when ""
+		{
+			if !reference2; "\0Oh, I didn't hear that... \w8I'll just keep calling you %(user[1]), okay?"
+			else; "\1...Huh? \w8\w2Um, \w4I hope you're still okay with %(user[2]), then..."
+
+			"\w4\_q\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Close,blank]"
+		}
+		others
+		{
+			if !reference2 {
+				user[1] = SHIORI3FW.EscapeAllTags(_tempname)
+				"\0Alright! \w8%(Capitalize(user[1])) it is~!"
+			}
+			else {
+				user[2] = SHIORI3FW.EscapeAllTags(_tempname)
+				"\1Alright, I'm calling you %(user[2])."
+			}
+
+			"\w4\_q\n\n\![*]\q[Back,%(_settings)]  \![*]\q[Close,blank]"
+		}
 	}
 }
 
 OnPronouns : all
 {
     _settings = "OnSakuraSettings"; if reference0; _settings = "OnKeroSettings"
-    "\%(reference2)"
+    "\%(reference0)"
 
-	"\_q\f[align,center]\f[bold,1]--Choose Pronouns--\n\n\f[align,default]\f[bold,default]"
+	"\_q\f[align,center]\f[bold,1]--Choose Pronouns--\n\n[half]\f[align,default]\f[bold,default]"
 	
 	"\![*]\q[He/Him,OnPronounsTeach,masc,%(reference0)]\n"
 	"\![*]\q[She/Her,OnPronounsTeach,fem,%(reference0)]\n"
 	"\![*]\q[They/Them,OnPronounsTeach,undef,%(reference0)]\n"
-	"\![*]\f[color,disable]Custom\f[color,default]\n"
-	//"\![*]\q[Custom,OnPronounsTeach,custom,%(reference0)]\n"
+	"\![*]\q[Custom,OnPronounsTeach,custom,%(reference0)]\n"
 	
-	"\n\![*]\q[Back,%(_settings)]   \![*]\q[Close,blank]"
+	"\n[half]\![*]\q[Back,%(_settings)]   \![*]\q[Close,blank]"
 }
 
-OnPronounsTeach : all
+OnPronounsTeach
 {
 	if reference0 == "masc" 
 	{pronouns = ("he","him","his","his","himself",0)}
-	elseif reference0 == "fwm"
+	elseif reference0 == "fem"
 	{pronouns = ("she","her","her","hers","herself",0)}
 	elseif reference0 == "custom"
-	{OnCustomPronouns}
+	all:{"\%(reference1)"
+	"\t\*\b2\_q\![set,autoscroll,disable]"
+	"\![open,inputbox,OnCustomPronouns,-1,--reference=%(reference1)]" //this passes as reference2 btw
+	"Insert pronouns like:\nthey/them/their/theirs/themself\nshe/her/her/hers/herself\nhe/him/his/his/himself\n"
+	"You must insert five. Make sure to use the correct dashes. See specific usage below.\n\n"
+	"1: THEY talked.\n"
+	"2: I talked to THEM.\n"
+	"3: That is THEIR word.\n"
+	"4: Those words of THEIRS are cool!\n"
+	"5: They talked to THEMSELF.\n\n"
+	"\![*]\q[Back,OnChangePronouns]   \![*]\q[Nevermind,blank]\e"}
 	else
 	{pronouns = ("they","them","their","theirs","themself",1)}
 
+	if reference0 != "custom" {
+	if !reference1; OnSakuraSettings
+	else; OnKeroSettings
+	}
+}
+//hehe split da array and then ask for plural/singular
+OnCustomPronouns : all
+{
+	_pronouns = IARRAY
+	_pronouns = SPLIT(reference0,"/")
+	
+	if ARRAYSIZE(_pronouns) != 5
+	{"\![raise,OnPronouns,custom,%(reference2)]"}
+	else
+	all:{
+		pronouns ,= 0
+		
+		"\0\t\*\_q"
+		"Is that plural or singular?\n"
+		"Plural: %(Capitalize(they)) are cool\n"
+		"Singular: %(Capitalize(they)) is cool\n\n"
+		
+		"\![*]\q[Plural,OnPronounsDone,1,%(reference2)]\n"
+		"\![*]\q[Singular,OnPronounsDone,0,%(reference2)]"
+	}
+}
+//set plural, pronouns, etc, then just redirect back to settings.
+OnPronounsDone
+{
+	pronouns[5] = reference0
+	
 	if !reference1; OnSakuraSettings
 	else; OnKeroSettings
 }
 
-OnCustomPronouns
-{
-    "\_qThis will be implemented post jam. idk if i can copy paste the code i did this jam for lumi over into f&t...\e"
-}
-
 OnSpecies : all
 {
-    _settings = "OnSakuraSettings"; if reference0; _settings = "OnKeroSettings"
     "\%(reference0)"
 
-	"\_q\f[align,center]\f[bold,1]--Who Are You?--\n\n\f[align,default]\f[bold,default]"
+	"\_q\f[align,center]\f[bold,1]--Who Are You?--\n\n[half]\f[align,default]\f[bold,default]"
 	
 	"\![*]\q[A rabbit,OnSpeciesTeach,rabbit,%(reference0)]\n"
 	"\![*]\q[A hare,OnSpeciesTeach,hare,%(reference0)]\n"
 	"\![*]\q[A pika,OnSpeciesTeach,pika,%(reference0)]\n"
-	if !Flag("FBMemories"); "\![*]\q[I'm not from here,OnSpeciesTeach,other,%(reference0)]\n"
-	else; "\![*]\q[I don't think I'm from here,OnSpeciesTeach,other,%(reference0)]\n"
+	"\![*]\q[Something else,OnSpeciesTeach,unknown,%(reference0)]\n"
 	
-	"\n\![*]\q[Back,%(_settings)]   \![*]\q[Close,blank]"
+	"\n[half]\![*]\q[Back,OnUserCheck,%(reference0)]   \![*]\q[Close,blank]"
 }
 
 OnSpeciesTeach : all
 {
-	_settings = "OnSakuraSettings"; if reference1; _settings = "OnKeroSettings"
-    "\%(reference1)"
-
-	/*
-	userinfo[0] = reference0
-
 	case reference0
 	{
 		when "rabbit"
 		{
-			""
+			userinfo[0] = reference0 //ik this is inefficient but its a remnant of an earlier system and i dont want to fix it
+
+			"\1\s[11]\0\s[1]"
+			"Gasp, just like me! \w8\i[32]Oh, and Tahir too, kinda! \w8\![anim,stop,32]\i[34]And most people. \w8Mostly everyone are rabbits.\w8\w8\1"
+			"\s[13]Pfft. \w8\i[32]\![anim,stop,90]Still, good to know, %(user[2]).\w8\w8"
 		}
 		when "hare"
 		{
-			""
+			userinfo[0] = reference0
+
+			"\1\s[11]\0\s[1]"
+			"Oh, cool! \w8A lot of them are adventurers, aren't they?\w8\w8\1"
+			"\i[34]Mhmm. \w8I'm only really a hare on my mom's side, but I've seen a lot of them around.\w8\w8\0\n\n[half]"
+			"\i[35]Good to know, %(user[1])!"
 		}
 		when "pika"
 		{
+			userinfo[0] = reference0
 
+			"\1\s[11]\0\s[1]"
+			"Oh, cool! \w8\s[3]I kinda figured, I grew up around a ton of pika!!\w8\w8\1"
+			"\s[14]\i[1]I don't see many pika who adventure around like this. \w8\s[11]\i[13]It's nice to see you around, %(user[2]).\w8\w8\0\n\n[half]"
+			"Mhmm!\w8\w8"
 		}
 		others
 		{
+    		"\%(reference1)\b2"
+			"\t\*\_q\![set,autoscroll,disable]"
+			"\![open,inputbox,OnCustomSpecies,-1,--reference=%(reference1)]" //this passes as reference2 btw
 
+			if reference2 == "toomany"; "(HEY that is more than 2 species!! pls be wary of ur hyphen use!!! anyway.)\n\n[half]"
+			elseif reference2 == "dupe"; "(hey you can't do duplicates of a hybrid LOL. put it in right this time!!)\n\n[half]"
+			elseif reference2 == "name"; "(heyyy your species CANNOT be a name, why? cause i said so >:3)\n\n[half]"
+			elseif reference2 == "none"; "(please actually enter in something 😭)\n\n[half]"
+			else; "(What species are you, if none of the above?!)\n\n[half]"
+			"(You can do hybrid species!! Please limit it to just two species though LOL. Write them out like ""rabbit-pika"" or ""human-dog""! the hyphens determine hybrids.)\n"
+			"(Lore wise, species other than lagomorphs don't come from the Bramblebrush and are super weird and rare but like. do whatever u want :3c)"
 		}
 	}
-	*/
-	"\_q(Wait, sorry!! This feature isn't implemented yet!!!!! SORRY it will be... later...)"
 	
-	"\n\![*]\q[Back,%(_settings)]   \![*]\q[Close,blank]"
+	"\n\n\_q\![*]\q[Back,OnUserCheck,%(reference1),closeinput]   \![*]\q[Close,OnCloseInputs]"
+}
+
+//LMAO this is the only place its relevant so im writing it up RIGHT NOW
+//inefficient but do i care. NO!!!!!!!!
+OnCloseInputs
+{
+	"\![close,inputbox,__SYSTEM_ALL_INPUT__]"
+}
+
+OnCustomSpecies : all
+{
+	//reference0: input
+	//reference2: faeia (0) or tahir (1)
+	
+	_ipos = 0
+
+	_raw = CUTSPACE(reference.raw[0])
+
+	_term = reference.raw[0] //wait uhhhh. i cant use cleanterm for this bc i wanna check for hyphenz....
+	_term = TOLOWER(_term) //changes it to lowercase
+	_term = REPLACE(_term," ","") //removes spaces
+	_term = REPLACE(_term,".","") //removes periods
+
+	_temp = IARRAY
+	_temp = SPLIT(_term,"-")
+	
+	_names = ("faeia", "tahir", "namii", "alnoth", "vala", "fenr", "linn")
+
+	//sighhhhh ok uhmmm this is the part where i actually check for stuffz
+
+	if ARRAYSIZE(_temp) > 2
+	{"\![raise,OnSpeciesTeach,unknown,%(reference2),toomany]\e"}
+
+	elseif (ARRAYSIZE(_temp) == 2) && (_temp[0] == _temp[1])
+	{"\![raise,OnSpeciesTeach,unknown,%(reference2),dupe]\e"}
+
+	elseif RE_ASEARCH(_names,_term) != -1
+	{"\![raise,OnSpeciesTeach,unknown,%(reference2),name]\e"}
+
+	elseif _term == ""
+	{"\![raise,OnSpeciesTeach,unknown,%(reference2),none]\e"}
+
+	//ok heres da fun part :3!! ---------------------
+
+	userinfo[0] = _term
+
+	if ARRAYSIZE(_temp) > 1
+	{
+		"\1\s[11]\0\s[1]"
+		"Oh, a hybrid! \w8\i[35]Like Tahir! \w8\w8ALSO, like,\w8\n\n[half]"
+	}
+
+	if RE_ASEARCH("human",_term) != -1
+	{
+		"\1\s[11]\0\s[3]"
+		"PFFT-- \w8No way, you're a HUMAN?? \w8You're kidding!\w8\w8\1"
+		"\i[13]\i[34]Well, if you insist... \w8\![anim,stop,34]\i[30]We'll treat you like a human, %(user[2])."
+	}
+	elseif RE_ASEARCH("slime",_term) != -1
+	{
+		"\1\s[11]\0\s[3]"
+		"Oh my gosh, you're a slime?! \w8That's so cool!!! \w8There's like, NO sentient ones in the Bramblebrush!!!\w8\w8\1"
+		"\i[32]Yes, that is true--\0\n\n[half]"
+		"\s[5]\i[90]WAIT wait wait wait oh my gosh that means you've heard all my embarassing rambles about slimes, OH NO.....\w8\w8\1\n\n[half]"
+		"\i[13]\i[62]Haha, well... \w8\![anim,stop,32]\i[34]Regardless, it is good to know. \w8\f[size,-2](also fai it's okay......)"
+	}
+
+	//i'll eventually add more species here when i feel like it llol
+
+	elseif RE_ASEARCH("rabbit",_term) != -1
+	{
+		_ipos = ASEARCH("rabbit",_temp)
+		_oppo = 1
+		if _ipos; _oppo = 0
+
+		if ARRAYSIZE(_temp) > 1
+		{
+			if _temp[_oppo] == "hare"; "\1\s[11]\i[32]\0\s[2]You're straight up EXACTLY like Tahir..!?\w8\w8\1\s[13]\![anim,stop,90]Pfft, %(_term)s aren't super rare, Fai.\w8\w8\0\n\n[half]\s[1]\i[35]Hey, it's still cool!!"
+			elseif _temp[_oppo] == "pika"; "\1\s[11]\i[32]\0\s[1]\i[14]Surprisingly, %(_term)s aren't super common?! \w8\1\s[11]\i[12]\i[34]\s[3]Nice to see one around!"
+			else; "\1\s[11]\i[32]\0\s[1]\i[14]I don't know what the other not-%(_temp[_ipos]) half is, I've never met anyone who is... \w8\1\![anim,stop,32]\i[33]\0\s[1]\i[12]\i[35]That!! \w8\w4Very cool!!" //...ipos does not work outside of these brackets. probably bc its a local variable. oops
+		}
+		else
+		{
+			"\1\s[11]\0\s[1]"
+			"Gasp, just like me! \w8\i[32]Oh, and Tahir too, kinda! \w8\![anim,stop,32]\i[34]And most people. \w8Mostly everyone are rabbits.\w8\w8\1"
+			"\s[13]Pfft. \w8\i[32]\![anim,stop,90]Still, good to know, %(user[2]).\w8\w8"
+		}
+	}
+	elseif RE_ASEARCH("hare",_term) != -1
+	{
+		_ipos = ASEARCH("hare",_temp)
+		_oppo = 1
+		if _ipos; _oppo = 0
+
+		if ARRAYSIZE(_temp) > 1
+		{
+			if _temp[_oppo] == "pika"; "\1\s[11]\i[32]\0\s[2]WOAH, a %(_term)?! \w8\s[3]I've never really MET one before, this is so cool..!!\w8\w8\1\s[11]\i[13]\i[34]\i[62]Ha... It's nice to see a %(_term) out there. \w8\![anim,stop,62]\i[60]Good to know, %(user[2])."
+			else; "\1\s[11]\i[32]\0\s[1]\i[14]I don't know what the other not-%(_temp[_ipos]) half is, I've never met anyone who is... \w8\1\![anim,stop,32]\i[33]\0\s[1]\i[12]\i[35]That!! \w8\w4Very cool!!"
+		}
+		else
+		{
+			"\1\s[11]\0\s[1]"
+			"Oh, cool! \w8A lot of them are adventurers, aren't they?\w8\w8\1"
+			"\i[34]Mhmm. \w8I'm only really a hare on my mom's side, but I've seen a lot of them around.\w8\w8\0\n\n[half]"
+			"\i[35]Good to know, %(user[1])!"
+		}
+	}
+	elseif RE_ASEARCH("pika",_term) != -1
+	{
+		//this stays in for the _r3 message!!!!!
+		_ipos = ASEARCH("pika",_temp)
+		_oppo = 1
+		if _ipos; _oppo = 0
+
+		if ARRAYSIZE(_temp) > 1
+		{
+			"\1\s[11]\i[32]\0\s[1]\i[14]I don't know what the other not-%(_temp[_ipos]) half is, I've never met anyone who is... \w8\1\![anim,stop,32]\i[33]\0\s[1]\i[12]\i[35]That!! \w8\w4Very cool!!"
+		}
+		else
+		{
+			"\1\s[11]\0\s[1]"
+			"Oh, cool! \w8\s[3]I kinda figured, I grew up around a ton of pika!!\w8\w8\1"
+			"\s[14]\i[1]I don't see many pika who adventure around like this. \w8\s[11]\i[13]It's nice to see you around, %(user[2]).\w8\w8\0\n\n[half]"
+			"Mhmm!\w8\w8"
+		}
+	}
+	else
+	{
+		"\1\s[11]\0\s[1]"
+		"Huh! \w8Can't say I've heard of or seen a %(_raw), \i[35]that's cool!\w8\w8\1"
+		"\i[34]Indeed, it's good to know."
+	}
+
+	"\w8\w8\_q\n\n\f[size,default]"
+	"\![*]\q[Back,OnUserCheck,%(reference2)]  \![*]\q[Close,blank]"
 }
 
 OnClass : all
 {
     "\%(reference0)"
-    "\_q(This isn't implemented yet! Please come back later.)\e"
+
+	"\_q\f[align,center]\f[bold,1]--What are you?--\n\n[half]\f[align,default]\f[bold,default]"
+	
+	"\![*]\q[A wanderer,OnClassTeach,wanderer,%(reference0)]\n"
+	"\![*]\q[A fighter,OnClassTeach,fighter,%(reference0)]\n"
+	"\![*]\q[A mage,OnClassTeach,mage,%(reference0)]\n"
+	"\![*]\q[A rogue,OnClassTeach,rogue,%(reference0)]\n"
+	
+	"\n[half]\![*]\q[Back,OnUserCheck,%(reference0)]   \![*]\q[Close,blank]"
+}
+
+OnClassTeach : all
+{
+	_confirm = "\n\n[half]\![*]\q[Nevermind,OnClass,%(reference1)]   \![*]\q[Yes!,OnClassTeach,"
+	_yay = "\w8\n\n\_q\![*]\q[Back,OnUserCheck,%(reference1)]   \![*]\q[Close,blank]\e"
+
+	"\%(reference1)\t\*"
+
+	case reference0
+	{
+		when "wanderer" //=RP, =AP, =HP, =PHYS, =RESO
+		{
+			"\_q(Your standard jack of all trades. No bonuses on RESONANCE POINTS, ACTION POINTS, or HEALTH POINTS, but no detriments, either!)\n\n[half]"
+			"(Choose the WANDERER class?)"
+
+			"%(_confirm)wconf,%(reference1)]"
+		}
+		when "wconf"
+		{
+			userinfo[1] = "wanderer"
+
+			"\1\s[11]\0\s[1]"
+			"Oh, cool! \w8\i[35]\i[62]Personally I could never NOT specialize in something, I REALLY like runes..!\w8\w8\1"
+			"\i[34]Mhmm. \w8I appreciate the freedom wandering gives you, though. \w8\w4\s[11]Thanks for letting us know, %(user[2])."
+
+			"%(_yay)"
+		}
+		when "fighter" //-RP, =AP, +HP, +PHYS, --RESO
+		{
+			"\_q(A tank focused on attacking with their weapons. No focus on Resonance, but can hit hard and take harder hits!)\n\n[half]"
+			"(Choose the FIGHTER class?)"
+
+			"%(_confirm)fconf,%(reference1)]"
+		}
+		when "fconf"
+		{
+			userinfo[1] = "fighter"
+
+			"\1\s[11]\0\s[1]"
+			"Oh, cool! \w8\i[35]That's something neither of us are, haha!\w8\w8\1"
+			"\i[13]\i[34]\i[62]Yeah, I never was durable enough to be a fighter. \w8\![anim,stop,34]\i[31]...Maybe you could help us out with that, %(user[2])?"
+			
+			"%(_yay)"
+		}
+		when "mage" //+RP, =AP, -HP, --PHYS, ++RESO
+		{
+			"\_q(Shape RESONANCE to your will, and cast more, mightier spells! You're a little squishy, but aren't we all?)\n\n[half]"
+			"(Choose the MAGE class?)"
+
+			"%(_confirm)mconf,%(reference1)]"
+		}
+		when "mconf"
+		{
+			userinfo[1] = "mage"
+
+			"\1\s[11]\0\s[3]"
+			"Gassppp, another mage!! \w8HAHAHA, I should NOT be this excited, I've seen a bunch, but it's cool to know!!\w8\w8\1"
+			"\s[13]\![anim,stop,90]Solidarity is a powerful thing, yeah?"
+			
+			"%(_yay)"
+		}
+		when "rogue" //=RP, +AP, --HP, ++PHYS, -RESO
+		{
+			"\_q(Hit more, hit harder, and hit quickly! You're squisher than most, but it's okay as long as you don't get hit!)\n\n[half]"
+			"(Choose the ROGUE class?)"
+
+			"%(_confirm)rconf,%(reference1)]"
+		}
+		when "rconf"
+		{
+			userinfo[1] = "rogue"
+
+			"\1\s[11]\0\s[1]\i[14]"
+			"Gassppp, Tahir!! \w8\s[3]Another rogue!!!!!\w8\w8\1"
+			"\s[13]Pfft, why are you getting excited on my behalf..? \w8\![anim,stop,90]\i[32]It's nice to know, %(user[2])."
+			
+			"%(_yay)"
+		}
+		others
+		{
+			"\%(reference1)"
+			"\_qIf you're seeing this, that means Phantasia spelt something wrong LOL. Or you input some other thing for reference0 on purpose, which by then, good job ig??? LMAO. Report this if it's a buggg!!"
+
+			"%(_yay)"
+		}
+	}
 }
 
 OnResonance : all
 {
-    "\%(reference0)"
-    "\_q(This isn't implemented yet! Please come back later.)\e"
+    "\%(reference0)\b2\t\*"
+
+	"\_q\f[align,center]\f[bold,1]--Your Resonance Color--\n\n\f[align,default]\f[bold,default]"
+
+	//i've been messing with the colors here for WAY TOO LONG pls. i cant do thiis
+
+	"\![*]\q[Green,OnResoTeach,green,%(reference0)]%(newline)\f[align,right]"
+	"%(r.green)Aether\n\f[align,default]%(r.fix)"
+	
+	"\![*]\q[Cyan,OnResoTeach,cyan,%(reference0)]%(newline)\f[align,right]"
+	"%(r.cyan)Aether-Moons\n\f[align,default]%(r.fix)"
+
+	"\![*]\q[Blue,OnResoTeach,blue,%(reference0)]%(newline)\f[align,right]"
+	"%(r.blue)Moons\n\f[align,default]%(r.fix)"
+
+	"\![*]\q[Violet,OnResoTeach,violet,%(reference0)]%(newline)\f[align,right]"
+	"%(r.violet)Moons-Sun\n\f[align,default]%(r.fix)"
+
+	"\![*]\q[Red,OnResoTeach,red,%(reference0)]%(newline)\f[align,right]"
+	"%(r.red)Sun\n\f[align,default]%(r.fix)"
+
+	"\![*]\q[Orange,OnResoTeach,orange,%(reference0)]%(newline)\f[align,right]"
+	"%(r.orange)Sun-Bramble\n\f[align,default]%(r.fix)"
+
+	"\![*]\q[Yellow,OnResoTeach,yellow,%(reference0)]%(newline)\f[align,right]"
+	"%(r.yellow)Bramble\n\f[align,default]%(r.fix)"
+
+	"\![*]\q[Lime,OnResoTeach,lime,%(reference0)]%(newline)\f[align,right]"
+	"%(r.lime)Bramble-Aether\n\f[align,default]%(r.fix)"
+	
+	if RAND(2) { //thanks zi
+	"\![*]\q[Grayscale,OnResoTeach,grayscale,%(reference0)]"}
+	else {
+	"\![*]\q[Greyscale,OnResoTeach,grayscale,%(reference0)]"}
+
+	"%(newline)\f[align,right]"
+	"%(r.gray)None\n\f[align,default]%(r.fix)"
+
+	"\![*]\q[Explain please,OnResoTeach,explain,%(reference0)]\n"
+	
+	"\n\![*]\q[Back,OnUserCheck,%(reference0)]   \![*]\q[Close,blank]"
+}
+
+OnResoTeach : all
+{
+	if reference0 == "explain"
+	{
+		"\%(reference1)"
+		"\b2\_q\![set,autoscroll,disable]"
+		ResoColorBlurb
+		"\n\n\![*]\q[Back,OnResonance,%(reference1)]   \![*]\q[Close,blank]"
+	}
+	elseif reference1 != "confirm"
+	{
+		"\%(reference1)\b2\t\*\_q"
+
+		"(Just how strong is your Resonance?)\n"
+		"(This determines how much damage is done and how much RP is needed for runes related to your elemental affinity. Think of it as difficulty levels.)\n\n"
+
+		"\f[align,center]CURRENT COLOR: "
+		"%(r.color(reference0))%(TOUPPER(reference0))"
+		"\n\n\f[align,default]%(r.fix)"
+
+		if reference0 != "grayscale"
+		{
+			"\![*]\q[Bright and Saturated,OnResoTeach,%(reference1),confirm,%(reference0),strong]%(newline)\f[align,right]"
+			"Strong (Easy)\n\f[align,default]"
+			"\![*]\q[Normal and Mild,OnResoTeach,%(reference1),confirm,%(reference0),normal]%(newline)\f[align,right]"
+			"Medium (Normal)\n\f[align,default]"
+			"\![*]\q[Dark and Pale,OnResoTeach,%(reference1),confirm,%(reference0),weak]%(newline)\f[align,right]"
+			"Weak (Hard)\n\f[align,default]"
+		}
+		else
+		{
+			"\![*]\q[White,OnResoTeach,%(reference1),confirm,%(reference0),strong]%(newline)\f[align,right]"
+			"Strong (Easy)\n\f[align,default]"
+			"\![*]\q[Gray,OnResoTeach,%(reference1),confirm,%(reference0),normal]%(newline)\f[align,right]"
+			"Medium (Normal)\n\f[align,default]"
+			"\![*]\q[Black,OnResoTeach,%(reference1),confirm,%(reference0),weak]%(newline)\f[align,right]"
+			"Weak (Hard)\n\f[align,default]"
+		}
+
+		"\n\![*]\q[Back,OnResonance,%(reference1)]   \![*]\q[Nevermind,OnUserCheck,%(reference1)]"
+	}
+	else
+	{
+		userinfo[2] = "%(reference2),%(reference3)"
+		
+		case reference2
+		{
+			when "cyan", "blue"
+			{
+				"\1\s[11]\0\s[1]"
+				"Oh, hey! \w8\s[3]%(Capitalize(reference2)) buddies!!"
+			}
+			when "red", "orange", "yellow"
+			{
+				"\0\s[1]\i[32]\1\s[11]"
+				"Ah, a warm color... \w8\i[12]\i[34]Good to know."
+			}
+			when "lime", "green"
+			{
+				"\0\s[1]\i[13]\i[32]\1\s[11]"
+				"...%(Capitalize(reference2))? \w8\w8\i[34]I see."
+			}
+			when "violet"
+			{
+				"\1\s[11]\0\s[1]"
+				"Oh, wow! \w8\i[35]That's pretty rare, isn't it?\w8\w8\1"
+				"\i[34]Mhmm."
+			}
+			others
+			{
+				"\1\s[11]\0\s[1]\i[14]"
+				"...Oh! \w8\w8\1\i[33]\0\s[1]\i[35]Oh, \w8um, \w8cool! \w8\1\s[11]\0\s[1]\i[1]\i[35]We know another person with a pale Resonance, their name is NAMII!! \w8\![anim,stop,35]\i[30]Pretty sure we've talked about them before, but you'd LOVE to meet them!"
+			}
+		}
+		//---------------------
+		"\w8\w8"
+		//---------------------
+		case reference3
+		{
+			//these if elses for detecting to place line breaks or not is NOT WORKING. im leaving them in but liek. why arent you working
+
+			when "strong"
+			{
+				"\1\s[11]\i[32]\0\s[1]\i[35]"
+				if reference2 == "cyan" || reference2 == "blue" || reference2 == "violet" || reference2 == "grayscale" {"\n\n[half]"}
+				else {""}
+				"But yeah, having a ""strong"" Resonance or whatever?! \w8\s[6]\![anim,stop,91]\i[90]I GET it, it's super cool but it's ALSO a massive weight on your shoulders, you know?! \w8\s[5]--OH, wait, I didn't mean to ramble..!!\w8\w8\1"
+				if reference2 != "cyan" || reference2 != "blue" || reference2 != "grayscale" {"\n\n[half]"}
+				else {""}
+				"\s[13]Pfft. \w8\![anim,stop,90]\i[32]It's good to know, though. \w8Thank you, %(user[2])."
+			}
+			when "normal"
+			{
+				"\1\s[11]\i[32]\0\s[1]\i[35]"
+				if reference2 == "cyan" || reference2 == "blue" || reference2 == "violet" || reference2 == "grayscale" {"\n\n[half]"}
+				else {""}
+				"Really though, good to know! \w8\1\s[11]\0\s[3]\![anim,stop,90]\![anim,stop,0]Thanks for telling us, %(user[1])~!"
+			}
+			others
+			{
+				"\0\s[1]\1\s[11]\i[34]"
+				if reference2 != "cyan" || reference2 != "blue" || reference2 != "grayscale" {"\n\n[half]"}
+				else {""}
+				"In any case. \w8Thanks for letting us know, %(user[2])."
+			}
+		}
+
+		"\n\n\![*]\q[Back,OnUserCheck,%(reference0)]   \![*]\q[Close,blank]"
+	}
+}
+
+OnPreCaretaker {"\c\![raise,OnCaretaker,%(reference0)]"}
+
+OnCaretaker : all
+{
+	//okay i tried and deflicker doesnt work on this because im raising the function instead of changing a variable. idk how to fix this, i've been trying
+	//yeah like if i add balloon repaint to OnCaretakerAdd it doesnt clear the ballon....
+	"\%(reference0)\b2"
+
+	"\_q\f[align,center]\f[bold,1]--Your Caretaker(s)?--\n\f[bold,default]"
+	"\f[size,-2]You may pick up to two Caretakers. You may also select CONFIRM without having any Caretakers selected.\n\n[half]"
+	"\f[size,default]\f[align,default]"
+
+	
+	"\![*]\q[Vala,OnCaretakerAdd,%(reference0),vala,%(reference1),%(reference2)]"
+	"%(newline)\f[align,right]"
+	if reference1 == "vala" || reference2 == "vala"; "[X]"
+	else; "[_]"
+	"\n\f[align,default]"
+
+	"\![*]\q[Fenr,OnCaretakerAdd,%(reference0),fenr,%(reference1),%(reference2)]"
+	"%(newline)\f[align,right]"
+	if reference1 == "fenr" || reference2 == "fenr"; "[X]"
+	else; "[_]"
+	"\n\f[align,default]"
+
+	"\![*]\q[Linn,OnCaretakerAdd,%(reference0),linn,%(reference1),%(reference2)]"
+	"%(newline)\f[align,right]"
+	if reference1 == "linn" || reference2 == "linn"; "[X]"
+	else; "[_]"
+	"\n\f[align,default]"
+
+	"\![*]\q[Pont,OnCaretakerAdd,%(reference0),pont,%(reference1),%(reference2)]"
+	"%(newline)\f[align,right]"
+	if reference1 == "pont" || reference2 == "pont"; "[X]"
+	else; "[_]"
+	"\n\f[align,default]"
+
+	
+	"\n[half]\![*]\q[Confirm,OnCareTeach,%(reference0),%(reference1),%(reference2)]\n"
+	"\n[half]\![*]\q[Back,OnUserCheck,%(reference0)]   \![*]\q[Close,blank]"
+	//"\![unlock,balloonrepaint]"
+}
+
+OnCaretakerAdd
+{
+	//"\C\![lock,balloonrepaint,manual]\c"
+	//--
+	if reference1 == reference2
+	{"\![raise,OnCaretaker,%(reference0),%(reference3)]"}
+	elseif reference1 == reference3
+	{"\![raise,OnCaretaker,%(reference0),%(reference2)]"}
+	elseif STRLEN(reference2) < 1
+	{"\![raise,OnCaretaker,%(reference0),%(reference1)]"}
+	else
+	{"\![raise,OnCaretaker,%(reference0),%(reference2),%(reference1)]"}
+}
+
+OnCareTeach : all
+{
+	_term = reference1
+
+	if STRLEN(reference1) < 1 //no caretaker
+	{
+		userinfo[3] = "none"
+
+		"\1\s[11]\0\s[1]\i[35]\i[62]"
+		"Oh yeah, I TOTALLY get not wanting to get involved in their whole deal.\w8\w8\1"
+		"\i[34]Mmm. \w8Good to know, thank you, %(user[2])."
+	}
+	else
+	{
+		if STRLEN(reference2) > 0 
+		{
+			userinfo[3] = "%(reference1),%(reference2)"
+			_term ,= reference2
+		}
+		else; userinfo[3] = "%(reference1)"
+
+		//------------
+
+		"\1\s[11]\0\s[1]\i[14]"
+		if userinfo[2][0] != "grayscale"
+		{
+			"Oh, %(Capitalize(reference1))"
+			if STRLEN(reference2) > 0; " and %(Capitalize(reference2))"
+			", huh?\w8\w8"
+		}
+		else
+		{
+			"You're still committing to the Caretakers, even with your..? \w8\w8\s[5]\i[31]WAIT, wait, that's none of my business!! \w8"
+			"RIGHT, %(Capitalize(reference1))"
+			if STRLEN(reference2) > 0; " and %(Capitalize(reference2))"
+			"...\w8\w8"
+		}
+
+		//------------
+
+		if ASEARCH("vala",_term) != -1
+		{
+			"\n\n[half]\s[1]\i[31]Hehe, I'm gonna admit to you, %(user[1]), I personally only follow Vala cause... \w8\s[3]Xe has the best stories in all the old manuscripts! \w8TOTAL girlboss, if you ignore all the petty stuff!"
+		}
+		if ASEARCH("fenr",_term) != -1
+		{
+			"\1"
+			if ASEARCH("vala",_term) != -1; "\w8\w8\s[13]Pfft. \w8\0\s[1]\1\![anim,stop,90]\i[1]\i[32]...Really, though, following Fenr, too? \w8\w8That seems extremely... \w8\s[14]\i[1]Not very compatible? \w8\w8\s[14]They hate each other and their ideals don't match at all, but. \w8\s[11]\i[12]If it \w2works for you, good for you."
+			else; "\i[13]\i[33]\0\s[1]\i[35]\1...Don't look at me. \w8\w8\0\s[1]\1\s[11]\i[13]\i[62]It's not my place to talk about \w8my opinons \w8on Fenr here. \w8\s[13]\i[32]\![anim,stop,90]Only thing I can say is that ve has the funniest personality in the old manuscripts."
+		}
+		if ASEARCH("linn",_term) != -1
+		{
+			"\1"
+			if ASEARCH("vala",_term) != -1; "\w8\w8\s[13]Pfft... \w8\0\s[1]\1\s[14]Vala and Linn, though? \w8\i[2]Not too uncommon, I suppose. \w8I just don't know much about the people who follow those two. \w8\s[11]\i[12]Nice to know, %(user[2])."
+			elseif ASEARCH("fenr",_term) != -1; "\w8\w8\n\n[half]\s[14]\i[2]My opinions on LINN, though... \w8\w8\s[11]\i[34]They're easily the most sensible Caretaker. \w8Thank you for having good taste, %(user[2]).\w8\w8\0\n\n[half]\i[35](LMAO??)"
+			else; "\0\s[1]\i[13]\i[32]\1\i[34]Ah, Linn. \w8Most sensible Caretaker. \w8Its strangely contemporary humor... \w8The way it went down to the Bramblebrush... \w8\s[13]\i[1]\i[32]\![anim,stop,90]I can \w8completely \w8understand.\w8\w8\0\n\n[half]\s[1]\i[35](Hehehe~~)"
+		}
+		if ASEARCH("pont",_term) != -1
+		{
+			if STRLEN(reference2) > 0; "\w8\w8"
+			"\1\s[11]\i[34]\0\s[1]\i[35]\i[62]\n\n[half]"
+			"...Ah, wait, we barely know anything about Pont, no one from the Bramblebrush really TALKS about them. \w8All up in the Aetherbrush and staying away from the Bramblebrush and all. \w8\1\s[11]\0\s[1]Still, cool to know!"
+		}
+	}
+
+	"\w8\w8\n\n[half]\_q\![*]\q[Back,OnUserCheck,%(reference0)]   \![*]\q[Close,blank]"
 }
