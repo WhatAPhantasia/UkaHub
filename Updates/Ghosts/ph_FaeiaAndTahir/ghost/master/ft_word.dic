@@ -44,3 +44,60 @@ tidle
 	"\s[11]\i[33]"
 	"\s[16]\i[61]\i[%(ANY(30,30,32))]"
 }
+
+//utility envelopes
+
+//colors: cyan, blue, violet, red, orange, yellow, lime, green
+
+r.green 		{if SHIORI3FW.BalloonName != "Stitched Together" || Flag("NoResoColor"); ""
+				 else; "\f[shadowcolor,tan]\f[shadowstyle,outline]\f[color,green]"}
+r.cyan 			{if SHIORI3FW.BalloonName != "Stitched Together" || Flag("NoResoColor"); ""
+				 else; "\f[shadowcolor,tan]\f[shadowstyle,outline]\f[color,darkcyan]"}
+r.blue 			{if SHIORI3FW.BalloonName != "Stitched Together" || Flag("NoResoColor"); ""
+				 else; "\f[shadowcolor,tan]\f[shadowstyle,outline]\f[color,blue]"}
+r.violet 		{if SHIORI3FW.BalloonName != "Stitched Together" || Flag("NoResoColor"); ""
+				 else; "\f[shadowcolor,tan]\f[shadowstyle,outline]\f[color,purple]"}
+r.red 			{if SHIORI3FW.BalloonName != "Stitched Together" || Flag("NoResoColor"); ""
+				 else; "\f[shadowcolor,100,70,30]\f[shadowstyle,outline]\f[color,250,100,100]"}
+r.orange 		{if SHIORI3FW.BalloonName != "Stitched Together" || Flag("NoResoColor"); ""
+				 else; "\f[shadowcolor,100,70,30]\f[shadowstyle,outline]\f[color,orange]"}
+r.yellow 		{if SHIORI3FW.BalloonName != "Stitched Together" || Flag("NoResoColor"); ""
+				 else; "\f[shadowcolor,100,70,30]\f[shadowstyle,outline]\f[color,yellow]"}
+r.lime 			{if SHIORI3FW.BalloonName != "Stitched Together" || Flag("NoResoColor"); ""
+				 else; "\f[shadowcolor,100,70,30]\f[shadowstyle,outline]\f[color,150,200,50]"}
+r.gray 			{if SHIORI3FW.BalloonName != "Stitched Together" || Flag("NoResoColor"); ""
+				 else; "\f[color,darkslategray]"}
+r.color 		{if SHIORI3FW.BalloonName != "Stitched Together" || Flag("NoResoColor"); ""
+				 else
+				 { //this LOOKS inefficient but LOOK i have no idea how else to do this. can you nest variables?! this would speed up the process
+					case _argv[0]
+					{
+						when "green"; r.green
+						when "cyan"; r.cyan
+						when "blue"; r.blue
+						when "violet"; r.violet
+						when "red"; r.red
+						when "orange"; r.orange
+						when "yellow"; r.yellow
+						when "lime"; r.lime
+						when "gray", "grey", "grayscale", "greyscale"; r.gray
+					}
+				 }
+				}
+r.fix			{"\f[shadowcolor,default]\f[shadowstyle,default]\f[color,default]"}
+
+r.elem
+{
+	case _argv[0]
+	{
+		when "green"; "aether"
+		when "cyan"; "aether-moons"
+		when "blue"; "moons"
+		when "violet"; "moons-sun"
+		when "red"; "sun"
+		when "orange"; "sun-bramble"
+		when "yellow"; "bramble"
+		when "lime"; "bramble-aether"
+		when "gray", "grey", "grayscale", "greyscale"; "none"
+	}
+}

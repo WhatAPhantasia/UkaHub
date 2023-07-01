@@ -1,5 +1,6 @@
 //Separate from the menus because you could put other interactions here, like poking or booping or punching or asking about various hotspots
 
+//Separate from the menus because you could put other interactions here, like poking or booping or punching or asking about various hotspots
 OnMouseDoubleClick
 {
 	if reference5 == 0 //reference5 is the mouse button being clicked, in this case a left click
@@ -7,45 +8,402 @@ OnMouseDoubleClick
 		//reference3 is which character is being clicked
 		//If you want to add double click interactions, reference4 will be the name of the hitbox the mouse is over
 		if reference3 == 0
-		{
-			OnSakuraMenu
-		}
+		{OnSakuraMenu}
 		else
-		{
-			OnKeroMenu
-		}
+		{OnKeroMenu}
 	}
 }
 
+OnMouseWheel
+{
+	if reference3 == 0
+	{OnSakuraMouse(20)}
+	elseif reference3 == 1
+	{OnKeroMouse(20)}
+}
 OnMouseMove
 {
-	if reference4 != ""
+	if reference3 == 0
+	{OnSakuraMouse(40)}
+	elseif reference3 == 1
+	{OnKeroMouse(40)}
+}
+
+//ftouch: pet, hair, boop, ears, resonance
+//ttouch: pet, hair, boop, ear, bad ear, resonance
+
+//—————————————————————————————— FAEIA MOUSE MOVE ——————————————————————————————
+OnSakuraMouse : nonoverlap_pool
+{
+	if reference4 == "pet"
 	{
 		stroke++
 		
-		if stroke % 40 == 0
+		if stroke >= _argv[0]
 		{
-			if reference3 == 0; OnMouseMove.Sakura
-			else; OnMouseMove.Kero
+			stroke = 0
+			tf_touch[0]++
+			rf_touch[0]++
+			
+			FPet
+		}
+	}
+	elseif reference4 == "hair"
+	{
+		stroke++
+
+		if stroke >= _argv[0]
+		{
+			stroke = 0
+			tf_touch[1]++
+			rf_touch[1]++
+
+			FHair
+		}
+	}
+	elseif reference4 == "ears"
+	{
+		stroke++
+
+		if stroke >= _argv[0]
+		{
+			stroke = 0
+			tf_touch[3]++
+			rf_touch[3]++
+
+			FEars
 		}
 	}
 }
 
-OnMouseMove.Sakura
+FPet : nonoverlap_pool
 {
-	if reference4 == "head"
+	if tf_touch[0] <= 1 //first pet!
 	{
-		"\0\s[0]Petting??"
+		"\t\1\s[11]\i[32]\0\s[1]\i[14]...Gasp. \w8Dude... \w8\![anim,stop,14]\i[12]\i[35]\i[61]I love pets..!! \w8\s[3]Isn't my hair super duper soft?!\w8\w8\1\![anim,stop,32]\i[13]\i[33]\i[62](Ah... And so it begins...)\e"
+	}
+	else
+	{
+		//they have no negative route so i can just have them being happy and silly!!! LETS GOOOOOOO
+
+		"\1\s[11]\i[32]\0\s[1]\i[34]\i[29](She seems to appreciate the gesture.)\e"
+		"\1\s[11]\i[33]\0\s[1]\i[12]\i[34](She leans into your hand, looking very smug.)\e"
+		"\1\s[11]\i[32]\0\s[1]\i[34]\i[29](She sighs contentedly.)\e"
+		"\1\s[11]\i[32]\0\s[1]\i[34]\i[29](Pet pet.)\e"
+		"\1\s[11]\i[32]\0\s[1]\i[34]\i[29](Her hair is like snow...)\e"
+
+		"\1\s[11]\i[32]\0\s[1]\i[12]\i[35]Hehehe~ \w8%(Capitalize(user[1])) is the coolest~~\e"
+		"\1\s[11]\i[32]\0\s[1]\i[34]Pat pat pat pat. \w4Very nice.\e"
+		"\1\s[11]\i[32]\0\s[1]\i[34]Hmm hmm hmm~\e"
+		"\1\s[11]\i[32]\0\s[1]\i[34]Heheh~~ \w8This reminds me of when I was a little bun...\e"
+		"\1\s[11]\i[32]\0\s[1]\i[34]Ahh, the benefits of making friends~~\e"
+
+
+		//stuff related to progression LOL (also just more recent pet stuff)
+
+		{"\1\s[11]\i[32]\0\s[1]\i[12]\i[35]Maaan~ \w8I wish more of my friends did this! \w8This is awesome~~"
+		--
+		if Flag("TPetJealous"); "\w8\w8\1\![anim,stop,32]\i[34]\i[12](He reaches over and pats her head twice, just for good measure.)\w8\w8\0\n\n[half]\s[3]Hehe, yaaay!\e"
+		elseif rf_touch[0] >= 30; "\w8\w8\1\![anim,stop,32]\i[34]\i[61]\i[90]...I could...\w8\w8\0\n\n[half]\s[1]\i[13]\i[32]..???\e"
+		elseif rf_touch[0] >= 15 || tf_touch[0] >= 30; "\w8\w8\1\![anim,stop,32]\i[33]...Are you suggesting something..?\w8\w8\w8\0\n\n[half]\![anim,stop,35]\i[33]\i[90]...Maybe...\e"}
+
+		if rf_touch[0] >= 20
+		{
+			if !Flag("TPetJealous") 
+			{"\0\s[1]\i[34]\1\s[16]\i[31]\i[61](...What's that face supposed to mean?)\e"}
+			else {
+			"\1\s[11]\i[12]\i[35]\i[62]\0\s[1]\i[35]\i[62]WOW, %(user[1]), do you EVER get tired of doing this..?!\e"
+			}
+		}
+		elseif rf_touch[0] >= 50 || tf_touch[0] >= 100
+		{
+			if !Flag("TPetJealous") 
+			{
+				"\t\0\s[1]\i[34]\1\s[16]\i[31]...Fai, \w6you're really okay with this..?\w8\w8\0\s[1]\i[13]\i[33]...Tahir. \w8\![anim,stop,13]\i[14]If you want to pet me too... \w8\1\i[90]\0\s[1]\i[35]\i[62]\![anim,stop,91]Stop being so awkward about it! \w8It's not like we're little bunnies anymore!!\w8\w8\w8\1\n\n[half]\![anim,stop,31]\i[30]....Mgnh. \w8Okay. \w8\w8...In front of %(user[2])..??\w8\w8\0\n\n[half]\s[3]PFFT, oh my VALA. \w8Dude it's fine!! \w8Look, you totally have the Faeia seal of approval to pet me whenever you want from now on~~\w8\w8\1\n\n[half]\s[15]\i[90]\![anim,stop,91]OKAY, okay, okay, okay, got it, thank you, let's stop discussing this now.\w8\w8\0\n\n[half](HAHAHAHAHA OKAY...)\![raise,OnDialogueVars,TPetJealous]\e"
+			}
+		}
 	}
 }
 
-OnMouseMove.Kero
+FHair : nonoverlap_pool
 {
-	if reference4 == "head"
+	if tf_touch[1] <= 1
 	{
-		"\1\s[10]Petting..."
+		"\t\1\s[11]\i[32]\0\s[1]\i[14]Hrm? \w8Do you want to touch my hair? \w8\w4\s[1]\i[35]I'm totally fine with that! \w8\![anim,stop,35]\i[1]\i[34]I do A LOT to get it this way though, so don't go messing it up, kay?\e"
+	}
+	else
+	{
+		"\1\s[11]\i[32]\0\s[1]\i[34]\i[29](Brush brush.)\e"
+		"\1\s[11]\i[32]\0\s[1]\i[34]\i[29](Poof poof.)\e"
 	}
 }
+
+FEars : nonoverlap_pool //haha fears
+{
+	if rf_touch[3] <= 1
+	{
+		"\t\1\s[11]\i[32]\0\s[1]\i[14]Gaaaasp, ear brushes!! \w8\s[3]My favorite!!!\w8\w8\1\s[11]\i[13]\i[34]\i[62](Oh my Linn.)\e"
+		"\t\1\s[11]\i[32]\0\s[3]Ohmygosh, ear brushies!!!! \w8Lets goooooo!!!\w8\w8\1\s[11]\i[13]\i[34]\i[62](...It's started...)\e"
+	}
+	else
+	{
+		"\1\s[11]\i[32]\0\s[3]\![anim,stop,0]\![anim,stop,90]\i[11](Her ears are very soft!)\e"
+		"\1\s[11]\i[32]\0\s[3]\![anim,stop,0]\![anim,stop,90]\i[11](Brush brush.)\e"
+		"\1\s[11]\i[32]\0\s[3]\![anim,stop,0]\![anim,stop,90]\i[11](Her ears go flat under your hand.)\e"
+
+		"\1\s[11]\i[32]\0\s[3]\![anim,stop,0]\![anim,stop,90]Heheh~~\e"
+	}
+}
+
+//—————————————————————————————— TAHIR MOUSE MOVE ——————————————————————————————
+OnKeroMouse : nonoverlap_pool
+{
+	if reference4 == "pet"
+	{
+		stroke++
+		
+		if stroke >= _argv[0]
+		{
+			stroke = 0
+			tt_touch[0]++
+			rt_touch[0]++
+			
+			TPet
+		}
+	}
+	elseif reference4 == "hair"
+	{
+		stroke++
+
+		if stroke >= _argv[0]
+		{
+			stroke = 0
+			tt_touch[1]++
+			rt_touch[1]++
+
+			THair
+		}
+	}
+	elseif reference4 == "ears"
+	{
+		stroke++
+
+		if stroke >= _argv[0]
+		{
+			stroke = 0
+			tt_touch[3]++
+			rt_touch[3]++
+
+			TEars
+		}
+	}
+	elseif reference4 == "badear"
+	{
+		stroke++
+
+		if stroke >= _argv[0]
+		{
+			stroke = 0
+			tt_touch[4]++
+			rt_touch[4]++
+
+			TBadEar
+		}
+	}
+}
+
+TPet : nonoverlap_pool
+{
+	if tt_touch[0] <= 1
+	{
+		"\t\0\s[1]\i[32]\i[14]\1\s[12]\i[90]W-What are you-- \w8\s[15]\i[31]\i[90]T-That is- \w8You're weird, %(user[2])...\w8\w8\0\s[1]\i[35]\i[62]-VALA, \w4Tahir, \w4you're so awkward!! \w8\w4You can just say you like it!\w8\w8\1\n\n[half]\![anim,stop,31]\i[30](Haaaaaaaaaaa........)\e"
+	}
+	else
+	{
+		//HE'S A MESS OK </3 HE TRIES TO BE ALL STOIC BUT HE'S REALLY A BABY OK. THATS HIM
+
+		if rt_touch[4] > 0
+		{
+			"\0\s[1]\i[32]\i[13]\1\s[11]\i[34]\i[62]\i[29](...He still looks disorientated from when you poked his ear...)\e"
+		}
+
+		if rt_touch[0] <= 5
+		{
+			"\0\s[1]\i[32]\1\s[11]\i[34]\i[90]\i[29](He's fidgeting with his hands.)\e"
+			"\0\s[1]\i[32]\1\s[11]\i[33]\i[90]\i[29](Looks like he's not sure how to respond.)\e"
+			"\0\s[1]\i[35]\1\s[11]\i[32]\i[90]\i[29](...His face blushes very easily.)\e"
+
+			"\0\s[1]\i[32]\1\s[11]\i[33]\i[90]Oh...\e"
+			"\0\s[1]\i[32]\1\s[11]\i[33]\i[90]...\e"
+
+			if tt_touch[0] >= 30
+			{
+				"\0\s[1]\i[35]\1\s[11]\i[34]\i[62]\i[13]\i[90]I-I should really be more used to this...\e"
+				"\0\s[1]\i[35]\1\s[11]\i[34]\i[62]\i[13]\i[90]Ah, this again...\e"
+			}
+		}
+		else
+		{
+			"\0\s[1]\i[32]\1\s[11]\i[34]\i[29](He lets out a slow, relaxed sigh.)\e"
+			"\0\s[1]\i[32]\1\s[11]\i[34]\i[29](Pet pet.)\e"
+			"\0\s[1]\i[32]\1\s[11]\i[34]\i[29](He hums something under his breath.)\e"
+			"\0\s[1]\i[32]\1\s[11]\i[34]\i[29](His head bobs as you pat it.)\e"
+			
+			"\0\s[1]\i[32]\1\s[11]\i[34]Hmm hmm...\e"
+			"\0\s[1]\i[32]\1\s[11]\i[34]...Appreciated, %(user[2]).\e"
+
+			if rt_touch[0] >= 20
+			{
+				"\0\s[1]\i[35]\1\s[11]\i[34]\i[62]\i[13]Pfft... \w8You can be really fascinating sometimes, %(user[2])...\e"
+			}
+		}
+	}
+}
+
+THair : nonoverlap_pool
+{
+	_b = ""
+	if rt_touch[1] < 10; _b = "\i[90]"
+
+	if tt_touch[1] <= 1
+	{
+		"\t\0\s[1]\i[32]\i[13]\1\s[11]\i[90]...Oh. \w8My hair? \w8\w8\i[33]Uh, go ahead. I don't really care. \w8\w8\![anim,stop,33]\i[34]Um, even though I don't do anything special to it, I redye my hair every month or so with...\w8\0\s[1]\i[35]You ""don't really care,"" huh..?\w8\w8\1\n\n[half]\s[16]\i[32]\i[90].....\e"
+	}
+	else
+	{
+		"\0\s[1]\i[32]\1\s[11]\i[34]\i[29]%(_b)(Wavy hair! \w6Nice to brush.)\e"
+		"\0\s[1]\i[32]\1\s[11]\i[34]\i[29]%(_b)(Brush brush.)\e"
+		"\0\s[1]\i[32]\1\s[11]\i[34]\i[29]%(_b)(Poomf poomf.)\e"
+		"\0\s[1]\i[32]\1\s[11]\i[34]\i[29]%(_b)(Very fun to fluff up.)\e"
+		"\0\s[1]\i[32]\1\s[11]\i[34]\i[29]%(_b)(Very twirly hair.)\e"
+	}
+}
+
+TEars : nonoverlap_pool //haha tears
+{
+	if tf_touch[3] <= 1; "\0\s[1]\i[13]\i[32]\1\s[14]\i[1]...??? \w8\s[14]Oh, uh, \w6go ahead... \w8\w8\s[11]\i[13]\i[34]\i[62]Just not the OTHER ear, please.\e"
+	else
+	{
+		if rf_touch[3] <= 3 {"\0\s[1]\i[32]\1\s[13]\i[1]\i[32]\![anim,stop,90]...Ah, this again...\w8\w8\0\![anim,stop,32]\i[35](Hehehe~)\e"}
+
+		"\0\s[1]\i[32]\1\s[13]\i[1]\i[32]\![anim,stop,90](His ears go flat. Brush brush.)\e"
+		"\0\s[1]\i[32]\1\s[13]\i[1]\i[32]\![anim,stop,90](His fur is thin and straight.)\e"
+	}
+}
+
+TBadEar : nonoverlap_pool
+{
+	if rf_touch[4] < 10
+	{
+		"\0\s[1]\i[13]\i[32]\1\s[12]Ah-- \w8\s[16]\i[31]\i[61]%(Capitalize(user[2])), PLEASE be careful where your hands go...\e"
+		"\0\s[1]\i[13]\i[32]\1\s[12]Ah-- \w8\s[16]\i[31]\i[61]PLEASE watch your hands, %(user[2])...\e"
+		"\0\s[1]\i[13]\i[32]\1\s[12]Ah-- \w8\s[16]\i[31]\i[61]Watch it, please.\e"
+		"\0\s[1]\i[13]\i[32]\1\s[12]Ah-- \w8\s[16]\i[31]\i[61]%(Capitalize(user[2])), could you be a little more careful?\e"
+	}
+	else
+	{
+		"\0\s[1]\i[13]\i[32]\1\s[16]\i[31]\i[61]...\e"
+	}
+}
+
+//—————————————————————————————— MOUSE CLICK ——————————————————————————————
+
+OnMouseClick
+{
+	if reference5 == 0
+	{
+		if reference3 == 0
+		{OnSakuraClick}
+		elseif reference3 == 1
+		{OnKeroClick}
+	}
+}
+
+//—————————————————————————————— FAEIA MOUSE CLICK ——————————————————————————————
+OnSakuraClick
+{
+	if reference4 == "boop"
+	{
+		tf_touch[2]++
+		rf_touch[2]++
+
+		FBoop
+	}
+	elseif reference4 == "resonance"
+	{
+		//tf_touch[4]++
+		//rf_touch[4]++
+
+		FResonance
+	}
+}
+
+FBoop : nonoverlap_pool
+{
+	"\1\s[11]\i[32]\0\s[2]\_q(Boop!)\_q\w8\n\n[half]"
+	--
+	"Woa!!!\e"
+	"Waa!!!\e"
+	"Boops?!"
+	"Boops?! \w4\1\s[13]\0\s[3]Pfffft, what are you up to?!\e"
+	"Boops?! \w4\1\s[13]\0\s[3]Hahaha, oh noooo!\e"
+	"Gah!! No!! \w4\1\s[13]\0\s[3]I've been booped!!\e"
+}
+
+FResonance : nonoverlap_pool
+{
+	//only a description cause im kinda lazy right now
+
+	"\0\i[29](Faeia's Resonance Gem. \w6A nice, light cyan, signifying a strong connection to Vala. \w8Best not to touch it.)\e"
+}
+
+//—————————————————————————————— TAHIR MOUSE CLICK ——————————————————————————————
+OnKeroClick
+{
+	if reference4 == "boop"
+	{
+		tt_touch[2]++
+		rt_touch[2]++
+
+		TBoop
+	}
+	elseif reference4 == "resonance"
+	{
+		//tt_touch[5]++
+		//rt_touch[5]++
+
+		TResonance
+	}
+	elseif reference4 == "badear"
+	{
+		//tt_touch[4]++
+		//rt_touch[4]++
+
+		TBadEar.Explain
+	}
+}
+
+TBoop : nonoverlap_pool
+{
+	"\0\s[1]\i[14]\1\s[12]\_q(Boop!)\_q\w8\n\n[half]"
+	--
+	"...Ah.\e"
+	"...Oh.\e"
+	"...Boop?\e"
+	"...May I \w8\s[11]\i[13]\i[31]ask what that was for, %(user[2])??\e"
+	"...I-- \w8\s[11]\i[13]\i[31]Very funny, %(user[2]).\e"
+}
+
+TResonance : nonoverlap_pool
+{
+	"\1\i[29](Tahir's Resonance Gem. \w6A pale, dusty orange... You think. \w8Not potent at all. \w8Best not to touch it.)\e"
+}
+
+TBadEar.Explain
+{
+	"\0\s[1]\i[13]\i[32]\1\s[11]...My ear? \w8\w8\i[14]\i[62]It's really none of your business, sorry.\e"
+}
+
 
 OnMouseLeaveAll
 {

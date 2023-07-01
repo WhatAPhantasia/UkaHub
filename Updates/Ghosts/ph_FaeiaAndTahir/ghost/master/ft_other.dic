@@ -28,6 +28,11 @@ ResonanceBlurb
 	"Resonance is the inherent energy in the Bramblebrush and residents of the Bramblebrush, and came from The Caretakers to facilitate life on the planet. Resonance is also patched into every single person, focused in a single point of their body, and the color of it indicates their element proficiency and which Caretaker favors them the most. It can be manifested and controlled through Runes, the language of The Caretakers."
 }
 
+ResoColorBlurb
+{
+	"Resonance is color based! The more saturated the color, the closer the person's connection with the color's respective Caretaker and element, while brightness shows strength!! Vala has domain over cool colors, cyan, and the moons and mind. Fenr has domain over warm colors, orange, and the sun and body. Click on your resonance color in your personal stat menu for a list of elemental affiliations!!!!"
+}
+
 BattleBlurb
 {
 	"Monsters and creatures are created from the coalesced stray Resonance from The Caretakers and their feud. They manifest as different things, from sprites, spirits, and slimes to dragons and hydras. And, with the constant wars and conflicts that erupt every few 100 years between Vala and Fenr, weapons and methods of fighting have become necessary to the regular person."
@@ -54,7 +59,7 @@ OnAnchorSelect
 			{
 				"\0\b2\_q\![set,autoscroll,disable]"
 				--
-				"One of Faeia's best friends, her and main travelling companion. He's a mid-20-something rabbit-hare rogue, who grew up wandering around Fenara. They met when Faeia was in her first year at the Valarian Elevated Academy of Resonance: He was cornered in the Academy town, and she helped him!! As her real first look into Fenara life, she loved sticking around and bothering him, and they just became friends :)"
+				"One of Faeia's best friends, and her main travelling companion. He's a mid-20-something rabbit-hare rogue, who grew up wandering around Fenara. They met when Faeia was in her first year at the Valarian Elevated Academy of Resonance: He was cornered in the Academy town, and she helped him!! As her real first look into Fenara life, she loved sticking around and bothering him, and they just became friends :)"
 				--
 				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 			}
@@ -101,6 +106,18 @@ OnAnchorSelect
 				--
 				ResonanceBlurb
 				--
+				"\n\n\![*]\_a[AFQ.Color]RESONANCE COLOR DETAILS\_a"
+				--
+				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+			}
+			when "AFQ.Color"
+			{
+				"\0\b2\_q\![set,autoscroll,disable]"
+				--
+				ResoColorBlurb
+				--
+				"\n\n\![*]\_a[AFQ.Magic]RESONANCE DETAILS\_a"
+				--
 				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			when "AFQ.Battle"
@@ -124,7 +141,7 @@ OnAnchorSelect
 			{
 				"\1\b2\_q\![set,autoscroll,disable]"
 				--
-				"A close companion to Tahir. Met Faeia during her first year at her academy, when she saved him from Fellspire assassins. First irked by her constant insistence on talking to him and frightening ability of finding him, but grew to admire her tenacity and knowledge."
+				"A close companion to Tahir. Met Faeia during her first year at her academy, when she saved him from some ""thugs."" First irked by her constant insistence on talking to him and frightening ability of finding him, but grew to admire her tenacity and knowledge."
 				--
 				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 			}
@@ -165,6 +182,18 @@ OnAnchorSelect
 				"\1\b2\_q\![set,autoscroll,disable]"
 				--
 				ResonanceBlurb
+				--
+				"\n\n\![*]\_a[ATQ.Color]RESONANCE COLOR DETAILS\_a"
+				--
+				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
+			}
+			when "ATQ.Color"
+			{
+				"\1\b2\_q\![set,autoscroll,disable]"
+				--
+				ResoColorBlurb
+				--
+				"\n\n\![*]\_a[ATQ.Magic]RESONANCE DETAILS\_a"
 				--
 				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 			}
@@ -242,9 +271,9 @@ On_portalrootbutton.caption {"Misc Links + Credit"}
 //These are the websites linked in the second option of the sakura's right click menu. Same as above
 portalsites_sakura : array
 {
-	"Download Page"; "https://phantasiaukahub.carrd.co/#faeia-and-tahir"
+	"Download Page"; "https://whataphantasia.github.io/projects/ukagaka/ghosts/faeia-and-tahir"
 	"Changelog (G. Docs)"; "https://docs.google.com/document/d/10yy69A5hkizTPMh1mmRISIDg8M3JMfOdL9abrYmme20/edit?usp=sharing"
-	"Phantasia's Carrd"; "https://whataphantasia.carrd.co/"
+	"Phantasia's Website"; "https://whataphantasia.github.io/"
 	""; ""
 	"Simplicity v1.0.3"; "https://github.com/Zichqec/simplicity_template"
 	"Ukagaka Dream Team Wiki"; "https://ukagakadreamteam.com/wiki/"

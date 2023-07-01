@@ -3,7 +3,7 @@ type,shell
 
 name,DEFAULT
 craftman,WhatAPhantasia
-craftmanurl,https://phantasiaukahub.carrd.co
+craftmanurl,https://whataphantasia.github.io/projects/ukagaka/
 
 seriko.alignmenttodesktop,bottom
 seriko.use_self_alpha,1

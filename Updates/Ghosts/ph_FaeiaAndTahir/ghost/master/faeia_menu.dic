@@ -9,7 +9,7 @@ SakuraMenuGreetings : nonoverlap
 OnSakuraMenu : all
 {
 	"\0\s[1]\b2\![set,autoscroll,disable]"
-	if SHIORI3FW.Eventid == "OnMouseDoubleClick"; SakuraMenuGreetings //The check here is so they won't comment if you click the back button. Remove if you prefer
+	if SHIORI3FW.Eventid == "OnMouseDoubleClick"; SakuraMenuGreetings
 	
 	"\n\n\_q"
 	
@@ -17,7 +17,8 @@ OnSakuraMenu : all
 	if LastTalk != ""; "  \![*]\q[Say that again,OnLastTalk]"
 	"\n\n"
 
-	"\![*]\q[Stats,OnFaeiaCheck]\n"
+	"\![*]\q[Your Stats,OnUserCheck,0]\n"
+	"\![*]\q[Faeia's Stats,OnFaeiaCheck]\n"
 
 	"\![*]\q[Ask Questions,OnFQuestionMenu]\n\n"
 
@@ -36,7 +37,7 @@ OnLastTalk
 	LastTalk
 }
 
-//—————————————————————————————— Faeia's Stats ——————————————————————————————
+//—————————————————————————————— Stats ——————————————————————————————
 
 FaeiaBlurb
 {
@@ -54,11 +55,224 @@ OnFaeiaCheck : all
 	"\n\n"
 
 	"\![*]Caretaker: \f[color,default.anchor]Vala\n\f[color,default]"
-	"\![*]Resonance: \f[color,default.anchor]Cyan (Strong Air + Water)\n\f[color,default]"
+	"\![*]Resonance: \f[color,default.anchor]Cyan (Strong Aether + Moons)\n\f[color,default]"
 	"\![*]Species: \f[color,default.anchor]Rabbit\n\f[color,default]"
 	"\![*]Class: \f[color,default.anchor]Mage\n\f[color,default]"
 
 	"\n\![*]\q[Back,OnSakuraMenu]  \![*]\q[Close,blank]"
+}
+
+UserBlurb : nonoverlap_pool
+{
+	//species, class, resonance, caretaker
+	if (userinfo[0] == "rabbit-hare" || userinfo[0] == "hare-rabbit") && userinfo[1] == "rogue" && (userinfo[2][0] == "orange" || userinfo[2][0] == "lime") && (userinfo[3] == "fenr,linn" || userinfo[3] == "linn,fenr")
+	{
+		"Seems a little uninspired."
+		"If I didn't know any better, I'd say you were Tahir."
+		"So there CAN be two of one rogue."
+		if userinfo[2][0] == "lime"; "You two are closer than I thought."
+	}
+	elseif userinfo[0] == "rabbit" && userinfo[1] == "mage" && userinfo[2][0] == "cyan" && userinfo[3] == "vala"
+	{
+		"Seems kind of familiar, doesn't it?"
+		"Valarian Rabbit-mages are common, but this seems ridiculous."
+		"Like seeing an icy double. Spooky."
+	}
+	elseif userinfo == ("unknown","wanderer","unknown","none") || (userinfo[0] == "unknown" && userinfo[2] == "unknown" && userinfo[3] == "none")
+	{
+		"You have so much potential. Who exactly are you?"
+		"Don't worry-- You can change this at any time."
+		"A blank slate. Very flexible!"
+		"Staying a mystery, huh?"
+	}
+	else
+	{
+		"It's you! Change anything to your liking. Your ""self"" will always remain."
+
+		//---special cases---
+		if userinfo[2][0] == "grayscale" && userinfo[3] != "none"
+		{
+			"And yet you still believe in the Caretakers."
+			"You don't like the notion of being thrown away."
+		}
+
+		//---generic cases---
+		if RE_ASEARCH("rabbit",userinfo[0]) != -1
+		{
+			"You fit in well enough, despite everything."
+			"There's always a place for you in the Bramblebrush."
+		}
+		if RE_ASEARCH("hare",userinfo[0]) != -1
+		{
+			"You have a bit of an independence streak."
+			"Longer legs for longer strides."
+		}
+		if RE_ASEARCH("pika",userinfo[0]) != -1
+		{
+			"You seem a little more used to the cold."
+			"Small, nimble, and very fuzzy."
+		}
+		if RE_ASEARCH("rabbit",userinfo[0]) == -1 || RE_ASEARCH("hare",userinfo[0]) == -1 || RE_ASEARCH("pika",userinfo[0]) == -1
+		{
+			"It's a little lonely in the Bramblebrush for someone like you."
+			"You don't completely come from the Bramblebrush, do you?"
+		}
+		case userinfo[1]
+		{
+			when "wanderer"
+			{
+				"Nothing wrong with being a jack of all trades."
+				"Where will the roads take you next?"
+			}
+			when "fighter"
+			{
+				"A formidable amount of vigour."
+				"Enjoying those extra health points?"
+			}
+			when "mage"
+			{
+				"Untapping the endless possibilities of Runes."
+				"Be careful with that Resonance, now."
+			}
+			when "rogue"
+			{
+				"Sneaky sneaky, quick and sharp."
+				"They'll never see you coming."
+			}
+			others
+			{
+				"How come you don't have a class..?"
+			}
+		}
+		case userinfo[2][0]
+		{
+			when "green"
+			{
+				"May the winds always stay in your sails."
+				"You feel the Aether flowing through you."
+			}
+			when "cyan"
+			{
+				"Your Resonance feels kind of chilly."
+				"Feels like snow crunching underfoot."
+			}
+			when "blue"
+			{
+				"You can almost hear the trickling of water."
+				"Where will the flow of the moons take you?"
+			}
+			when "violet"
+			{
+				"Fire and water. What an interesting predicament."
+				"The elements around you form a humid mist."
+			}
+			when "red"
+			{
+				"Be careful not to get burned."
+				"Sounds like crackling firewood."
+			}
+			when "orange"
+			{
+				"Bubbling lava, leaves that singe."
+				"Like rust on an old bike."
+			}
+			when "yellow"
+			{
+				"You feel more grounded in the soil."
+				"Would they still love you if you were a worm?"
+			}
+			when "lime"
+			{
+				"The flora around you always has enough life."
+				"You never get lost in the underbrush."
+			}
+			when "grayscale"
+			{
+				"You like to see the world as it is."
+				"Who needs the elements anyways, right?"
+			}
+			others
+			{
+				"You're not quite sure what Resonance is, and at this point you're too afraid to ask."
+			}
+		}
+		if RE_ASEARCH("vala",userinfo[3]) != -1
+		{
+			"Cheers to you, in hopes to be as silver-tongued as Vala."
+			"With a clever smile and a darkened hand."
+		}
+		if RE_ASEARCH("fenr",userinfo[3]) != -1
+		{
+			"You liked the headstrong figures in the old manuscripts."
+			"Are you as quick to action as Fenr is?"
+		}
+		if RE_ASEARCH("linn",userinfo[3]) != -1
+		{
+			"Like Linn, you believe retreat is the best form of victory."
+			"You feel for the bystanders in times of conflict."
+		}
+		if RE_ASEARCH("pont",userinfo[3]) != -1
+		{
+			"Is it lonely, committing to an almost-forgotten Caretaker?"
+			"You can faintly hear a soft voice from the Aetherbrush."
+		}
+		if userinfo[3] == "none"
+		{
+			"You're more detached from The Caretakers than most."
+			"You don't concern yourself with the affairs of The Caretakers."
+		}
+	}
+}
+
+OnUserCheck : all
+{
+	_settings = "OnSakuraMenu"
+	if reference0 == 1; _settings = "OnKeroMenu"
+
+	if reference0; "\1"
+	else; "\0"
+
+	if reference1 == "closeinput"; "\![close,inputbox,__SYSTEM_ALL_INPUT__]"
+	
+	"\b2\_q\![set,autoscroll,disable]"
+	"\f[align,center]\f[bold,1]-- %(TOUPPER(user[0])) --\n\f[bold,default]"
+	"\f[size,-2](Change your names in master settings!)\n\n"
+	"\f[size,default]\f[align,default]"
+
+	UserBlurb
+	"\n\n"
+
+	//LMAO i made the user info array out of order but i dont want to change it AJWDOAJWDI
+
+	"\![*]Caretaker: \_a[OnCaretaker,%(reference0)]"
+	"%(Capitalize(userinfo[3][0]))"
+	if STRLEN(userinfo[3][1]) > 0; " & %(Capitalize(userinfo[3][1]))"
+	"\_a\n"
+
+	"\![*]Resonance: \_a[OnResonance,%(reference0)]"
+	if userinfo[2][0] != "grayscale"
+	{
+		if userinfo[2][1] == "strong"; "Vivid"
+		elseif userinfo[2][1] == "weak"; "Pale"
+		" %(Capitalize(userinfo[2][0]))\_a\f[color,default.anchor] "
+		"(%(Capitalize(userinfo[2][1])) %(Capitalize(r.elem(userinfo[2][0]))))"
+	}
+	else
+	{
+		if userinfo[2][1] == "strong"; "White"
+		elseif userinfo[2][1] == "weak"; "Black"
+		else; "Gray"
+		"\_a\f[color,default.anchor]"
+		" (%(Capitalize(userinfo[2][1])), No Elemental Affinity)"
+	}
+	"\n\f[color,default]"
+
+	"\![*]Species: \_a[OnSpecies,%(reference0)]%(Capitalize(userinfo[0]))\_a\n"
+
+	"\![*]Class: \_a[OnClass,%(reference0)]%(Capitalize(userinfo[1]))\_a\n"
+
+
+	"\n\![*]\q[Back,%(_settings)]  \![*]\q[Close,blank]"
 }
 
 //—————————————————————————————— Question Menu ——————————————————————————————
@@ -70,12 +284,8 @@ OnFQuestionMenu : all
 	"\f[color,disable]\f[size,-2](Click the pin next to the question for an overall rundown!)\n\n"
 	"\f[color,default]\f[size,default]\f[align,default]"
 
-	if !Flag("FQFaeia"); "\![*]\q[Herself,OnFQ.Faeia]\n"
-	else; "\_a[AFQ.Faeia]\![*]\_a\q[Herself,OnFQ.Faeia]\n"
-	
-	if !Flag("FQTahir"); "\![*]\q[Tahir,OnFQ.Tahir]\n"
-	else; "\_a[AFQ.Tahir]\![*]\_a\q[Tahir,OnFQ.Tahir]\n"
-
+	"\_a[AFQ.Faeia]\![*]\_a\q[Herself,OnFQ.Faeia]\n"
+	"\_a[AFQ.Tahir]\![*]\_a\q[Tahir,OnFQ.Tahir]\n"
 	"\_a[AFQ.People]\![*]\_a\q[Other People,OnFQ.People]\n"
 
 	"\n[half]"
@@ -89,7 +299,7 @@ OnFQuestionMenu : all
 	"\n\![*]\q[Back,OnSakuraMenu]  \![*]\q[Close,blank]"
 }
 
-OnFQ.Faeia
+OnFQ.Faeia : nonoverlap_pool
 {
 	if !Flag("FQFaeia")
 	{AddFlag("FQFaeia")
@@ -98,13 +308,13 @@ OnFQ.Faeia
 	{
 		"\0\s[4]Hmmm... \w8I actually just graduated with a Silver Degree from the Valarian Academy of Resonance, like, a few months ago, and I got tons of certificates for Resonance use... \w8\s[3]\![anim,stop,90]It was fun, and I learned a lot! \w8\w8I figure once I've done all I wanted to out here, maybe I can go back and get a higher degree..."
 		"\0\s[4]I love pastries... \w6Especially if they're sweet!! \w8\w8\s[1]\i[31]Hehehe, maybe you can buy me some..?!?!\w8\w8\1\s[11]\i[33]Fai, we're not extorting %(user[2])."
-		"\0\s[1]\i[14]My hair isn't naturally white... \w8\s[1]\i[33]Um, obviously. \w8\w8\s[1]\i[35]\i[62]Big Resonance accident happened. \w8Free hair dye, I guess??"
+		"\0\s[1]\i[14]My hair isn't naturally white... \w8\s[1]\i[33]Um, obviously. \w8\w8\s[1]\i[35]\i[62]Big Resonance accident happened. \w8I kinda miss my black hair, but I mean, I'm not against the white... \w8Free hair dye! \w6Yay!"
 	}
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }
 
-OnFQ.Tahir
+OnFQ.Tahir : nonoverlap_pool
 {
 	if !Flag("FQTahir")
 	{AddFlag("FQTahir")
@@ -128,39 +338,40 @@ OnFQ.People
 	//"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }
 
-OnFQ.Vala
+OnFQ.Vala : nonoverlap_pool
 {
-	"\0\s[1]I like adventuring around, but at the end of the day, Valaria's where I'm most comfortable... \w8\i[34]\i[62]All the crunchy snow and soft lantern lighs~~ \w8The familiar stone architecture~~ \w8\s[3]No place like home, y'know?"
+	"\0\s[1]I like adventuring around, but at the end of the day, Valaria's where I'm most comfortable... \w8\i[34]\i[62]All the crunchy snow and soft lantern lights~~ \w8The familiar stone architecture~~ \w8\s[3]No place like home, y'know?"
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }
 
-OnFQ.Gods
+OnFQ.Gods : nonoverlap_pool
 {
-	"\0\s[4]You probably already know this, but \s[1]\i[35]\i[61]YEAH, the feud between Vala and Fenr is STUPID!! \w8\w8\i[1]Like, why'd you make people to fight your battles FOR you? \w8Manage your own problems! \w8Sheesh! \w8\w4\s[5]\i[1]\i[31]\![anim,stop,91]Sucks even more cause people between Valaria and Fenara just hate each other for no reason now..."
+	"\0\s[4]You probably already know this, but \s[1]\i[35]\i[61]YEAH, I think the feud between Vala and Fenr is STUPID!! \w8\w8\i[1]Like, why'd you make people to fight your battles FOR you? \w8Manage your own problems! \w8Sheesh! \w8\w4\s[5]\i[1]\i[31]\![anim,stop,91]Sucks even more cause people between Valaria and Fenara just hate each other for no reason now..."
 	"\0\s[1]\i[1]Vala's fashion in all the old manuscripts of her... \w8\i[35]I hope those manuscripts are accurate, because WOW are they COOL!! \w8\s[3]\![anim,stop,0]I totally don't model anything after them or anything..."
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }
 
-OnFQ.World
+OnFQ.World : nonoverlap_pool
 {
-	"\1\s[11]\i[32]\0\s[1]\i[1]\i[32]Ooh, one of my favorite places we've gone is definitely Melody Mine City! \w8\![anim,stop,32]\i[34]It's on the Fenara coast, and the vibes are just so... \w8\i[62]Ahh, what's the word? \w8Beachy? \w2Vacationy? \w8\s[6]It's sooo cool! \w8They're even more lenient on Valarian presence there~\w8\w8\1I enjoy visiting it as well... \w4ust didn't expect you to like it so much. \w8It's nice.\0"
+	"\1\s[11]\i[32]\0\s[1]\i[1]\i[32]Ooh, one of my favorite places we've gone is definitely Melody Mine City! \w8\![anim,stop,32]\i[34]It's on the Fenara coast, and the vibes are just so... \w8\i[62]Ahh, what's the word? \w8Beachy? \w2Vacationy? \w8\s[4]It's sooo cool! \w8They're even more lenient on Valarian presence there~\w8\w8\1I enjoy visiting it as well... \w4Just didn't expect you to like it so much. \w8\i[34]\i[13]It's nice.\0"
 	"\0\s[1]\i[1]The place we found you was in The Aetherbrush, which is what the lands in the clouds above the surface of the Bramblebrush is called. \w8\i[34]Patchwork mountain is the point most people ascend to get there, cause it's also the one pathway to The Caretaker's domain... \w8\w8\s[5]\i[31]Ooph, it's always a pain to go up, though..."
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }
 
-OnFQ.Magic
+OnFQ.Magic : nonoverlap_pool
 {
-	"\0I'm GOOD at making runes~~!! \w8I wasn't top of my class for nothing!"
-	"\0\s[1]\i[1]My cyan Resonance makes it so I'm just more naturally inclined towards the Aether and Moons, \i[35]but that doesn't mean I can't do any Bramble or Sun Runes! \w8\i[62]It just takes a little more effort, haha..."
+	"\0\s[1]\i[35]I'm GOOD at making runes~~!! \w8I don't really like Alnoth's system, so I break away from it a lot, but I wasn't top of my class for nothing!"
+	"\0\s[1]\i[1]My cyan Resonance makes it so I'm just more naturally inclined towards the Aether and Moons, \i[35]but that doesn't mean I can't do any Bramble or Sun Runes! \w8\i[62]It just takes a little more outta me, haha..."
 	"\0\s[1]\i[13]\i[33]...I guess I was lucky for being made with such a vivid Resonance. \w8\s[6]\![anim,stop,91]Really, though, I'd like to imagine much of my proficiency comes from me putting so much effort into studying this stuff!"
+	"\0\s[1]\i[34]\i[62]Having a Resonance Point on my chest kinda sucks when I overdrive my Resonance, cause I get REALLY painful chest aches... \w8\s[5]\i[31]Doesn't happen too often anymore cause the academy did wonders for my capacity for it, but it feels like I'm DYING when it does..!"
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }
 
-OnFQ.Battle
+OnFQ.Battle : nonoverlap_pool
 {
 	"\0\s[1]\i[14]\i[34]\i[62]I'm gonna be honest, I'm not too great at close range attacks, when it comes to Resonance... \w8\s[4]If I were to use a rune, I'd use an explosion one... \w8\w2\s[1]\i[1]\i[35]But also, it's way easier to just hit people with my staff!! \w8\w8\s[9]The blade is made from SOLID eucanium! \w8\s[1]\i[2]\i[35]Of course I'm gonna use it!!!"
 	"\0\s[1]\i[1]\i[34]Hehe... \w8My favorite monster is DEFINITELY water slimes. \w8\s[3]There's just so many variations of them, and they're sooo cute and squishy!! \w8There's so much research into the benefits of every one of their byproducts... \w8It's just so interesting~~"
@@ -185,25 +396,36 @@ OnSakuraSettings : all
 	"\![*]Your name is \_a[OnName,0]%(user[0])\_a.\n"
 	"\![*]Faeia calls you \_a[OnNickname,0]%(user[1])\_a.\n"
 	"\![*]Your pronouns: \_a[OnPronouns,0]%(Capitalize(they))/%(Capitalize(them))\_a\n\n"
-	
-	"\![*]To them, "
-	if userinfo[0] == "unknown"; "they don't know\nwhat \_a[OnSpecies,0]species\_a you are."
-	else; "you are\n%(vwl(userinfo[0],'a','an')) %(userinfo[0])."
-	"\n"
-	
-	"\![*]They also think\nyou're %(vwl(userinfo[1],'a','an')) \_a[OnClass,0]%(userinfo[1])\_a\n"
-	"with %(vwl(userinfo[2],'a','an')) \_a[OnResonance,0]%(userinfo[2])\_a resonance.\n\n"
 
-	"\![*]\q[Change talk rate,OnTalkRateMenu,0]\n"
+	"\![*]\q[Toggle Resonance Text Color,OnToggleResoC,0]\n"
+	if !Flag("NoResoColor") {"(FULL COLORS)"}
+	else {"(NO COLORS)"}
+	"\n\n"
+
+	"\![*]\q[Change talk rate,OnTalkRateMenu,0]\n\n"
+
 	"\![*]\q[RESET,OnResetConfirm,0]\n\n"
 	
 	"\![*]\q[Back,OnSakuraMenu]  \![*]\q[Nevermind,blank]"
+}
+
+OnToggleResoC
+{
+	if !Flag("NoResoColor") 
+	{AddFlag("NoResoColor")}
+	else 
+	{RemoveFlag("NoResoColor")}
+	--
+	if reference0; OnKeroSettings
+	else; OnSakuraSettings
 }
 
 OnResetConfirm : all
 {
 	_settings = "OnSakuraSettings"; if reference0; _settings = "OnKeroSettings"
 	"\%(reference0)"
+
+	"\n\n"
 
 	"\_q\f[align,center](Are you sure? This will remove all your progress.)\n\n"
 

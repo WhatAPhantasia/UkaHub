@@ -104,6 +104,12 @@ kero.surface.alias
 //Fallback Faeia
 surface0
 {
+	collisionex0,pet,regions,hotspot10.png,255,0,0
+	collisionex1,hair,regions,hotspot10.png,0,255,0
+	collisionex2,ears,regions,hotspot10.png,0,0,255
+	collisionex3,boop,regions,hotspot10.png,0,0,0
+	collisionex4,resonance,regions,hotspot10.png,0,255,255
+
 	element0,overlay,surface100.png,0,0
 	element1,overlay,surface160.png,0,0
 	
@@ -133,21 +139,39 @@ surface0
 //base pose
 surface1
 {
+	collisionex0,pet,regions,hotspot10.png,255,0,0
+	collisionex2,ears,regions,hotspot10.png,0,0,255
+	collisionex3,boop,regions,hotspot10.png,0,0,0
+
 	element0,overlay,surface100.png,0,0
 	
 	//---replace body pose
-	//yes i know it starts at 0 but 1 makes more sense lol
+	//base (this is only so collisions will work. this basically does nothing)
+	animation0.interval,runonce
+	animation0.pattern0,overlay,99,0,0,0
+	
+	animation0.collisionex1,hair,regions,hotspot10.png,0,255,0
+	animation0.collisionex4,resonance,regions,hotspot10.png,0,255,255
+
 	//point up
 	animation1.interval,never
 	animation1.pattern0,replace,101,0,0,0
 	
 	//hold staff
 	animation2.interval,never
-	animation2.pattern0,replace,500,0,0,0
+	animation2.pattern0,stop,0
+	animation2.pattern1,replace,500,0,0,0
+
+	animation2.collisionex1,hair,regions,hotspot11.png,0,255,0
+	animation2.collisionex4,resonance,regions,hotspot11.png,0,255,255
 	
 	//bring staff forward!!
 	animation3.interval,never
-	animation3.pattern0,replace,501,0,0,0
+	animation3.pattern0,stop,0
+	animation3.pattern1,replace,501,0,0,0
+	
+	animation3.collisionex1,hair,regions,hotspot12.png,0,255,0
+	animation3.collisionex4,resonance,regions,hotspot12.png,0,255,255
 	
 	//---mouth
 	//:3
@@ -156,30 +180,34 @@ surface1
 	
 	//:D
 	animation11.interval,never
-	animation11.pattern0,parallelstop,(10,29)
+	animation11.pattern0,parallelstop,(10,28)
 	animation11.pattern1,overlay,111,0,0,0
 	
 	//:D teef
 	animation12.interval,never
-	animation12.pattern0,parallelstop,(10,29)
+	animation12.pattern0,parallelstop,(10,28)
 	animation12.pattern1,overlay,112,0,0,0
 	
 	//:<
 	animation13.interval,never
-	animation13.pattern0,parallelstop,(10,29)
+	animation13.pattern0,parallelstop,(10,28)
 	animation13.pattern1,overlay,113,0,0,0
 	
 	//:o
 	animation14.interval,never
-	animation14.pattern0,parallelstop,(10,29)
+	animation14.pattern0,parallelstop,(10,28)
 	animation14.pattern1,overlay,114,0,0,0
 	
 	//:3 talking
-	animation29.interval,talk,3
-	animation29.pattern0,stop,10
-	animation29.pattern1,overlay,111,0,0,0
-	animation29.pattern2,overlay,-1,200-250,0,0
-	animation29.pattern3,start,10
+	animation28.interval,talk,3
+	animation28.pattern0,stop,10
+	animation28.pattern1,overlay,111,0,0,0
+	animation28.pattern2,overlay,-1,200-250,0,0
+	animation28.pattern3,start,10
+
+	//stop that!!
+	animation29.interval,never
+	animation29.pattern0,stop,28
 	
 	// eughh scrapped remains of attempts to have talking anims for both :3 and :< mouths...
 	//:<
@@ -275,6 +303,12 @@ surface1
 //shock faeia
 surface2
 {
+	collisionex0,pet,regions,hotspot20.png,255,0,0
+	collisionex1,hair,regions,hotspot20.png,0,255,0
+	collisionex2,ears,regions,hotspot20.png,0,0,255
+	collisionex3,boop,regions,hotspot20.png,0,0,0
+	collisionex4,resonance,regions,hotspot20.png,0,255,255
+
 	element0,overlay,surface200.png,0,0,0
 	
 	//blush
@@ -293,6 +327,12 @@ surface2
 //yay faeia
 surface3
 {
+	collisionex0,pet,regions,hotspot25.png,255,0,0
+	collisionex1,hair,regions,hotspot25.png,0,255,0
+	collisionex2,ears,regions,hotspot25.png,0,0,255
+	collisionex3,boop,regions,hotspot25.png,0,0,0
+	collisionex4,resonance,regions,hotspot25.png,0,255,255
+
 	element0,overlay,surface250.png,0,0,0
 	
 	//tail wag
@@ -300,6 +340,26 @@ surface3
 	animation0.interval,always
 	animation0.pattern0,replace,251,350,0,0
 	animation0.pattern1,replace,250,350,0,0
+
+	//open mouth
+	animation10.interval,runonce
+	animation10.pattern0,overlay,252,0,0,0
+
+	//close mouth
+	animation11.interval,never
+	animation11.pattern0,parallelstop,(10,28)
+	animation11.pattern1,overlay,253,0,0,0
+
+	//talking
+	animation28.interval,talk,8
+	animation28.pattern0,stop,10
+	animation28.pattern1,overlay,253,0,0,0
+	animation28.pattern2,overlay,-1,200,0,0
+	animation28.pattern3,start,10
+
+	//stop it >:[ (not sure if this is needed tbh but you never know)
+	animation29.interval,never
+	animation29.pattern0,stop,28
 	
 	//blush
 	animation90.interval,runonce
@@ -309,18 +369,40 @@ surface3
 //think faeia
 surface4
 {
+	collisionex0,pet,regions,hotspot30.png,255,0,0
+	collisionex1,hair,regions,hotspot30.png,0,255,0
+	collisionex2,ears,regions,hotspot30.png,0,0,255
+	collisionex3,boop,regions,hotspot30.png,0,0,0
+	collisionex4,resonance,regions,hotspot30.png,0,255,255
+
 	element0,overlay,surface300.png,0,0,0
 }
 
 //worry faeia
 surface5
 {
+	collisionex3,boop,regions,hotspot35.png,0,0,0
+	collisionex4,resonance,regions,hotspot35.png,0,255,255
+
 	element0,overlay,surface350.png,0,0,0
 	//why did i set this up like this... give me a sec
+
+	//anim0 for collisions
+	animation0.interval,runonce
+	animation0.pattern0,overlay,99,0,0,0
 	
+	animation0.collisionex0,pet,regions,hotspot35.png,255,0,0
+	animation0.collisionex1,hair,regions,hotspot35.png,0,255,0
+	animation0.collisionex2,ears,regions,hotspot35.png,0,0,255
+
 	//hold self base
 	animation1.interval,never
-	animation1.pattern0,replace,351,0,0,0
+	animation1.pattern0,stop,0
+	animation1.pattern1,replace,351,0,0,0
+	
+	animation1.collisionex0,pet,regions,hotspot36.png,255,0,0
+	animation1.collisionex1,hair,regions,hotspot36.png,0,255,0
+	animation1.collisionex2,ears,regions,hotspot36.png,0,0,255
 	
 	//happy mouth
 	animation10.interval,runonce
@@ -337,8 +419,33 @@ surface5
 	
 	//look eye
 	animation31.interval,never
-	animation31.pattern0,stop,30
+	animation31.pattern0,parallelstop,(30,59)
 	animation31.pattern1,overlay,355,0,0,0
+
+	//close eye
+	animation32.interval,never
+	animation32.pattern0,parallelstop,(30,59)
+	animation32.pattern1,overlay,356,0,0,0
+
+	//blinkblink
+	animation59.interval,random,4
+	animation59.pattern0,stop,30
+	animation59.pattern1,overlay,356,0,0,0
+	animation59.pattern2,overlay,-1,70-80,0,0
+	animation59.pattern3,overlay,356,0,0,0
+	animation59.pattern4,overlay,-1,100-120,0,0
+	animation59.pattern5,overlay,356,0,0,0
+	animation59.pattern6,overlay,-1,90,0,0
+	animation59.pattern7,start,30
+
+	//sad brow
+	animation60.interval,runonce
+	animation60.pattern0,overlay,357,0,0,0
+
+	//norm brow
+	animation61.interval,never
+	animation61.pattern0,stop,60
+	animation61.pattern1,overlay,358,0,0,0
 	
 	//blush
 	animation90.interval,never
@@ -356,6 +463,12 @@ surface5
 //grumpy faeia
 surface6
 {
+	collisionex0,pet,regions,hotspot40.png,255,0,0
+	collisionex1,hair,regions,hotspot40.png,0,255,0
+	collisionex2,ears,regions,hotspot40.png,0,0,255
+	collisionex3,boop,regions,hotspot40.png,0,0,0
+	collisionex4,resonance,regions,hotspot40.png,0,255,255
+
 	element0,overlay,surface400.png,0,0,0
 	
 	//blush
@@ -374,12 +487,24 @@ surface6
 //front magic faeia
 surface7
 {
+	collisionex0,pet,regions,hotspot20.png,255,0,0
+	collisionex1,hair,regions,hotspot20.png,0,255,0
+	collisionex2,ears,regions,hotspot20.png,0,0,255
+	collisionex3,boop,regions,hotspot20.png,0,0,0
+	collisionex4,resonance,regions,hotspot20.png,0,255,255
+
 	element0,overlay,surface450.png,0,0,0
 }
 
 //front swing faeia
 surface8
 {
+	collisionex0,pet,regions,hotspot21.png,255,0,0
+	collisionex1,hair,regions,hotspot21.png,0,255,0
+	collisionex2,ears,regions,hotspot21.png,0,0,255
+	collisionex3,boop,regions,hotspot21.png,0,0,0
+	collisionex4,resonance,regions,hotspot21.png,0,255,255
+
 	element0,overlay,surface550.png,0,0,0
 }
 
@@ -387,9 +512,27 @@ surface8
 surface9
 {
 	element,overlay,surface600.png,0,0,0
-	
+
+	//girl help
+	animation0.interval,runonce
+	animation0.pattern0,overlay,99,0,0,0
+
+	animation0.collisionex0,pet,regions,hotspot13.png,255,0,0
+	animation0.collisionex1,hair,regions,hotspot13.png,0,255,0
+	animation0.collisionex2,ears,regions,hotspot13.png,0,0,255
+	animation0.collisionex3,boop,regions,hotspot13.png,0,0,0
+	animation0.collisionex4,resonance,regions,hotspot13.png,0,255,255
+
+	//bonk
 	animation10.interval,never
-	animation10.pattern0,replace,601,0,0,0
+	animation10.pattern0,stop,0
+	animation10.pattern1,replace,601,0,0,0
+
+	animation10.collisionex0,pet,regions,hotspot14.png,255,0,0
+	animation10.collisionex1,hair,regions,hotspot14.png,0,255,0
+	animation10.collisionex2,ears,regions,hotspot14.png,0,0,255
+	animation10.collisionex3,boop,regions,hotspot14.png,0,0,0
+	animation10.collisionex4,resonance,regions,hotspot14.png,0,255,255
 }
 
 //—————————————————————————————— Kero surfaces ——————————————————————————————
@@ -397,6 +540,12 @@ surface9
 //Fallback Tahir
 surface10
 {
+	collisionex0,pet,regions,hotspot110.png,255,0,0
+	collisionex1,hair,regions,hotspot110.png,0,255,0
+	collisionex2,ears,regions,hotspot110.png,0,0,255
+	collisionex3,boop,regions,hotspot110.png,0,0,0
+	collisionex4,badear,regions,hotspot110.png,0,0,200
+
 	element0,overlay,surface1100.png,0,0
 	element1,overlay,surface1160.png,0,0
 	
@@ -426,19 +575,40 @@ surface10
 //tahir base
 surface11
 {
+	collisionex3,boop,regions,hotspot110.png,0,0,0
+
 	element0,overlay,surface1100.png,0,0
 	
 	//collisionex0,hair,polygon,158,158,324,158,324,292,277,277,298,236,298,208,236,208,217,292,158,292
 	//ehhh.. do collisions later
 	
 	//---replace body pose
+	//anim0, for reasons
+	animation0.interval,runonce
+	animation0.pattern0,overlay,99,0,0,0
+
+	animation0.collisionex0,pet,regions,hotspot110.png,255,0,0
+	animation0.collisionex1,hair,regions,hotspot110.png,0,255,0
+	animation0.collisionex2,ears,regions,hotspot110.png,0,0,255
+	animation0.collisionex4,badear,regions,hotspot110.png,0,0,200
+
 	//hood up
 	animation1.interval,never
-	animation1.pattern0,replace,1101,0,0,0
+	animation1.pattern0,stop,0
+	animation1.pattern1,replace,1101,0,0,0
+
+	animation1.collisionex2,ears,regions,hotspot111.png,0,0,255
+	animation1.collisionex4,badear,regions,hotspot111.png,0,0,200
+	animation1.collisionex5,resonance,regions,hotspot111.png,0,255,255
 	
 	//hood up true resonance (spoilers? lol)
 	animation2.interval,never
-	animation2.pattern0,replace,1102,0,0,0
+	animation2.pattern0,stop,0
+	animation2.pattern1,replace,1102,0,0,0
+	
+	animation2.collisionex2,ears,regions,hotspot111.png,0,0,255
+	animation2.collisionex4,badear,regions,hotspot111.png,0,0,200
+	animation2.collisionex5,resonance,regions,hotspot111.png,0,255,255
 	
 	//hold kunai
 	animation3.interval,never
@@ -451,25 +621,29 @@ surface11
 	
 	//:0
 	animation11.interval,never
-	animation11.pattern0,parallelstop,(10,29)
+	animation11.pattern0,parallelstop,(10,28)
 	animation11.pattern1,overlay,1111,0,0,0
 	
 	//:)
 	animation12.interval,never
-	animation12.pattern0,parallelstop,(10,29)
+	animation12.pattern0,parallelstop,(10,28)
 	animation12.pattern1,overlay,1112,0,0,0
 	
 	//:D
 	animation13.interval,never
-	animation13.pattern0,parallelstop,(10,29)
+	animation13.pattern0,parallelstop,(10,28)
 	animation13.pattern1,overlay,1113,0,0,0
 	
 	//:< talking
-	animation29.interval,talk,3
-	animation29.pattern0,stop,10
-	animation29.pattern1,overlay,1111,0,0,0
-	animation29.pattern2,overlay,-1,200-250,0,0
-	animation29.pattern3,start,10
+	animation28.interval,talk,3
+	animation28.pattern0,stop,10
+	animation28.pattern1,overlay,1111,0,0,0
+	animation28.pattern2,overlay,-1,200-250,0,0
+	animation28.pattern3,start,10
+
+	//stop that!!
+	animation29.interval,never
+	animation29.pattern0,stop,28
 	
 	//---eyes
 	//norm eye
@@ -538,23 +712,60 @@ surface11
 //shock tahir
 surface12
 {
+	collisionex3,boop,regions,hotspot120.png,0,0,0
+
 	element0,overlay,surface1200.png,0,0,0
+	
+	//anim0, for reasons
+	animation0.interval,runonce
+	animation0.pattern0,overlay,99,0,0,0
+
+	animation0.collisionex0,pet,regions,hotspot120.png,255,0,0
+	animation0.collisionex1,hair,regions,hotspot120.png,0,255,0
+	animation0.collisionex2,ears,regions,hotspot120.png,0,0,255
+	animation0.collisionex4,badear,regions,hotspot120.png,0,0,200
 	
 	//oooh mmysterious who could it be
 	animation1.interval,never
-	animation1.pattern0,replace,1201,0,0,0
+	animation1.pattern0,stop,0
+	animation1.pattern1,replace,1201,0,0,0
+
+	//animation1.collisionex0,pet,regions,hotspot121.png,255,0,0
+	//animation1.collisionex1,hair,regions,hotspot121.png,0,255,0
+	animation1.collisionex2,ears,regions,hotspot121.png,0,0,255
+	animation1.collisionex4,badear,regions,hotspot121.png,0,0,200
+	animation1.collisionex3,resonance,regions,hotspot121.png,0,255,255
 	
 	//mystery + true resonance
 	animation2.interval,never
-	animation2.pattern0,replace,1202,0,0,0
+	animation2.pattern0,stop,0
+	animation2.pattern1,replace,1202,0,0,0
+
+	//animation2.collisionex0,pet,regions,hotspot121.png,255,0,0
+	//animation2.collisionex1,hair,regions,hotspot121.png,0,255,0
+	animation2.collisionex2,ears,regions,hotspot121.png,0,0,255
+	animation2.collisionex4,badear,regions,hotspot121.png,0,0,200
+	animation2.collisionex3,resonance,regions,hotspot121.png,0,255,255
 	
 	//raise hood open eye
 	animation3.interval,never
-	animation3.pattern0,replace,1203,0,0,0
+	animation3.pattern0,stop,0
+	animation3.pattern1,replace,1203,0,0,0
+
+	animation3.collisionex0,pet,regions,hotspot122.png,255,0,0
+	animation3.collisionex1,hair,regions,hotspot122.png,0,255,0
+	animation3.collisionex2,ears,regions,hotspot122.png,0,0,255
+	animation3.collisionex4,badear,regions,hotspot122.png,0,0,200
 	
 	//raise hood close eye
 	animation4.interval,never
-	animation4.pattern0,replace,1204,0,0,0
+	animation4.pattern0,stop,0
+	animation4.pattern1,replace,1204,0,0,0
+
+	animation4.collisionex0,pet,regions,hotspot122.png,255,0,0
+	animation4.collisionex1,hair,regions,hotspot122.png,0,255,0
+	animation4.collisionex2,ears,regions,hotspot122.png,0,0,255
+	animation4.collisionex4,badear,regions,hotspot122.png,0,0,200
 	
 	//blush
 	animation90.interval,never
@@ -564,12 +775,45 @@ surface12
 //yay tahir
 surface13
 {
+	collisionex0,pet,regions,hotspot125.png,255,0,0
+	collisionex1,hair,regions,hotspot125.png,0,255,0
+	collisionex2,ears,regions,hotspot125.png,0,0,255
+	collisionex3,boop,regions,hotspot125.png,0,0,0
+	collisionex4,badear,regions,hotspot125.png,0,0,200
+
 	element0,overlay,surface1250.png,0,0,0
 	
-	//look away
+	//:)
+	animation0.interval,runonce
+	animation0.pattern0,overlay,1251,0,0,0
+
+	//:<
 	animation1.interval,never
-	animation1.pattern0,replace,1251,0,0,0
-	
+	animation1.pattern0,stop,0
+	animation1.pattern1,overlay,1252,0,0,0
+
+	//look eye
+	animation30.interval,runonce
+	animation30.pattern0,overlay,1254,0,0,0
+
+	//norm eye
+	animation31.interval,never
+	animation31.pattern0,parallelstop,(30,59)
+	animation31.pattern1,overlay,1253,0,0,0
+
+	//close eye
+	animation32.interval,never
+	animation32.pattern0,parallelstop,(30,59)
+	animation32.pattern1,overlay,1255,0,0,0
+
+	//blink
+	animation59.interval,random,4
+	animation59.pattern0,stop,30
+	animation59.pattern1,overlay,1255,0,0,0
+	animation59.pattern2,overlay,-1,170-200,0,0
+	animation59.pattern3,start,30
+
+
 	//blush
 	animation90.interval,runonce
 	animation90.pattern0,overlay,1285,0,0,0
@@ -578,21 +822,55 @@ surface13
 //think tahir
 surface14
 {
+	collisionex0,pet,regions,hotspot130.png,255,0,0
+	collisionex1,hair,regions,hotspot130.png,0,255,0
+	collisionex2,ears,regions,hotspot130.png,0,0,255
+	collisionex3,boop,regions,hotspot130.png,0,0,0
+	collisionex4,badear,regions,hotspot130.png,0,0,200
+
 	element0,overlay,surface1300.png,0,0,0
 	
 	//look away
 	animation1.interval,never
-	animation1.pattern0,replace,1301,0,0,0
+	animation1.pattern0,stop,59
+	animation1.pattern1,replace,1301,0,0,0
+
+	//close eye
+	animation2.interval,never
+	animation2.pattern0,stop,59
+	animation2.pattern1,replace,1302,0,0,0
+
+
+	//blink
+	animation59.interval,random,4
+	animation59.pattern0,replace,1302,0,0,0
+	animation59.pattern1,overlay,-1,170-200,0,0
 }
 
 //worry tahir
 surface15
 {
+	collisionex3,boop,regions,hotspot135.png,0,0,0
+
 	element0,overlay,surface1350.png,0,0,0
+	
+	//anim0, for reasons
+	animation0.interval,runonce
+	animation0.pattern0,overlay,99,0,0,0
+
+	animation0.collisionex0,pet,regions,hotspot135.png,255,0,0
+	animation0.collisionex1,hair,regions,hotspot135.png,0,255,0
+	animation0.collisionex2,ears,regions,hotspot135.png,0,0,255
+	animation0.collisionex4,badear,regions,hotspot135.png,0,0,200
 	
 	//down ear base
 	animation1.interval,never
 	animation1.pattern0,replace,1351,0,0,0
+
+	animation1.collisionex0,pet,regions,hotspot136.png,255,0,0
+	animation1.collisionex1,hair,regions,hotspot136.png,0,255,0
+	animation1.collisionex2,ears,regions,hotspot136.png,0,0,255
+	animation1.collisionex4,badear,regions,hotspot136.png,0,0,200
 	
 	//look left sweat
 	animation30.interval,runonce
@@ -624,6 +902,12 @@ surface15
 //grumpy tahir
 surface16
 {
+	collisionex0,pet,regions,hotspot140.png,255,0,0
+	collisionex1,hair,regions,hotspot140.png,0,255,0
+	collisionex2,ears,regions,hotspot140.png,0,0,255
+	collisionex3,boop,regions,hotspot140.png,0,0,0
+	collisionex4,badear,regions,hotspot140.png,0,0,200
+
 	element0,overlay,surface1400.png,0,0,0
 	
 	//look right
@@ -632,13 +916,20 @@ surface16
 	
 	//look user
 	animation31.interval,never
-	animation31.pattern0,stop,30
+	animation31.pattern0,parallelstop,(30,59)
 	animation31.pattern1,overlay,1402,0,0,0
 	
 	//close eye
 	animation32.interval,never
-	animation32.pattern0,stop,30
+	animation32.pattern0,parallelstop,(30,59)
 	animation32.pattern1,overlay,1403,0,0,0
+
+	//blink
+	animation59.interval,random,4
+	animation59.pattern0,stop,30
+	animation59.pattern1,overlay,1403,0,0,0
+	animation59.pattern2,overlay,-1,170-200,0,0
+	animation59.pattern3,start,30
 	
 	//angry brow
 	animation60.interval,runonce
@@ -687,5 +978,8 @@ surface.append0-19
 
 surface90
 {
+	collisionex0,pet,regions,hotspot200.png,255,0,0
+	collisionex1,ears,regions,hotspot200.png,0,0,255
+
 	element0,overlay,surface2000.png,0,0,0
 }
