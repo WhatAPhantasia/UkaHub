@@ -1,4 +1,4 @@
-Faeia & Tahir v1.0.1
+Faeia & Tahir v1.0.2
 <-------------->
 
 It's your favorite bunny friends back again! I wanted their main feature to be the combat system but I didn't feel like coding anything too elaborate this jam, so they mostly just talk about their world. If you're confused about the world or who they are, they have a nifty ask section you can access in each of their menus :)

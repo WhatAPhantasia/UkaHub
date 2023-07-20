@@ -1,12 +1,12 @@
 ghost/master/descript.txtd55939e27438dda494e342ea6412322fsize=277date=2023-06-19T13:54:58charset=OSNative
 ghost/master/emerg.dicc7cb6eacd3262003fef909c382a6fefesize=351date=2023-04-14T14:45:50
-ghost/master/faeia_menu.dic9960843a53bf5c3f015596942f88c0f7size=19602date=2023-07-01T01:50:36
-ghost/master/ft_aitalk.dica1738a8d92c443da0063497bccdc024asize=15293date=2023-07-01T02:46:33
+ghost/master/faeia_menu.dic3a2e64218510f306babe25214c424372size=19796date=2023-07-01T11:28:47
+ghost/master/ft_aitalk.dic30af7d51df54fbf153d6504ee3567468size=19369date=2023-07-19T22:04:50
 ghost/master/ft_boot.dic20397ee0a674b63de47552dbd22a7f75size=19246date=2023-06-18T16:28:54
 ghost/master/ft_meta.dice5f79fc971ac3f6715b8e2ad43cddd5asize=4161date=2023-05-17T19:48:31
 ghost/master/ft_mouse.dicad24c6ccd754b73501e704852adc418bsize=12446date=2023-06-19T14:30:55
 ghost/master/ft_other.dic63bcd69078f979ffebac59c34b09c3acsize=14412date=2023-07-01T02:49:33
-ghost/master/ft_user.dicc1e5a2b196eb49472d25034930199131size=29473date=2023-07-01T00:47:57
+ghost/master/ft_user.dic4fa0a6edc0e52eb4126bf00a848671e3size=29558date=2023-07-17T19:57:38
 ghost/master/ft_utility.dica5c2988b72a687062b8e6ef16a95d0ddsize=11933date=2023-06-30T18:48:31
 ghost/master/ft_word.dic97635d59ff2703758276334e7cc87e4dsize=3072date=2023-06-30T17:57:27
 ghost/master/saori/time_check.dll07b7dabf0de6b5ea0a23178efc4d1c4fsize=105472date=2003-10-02T16:53:32
@@ -21,7 +21,7 @@ ghost/master/yaya_base/optional.dicff4da728a656a8aa6a38939e654c51f2size=9953d
 ghost/master/yaya_base/shiori3.dic1020638d5e3881c23cc9baabc366e730size=52209date=2023-04-02T09:34:13
 ghost/master/yaya_emerg.txt9e43b4696366a536ecc69e45d80e392csize=607date=2023-04-14T14:44:19
 install.txt26f2fa891a55047c59ae3597ee57ed79size=75date=2023-05-12T08:12:04
-readme.txte69b781e3068ce9ac28c3d406e55df08size=567date=2023-07-01T02:58:05
+readme.txt101bf78d87ffdf219aa6cc8446818589size=567date=2023-07-19T22:07:52
 shell/master/descript.txte26af2b304bceca5e64ee1d07c3a2f1csize=564date=2023-06-19T13:55:47
 shell/master/hotspot10.png51664f53662eabd3394ffed6b5b0cd75size=3533date=2023-05-22T22:09:09
 shell/master/hotspot11.pngb32d5c3952ae59e9b9647018266269fesize=3977date=2023-05-22T20:40:42
