@@ -78,6 +78,10 @@ UserBlurb : nonoverlap_pool
 		"Valarian Rabbit-mages are common, but this seems ridiculous."
 		"Like seeing an icy double. Spooky."
 	}
+	elseif RE_ASEARCH("rabbit",userinfo[0]) != -1 && userinfo[1] == "wanderer" && userinfo[2][0] == "grayscale" && userinfo[3] == "none"
+	{
+		"It gives you an unnerving feeling of emptiness."
+	}
 	elseif userinfo == ("unknown","wanderer","unknown","none") || (userinfo[0] == "unknown" && userinfo[2] == "unknown" && userinfo[3] == "none")
 	{
 		"You have so much potential. Who exactly are you?"
@@ -112,7 +116,7 @@ UserBlurb : nonoverlap_pool
 			"You seem a little more used to the cold."
 			"Small, nimble, and very fuzzy."
 		}
-		if RE_ASEARCH("rabbit",userinfo[0]) == -1 || RE_ASEARCH("hare",userinfo[0]) == -1 || RE_ASEARCH("pika",userinfo[0]) == -1
+		if RE_ASEARCH("rabbit",userinfo[0]) == -1 && RE_ASEARCH("hare",userinfo[0]) == -1 && RE_ASEARCH("pika",userinfo[0]) == -1
 		{
 			"It's a little lonely in the Bramblebrush for someone like you."
 			"You don't completely come from the Bramblebrush, do you?"
@@ -209,7 +213,7 @@ UserBlurb : nonoverlap_pool
 		if RE_ASEARCH("linn",userinfo[3]) != -1
 		{
 			"Like Linn, you believe retreat is the best form of victory."
-			"You feel for the bystanders in times of conflict."
+			"You feel for the citizens in times of conflict."
 		}
 		if RE_ASEARCH("pont",userinfo[3]) != -1
 		{

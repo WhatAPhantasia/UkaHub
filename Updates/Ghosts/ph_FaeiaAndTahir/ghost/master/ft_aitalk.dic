@@ -150,7 +150,11 @@ RandomTalk : nonoverlap_pool
 
 	case timeslot {
 		when "earlymorning" {
-				
+				all:{"\1\s[11]\i[32]\0\s[3]"
+				"Hehehe... Good morrrnniinnggg! \w8What a great day! \w8Let's do our best!!\w8\w8\1"
+				random:{"\s[11]\i[13]\i[34]Ah... \w8She's as pumped as ever...\w8\w8\0\n\n[half]\s[1]\i[1]\i[35]Hey, SOMEONE'S gotta do the motivating around here!"
+						"\s[11]\i[34]Won't let you down, Fai.\w8\w8\0\n\n[half]You could NEVER do that, Tamtam! \w8Neither can you, %(user[1])!!"}
+				"\e"}
 			}
 			when "morning" {
 				
@@ -162,6 +166,14 @@ RandomTalk : nonoverlap_pool
 				"\i[2]Well, I can always cook us something up.\w8\w6\0\n\n[half]"
 				"\s[3]GASP! YES, please, my savior! \w8Do you need me to get anything?! What can you make with %(ANY('two chillshrooms and a head of lettice','the chocolate bars I have in my bag'))?!\w8\w8\1\n\n[half]"
 				"\s[11]\i[13]\i[33]\i[62]...I'll see what I can do.\e"}
+
+				all:{"\1\s[11]\i[32]\0\s[4]"
+				"Dang, I'm remembering this REALLY BANGING sandwich I had once...\w8\w8\1"
+				random:{"\s[14]I guess it IS lunch time..."
+						"\s[13]Pfft. \w8Maybe I can make it for you."
+						"\s[16]\i[61]HOW ""banging?"""}
+				"\w8 What was in it?\w8\w8\0\n\n[half]"
+				"\s[3]OKAY okay okay SO. \w6Imagine salami, pepperoni, roast beef, pickles, sunmatoes, butter lettice, brazmim cheese, red wine vinegar... \w8AH, it was the best!!\e"} //add more randomness to this... and also maybe tahir's response
 			}
 			when "afternoon" {
 				
@@ -180,6 +192,72 @@ RandomTalk : nonoverlap_pool
 				"\i[32]Mmm... \w8Constant questing doesn't really let you do that as much.\w8\w8\0\n\n[half]"
 				"\s[1]\i[35]\i[62]Siiiiiighhhh... I know... \w8Still, it's all kinda fascinating...\e"}
 			}
+	}
+
+	if month == 1
+	{
+		if day < 23
+		{
+			all:{"\1\s[16]\i[61]\0\s[1]\i[32]\i[13]"
+			"... \w8\![anim,stop,13]\i[14]Why are you looking at me like that?\w8\w8\1"
+			"Huh? \w8\s[11]\i[32]Oh, well. \w8\![anim,stop,32]\i[34]Thinking about what you like.\w8\w8\0\n\n[half]"
+			"\s[2]Gasp..! \w8Are you getting me something for..?!\w8\1\n\n[half]"
+			"\s[16]\i[32]\i[61]No. \w8Now shush.\w8\w8\0\n\n[half]"
+			"\s[3](Hehehehe...)\e"}
+
+			if day >= 10
+			{
+			all:{"\0\s[1]\i[13]\i[32]\1\s[11]"
+			"...Hey, %(user[2]). \w8Try to catch us on the 23rd. \w8\i[34]I have a feeling Fai would...\w8\s[11]\0"
+			"\s[3]\![anim,stop,90]\![anim,stop,0]Heyy, what are you whispering to %(user[1]) over there..?! \w8Come on, tell me!\w8\w8\1\n\n[half]"}
+			"\s[16]\i[32]\i[61]Secret.\w8\w8\0"
+			"\s[5]\![anim,stop,91]\i[32]Aw...\e"}
+		}
+		elseif day == 23
+		{
+
+		}
+		else
+		{
+
+		}
+	}
+	if month == 7
+	{
+		if day < 20
+		{
+			all:{"\1\s[11]\i[32]\0\s[1]\i[34]"
+			"Hmmmm..! \w8Gotta come up with the perfect gift...\w8\w8\1"
+			"\s[16]\i[61]..?"}
+
+			if day >= 10
+			{all:{"\1\s[11]\i[32]\0\s[5]\![anim,stop,91]\i[61]"
+			"Psst, hey! \w8%(Capitalize(user[1]))! \w8\i[32]Uhm, how many more days are there until the 20th..?? \w8I DUNNO, but we can TOTALLY surprise Tahir then--\w8\1"
+			"\s[16]\i[61]Are you sharing secrets with %(user[2])..? \w8\i[32]Right in front of me, too? \w8I can't believe this, Fai...\w8\w8\0\n\n[half]"
+			"\s[3]\![anim,stop,90]\![anim,stop,0]HAHA, yeah! \w8I totally am!! \w8Blehhhhh!! \w8Tamtam's not allowed into our secret club!!!\w8\w8\1\n\n[half]"
+			"Fine, if that's how it's going to be...\e"}}
+		}
+		elseif day == 20
+		{
+			all:{"\1\s[11]\i[32]\0\s[3]"
+			"OH! \w8Tahir, tell %(them) about what I got you today!!\w8\w8\1"
+			random:{"\s[11]\i[33]\i[13]Can't you do that yourself..??\w8\w8\0\n\n[half]Well, YEAH, but I like it when you talk about things I do~"
+					"\s[11]\i[33]\i[13]...Do you just want to hear me compliment it again?\w8\w8\0\n\n[half]Aww, you caught me~"}
+			"\w8\w8\s[1]\i[32]\i[90]\1\n\n[half]\s[11]\i[12]\i[34]"
+			"...Well, she got me a really nice pie from her hometown, for one. \w8I can always appreciate food from there. \w8\![anim,stop,34]\i[33]\![anim,stop,12]\i[13]But she also got me some new seeds I had no idea she got her paws on... \w8Seriously, how DID you get a packet of %(ANY('crystalikes','bramblerose','spider lily'))..?\w8\w8\0\n\n[half]"
+			"\s[3]A girl gets the BEST for her bestie on his special day!!\w8\w8\1\n\n[half]"
+			"\s[16]\i[31]\i[61]\i[90]...Alright, \w2still haven't gotten an answer for that...\e"}
+
+			all:{"\0\s[1]\i[14]\i[32]\1\s[11]"
+			"I've never done much for my birthday, \w4\i[34]'specially since I don't remember exactly when I was born and all... \w8\s[13]\![anim,stop,90]\i[32]But it's definitely been much nicer with friends around.\w8\w8\0"
+			"\s[3]Hehe, awwww, you feel that way?? \w8Yaaay!\e"}
+		}
+		else
+		{
+			all:{"\0\s[11]\i[32]\1\s[11]\i[34]"
+			"Hmm... \w8Looking forward to checking in on those seeds...\w8\w8\0"
+			"\s[3](Hehe~~ He likes my giifftt~~)\e"}
+		}
 	}
 }
 

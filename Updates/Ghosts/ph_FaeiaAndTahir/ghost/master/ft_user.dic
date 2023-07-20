@@ -334,7 +334,7 @@ OnCustomSpecies : all
 	{"\![raise,OnSpeciesTeach,unknown,%(reference2),dupe]\e"}
 
 	elseif RE_ASEARCH(_names,_term) != -1
-	{"\![raise,OnSpeciesTeach,unknown,%(reference2),name]\e"}
+	{"\![raise,OnSpeciesTeach,unknown,%(reference2),name]\e"} //there's a bug with this one in particular.... not too pressed to figure it out atm
 
 	elseif _term == ""
 	{"\![raise,OnSpeciesTeach,unknown,%(reference2),none]\e"}
