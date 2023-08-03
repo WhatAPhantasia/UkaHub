@@ -41,9 +41,9 @@ OnSakuraMouse : nonoverlap_pool
 			
 			if !Flag("PandoraFight")
 			{
-				if recenttouch[0] <= 3 {
 				"\0\t"
 				--
+				if recenttouch[0] <= 3 {
 				"\s[4]\i[51]\i[75]\i[110]Hey, hands off the hair. \w8\w8\![anim,stop,51]\i[52]It takes a lot of work to make it look this way, you know.\e"
 				"\s[3]\i[51]\i[75]\i[110]No touching. \w8\w8\![anim,stop,51]\i[52]You are beneath me, mortal.\e"
 				"\s[3]\i[51]\i[75]\i[110]No touching my hair. \w8\w8You do realize that I'm the demi-god here, correct?\e"}
@@ -58,7 +58,24 @@ OnSakuraMouse : nonoverlap_pool
 			}
 			else
 			{
-				
+				"\0"
+				--
+				if !Flag("FirstRealPat")
+				{
+					AddFlag("FirstRealPat")
+					"\s[3]\i[61]Hrm? \w8\i[72]My hair? \w8\w8\s[3]\i[52]\i[61]\i[75]...I suppose if it's YOU, I'm fine with it. \w8Be honored you have such a privilege!\e"
+				}
+				else
+				{
+					"\_q%(neutralidle)(Your hand passes right through the clouds. The hair underneath is damp...)\e"
+					"\_q%(neutralidle)(The cartoons were wrong. Clouds don't really feel like anything.)\e"
+					"\_q%(neutralidle)(It's like brushing through wet hair.)\e"
+					"\_q%(neutralidle)(You try to catch a stray wisp of cloud, but it just passes through your hand...)\e"
+					"\_q%(neutralidle)(Pat pat, brush brush.)\e"
+					"\_q%(neutralidle)(Damp hair and cloud mist. A questionable texture.)\e"
+
+					"\s[1]\i[53]Hmmm, impressed by my hair? \w8Only someone with the amount of magic finesse and power like ME can maintain a form like this constantly! \w8Aren't I so cool??\e"
+				}
 			}
 		}
 	}

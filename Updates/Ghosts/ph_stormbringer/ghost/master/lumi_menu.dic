@@ -20,11 +20,12 @@ OnSakuraMenu : all
 	
 	"\n\n\_q"
 	
-	"\![*]\q[Talk to me,OnAiTalk]"
-	if LastTalk != ""; "  \![*]\q[Say that again,OnLastTalk]"
+	"\![*]\q[Talk to me,OnAiTalk,talk]  \![*]\q[Who're you texting?,OnAiTalk,text]\n"
+	if LastTalk != ""; "\![*]\q[Say that again,OnLastTalk]"
 	"\n\n"
 	
-	"\![*]\q[Lets Talk Weather,OnWeatherMenu]\n\n"
+	if WeatherStationInstalled; "\![*]\q[Lets Talk Weather,OnWeatherMenu,yay]\n\n"
+	else; "\![*]\q[Lets Talk Weather,OnInstallWeather]\n\n"
 	
 	"\![*]\q[Check,OnPlasmaegisInfo]\n"
 	"\![*]\q[Ask Questions,OnQuestionMenu]\n"
@@ -34,7 +35,7 @@ OnSakuraMenu : all
 	"\n\![*]\q[Goodbye,OnClose,bye]"
 	
 	"\n\n\f[align,center]"
-	"Runtime: %(runtime) || Version v1.0.0"
+	"Runtime: %(runtime) || Version v1.0.1"
 }
 
 OnLastTalk
@@ -58,7 +59,11 @@ OnPlasmaegisInfo : all
 		"Made it specifically storm for three days at my house because I annoyed %(them(1)). 10/10 experience (Meowler Post)"
 		"Hard to make articles on because rain and thunder surrounds %(them(1)) and it messes up my papers. We make do here at HeartRadar for all %(their(1)) fans! (Anon Journalist)"
 		"please stop terrorizing people at the second central park i actually kinda wanna see what it's like when its NOT a complete mess (Gumblr Post)"
-		"%(TOUPPER(they(1)))'%(lp('S','RE')) 16??????? DUDE I THOUGHT %(TOUPPER(they(1))) %(lp('WAS','WERE')) LIKE. 12 (Gumblr Post)"
+		"%(TOUPPER(they(1)))'%(lp('RE','S')) 16??????? DUDE I THOUGHT %(TOUPPER(they(1))) %(lp('WERE','WAS')) LIKE. 12 (Gumblr Post)"
+		if Flag("PandoraFight")
+		{
+			"hey aren't the weather gods... super secretive? what %(lp('are','is')) %(they(1)) doing here..? (???)"
+		}
 	}
 	"\n\n"
 	
@@ -130,53 +135,53 @@ OnAbtHeroes : nonoverlap_pool
 
 OnPandoraFight : all
 {
-	if !Flag("AskTroupe") && up_total <= 30 && recenttouch[0] >= 3
-	{"\0\_qYou get the feeling Plasmaegis wouldn't like to talk about that to you, "
-	if up_total <= 30; "probably because you haven't spent enough time around %(them(1)) yet. Maybe just spend more time with them before asking?"
-	elseif !Flag("AskTroupe"); "because you don't really even know who Pandora IS. Maybe ask about their whole villain troupe first?"
-	else; "probably because %(they(1))'%(lp('s','re')) still grumpy about you touching %(their(1)) hair. Maybe say bye and wait until you see them again next time to ask."
+	if !Flag("AskTroupe") || up_total < 15 || recenttouch[0] >= 3
+	{"\0\_qYou get the feeling Plasmaegis wouldn't like to talk about that to you, probably because "
+	if up_total < 15; "you haven't spent enough time around %(them(1)) yet. Maybe just spend more time with %(them(1)) before asking?"
+	elseif !Flag("AskTroupe"); "you don't really even know who Pandora IS. Maybe ask about %(their(1)) whole villain troupe first?"
+	else; "%(they(1))'%(lp('re','s')) still grumpy about you touching %(their(1)) hair. Maybe say bye and wait until you see them again next time to ask."
 	"\n\n\![*]\q[Back,OnQuestionMenu]   \![*]\q[Close,blank]"}
 	elseif !Flag("PandoraFight")
 	{
 		"\0\b2\t\*"
-		"\s[3]\i[61]\i[75]Huh..? \w8\w8\i[51]Well, I... \w8\w8\w4\s[3]\i[51]\i[14]\i[74]Oh, WHATEVER. \w8Just don't go telling people on the internet about this or something.\w8\w4\n"
+		"\s[3]\i[61]\i[75]Huh..? \w8\w8\i[51]Well, I... \w8\w8\w4\s[3]\i[51]\i[14]\i[74]Oh, WHATEVER. \w8Just don't go telling people on the internet about this or something.\w8\w4\x[noclear]\n"
 		"\s[3]\i[75]It was Calamity who first told me about this place, really. \w8\w8He goes here often cause he says this place has the best view of the whole city, so... \w8\i[52]Be grateful you actually own this place, %(user).\w8\w8\n"
-		"\s[3]\i[61]\i[75]And, er... \w8He also went here a lot whenever he wanted to think, \w4or was mad about something, \w4so I started coming over here too, \w4and it just kinda became our THING, right? \w8\i[51]So... \w8Yeah.\w4\x[noclear]"
+		"\s[3]\i[61]\i[75]And, er... \w8He also went here a lot whenever he wanted to think, \w4or was mad about something, \w4so I started coming over here too, \w4and it just kinda became our THING, right? \w8\i[51]So... \w8Yeah.\w4\x[noclear]\n"
 		"\![anim,stop,51]\i[52]Anyways, \w6Pandora and I always fight like this and make up after, really. \w8She just... \w2\s[3]\i[51]\i[75]This time I broke her dumb dollhouse cause she stole something from my room, and THEN she called me... \w8Yeah, now that I'm saying it, I kinda... I'm not too mad about it. \w8I just don't want to be the one to \w6say sorry to her? \w2Like, ew.\w8\w8\w8\n"
-		"But... Yeah. What do I even do, right?\w6\n\n"
+		"But... Yeah. \w8I should apologize, I just \w8Can't.\w6\n\n"
 		
-		//TODO: finish this event
-		"\![*]\q[Lets Apologize,OnPandoraFight1]"
+		//i'd like to add more choices to this event but... eh...
+		"\![*]\q[I'll help,OnPandoraFight1]"
 		//"\![*]\q[]"
 	}
 	else
 	{
 		"\0\b2"
-		"\s[3]\i[75]It was Calamity who first told me about this place, really. \w8\w8He goes here often cause he says this place has the best view of the whole city, so... \w8\i[52]Be grateful you actually own this place, %(user).\w8\w8\n"
-		"\s[3]\i[61]\i[75]And, er... \w8He also went here a lot whenever he wanted to think, \w4or was mad about something, \w4so I started coming over here too, \w4and it just kinda became our THING, right? \w8\i[51]So... \w8Yeah.\w4"
+		"\s[3]\i[75]Oh, that? \w8It was Calamity who first told me about this place. \w8\w8He goes here often cause he says this place has the best view of the whole city, so... \w8\i[52]Yeah, your apartment is nice, %(user).\w8\w8\n"
+		"\s[3]\i[61]\i[75]And, er... \w8He also went here a lot whenever he wanted to think, \w4or was mad about something, \w4so I started coming over here too, \w4and it just kinda became our THING, right? \w8\i[51]So... \w8Yeah.\w8\w8\n"
+		"You already know about the whole fight I had with Pandora, right? \w8We do that all the time, it was just that one time that was really bad, but. \w8We've made up. \w8\w4Thanks for making me do that, I guess.\w8\w8"
 		"\n\n\![*]\q[Back,OnQuestionMenu]   \![*]\q[Close,blank]"
 	}
 }
 
 OnPandoraFight1 : all
 {
-	//TODO: FINISH THIS OMFG
 	AddFlag("PandoraFight")
-	"\0\s[2]\i[62]...Yeah, okay. \w8\w8\s[3]\i[61]\i[52]\i[76]Give me a sec... \w8\w8\s[2]\i[62]\i[76]But thanks, %(user).\w8\w8\w8\n"
-	"\s[3]\i[51]\i[76]...Huh... Why DO I call you mortal..? \w8What even is your name...?? \w8Eh, whatever.\w8\w8"
+	"\0\*\s[2]\i[62]...Yeah, okay. \w8\w8\s[3]\i[61]\i[52]\i[76]Give me a sec... \w8\w8\s[2]\i[62]\i[76]But thanks, %(user).\w8\w8\w8\n"
+	"\s[3]\i[51]\i[76]...Huh... Why DO I call you mortal..? \w8What even is your name...?? \w8Eh, whatever.\w8\w8\n\n"
 	
-	"\_q(You feel like you've gotten closer to Plasmaegis.)\e"
+	"\![*]\q[(Seems like you two are closer now.),blank]"
 }
-
-//OnPandoraFight2
 
 //—————————————————————————————— Weather Menu ——————————————————————————————
 //weird order from the remnants of how the menu used to be ordered.
 
 OnInstallWeather : all
 {
+	if Flag("IdleWeather"); RemoveFlag("IdleWeather")
+
 	"\0\b2\![set,autoscroll,disable]\_q"
-	"(Please install Zichqec's \_a[https://zichqec.github.io/s-the-skeleton/saoris_plugins_tools#weather_station]Weather Station\_a plugin if you want to see this menu! Also, a lot of Plasmaegis' features have to do with real time weather interaction that comes with the plugin!)\n"
+	"(Please install Zichqec's \_a[https://ukagaka.zichqec.com/plugin/weather_station]Weather Station\_a plugin if you want to see this menu! Also, a lot of Plasmaegis' features have to do with real time weather interaction that comes with the plugin!)\n"
 	"(I plan on adding simulated weather without an API for people who don't want the plugin, mostly after Jam and if I feel like it. For now, they just respond to the weather station :3)\n"
 	
 	"\n\![*]\q[Back,OnSakuraMenu]   \![*]\q[Close,blank]"
@@ -185,48 +190,77 @@ OnInstallWeather : all
 WeatherMGreet
 {
 	_p = ""
-	if lgender == "girl" || lgender = "boy"; _p = lgender
+	if lgender == "girl" || lgender == "boy"; _p = lgender
 	else; _p = "person"
 	
 	"Oho?! \w2I'm ALWAYS here to talk about the weather!"
-	"Of course! I work hard on my weather~!"
+	"Of course! \w2I work hard on my weather~!"
 	"Yes yes~!! The weather!"
-	"Oh? I know ALL about the weather!"
+	"Oh? \w2I know ALL about the weather!"
 	"You're asking the right %(_p)!!"
 	"I ~am~ CLC's resident weather%(_p)~!"
 }
 
 OnWeatherMenu : all
 {
-	if !WeatherStationInstalled
-	{
-		OnInstallWeather
-	}
-	else
-	{
 		//MENU TIIME!!!!!!
 		
 		"\0\b2\![set,autoscroll,disable]"
-		WeatherMGreet
+		if reference0 == "yay"; WeatherMGreet
 		"\n\n\_q"
+
+		/*
+		"\![*]\q[Using Weather Station:,OnToggleWS]%(newline)\f[align,right]"
+		if !WeatherStationInstalled
+		{"(NOT INSTALLED)"}
+		else
+		{if Flag("UseWeatherStation"); "(ON)"
+		else; "(OFF)"}
+		"\n\f[align,default]"
+		*/
 		
-		//"\![*]\q[Thoughts on weather right now?,OnCurrentWeatherTalk]\n"
-		"\![*]\f[color,disable]Thoughts on weather right now?\n\f[color,default]"
+		"\![*]\q[Thoughts on weather right now?,OnCurrentWeatherTalk]\n"
 		"\![*]\q[Weather Predictions?,OnWeatherPrediction]\n\n"
+
+		"\![*]Current Units:%(newline)\f[align,right]%(weatherconfig[0])"
+		"\n\f[align,default]"
 		
-		"\![*]\q[Toggle Weather Idle Dialogue,OnToggleAW] "
-		if Flag("IdleWeather"); "(ON)\n"
-		else; "(OFF)\n"
+		"\![*]\q[Toggle Weather Idle Dialogue,OnToggleAW]%(newline)\f[align,right]"
+		if Flag("IdleWeather"); "(ON)"
+		else; "(OFF)"
+		"\n\n\f[align,default]"
 		
 		//"\n\![*]\q[DEBUG,OnWeatherPrint]\n"
+		if WeatherStationInstalled; "\![*]\q[Open Weather Station,OnWSOpen]"
 		
-		"\n\![*]\q[Back,OnSakuraMenu]   \![*]\q[Close,blank]"
+		"\n\n\![*]\q[Back,OnSakuraMenu]   \![*]\q[Close,blank]"
 		
 		"\n\n\f[size,-2]\f[align,center](I recommend changing the API key for the plugin in its main.dic if you haven't already!)"
-	}
 }
 
 //ALL OTHER WEATHER STUFF IS IN sl_other.dic.
+
+OnWSOpen
+{"\![raiseplugin,Weather Station,OnMenuExec]"} //i dont want to do a menu choice eval
+
+OnToggleWS : all
+{
+	if !WeatherStationInstalled
+	{
+		"\0\b2\![set,autoscroll,disable]\_q"
+		"(Please install Zichqec's \_a[https://ukagaka.zichqec.com/plugin/weather_station]Weather Station\_a plugin to use real-time weather data! It's uneeded since Plasmaegis has an in-built simulated weather system, it's just up to your preference :D Plus their virtual weather DOES need fixing right now haha)\n"
+
+		"\n\![*]\q[Back,OnWeatherMenu]   \![*]\q[Close,blank]"
+	}
+	else
+	{
+		if !Flag("UseWeatherStation"); AddFlag("UseWeatherStation")
+		else; RemoveFlag("UseWeatherStation")
+		GetWeatherData
+		OnGetForecastData
+		OnWeatherMenu
+	}
+}
 
 OnToggleAW
 {
@@ -242,59 +276,163 @@ OnWeatherPrint : all
 	"%(weatherdata)\n%(forecastdata)"
 }
 
-//forecast data array order here
-//rain chance, snow chance, max temp, min temp, avg temp, windspeed, precipitation, visibility, humidity
-
 //weatherdata array order here
 //weather condition, humidity, day/night, temp, feel temp, wind speed, precipitation, visibility, cloud cover percentage, rain, snow
 
+//weather types:
+//clear, cloudy, mightrain, mightsnow, mightthunder, raining, snowing, freezingrain, sleet, icepellets, thunderstorm, thundersnow, foghaze
+
 OnCurrentWeatherTalk
 {
-	"\0\_q"
+	_time = "day"
+	if !daytime; _time = "night"
+
+	//ehh ill... expand this in the future... kinda tired...
+	//this is meant to be more indepth than the aitalk comments on weather, expand it EVEN FURTHER.......
+
+	"\0\s[1]\i[52]\i[75]"
+	-- //WEATHER
+	if weather.clear(weatherdata[0])
+	{"Welllll, we've got %(TOLOWER(weatherdata[0])) skies right now! \w8CLC really is stunning with all the lights up in the open sky, you know?"
+	"Oh! Looks like it's %(TOLOWER(weatherdata[0])) out now! \w8A good time to go out, \w2or to sit out on a nice balcony..."
+	"Hmm, there's barely a cloud in sight today! \w8How do you feel about clear skies, %(user)?"
 	--
-	"(CURRENTLY NOT IMPLEMENTED!! SORRY I COULDN'T DO A LOT OF COOL WEATHER STUFF FOR JAM LOL)"
+	if temperature(weatherdata[3]) == "Hot" || temperature(weatherdata[3]) == "Boiling"; " \w8Might be a bit tough with how hot it is, though. \w8Stay in the shade, kay?"}
+	elseif weather.cloudy(weatherdata[0])
+	{"Welllll, looks like there's some happy little clouds in the sky right now... \w8Pretty, right? \w8I did that!"
+	"Hmm, well... \w8There's clouds out! \w8There's so many kinds of clouds... \w4My favorite are lenticular clouds..."
+	if daytime; "Ah, it's cloudy out today! \w8My favorite part of weather like this is waiting for those patches of shadow that the clouds cast to pass over, and enjoying the shade~"
+	else; "Ah, it's cloudy out tonight! \w8My favorite part of weather like this is watching the clouds pass by the moon and filter the moonlight... \w8So peaceful!"}
+	elseif weather.mightrain(weatherdata[0])
+	{"Wellll, the sky smells like it might start raining... \w8Have anything planned outside to%(_time)?"
+	"Hmm... \w8Looks like it might rain soon. \w8Wehehe... \w4I hope I can watch all the frogs and slugs come around... \w8I like those little guys!"}
+	elseif weather.mightsnow(weatherdata[0])
+	{"Hmmm... \w8Looks like it might snow. \w8You can sense that bite in the air, you know? \w8It's a nice feeling~"}
+	elseif weather.mightthunder(weatherdata[0])
+	{"Hmm... \w8Feels like it might start thundering soon! \w8Wehehe, storms are always so fun~~"}
+	elseif weather.raining(weatherdata[0])
+	{"Ahh, it's raining... \w8How nice! \w8The droplets are fun to watch pass through my hands..."}
+	elseif weatherdata[0] == "Blizzard"
+	{"Ooph, it's been blizzarding, hasn't it? \w8Be careful, %(user)!"}
+	elseif weather.snowing(weatherdata[0])
+	{"Hmm hmm hm, it's snowing~ \w8CLC is so pretty when everything's blanketted in snow... \w8Makes you want to cozy up, too!"}
+	elseif weather.freezingrain(weatherdata[0])
+	{"Ooh, we've been having some freezing rain! \w8It's so fun watching the ice accumulate on the trees and stuff... \w8But be careful, kay?"}
+	elseif weather.sleet(weatherdata[0])
+	{"Ooh, we've been having some sleet! \w8I like watching the slush gather up... \w6But be careful out there, kay?"}
+	elseif weather.icepellets(weatherdata[0])
+	{"Ooh, we've been having some ice pellets! \w8I like gathering them up and throwin em at people, wehehe..."}
+	elseif weather.thunderstorm(weatherdata[0])
+	{"We've having a thunderstorm right now~!! \w8My favorite kind of weather!! \w8Ah, sorry if it bothers you... \w8I got earplugs SOMEWHERE..."
+	"We've having a thunderstorm! \w8Wehehe, yaaay! \w8I like sitting next to the window on %(_time)s like this, listening to that distant bass... \w8Especially when we're out on a balcony experiencing it first hand!"}
+	elseif weather.thundersnow(weatherdata[0])
+	{"Wehehehe, it's thundersnowing~~ \w8I can't just make weather like this everyday, you know! \w8I gotta sit out here and appreciate it while I can!"}
+	elseif weather.foghaze(weatherdata[0])
+	{"Hmmmm... \w8Render distance is down today. \w8I like the %(TOLOWER(weatherdata[0])), though. \w6The lights in CLC make it look so pretty~"
+	"Ah, it's a little hard to see today, isn't it? \w8If you're going out, make sure you have enough lighting!"}
+	else //just to catch any exceptions
+	{"Ehh, I dunno, %(user). \w8Weather right now's kinda weird, can't comment on it too much."}
 	--
 	"\n\n\![*]\q[Back,OnWeatherMenu]   \![*]\q[Close,blank]"
 }
 
+//forecast data array order here
+//rain chance, snow chance, max temp, min temp, avg temp, windspeed, precipitation, visibility, humidity
+
 OnWeatherPrediction
 {
-	//TODO: add more holy shit
-	"\0"
-	--
-	if forecastdata[0] >= 75; "\s[3]\i[61]\i[75]Oh! \w8Yeah, I've been in a bit of a rainy mood, so I'll probably throw down some rain tomorrow..."
-	elseif forecastdata[0] >= 35; "\s[3]\i[61]\i[75]Hmm... \w8Been a bit so-and-so, might put down some rain tomorrow? \w8Might not."
-	else; "\s[3]\i[61]\i[75]Oh! \w8Yeah, probably won't rain tomorrow. \w8It's good to be dry once and a while, yeah?"
-	--
-	"\w8\w8\n"
-	--
-	if forecastdata[1] >= 75; "\s[3]\i[61]\i[75]I think Cyber Light City could definitely use some snow tomorrow, so look out for that!"
-	elseif forecastdata[1] >= 35; "\s[2]\i[51]\i[61]\i[75]Might throw some snow down on the city tomorrow, but it could go either way."
-	else; ""
-	--
-	"\w8\w8\n"
-	--
-	//TODO: optimize this
-	if weatherconfig[0] == "Imperial" {
-	if forecastdata[4] <= 0; "\s[3]\i[75]And! I think maybe CLC could use a big cold front... \w8\s[1]\i[53]\i[75]Hehehe, make sure to be EXTRA cozy tomorrow~"
-	elseif forecastdata[4] <= 60; "\s[3]\i[75]And I'm in a bit of a chilly mood, so watch out for that~"
-	elseif forecastdata[4] <= 80; "\s[3]\i[75]Don't wanna do anything too exciting with the temperature tomorrow though."
-	elseif forecastdata[4] <= 95; "\s[3]\i[75]Will probably make it hot tomorrow... \w4I wanna go down to the beach, you know?"
-	else; "\s[1]\i[51]And I think CLC could use a BIG wave of heat tomorrow, wehehehe~!! \w4Watch out~~"
-	}
-	else {
-	if forecastdata[4] <= -17; "\s[3]\i[75]And! I think maybe CLC could use a big cold front... \w8\s[1]\i[53]\i[75]Hehehe, make sure to be EXTRA cozy tomorrow~"
-	elseif forecastdata[4] <= 15; "\s[3]\i[75]And I'm in a bit of a chilly mood, so watch out for that~"
-	elseif forecastdata[4] <= 26; "\s[3]\i[75]Don't wanna do anything too exciting with the temperature tomorrow though."
-	elseif forecastdata[4] <= 35; "\s[3]\i[75]Will probably make it hot tomorrow... \w4I wanna go down to the beach, you know?"
-	else; "\s[1]\i[51]And I think CLC could use a BIG wave of heat tomorrow, wehehehe~!! \w4Watch out~~"
-	}
+	"\0\b2"
+	-- //RAIN
+	if forecastdata[0] >= 75
+	{"\s[3]\i[61]\i[75]Oh! \w8Yeah, I've been in a bit of a rainy mood, so I'll probably throw down some rain..."
+	"\s[3]\i[75]The city COULD use some rain, right?! \w8\i[51]Definitely gonna do that tomorrow..."}
+	elseif forecastdata[0] >= 35
+	{"\s[3]\i[61]\i[75]Hmm... \w8Been a bit so-and-so, might put down some rain? \w8Might not."
+	"\s[3]\i[61]\i[75]I've been going back and forth on whether or not it'll rain... \w6Maybe remember to bring an umbrella, just in case."}
+	else
+	{"\s[3]\i[61]\i[75]Oh! \w8Yeah, probably won't rain. \w8It's good to be dry once and a while, yeah?"
+	"\s[3]\i[52]\i[61]\i[75]Not feeling like putting up rain tomorrow... \w8Who knows!"
+	"\s[3]\i[52]\i[61]\i[75]Looks like no rain... \w4\s[1]\i[53]\i[75]For now, at least!"} //message for both unknown and low rain chance 
 	--
 	"\w8\w8\n"
+	-- //SNOW
+	if forecastdata[1] >= 75
+	{"\s[3]\i[61]\i[75]BUT, I think Cyber Light City could definitely use some snow, so look out for that!\w8\w8\n"}
+	elseif forecastdata[1] >= 20
+	{"\s[2]\i[51]\i[61]\i[75]But I MIGHT throw some snow down on the city... Could go either way.\w8\w8\n"}
+	else; "" //no message for both unknown and low snow chance
+	-- //TEMPERATURE
+	if temperature(forecastdata[4]) == "Below Zero"
+	{"\s[3]\i[75]I also think CLC could use a big cold front... \w8Maybe %(forecastdata[4]) degrees?! \w8\s[1]\i[53]\i[75]Hehehe, make sure to be EXTRA cozy~\w8\w8\n"}
+	elseif temperature(forecastdata[4]) == "Chilly"
+	{"\s[3]\i[75]I'm also in a bit of a chilly mood, so watch out for %(forecastdata[4]) degree weather~\w8\w8\n"}
+	elseif temperature(forecastdata[4]) == "Pleasant"
+	{"\s[3]\i[75]Don't wanna do anything too exciting with the temperature though, expect something around %(forecastdata[4]) degrees.\w8\w8\n"
+	"\s[1]\i[61]Should be decently nice out, though! \w4%(forecastdata[4]) degrees! \w8\i[53]How good for you~\w8\w8\n"}
+	elseif temperature(forecastdata[4]) == "Hot"
+	{"\s[3]\i[61]\i[75]I'll also probably make it hot,  %(forecastdata[4]) degrees-ish... \w4I wanna go down to the beach, you know?\w8\w8\n"
+	"\s[1]\i[61]\i[75]It'll probably be hot tomorrow, maybe around %(forecastdata[4]) degrees?\w8\w8\n"}
+	elseif temperature(forecastdata[4]) == "Boiling" 
+	{"\s[1]\i[51]I also think CLC could use a BIG wave of heat, wehehehe~!! \w8%(forecastdata[4]) degrees, maybe?! \w8Watch out~~\w8\w8\n"}
+	else; "" //just in case
+	-- //HUMIDITY
+	if humid(forecastdata[8]) == "Dry"
+	{"\s[1]\i[53]\i[62]Air will probably be REALLY dry... \w8Days like that just happen, yannow?\w8\w8\n"}
+	elseif humid(forecastdata[8]) == "Sticky"
+	{"\s[3]\i[52]\i[61]\i[75]Air might be a lil sticky out. \w8\s[1]\i[52]\i[61]\i[75]Sorry about that!\w8\w8\n"}
+	elseif humid(forecastdata[8]) == "Muggy"
+	{"\s[1]\i[12]\i[52]\i[72]It's gonna be preeeettyy humid out, though~ \w8Whoops~\w8\w8\n"
+	if temperature(forecastdata[4]) == "Hot" || temperature(forecastdata[4]) == "Boiling"; "\s[3]\i[52]\i[61]\i[75]Should bring deodorant or something, it'll be pretty humid...\w8\w8\n"}
+	elseif humid(forecastdata[8]) == "Soup"
+	{"\s[1]\i[53]Good LUCK being out there in the SUPER humid air, though! \w8\![anim,stop,53]\i[54]It's great for me and my powers, but maybe not so much for you~\w8\w8\n"
+	"\s[2]\i[52]\i[61]\i[75]It'll feel like you're walking through soup tomorrow. \w8\s[1]\i[12]\i[52]\i[61]\i[72]Yay humidity~~\w8\w8\n"}
+	else; "" //no message for both unknown and comfy humidity
+	-- //VISIBILITY
+	if visib(forecastdata[7]) == "Thick Fog"
+	{"\s[1]\i[51]Good luck even SEEING anything today, too! \w8\s[3]\i[52]Sensing a REALLY thick fog...\w8\w8\n"
+	"\s[1]\i[53]It'll probably be IMPOSSIBLE to see anything tomorrow~~ \w8\i[61]\i[71]Perfect for stealth operations!!\w8\w8\n"
+	"\s[3]\i[12]\i[61]\i[72]Uh oh, looks like someone turned the render distance for tomorrow WAY down!! \w8\s[1]\i[53]\i[12]\i[72]Thick fog warning~\w8\w8\n"}
+	elseif humid(forecastdata[7]) == "Light Fog" || humid(forecastdata[8]) == "Foggy"
+	{"\s[3]\i[61]\i[75]Seems like it'll be decently foggy out... \w8\s[1]\i[53]\i[75]Turn on those headlights!\w8\w8\n"
+	"\s[3]\i[61]\i[75]Seems like it'll be decently foggy out... \w8\s[1]\i[53]\i[75]Be aware of your surroundings! \w8You might miss my next big battle~!\w8\w8\n"
+	"\s[3]\i[52]\i[61]\i[75]Render distance is down tomorrow... \w8\s[1]\i[61]\i[75]Uhm, FOG, I mean. \w4It'll be foggy.\w8\w8\n"}
+	elseif humid(forecastdata[7]) == "Misty" || humid(forecastdata[8]) == "Light Mist"
+	{"\s[3]\i[52]\i[61]\i[71]Looks like it'll be a little misty out... \w8\s[1]\i[72]The city skyline's so pretty when it's misty! \w8You should enjoy it!\w8\w8\n"}
+	elseif humid(forecastdata[7]) == "Very Clear"
+	{"\s[1]\i[12]\i[72]Seems like visibility is WAY up tomorrow! \w8\i[53]I bet you could see Spirefell City from here, wahaha~~\w8\w8\n"
+	"\s[3]\i[61]OH, someone turned the render distance for tomorrow WAY up!! \w8\i[52]Wonder what you could see from here...\w8\w8\n"
+	"\s[1]No fog in sight! \w8\i[53]Lucky you... \w4The Regaelus Sea is sooo pretty when you can see all of it!\w8\w8\n"}
+	else; "" //no message for both unknown and clear visibility
+	-- //WINDSPEED
+	if windspeed(forecastdata[5]) == "None"
+	{"\s[1]\i[52]\i[75]To top it all off, looks like there'll be no windiness in sight! \w8Zilch, none at all!"
 	--
-	"Aaand... \w8I think that's all I have to say about tomorrow, hehe..."
+	if temperature(forecastdata[4]) == "Hot" || temperature(forecastdata[4]) == "Boiling"; " \w8Really gonna stew in that heat, huh? \w8Make sure to get some shade!"}
+	elseif windspeed(forecastdata[5]) == "Light"
+	{"\s[1]\i[52]\i[75]To top it all off, you should look forward to some light breezes~~"
 	--
-	"\n\n\![*]\q[Back,OnWeatherMenu]   \![*]\q[Close,blank]"
+	if temperature(forecastdata[4]) == "Hot" || temperature(forecastdata[4]) == "Boiling"; " \w8Should help with the heat, right? \w8Hopefully not make it worse~"}
+	elseif windspeed(forecastdata[5]) == "Medium"
+	{"\s[1]\i[52]\i[75]Ooh, and to top it all off, looks like we'll have some moderate winds! \w8\![anim,stop,52]\i[50]\i[61]How fun!"
+	--
+	if temperature(forecastdata[4]) == "Hot" || temperature(forecastdata[4]) == "Boiling"; " \w8Should help with the heat, right? \w8Hopefully not make it worse~"}
+	elseif windspeed(forecastdata[5]) == "Strong"
+	{"\s[3]\i[61]\i[71]Ooh, but be careful! \w8\s[1]\i[53]\i[71]I might throw up some strong winds soon~~"}
+	elseif windspeed(forecastdata[5]) == "Gale"
+	{"\s[3]\i[71]Ah, but watch out! \w8\i[52]I sense galeforce winds... \w8\![anim,stop,52]\i[50]Protect your stuff from getting damaged, kaay?"}
+	elseif windspeed(forecastdata[5]) == "Storm"
+	{"\s[3]\i[75]Ah, you need to be careful though, %(user)! \w8\i[52]I sense storm winds tomorrow... \w8Watch out for flying trees in the worst case scenario, okay?\w8\n\n\_q\![*]\q[Back,OnWeatherMenu]   \![*]\q[Close,blank]\e"}
+	elseif windspeed(forecastdata[5]) == "Hurricane"
+	{"\s[3]\i[61]\i[75]OH, uhm. \w8\s[1]\i[53]\i[62]\i[75]I'm sensing hurricane winds, \w2though???? \w8Stay safe, %(user), cause if you DON'T I won't have a cool balcony to come back to anymore.\w8\n\n\_q\![*]\q[Back,OnWeatherMenu]   \![*]\q[Close,blank]\e"}
+	else; "" //comments on all windspeed except unknown
+	--
+	"\w8\w8\n\s[1]\i[12]\i[53]\i[72]"
+	--
+	"Aaand... \w8I think that's all I have to say about tomorrow~!"
+	"That's been your personal weather forecast for tomorrow by yours truly~!"
+	"That's it for tomorrow! \w8I'm the most reliable source of weather in this city! \w8\s[2]\i[51]\i[75]I mean, unless I start feeling differently later..."
+	--
+	"\w8\n\n\_q\![*]\q[Back,OnWeatherMenu]   \![*]\q[Close,blank]\e"
 }
 
 //—————————————————————————————— Master Settings ——————————————————————————————
@@ -304,7 +442,7 @@ OnSettingsMenu : all
 	"\0\![set,autoscroll,disable]"
 	"\_q\f[align,center]\f[bold,1]--MASTER SETTINGS--\n\n\f[align,default]\f[bold,default]"
 	
-	"\![*]Right now, %(they(1)) call%(lp('s','')) you \_a[OnChangeName]%(user)\_a.\n"
+	"\![*]Right now, %(they(1)) call%(lp('','s')) you \_a[OnChangeName]%(user)\_a.\n"
 	"\![*]Your Pronouns: \_a[OnChangePronouns]%(Capitalize(they))/%(Capitalize(them))\_a\n"
 	"\![*]\q[Change talk rate,OnTalkRateMenu]\n"
 	"\![*]\q[Toggle Idle Motion,OnToggleMotion]\n"
@@ -353,21 +491,26 @@ OnName
 		"\s[3]\i[61]\i[75]Huh... \w8Eugh, \w4don't like that feeling of deja vu, \w8\i[52]but never mind that! \w8%(Capitalize(user)) it is!"
 	}
 	//----------------------------------
+	elseif _name == "kadin" || _name == "kadinblaire"
+	{
+		user = SHIORI3FW.EscapeAllTags(_tempname)
+		"\s[1]\_q(For some reason, this name seems just right.)\w8\w2"
+	}
 	elseif VillainNames _in_ _name
 	{
-		"\s[1]\![anim,stop,41]\i[40](Please pick a different name!! Don't wanna make lore confusing you know??)"
+		"\s[1]\_q(Please pick a different name!! Don't wanna make lore confusing you know??)\w8\w2"
 		--
 		"\n\n\![*]\q[Cancel,OnConfigMenu,OnSettingsMenu]\![open,inputbox,OnName,-1]\e"
 	}
 	elseif HeroNames _in_ _name
 	{
-		"\s[1]\![anim,stop,41]\i[40](Please pick a different name!! Don't wanna make lore confusing you know??)"
+		"\s[1]\_q(Please pick a different name!! Don't wanna make lore confusing you know??)\w8\w2"
 		--
 		"\n\n\![*]\q[Cancel,OnConfigMenu,OnSettingsMenu]\![open,inputbox,OnName,-1]\e"
 	}
 	elseif NeutralNames _in_ _name
 	{
-		"\s[1]\![anim,stop,41]\i[40](Please pick a different name!! Don't wanna make lore confusing you know??)"
+		"\s[1]\_q(Please pick a different name!! Don't wanna make lore confusing you know??)\w8\w2"
 		--
 		"\n\n\![*]\q[Cancel,OnConfigMenu,OnSettingsMenu]\![open,inputbox,OnName,-1]\e"
 	}
@@ -375,12 +518,12 @@ OnName
 	elseif _name == "phantasia" || _name == "whataphantasia" || _name == "eshal"
 	{
 		user = SHIORI3FW.EscapeAllTags(_tempname) 
-		"\s[1]\i[51]Yeah, yeah, okayy. \w8If you're Phantasia, maybe actually finish coding me!"
+		"\s[1]\i[51]Yeah, yeah, okayy. \w8If you're Phantasia, maybe actually finish coding me!\w8\w2\_q"
 	}
 	else //normal name response.
 	{
 		user = SHIORI3FW.EscapeAllTags(_tempname)
-		"\s[1]\i[53]Got it~!!"
+		"\s[1]\i[53]Got it~!!\w8\w2\_q"
 	}
 	--
 	"\n\![*]\q[Back,OnSettingsMenu]   \![*]\q[Close,blank]"
@@ -400,21 +543,26 @@ OnChangePronouns : all
 //ehhh lets see if i remember how to do this..
 OnPronouns
 {
-	upronouns[0] = reference0
-	
-	if reference0 == "custom"
-	all:{"\0\t\*\b2\_q"
+	if reference0 == "masc" 
+	{upronouns = ("he","him","his","his","himself",0)}
+	elseif reference0 == "fem"
+	{upronouns = ("she","her","her","hers","herself",0)}
+	elseif reference0 == "custom"
+	all:{"\0\t\*\b2\_q\![set,autoscroll,disable]"
 	"\![open,inputbox,OnCustomPronouns,-1]"
-	"Insert pronouns like:\nthey/them/their/theirs/themself\nshe/her/her/hers/herself\nhe/him/his/his/himself\n"
+	"Insert pronouns like:\n\n"
+	"they/them/their/theirs/themself\nshe/her/her/hers/herself\nhe/him/his/his/himself\n\n"
 	"You must insert five. Make sure to use the correct dashes. See specific usage below.\n\n"
 	"1: THEY talked.\n"
 	"2: I talked to THEM.\n"
 	"3: That is THEIR word.\n"
 	"4: Those words of THEIRS are cool!\n"
 	"5: They talked to THEMSELF.\n\n"
-	"\n\![*]\q[Back,OnChangePronouns]   \![*]\q[Nevermind,blank]"}
-	else 
-	{"\![raise,OnPronounsDone,%(reference0)]"}
+	"\![*]\q[Back,OnChangePronouns]   \![*]\q[Nevermind,blank]\e"}
+	else
+	{upronouns = ("they","them","their","theirs","themself",1)}
+
+	if reference0 != "custom" {OnSettingsMenu}
 }
 //FUDGE uhhhhh i think this.. takes the input, makes the slash the delimiter, then checks for array size to see if its valid... yeah
 //im preeeetttyy sure i originally got this from smoky? yes i got it from smoky. just altering it a bit
@@ -427,12 +575,14 @@ OnCustomPronouns
 	{"\![raise,OnPronouns,custom]"}
 	else
 	all:{
-		ucustompronouns = SPLIT(reference0,"/")
+		upronouns = IARRAY
+		upronouns = SPLIT(reference0,"/")
+		upronouns ,= 0
 		
 		"\0\t\*\_q"
 		"Is that plural or singular?\n"
-		"Plural:%(ucustompronouns[0]) are cool\n"
-		"Singular:%(ucustompronouns[0]) is cool\n\n"
+		"Plural: %(upronouns[0]) are cool\n"
+		"Singular: %(upronouns[0]) is cool\n\n"
 		
 		"\![*]\q[Plural,OnPronounsDone,1]\n"
 		"\![*]\q[Singular,OnPronounsDone,0]"
@@ -441,15 +591,7 @@ OnCustomPronouns
 //set plural, pronouns, etc, then just redirect back to settings.
 OnPronounsDone
 {
-	if upronouns[0] == "custom"
-	{upronouns[1] = reference0}
-	else
-	{
-		if upronouns[0] == "undef" 
-		{upronouns[1] = 1}
-		else 
-		{upronouns[1] = 0}
-	}
+	upronouns[5] = reference0
 	
 	"\![raise,OnSettingsMenu]"
 }

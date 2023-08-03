@@ -191,6 +191,11 @@ surface.append1,5
 	animation42.interval,never
 	animation42.pattern0,parallelstop,(40,41)
 	animation42.pattern1,overlay,301,0,0,0
+
+	//devious grin 
+	animation43.interval,never
+	animation43.pattern0,parallelstop,(40,41)
+	animation43.pattern1,overlay,308,0,0,0
 }
 
 //3/4 :) append
@@ -414,9 +419,45 @@ surface.append1-8
 	animation142.pattern5,overlay,-1,350-400,0,0
 }
 
-//—————————————————————————————— Kero surfaces ——————————————————————————————
-//pretty much uneeded sooo
+//poor lonely surface10. i love you
 surface10
 {
 	
+}
+
+
+//no appends... yet
+//:3 recline
+surface19
+{
+	element0,overlay,surface900.png,0,0
+
+	//--backarms
+	//recline
+	animation10.interval,runonce
+	animation10.pattern0,overlay,960,0,0,0
+
+	//--mouth stuff
+	animation40.interval,runonce
+	animation40.pattern0,overlay,1050,0,0,0
+
+	//--eyes
+	//open
+	animation50.interval,runonce
+	animation50.pattern0,overlay,1100,0,0,0
+	//lid
+	animation51.interval,never
+	animation51.pattern0,stop,50
+	animation51.pattern1,overlay,1101,0,0,0
+
+	//--eyebrows
+
+	//ah brows 
+	animation61.interval,runonce
+	animation61.pattern0,overlay,1151,0,0,0
+
+	//--frontarms
+	//recline
+	animation70.interval,runonce
+	animation70.pattern0,overlay,1000,0,0,0
 }

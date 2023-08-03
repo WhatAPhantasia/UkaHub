@@ -2,7 +2,9 @@ OnAiTalk
 {
 	if CHAIN.IDName == ""
 	{
-		LastTalk = ChooseTalk
+		if reference0 == "talk"; LastTalk = RandomTalk
+		elseif reference0 == "text"; LastTalk = PhoneTalk
+		else; LastTalk = ChooseTalk
 	}
 	else
 	{
@@ -13,16 +15,14 @@ OnAiTalk
 
 ChooseTalk
 {
-	//lol um lets see if thiss...
-	if RAND(10) <= 3; PhoneTalk
+	// i dont like this system but it works for now... sigh
+	if RAND(4) == 0; PhoneTalk
 	else; RandomTalk
 }
 
 RandomTalk : nonoverlap_pool
 {
 	"\0\s[1]Hey hey %(user), are you gonna do anything interesting? \w8\i[53]Come onn!! Do something funny!!\e" //for the longest time this was the only thing in aitalk i hate looking at it /j
-	
-	"\0\s[3]\i[51]\i[75]Ehhh, \w6lately I've been thinking that my uniform is just so... \w8\w8\![anim,stop,51]\i[52]drab..? \w8\w8\w4\s[2]\i[62]\i[75]I hate saying that, cause I made it myself based off of Calamity's whole suit, \w4and it's like we match, \w4yeah? \w8\w8\w4\![anim,stop,62]\i[61]\i[52]Still... \w4I'll workshop it!\e"
 	
 	"\0\s[3]%(Capitalize(user))... \w8\i[71]I think you should get more plants around here. \w8\w8\i[52]Like, I'm a free source of rain and shine... \w6And I want something idle to do with my whole weather powers you know?? \w8\w8\s[1]Get more plant minions that I can hold at my bidding!!\e"
 	
@@ -34,7 +34,7 @@ RandomTalk : nonoverlap_pool
 	
 	"\0\s[3]\i[61]\i[75]...Hey, \w4if you need a place to buy furniture, I can recommend you places... \w8\w8\s[1]\i[61]\i[71]Like, there's this place downtown where you can buy good stuff for just a few thousand dollars, \w2\i[53]it's super cheap~!\e"
 	
-	"\0\s[3]\i[61]\i[75]Wooow, I can't stop being amazed at how empty your place is! \w8I never thought anyone could have so little... \w8I kinda pity you. \w8Next time, I'm gonna bring you something nice to spruce things up~ \w8\w4\s[1]Ooh! \w6\![anim,stop,75]\i[12]\i[53]\i[75]How about %(ANY('a spare mini gold statue of me','a big old arcade cabinet that Pandora totally will not miss','a nice sofa that Gomi found and also probably doesnt need'))??\e"
+	"\0\s[3]\i[61]\i[75]Wooow, I can't stop being amazed at how empty your place is! \w8I never thought anyone could have so little... \w8I kinda pity you. \w8Next time, I'm gonna bring you something nice to spruce things up~ \w8\w4\s[1]Ooh! \w6\![anim,stop,75]\i[12]\i[53]\i[70]How about %(ANY('a spare mini gold statue of me','a big old arcade cabinet that Pandora totally will not miss','a nice sofa that Gomi found and also probably doesnt need'))??\e"
 	
 	"\0\s[2]\i[14]\i[61]\i[74]Maaan, how do mortals live like this~?? \w8\w8No flying or anything?! \w8\i[52]I pity your short and powerless existence...\e"
 	
@@ -43,20 +43,304 @@ RandomTalk : nonoverlap_pool
 	"\0\s[4]\i[75]Ugh... \w8I'm STILL thinking about this one person that said I was a ""Pretentious Priviledged Rich Boy"" or whatever. \w8\![anim,stop,75]\i[12]\i[72]What part of me is PRETENTIOUS?! \w8Yeah, like, I have more money than most people, \w4but honestly! \w4Skill issue! \w4\i[52]Just get more money! It's easy!\e"
 	
 	"\0\s[2]\i[61]\i[77]Wehehehe... \w6My phone is just REALLY cool, isn't it?! \w8\![anim,stop,61]\i[63]Like, it's cheap and gross, but I guess that's kinda what makes it charming? \w8\![anim,stop,63]\i[52]\i[61]All the stickers and the cute little gold keychain have stories to them, \w4and... \w8\![anim,stop,52]\![anim,stop,61]\i[50]\i[62]That's \w6better than having something high tech..? \w8\s[1]\i[52]\i[77]I know, it's SUPER crazy..!\e"
+
+	"\0\s[1]\i[13]\i[51]Wehehehe... \w8\![anim,stop,51]\i[53]Hey %(user), didya drop something? \w8\![anim,stop,13]\i[12]Look! \w6It's TOTALLY in my hand right now! \w8All you need to do is take it from my hand! \w8\i[112]I promise I have no sinister reason for wanting you to hold my hand!\e"
+
+	"\0\s[3]\i[52]\i[61]Hmmm... \w8Could use a stick of %(ANY('cedarwood','vanilla','cinnamon','skypine')) incense...\e"
+
+	"\0\s[3]\i[52]\i[75]Y'know, %(user), it used to be so hard to find good, DIVERSE fashion for people without arms in CLC. \w6Which was a surprise, really. \w6\![anim,stop,52]\i[50]Thought there'd be more people like me before I came here, right? \w8\s[1]\i[52]\i[75]Of course, the moment I started getting popular, I started getting WAY more clothing options... \w8\w2\s[1]\i[12]\i[53]\i[72]My influence and fame knows no bounds!\e"
+
+	"\0\s[2]\i[75]Oh, to be a little froggy %(ANY('in a fancy little teapot','on a silly little scooter'))...\w8\w8\n\_q(...%(Capitalize(lp('is','are'))) %(they(1)) muttering that to %(themself(1))?)"
+
+	"\0\s[3]\i[52]\i[61]\i[75]...Aut viam inveniam \w4aut faciam.\e"
+
+	"\0\s[1]\i[61]Y'know, %(user), it's SUPER fun to play in the electrial substation! \w8\i[53]It's like a forbidden playground only I can mess around in, wehehehe~\e"
+
+	all:{"\0\s[1]\i[52]\i[61]The city infrastructure is fun to explore! \w8"
+	random:{"I like sitting on the slick, modern powerlines... \w8\![anim,stop,52]\i[53]\i[12]\i[72]Sometimes the birds like to hang out with me up there, too!\e"
+			"\i[71]Like, the art district has so many neat sculptures to climb~!\e"
+			"\i[71]I mean, they don't call it the city of lights for nothing, they have REALLY neat light systems and they're fun to find!\e"}}
+
+	all:{"\0\s[1]\i[52]\i[75]Wehehehe... \w2Just thinking about my fanbase... \w8I definitely have the best one out of all the heroes and villains here, right? \w8"
+	if Flag("FBKnow"); "\![anim,stop,52]\i[51]\i[61]Really, it must be an honor for me to be here, riiight?\e"
+	else; "\w8\s[3]\i[51]\i[75]\n...So CLEARLY, \w2you've been living under a rock if you had to ask who I was...\e"}
+
+
+	//--- weather related but not related to CURRENT weather
 	
 	"\0\s[1]%(Capitalize(user))! \w6Whaddaya think about the weather right now~?? \w8Isn't it just so neat?! \w6Worked super hard on it and everything, so you better be impressed!\e"
+
+	all:{"\0\s[1]\i[61]\i[75]Hey %(user), do you have a favorite kind of cloud..? \w8\i[52]Let me guess... \w8\![anim,stop,52]\i[50]\![anim,stop,75]\i[11]\i[70]%(Capitalize(anycloud))?! \w8\w8\i[51]...So?! \w8Was I right?!"
+	if Flag("PandoraFight"); " \w8\![anim,stop,51]\i[52]Well if I WAS, maybe I can make it happen for you..?!\e"
+	else; "\e"}
+
+	"\0\s[3]\i[52]\i[75]Hmph... \w8%(Capitalize(user)), no one truly appreciates how hard it is to be the resident weather demigod around here. \w8\s[1]\i[52]\i[75]So YES, I'm going to CONTINUE telling you about %(ANY('coastal wind patterns','the formation of tornadoes','the effect city terrain has on wind'))! \w8SOMEONE needs to get this!\e"
+
+
+	//----- GENDER THOUGHTS
+	case lgender
+	{
+		when "girl"
+		{
+			"\0\s[3]\i[52]\i[61]\i[75]I don't feel girly most days, but today's %(dn('','been '))a nice day~ \w8Just wish I could let down my hair...\e"
+		}
+		when "boy"
+		{
+			"\0\s[4]\i[52]\i[75]Hmmph, when I say ""boys will be boys,"" I'm referring to my right to be STUPID!! \w6Not any of that toxic stuff! \w8\w2\s[3]\i[52]\i[62]\i[12]\i[72]Sighh, \w2no one gets it, %(user)...\e"
+		}
+		when "creature"
+		{
+			"\0\s[1]\i[53]Wehehehehe~~~ \w8What's a gender?! \w8\i[12]\i[72]Never heard of her!! \w8I wanted to say that out loud because I feel GREAT to%(dn('day','night'))!!!!!\e"
+		}
+		when "cloud"
+		{
+			"\0\s[2]\i[52]\i[61]Feeling floaty to%(dn('day','night'))~~ \w8What a nice feeling~~\e"
+		}
+		when "lightning"
+		{
+			"\0\s[1]\i[43]\i[53]Ehehehehe~ \w8I just wanna zap around to%(dn('day','night'))... \w8Maybe later...\e"
+		}
+		when "zephyr"
+		{
+			"\0\s[1]\i[52]\i[61]\i[75]Feeling just like the wind... \w8This is the freest and strongest I've ever been...\e"
+		}
+		when "weatherfluid"
+		{
+			"\0\s[3]\i[52]\i[61]\i[75]...Not sure anyone could understand the connection I feel to the air, the weather... \w8But I think it's kinda nice, having an experience all to myself...\e"
+		}
+	}
+
+	//----- PROGRESSION AND FLAGS
+
+	if Flag("AskHeroes")
+	{
+		"\0\s[4]\i[52]\i[75]Ugh, the Azure Dragon was being really annoying earlier... \w8Seriously, she makes every fight so personal?! \w8I don't even know who she is..!!\e"
+	}
+
+	if !Flag("PandoraFight")
+	{
+		//user will only see this stuff for 15 minutes at the least so its p small
+		if Flag("AskTroupe")
+		{
+			"\0\s[4]\i[52]\i[75]Grumble... \w4Calamity and me are the only ones out of us that have any sense... \w4Why did he even invite her to the team..?\e"
+		}
+	}
+	else
+	{
+		//you NEED to have the ask troupe flag at this point so
+
+		"\0\s[3]\i[75]Pandora... \w8\i[52]I was thinking of throwing her against a wall later. \w8\s[1]\i[53]\i[75]%(ANY('All in good fun, of course!','Hopefully that works out!'))\e"
+
+		"\0\s[3]\i[52]\i[61]\i[75]I enjoy flying up into the lower clouds and floating there for a while. \w8Maybe look down at the city, bring my harmonica and stuff. \w8\w4\s[1]\i[51]\i[75]Hey, maybe I should bring you next time, %(user)! \w8\![anim,stop,51]\i[53]Are you afraid of heights..?!\e"
+
+		"\0\s[3]\i[75]...Hm. \w8I'm having a strange wave of nostalgia, looking down at the city like this. \w8\i[52]Not that I could explain it...\e"
+
+		"\0\s[3]Hrm. \w8\i[63]What do you even do for fun, as a mortal? \w8\i[52]I'm not saying that cause I don't KNOW any mortals, I do, but. \w8\s[3]\i[61]I don't know much about you, %(user). \w8Seems a bit unfair since I've been here for a bit, yes?\e"
+
+		all:{"\0\s[1]\i[12]\i[72]Hey, %(user)! \w4Do you want a cloud-in-a-jar? \w8\i[53]I can make one really quickly if you give me a mason jar~ \w8"
+		random:{"I could put thunderclouds in it! \w8It'll be fun to watch the lightning flash, right?\e"
+				"\![anim,stop,53]\i[52]I could even put a little drainage system in it to let all the rain out...\e"}}
+
+		//moved this one to here...
+		"\0\s[3]\i[51]\i[75]Ehhh, \w6lately I've been thinking that my uniform is just so... \w8\w8\![anim,stop,51]\i[52]drab..? \w8\w8\w4\s[2]\i[62]\i[75]I hate saying that, cause I made it myself based off of Calamity's whole suit, \w4and it's like we match, \w4yeah? \w8\w8\w4\![anim,stop,62]\i[61]\i[52]Still... \w4I'll workshop it!\e"
+
+		/*
+		if !Flag("YeStorm") || !Flag("NoStorm") {
+		all:{"\0\s[3]\i[61]\i[75]...Hrm, I don't think you've told me... \w8%(Capitalize(user)), what's your feelings on thunderstorms?\w8\w8\_q\n\n"
+			"\![*]\q[I enjoy them,OnThunderFeel,ye]\n"
+			"\![*]\q[They're not pleasant,OnThunderFeel,no]\n"
+			"\![*]\q[uhh DISTRACTION SMOKEBOMB GO,blank]\e"}}
+		*/
+	}
+
+
+	//----- TIMES AND DATES
+	case timeslot 
+	{
+		when "earlymorning" {
+				if up_hours >= 3
+				{
+					"\0\s[3]\i[61]\i[75]Oh dang, didn't expect to stay here 'til the sun peeks over the horizon again...\e"
+
+					"\0\s[3]\i[52]\i[61]\i[75]...I've had a lot of nights like this.\e"
+				}
+
+				parallel Pool_Breakfast
+
+				"\0\s[1]\i[53]\i[61]Maaaan~! \w8Cyber Light City is sooo pretty around sunrise! \w8\![anim,stop,53]\i[50]\i[72]This balcony's the BEST cause you can see it rise to the leftish, right??\e"
+			}
+			when "morning" {
+				parallel Pool_Breakfast
+
+				"\0\s[1]\i[53]Ahhh, \w6what a great morning! \w8\i[12]\i[72]I've already managed to make one bad decision, and I'm not planning on stopping! \w8\w4\s[3]\i[12]\i[61]\i[72]Huh? \w8""What did I do?"" \w8\s[1]\i[51]\i[61]...Don't worry about it, %(user).\e"
+			}
+			when "lunch" {
+				parallel Pool_Lunch
+
+				"\0\s[1]\i[75]Sun's highest in the sky now! \w8\i[52]It's the perfect time for me to mess around with the sunlight...\e"
+			}
+			when "afternoon" {
+				parallel Pool_Lunch
+
+				"\0\s[2]\i[52]\i[61]\i[75]Weird for me to not be, like, at least a LITTLE busy around now... \w8It's kinda freeing, slacking off like this~\e"
+			}
+			when "evening" {
+				parallel Pool_Dinner
+
+				"\0\s[1]\i[12]\i[53]\i[72]Wahaha, this is when Cyber Light City gets REALLY pretty~ \w8Just look at those purple orange synthwave hues!\e"
+			}
+			when "latenight" {
+				parallel Pool_Dinner
+			}
+			when "midnight" {
+				parallel Pool_Dinner
+
+				"\0\s[1]Isn't it easier to think after midnight? \w8\i[11]\i[52]\i[61]For me, it's a time where no one expects anything of me... \w8\![anim,stop,52]\i[51]Uh, \w3USUALLY...\e"
+			}
+	}
+
+	if up_hours >= 1
+	{
+		"\0\s[3]\i[63]\i[75]...You've been hanging around me for \w2a WHILE, \w4%(user). \w8Thought you'd get bored and leave..? \w8\w2\s[1]\i[12]\i[61]\i[72]OH WAIT, do you really admire me that much?! \w8\![anim,stop,61]\i[53]\i[60]Wooow! \w8I really DO have the most dedicated fans!\e"
+	}
+
+
+	//------ WEATHER RELATED 
+	if Flag("IdleWeather")
+	{
+		if weather.clear(weatherdata[0])
+		{
+			"\0\s[1]\i[52]\i[75]Hmm hmm hmm~ \w8Clear skies in CLC, bright nights in CLC~♪\e"
+
+			"\0\s[1]\i[52]\i[61]When the sky's clear like this, you can REALLY enjoy those synthwave hues that paint the sky here... \w8\s[1]\i[53]Another reason as to why this is my favorite place in the world!\e"
+
+			if daytime
+			{
+				"\0\s[2]\i[61]\i[75]If the weather stays like this, it'd be perfect to watch the nighttime CLC lightshow...\e"
+
+				if temperature(weatherdata[4]) == "Hot" || temperature(weatherdata[4]) == "Boiling"
+				{
+					"\0\s[3]\i[13]\i[52]\i[62]\i[73]Bleh.... \w8Maybe I should throw up some cloud cover, because I can NOT handle the sun with this heat...\e"
+				}
+			}
+			else
+			{
+				"\0\s[2]Watching all those lights up in the night sky... \w8The city of lights is GREAT on clear nights like this, right?\e"
+
+				"\0\s[3]\i[52]\i[61]\i[75]Shame you can't see the stars around here, specially when it's so clear out... \w8\![anim,stop,32]\i[50]But at least the city lights are pretty.\e"
+			}
+		}
+		elseif weather.cloudy(weatherdata[0])
+		{
+			all:{"\0\s[1]\i[61]Ooh! \w8Is that a %(anycloud) cloud?! \w8\i[53]Look look, %(user)!"
+			random:{"\e"
+					" \w8\s[1]\i[51]I totally didn't just make it, like, RIGHT NOW...\e"
+					" \w8\i[12]\i[72]I made that just a few seconds ago! \w8Are you impressed?!\e"
+					" \w8\s[2]\i[52]\i[61]\i[75]Maan, it's so cool watching weather take it's course, you know?\e"}}
+
+			"\0\s[3]\i[52]\i[75]%(Capitalize(rarecloud)) clouds are a little hard to make in this city... \w8Gotta put in a teensy bit more effort to coax the air currents into making what I want, what with the weird terrain around here...\e"
+
+			"\0\s[3]\i[61]Are there any orographic clouds out? \w8It's pretty much impossible for them to show up naturally, since the ocean's on one side of the city, and on the other side are the mountains... \w8But it's nothing I can't change!\e"
+
+			if !daytime; "\0\s[1]\i[61]Is it harder for you to see the clouds at night? \w8\i[52]A shame if so... \w6They're really pretty around now.\e"
+		}
+		elseif weather.mightrain(weatherdata[0])
+		{
+			"\0\s[2]\i[52]\i[61]Ah, I really do love that smell of petrichor... \w8So calming.\e"
+		}
+		elseif weather.mightsnow(weatherdata[0])
+		{
+			"\0\s[2]\i[52]\i[61]\i[75]Oooh, smell that bite in the air? \w8Gotta savor it as much as I can, cause these don't last long...\e"
+		}
+		elseif weather.mightthunder(weatherdata[0])
+		{
+			"\0\s[1]\i[61]Ah, there's a buzzy static in the air... \w8\i[52]Makes me feel electric.\e"
+		}
+		elseif weather.raining(weatherdata[0])
+		{
+			"\0\s[2]\i[61]\i[75]Hmm~ \w8\i[52]Rain always puts me in a good mood~\e"
+
+			"\0\s[1]\i[52]\i[61]\i[75]Hmm~ \w8I think, after this, I'm gonna go looking for %(ANY('frogs','worms'))... \w8They always come up somewhere after it rains...\e"
+
+			all:{"\0\s[1]\i[52]\i[61]Ah, rainy %(dn('days','nights')) are the best! \w8"
+			random:{"Floating in the air and feeling the water on my skin just makes me feel alive... \w8You can do it too, but it's not my responsibility if you get sick~\e"
+					"I could catch the rainwater in my mouth... \w8HEY, it doesn't get me sick! \w8So it's totally fine!\e"}}
+		}
+		elseif weatherdata[0] == "Blizzard"
+		{
+			"\0\s[3]\i[61]\i[75]...This weather is pretty heavy, huh? \w8It's nice and cozy in your apartment, though~\e"
+		}
+		elseif weather.snowing(weatherdata[0])
+		{
+			"\0\s[3]\i[12]\i[61]\i[74]...Ah, the flakes are so pretty...\e"
+		}
+		elseif weather.freezingrain(weatherdata[0])
+		{
+			"\0\s[1]\i[61]\i[75]The trees look so pretty coated in all this ice! \w8Gotta be careful of any falling branches, though~\e"
+
+			"\0\s[1]\i[52]\i[61]\i[75]Maan, this weather reminds me of this TOTALLY AWESOME fight I was in with NEO... \w8I did this SUPER COOL flash freeze move in the middle of the rain \w2and everything was covered in a spiky, icy veil...\e"
+		}
+		elseif weather.sleet(weatherdata[0])
+		{
+			"\0\s[1]\i[53]Wehehe~ \w8\i[12]\i[72]Hey %(user), you should gather up some slush! \w6It's fun to play with! \w8\w6\s[3]\i[12]\i[61]\i[72]...What do you mean that's unsanitary..??\e"
+		}
+		elseif weather.icepellets(weatherdata[0])
+		{
+			"\0\s[1]\i[51]\i[75]Wehehehe... \w8What should I throw some ice pellets at to%(dn('day','night'))..?\e"
+		}
+		elseif weather.thunderstorm(weatherdata[0]) || weather.thundersnow(weatherdata[0])
+		{
+			"\0\s[1]\i[52]\i[61]\i[75]Personally, I think weather like this is GREAT... \w8You get to curl up inside your house and have nice, therapeutic rumbling in the background... \w8Wish more people shared this opinion with me...\e"
+
+			"\0\s[1]\i[11]\i[52]\i[61]Cyber Light City is the SAFEST city to be in during a thunderstorm... \w8\s[1]\i[12]\i[53]\i[72]Because I'M here!! \w8I keep ALL the scary lightning strikes away... \w8\![anim,stop,53]\i[51]I mean, unless I'm feeling silly...\e"
+
+			if weather.thundersnow(weatherdata[0])
+			{
+				"\0\s[3]\i[52]\i[61]\i[75]Weather like this is RARE, %(user). \w8I can only put up thundersnows every-so-often! \w8\s[1]\i[52]\i[61]\i[75]They're so pretty, though, so I personally think it's worth it~\e"
+			}
+		}
+		elseif weather.foghaze(weatherdata[0])
+		{
+			"\0\s[1]\i[12]\i[61]\i[72]Wehehe~ \w8The light peeking through the fog is so cool looking, isn't it? \w8\i[53]Especially in CLC~\e"
+
+			"\0\s[3]\i[61]\i[75]Looking down at the hazy streets... \w8\i[52]It's dizzying, in a good way...\e"
+		}
+		else 
+		{
+			"\0\s[3]\i[75]Oh, bluh... \w8\i[52]I hate when these magic fogs pop up in my brain, that almost... \w6Disconnect me from the weather, somehow. \w8\w2It's so annoying... \w8Hope this one passes soon...\e"
+		}
+	}
+}
+
+Pool_Breakfast : array
+{
+	"\0\s[1]\i[61]Hey hey %(user), are you a coffee drinker? \w8\i[52]Personally could never stand the stuff. \i[71]I think hot chocolate is WAYY better at waking you up in the mornings! \w8\![anim,stop,61]\i[60]Ooh, I ESPECIALLY like the mix imported from Dark Inspirations in Spirefell...\e"
+
+	"\0\s[1]Hey, can you get me the box of %(ANY('Cocoa Crushers','Holobombs','Honeyloops')) in your kitchen cabinet? \w4I'm kinda craving it. \w8\w4\s[3]\i[63]Huh? \w8\![anim,stop,63]\i[61]Oh, of course I know where the cereal is. \w8\s[1]\i[61]\i[71]I've been to this balcony a ton, remember?\e"
+
+	"\0\s[2]\i[52]\i[61]\i[75]I'd like to thank every single brown cow out there for making the chocolate milk we drink in the morning. \w8They just do \w6so \w6much.\e"
+}
+
+Pool_Lunch : array
+{
+	"\0\s[3]\i[11]\i[61]There's this REALLY good sandwich place downtown that gives out THE BEST lunch specials... \w8If you want to be as cool as me, you need to scope these kinds of places out, %(user)!\e"
+}
+
+Pool_Dinner : array
+{
+	"\0\s[3]\i[63]\i[75]I dunno why people say dinner reservations for all the fancy restaurants around here are hard to get? \w8\i[52]I just walk in and they let me eat there...\e"
+
+	if lgender == "girl"; "\0\s[1]\i[53]Wehehe... \w8Girl dinner time..!! \w8\![anim,stop,53]\i[52]\i[11]Except for ME, girl dinner is a plate of the finest grapes the material world has to offer!!\e" //uhhh i hope this doesnt mess up probabilities more than the probablities are ALREADY messed up..
 }
 
 PhoneTalk : nonoverlap_pool
 {
 	//phonetalk timing is a little weird rn bc. i don't want to work hard on this section
 
-	"\0\b[10]\_q"
-	--
-	all:{"\s[3]\i[61]\i[77]"
+	all:{"%(chats)\s[3]\i[61]\i[77]"
 		"WESLEY: ghey lumi%(chatw1)"
 		"WESLEY: where%(chatw1)"
-		"\s[1]\i[52]\i[77]"
+		"\s[1]\i[52]\i[77]";
 		"LUMI: none of your business!!!!!!!%(chatw1)"
 		"LUMI: i'm being SO SNEAKY right now you have NOOO idea!!!%(chatw1)"
 		"WESLEY: lum i im serious%(chatw2)"
@@ -65,11 +349,11 @@ PhoneTalk : nonoverlap_pool
 		"LUMI: i'm at our dumb balcony in the city%(chatw2)"
 		"WESLEY: the one that someone lives at now%(chatw2)"
 		"\![anim,stop,51]\i[52]\i[61]"
-		"LUMI: yea %(they)'%(p('s','re')) chill right now%(chatw2)"
+		"LUMI: yea %(they)'%(p('re','s')) chill right now%(chatw2)"
 		"WESLEY: good. come back soon%(chatw1)"
 		"LUMI: okayyyyy :P\e"}
 	
-	all:{"\s[3]\i[51]\i[61]\i[77]"
+	all:{"%(chats)\s[3]\i[51]\i[61]\i[77]"
 		"LUMI: so how are things at the house?%(chatw1)"
 		"WESLEY: aw%(chatw1)"
 		"WELSEY: are you worried "
@@ -80,16 +364,40 @@ PhoneTalk : nonoverlap_pool
 		"LUMI: NO NEVER%(chatw1)"
 		"WESLEY: ha ha\e"}
 
-	all:{"\s[2]\i[77]"
+	all:{"%(chats)\s[2]\i[77]"
 		"LUMI: WEHEHEHE%(chatw1)"
 		"LUMI: isn't the weather just%(chatw1)"
 		"LUMI: SO NICE right now?!?!?!%(chatw2)"
 		"WESLEY: what did you do.%(chatw2)"
-		"LUMI: wehehehehe :33%(chatw2)"}
+		"LUMI: wehehehehe :33\e"}
+
+	all:{"%(chats)\s[3]\i[61]\i[77]"
+		"GOMI: LUMI%(chatw1)"
+		"GOMI: ur at that apartment right O_O%(chatw2)"
+		"\i[51]"
+		"LUMI: uhhhhhhhhhhh yes%(chatw2)"
+		"GOMI: PICJ UP SOME SEREAL PLS%(chatw1)"
+		"GOMI: FROM DA CABINET%(chatw2)"
+		"\![anim,stop,51]\i[50]"
+		"LUMI: ohh the %(user) will probably hate that%(chatw2)"
+		"\s[1]\i[43]\i[77]"
+		"LUMI: of COURSE i'll get you your cereal!!!!!%(chatw2)"
+		"GOMI: YEAHHHH X3\e"}
+	
+	all:{"%(chats)\s[2]\i[77]"
+		"LUMI: wessleeeyyy%(chatw2)"
+		"WESLEY: what .%(chatw2)"
+		"\i[53]"
+		"LUMI: can you buy me %(ANY('tecdonalds','taco crash','CFC'))%(chatw2)"
+		"\s[3]\i[61]\i[77]"
+		"WESLEY: no%(chatw1)"
+		random:{"WESLEY: not after what happened wit h the griled cheese%(chatw2)\i[52]LUMI: ok good point\e"
+				"WESLEY: not going to let you flood another one%(chatw2)\![anim,stop,61]\i[60]LUMI: THAT WAS 6 YEARS AGOOOO\e"
+				"WESLEY: taking over the chain though%(chatw1)WESLEY: we can do that . in a bit%(chatw2)\s[1]\i[77]LUMI: YAAAAAAAAY :D\e"}}
 	
 	if !Flag("PandoraFight")
 	{
-	all:{"\s[3]\i[77]"
+	all:{"%(chats)\s[3]\i[77]"
 		"WESLEY: so%(chatw1)"
 		"\i[51]"
 		"LUMI: what.%(chatw1)"
@@ -104,21 +412,97 @@ PhoneTalk : nonoverlap_pool
 		"LUMI: of course!! youre not my DAD%(chatw1)"
 		"WESLEY: k\e"}
 	}
-	else //all dialogues with pandora trigger after lumi talks to her abt the fight
+	else //all dialogues with pandora trigger after lumi talks to her abt the fight. plus you just get more dialogues in general
 	{
-	all:{"\s[3]\i[77]"
+	all:{"%(chats)\s[3]\i[77]"
 		"PANDORA: HA HA i found ur dumb money stash. PREPARE FOR THE BURNENING!!!!%(chatw2)"
 		"LUMI: GRRRRRR!! shush!! the UP!! when i get back im throwing you into the pool again!!!\e"}
+
+	all:{"%(chats)\s[3]\i[61]\i[77]"
+		"PANDORA: hey lulu you've been acting abnormally uh%(chatw1)"
+		"\![anim,stop,61]\i[63]"
+		"PANDORA: NICE ig%(chatw1)"
+		"PANDORA: why is that. explain yourself%(chatw2)"
+		"\i[51]"
+		"LUMI: what does that mean.%(chatw2)"
+		"PANDORA: liek idk u haven't been a jerk%(chatw2)"
+		"\s[2]\i[51]\i[60]\i[77]"
+		"LUMI: i can PUNCH YOU IN THE FACE if you want%(chatw2)"
+		"PANDORA: PLZ its weird if you DONT\e"}
+
+	all:{"%(chats)\s[3]\i[61]\i[77]"
+		"PANDORA: LUMI AAAAAHHHH%(chatw1)"
+		"PANDORA: DAD'S MAKING GRILLED CHEESE AGAIN%(chatw2)"
+		"\s[1]\i[51]\i[77]"
+		"LUMI: LOL that's YOUR problem not mine%(chatw1)"
+		"LUMI: GOOD LUCK%(chatw2)"
+		"PANDORA: SCREW YOU TOO!!!!\e"}
+
+	all:{"%(chats)\s[3]\i[61]\i[77]"
+		"WESLEY: lumi%(chatw1)"
+		"WESLEY: what does pandora mean when she says%(chatw1)"
+		"WESLEY: %(ANY('basedcel','cringe pilled','amogus','scrunkly','scamper pilled','sploinko','eebiedeebie'))%(chatw2)"
+		"\s[1]\i[51]\i[77]"
+		"LUMI: LOL?????\e"}
+
+	all:{"%(chats)\s[3]\i[77]"
+		"LUMI: uhhh hey gomi%(chatw1)"
+		"\i[51]"
+		"LUMI: pandora didn't throw out my %(ANY('gold bars','gold statue','new queen sized mattress','takeout')) like she said she would%(chatw2)"
+		"LUMI: right%(chatw2)"
+		"GOMI: wouldn't you liek to know weather%(lg('boy','girl','kid'))%(chatw1)"
+		"\s[4]\i[42]\i[62]\i[77]"
+		"GOMI: LOLOLOL XDDDD%(chatw2)"
+		"LUMI: PLEASE 😭\e"}
 	}
 }
+
+//---------------------- EVENTS
+
+//erm.... next update acktually.
+
+//----------------------
 
 OnMinuteChange
 {
 	if min == 0
 	{
-		GetWeatherData
-		OnGetForecastData
+		if WeatherStationInstalled
+		{GetWeatherData
+		OnGetForecastData}
+		else
+		{RemoveFlag("IdleWeather")}
+
+		if hour == 0 && day == 0 && month == 0 //New year's
+		{
+			"\0\s[1]\i[53]WOOOOOO!! \w8\i[12]\i[72]Happy %(year),\w4 %(user)!! \w8\![anim,stop,53]\i[51]Can't wait to wreck more havoc this year~\e"
+		}
+	}
+
+	if up_mins % 60 == 0
+	{
+		if recenttouch != (0,0); recenttouch = (0,0)
 	}
 }
 
+//parallel Pool("Pool_Example","%(example == 'True')")
+//parallel Pool("Pool_Example",example == 'True')
+
+Pool
+{
+    if TOINT(_argv[1]); EVAL("%(_argv[0])")
+}
+
+//To start, you'll need to copy the above function into your ghost's files. Then, to create a pool, you need two things. First, you need to add a function call like this to the function you want the Pool in:
+//parallel Pool("Pool_SomePool","%(somevar == 'True')")
+//The word parallel is a built in function of YAYA, which treats all the elements of an array as individual output candidates. After that is a call to the Pool function, which you give two arguments.
+//Argument 1 is the name of the pool you want to call. I always start them with Pool_ but you don't have to. Name it anything you want, as long as it's a valid function name.
+//Argument 2 is the if check you want to activate the pool. In this case, this pool would be used if the variable somevar is equal to True.
+//You'll notice that I've put the condition for the if check into an envelope. You don't have to do that! I just do it because I think it makes the text highlighting nicer. You could also write it like this:
+//parallel Pool("Pool_SomePool",somevar == 'True')
+//Either way, you can put any kind of if check in here. So both of these are also valid:
+//parallel Pool("Pool_NobodyWillEverSeeThis",%(hour == 5 && friendship > 1000 || ARRAYSIZE(inventory) > 50 && (minute == 20 || minute == 40)))
+//parallel Pool("Pool_DaytimeDialogue",IsDaytime)
+
 //i cant see when i cant scroll past the last function. so here is a comment.
+//now that i've migrated to vscode this is no longer an issue. i dont wanna remove this tho its here for emotional support :3
