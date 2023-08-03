@@ -65,7 +65,7 @@ OnKeyPress
 	if reference0 == "f1"; "\![open,readme]"
 	elseif reference0 == "t"; OnAiTalk
 	elseif reference0 == "r"; OnLastTalk
-	elseif reference0 == "f5"; "\![reload,ghost]" //renove in post? yeah so no one yeets themself out of the firstboot unintentionally...
+	elseif reference0 == "f5" && SHIORI3FW.DebugMode; "\![reload,ghost]"
 }
 
 //Happens about 30 seconds after a script ends, by default, to bring them back to normal poses
@@ -127,9 +127,9 @@ On_portalrootbutton.caption {"Misc Links + Credit"}
 //These are the websites linked in the second option of the sakura's right click menu. Same as above
 portalsites_sakura : array
 {
-	"Download Page"; "https://phantasiaukahub.carrd.co/#lumi"
+	"Download Page"; "https://whataphantasia.github.io/projects/ukagaka/ghosts/stormbringer"
 	"Changelog (G. Docs)"; "https://docs.google.com/document/d/10yy69A5hkizTPMh1mmRISIDg8M3JMfOdL9abrYmme20/edit?usp=sharing"
-	"Phantasia's Carrd"; "https://whataphantasia.carrd.co/"
+	"Phantasia's Website"; "https://whataphantasia.github.io/"
 	""; ""
 	"Simplicity v1.0.3"; "https://github.com/Zichqec/simplicity_template"
 	"Ukagaka Dream Team Wiki"; "https://ukagakadreamteam.com/wiki/"
@@ -148,75 +148,63 @@ recommendsites_kero : array
 
 they
 {
-	_p = upronouns[0]
-	_pr = ucustompronouns
-	if _argv[0] == 1 {_p = lpronouns[0]; _pr = lcustompronouns}
+	_p = upronouns
+	if _argv[0] == 1; _p = lpronouns
 
-	if _p == "masc"; "he"
-	elseif _p == "fem"; "she"
-	elseif _p == "custom"; "%(_pr[0])"
-	else; "they"
+	_p[0]
 }
 them
 {
-	_p = upronouns[0]
-	_pr = ucustompronouns
-	if _argv[0] == 1 {_p = lpronouns[0]; _pr = lcustompronouns}
+	_p = upronouns
+	if _argv[0] == 1; _p = lpronouns
 
-	if _p == "masc"; "him"
-	elseif _p == "fem"; "her"
-	elseif _p == "custom"; "%(_pr[1])"
-	else; "them"
+	_p[1]
 }
 their
 {
-	_p = upronouns[0]
-	_pr = ucustompronouns
-	if _argv[0] == 1 {_p = lpronouns[0]; _pr = lcustompronouns}
+	_p = upronouns
+	if _argv[0] == 1; _p = lpronouns
 
-	if _p == "masc"; "his"
-	elseif _p == "fem"; "her"
-	elseif _p == "custom"; "%(_pr[2])"
-	else; "their"
+	_p[2]
 }
 theirs
 {
-	_p = upronouns[0]
-	_pr = ucustompronouns
-	if _argv[0] == 1 {_p = lpronouns[0]; _pr = lcustompronouns}
+	_p = upronouns
+	if _argv[0] == 1; _p = lpronouns
 
-	if _p == "masc"; "his"
-	elseif _p == "fem"; "hers"
-	elseif _p == "custom"; "%(_pr[3])"
-	else; "theirs"
+	_p[3]
 }
 themself //mostly here to set up neopronouns
 {
-	_p = upronouns[0]
-	_pr = ucustompronouns
-	if _argv[0] == 1 {_p = lpronouns[0]; _pr = lcustompronouns}
+	_p = upronouns
+	if _argv[0] == 1; _p = lpronouns
 
-	if _p == "masc"; "himself"
-	elseif _p == "fem"; "herself"
-	elseif _p == "custom"; "%(_pr[4])"
-	else; "themself"
+	_p[4]
 }
 //%(they) %(p('are','is'))
 //You can change the name of this function if you want! I kept it short so it's fast to type
 p
 {
-	if !upronouns[1]; _argv[0] //they are
+	if upronouns[5]; _argv[0] //they are
 	else; _argv[1] //he is/she is
 }
 lp //i hate that i split them up but i dont wanna make it more complex so yeah
 {
-	if !lpronouns[1]; _argv[0] 
+	if lpronouns[5]; _argv[0] 
 	else; _argv[1]
+}
+//setting this up bc i do this check WAYY too many times
+//%(lg('boy','girl','kid'))
+lg 
+{
+	if lgender == "boy"; _argv[0]
+	elseif lgender == "girl"; _argv[1]
+	else; _argv[2]
 }
 
 /*
 An example of the above setup:
-"%(they) %(p('were','was')) looking for that earlier, I'll ask if %(they)'%('ve','s') found it."
+"%(they) %(p('were','was')) looking for that earlier, I'll ask if %(they)'%(p('ve','s')) found it."
 
 If using they, the %(p) functions will return the first word specified, resulting in:
 "they were looking for that earlier, I'll ask if they've found it."
@@ -226,6 +214,8 @@ If not using they, for example if using she, it will return the second specified
 
 With this function, you can quickly customize words that need to change based on whether it should be singular or plural. Just remember; the %(p) function is set up so that the first word you specify matches with the 'they' labels used on the pronoun functions. You can always switch that around if you like, too.
 */
+
+//-------------------
 
 //Copied from the base SHIORI files, but with the username variable added
 OnNotifyUserInfo : void
@@ -242,6 +232,10 @@ OnNotifyUserInfo : void
 
 //---------------------
 //qol time stuff from x template because I LIKE IT
+
+//This function is to help with changing text alignment in the same line! It makes a new line by using \n, displaying a space, and then going back up a line. So you'd use it like this:
+//"Text on the left%(newline)\f[align,right]Text on the right"
+newline {"\n \_l[0]\n[-100]"}
 
 //How many minutes the ghost was up in total, including current session
 up_total {up_all + up_mins}
@@ -300,6 +294,100 @@ WeatherStationInstalled
     else; 0
 }
 
+//weather types:
+//clear, cloudy, mightrain, mightsnow, mightthunder, raining, snowing, freezingrain, sleet, icepellets, thunderstorm, thundersnow, foghaze
+
+//base chances:
+/*
+	OUT OF 100:
+	clear:		22
+	cloudy:		25
+	mrain:		9
+	msnow:		3
+	mthunder:	7
+	rain:		14
+	snow:		3
+	frain:		1
+	sleet:		1
+	pellets:	1
+	thunder:	10
+	thsnow:		1
+	fog:		3
+*/
+
+//WEATHER SIMULATOR YAYYYYYYYYYY
+OnVirtualWeather.Temp
+{
+
+}
+
+OnVirtualWeather.Set
+{
+	//runs on boot, determines what weather the day starts off with
+	//based on the weather trends of cyber light city
+	
+	_c = RAND(100) + 1
+	
+	if weatherdata[0] == ""
+	{
+		//if these is no pre existing weather state. this can be due to an error, or if it's never been set before.
+
+		if weatherdata[3] == ""
+		{
+			if _c <= 22
+			{weatherdata[0] = "Sunny"
+			weatherdata[0] = "Clear"} //this doesnt actually randomize,,,,,, ill have to do a raise instead....
+			elseif _c <= 47
+			{}
+			elseif _c <= 56
+			{}
+			elseif _c <= 59
+			{}
+			elseif _c <= 56
+			{} //yeah im kinda tired ill do this later (aka never)
+		}
+		else
+		{
+			//if temp data exists which like, i have no idea how it WOULD
+		}
+	}
+	else
+	{
+		//okay so this serves the purpose of changing the weather based on the previous weatherstate.
+		//runs every hour or so... user can change the interval, actually...
+
+	}
+}
+
+OnVirtualWeather.FSet
+{
+	//ahh geez how am i gonna do this..... i think i'll just set the weather and temperature accordingly once the day rolls over....
+	// ^ see forecastrollover
+
+	_c = RAND(100) + 1
+
+	if weatherdata[0] == ""
+	{
+		//if theres no weather data im straight up gonna assume theres no OTHER weather data
+	}
+	elseif forecastdata[0] == ""
+	{
+		//runs in the case where there's no forecast data and lumi needs to make some shit up LOLL
+
+
+	}
+	else
+	{
+
+	}
+}
+
+OnVirtualWeather.ForecastRollover
+{
+	//this function is specifically for transferring the forecast data to weather data (with some margin of error) once the day rolls over
+	//hmmmmmm... how will i do this.... sets itself at hour 0 and also when booting for SPECIFICALLY the next day... how do you track that? closetime? yeah...
+}
+
 OnWeatherStation.Weather
 {
 	weatherconfig[0] = reference35		//current unit
@@ -343,20 +431,21 @@ OnWeatherStation.Forecast.Day
 	forecastdata[1]=TOINT(reference15)	//snow chance percentage
 	
 	if weatherconfig[0] == "Metric"
-	{forecastdata[2]=TOINT(reference2)	//max temp
+	{forecastdata[2]=TOINT(reference2)	//max temp, celsius
 	forecastdata[3]=TOINT(reference4)	//min temp
 	forecastdata[4]=TOINT(reference6)	//avg temp
-	forecastdata[5]=TOINT(reference9)	//avg windspeed
-	forecastdata[6]=TOINT(reference11)	//precipitation
-	forecastdata[7]=TOINT(reference17)	//visibility
+	forecastdata[5]=TOINT(reference9)	//avg windspeed, kph
+	forecastdata[6]=TOREAL(reference11)	//precipitation, millimeters
+	forecastdata[7]=TOINT(reference17)	//visibility, kilometers.
+
 	}
 	else //Imperial
-	{forecastdata[2]=TOINT(reference1)
+	{forecastdata[2]=TOINT(reference1)	//fahrenheit
 	forecastdata[3]=TOINT(reference3)
 	forecastdata[4]=TOINT(reference5)
-	forecastdata[5]=TOINT(reference8)
-	forecastdata[6]=TOINT(reference10)
-	forecastdata[7]=TOINT(reference16)
+	forecastdata[5]=TOINT(reference8)	//mph
+	forecastdata[6]=TOREAL(reference10)	//inches
+	forecastdata[7]=TOINT(reference16)	//miles
 	}
 	
 	forecastdata[8]=TOINT(reference7)	//humidity
@@ -364,7 +453,12 @@ OnWeatherStation.Forecast.Day
 
 //i cant do hourly i think i'll dieee
 //TODO: hourly weather for a later update~
+/*
+OnWeatherStation.Forecast.Hourly
+{
 
+}
+*/
 ResetWeatherData
 {
 	weathererror = ""
@@ -382,18 +476,26 @@ OnWeatherStation.Error
 
 GetWeatherData : all
 {
-	"\![raiseplugin,Weather Station,OnWeatherStation.Weather]"
-	"\![raiseplugin,Weather Station,OnWeatherStation.Astro]"
+	if WeatherStationInstalled
+	{"\![raiseplugin,Weather Station,OnWeatherStation.Weather]"
+	"\![raiseplugin,Weather Station,OnWeatherStation.Astro]"}
+	else
+	{
+		//OnVirtualWeather.Set
+	}
 }
 
 OnGetForecastData
 {
-	"\![raiseplugin,Weather Station,OnWeatherStation.Forecast.Day]"
+	if WeatherStationInstalled
+	{"\![raiseplugin,Weather Station,OnWeatherStation.Forecast.Day,1]"}
+	else
+	{
+		//OnVirtualWeather.FSet
+	}
 }
 
 //---------------------
-//ough doing this off the top of my head.. i'm just gonna do general times?
-
 //hemisphere: check if weather plugin is installed and location data is set, and set hemisphere to that. if not, make manual.
 
 //same thing for seasons
@@ -402,13 +504,33 @@ daytime
 {
 	if WeatherStationInstalled 
 	{GetWeatherData
-	weatherdata[3]}
+	weatherdata[2]}
 	else
 	{if hour > 7 && hour < 19; 1
 	else; 0}
 }
 
-//Written by Zichqec V im not doing new assets challenge anyway
+//used for the day/night dialogues....
+dn
+{
+	if daytime; _argv[0]
+	else; _argv[1]
+}
+
+timeslot
+{
+	case hour
+	{
+		when 5-8; "earlymorning" //5-8am
+		when 9-11; "morning" //9-11am
+		when 12-14; "lunch" //12-2pm
+		when 15-17; "afternoon" //3-5pm
+		when 18-20; "evening" //6-8pm
+		when 21-23; "latenight" //9-11pm
+		others; "midnight" //12-4am
+	}
+}
+
 Capitalize
 {
 	_buffer = SUBSTR(_argv[0],0,1) //Storing the first character in _buffer

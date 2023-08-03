@@ -29,16 +29,18 @@ OnResetVars
 	if ISVAR("boot_min"); up_all = up_total
 	else; up_all = 0
 	
-	if reference0 != "reset" {
-	if SHIORI3FW.UserSex == "male"
-		{upronouns = ("masc",0)}
-	elseif SHIORI3FW.UserSex == "female"
-		{upronouns = ("fem",0)}
-	else 
-		{upronouns = ("undef",1)}
-	ucustompronouns = ("ey","em","eir","eirs","emself")
-	
-	ResetWeatherData
+	if reference0 != "reset"
+	{
+		if SHIORI3FW.UserSex == "male" 
+		{upronouns = ("he","him","his","his","himself",0)}
+		elseif SHIORI3FW.UserSex == "female"
+		{upronouns = ("she","her","her","hers","herself",0)}
+		else
+		{upronouns = ("they","them","their","theirs","themself",1)}
+
+		//if WeatherStationInstalled; AddFlag("UseWeatherStation")
+
+		ResetWeatherData
 	}
 	
 	lastTalk = ""
@@ -50,7 +52,7 @@ OnResetVars
 	//----petting and stuff!!!!
 	stroke = 0				//reset, not reset, streak
 	totaltouch = (0,0)		//cloudhair, hair
-	recenttouch = (0,0)		//later make reset per hour?
+	recenttouch = (0,0)		//resets per hour
 	//----WOWWWWW MORE STUUUFFF
 	Mode = 0 	//0: Villain time
 				//1: Off duty
@@ -75,10 +77,22 @@ OnInitialize
 		recenttouch = (0,0)
 		boot_min = GETSECCOUNT / 60 //What time (epoch) the ghost was booted
 		OnLSetGender //kinda annoying that it sets everytime you switch to/boot them, i'd rather it be per day, but ill code that later
-		if WeatherStationInstalled 
-		{GetWeatherData
-		OnGetForecastData}
+		
+		GetWeatherData
+		OnGetForecastData
 	}
+
+	//v1.0.1
+	if ISVAR("ucustompronouns") //revamped pronoun system bc i hate variable bloat
+		{if upronouns[0] == "masc"; ucustompronouns = ("he","him","his","his","himself")
+		elseif upronouns[0] == "fem"; ucustompronouns = ("she","her","her","hers","herself")
+		elseif upronouns[0] == "undef"; ucustompronouns = ("they","them","their","theirs","themself")
+		ucustompronouns ,= upronouns[1]
+		upronouns = ucustompronouns
+		ERASEVAR("ucustompronouns")}
+	if ISVAR("lcustompronouns") //YEAH this does onlsetgender again SORRY idk i just want to be safe
+		{ERASEVAR("lcustompronouns")
+		OnLSetGender}
 }
 
 //putting this here because its most relevant here
@@ -90,34 +104,31 @@ OnLSetGender
 	case _c {
 		when 1 {
 			lgender = "girl"
-			lpronouns = ("fem",0)
+			lpronouns = ("she","her","her","hers","herself",0)
 		}
 		when 2,3 {
 			lgender = "boy"
-			lpronouns = ("masc",0)
+			lpronouns = ("he","him","his","his","himself",0)
 		}
 		when 4,5,6 {
 			lgender = "creature"
-			lpronouns = ("undef",1)
+			lpronouns = ("they","them","their","theirs","themself",1)
 		}
 		//these genders down below affect the weather they predict/talk about.
 		when 7 {
 			lgender = "cloud"
-			lpronouns = ("custom",0)
-			lcustompronouns = ("cie","cir","cirs","cirs","cirruself")
+			lpronouns = ("cie","cir","cirs","cirs","cirruself",0)
 		}
 		when 8 {
 			lgender = "lightning"
-			lpronouns = ("custom",0)
-			lcustompronouns = ("bolt","bolt","bolts","bolts","boltself")
+			lpronouns = ("bolt","bolt","bolts","bolts","boltself",0)
 		}
 		when 9 {
 			lgender = "zephyr"
-			lpronouns = ("custom",0)
-			lcustompronouns = ("ze","zer","zephyr","zeph","zephyrself")
+			lpronouns = ("ze","zer","zephyr","zeph","zephyrself",0)
 		}
 		when 10 {
-			lgender = "weatherfluid" //gender changes with the current weather
+			lgender = "weatherfluid" //pronouns change with the current weather
 			OnWeatherPronouns
 		}
 	}
@@ -130,17 +141,52 @@ OnLSetGender
 
 OnWeatherPronouns
 {
-	//ill do this one eventually. do a check for if weatherplugin is installed.
-	//AND THEN I NEVER DID. after jam after jam~
-	lcustompronouns = ("cie","cir","cirs","cirs","cirruself")
-	lpronouns = ("custom",0)
+	if weather.cloudy(weatherdata[0])
+	{lpronouns = ("cie","cir","cirs","cirs","cirruself",0)}
+	elseif weather.mightrain(weatherdata[0])
+	{lpronouns = ("petri","chor","petrichors","petrichors","chorself",0)}
+	elseif weather.mightsnow(weatherdata[0])
+	{lpronouns = ("fra","frost","fros","fros","frostself",0)}
+	elseif weather.mightthunder(weatherdata[0])
+	{lpronouns = ("fiz","fizz","fizz","fizz","fizzleself",0)}
+	elseif weather.raining(weatherdata[0])
+	{lpronouns = ("rai","rain","rains","rains","rainself",0)}
+	elseif weather.snowing(weatherdata[0])
+	{lpronouns = ("snow","snow","snows","snows","snowself",0)}
+	elseif weather.freezingrain(weatherdata[0])
+	{lpronouns = ("ie","ice","isse","issi","iceself",0)}
+	elseif weather.sleet(weatherdata[0])
+	{lpronouns = ("slee","sleet","sleets","sleets","sleetself",0)}
+	elseif weather.icepellets(weatherdata[0])
+	{lpronouns = ("hail","hail","hails","hails","hailself",0)}
+	elseif weather.thunderstorm(weatherdata[0])
+	{lpronouns = ("bolt","bolt","bolts","bolts","boltself",0)}
+	elseif weather.thundersnow(weatherdata[0])
+	{lpronouns = ("bolt","bolt","bolts","bolts","boltself",0)} //i wanna come up w smth cool 4 this...
+	elseif weather.foghaze(weatherdata[0])
+	{if RAND(2); lpronouns = ("fog","fog","fogs","fogs","fogself",0)
+	else; lpronouns = ("mist","mist","mists","mists","mistself",0)}
+	else //this applies to clear weather as well
+	{lpronouns = ("ae","aer","aes","aes","aerself",0)}
+
+	//lpronouns = ("she","her","her","hers","herself",0)
+	//lpronouns = ("he","him","his","his","himself",0)
+	//lpronouns = ("they","them","their","theirs","themself",1)
+
+	/*
+	"1: THEY talked.\n"
+	"2: I talked to THEM.\n"
+	"3: That is THEIR word.\n"
+	"4: Those words of THEIRS are cool!\n"
+	"5: They talked to THEMSELF.\n\n"
+	*/
 }
 
 OnBoot : nonoverlap_pool
 {
-	_temp = SPLIT(SHIORI3FW.UserBirthday,":")
-	_user_birthday = "%(_temp)[1]/%(_temp[2])" //M/D, if you want it D/M you can switch it around
-	_today = "%(_month)/%(_day)" //Again, switch this around if using D/M
+	_temp = SHIORI3FW.UserBirthday
+	_user_birthday = "%(_temp[1])/%(_temp[2])" //M/D, if you want it D/M you can switch it around
+	_today = "%(month)/%(day)" //Again, switch this around if using D/M
 	
 	"\1\s[-1]\0"
 	--
@@ -195,8 +241,39 @@ OnBoot : nonoverlap_pool
 	}
 }
 
+OnGhostChanging //im adding this because I DONT WANT TO RESET THE LASTCLOSE VARIABLES WHEN RELOADING.... hope this doesnt break anything LOLL
+{
+	_path = REPLACE(SHIORI3FW.Path,"\","/")
+	_path = REPLACE(_path,"ghost/master/","")
+
+	if reference3 == _path //If reloading.
+	{
+		"\1\s[-1]\0\s[1]\_q(Reloading...)\w8\w8\e"
+	}
+	else
+	{
+		OnClose
+	}
+}
+
+OnGhostChanged 
+{
+	_path = REPLACE(SHIORI3FW.Path,"\","/")
+	_path = REPLACE(_path,"ghost/master/","")
+
+	if reference3 == _path //Finished reloading.
+	{
+		"\1\s[-1]\0\s[1]\_q(%(Capitalize(they(1)))'%(lp('re','s')) back!)\e"
+	}
+	else
+	{
+		OnBoot
+	}
+}
+
 OnClose : nonoverlap_pool 
 {
+	lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)") //This tracks the last time the ghost was closed.
 	up_all = up_total
 	
 	"\0"

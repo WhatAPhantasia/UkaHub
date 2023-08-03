@@ -46,10 +46,57 @@ phonesad
 
 //--------OTHER WORD ENVELOPES
 
+//FUNNY RANDOMIZED LISTS OF STUFF
+anycloud
+{
+	parallel lowcloud
+	parallel midcloud
+	parallel hicloud
+	parallel rarecloud
+}
+lowcloud
+{
+	"cumulus"
+	"stratus"
+	"cumulonimbus"
+	"stratocumulus"
+}
+midcloud
+{
+	"altocumulus"
+	"altostratus"
+	"nimbostratus"
+}
+hicloud
+{
+	"cirrus"
+	"cirrostratus"
+	"cirrocumulus"
+}
+rarecloud
+{
+	"mammatus"
+	"lenticular"
+	"orographic"
+	//contrails not included
+}
+
+//ARRAYS OF STUFF IG
+
+VillainNames {"Plasmaegis","Stormbringer","Lumi","Calamity","Wesley","Pandora","Gomi"}
+
+HeroNames {"Neo","Nathaniel","Aspin","Heartattack","Ronnie","Seishi"}
+
+NeutralNames{"Juniper","Cindy","Candy","Corey"}
+
+//UTILITY STUFF
+
 chatw1
 {"\w8\w8\w8\w8\n"}
 chatw2
 {"\w8\w8\w8\w8\w8\w8\n"}
+chats
+{"\0\b[10]\_q"}
 
 
 //--------WEATHER ENVELOPES
@@ -74,28 +121,262 @@ chatw2
 	Wintry Mix
 */
 
+//weather types:
+//clear, cloudy, mightrain, mightsnow, mightthunder, raining, snowing, freezingrain, sleet, icepellets, thunderstorm, thundersnow, foghaze
 
+//TOOK THESE ENVELOPES FROM S. SORRY ZI THANK YOU ZI
+//replaced weatherdata[0] with _argv[0] because i want to use this for forecasting and hourly weather, too...
+// if weather.clear(weatherdata[0])
+weather.clear
+{
+	_argv[0] == "Sunny" || _argv[0] == "Clear"
+}
+weather.cloudy
+{
+	_argv[0] == "Partly cloudy" ||/
+	_argv[0] == "Cloudy" ||/
+	_argv[0] == "Overcast"
+}
+weather.mightrain
+{
+	_argv[0] == "Patchy rain possible" ||/
+	_argv[0] == "Moderate rain at times" ||/
+	_argv[0] == "Heavy rain at times"
+}
+weather.mightsnow
+{
+	_argv[0] == "Patchy snow possible" ||/
+	_argv[0] == "Patchy sleet possible" ||/
+	_argv[0] == "Patchy freezing drizzle possible"
+}
+weather.mightthunder
+{
+	_argv[0] == "Thundery outbreaks possible"
+}
+weather.raining
+{
+	_argv[0] == "Patchy light drizzle" ||/
+	_argv[0] == "Light drizzle" ||/
+	_argv[0] == "Freezing drizzle" ||/
+	_argv[0] == "Heavy freezing drizzle" ||/
+	_argv[0] == "Patchy light rain" ||/
+	_argv[0] == "Light rain" ||/
+	_argv[0] == "Moderate rain" ||/
+	_argv[0] == "Heavy rain" ||/
+	_argv[0] == "Light rain shower" ||/
+	_argv[0] == "Moderate or heavy rain shower" ||/
+	_argv[0] == "Torrential rain shower"
+}
+weather.snowing
+{
+	_argv[0] == "Blowing snow" ||/
+	_argv[0] == "Blizzard" ||/
+	_argv[0] == "Patchy light snow" ||/
+	_argv[0] == "Light snow" ||/
+	_argv[0] == "Patchy moderate snow" ||/
+	_argv[0] == "Moderate snow" ||/
+	_argv[0] == "Patchy heavy snow" ||/
+	_argv[0] == "Heavy snow" ||/
+	_argv[0] == "Light snow showers" ||/
+	_argv[0] == "Moderate or heavy snow showers"
+}
+weather.freezingrain
+{
+	_argv[0] == "Light freezing rain" ||/
+	_argv[0] == "Moderate or heavy freezing rain"
+}
+weather.sleet
+{
+	_argv[0] == "Light sleet" ||/
+	_argv[0] == "Moderate or heavy sleet" ||/
+	_argv[0] == "Light sleet showers" ||/
+	_argv[0] == "Moderate or heavy sleet showers"
+	
+}
+weather.icepellets
+{
+	_argv[0] == "Ice pellets" ||/
+	_argv[0] == "Light showers of ice pellets" ||/
+	_argv[0] == "Moderate or heavy showers of ice pellets"
+}
+weather.thunderstorm
+{
+	_argv[0] == "Patchy light rain with thunder" ||/
+	_argv[0] == "Moderate or heavy rain with thunder"
+}
+weather.thundersnow
+{
+	_argv[0] == "Patchy light snow with thunder" ||/
+	_argv[0] == "Moderate or heavy snow with thunder"
+}
+weather.foghaze
+{
+	_argv[0] == "Mist" ||/
+	_argv[0] == "Fog" ||/
+	_argv[0] == "Freezing fog"
+}
 
 //--TEMPERATURE ENVELOPES
 //i need to do this or else i die
 
-temp
+//BELOW ZERO, FREEZING, COLD, CHILLY, PLEASANT, HOT, BOILING
+
+//this is from s... because i REALLY don't want to make these envelopes myself okay?!
+//temperature(weatherdata[4]) for feelslike, 3 for actual temperature
+temperature
 {
-	if weatherconfig[0] == "Metric"
+	_data = _argv[0]
+	//would these be easier as a while loop? its small so idc
+	if _data == ""; _data = weatherdata[4]
+	if _data == ""; _data = weatherdata[3]
+	if _data == ""; "Unknown"
+
+	elseif weatherconfig[0] == "Imperial"
 	{
-		
+		if _data <= 0; "Below Zero" //Below zero, 0 and below
+		elseif _data <= 20; "Freezing" //Freezing, 0-20
+		elseif _data <= 40; "Cold" //Cold, 21-40
+		elseif _data <= 60; "Chilly" //Chilly, 41-60
+		elseif _data <= 80; "Pleasant" //Pleasant, 61-80
+		elseif _data <= 95; "Hot" //Hot, 81-95
+		elseif _data >= 96; "Boiling"  //Everything is terrible, 96+
+		else; "Unknown"
+	}
+	elseif weatherconfig[0] == "Metric"
+	{
+		if _data <= -17; "Below Zero" //Below zero, 0 and below
+		elseif _data <= -6; "Freezing" //Freezing, 0-20
+		elseif _data <= 4; "Cold" //Cold, 21-40
+		elseif _data <= 15; "Chilly" //Chilly, 41-60
+		elseif _data <= 26; "Pleasant" //Pleasant, 61-80
+		elseif _data <= 35; "Hot" //Hot, 81-95
+		elseif _data >= 36; "Boiling" //Everything is terrible, 96+
+		else; "Unknown"
 	}
 	else
 	{
-		
+		"Unknown"
 	}
 }
 
+//humid(weatherdata[1]), humid(forecastdata[8])
+humid
+{
+	//stored in temp variable in case i want to do anything with it
+	_data = _argv[0]
 
-//ARRAYS OF STUFF IG
+	if _data == ""; "Unknown"
+	elseif _data <= 30; "Dry" //Dry
+	elseif _data > 30 && _data <= 55; "Comfy" //Comfy
+	elseif _data > 55 && _data <= 65; "Sticky" //Sticky
+	elseif _data > 65 && _data <= 80; "Muggy" //Muggy
+	elseif _data > 80; "Soup" //Soup
+	else; "Unknown"
+}
 
-VillainNames {"Plasmaegis","Stormbringer","Lumi","Calamity","Wesley","Pandora","Gomi"}
+//inches (imperial) / millimeters (metric)
+//precip(forecastdata[6])
+precip
+{
+	_data = _argv[0]
 
-HeroNames {"Neo","Nathaniel","Aspin","Heartattack","Ronnie","Seishi"}
+	if _data == ""; "Unknown"
+	else; _data = TOREAL(_data)
 
-NeutralNames{"Juniper","Cindy","Candy","Corey"}
+	//currently very barebones, will test it out and see how awkward this is...
+	//check if this is actually how real numbers work? do the trailing 0s mess anything up...?
+	if weatherconfig[0] == "Imperial"
+	{
+		if _data <= 0.01; "None"
+		elseif _data <= 0.1; "Light"
+		elseif _data <= 0.3; "Medium"
+		elseif _data > 0.3; "Heavy"
+		else; "Unknown"
+	}
+	elseif weatherconfig[0] == "Metric"
+	{
+		if _data < 0.25; "None"
+		elseif _data <= 2.5; "Light"
+		elseif _data <= 7.6; "Medium"
+		elseif _data > 7.6; "Heavy"
+		else; "Unknown"
+	}
+	else; "Unknown"
+}
+
+//miles per hour (imperial) / kilometers per hour (metric)
+//windspeed(forecastdata[5])
+windspeed
+{
+	//using beaufort wind scale
+	_data = _argv[0]
+
+	if _data == ""; "Unknown"
+
+	//requires testing, as always
+	if weatherconfig[0] == "Imperial"
+	{
+		if _data <= 3; "None"
+		elseif _data <= 12; "Light"
+		elseif _data <= 24; "Medium"
+		elseif _data <= 38; "Strong"
+		elseif _data <= 54; "Gale"
+		elseif _data <= 72; "Storm"
+		elseif _data > 72; "Hurricane"
+		else; "Unknown"
+	}
+	elseif weatherconfig[0] == "Metric"
+	{
+		if _data <= 5; "None"
+		elseif _data <= 19; "Light"
+		elseif _data <= 38; "Medium"
+		elseif _data <= 61; "Strong"
+		elseif _data <= 87; "Gale"
+		elseif _data <= 116; "Storm"
+		elseif _data > 116; "Hurricane"
+		else; "Unknown"
+	}
+	else; "Unknown"
+}
+
+//miles (imperial) / kilometers (metric)
+//visib(forecastdata[7])
+visib
+{
+	_data = _argv[0]
+
+	if _data == ""; "Unknown"
+
+	//requires testing
+	if weatherconfig[0] == "Imperial"
+	{
+		//doesnt even output as real numbers so i have to fenangelge w it
+		//if _data <= 0.25; "Thick Fog"
+		//elseif _data <= 0.62; "Foggy"
+		//elseif _data <= 1.2; "Light Fog"
+		//elseif _data <= 3.1; "Misty"
+		//elseif _data <= 6.2; "Light Mist"
+		//elseif _data <= 12.4; "Clear"
+		//elseif _data > 12.4; "Very Clear"
+		if _data == 0; "Thick Fog"
+		elseif _data <= 1; "Foggy"
+		elseif _data <= 2; "Light Fog"
+		elseif _data <= 3; "Misty"
+		elseif _data <= 6; "Light Mist"
+		elseif _data <= 12; "Clear"
+		elseif _data > 12; "Very Clear"
+		else; "Unknown"
+	}
+	elseif weatherconfig[0] == "Metric"
+	{
+		if _data <= 0.3; "Thick Fog"
+		elseif _data <= 1; "Foggy"
+		elseif _data <= 2; "Light Fog"
+		elseif _data <= 5; "Misty"
+		elseif _data <= 10; "Light Mist"
+		elseif _data <= 20; "Clear"
+		elseif _data > 20; "Very Clear"
+		else; "Unknown"
+	}
+	else; "Unknown"
+}
