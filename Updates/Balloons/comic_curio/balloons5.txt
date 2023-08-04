@@ -1,0 +1,10 @@
+origin.x,44
+validrect.left,34
+validrect.right,285
+wordwrappoint.x,275
+arrow0.x,280
+arrow1.x,280
+onlinemarker.x,37
+sstpmarker.x,65
+sstpmessage.x,75
+number.xr,275
