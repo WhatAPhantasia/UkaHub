@@ -48,9 +48,9 @@ font.shadowcolor.r,-1
 font.shadowcolor.g,-1
 font.shadowcolor.b,-1
 
-anchor.font.color.r,59
-anchor.font.color.g,65
-anchor.font.color.b,173
+anchor.font.color.r,250
+anchor.font.color.g,210
+anchor.font.color.b,70
 
 
 //5. -- Choice Markers
@@ -58,18 +58,13 @@ anchor.font.color.b,173
 cursor.blendmethod,none
 cursor.style,underline
 
-cursor.pen.color.r,102
-cursor.pen.color.g,102
-cursor.pen.color.b,102
+cursor.brush.color.r,250
+cursor.brush.color.g,210
+cursor.brush.color.b,70
 
-cursor.brush.color.r,200
-cursor.brush.color.g,200
-cursor.brush.color.b,200
-
-cursor.font.color.r,150
-cursor.font.color.g,150
-cursor.font.color.b,150
-
+cursor.font.color.r,250
+cursor.font.color.g,210
+cursor.font.color.b,70
 
 //6. -- Image Markers
 
@@ -123,5 +118,4 @@ communicatebox.font.name,Ink Free
 communicatebox.font.color.r,5
 communicatebox.font.color.g,5
 communicatebox.font.color.b,5
-//why the hell arent you working. :raised_eyebrow:
-//ok i just changed the image to have a dark background. waiting until i can find a workaround lmao
+//this thing works now. idk why. maybe i was on an old version of ssp...

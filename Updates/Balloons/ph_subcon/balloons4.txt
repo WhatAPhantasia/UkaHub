@@ -12,3 +12,7 @@ wordwrappoint.y,0
 font.color.r,0
 font.color.g,0
 font.color.b,0
+
+anchor.font.color.r,200
+anchor.font.color.g,160
+anchor.font.color.b,20
