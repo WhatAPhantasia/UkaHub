@@ -1,0 +1,17 @@
+charset,UTF-8
+
+name,Lady Tea & Master Mirror
+type,ghost
+
+shiori,yaya.dll
+
+craftman,WhatAPhantasia
+craftmanurl,https://whataphantasia.github.io/projects/ukagaka/
+
+sakura.name,Lady Tea
+kero.name,Master Mirror
+
+icon,flower.ico
+
+sstp.allowunspecifiedsend,0
+balloon,Comic Curio
