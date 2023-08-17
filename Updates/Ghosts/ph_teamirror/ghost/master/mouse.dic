@@ -16,33 +16,81 @@ OnMouseDoubleClick
 	}
 }
 
+OnMouseWheel
+{
+	if reference3 == 0
+	{OnStroke.Sakura(20)}
+	elseif reference3 == 1
+	{OnStroke.Kero(20)}
+}
 OnMouseMove
 {
-	if reference4 != ""
-	{
-		stroke++
+	if reference3 == 0
+	{OnStroke.Sakura(40)}
+	elseif reference3 == 1
+	{OnStroke.Kero(40)}
+}
+
+OnStroke.Sakura
+{
+	stroke++
 		
-		if stroke % 40 == 0
+	if stroke >= _argv[0]
+	{
+		stroke = 0
+
+		if reference4 == "head"
 		{
-			if reference3 == 0; OnMouseMove.Sakura
-			else; OnMouseMove.Kero
+			"\0\b4\s[1]\i[1]\i[33]\i[51]Hey!! This shouldn't even be possible, how are you doing that?!\e"
 		}
 	}
 }
 
-OnMouseMove.Sakura
+OnStroke.Kero
 {
-	if reference4 == "head"
+	stroke++
+		
+	if stroke >= _argv[0]
 	{
-		"\0\s[0]Petting??"
+		stroke = 0
+
+		if reference4 == "face"
+		{
+			touch.kero[0]++
+
+			"\0\s[2]\i[31]\1\b4\s[12]\i[1]\i[33]\i[50]%(ANY('Ack','Bluh','Weh'))!"
+			--
+			"\w8\0\b4\s[2]\i[1]\i[51]Hey! \w8No smudging the equipment!\w8\w8\1\s[11]\i[1]\i[31]\n\n[half]...E-Equipment..?\e"
+			"\w8\0\b4\s[2]\i[1]\i[51]Gasp, no! \w8I need Mirror's pretty little face for scrying! \w8No touching, %(title)!\w8\w8\1\s[12]\i[31]\i[50]\n\n[half]...\w4Pretty..?\e"
+		}
+		elseif reference4 == "crack"
+		{
+			touch.kero[1]++
+			"\0\s[2]\i[31]\1\b4\s[12]\i[1]\i[51]Ah-! \w8You almost chipped me! \w8\i[33]Please be more conscious, %(pername)..!"
+		}
 	}
 }
 
-OnMouseMove.Kero
+OnMouseClick
 {
-	if reference4 == "head"
+	if reference0 == 0; OnClick.Sakura
+	elseif reference0 == 1; OnClick.Kero
+}
+
+OnClick.Sakura
+{
+
+}
+
+OnClick.Kero
+{
+	if reference4 == "face"
 	{
-		"\1\s[10]Petting..."
+		
+	}
+	elseif reference4 == "crack"
+	{
+
 	}
 }
 
