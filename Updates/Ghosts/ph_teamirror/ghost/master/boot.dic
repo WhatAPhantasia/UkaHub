@@ -34,9 +34,10 @@ OnFirstBootThree : all
 		"\1\s[11]\i[31]\0\s[7]\i[33]\b4"
 		"AREN'T you?! \w8"
 	}
-	else
+	elseif reference0 == "nope"
 	{
 		AddFlag("Event.FBNegative")
+		//this flag will give you an actual discount in addition to other dialogue lolololol
 
 		"\1\s[11]\i[33]\0\s[7]\i[33]"
 		"Oh, don't be like that! \w8We have a hundred percent accuracy rating, guaranteeed to forsee your future \w4AND \w4tell you exactly how to avoid certain peril!\x"
@@ -82,9 +83,12 @@ OnFirstBootVars
 
 	user = "customer"
 	MiscFlags = IARRAY
+	touch.kero = (0,0)
+	touch.skra = (0,0)
 	fontinfo[0] = "Default" //set it to default instead of vogue, because Hey! maybe you want to use cuphead vogue on another balloon with them!
 	bankinfo = ("Inkwell Wallet",5) //which bank you're using, how much Moolah you have (in the default bank)
 				//other possible banks: Wallet of Unyu, Devil's Discount
+	moneyspent = (0,0) //total, in that session
 
 	boot_min = GETSECCOUNT / 60 //epoch time
 }
@@ -101,6 +105,7 @@ OnInitialize
 
 	//--base stuff
 
+	if !ISVAR("boot_min"); boot_min = GETSECCOUNT / 60 //if you somehow delete the boot_min variable it should just restart...
 	if !ISVAR("user"); user = "customer"
 	if !ISVAR("title")
 	{
@@ -121,7 +126,8 @@ OnInitialize
 		{pronouns = ("they","them","their","theirs","themself",1)}
 	}
 	if !ISVAR("fontinfo"); fontinfo[0] = "Default"
-	if !ISVAR("boot_min"); boot_min = GETSECCOUNT / 60 //if you somehow delete the boot_min variable it should just restart...
+	if !ISVAR("touch.kero"); touch.kero = (0,0)
+	if !ISVAR("touch.saku"); touch.saku = (0,0)
 }
 
 OnBoot
@@ -157,8 +163,8 @@ OnBootVars
 
 OnClose
 {
-	"\1\s[12]\i[50]\0\b4\s[2]Aw, are you leaving already? \w8We'll always be here!\e"
-	"Aw, you're going? \w8Come back with more money next time, okay?\e"
+	"\1\s[12]\i[50]\0\b4\s[2]Aw, are you leaving already? \w8\s[1]\i[33]Well, we'll always be here!"
+	"Aw, you're going? \w8That's alright! \w8I await you "
 	--
 	"\w8\w8\-" //This is what makes the ghost close (after a short pause), do not remove the \- , and MAKE SURE you don't use a \e before this point or it won't work
 }
