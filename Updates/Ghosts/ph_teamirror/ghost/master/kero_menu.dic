@@ -1,0 +1,23 @@
+KeroMenuGreetings : nonoverlap
+{
+	"\s[11]\i[1]Oh! \w6Uh, do you need me?"
+}
+
+OnKeroMenu : all
+{
+	"\1\![set,autoscroll,disable]"
+	if SHIORI3FW.Eventid == "OnMouseDoubleClick"; KeroMenuGreetings
+	"\n\n\_q"
+	
+	"\![*]\q[I'VE GOT QUESTIONS!,OnQuestionMenuM]\n"
+	"\![*]\q[SCRY INTO THE GLASS,OnScryingMenu]\n\n"
+
+	"\![*]\q[SETTINGS,OnSettingsMenu,1]\n\n[half]"
+	
+	"\f[align,right]"
+	random:{"\![*]\q[NEVERMIND,blank]"
+			"\![*]\q[THAT'S ALL,blank]"
+			"\![*]\q[IT'S NOTHING,blank]"}
+}
+
+OnQuestionMenuM

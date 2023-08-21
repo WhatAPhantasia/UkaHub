@@ -1,0 +1,170 @@
+OnFirstBoot : all
+{
+	"\![raise,OnFirstBootVars,%(reference1)]"
+	
+	"\t\*\1\s[12]\i[1]\i[50]\0\s[5]\i[31]"
+
+	if reference0 == 0
+	{"...By the stars! \w8Mirror, I believe we've got ourselves a new customer!\w8\w8\1\b4"
+	"O-Oh! \w8Yes! \w8\s[11]\i[1]\i[33]You look like you could use the great Lady Tea's services, %(title)!\w8\w8\0\n\n[half]"
+	"\s[1]\i[4]\i[33]Now now, let's not rush things! \w8Please, tell us your name!\w8"}
+	else
+	{"...Goodness! \w8%(title), I believe we've met before! \w8This must be fate!\w8\w8\1\b4"
+	"\s[12]\i[1]\i[31]L-Lady tea, you can't be sure of that! \w8Don't jump to conclusions!\w8\w8\0\n\n[half]"
+	"\s[2]\i[4]\i[33]Oh, fine! \w8Please, valued customer, tell us your name!\w8"}
+
+	"\0\![open,inputbox,OnNameTeach,-1,--reference=firstboot,--reference=0]\_l[-10000,-10000]\*\q[ ,__VERY_FIRST_BOOT__]"
+}
+
+OnFirstBootTwo : all
+{
+	"\t\*\1\s[11]"
+	"\0\b2\s[1]\i[1]\i[33]Nice to meet you, %(pername)! \w8I'm the lovely Lady Tea, \w4and my associate here is Master Mirror! \w8\s[1]\i[4]I betcha have \w4TONS \w4of cash to spend, \w4%(br)'specially when it comes to your DESTINY!\w8\w4\_q"
+	"\n\n"
+	"\![*]\q[I'M CURIOUS...,OnFirstBootThree,curious]\n"
+	"\![*]\q[ABSOLUTELY NOT,OnFirstBootThree,nope]"
+}
+
+OnFirstBootThree : all
+{
+	if reference0 == "curious"
+	{
+		AddFlag("Event.FBPositive")
+
+		"\1\s[11]\i[31]\0\s[7]\i[33]\b4"
+		"AREN'T you?! \w8"
+	}
+	elseif reference0 == "nope"
+	{
+		AddFlag("Event.FBNegative")
+		//this flag will give you an actual discount in addition to other dialogue lolololol
+
+		"\1\s[11]\i[33]\0\s[7]\i[33]"
+		"Oh, don't be like that! \w8We have a hundred percent accuracy rating, guaranteeed to forsee your future \w4AND \w4tell you exactly how to avoid certain peril!\x"
+		"\1\s[11]\i[31]\0\s[1]\i[1]"
+		"Hey hey, just for you, I'm giving you a discount! \w8How about that?! \w8"
+	}
+
+	"\1\s[11]\0\s[1]\i[3]\i[32]"
+	"I've got tarot card readings, tea leaf readings-- \w8\![anim,stop,32]\i[30]OH! \w8And scrying! \w8\i[33]Come on, don't be shy!\e"
+}
+
+OnFBSetFont
+{
+	_i = SAORI("saori\fontinstaller","get","Cuphead Felix Regular")
+	if "%(_i)" == "0"
+	{
+		fontinfo[0] = "Cuphead Felix"
+	}
+}
+
+OnFirstBootVars
+{
+	stroke = 0
+	LastTalk = ""
+	
+	if reference0 != "reset"
+	{
+		//OnFBSetFont
+		//yyeaahh nevermind felix is UNREADABLE. you can still change to it ofc just. it makes things hard to read LOL...
+
+		if SHIORI3FW.UserSex == "male" 
+		{pronouns = ("he","him","his","his","himself",0)
+		title = "mister"}
+		elseif SHIORI3FW.UserSex == "female"
+		{pronouns = ("she","her","her","hers","herself",0)
+		title = "miss"}
+		else
+		{pronouns = ("they","them","their","theirs","themself",1)
+		title = "misr"}
+	}
+
+	if ISVAR("user"); olduser = user
+
+	user = "customer"
+	MiscFlags = IARRAY
+	touch.kero = (0,0)
+	touch.skra = (0,0)
+	fontinfo[0] = "Default" //set it to default instead of vogue, because Hey! maybe you want to use cuphead vogue on another balloon with them!
+	bankinfo = ("Inkwell Wallet",5) //which bank you're using, how much Moolah you have (in the default bank)
+				//other possible banks: Wallet of Unyu, Devil's Discount
+	moneyspent = (0,0) //total, in that session
+
+	boot_min = GETSECCOUNT / 60 //epoch time
+}
+
+OnInitialize
+{
+	//If you want some variables to reset on boot, put them here. This event will happen even if you add other events like OnGhostChanged
+	//OnInitialize is a NOTIFY event! That means it cannot return scripts. This event is only meant for things like variable changes. See this page on Ukadoc for more info: https://ukagakadreamteam.github.io/ukadoc/manual/spec_shiori3.html
+	
+	if reference0 != "reload" //For things you want to reset EXCEPT when just reloading; a convenience for you the dev, basically
+	{
+		LastTalk = ""
+	}
+
+	//--base stuff
+
+	if !ISVAR("boot_min"); boot_min = GETSECCOUNT / 60 //if you somehow delete the boot_min variable it should just restart...
+	if !ISVAR("user"); user = "customer"
+	if !ISVAR("title")
+	{
+		if SHIORI3FW.UserSex == "male" 
+		{title = "mister"}
+		elseif SHIORI3FW.UserSex == "female"
+		{title = "miss"}
+		else
+		{title = "misr"}
+	}
+	if !ISVAR("pronouns")
+	{
+		if SHIORI3FW.UserSex == "male" 
+		{pronouns = ("he","him","his","his","himself",0)}
+		elseif SHIORI3FW.UserSex == "female"
+		{pronouns = ("she","her","her","hers","herself",0)}
+		else
+		{pronouns = ("they","them","their","theirs","themself",1)}
+	}
+	if !ISVAR("fontinfo"); fontinfo[0] = "Default"
+	if !ISVAR("touch.kero"); touch.kero = (0,0)
+	if !ISVAR("touch.saku"); touch.saku = (0,0)
+}
+
+OnBoot
+{
+	OnBootVars
+
+	_temp = SHIORI3FW.UserBirthday
+	_user_birthday = "%(_temp[1])/%(_temp[2])" //M/D, if you want it D/M you can switch it around
+	_today = "%(month)/%(day)" //Again, switch this around if using D/M
+	
+	if _today == _user_birthday
+	{
+		"\1\s[11]\0\s[1]Happy birthday, %(pername)! \w8Hm? \w8Yes, of course I know when your birthday is! \w8This is crucial information to know about a customer! \w8ANYWAY, \w4today's great because you get a special birthday discount! \w8So why not spend all your money, right?\w8\w8\1Tea, no.\w8\w8\0Tea yes!\e"
+	}
+	else //Normal boot
+	{
+		"\1\s[11]\0\b4\s[1]\i[1]Oh! \w8Why hello there, %(pername)! \w8\i[33]Shall I read your fortune again to%(dn('day','night'))?\e"
+		"\1\s[12]\i[50]\0\b4\s[1]\i[1]Why, I believe that's our favorite customer! \w8\i[33]Ready to spend more--\w8\1\b4\i[32]Please don't be so brash, Lady Tea. \w8\w4\s[11]\i[1]...H-How are you, %(pername)?\e"
+	}
+}
+
+OnBootVars
+{
+	_timesince = FUNCTIONEX("saori/time_check.dll","how_many_days",lastclosed[0],lastclosed[1],lastclosed[2],0,0,0)
+	_timesince *= -1 //Multiply it by -1 to get rid of the negative sign, or to add one if the user traveled back in time.
+
+	if _timesince >= 1
+	{
+		if bankinfo[1] >= 5; bankinfo[1]++
+		else; bankinfo[1] = 5
+	}
+}
+
+OnClose
+{
+	"\1\s[12]\i[50]\0\b4\s[2]Aw, are you leaving already? \w8\s[1]\i[33]Well, we'll always be here!"
+	"Aw, you're going? \w8That's alright! \w8I await you "
+	--
+	"\w8\w8\-" //This is what makes the ghost close (after a short pause), do not remove the \- , and MAKE SURE you don't use a \e before this point or it won't work
+}

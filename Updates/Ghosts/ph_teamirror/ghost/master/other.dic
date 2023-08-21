@@ -1,0 +1,444 @@
+OnTranslate
+{
+	_talk = reference0
+	
+	//This is what makes %(embedded_elements) work in script input
+	if reference1 == "" && reference2 == "" //If this is from the input box
+	{ //send input box : no event (ref2) , no special flag (ref1)
+		_talk = EVAL('"' + REPLACE(_talk,'"','""') + '"')
+	}
+
+	if SHIORI3FW.BalloonName == "Comic Curio" && fontinfo[0] != "Cuphead Felix" && "\![nocaps]" !_in_ _talk
+	{
+		_tags = SakuraScooper(_talk) //Get a list of all the tags
+		
+		//Remove tags and replace with C_BYTE1 (you might want to do something more unique depending on your usage)
+		foreach _tags; _tag
+		{
+			_talk = REPLACE(_talk,_tag,C_BYTE1,1)
+		}
+		
+		_talk = TOUPPER(_talk)
+		
+		//Put tags back into place
+		foreach _tags; _tag
+		{
+			_talk = REPLACE(_talk,C_BYTE1,_tag,1)
+		}
+	}
+
+	if SHIORI3FW.BalloonName != "Comic Curio"
+	{
+		_talk = REPLACE(_talk, "\b4", "")
+	}
+
+	//--replace stuff
+	if fontinfo[0] != "Default"
+	{
+		_talk = REPLACE(_talk, "\0", "\0\f[name,%(fontinfo[0])]")
+		_talk = REPLACE(_talk, "\1", "\1\f[name,%(fontinfo[0])]")
+	}
+	
+	TOSTR(_talk)
+}
+
+/*
+//Written by Zichqec https://ukagaka.zichqec.com
+//Version 1.0.0
+
+This function will return an array of all recognized sakurascript tags in a script. This includes tags like \t, \*, \_q, \__q, \![raise,OnFunction,arbitrary,info], %*, %property[arbitrary.property], and even nested tags like \q[Fix the clock,script:"\![execute,SNTP]"].
+It takes one argument, which is the script you want it to process.
+
+This is very useful for instances where you want to remove tags from a script, add some processing to the script, and then insert them back in. Like so:
+
+OnTranslate
+{
+	_talk = reference0
+	
+	_tags = SakuraScooper(_talk) //Get a list of all the tags
+	
+	//Remove tags and replace with C_BYTE1 (you might want to do something more unique depending on your usage)
+	foreach _tags; _tag
+	{
+		_talk = REPLACE(_talk,_tag,C_BYTE1,1)
+	}
+	
+	//Some sort of script processing...
+	
+	//Put tags back into place
+	foreach _tags; _tag
+	{
+		_talk = REPLACE(_talk,C_BYTE1,_tag,1)
+	}
+	
+	_talk
+}
+
+Please note that scripts with many tags in them may cause some lag. Use wisely.
+*/
+SakuraScooper
+{
+	_input = _argv[0]
+	_scooped_tags = IARRAY
+
+	_no_underscores = ("!","&","*","+","-","0","1","4","5","6","7","8","C","a","b","c","e","f","i","j","m","n","p","q","s","t","v","w","x","z")
+	_one_underscore = ("!","+","?","V","a","b","l","m","n","q","s","v","w")
+	_two_underscores = ("b","c","q","t","u","v","w")
+	
+	_percent = ("month","day","hour","minute","second","username","selfname","selfname2","keroname","screenwidth","screenheight","exh","et","wronghour","ms","mz","ml","mc","mh","mt","me","mp","m?","dms","lastghostname","lastobjectname","*","property")
+	
+	_must_have_brackets = ("\!","\&","\8","\__b","\__u","\__w","\_b","\_l","\_m","\_v","\_w","\f","\i","\j","\m","\q")
+	_may_have_brackets = ("\__q","\_a","\_s","\b","\c","\n","\p","\s","\x")
+	_may_have_additional = ("\b","\i","\s") //,"\w")
+
+	_has_percent = 0
+	if "%" _in_ _input; _has_percent = 1
+	
+	_found_all = 0
+	_pos = -1
+	while _found_all != 1 //Loop through to find all tags
+	{
+		_pos_slash = STRSTR(_input,"\",_pos + 1)
+		
+		if _has_percent //Don't want to be checking twice if we don't have to be...
+		{
+			_pos_percent = STRSTR(_input,"%",_pos + 1)
+			
+			if _pos_percent != -1 && _pos_percent < _pos_slash; _pos = _pos_percent
+			else; _pos = _pos_slash
+		}
+		else; _pos = _pos_slash
+		
+		
+		if _pos == -1; {_found_all = 1; break} //seems redundant??
+		
+		_underscores = 0
+		_tag = ""
+		_has_brackets = 0
+		
+		
+		_checkarray = IARRAY
+		
+		//Determine how many underscores and what tag we have here
+		if SUBSTR(_input,_pos,1) == "%"
+		{
+			if SUBSTR(_input,_pos,9) == "%property"; _has_brackets = 1
+			_checkarray = _percent
+		}
+		else
+		{
+			_two_chars = SUBSTR(_input,_pos,2) //I was using this 3 times, so...
+			if _two_chars == "\\"; continue
+			elseif _two_chars == "\%"; continue
+			elseif SUBSTR(_input,_pos,3) == "\__"
+			{
+				_underscores = 2
+				_tag = "\__"
+				
+			}
+			elseif _two_chars == "\_"
+			{
+				_underscores = 1
+				_tag = "\_"
+			}
+			else
+			{
+				_tag = "\"
+			}
+
+			if _underscores == 2; _checkarray = _two_underscores
+			elseif _underscores == 1; _checkarray = _one_underscore
+			else; _checkarray = _no_underscores
+			
+		}
+		
+		//Validate tag
+		_check = SUBSTR(_input,_pos + _underscores + 1,1)
+		
+		if ASEARCH(_check,_checkarray) == -1; continue
+		
+		//Check if it needs a bracket to be valid
+		_tag += SUBSTR(_input,_pos + _underscores + 1,1)
+		_next_char = SUBSTR(_input,_pos + _underscores + 2,1)
+		_end_pos = 0
+		
+		if ASEARCH(_tag,_must_have_brackets) != -1
+		{
+			if _next_char == "["; _has_brackets = 1
+			else; continue
+		}
+		elseif ASEARCH(_tag,_may_have_brackets) != -1
+		{
+			if _next_char == "["; _has_brackets = 1
+			elseif ASEARCH(_tag,_may_have_additional) != -1
+			{
+				if ISINTSTR(_next_char); {_end_pos = _pos + 2}
+				else; _end_pos = _pos +  1
+			}
+			else
+			{
+				_end_pos = _pos + 1
+			}
+		}
+		elseif _tag == "\+" //:unamused:
+		{
+			if _next_char == "+"; _end_pos = _pos + 2
+			else; _end_pos = _pos + 1
+		}
+		elseif _tag == "\w" //:deargodhelpme:
+		{
+			if ISINTSTR(_next_char); {_end_pos = _pos + 2}
+			else; _end_pos = _pos + 1
+		}
+		else
+		{
+			_end_pos = _pos + 1
+		}
+		
+		_startpos = _pos //This is because of nested tags... have to skip them
+		//If it has brackets, grab the entire bracket section
+		if _has_brackets
+		{
+			
+			_end_found = 0
+			_strpos = _pos + _underscores + 1
+			_quotes_open = 0
+			_escape_active = 0
+			
+			while !_end_found
+			{
+				if _strpos > STRLEN(_input); break
+				
+				_cur = SUBSTR(_input,_strpos,1)
+				
+				if _cur == '"'
+				{
+					if _quotes_open == 0; _quotes_open = 1
+					else; _quotes_open = 0
+				}
+				elseif _cur == "\"
+				{
+					_pos = _strpos
+					if _escape_active == 1; _escape_active = 0
+					else; _escape_active = 2 //this will be 1 on the next go around
+				}
+				elseif _cur == "]"
+				{
+					if _escape_active == 0 && _quotes_open == 0
+					{
+						_end_pos = _strpos - _underscores
+						_end_found = 1
+						break
+					}
+				}
+				
+				if _escape_active > 0; _escape_active--
+				_strpos++
+			}
+		}
+		
+		_scooped_tags ,= SUBSTR(_input,_startpos,(_end_pos + _underscores) - _startpos + 1)
+	}
+	_scooped_tags
+}
+
+//This is just here so you can use anchors to link to websites if you want. You can link to websites with normal menu choice tags! If you do, a handy URL preview will show up in the balloon!
+OnAnchorSelect
+{
+	if "http://" _in_ reference0 || "https://" _in_ reference0; "\j[""%(reference0)""]"
+}
+
+//Hotkeys
+OnKeyPress
+{
+	if reference0 == "f1"; "\![open,readme]"
+	elseif reference0 == "t"; OnAiTalk
+	elseif reference0 == "r"; OnLastTalk
+	elseif reference0 == "f5" && SHIORI3FW.DebugMode; "\![reload,ghost]"
+}
+
+//Happens about 30 seconds after a script ends, by default, to bring them back to normal poses
+OnSurfaceRestore
+{
+	"\1\s[11]\0\s[1]"
+}
+
+//Happens when the ghost is unminimized. You *can* include dialogue, but you don't *have* to. I have included this event because if you don't, it defaults to \0\s[0]\1\s[10], which you don't want in some cases, such as if your ghost uses different surfaces or has a different number of characters.
+OnWindowStateRestore
+{
+	"\1\s[11]\0\s[1]"
+}
+
+On_installedplugin
+{
+    pluginlist = IARRAY
+    foreach reference; _ref
+    {
+        pluginlist ,= _ref[0]
+    }
+}
+
+UnyuInstalled
+{
+    if RE_ASEARCH("Wallet of Unyu",pluginlist) != -1; 1
+    else; 0
+}
+
+//Network update url. Make sure you have a / on the end of the url or it will give a warning every time users try to update! If you don't plan to use network updates you can remove this
+//IF YOU'RE USING GITHUB FOR NETWORK UPDATES: DO NOT USE github.io URLS! It will cause you pain and suffering. USE raw.githubusercontent!!!
+//To get the raw.githubusercontent link super easy:
+//• Open your ghost's repo online
+//• navigate to the ghost's folder (the top level one, with install.txt, readme.txt, etc)
+//• Click on install.txt, or another text file on that level
+//• Once on that page, click the "raw" button. You should see the url now starts with raw.githubusercontent
+//• Copy that url exactly as is, but *leave off the "install.txt" or whatever file name at the end.*
+//Tada! That's your url! Make sure you test it! The dev palette and script/network log can help with that
+On_homeurl 
+{
+	if Flag("DevUpdates"); "https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/dev/Updates/Ghosts/ph_teamirror/"
+	else; "https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/master/Updates/Ghosts/ph_teamirror/"
+}
+
+
+//—————————————————————————————— Right click menu links ——————————————————————————————
+
+//Takes an array of alternating names and urls, and formats them for use with the right click menu
+FormatLinks : all
+{
+	for _i = 0; _i < ARRAYSIZE(_argv); _i++
+	{
+		_argv[_i] //Add the link/title
+		//Alternate between adding %ASC(1) or %ASC(2)
+		if _i % 2 == 1; "%ASC(2)"
+		else; "%ASC(1)"
+	}
+}
+
+On_sakura.recommendsites {FormatLinks(recommendsites_sakura)}
+On_recommendrootbutton.caption {"You MUST try these links!"}
+
+recommendsites_sakura : array
+{
+	"Lady Tea's Toyhou.se";	"https://toyhou.se/19246959.lady-tea"
+	"A favorite blend!"; 	"https://en.wikipedia.org/wiki/Dongfang_meiren"
+}
+
+On_sakura.portalsites {FormatLinks(portalsites_sakura)}
+On_portalrootbutton.caption {"Misc Links + Credit"}
+
+portalsites_sakura : array
+{
+	"Download Page"; "https://whataphantasia.github.io/projects/ukagaka/ghosts/tea-and-mirror"
+	"Changelog (G. Docs)"; "https://docs.google.com/document/d/10yy69A5hkizTPMh1mmRISIDg8M3JMfOdL9abrYmme20/edit?usp=sharing"
+	"Phantasia's Website"; "https://whataphantasia.github.io/"
+	""; ""
+	"Simplicity v1.0.5"; "https://ukagaka.zichqec.com/template/simplicity_template"
+	"Ukagaka Dream Team Wiki"; "https://ukagakadreamteam.com/wiki/"
+}
+
+On_kero.recommendsites {FormatLinks(recommendsites_kero)}
+On_kero.recommendbuttoncaption {"These links, too..!"}
+
+//These are the websites linked in the first option of the kero's right click menu. Same as above
+recommendsites_kero : array
+{
+	"Master Mirror's Toyhou.se";	"https://toyhou.se/19246975.young-master-mirror"
+	"What a fascinating read!";		"https://en.wikipedia.org/wiki/Mirror"
+}
+
+
+//—————————————————————————————— User pronoun related ——————————————————————————————
+
+they {pronouns[0]}
+them {pronouns[1]}
+their {pronouns[2]}
+theirs {pronouns[3]}
+themself {pronouns[4]}
+//%(they) %(p('are','is'))
+p
+{
+	if pronouns[5]; _argv[0] //they are
+	else; _argv[1] //he is/she is
+}
+sg //gendered choices based on system set gender
+{
+	if SHIORI3FW.UserSex == "male"; _argv[0]
+	elseif SHIORI3FW.UserSex == "female"; _argv[1]
+	else; _argv[0]
+}
+
+//—————————————————————————————— Minigame related ——————————————————————————————
+
+//this is all taken from vera btw. my other unreleased ghost (i have a lot)
+//i have so many minigames in vera that arent public. now they are.
+
+//omfg
+//"card name,arcana"
+//make a function to identify suit by going if _TarotSuit[1] in card or whatever idk how to code /j
+TarotDeck {
+	_deck = ("The Fool,Major","The Magician,Major","The High Priestess,Major","The Empress,Major","The Emperor,Major","The Hierophant,Major","The Lovers,Major","The Chariot,Major","Strength,Major","The Hermit,Major","The Wheel of Fortune,Major","Justice,Major","The Hanged Man,Major","Death,Major","Temperance,Major","The Devil,Major","The Tower,Major","The Star,Major","The Moon,Major","The Sun,Major","Judgement,Major","The World,Major","Knight of Wands,Minor","King of Wands,Minor","Queen of Wands,Minor","Page of Wands,Minor","2 of Wands,Minor","3 of Wands,Minor","4 of Wands,Minor","5 of Wands,Minor","6 of Wands,Minor","7 of Wands,Minor","8 of Wands,Minor","9 of Wands,Minor","10 of Wands,Minor","Ace of Wands,Minor","Knight of Cups,Minor","King of Cups,Minor","Queen of Cups,Minor","Page of Cups,Minor","2 of Cups,Minor","3 of Cups,Minor","4 of Cups,Minor","5 of Cups,Minor","6 of Cups,Minor","7 of Cups,Minor","8 of Cups,Minor","9 of Cups,Minor","10 of Cups,Minor","Ace of Cups,Minor","Knight of Swords,Minor","King of Swords,Minor","Queen of Swords,Minor","Page of Swords,Minor","2 of Swords,Minor","3 of Swords,Minor","4 of Swords,Minor","5 of Swords,Minor","6 of Swords,Minor","7 of Swords,Minor","8 of Swords,Minor","9 of Swords,Minor","10 of Swords,Minor","Ace of Swords,Minor","Knight of Pentacles,Minor","King of Pentacles,Minor","Queen of Pentacles,Minor","Page of Pentacles,Minor","2 of Pentacles,Minor","3 of Pentacles,Minor","4 of Pentacles,Minor","5 of Pentacles,Minor","6 of Pentacles,Minor","7 of Pentacles,Minor","8 of Pentacles,Minor","9 of Pentacles,Minor","10 of Pentacles,Minor","Ace of Pentacles,Minor")
+	//_deck = TOSTR(_deck)
+	_rand = IARRAY
+	_out = IARRAY
+	
+	if _argv[0] == "rand" {RandCard(_deck)}
+	elseif _argv[0] == "all" {_deck}
+	else {PickCard(_deck[_argv])}
+}
+//"Name,Suit"
+CardDeck {
+	_deck = ("A,Spades","2,Spades","3,Spades","4,Spades","5,Spades","6,Spades","7,Spades","8,Spades","9,Spades","10,Spades","J,Spades","Q,Spades","K,Spades","A,Hearts","2,Hearts","3,Hearts","4,Hearts","5,Hearts","6,Hearts","7,Hearts","8,Hearts","9,Hearts","10,Hearts","J,Hearts","Q,Hearts","K,Hearts","A,Clubs","2,Clubs","3,Clubs","4,Clubs","5,Clubs","6,Clubs","7,Clubs","8,Clubs","9,Clubs","10,Clubs","J,Clubs","Q,Clubs","K,Clubs","A,Diamonds","2,Diamonds","3,Diamonds","4,Diamonds","5,Diamonds","6,Diamonds","7,Diamonds","8,Diamonds","9,Diamonds","10,Diamonds","J,Diamonds","Q,Diamonds","K,Diamonds","JOKER,JOKER")
+	_rand = IARRAY
+	_out = IARRAY
+	
+	if _argv[0] == "rand" {RandCard(_deck)}
+	elseif _argv[0] == "all" {_deck}
+	else {PickCard(_deck[_argv])}
+}
+//this functionality is mostly deprecated now because its WAYYY too hard to check for dupes when youre randomly pulling them individually like this. it has its use cases tho so thats why its still here.
+RandCard
+{
+	_rand = RAND(ARRAYSIZE(_argv)-1)
+	_out = _argv[_rand]
+	_out
+}
+//im TRYING to make it go _deck[desired number] RAGHHHHHHHHHH
+//this will call any item like "The Empress,Major" and you can do _card = "\![raise,OnTarotDeck,3]" then _card[1] or whatever
+//these lines of code are super uneccessary but i cant figure out how to make it work otherwise??? its a load bearing pillar i dont know how to replace
+PickCard
+{
+	_out = _argv
+	_out
+}
+
+//—————————————————————————————— Other stuff... ——————————————————————————————
+
+//also taken from vera.
+
+//--name politeness determiner
+pername 		{if !Flag("No Formality")
+				{"%(title) %(user)"}
+				else
+				{"%(user)"}
+				}
+//--ALWAYS formal name output
+forname 		{"%(title) %(user)"}
+//determines whether or not to add an honorific
+prefix 			{
+				if Flag("No Formality")	{IARRAY}
+				else 					{"%(title)"}
+				}
+//currently not using this one
+menuprefix		{if Flag("No Formality") 
+				{"No Title"} 
+				else 
+				{"%(title)"} 
+				}
+
+//username except its what you set in the ssp prefs ooooh scary
+sspuser
+{
+	SHIORI3FW.UserName
+}
+
+//default names found... acer, windows user... eh. cant keep track of em all because of system differences..........

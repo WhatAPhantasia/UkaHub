@@ -1,0 +1,561 @@
+//lady tea and master mirror work threads.
+
+descript
+{
+	version,1
+}
+//animation#.pattern#,method,surface,pause,X,Y
+
+//—————————————————————————————— PLANNINIG
+
+//----------Image ranges
+//0-99: reserved 4 surfaces sans 0 and 10
+//---- TEA
+//100: base
+//	100-119: base images
+//	120-129: mouth
+//	130-149: eyes
+//	150-169: eyebrows
+//	170-199: extras
+//200: recline
+//300: shock
+//350: special tarot surface!!!
+//---- MIRROR
+//1100: base 
+//	he doesnt really have any other surfaces atm
+//----ETC
+//2000: together :D<
+//3000: extra effects
+
+//—————————————————————————————— tea surfaces ——————————————————————————————
+
+//tea fallback
+surface0
+{
+	element0,overlay,surface100.png,0,0
+	element1,overlay,surface150.png,0,0
+
+	//mouth
+	animation1.interval,runonce
+	animation1.pattern0,overlay,120,0,0,0
+	animation2.interval,talk,3
+	animation2.pattern0,stop,1
+	animation2.pattern1,overlay,121,0,0,0
+	animation2.pattern2,overlay,-1,250-300,0,0
+	animation2.pattern3,start,1
+	
+	//eyes
+	animation3.interval,runonce
+	animation3.pattern0,overlay,130,0,0,0
+	animation4.interval,random,5
+	animation4.pattern0,stop,3
+	animation4.pattern1,overlay,132,0,0,0
+	animation4.pattern2,overlay,-1,250-300,0,0
+	animation4.pattern3,start,3
+
+	animation90.interval,bind
+	animation90.pattern0,add,199,0,0,0
+
+	point.basepos.y,309
+}
+
+//tea base smile
+surface1
+{
+	//close
+	animation10.interval,runonce
+	animation10.pattern0,overlay,120,0,0,0
+
+	//open
+	animation11.interval,never
+	animation11.pattern0,parallelstop,(10,13)
+	animation11.pattern1,overlay,121,0,0,0
+
+	//talkin
+	animation13.interval,talk,3
+	animation13.pattern0,stop,10
+	animation13.pattern1,overlay,121,0,0,0
+	animation13.pattern2,overlay,-1,250-300,0,0
+	animation13.pattern3,start,10
+}
+
+//tea base neutral
+surface2
+{
+	//close
+	animation10.interval,runonce
+	animation10.pattern0,overlay,122,0,0,0
+
+	//open
+	animation11.interval,never
+	animation11.pattern0,parallelstop,(10,13)
+	animation11.pattern1,overlay,123,0,0,0
+
+	//talkin
+	animation13.interval,talk,3
+	animation13.pattern0,stop,10
+	animation13.pattern1,overlay,123,0,0,0
+	animation13.pattern2,overlay,-1,250-300,0,0
+	animation13.pattern3,start,10
+}
+
+//base append
+surface.append1-2
+{
+	element0,overlay,surface100.png,0,0
+
+	//--body
+	//hips
+	animation1.interval,never
+	animation1.pattern0,replace,101,0,0,0
+
+	//point up
+	animation2.interval,never
+	animation2.pattern0,replace,102,0,0,0
+
+	//hold cards
+	animation3.interval,never
+	animation3.pattern0,replace,103,0,0,0
+
+	//is he... you know
+	animation4.interval,never
+	animation4.pattern0,replace,104,0,0,0
+
+	//hehe
+	animation5.interval,never
+	animation5.pattern0,replace,105,0,0,0
+}
+//everything else is under surface7
+
+//recline smile 
+surface3
+{
+	//close
+	animation10.interval,runonce
+	animation10.pattern0,overlay,220,0,0,0
+
+	//open
+	animation11.interval,never
+	animation11.pattern0,parallelstop,(10,13)
+	animation11.pattern1,overlay,221,0,0,0
+
+	//talkin
+	animation13.interval,talk,3
+	animation13.pattern0,stop,10
+	animation13.pattern1,overlay,221,0,0,0
+	animation13.pattern2,overlay,-1,250-300,0,0
+	animation13.pattern3,start,10
+}
+
+//recline neutral 
+surface4
+{
+	//close
+	animation10.interval,runonce
+	animation10.pattern0,overlay,222,0,0,0
+
+	//open
+	animation11.interval,never
+	animation11.pattern0,parallelstop,(10,13)
+	animation11.pattern1,overlay,223,0,0,0
+
+	//talkin
+	animation13.interval,talk,3
+	animation13.pattern0,stop,10
+	animation13.pattern1,overlay,121,0,0,0
+	animation13.pattern2,overlay,-1,250-300,0,0
+	animation13.pattern3,start,10
+}
+
+//append recline
+surface.append3-4
+{
+	element0,overlay,surface200.png,0,0
+
+	//--eyes
+	//normal
+	animation30.interval,runonce
+	animation30.pattern0,overlay,230,0,0,0
+
+	//look
+	animation31.interval,never
+	animation31.pattern0,parallelstop,(30,49)
+	animation31.pattern1,overlay,231,0,0,0
+
+	//u_u 
+	animation32.interval,never
+	animation32.pattern0,parallelstop,(30,49)
+	animation32.pattern1,overlay,232,0,0,0
+
+	//^_^ 
+	animation33.interval,never
+	animation33.pattern0,parallelstop,(30,49)
+	animation33.pattern1,overlay,233,0,0,0
+
+	//blink blink
+	animation49.interval,random,5
+	animation49.pattern0,stop,30
+	animation49.pattern1,overlay,232,0,0,0
+	animation49.pattern2,overlay,-1,250-300,0,0
+	animation49.pattern3,start,30
+
+	//--eyebrows
+	//normal
+	animation50.interval,runonce
+	animation50.pattern0,overlay,250,0,0,0
+
+	//angry
+	animation51.interval,never
+	animation51.pattern0,stop,50
+	animation51.pattern1,overlay,251,0,0,0
+
+	//sad
+	animation52.interval,never
+	animation52.pattern0,stop,50
+	animation52.pattern1,overlay,252,0,0,0
+
+	//question
+	animation53.interval,never
+	animation53.pattern0,stop,50
+	animation53.pattern1,overlay,253,0,0,0
+
+	//--extras
+	//gold spoon
+	animation90.interval,bind
+	animation90.pattern0,add,299,0,0,0
+}
+
+//SHOCK....
+surface5
+{
+	element0,overlay,surface300.png,0,0
+
+	//mouth
+	animation10.interval,runonce
+	animation10.pattern0,overlay,305,0,0,0
+
+	//eyes
+	animation30.interval,runonce
+	animation30.pattern0,overlay,310,0,0,0
+
+	animation31.interval,never
+	animation31.pattern0,stop,30
+	animation31.pattern1,overlay,311,0,0,0
+
+	//brow
+	animation50.interval,runonce
+	animation50.pattern0,overlay,320,0,0,0
+
+	//effect
+	animation80.interval,runonce
+	animation80.pattern0,overlay,348,0,0,0
+
+	//gold spoon
+	animation90.interval,bind
+	animation90.pattern0,add,349,0,0,0
+}
+
+//card LOOK!!!!
+surface6
+{
+	element0,overlay,surface350.png,0,0
+
+	//eyes
+	animation30.interval,runonce
+	animation30.pattern0,overlay,360,0,0,0
+
+	//gold spoon
+	animation90.interval,bind
+	animation90.pattern0,add,399,0,0,0
+}
+
+//hand flappy (i didnt want to add this to the base surface.)
+surface7
+{
+	element0,overlay,surface104.png,0,0
+
+	//animation teehee
+	animation1.interval,always
+	animation1.pattern0,replace,105,400,0,0
+	animation1.pattern1,replace,104,400,0,0
+
+	//--mouf (she only uses the smile)
+	//close
+	animation10.interval,runonce
+	animation10.pattern0,overlay,120,0,0,0
+
+	//open
+	animation11.interval,never
+	animation11.pattern0,parallelstop,(10,13)
+	animation11.pattern1,overlay,121,0,0,0
+
+	//:0 open
+	animation12.interval,never
+	animation12.pattern0,parallelstop,(10,13)
+	animation12.pattern1,overlay,123,0,0,0
+
+	//talkin
+	animation13.interval,talk,3
+	animation13.pattern0,stop,10
+	animation13.pattern1,overlay,121,0,0,0
+	animation13.pattern2,overlay,-1,250-300,0,0
+	animation13.pattern3,start,10
+}
+
+//base appends including everything else that isnt the body
+surface.append1-2, 7
+{
+	//--eyes
+	//normal
+	animation30.interval,runonce
+	animation30.pattern0,overlay,130,0,0,0
+
+	//look
+	animation31.interval,never
+	animation31.pattern0,parallelstop,(30,49)
+	animation31.pattern1,overlay,131,0,0,0
+
+	//u_u 
+	animation32.interval,never
+	animation32.pattern0,parallelstop,(30,49)
+	animation32.pattern1,overlay,132,0,0,0
+
+	//^_^ 
+	animation33.interval,never
+	animation33.pattern0,parallelstop,(30,49)
+	animation33.pattern1,overlay,133,0,0,0
+
+	//blink blink
+	animation49.interval,random,5
+	animation49.pattern0,stop,30
+	animation49.pattern1,overlay,132,0,0,0
+	animation49.pattern2,overlay,-1,250-300,0,0
+	animation49.pattern3,start,30
+
+	//--eyebrows
+	//normal
+	animation50.interval,runonce
+	animation50.pattern0,overlay,150,0,0,0
+
+	//angry
+	animation51.interval,never
+	animation51.pattern0,stop,50
+	animation51.pattern1,overlay,151,0,0,0
+
+	//sad
+	animation52.interval,never
+	animation52.pattern0,stop,50
+	animation52.pattern1,overlay,152,0,0,0
+
+	//question
+	animation53.interval,never
+	animation53.pattern0,stop,50
+	animation53.pattern1,overlay,153,0,0,0
+
+	//--extras
+	//gold spoon
+	animation90.interval,bind
+	animation90.pattern0,add,199,0,0,0
+}
+
+//—————————————————————————————— mirror surfaces ——————————————————————————————
+
+//mirror fallback
+surface10
+{
+	collisionex0,face,regions,hotspot110.png,255,0,0
+	collisionex1,crack,regions,hotspot110.png,0,255,0
+
+	element0,overlay,surface1100.png,0,0
+	element1,overlay,surface1152.png,0,0
+
+	//mouth
+	animation1.interval,runonce
+	animation1.pattern0,overlay,1120,0,0,0
+	animation2.interval,talk,3
+	animation2.pattern0,stop,1
+	animation2.pattern1,overlay,1121,0,0,0
+	animation2.pattern2,overlay,-1,250-300,0,0
+	animation2.pattern3,start,1
+	
+	//eyes
+	animation3.interval,runonce
+	animation3.pattern0,overlay,1130,0,0,0
+	animation4.interval,random,5
+	animation4.pattern0,stop,3
+	animation4.pattern1,overlay,1132,0,0,0
+	animation4.pattern2,overlay,-1,250-300,0,0
+	animation4.pattern3,start,3
+
+	point.basepos.y,309
+}
+
+//base smile
+surface11
+{
+	//close
+	animation10.interval,runonce
+	animation10.pattern0,overlay,1120,0,0,0
+
+	//open
+	animation11.interval,never
+	animation11.pattern0,parallelstop,(10,13)
+	animation11.pattern1,overlay,1121,0,0,0
+
+	//talkin
+	animation13.interval,talk,3
+	animation13.pattern0,stop,10
+	animation13.pattern1,overlay,1121,0,0,0
+	animation13.pattern2,overlay,-1,250-300,0,0
+	animation13.pattern3,start,10
+}
+
+//base neut
+surface12
+{
+	//close
+	animation10.interval,runonce
+	animation10.pattern0,overlay,1122,0,0,0
+
+	//open
+	animation11.interval,never
+	animation11.pattern0,parallelstop,(10,13)
+	animation11.pattern1,overlay,1123,0,0,0
+
+	//talkin
+	animation13.interval,talk,3
+	animation13.pattern0,stop,10
+	animation13.pattern1,overlay,1123,0,0,0
+	animation13.pattern2,overlay,-1,250-300,0,0
+	animation13.pattern3,start,10
+}
+
+//base append 
+surface.append11-12
+{
+	collisionex0,face,regions,hotspot110.png,255,0,0
+	collisionex1,crack,regions,hotspot110.png,0,255,0
+
+	element0,overlay,surface1100.png,0,0
+
+	//--body
+	//hand up
+	animation1.interval,never
+	animation1.pattern0,replace,1101,0,0,0
+
+	//relax behind
+	animation2.interval,never
+	animation2.pattern0,replace,1102,0,0,0
+
+	//hand up relax
+	animation3.interval,never
+	animation3.pattern0,replace,1103,0,0,0
+
+	//--eyes
+	//normal
+	animation30.interval,runonce
+	animation30.pattern0,overlay,1134,0,0,0
+
+	//look
+	animation31.interval,never
+	animation31.pattern0,parallelstop,(30,49)
+	animation31.pattern1,overlay,1130,0,0,0
+
+	//u_u 
+	animation32.interval,never
+	animation32.pattern0,parallelstop,(30,49)
+	animation32.pattern1,overlay,1132,0,0,0
+
+	//^_^ 
+	animation33.interval,never
+	animation33.pattern0,parallelstop,(30,49)
+	animation33.pattern1,overlay,1133,0,0,0
+
+	//thinking...
+	animation34.interval,never
+	animation34.pattern0,parallelstop,(30,49)
+	animation34.pattern1,overlay,1131,0,0,0
+
+	//blink blink
+	animation49.interval,random,5
+	animation49.pattern0,stop,30
+	animation49.pattern1,overlay,1132,0,0,0
+	animation49.pattern2,overlay,-1,250-300,0,0
+	animation49.pattern3,start,30
+
+	//--eyebrows
+	//normal
+	animation50.interval,never
+	animation50.pattern0,stop,52
+	animation50.pattern1,overlay,1150,0,0,0
+
+	//angry
+	animation51.interval,never
+	animation51.pattern0,stop,52
+	animation51.pattern1,overlay,1151,0,0,0
+
+	//sad
+	animation52.interval,runonce
+	animation52.pattern0,overlay,1152,0,0,0
+
+	//question
+	animation53.interval,never
+	animation53.pattern0,stop,52
+	animation53.pattern1,overlay,1153,0,0,0
+}
+
+//SHOCK 
+surface15
+{
+	element0,overlay,surface1300.png,0,0
+}
+
+//append all (just the basepos rly)
+surface.append0-19, !0, !10
+{
+	point.basepos.y,309
+
+	//--mouth stuff
+	//stop talking >:3<
+	animation29.interval,never
+	animation29.pattern0,stop,13
+}
+
+
+//—————————————————————————————— together surfaces ——————————————————————————————
+
+//hug!
+surface20
+{
+	element0,overlay,surface2010.png,0,0
+
+	//gold spoon
+	animation90.interval,bind
+	animation90.pattern0,add,2015,0,0,0
+
+	point.basepos.y,309
+}
+
+//grabby
+surface21
+{
+	element0,overlay,surface2000.png,0,0
+
+	//resigned to his fate...
+	animation1.interval,never
+	animation1.pattern0,replace,2001,0,0,0
+
+	//ok now he's actually accepted it
+	animation2.interval,never
+	animation2.pattern0,replace,2002,0,0,0
+
+	//blush 
+	animation80.interval,never
+	animation80.pattern0,overlay,2008,0,0,0
+
+	//gold spoon
+	animation90.interval,bind
+	animation90.pattern0,add,2005,0,0,0
+
+	point.basepos.y,309
+}

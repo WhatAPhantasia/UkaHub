@@ -1,0 +1,29 @@
+//work threads tea and mirror
+
+charset,UTF-8
+version,1
+option,DisableNoDefineSurfaces
+
+group,T
+{
+	scope,0
+	0,Fallback
+	1,B.Smile
+	2,B.Neut
+	3,R.Smile
+	4,R.Neut
+	5,Shock
+	6,Tarot
+	7,Waveoff
+
+	20,Hug
+	21,Grab
+}
+group,M
+{
+	scope,1
+	10,Fallback
+	11,B.Smile
+	12,B.Neut
+	15,Shock
+}
