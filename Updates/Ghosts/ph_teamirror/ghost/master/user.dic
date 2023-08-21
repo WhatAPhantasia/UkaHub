@@ -1,0 +1,328 @@
+//I put anything related to who the user is in here. Name, pronouns, birthday.
+
+OnChangeName : all
+{
+	if !reference0; "\0\b4\s[1]\i[]Oh, yes, yes! \w8Tell us your name!"
+	else; "\1\b4\s[12]\i[50]Oh! \w8Yes, what do you go by?"
+	"\![set,balloontimeout,-1]\![open,inputbox,OnNameTeach,-1,--reference=0,--reference=%(reference0)]"
+	"\n\n\f[align,right]\![*]\q[BACK,OnSettingsMenu,OnNameTeach]\n\![*]\q[CLOSE,blank]"
+}
+
+OnNameTeach : all
+{	
+	//reference0: input
+	//reference2: _is_firstboot
+	//reference3: tea (0) or mirror (1)
+
+	_tempname = CUTSPACE(reference.raw[0]) //this stores the original name in _tempname
+	_name = CleanTerm(reference.raw[0])
+
+	_is_firstboot = 0; if reference2 == "firstboot"; _is_firstboot = 1
+	
+	if _is_firstboot; "\_l[-10000,-10000]\q[ ,__VERY_FIRST_BOOT__]\_l[0,0]\*\t" //Prevents balloon from timing out if this is during first boot. Also prevents the user from closing out the input box
+
+    _settings = "OnSettingsMenu,0"; if reference3 == 1; _settings = "OnSettingsMenu,1"
+	
+	if _name == "tea"
+	{
+		if reference3 == 0; "\0\b4\s[2]\i[2]\i[32]Tsk tsk, I know my name is great, but it's mine! \w8Use something else!"
+		else; "\1\b4\s[12]\i[50]...Ah! \w8\s[11]\i[1]\i[33]Uhm, I don't think I could handle \w4TWO\w4 Lady Teas..."
+		
+		if !_is_firstboot; "\w4\_q\n\n\f[align,right]\![*]\q[BACK,%(_settings)]  \![*]\q[NEVERMIND,blank]"
+		"\![open,inputbox,OnNameTeach,-1,--reference=%(reference2),--reference=%(reference3)]"
+	}
+	elseif _name == "mirror"
+	{
+		"\1\s[12]\i[1]\i[31]\i[50]\0\b4\s[2]\i[1]Hey! \w8\i[32]In this establishment, only my assistant gets to be called Mirror! \w8\1\s[11]\i[33]\i[50]\0You'll have to pick something else!"
+
+		if !_is_firstboot; "\w4\_q\n\n\f[align,right]\![*]\q[BACK,%(_settings)]  \![*]\q[NEVERMIND,blank]"
+		"\![open,inputbox,OnNameTeach,-1,--reference=%(reference2),--reference=%(reference3)]"
+	}
+	elseif _name == ""
+	{
+		if _is_firstboot 
+		{
+			user = "customer"
+
+			"\0\b4\s[1]\i[1]\i[33]I can work with that! \w8After all, you're still our beloved customer!\w8\x"
+			--
+			OnFirstBootTwo
+		}
+		else
+		{
+            if reference3 == 0; "\0\s[1]\i[1]"
+            else; "\1\s[11]\i[1]"
+
+			"Ah? \w6\i[33]We'll just keep calling you %(user), then."
+			"\w4\_q\n\n\f[align,right]\![*]\q[BACK,%(_settings)]  \![*]\q[CLOSE,blank]"
+		}
+	}
+	else
+	{
+        user = SHIORI3FW.EscapeAllTags(_tempname)
+
+		if !_is_firstboot 
+		{
+            if reference3 == 0; "\0\s[1]"
+			else; "\0\s[11]"
+
+			"\i[1]\i[33]Alright, %(user) it is!"
+			"\w4\_q\n\n\![*]\q[BACK,%(_settings)]  \![*]\q[CLOSE,blank]"
+		}
+		else 
+        {
+			OnFirstBootTwo
+		}
+	}
+}
+
+OnChangePronoun
+{
+	if reference1 == "custom" 
+	{
+		"\![close,inputbox,__SYSTEM_ALL_INPUT__]\*"
+		--
+		"Ah, something else, then?"
+	}
+	else 
+	{
+		"\0Of course! How should we refer to you?"
+	}
+	--
+	all:{
+	"\n\n\_q"
+	"\![*]\q[HE HIM,OnPronouns,masc,%(reference0)]\n"
+	"\![*]\q[SHE HER,OnPronouns,fem,%(reference0)]\n"
+	"\![*]\q[THEY THEM,OnPronouns,undef,%(reference0)]\n"
+	"\![*]\q[SOMETHING ELSE!,OnPronouns,custom,%(reference0)]"
+	
+	if "\n\n\f[align,right]\![*]\q[BACK,OnSettingsMenu,%(reference0)]\n\![*]\q[CLOSE,CANCEL]\e"
+	}
+}
+
+OnPronouns : all
+{
+	if reference0 == "masc" 
+	{pronouns = ("he","him","his","his","himself",0)}
+	elseif reference0 == "fem"
+	{pronouns = ("she","her","her","hers","herself",0)}
+	elseif reference0 == "custom"
+	{"\%(reference1)"
+	"\t\*\b2\_q\![set,autoscroll,disable]"
+	"\![open,inputbox,OnCustomPronouns,-1,--reference=%(reference1)]" //this passes as reference2 btw
+	"Insert pronouns like:\n\f[name,Consolas]"
+	"they/them/their/theirs/themself\nshe/her/her/hers/herself\nhe/him/his/his/himself\n\f[name,default]"
+	"Use a forward slash. You must insert five. See specific usage below.\n\n"
+	"1: THEY talked.\n"
+	"2: I talked to THEM.\n"
+	"3: That is THEIR word.\n"
+	"4: Those words of THEIRS are cool!\n"
+	"5: They talked to THEMSELF.\n\n"
+	"\![*]\q[BACK,OnChangePronoun,custom]\e"}
+	else
+	{pronouns = ("they","them","their","theirs","themself",1)}
+
+	if reference0 != "custom" {
+	if !reference1; "\![raise,OnSettingsMenu,0]"
+	else; "\![raise,OnSettingsMenu,1]"
+	}
+}
+
+OnCustomPronouns : all
+{
+	_pronouns = IARRAY
+	_pronouns = SPLIT(reference0,"/")
+	
+	if ARRAYSIZE(_pronouns) != 5
+	{"\![raise,OnPronouns,custom,%(reference2)]"}
+	else
+	all:{
+		pronouns = IARRAY
+		pronouns = SPLIT(reference0,"/")
+		pronouns ,= 0
+		
+		"\0\t\*\_q"
+		"Is that plural or singular?\n"
+		"Plural: %(they) are cool\n"
+		"Singular: %(they) is cool\n\n"
+		
+		"\![*]\q[PLURAL,OnPronounsDone,1,%(reference2)]\n"
+		"\![*]\q[SINGULAR,OnPronounsDone,0,%(reference2)]"
+	}
+}
+//set plural, pronouns, etc, then just redirect back to settings.
+OnPronounsDone
+{
+	pronouns[5] = reference0
+	
+	if !reference1; "\![raise,OnSettingsMenu,0]"
+	else; "\![raise,OnSettingsMenu,1]"
+}
+
+//"%(they) left that there."
+//"%(their) work is really cool."
+//"I'll ask %(them) later."
+//"%(they)'%(p('re','s')) really good at it."
+//"%(they) %(p('are','is')) thinking about cheese!"
+//"%(they) %(p('were','was')) lost in their code, but %(they) fixed it!!"
+//use %(capitalize(they)) to use it properly at the start of sentences.
+
+//PRONOUN ENVELOPES!!!!!!!! moved to word.dic
+
+
+OnChangeTitle
+{
+
+	"\0\b2\![set,autoscroll,disable]"
+	--
+	if reference1 == "custom" 
+	{
+		"\![close,inputbox,OnCustomTitleTwo]\*"
+		--
+		"Something else, then?"
+	}
+	elseif reference1 == "nothin"; ""
+	else
+	{
+		"\s[1]Of course! \w8What shall we call you?"
+	}
+	--
+	"\w8\n\n\_q"
+	--
+	all:{
+		"(They currently"
+		if Flag("No Formality"); " don't"
+		" use a title with you. "
+		"\![*]\q[CHANGE?,OnToggleTitle,menu,%(reference0)])\n\n"
+		}
+	--
+	all:{
+	"\![*]\q[MISTER,OnTitle,mister,%(reference0)]\n"
+	"\![*]\q[MISS,OnTitle,miss,%(reference0)]\n"
+	"\![*]\q[MIXTER,OnTitle,mixter,%(reference0)]\n"
+	"\![*]\q[MISR,OnTitle,misr,%(reference0)]\n"
+	"\![*]\q[SOMETHING ELSE!,OnCustomTitle,%(reference0),]"
+	}
+	--
+	"\n\n\f[align,right]\![*]\q[BACK,OnSettingsMenu,%(reference0)]\n\![*]\q[CLOSE,CANCEL]\e"
+}
+
+OnToggleTitle
+{
+	if !Flag("No Formality"); AddFlag("No Formality")
+	else; RemoveFlag("No Formality")
+	
+	"Alright, %(pername) it is!"
+	--
+	if reference0 == "menu"
+	{"\n\n\_q\f[align,right]\![*]\q[BACK,OnChangeTitle,%(reference1),nothin]\n\![*]\q[CLOSE,CANCEL]\e"}
+}
+
+OnCustomTitle
+{
+	"\i[35]\_q(Please enter the title/honorific you use.)"
+	--
+	"\*\![open,inputbox,OnTitle,-1,--reference=%(reference0)]\n\n\![*]\q[NEVERMIND,OnChangeTitle,%(reference0),custom]"
+}
+
+OnTitle
+{
+	_oldtitle = usertitle //unnecessary but uhhhh why not
+	
+	_temptitle = CUTSPACE(reference.raw[0]) //this stores the original input in _temptitle
+	_title = CleanTerm(reference.raw[0])
+
+	if _title == CleanTerm(user) //can easily Not Work but i don't really care about ironing it out. will people even see this. no
+	{
+		reference3 = "redo"
+		
+		"\_q\i[35](Isn't that your name? Something else, please!)\n\n"
+		--
+		"\![open,inputbox,OnCustomTitleTwo,-1]\n\n\*\![*]\q[NEVERMIND,OnChangeTitle,,custom]"
+	}
+	elseif _title == "none" || _title == "" //sorry!!!
+	{
+		reference3 = "redo"
+
+		"\_q\i[35](Please input something!)\n\n"
+		--
+		"\![open,inputbox,OnCustomTitleTwo,-1]\n\n\*\![*]\q[NEVERMIND,OnChangeTitle,,custom]"
+	}
+	//----------------END OF CUSTOM TITLE CHECK----------------------------
+	elseif _title == CleanTerm(_oldtitle)
+	{
+		title = SHIORI3FW.EscapeAllTags(_temptitle)
+		"\0Let's keep it the same! \w8"
+	}
+	else
+	{
+		title = SHIORI3FW.EscapeAllTags(_temptitle)
+		"\0"
+	}
+	--
+	//-------------------------------------------------
+	//i really dont want to put an end tag so uhhh yeah
+	if reference3 == "redo" {}
+	else
+	{
+		"Got it, thank you kindly!"
+		--
+		"\n\n\![*]\q[BACK,OnSettingsMenu,%(reference0)]\n\![*]\q[CLOSE,CANCEL]\e"
+	}
+}
+
+
+OnChangeMoney : all
+{
+	if reference0 == 0; "\0"
+	else; "\1"
+	"\b2\![set,autoscroll,disable]\_q"
+
+	"\f[align,center]\f[bold,1]- BANK INFO -\n\n[half]\f[align,default]\f[bold,default]"
+
+	"\![*]\_a[OnSelectBank,Inkwell Wallet,%(reference0)]INKWELL WALLET\_a\n"
+	"\_l[1em]Your basic bank. Currently has %(bankinfo[1]) dollars.\n\_l[0]"
+	
+	if UnyuInstalled
+	{"\![*]\_a[OnSelectBank,Wallet of Unyu,%(reference0)]WALLET OF UNYU\_a\n"
+	"\_l[1em]Tea and Mirror accept and give UNYU! How nice!\n\_l[0]"}
+	else
+	{"\f[color,disable]"
+	"\![*]\_a[https://github.com/nikolat/wallet_of_unyu/releases/tag/v1.0.1]WALLET OF UNYU\_a\n"
+	"\_l[1em]Install the plugin to be able to do transactions with UNYU!\n\_l[0]\f[color,default]"}
+
+	"\![*]\_a[OnSelectBank,Devil's Discount,%(reference0)]DEVIL'S DISCOUNT\_a\n"
+	"\_l[1em]Don't want to pay? All you gotta do is make a deal.\n\_l[0]"
+
+	"\n[half]\f[align,right]\![*]\q[BACK,OnSettingsMenu,%(reference0)]\e"
+}
+
+OnSelectBank : all
+{
+	if reference0 == bankinfo[0]
+	{
+		"\![raise,OnChangeMoney,%(reference1)]"
+	}
+	elseif reference0 == "Inkwell Wallet"
+	{
+		bankinfo[0] = reference0
+		"\![raise,OnSettingsMenu,%(reference1)]"
+	}
+	elseif reference0 == "Wallet of Unyu"
+		"\![raise,OnSettingsMenu,%(reference1)]"
+	{
+		bankinfo[0] = reference0
+	}
+	elseif reference0 == "Devil's Discount"
+	{
+		bankinfo[0] = reference0
+		AddFlag("DevilInfluence")
+		"\![raise,OnSettingsMenu,%(reference1)]"
+	}
+	else
+	{
+		"\_q(Oh uhmm heyy phantasia the dev here, this is a bug pls report it thx)\n\n\f[align,right]"
+		"\![*]\q[BACK,OnChangeMoney,%(reference1)]\n"
+		"\![*]\q[CLOSE,blank]"
+	}
+}

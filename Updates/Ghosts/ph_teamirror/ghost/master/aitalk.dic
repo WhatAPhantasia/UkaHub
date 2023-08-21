@@ -1,0 +1,70 @@
+OnAiTalk
+{
+	if CHAIN.IDName == ""
+	{
+		if !Flag("Event.BeCasual")
+		{LastTalk = FormalTalk}
+		else
+		{if RAND(2); LastTalk = RandomTalk
+		else; LastTalk = FormalTalk}
+	}
+	else
+	{
+		LastTalk = ChainTalk
+	}
+
+	LastTalk
+}
+
+FormalTalk : nonoverlap_pool
+{
+	all:{"\1\s[12]\i[31]\i[50]\0\s[1]\i[1]\i[33]\b4"
+		"We've got some neat tricks up our joined four sleeves! \w8\![anim,stop,33]\i[31]You \w4DID \w4bring the cards, right Mirror?\w8\w8\1\b4"
+		"\s[12]\i[1]\i[34]...Uhm, \w6I'll have to check back with you on that, Lady Tea...\e"}
+
+	all:{"\1\s[11]\0\b4\s[1]"}
+}
+
+RandomTalk : nonoverlap_pool
+{
+
+	//--food
+	all:{"\1\s[12]\i[31]\i[50]\0\s[2]\i[1]\i[32]\i[52]\b4"
+		"Geez, what's a girl gotta do to get a good cream soda around here?\w8\w8\1\b4"
+		"\i[1]You could start paying the shops, for one.\w8\w8\0\n\n[half]"
+		"\![anim,stop,52]\i[51]Hmph! \w8Maybe I would, \w4if any of them let me in!\e"}
+
+	all:{"\1\0\b4"}
+}
+
+OnDressupChanged
+{
+	if reference1 == "Gold Spoon"
+	{
+		if reference2
+		{
+			"\s[1]\i[12]\i[50]\0\b4\s[1]\i[32]Ah, right back where it belongs!\e"
+			"\s[1]\i[12]\i[50]\0\b4\s[2]\i[1]\i[32]Hm, I think I could use the lucky spoon again...\e"
+		}
+		else
+		{
+			"\1\s[12]\i[1]\i[31]\i[50]\0\b4\s[2]\i[1]\i[32]Hmm... \w8Yeah, I think I'll take it out. \w8My brain's all too mixed up right now!\e"
+			"\1\s[12]\i[1]\i[31]\i[50]\0\b4\s[1]\i[1]\i[32]Ah, that's better! \w8Maybe I can focus more now...\e"
+		}
+	}
+}
+
+OnOverlap
+{
+	if "0-1" _in_ reference0 && !BalloonIsOpen //only when dragging tea over mirror
+	{
+		if RAND(2)
+		{
+			all:{"\1\s[-1]\0\b4\s[20]"
+				"%(ANY('Gotcha','Hug','Hehehe'))!\w8\1\b4"
+				"O-Oh! \w8Good to see you too, Lady Tea!\w8\0\x"
+			random:{"\0\s[3]\i[31]\1\b4\s[11]\i[3]\i[33]But we are at work! \w8Hugs can wait!\w8\w8\0\b4\![anim,stop,31]\i[33]\i[52]Aww, but showing a good duo relationship makes sales skyrocket..!"
+					"\0\s[3]\i[31]\1\b4\s[11]\i[3]\i[33]O-Ok, enough of that...\w8\w8\0\b4\![anim,stop,31]\i[32]Fiine...\e"}}
+		}
+	}
+}
