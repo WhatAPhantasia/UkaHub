@@ -1,0 +1,82 @@
+descript
+{
+	version,1
+}
+
+//I STARTED THIS 10 MINUTES BEFORE THE SUBMISSION TIME
+
+surface0
+{
+	element0,overlay,surface0.png,0,0
+
+	animation0.interval,runonce
+	animation0.pattern0,stop,1100
+	animation0.pattern1,stop,1200
+	
+	//planet
+	animation20.interval,bind
+	animation20.pattern0,overlayfast,20,0,0,0
+
+	//satellites
+	animation100.interval,bind
+	animation100.pattern0,overlay,100,0,0,0
+	animation100.pattern2,start,1100
+
+	//straws
+	animation150.interval,bind
+	animation150.pattern0,overlay,150,0,0,0
+
+	animation151.interval,bind
+	animation151.pattern0,overlay,151,0,0,0
+	
+	animation152.interval,bind
+	animation152.pattern0,overlay,152,0,0,0
+	
+	animation153.interval,bind
+	animation153.pattern0,overlay,153,0,0,0
+	
+	animation154.interval,bind
+	animation154.pattern0,overlay,154,0,0,0
+	
+	animation155.interval,bind
+	animation155.pattern0,overlay,155,0,0,0
+	
+	animation156.interval,bind
+	animation156.pattern0,overlay,156,0,0,0
+
+	//extra
+	animation200.interval,bind
+	animation200.pattern0,overlay,200,0,0,0
+	animation200.pattern1,start,1200
+
+	animation201.interval,bind
+	animation201.pattern0,overlay,201,0,0,0
+
+
+	//moon anim
+	animation1100.interval,always
+	animation1100.pattern0,overlay,100,0,0,0
+	animation1100.pattern1,overlay,-1,300,0,0
+	animation1100.pattern2,overlay,1101,0,0,0
+	animation1100.pattern3,overlay,-1,300,0,0
+	animation1100.pattern4,overlay,1102,0,0,0
+	animation1100.pattern5,overlay,-1,300,0,0
+	animation1100.pattern6,overlay,1103,0,0,0
+	animation1100.pattern7,overlay,-1,300,0,0
+	animation1100.pattern8,overlay,1104,0,0,0
+	animation1100.pattern9,overlay,-1,300,0,0
+	animation1100.pattern10,overlay,1105,0,0,0
+	animation1100.pattern11,overlay,-1,300,0,0
+	animation1100.pattern12,overlay,1106,0,0,0
+	animation1100.pattern13,overlay,-1,300,0,0
+	animation1100.pattern14,overlay,1107,0,0,0
+	animation1100.pattern15,overlay,-1,300,0,0
+	
+	//cloud anim
+	animation1200.interval,runonce
+	animation1200.pattern0,stop,200
+	animation1200.pattern1,overlay,-1,300,0,0
+	animation1200.pattern2,overlay,1200,0,0,0
+	animation1200.pattern3,overlay,-1,300,0,0
+	animation1200.pattern4,start,200
+}
