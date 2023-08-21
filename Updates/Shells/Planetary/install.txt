@@ -1,0 +1,5 @@
+Charset,UTF-8
+type,shell
+name,Planetary
+directory,Planetary
+accept,Hydrate
