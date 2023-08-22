@@ -162,7 +162,7 @@ surface4
 	//talkin
 	animation13.interval,talk,3
 	animation13.pattern0,stop,10
-	animation13.pattern1,overlay,121,0,0,0
+	animation13.pattern1,overlay,223,0,0,0
 	animation13.pattern2,overlay,-1,250-300,0,0
 	animation13.pattern3,start,10
 }

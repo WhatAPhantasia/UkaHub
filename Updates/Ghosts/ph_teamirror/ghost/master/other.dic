@@ -435,6 +435,25 @@ menuprefix		{if Flag("No Formality")
 				{"%(title)"} 
 				}
 
+//--- array maninpulation
+
+//thanks teacup
+//ARRAYADD('1','2','3','4')
+//ARRAYADD(servicesused)
+ARRAYADD
+{
+	_return = 0
+	_a = SPLIT(_argv[0],",") //split array
+	_size = ARRAYSIZE(_a)
+
+	for _i = 0; _i < _size; _i++
+	{
+		_return += TOINT(_a[_i]) //add the numbers
+	}
+
+	_return
+}
+
 //username except its what you set in the ssp prefs ooooh scary
 sspuser
 {
