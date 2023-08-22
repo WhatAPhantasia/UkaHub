@@ -274,6 +274,9 @@ OnTitle
 
 OnChangeMoney : all
 {
+	_devi = "Devil's Discount"
+	if !Flag("DevilInfluence"); _devi = "confdevil"
+
 	if reference0 == 0; "\0"
 	else; "\1"
 	"\b2\![set,autoscroll,disable]\_q"
@@ -291,7 +294,7 @@ OnChangeMoney : all
 	"\![*]\_a[https://github.com/nikolat/wallet_of_unyu/releases/tag/v1.0.1]WALLET OF UNYU\_a\n"
 	"\_l[1em]Install the plugin to be able to do transactions with UNYU!\n\_l[0]\f[color,default]"}
 
-	"\![*]\_a[OnSelectBank,Devil's Discount,%(reference0)]DEVIL'S DISCOUNT\_a\n"
+	"\![*]\_a[OnSelectBank,%(_devi),%(reference0)]DEVIL'S DISCOUNT\_a\n"
 	"\_l[1em]Don't want to pay? All you gotta do is make a deal.\n\_l[0]"
 
 	"\n[half]\f[align,right]\![*]\q[BACK,OnSettingsMenu,%(reference0)]\e"
@@ -309,9 +312,15 @@ OnSelectBank : all
 		"\![raise,OnSettingsMenu,%(reference1)]"
 	}
 	elseif reference0 == "Wallet of Unyu"
-		"\![raise,OnSettingsMenu,%(reference1)]"
 	{
 		bankinfo[0] = reference0
+		"\![raise,OnSettingsMenu,%(reference1)]"
+	}
+	elseif reference0 == "confdevil"
+	{
+		"\b4\_qAre you sure? That's not something you can easily come back from.\w8\n\n[half]"
+		"\![*]\q[I'M SURE,OnSelectBank,Devil's Discount,%(reference1)]"
+		"\![*]\q[WAIT...,OnChangeMoney,%(reference1)]"
 	}
 	elseif reference0 == "Devil's Discount"
 	{
