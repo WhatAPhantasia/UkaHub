@@ -1,0 +1,75 @@
+charset,UTF-8
+
+//——— Basic information ———
+name,Irken Doom English
+craftman,WhatAPhantasia
+craftmanurl,https://whataphantasia.github.io/projects/ukagaka
+
+//——— Table ———
+table.left,44
+table.top,84
+table.right,295
+table.bottom,276
+
+
+//——— Numbers ———
+day.pos.x,0
+day.pos.y,4
+
+day.spacing,1
+saturday.spacing,0
+holiday.spacing,0
+
+year.pos.x,230
+year.pos.y,39
+
+year.spacing,0
+
+
+//——— Day markers ———
+today.pos.x,22
+today.pos.y,0
+
+current.pos.x,0
+current.pos.y,0
+
+
+//——— Event markers ———
+icon.left,0
+icon.top,21
+icon.right,41
+icon.bottom,41
+
+icon.width,10
+icon.height,12
+
+
+//——— Month names ———
+month.pos.x,23
+month.pos.y,13
+
+
+//——— Next & previous month buttons ———
+prev.left,226
+prev.top,7
+prev.right,247
+prev.bottom,22
+
+next.left,264
+next.top,7
+next.right,285
+next.bottom,23
+
+
+//——— Filenames ———
+day.filename,numbers/num
+saturday.filename,numbers/nums
+holiday.filename,numbers/numh
+
+year.filename,numbers/num
+month.filename,months/month
+
+today.filename,today
+current.filename,current
+
+background.filename,bg
