@@ -1,11 +1,11 @@
 TERMS:
 
-feel free to modify the shell (feel free to ask me for the psd!)
-you can include this in your distributed ghost, but don't 
-do NOT use for commercial work, please!
-do not claim as your own work. please keep the credit below in the readme.
+- feel free to modify the shell (feel free to ask me for the psd!)
+- you can include this in your distributed ghost, but don't 
+- do NOT use for commercial work, please!
+- do NOT claim as your own work. please keep the credit below in the readme.
 
-Hammock Buddies Shell, by WhatAPhantasia
+Hammock Buddies v0.9.0, by WhatAPhantasia
 https://whataphantasia.github.io/projects/ukagaka
 
 --------
