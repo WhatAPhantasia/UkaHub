@@ -1,0 +1,42 @@
+charset,UTF-8
+version,1
+option,DisableNoDefineSurfaces
+
+group,__disabled
+{
+	12000,__parts
+}
+//remember to change this to disable any animations.....
+
+
+group,Skra
+{
+	scope,0
+
+	0,default
+	1,embarrass
+	2,surprise
+	3,worry
+	4,sad
+	5,smile
+	6,content
+	7,angry
+	8,think
+	9,bored
+}
+
+group,Kero
+{
+	scope,1
+
+	10,default
+	11,embarrass
+	12,surprise
+	13,worry
+	14,sad
+	15,smile
+	16,content
+	17,angry
+	18,think
+	19,bored
+}
