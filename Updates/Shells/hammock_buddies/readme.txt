@@ -1,7 +1,7 @@
 TERMS:
 
 - feel free to modify the shell (feel free to ask me for the psd!)
-- you can include this in your distributed ghost, but don't 
+- you can include this in your distributed ghost, but don't redistribute the shell by itself, please
 - do NOT use for commercial work, please!
 - do NOT claim as your own work. please keep the credit below in the readme.
 
@@ -25,6 +25,11 @@ there's a few hard coded surfaces, if you don't want to fenangle with intervals.
 \s[9] - bored sakura
 
 and just add a 9 before the number if you want kero surfaces.
+
+COLLISION GUIDE
+
+sakura has three collisions: 1 - pet, 2 - face, 3 - hair.
+kero has two collisions: 1 - pet, 2 - face. pull up surfaces.txt and display hit rect for more help.
 
 INTERVAL GUIDE
 

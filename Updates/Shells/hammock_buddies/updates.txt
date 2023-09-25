@@ -6,7 +6,7 @@ file,install.txtab93a31a0baa03bea3b2fcfc4352fcc5size=76date=2023-09-24T19:18:
 file,menu_background.png2d4a47c36cc116b627fc2f69eb48e8e4size=866date=2023-09-24T18:59:45
 file,menu_foreground.png284825afed3109717de1bac977f8549dsize=865date=2023-09-24T19:00:22
 file,menu_sidebar.pngbf1f494e07b0ce35ac4e83643b27dd8fsize=285date=2023-09-24T18:59:28
-file,readme.txte14db484ec71230d0d675d5d2c26116asize=1078date=2023-09-24T22:40:55
+file,readme.txt8a63308e244efc447cefcfe03e22dee7size=1300date=2023-09-24T22:54:18
 file,ref_for_kero_position.png45ef051eef7ed6381f401f4e537d4194size=26409date=2023-09-24T18:46:11
 file,surface0.pngb74e6457e98a5a1df8eff0d04e0abd90size=149652date=2023-09-24T18:37:34
 file,surface1.png7622b11ae4f3fc9d8eb6802a955b9178size=146208date=2023-09-24T18:38:34
