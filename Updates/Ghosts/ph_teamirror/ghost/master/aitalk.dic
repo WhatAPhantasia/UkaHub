@@ -3,7 +3,10 @@ OnAiTalk
 	if CHAIN.IDName == ""
 	{
 		if !Flag("Event.BeCasual")
-		{LastTalk = FormalTalk}
+		{
+			//insert conditional event where they start to be more casual around you
+			LastTalk = FormalTalk
+		}
 		else
 		{if RAND(2); LastTalk = RandomTalk
 		else; LastTalk = FormalTalk}
@@ -22,7 +25,17 @@ FormalTalk : nonoverlap_pool
 		"We've got some neat tricks up our joined four sleeves! \w8\![anim,stop,33]\i[31]You \w4DID \w4bring the cards, right Mirror?\w8\w8\1\b4"
 		"\s[12]\i[1]\i[34]...Uhm, \w6I'll have to check back with you on that, Lady Tea...\e"}
 
-	all:{"\1\s[11]\0\b4\s[1]"}
+	all:{"\0\s[2]\i[31]\1\b4\s[12]\i[1]\i[31]"
+		"...How are our funds looking, Lady Tea?\w8\w8\0\b4"
+		"You're asking this right now..?! \w8Uh, \w4whisper whisper whisper...\w8\w8\1"
+		random:{"...Oh dear.\e"
+				"...That \w4IS \w4alarming...\e"
+				"Oh, \w8thank goodness...\e"
+				"Ah, okay, that's good to know...\e"}}
+
+	all:{"\0\s[1]\i[1]\1\s[12]\i[4]\i[50]"
+		"Please remember, %(pername), if you have any complaints, please don't hesitate to send them through me \w8"
+		"\i[32]\0\i[33]\1so I can actually get it across to Tea.\e"}
 }
 
 RandomTalk : nonoverlap_pool
@@ -33,8 +46,6 @@ RandomTalk : nonoverlap_pool
 		"Geez, what's a girl gotta do to get a good cream soda around here?\w8\w8\1\b4"
 		"\i[1]You could start paying the shops, for one.\w8\w8\0\n\n[half]"
 		"\![anim,stop,52]\i[51]Hmph! \w8Maybe I would, \w4if any of them let me in!\e"}
-
-	all:{"\1\0\b4"}
 }
 
 OnDressupChanged
