@@ -1,0 +1,75 @@
+charset,UTF-8
+
+//——— Basic information ———
+name,Eyeball Tracker
+craftman,WhatAPhantasia
+craftmanurl,https://whataphantasia.github.io/projects/ukagaka/
+
+//——— Table ———
+table.left,26
+table.top,72
+table.right,312
+table.bottom,273
+
+
+//——— Numbers ———
+day.pos.x,2
+day.pos.y,2
+
+day.spacing,0
+saturday.spacing,0
+holiday.spacing,0
+
+year.pos.x,36
+year.pos.y,33
+
+year.spacing,0
+
+
+//——— Day markers ———
+today.pos.x,26
+today.pos.y,4
+
+current.pos.x,0
+current.pos.y,0
+
+
+//——— Event markers ———
+icon.left,1
+icon.top,21
+icon.right,41
+icon.bottom,41
+
+icon.width,10
+icon.height,10
+
+
+//——— Month names ———
+month.pos.x,102
+month.pos.y,31
+
+
+//——— Next & previous month buttons ———
+next.left,270
+next.top,34
+next.right,286
+next.bottom,46
+
+prev.left,287
+prev.top,34
+prev.right,303
+prev.bottom,46
+
+
+//——— Filenames ———
+day.filename,numbers/num
+saturday.filename,numbers/nums
+holiday.filename,numbers/numh
+
+year.filename,numbers/num
+month.filename,months/month
+
+today.filename,today
+current.filename,current
+
+background.filename,bg

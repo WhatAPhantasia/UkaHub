@@ -1,7 +1,11 @@
 OnFirstBoot : all
 {
-	"\![raise,OnFirstBootVars,%(reference1)]"
-	
+	OnFirstBootVars
+	OnFirstBootOne
+}
+
+OnFirstBootOne : all
+{
 	"\t\*\1\s[12]\i[1]\i[50]\0\s[5]\i[31]"
 
 	if reference0 == 0
@@ -42,7 +46,7 @@ OnFirstBootThree : all
 		"\1\s[11]\i[33]\0\s[7]\i[33]"
 		"Oh, don't be like that! \w8We have a hundred percent accuracy rating, guaranteeed to forsee your future \w4AND \w4tell you exactly how to avoid certain peril!\x"
 		"\1\s[11]\i[31]\0\s[1]\i[1]"
-		"Hey hey, just for you, I'm giving you a discount! \w8How about that?! \w8"
+		"Hey hey, just for you, your first 3 services are free! \w8How about that?! \w8"
 	}
 
 	"\1\s[11]\0\s[1]\i[3]\i[32]"
@@ -58,12 +62,18 @@ OnFBSetFont
 	}
 }
 
+OnResetConfirm : all
+{
+	"\![raise,OnFirstBootVars,1,reset]"
+	"\![raise,OnFirstBootOne,1]"
+}
+
 OnFirstBootVars
 {
 	stroke = 0
 	LastTalk = ""
 	
-	if reference0 != "reset"
+	if reference1 != "reset"
 	{
 		//OnFBSetFont
 		//yyeaahh nevermind felix is UNREADABLE. you can still change to it ofc just. it makes things hard to read LOL...
@@ -89,6 +99,10 @@ OnFirstBootVars
 	bankinfo = ("Inkwell Wallet",5) //which bank you're using, how much Moolah you have (in the default bank)
 				//other possible banks: Wallet of Unyu, Devil's Discount
 	moneyspent = (0,0) //total, in that session
+	servicesused = (0,0,0) //tarot, tea, scrying
+	mode = 0
+	//0: business mode
+	//1: casual mode
 
 	boot_min = GETSECCOUNT / 60 //epoch time
 }
@@ -127,7 +141,9 @@ OnInitialize
 	}
 	if !ISVAR("fontinfo"); fontinfo[0] = "Default"
 	if !ISVAR("touch.kero"); touch.kero = (0,0)
-	if !ISVAR("touch.saku"); touch.saku = (0,0)
+	if !ISVAR("touch.skra"); touch.skra = (0,0)
+	if !ISVAR("servicesused"); servicesused = (0,0,0)
+	if !ISVAR("mode"); mode = 0
 }
 
 OnBoot
@@ -140,12 +156,12 @@ OnBoot
 	
 	if _today == _user_birthday
 	{
-		"\1\s[11]\0\s[1]Happy birthday, %(pername)! \w8Hm? \w8Yes, of course I know when your birthday is! \w8This is crucial information to know about a customer! \w8ANYWAY, \w4today's great because you get a special birthday discount! \w8So why not spend all your money, right?\w8\w8\1Tea, no.\w8\w8\0Tea yes!\e"
+		"\1\s[11]\0\s[1]Happy birthday, %(pername)! \w8Hm? \w8Yes, of course I know when your birthday is! \w8This is crucial information to know about a customer! \w8ANYWAY, \w4today's great because you get a special birthday discount!\w8\w8\1...How oddly generous of you, Tea. \w8Ah! \w8I wish you happy birthday as well, %(pername)..!\e"
 	}
 	else //Normal boot
 	{
 		"\1\s[11]\0\b4\s[1]\i[1]Oh! \w8Why hello there, %(pername)! \w8\i[33]Shall I read your fortune again to%(dn('day','night'))?\e"
-		"\1\s[12]\i[50]\0\b4\s[1]\i[1]Why, I believe that's our favorite customer! \w8\i[33]Ready to spend more--\w8\1\b4\i[32]Please don't be so brash, Lady Tea. \w8\w4\s[11]\i[1]...H-How are you, %(pername)?\e"
+		"\1\s[12]\i[50]\0\b4\s[1]\i[1]Why, I believe that's our favorite customer! \w8\i[33]Ready to spend more--\w8\1\b4\i[32]Please don't be so brash, Lady Tea. \w8\w4\s[11]\i[1]...H-How are you, \w8%(pername)?\e"
 	}
 }
 
@@ -164,7 +180,13 @@ OnBootVars
 OnClose
 {
 	"\1\s[12]\i[50]\0\b4\s[2]Aw, are you leaving already? \w8\s[1]\i[33]Well, we'll always be here!"
-	"Aw, you're going? \w8That's alright! \w8I await you "
+
+	if mode == 0
+	{
+		"\1\s[12]\i[50]\0\b4\s[1]\i[1]\i[33]Aw, you're going? \w8That's alright! \w8We await to take your money always!\w8\w8\1\b4\![anim,stop,50]\i[52]\i[32]Lady Tea..." //TODO: add lid eyes...
+		"\0\s[1]\i[1]\1\b4\s[12]\i[50]\i[31]Ah! \w8\i[1]It's time for us to pack up shop, remember?\w8\w8\0\b4\s[2]\i[1]\i[31]Huh?! \w8Right! \w8\s[1]\i[1]We're very busy people, %(pername)! \w8\i[33]So spend as much money as you can while we're here!\w8\1\![anim,stop,50]\i[51]Tea!"
+		"\0\s[1]\i[1]\1\b4\s[11]Oh, you're going? \w8Thanks for spending time with us to%(dn('day','night')), %(pername).\w8\w8\0\b4\s[4]\i[31]...Not money?\w8\w8\1\s[12]\i[32]\i[50]\n\n[half]No, not money. \w8Customer relations is more important.\w8\w8\0\n\n[half]O\w2h\w2h\w2h\w2h\w2."
+	}
 	--
 	"\w8\w8\-" //This is what makes the ghost close (after a short pause), do not remove the \- , and MAKE SURE you don't use a \e before this point or it won't work
 }

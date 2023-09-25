@@ -1,0 +1,179 @@
+descript
+{
+	version,1
+}
+//animation#.pattern#,method,surface,pause,X,Y
+
+//—————————————————————————————— PLANNINIG
+
+//----------Image ranges
+//0-99: rasterized surfaces...
+//---- SAKURA
+//100: base
+//	100-119: base images
+//---- KERO
+//1100: base 
+
+//man i did NOT have time for this, this is the beta for em......
+
+//—————————————————————————————— sakura ——————————————————————————————
+
+//
+surface0
+{
+	element0,overlay,surface0.png,0,0
+}
+
+//
+surface1
+{
+	element0,overlay,surface1.png,0,0
+}
+
+//
+surface2
+{
+	element0,overlay,surface2.png,0,0
+}
+
+//
+surface3
+{
+	element0,overlay,surface3.png,0,0
+}
+
+//
+surface4
+{
+	element0,overlay,surface4.png,0,0
+}
+
+//
+surface5
+{
+	element0,overlay,surface5.png,0,0
+}
+
+//
+surface6
+{
+	element0,overlay,surface6.png,0,0
+}
+
+//
+surface7
+{
+	element0,overlay,surface7.png,0,0
+}
+
+//
+surface8
+{
+	element0,overlay,surface8.png,0,0
+}
+
+//
+surface9
+{
+	element0,overlay,surface9.png,0,0
+}
+
+//normal talk
+surface.append0-9, !1-2, !4-6, !8
+{
+	animation1.interval,talk,3
+	animation1.pattern0,overlay,20,0,404,201
+	animation1.pattern1,overlay,-1,250-300,0,0
+}
+
+surface.append5-6
+{
+	animation1.interval,talk,3
+	animation1.pattern0,overlay,21,0,404,201
+	animation1.pattern1,overlay,-1,250-300,0,0
+}
+
+//normal blink
+surface.append0-9, !6
+{
+	animation2.interval,random,4
+	animation2.pattern0,overlay,22,0,422,174
+	animation2.pattern1,overlay,-1,250-300,0,0
+}
+
+//append all
+surface.append0-9
+{
+	collisionex0,pet,regions,collision_skra.png,255,0,0
+	collisionex1,face,regions,collision_skra.png,0,0,255
+	collisionex2,hair,regions,collision_skra.png,0,255,0
+}
+
+//—————————————————————————————— kero ——————————————————————————————
+
+//
+surface10
+{
+	element0,overlay,surface10.png,0,0
+}
+
+//
+surface11
+{
+	element0,overlay,surface11.png,0,0
+}
+
+//
+surface12
+{
+	element0,overlay,surface12.png,0,0
+}
+
+//
+surface13
+{
+	element0,overlay,surface13.png,0,0
+}
+
+//
+surface14
+{
+	element0,overlay,surface14.png,0,0
+}
+
+//
+surface15
+{
+	element0,overlay,surface15.png,0,0
+}
+
+//
+surface16
+{
+	element0,overlay,surface16.png,0,0
+}
+
+//
+surface17
+{
+	element0,overlay,surface17.png,0,0
+}
+
+//
+surface18
+{
+	element0,overlay,surface18.png,0,0
+}
+
+//
+surface19
+{
+	element0,overlay,surface19.png,0,0
+}
+
+//append all
+surface.append10-19
+{
+	collisionex0,pet,regions,collision_kero.png,255,0,0
+	collisionex1,face,regions,collision_kero.png,0,0,255
+}

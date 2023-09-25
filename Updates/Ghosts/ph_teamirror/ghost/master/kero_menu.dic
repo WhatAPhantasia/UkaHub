@@ -5,13 +5,22 @@ KeroMenuGreetings : nonoverlap
 
 OnKeroMenu : all
 {
-	"\1\![set,autoscroll,disable]"
+	"\1\b2\![set,autoscroll,disable]"
 	if SHIORI3FW.Eventid == "OnMouseDoubleClick"; KeroMenuGreetings
 	"\n\n\_q"
 	
 	"\![*]\q[I'VE GOT QUESTIONS!,OnQuestionMenuM]\n"
-	"\![*]\q[SCRY INTO THE GLASS,OnScryingMenu]\n\n"
+	if !Flag("Event.BeCasual"); "\f[color,disable]"
+	"\![*]\q[LET'S PLAY EIGHTS!,OnEightsMenu]\n\n\f[color,default]"
 
+	"\![*]"
+	if bankinfo[0] = "Devil's Discount" || (Flag("Event.FBNegative") && !Flag("NoMoreDiscount"))
+	{"($0) "}
+	else
+	{"($1) "}
+	"\q[SCRY INTO THE GLASS,OnScryingMenu]\n\n"
+
+	"\![*]\q[STATS,OnStatsMenu]\n"
 	"\![*]\q[SETTINGS,OnSettingsMenu,1]\n\n[half]"
 	
 	"\f[align,right]"
@@ -20,4 +29,123 @@ OnKeroMenu : all
 			"\![*]\q[IT'S NOTHING,blank]"}
 }
 
-OnQuestionMenuM
+OnQuestionMenuM : all
+{
+
+}
+
+//---- stats menu
+
+OnStatsMenu : all
+{
+	_d = debug
+	
+	"\1\_q\b2\![set,autoscroll,disable]"
+	
+	"\f[align,center]STATS\n"
+	if _d 	{"\![*]\q[Quick reset,Onquickreset] \n"
+			"\f[height,-2]\f[color,disable](no i wont explain setting variables, WYSIWYG. please don't break anything by setting negatives...) \n\f[height,default]\f[color,default]\n"}
+	else 	{"\n\n"}
+	
+	"\f[align,default]"
+	
+	if reference0 != "" {"\![open,inputbox,OnSetStat,-1,--reference=%(reference0)]"}
+	// whats annoying abt this ^ is that detecting if reference != "" is kinda finnicky...
+	
+	"\![*]"
+	if _d 	{"\q[TIMES READ TAROT:,OnStatMenu,tarot] "}
+	else 	{"Times Read Tarot: "}
+			"%(servicesused[0])\n"
+	"\![*]"
+	if _d 	{"\q[TIMES TEA READ:,OnStatMenu,tea] "}
+	else 	{"TIMES TEA READ: "}
+			"%(servicesused[1])\n"
+	"\![*]"
+	if _d 	{"\q[TIMES SCRYED:,OnStatMenu,scry] "}
+	else 	{"TIMES SCRYED: "}
+			"%(servicesused[2])\n"
+	
+	"\![*]"
+	if _d 	{"\q[SMUDGED MIRROR:,OnStatMenu,smudge] "}
+	else 	{"SMUDGED MIRROR: "}
+			"%(touch.kero[0])\n"
+	
+	"\n\f[align,center]\_a[Onresetinit][RESET]\_a  \_a[OnCredits][CREDITS]\_a"
+	"\n\n\f[align,default]\![*]\q[BACK,OnKeroMenu]\e"
+}
+
+PrintStat //this is the worst possible way to get rid of the trailing 0s omg (i don't even mind the like, 1.0 i want to show that it's possible to get a decimal in Feelies)
+{
+	//you could do a if gettype == 2 here to use for other cases but idk not relevant yet
+	_str = TOSTR(_argv[0])
+	_out = REPLACE(_str,"00000","")
+	_out
+}
+
+Onquickreset
+{
+	"\1\_q(You sure? This is a debug function that resets all the listed and related stats without starting the firstboot sequence.) "
+	--
+	"\n\n\![*]\q[YES,Onyesqr] \![*]\q[NO!!!,OnStatMenu,]\e"
+}
+Onyesqr
+{
+	
+	--
+	"\![raise,OnStatMenu,]"
+}
+OnSetStat 	
+{
+	if reference2 == "tarot"
+	{
+		servicesused[0] = TOINT(reference0)
+	}
+	if reference2 == "tea"
+	{
+		servicesused[1] = TOINT(reference0)
+	}
+	if reference2 == "scry"
+	{
+		servicesused[2] = TOINT(reference0)
+	}
+	if reference2 == "smudge"
+	{
+		touch.kero[0] = TOINT(reference0)
+	}
+	--
+	"\![raise,OnStatMenu,]"
+}
+
+OnCredits : all
+{
+	"\1\b2\_q\![set,autoscroll,disable]"
+	"\f[align,center]\f[bold,1]CREDITS\n\n\f[align,default]\f[bold,0]"
+	
+	
+	"\f[bold,1]\_a[http://zdzisiu.github.io/Ukagaka/]zdzisiu\_a\f[bold,0] - "
+	"for arrayadd code!!\n"
+	
+	"\f[bold,1]\_a[https://ukagaka.zichqec.com]zichqec\_a\f[bold,0] - "
+	"STOLE ALL MY CODING KNOWLEDGE FROM HER. using her simplicity template :)\n"
+	
+	"\f[bold,1]\_a[https://listography.com/thatoddhaystack]vita\_a\f[bold,0] - "
+	"base card game code!\n"
+	
+	"\f[bold,1]\_a[https://ev-n-learning.tumblr.com/]smokycinnamonroll\_a\f[bold,0] - "
+	"base custom pronoun code!\n"
+	
+	"\f[bold,1]\f[color,default.anchor]studio mdhr\f[color,default]\f[bold,0] - "
+	"thx for making cuphead\n"
+	
+	
+	"\n\f[align,default]\![*]\q[BACK,OnStatsMenu,] \![*]\q[CLOSE,blank]"
+}
+
+Onresetinit
+{
+	"\0\_q(Are you sure? Your life cannot be restored. The same may not be said for your memories.) "
+	--
+	"\n\n\![*]\q[YES,OnResetConfirm]  \![*]\q[NO,OnStatMenu,]\e"
+}
+
+//OnResetConfirm is in boot.dic

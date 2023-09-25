@@ -20,9 +20,20 @@ OnSakuraMenu : all
 	{"\![*]\f[color,disable]REPEAT THAT?\f[color,default]"}
 	"\n\n"
 	
-	"\![*]\q[I'VE GOT QUESTIONS!,OnQuestionMenuT]\n"
-	"\![*]\q[TAROT READING PLEASE!,OnTarotInit]\n"
-	"\![*]\q[TEA LEAF READING?,OnTealeafInit]\n\n"
+	"\![*]"
+	"\q[I'VE GOT QUESTIONS!,OnQuestionMenuT]\n"
+	"\![*]"
+	if bankinfo[0] = "Devil's Discount" || (Flag("Event.FBNegative") && !Flag("NoMoreDiscount"))
+	{"($0) "}
+	else
+	{"($1) "}
+	"\q[TAROT READING!,OnTarotInit]\n"
+	"\![*]"
+	if bankinfo[0] = "Devil's Discount" || (Flag("Event.FBNegative") && !Flag("NoMoreDiscount"))
+	{"($0) "}
+	else
+	{"($1) "}
+	"\q[TEA READING?,OnTealeafInit]\n\n"
 
 	"\![*]\q[SETTINGS,OnSettingsMenu,0]\n\n"
 	

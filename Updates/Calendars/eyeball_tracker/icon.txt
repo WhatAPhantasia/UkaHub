@@ -1,0 +1,17 @@
+default,evt1
+event,evt1
+meeting,evt1
+appointment,evt1
+reservation,evt1
+party,evt1
+date,evt1
+work,evt1
+go,evt1
+
+tv,evt0
+recording,evt0
+cd,evt0
+game,evt0
+video,evt0
+book,evt0
+release,evt0

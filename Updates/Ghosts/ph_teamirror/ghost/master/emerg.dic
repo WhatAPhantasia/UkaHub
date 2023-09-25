@@ -21,3 +21,8 @@ OnEMERG.ErrorMessage
 	ERASEVAR("EMERG.give_error_message")
 	"\_qError in the dic files, cannot load. Check the error log for details.\x"
 }
+
+OnKeyPress
+{
+	elseif reference0 == "f5"; "\![reload,ghost]"
+}
