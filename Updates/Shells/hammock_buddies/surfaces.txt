@@ -7,23 +7,14 @@ descript
 //—————————————————————————————— PLANNINIG
 
 //----------Image ranges
-//0-99: reserved 4 surfaces sans 0 and 10
-//---- TEA
+//0-99: rasterized surfaces...
+//---- SAKURA
 //100: base
 //	100-119: base images
-//	120-129: mouth
-//	130-149: eyes
-//	150-169: eyebrows
-//	170-199: extras
-//200: recline
-//300: shock
-//350: special tarot surface!!!
-//---- MIRROR
+//---- KERO
 //1100: base 
-//	he doesnt really have any other surfaces atm
-//----ETC
-//2000: together :D<
-//3000: extra effects
+
+//man i did NOT have time for this, this is the beta for em......
 
 //—————————————————————————————— sakura ——————————————————————————————
 
@@ -87,6 +78,37 @@ surface9
 	element0,overlay,surface9.png,0,0
 }
 
+//normal talk
+surface.append0-9, !1-2, !4-6, !8
+{
+	animation1.interval,talk,3
+	animation1.pattern0,overlay,20,0,404,201
+	animation1.pattern1,overlay,-1,250-300,0,0
+}
+
+surface.append5-6
+{
+	animation1.interval,talk,3
+	animation1.pattern0,overlay,21,0,404,201
+	animation1.pattern1,overlay,-1,250-300,0,0
+}
+
+//normal blink
+surface.append0-9, !6
+{
+	animation2.interval,random,4
+	animation2.pattern0,overlay,22,0,422,174
+	animation2.pattern1,overlay,-1,250-300,0,0
+}
+
+//append all
+surface.append0-9
+{
+	collisionex0,pet,regions,collision_skra.png,255,0,0
+	collisionex1,face,regions,collision_skra.png,0,0,255
+	collisionex2,hair,regions,collision_skra.png,0,255,0
+}
+
 //—————————————————————————————— kero ——————————————————————————————
 
 //
@@ -147,4 +169,11 @@ surface18
 surface19
 {
 	element0,overlay,surface19.png,0,0
+}
+
+//append all
+surface.append10-19
+{
+	collisionex0,pet,regions,collision_kero.png,255,0,0
+	collisionex1,face,regions,collision_kero.png,0,0,255
 }
