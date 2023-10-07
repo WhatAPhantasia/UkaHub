@@ -1,4 +1,4 @@
-Subcon Small Talk v0.5.0
+Subcon Small Talk v0.6.1
 
 FOOOOOL!! A funny little balloon for Snatcher. Includes three sizes of the normal bubble and one narration bubble, as well as a few other doodads. Don't mind the extra files: You can swap the names around if you want to change an aspect of the balloon!
 COOL THINGS: 

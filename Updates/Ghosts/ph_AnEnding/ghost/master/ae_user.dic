@@ -91,7 +91,7 @@ OnNameTeach
 		username = SHIORI3FW.EscapeAllTags(_tempname) 
 		"\0%(vattention)\_q%(vera)\_q oh..! \w8\s[2]\i[1]\i[80]are you putting things on the wiki, or..?"
 	}
-	elseif _name == "phantasia" || _name == "whataphantasia" || _name == "eshal"
+	elseif _name == "phantasia" || _name == "whataphantasia"
 	{
 		username = SHIORI3FW.EscapeAllTags(_tempname) 
 		"\0\s[2]\i[1]\i[80]\_q%(vera)\_q really? \w6hehe, okay."

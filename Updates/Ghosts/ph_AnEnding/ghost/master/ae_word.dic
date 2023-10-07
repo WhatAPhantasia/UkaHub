@@ -39,6 +39,27 @@ HollercodeArray
 	"instantiator","prospector","ruminator","revisor"
 }
 
+//i uhhhh, could just pull this from html basic colors but,, too tired ill come up w my own colors YEAAAAA
+colores
+{
+	"yellow"
+	"red"
+	"blue"
+	"green"
+	"orange"
+	"purple"
+	"pink"
+	"cyan"
+	"indigo"
+	"lime"
+	"sunset"
+	"midnight"
+	"rainbow"
+	"black"
+	"white"
+	"grey"
+}
+
 //debug func to be deleted later (and then i never deleted it)
 Count {_argc}
 
@@ -200,12 +221,13 @@ negrecenttouch	{recenttouch[3] + recenttouch[4]}
 alltotaltouch	{postotaltouch + negtotaltouch}
 postotaltouch	{totaltouch[0] + totaltouch[1] + totaltouch[2]}
 negtotaltouch	{totaltouch[3] + totaltouch[4]}
+
 //act
+alltotalact		{totalact[0] + totalact[1] + totalact[2] + totalact[3] + totalact[4] + totalact[5]}
 
 //give
 alltotalgive	{totalgive[0] + totalgive[1] + totalgive[2] + totalgive[3]}
 
-alltotalact		{totalact[0] + totalact[1] + totalact[2] + totalact[3] + totalact[4] + totalact[5]}
 
 
 //-----Sleep Stuff----
@@ -618,11 +640,11 @@ WeirdNameArray
 {
 	"mom","dad","mommy","daddy"
 }
-//slurs and whatever (BIG WARNING FOR ANYONE READING MY CODE OUGH)
+//slurs and whatever ---------------- (BIG WARNING FOR ANYONE READING MY CODE!!!!!!!!!)
 //ig ppl can circumvent this with like numbers n stuff but it's their fault at that point, not mine
 CanYouNotArray
 {
-	"tranny","retard","faggot","dyke","nigger","nigga","beaner","shemale"
+	"tranny","retard","faggot","dyke","nigger","nigga","beaner","shemale","midget","chink"
 }
 
 SwearJarArray

@@ -420,19 +420,19 @@ VHairB
 		{
 			if recenttouch [1] <= 15; posfeel += 0.5
 			
-			"\0%(vidle)%(_b)\_q%(vera)\_q ..."
-			"\0%(vidle)%(_b)\_q%(vera)\_q hm..."
-			"\0%(vidle)%(_b)\i[35](Feels a little coarse.)"
+			"\0%(vcasidle)%(_b)\_q%(vera)\_q ..."
+			"\0%(vcasidle)%(_b)\_q%(vera)\_q hm..."
+			"\0%(vcasidle)%(_b)\i[35](Feels a little coarse.)"
 			
 			if recenttouch[1] < 10 {
 				"\0\s[1]\i[1]\i[18]\i[35]\i[80](She winces a bit... Unfortunately unavoidable.)"
-				"\0%(vidle)%(_b)\i[35](It's very knotted...)"
-				"\0%(vidle)\i[35]%(_b)(Tough to get the tangles out.)"
+				"\0%(vcasidle)%(_b)\i[35](It's very knotted...)"
+				"\0%(vcasidle)\i[35]%(_b)(Tough to get the tangles out.)"
 			}
 			else {
-				"\0%(vidle)%(_b)\i[35](Neatly brushed hair.)"
-				"\0%(vidle)%(_b)\i[35](Smooth and untangled. \w8Not silky, though. \w8Might have to work on that.)"
-				"\0%(vidle)%(_b)\i[35](Her hair's much nicer now.)"
+				"\0%(vcasidle)%(_b)\i[35](Neatly brushed hair.)"
+				"\0%(vcasidle)%(_b)\i[35](Smooth and untangled. \w8Not silky, though. \w8Might have to work on that.)"
+				"\0%(vcasidle)%(_b)\i[35](Her hair's much nicer now.)"
 			}
 			if totaltouch[1] >= 30 {
 				"\0\s[2]\i[1]\i[80]\i[1030]\_q%(vera)\_q ...do you like brushing people's hair..?"
@@ -445,11 +445,11 @@ VHairB
 		{
 			if recenttouch[1] <= 6 && posfeel >= 10 ; posfeel += 0.5
 			
-			"\0%(vidle)\_q%(vera)\_q ..."
-			"\0%(vidle)\i[35](Looks like she doesn't know how to react...)"
-			"\0%(vidle)\i[35](She's fiddling with her hands awkwardly.)"
+			"\0%(vsleepyidle)\_q%(vera)\_q ..."
+			"\0%(vsleepyidle)\i[35](Looks like she doesn't know how to react...)"
+			"\0%(vsleepyidle)\i[35](She's fiddling with her hands awkwardly.)"
 			if recenttouch[1] > 6 {
-			"\0%(vidle)\i[35](You can't seem to get the tangles out.)"
+			"\0%(vsleepyidle)\i[35](You can't seem to get the tangles out.)"
 			"\0\s[1]\i[1]\i[18]\i[35]\i[80](She winces a bit as you pull on a stubborn knot.)"}
 			if totaltouch[1] >= 15 {
 			"\0\s[2]\i[1]\i[80]\i[26]\_q%(vera)\_q y-you do this a lot..."}
