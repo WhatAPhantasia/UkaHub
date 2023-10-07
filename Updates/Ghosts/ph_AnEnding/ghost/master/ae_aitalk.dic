@@ -42,7 +42,10 @@ OnChooseTalk
 //maintalk is the mostly positive route! stuff that isn't in pools is basic dialogue for all purposes and relationship levels.
 MainTalk : nonoverlap_pool
 {
-	"\0\s[1]\i[41]\_q%(vera)\_q hey %(pername), \w2are you working on anything interesting?\w8\w8\n\s[3]\i[19]\i[41]\_q%(vera)\_q ...i don't really work on much, so i guesss i get more curious about what you could be doing, you know?\e"
+	{"\0\s[1]\i[41]\_q%(vera)\_q hey %(pername), \w2are you working on anything interesting?\w8\w8\n"
+	--
+	"\s[3]\i[19]\i[41]\_q%(vera)\_q ...i don't really work on much, so i guesss i get more curious about what you could be doing, you know?\e"
+	"\s[3]\i[19]\i[41]\_q%(vera)\_q personally i think you should try summoning a ghost or something! \w4i never have the time to do that,,\e"}
 	
 	"\0\s[2]\_q%(vera)\_q my brain doesn't function as good as my dreamself's does.\w8\w8\n\s[3]\i[19]\_q%(vera)\_q is that weird? \w2she's way smarter than me!! \w4do you ever feel that way?\w8\w8\n\![anim,stop,19]\i[15]\_q%(vera)\_q like, having your dreams make more sense than whatever stream of consciousness being awake is..?\e:chain=awakevsdream%(ANY('1,2'))"
 	
@@ -72,7 +75,9 @@ MainTalk : nonoverlap_pool
 	"a limo! \w4you don't see those in the city at all!\e"
 	"it's all big and purple... \w4wonder who's in it...\e"
 	"must be someone important... \w4it's being followed by a bunch of black cars with state flags on em...\e"
-	"what kinda person puts that many stickers on their car..?\e"}
+	"what kinda person puts that many stickers on their car..?\e"
+	"that's such a cool shade of %(colores)......\e"
+	"uhm, it has an interesting shade of %(colores)...\e"}
 	
 	"\0\s[3]\_q%(vera)\_q this spot on the roof's pretty neat, huh?\w8\w8\n\i[19]\_q%(vera)\_q it's shaded and a little secluded... \w6\![anim,stop,19]\i[18]you have very good taste in hangout spots, %(pername).\e"
 	
@@ -81,7 +86,19 @@ MainTalk : nonoverlap_pool
 	"\0\s[2]\_q%(vera)\_q hmm hmm hmm, \w6i wanna get a bar of soap just so i can cut it up...\w8\w8\n\s[1]\_q%(vera)\_q you should try it, \w2it's super relaxing! \w8\s[2]\i[41]wonder why it isn't more popular...\w8\w8\n\i[18]\_q%(vera)\_q i guess you'd have to buy the soap... \i[26]which i can't do too often... sighhhh...\e"
 	
 	"\0\s[3]\i[18]\_q%(vera)\_q y'know %(pername), i think they should have places where they give you a bunch of soaps and let you crush them all up and smell em and stuff.\w8\w8\n\_q%(vera)\_q like, just to play with.\w8\w8\n\![anim,stop,18]\i[15]\_q%(vera)\_q do you see my vision..?!\e"
-	
+
+	{"\0\s[2]\i[1]\i[80]\_q%(vera)\_q kinda random, but i wish i still had the money to have annual health checkups.\w8\w8\n"
+	--
+	"\s[4]\i[1]\i[80]\i[19]\i[27]\_q%(vera)\_q OKAY because hear me out... \w8i REALLY liked the weird arm squishy things. \w6\![anim,stop,19]\![anim,stop,27]\i[17]\i[25]uhhh the ones that check your blood pressure? \w6\s[3]\i[1]\i[80]those! \w8\i[18]gosh those made me laugh every time they did it,,,\e"
+	"\s[4]\i[1]\i[80]\i[17]\_q%(vera)\_q i mean like. other than the fact that i'd just have constant healthcare haha. \w8\![anim,stop,17]\i[18]the building is nice, i dunno.\e"}
+
+	"\0\s[5]\_q%(vera)\_q ....oh boy. \w8\s[4]\i[26]i hope those %(ANY('grackles','crows','birds')) don't start messing with us......\w8\w8\n\i[19]\_q%(vera)\_q i get scared when they circle the roofs like this cause it pretty much means they're up to somethin...!\e"
+
+	"\0\s[3]\i[19]\i[26]\_q%(vera)\_q i don't like spending time outside because my hair absorbs smells REALLY badly...\w8\w8\n\_q%(vera)\_q 's fine though... \w4an hour in air conditioning should fix it.....\e"
+
+	"\0\s[2]\i[41]\_q%(vera)\_q hmm... \w8i should buy more hair wash.\w8\w8\n\s[3]\_q%(vera)\_q %(pername)! \w6do you know any cheap brands of all-in-one soap that \w8are still good?\w8\w8\n\i[19]\_q%(vera)\_q EVEN better if it doubles as body wash!\e"
+
+	"\0\s[3]\i[1]\i[80]\i[18]\_q%(vera)\_q oh, i should do the dishes when i get home...\w8\w8\n\![anim,stop,18]\i[15]\_q%(vera)\_q i really like washing them because i like squishing the sponge and watching it get all bubbly. \w8\i[19]pop pop!\e"
 	
 	
 	//User Environment Ifs
@@ -91,7 +108,7 @@ MainTalk : nonoverlap_pool
 		//oof i know she's a downer/almost guilt trippy with her self deprecation,, trying to limit it to low friendship
 		{"\0\s[2]\i[1]\_q%(vera)\_q i'm only good at sitting around and doing nothing, so\w8\n\s[3]\i[1]\i[19]\i[26]\_q%(vera)\_q i guess you don't mind that if you're still hanging around me, huh?"
 		--
-		if RAND(1); "\w8\w8\n\s[1]\i[17]\_q%(vera)\_q or are you just here for the view..?"
+		if RAND(2); "\w8\w8\n\s[1]\i[17]\_q%(vera)\_q or are you just here for the view..?"
 		--
 		"\e"}
 		
@@ -135,7 +152,7 @@ MainTalk : nonoverlap_pool
 		}
 		else
 		{
-			
+			"\0\s[1]\i[1]\i[80]\_q%(vera)\_q do you usually get up around now?\w8\w8\n\_q%(vera)\_q you don't have to answer that, just wonderin,,\w8\w8\n\_q%(vera)\_q um, i don't, haha\e"
 		}
 	}
 	if timeslot == "morning" //9am - 11am
@@ -145,6 +162,8 @@ MainTalk : nonoverlap_pool
 	if timeslot == "lunch" //12pm - 2pm
 	{
 		if season != "Winter"; "\0\s[2]\_q%(vera)\_q woah... \w8\i[19]\i[27]around now is when it gets REALLY hot...\w8\w8\n\_q%(vera)\_q like... \w8the suns all the way up in the sky n stuff.\w8\w8\n\s[1]\i[26]\_q%(vera)\_q don't get sunburnt, \w2okay?\e"
+
+		"\0\s[4]\i[1]\i[18]\_q%(vera)\_q mmm... \w8%(ANY('marmalade','strawberry','blackberry','lychee')) jam...\w8\w8\n\_q%(vera)\_q bread is super cheap to get and i like it, but i'm craving something extra right now,, \w8\![anim,stop,18]\i[17]maybe cause it's lunch time.\e"
 	}
 	if timeslot == "afternoon" //3pm - 5pm
 	{
@@ -160,7 +179,7 @@ MainTalk : nonoverlap_pool
 	}
 	if timeslot == "midnight" //1am - 4am
 	{
-		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q being up around now used to be so freeing to me... \w8not anymore though.\w8\w8\n\_q%(vera)\_q i think i used to feel that way 'cause i usually WASN'T up around now, \w4and i didn't really have any expectations... \w8i could just sit and watch the sun come up without worrying about having to go to school or anything...\e%(ANY('',':chain=nightfree')"
+		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q being up around now used to be so freeing to me... \w8not anymore though.\w8\w8\n\_q%(vera)\_q i think i used to feel that way 'cause i usually WASN'T up around now, \w4and i didn't really have any expectations... \w8i could just sit and watch the sun come up without worrying about having to go to school or anything...\e%(ANY('',':chain=nightfree'))"
 	}
 	
 	//---Days of the week---
@@ -625,7 +644,7 @@ OnMinuteChange
 	{
 		if hour == 0 && day == 0 && month == 0 //New year's
 		{
-			"\0\s[0]\_q%(vera)\_q gasp!! \w8\w6\n\s[3]\i[19]\_q%(vera)\_q happy new year!!!\e"
+			"\0\s[1]\_q%(vera)\_q gasp!! \w8\w6\n\s[3]\i[19]\_q%(vera)\_q happy new year!!!\e"
 		}
 		elseif HourNotifs == "On" //Top of the hour notifications
 		{

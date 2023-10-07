@@ -313,7 +313,7 @@ Onabtluce : nonoverlap_pool
 	}
 	else //not negative route, not friendly enough yet
 	{
-		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ...oh, \w2um, \w6my dad? \w8\w8\n\s[5]\![anim,stop,25]\i[1]\i[80]\_q%(vera)\_q he's fine."
+		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ...oh, \w2um, \w6yeah\w8\w8\n\s[5]\![anim,stop,25]\i[1]\i[80]\_q%(vera)\_q he's fine."
 	}
 	--
 	" \n\n\f[color,default]\![*]\q[Ask something else,OnPeopleMenu]\n\![*]\q[I'm done,CANCEL]\e"
@@ -1034,33 +1034,33 @@ OnTarot : all
 	
 	//rank
 	/*
-	if ARRAYSIZE(RE_ASEARCHEX("Ace",_card)) == 3
+	if ARRAYSIZE(RE_ASEARCHEX("Ace",_card)) == ARRAYSIZE(_card)
 	{"\s[2]\i[86]\_q%(vera)\_q ah, all aces! \w8that usually means \w8\w8\n"}
-	elseif ARRAYSIZE(RE_ASEARCHEX("Knight",_card)) == 3
+	elseif ARRAYSIZE(RE_ASEARCHEX("Knight",_card)) == ARRAYSIZE(_card)
 	{"\s[2]\i[86]\_q%(vera)\_q ah, all knights! \w8that \w8\w8\n"}
-	elseif ARRAYSIZE(RE_ASEARCHEX("Queen",_card)) == 3
+	elseif ARRAYSIZE(RE_ASEARCHEX("Queen",_card)) == ARRAYSIZE(_card)
 	{"\s[2]\i[86]\_q%(vera)\_q ah, all queens! \w8that \w8\w8\n"}
-	elseif ARRAYSIZE(RE_ASEARCHEX("King",_card)) == 3
+	elseif ARRAYSIZE(RE_ASEARCHEX("King",_card)) == ARRAYSIZE(_card)
 	{"\s[2]\i[86]\_q%(vera)\_q ah, all kings! \w8that usually means \w8\w8\n"}
-	elseif ARRAYSIZE(RE_ASEARCHEX("Page",_card)) == 3
+	elseif ARRAYSIZE(RE_ASEARCHEX("Page",_card)) == ARRAYSIZE(_card)
 	{"\s[2]\i[86]\_q%(vera)\_q ah, all pages! \w8that \w8\w8\n"}
-	elseif ARRAYSIZE(RE_ASEARCHEX("2",_card)) == 3
+	elseif ARRAYSIZE(RE_ASEARCHEX("2",_card)) == ARRAYSIZE(_card)
 	{"\s[2]\i[86]\_q%(vera)\_q ah, all twos! \w8that usually means \w8\w8\n"}
-	elseif ARRAYSIZE(RE_ASEARCHEX("3",_card)) == 3
+	elseif ARRAYSIZE(RE_ASEARCHEX("3",_card)) == ARRAYSIZE(_card)
 	{"\s[2]\i[86]\_q%(vera)\_q ah, all threes! \w8that usually means \w8\w8\n"}
-	elseif ARRAYSIZE(RE_ASEARCHEX("4",_card)) == 3
+	elseif ARRAYSIZE(RE_ASEARCHEX("4",_card)) == ARRAYSIZE(_card)
 	{"\s[2]\i[86]\_q%(vera)\_q ah, all fours! \w8that usually means \w8\w8\n"}
-	elseif ARRAYSIZE(RE_ASEARCHEX("5",_card)) == 3
+	elseif ARRAYSIZE(RE_ASEARCHEX("5",_card)) == ARRAYSIZE(_card)
 	{"\s[2]\i[86]\_q%(vera)\_q ah, all fives! \w8that usually means \w8\w8\n"}
-	elseif ARRAYSIZE(RE_ASEARCHEX("6",_card)) == 3
+	elseif ARRAYSIZE(RE_ASEARCHEX("6",_card)) == ARRAYSIZE(_card)
 	{"\s[2]\i[86]\_q%(vera)\_q ah, all sixes! \w8that usually means \w8\w8\n"}
-	elseif ARRAYSIZE(RE_ASEARCHEX("7",_card)) == 3
+	elseif ARRAYSIZE(RE_ASEARCHEX("7",_card)) == ARRAYSIZE(_card)
 	{"\s[2]\i[86]\_q%(vera)\_q ah, all sevens! \w8that usually means \w8\w8\n"}
-	elseif ARRAYSIZE(RE_ASEARCHEX("8",_card)) == 3
+	elseif ARRAYSIZE(RE_ASEARCHEX("8",_card)) == ARRAYSIZE(_card)
 	{"\s[2]\i[86]\_q%(vera)\_q ah, all eights! \w8that usually means \w8\w8\n"}
-	elseif ARRAYSIZE(RE_ASEARCHEX("9",_card)) == 3
+	elseif ARRAYSIZE(RE_ASEARCHEX("9",_card)) == ARRAYSIZE(_card)
 	{"\s[2]\i[86]\_q%(vera)\_q ah, all nines! \w8that usually means \w8\w8\n"}
-	elseif ARRAYSIZE(RE_ASEARCHEX("10",_card)) == 3
+	elseif ARRAYSIZE(RE_ASEARCHEX("10",_card)) == ARRAYSIZE(_card)
 	{"\s[2]\i[86]\_q%(vera)\_q ah, all tens! \w8that usually means \w8\w8\n"}
 	*/
 	}
