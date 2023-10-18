@@ -24,7 +24,7 @@ there's a few hard coded surfaces, if you don't want to fenangle with intervals.
 \s[8] - thinking sakura
 \s[9] - bored sakura
 
-and just add a 9 before the number if you want kero surfaces.
+and just add a 1 before the number if you want kero surfaces.
 
 COLLISION GUIDE
 

@@ -1,81 +1,119 @@
+//HAMMOCK BUDDIES README
+
+//ctrl + f is your friend here! this document is heavily commented so it's easier to navigate. intervals that are set up to be deleted are as follows:
+
+//EXAMPLE INTERVAL START
+//...
+//EXAMPLE INTERVAL END
+
+//and delete the comments and all the code in between :D 
+//some of these intervals are called multiple times throughout the document so make sure to delete every instance of it to avoid shell errors.
+
+//list of things that are set up this way are as follows:
+//	HAIR ANIMATION INTERVAL
+//
+
+//you can find more using the guide below.
+
+//————————————————————————————————————————————————————————————
+
+//this shell uses the new surfaces.txt definition, as follows.
+//don't delete unless you know what you're doing.
 descript
 {
 	version,1
 }
 //animation#.pattern#,method,surface,pause,X,Y
 
-//—————————————————————————————— PLANNINIG
+//—————————————————————————————— GUIDE
 
-//----------Image ranges
+//----------Image Ranges 
+//	(this is the guide to the numbered pngs, not the surfaces coded below)
 //0-99: rasterized surfaces...
 //---- SAKURA
 //100: base
-//	100-119: base images
+//	100-104: body + hammock
+//	105-109: back hair
+//	110-114: back leg
+//	115-119: front leg
+//	120-124: mouth
+//	125-134: eyes
+//	135-139: eyebrows 
+//	140-159: back arm
+//	170-189: front arm
+//	190-199: extras!!
 //---- KERO
-//1100: base 
+//1100: base
+//	100-119: body
+//	120-139: tail
+//	140-159: eyes
+//	160-179: eyebrows
+//	180-199: extras
 
-//man i did NOT have time for this, this is the beta for em......
+//----------Surface + Interval Ranges
 
 //—————————————————————————————— sakura ——————————————————————————————
 
-//
+//all surfaces are done through appends. ctrl + f for appends to actually find the content.
+
+// sakura neutral (but still has all intervals :3)
 surface0
 {
-	element0,overlay,surface0.png,0,0
+	element0,overlay,surface100.png,0,0
 }
 
-//
+// sakura embarassed
 surface1
 {
-	element0,overlay,surface1.png,0,0
+	element0,overlay,surface100.png,0,0
 }
 
-//
+// sakura surprised
 surface2
 {
-	element0,overlay,surface2.png,0,0
+	element0,overlay,surface100.png,0,0
 }
 
-//
+// sakura worried
 surface3
 {
-	element0,overlay,surface3.png,0,0
+	element0,overlay,surface100.png,0,0
 }
 
-//
+// sakura sad
 surface4
 {
-	element0,overlay,surface4.png,0,0
+	element0,overlay,surface100.png,0,0
 }
 
 //
 surface5
 {
-	element0,overlay,surface5.png,0,0
+	element0,overlay,surface100.png,0,0
 }
 
 //
 surface6
 {
-	element0,overlay,surface6.png,0,0
+	element0,overlay,surface100.png,0,0
 }
 
 //
 surface7
 {
-	element0,overlay,surface7.png,0,0
+	element0,overlay,surface100.png,0,0
 }
 
 //
 surface8
 {
-	element0,overlay,surface8.png,0,0
+	element0,overlay,surface100.png,0,0
 }
 
 //
 surface9
 {
-	element0,overlay,surface9.png,0,0
+	element0,overlay,surface100.png,0,0
 }
 
 //normal talk
