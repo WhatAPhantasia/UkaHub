@@ -1,34 +1,34 @@
 //HAMMOCK BUDDIES README
 
-//ctrl + f is your friend here! this document is heavily commented so it's easier to navigate. intervals that are set up to be deleted are as follows:
 
-//EXAMPLE INTERVAL START
-//...
-//EXAMPLE INTERVAL END
+//ctrl + f is your friend here! this document is heavily commented so it's easier to navigate. 
 
-//and delete the comments and all the code in between :D 
-//some of these intervals are called multiple times throughout the document so make sure to delete every instance of it to avoid shell errors.
 
-//list of things that are set up this way are as follows:
-//	HAIR ANIMATION INTERVAL
-//
+//all surfaces are done through appends! just ctrl + f for "append" to find it.
+//theyre all at the very bottom. you can skip to the section titled "APPEND SECTION".
+//	can be further discerned through searching for SAKURA APPENDS ord KERO APPENDS.
+//this order is because i have some sakura surfaces in the 20s range, which is past the kero's range of 10s... and appends get fussy when they're "out of order." sorry about that!
 
-//you can find more using the guide below.
+
+//feel free to delete and alter at your discretion.
+//in particular, the BACK HAIR and BACK HAIR ANIMATION can be removed. just search for them and delete away.
+//some of these intervals are called multiple times throughout the document so make sure to delete every instance of it to avoid shell errors (the error log can be helpful here)
 
 //————————————————————————————————————————————————————————————
 
-//this shell uses the new surfaces.txt definition, as follows.
-//don't delete unless you know what you're doing.
 descript
 {
 	version,1
 }
+//this shell is in newdef! template for animation code is below.
+//animation#.interval,method
 //animation#.pattern#,method,surface,pause,X,Y
 
 //—————————————————————————————— GUIDE
 
 //----------Image Ranges 
 //	(this is the guide to the numbered pngs, not the surfaces coded below)
+//	(i do this for all my shells lol, it helps if there's an image you want to edit :3)
 //0-99: rasterized surfaces...
 //---- SAKURA
 //100: base
@@ -50,13 +50,8 @@ descript
 //	160-179: eyebrows
 //	180-199: extras
 
-//----------Surface + Interval Ranges
-
 //—————————————————————————————— sakura ——————————————————————————————
 
-//all surfaces are done through appends. ctrl + f for appends to actually find the content.
-
-// sakura neutral (but still has all intervals :3)
 surface0
 {
 	element0,overlay,surface100.png,0,0
@@ -66,6 +61,12 @@ surface0
 surface1
 {
 	element0,overlay,surface100.png,0,0
+
+	//---extras
+	//blush!
+	//you can always remove this by using \![anim,stop,90]
+	animation90.interval,runonce
+	animation90.pattern0,overlay,190,0,0,0
 }
 
 // sakura surprised
@@ -86,132 +87,1216 @@ surface4
 	element0,overlay,surface100.png,0,0
 }
 
-//
+// sakura smile
 surface5
 {
 	element0,overlay,surface100.png,0,0
 }
 
-//
+// sakura content
 surface6
 {
 	element0,overlay,surface100.png,0,0
+
+	//--closed eye intervals
+	//	(this is HERE because this is the only surface that uses this interval by default.)
+	//	(same goes for any other interval thats inside a surface.)
+	//normal
+	animation25.interval,never
+	animation25.pattern0,stop,29
+	animation25.pattern1,overlay,125,0,0,0
+
+	//look
+	animation26.interval,never
+	animation26.pattern0,stop,29
+	animation26.pattern1,overlay,126,0,0,0
+
+	//normal lid
+	animation27.interval,never
+	animation27.pattern0,stop,29
+	animation27.pattern1,overlay,127,0,0,0
+
+	//look lid
+	animation28.interval,never
+	animation28.pattern0,stop,29
+	animation28.pattern1,overlay,128,0,0,0
+
+	//u_u
+	animation29.interval,runonce
+	animation29.pattern0,overlay,129,0,0,0
+
+	//^_^
+	animation30.interval,never
+	animation30.pattern0,stop,29
+	animation30.pattern1,overlay,130,0,0,0
 }
 
-//
+// sakura angry
 surface7
 {
 	element0,overlay,surface100.png,0,0
+
+	//---look lid intervals
+	//normal
+	animation25.interval,never
+	animation25.pattern0,parallelstop,(27,34)
+	animation25.pattern1,overlay,125,0,0,0
+
+	//look
+	animation26.interval,never
+	animation26.pattern0,parallelstop,(27,34)
+	animation26.pattern1,overlay,126,0,0,0
+
+	//normal lid
+	animation27.interval,runonce
+	animation27.pattern0,overlay,127,0,0,0
+
+	//look lid
+	animation28.interval,never
+	animation28.pattern0,parallelstop,(27,34)
+	animation28.pattern1,overlay,128,0,0,0
+
+	//u_u
+	animation29.interval,never
+	animation29.pattern0,parallelstop,(27,34)
+	animation29.pattern1,overlay,129,0,0,0
+
+	//^_^
+	animation30.interval,never
+	animation30.pattern0,parallelstop,(27,34)
+	animation30.pattern1,overlay,130,0,0,0
+
+	//blink
+	animation34.interval,random,4
+	animation34.pattern0,stop,27
+	animation34.pattern1,overlay,129,0,0,0
+	animation34.pattern2,overlay,-1,250-300,0,0
+	animation34.pattern3,start,27
+	
+	//---eyebrows
+	//neutral
+	animation35.interval,never
+	animation35.pattern0,stop,37
+	animation35.pattern1,overlay,135,0,0,0
+
+	//surprise
+	animation36.interval,never
+	animation36.pattern0,stop,37
+	animation36.pattern1,overlay,136,0,0,0
+
+	//anger
+	animation37.interval,runonce
+	animation37.pattern0,overlay,137,0,0,0
+
+	//sad
+	animation38.interval,never
+	animation38.pattern0,stop,37
+	animation38.pattern1,overlay,138,0,0,0
+
+	//huh
+	animation39.interval,never
+	animation39.pattern0,stop,37
+	animation39.pattern1,overlay,139,0,0,0
 }
 
-//
+//sakura think
 surface8
 {
 	element0,overlay,surface100.png,0,0
+
+	//---eyebrows
+	//neutral
+	animation35.interval,never
+	animation35.pattern0,stop,39
+	animation35.pattern1,overlay,135,0,0,0
+
+	//surprise
+	animation36.interval,never
+	animation36.pattern0,stop,39
+	animation36.pattern1,overlay,136,0,0,0
+
+	//anger
+	animation37.interval,never
+	animation37.pattern0,stop,39
+	animation37.pattern1,overlay,137,0,0,0
+
+	//sad
+	animation38.interval,never
+	animation38.pattern0,stop,39
+	animation38.pattern1,overlay,138,0,0,0
+
+	//huh
+	animation39.interval,runonce
+	animation39.pattern0,overlay,139,0,0,0
 }
 
-//
+// sakura bored
 surface9
 {
 	element0,overlay,surface100.png,0,0
 }
 
-//normal talk
-surface.append0-9, !1-2, !4-6, !8
+//—————————————————————————————— kero ——————————————————————————————
+
+// default kero
+surface10
 {
-	animation1.interval,talk,3
-	animation1.pattern0,overlay,20,0,404,201
-	animation1.pattern1,overlay,-1,250-300,0,0
+	element0,overlay,surface1100.png,0,0
 }
 
-surface.append5-6
+// embarrassed kero
+surface11
 {
-	animation1.interval,talk,3
-	animation1.pattern0,overlay,21,0,404,201
-	animation1.pattern1,overlay,-1,250-300,0,0
+	element0,overlay,surface1100.png,0,0
+
+	//---extras
+	//blush!
+	//you can always remove this by using \![anim,stop,80]
+	//yeah sorry it's different from the sakura's blush interval ^^;;
+	animation80.interval,runonce
+	animation80.pattern0,overlay,1180,0,0,0
 }
 
-//normal blink
-surface.append0-9, !6
+// surprised kero
+surface12
 {
-	animation2.interval,random,4
-	animation2.pattern0,overlay,22,0,422,174
-	animation2.pattern1,overlay,-1,250-300,0,0
+	element0,overlay,surface1100.png,0,0
+}
+
+// worried kero
+surface13
+{
+	element0,overlay,surface1100.png,0,0
+}
+
+// sad kero
+surface14
+{
+	element0,overlay,surface1100.png,0,0
+}
+
+// smile kero
+surface15
+{
+	element0,overlay,surface1100.png,0,0
+
+	//--eyes
+	//neutral
+	animation40.interval,never
+	animation40.pattern0,stop,45
+	animation40.pattern1,overlay,1140,0,0,0
+
+	//look
+	animation41.interval,never
+	animation41.pattern0,stop,45
+	animation41.pattern1,overlay,1141,0,0,0
+
+	//neutral lid
+	animation42.interval,never
+	animation42.pattern0,stop,45
+	animation42.pattern1,overlay,1142,0,0,0
+
+	//look lid
+	animation43.interval,never
+	animation43.pattern0,stop,45
+	animation43.pattern1,overlay,1143,0,0,0
+
+	//u_u
+	animation44.interval,never
+	animation44.pattern0,stop,45
+	animation44.pattern1,overlay,1144,0,0,0
+
+	//^_^
+	animation45.interval,runonce
+	animation45.pattern0,overlay,1145,0,0,0
+}
+
+// content kero
+surface16
+{
+	element0,overlay,surface1100.png,0,0
+
+	//--eyes
+	//neutral
+	animation40.interval,never
+	animation40.pattern0,stop,44
+	animation40.pattern1,overlay,1140,0,0,0
+
+	//look
+	animation41.interval,never
+	animation41.pattern0,stop,44
+	animation41.pattern1,overlay,1141,0,0,0
+
+	//neutral lid
+	animation42.interval,never
+	animation42.pattern0,stop,44
+	animation42.pattern1,overlay,1142,0,0,0
+
+	//look lid
+	animation43.interval,never
+	animation43.pattern0,stop,44
+	animation43.pattern1,overlay,1143,0,0,0
+
+	//u_u
+	animation44.interval,runonce
+	animation44.pattern0,overlay,1144,0,0,0
+
+	//^_^
+	animation45.interval,never
+	animation45.pattern0,stop,44
+	animation45.pattern1,overlay,1145,0,0,0
+}
+
+// angry kero
+surface17
+{
+	element0,overlay,surface1100.png,0,0
+
+	//--eyebrows
+	//neutral
+	animation60.interval,never
+	animation60.pattern0,stop,62
+	animation60.pattern1,overlay,1160,0,0,0
+
+	//surprise
+	animation61.interval,never
+	animation61.pattern0,stop,62
+	animation61.pattern1,overlay,1161,0,0,0
+
+	//anger
+	animation62.interval,runonce
+	animation62.pattern0,overlay,1162,0,0,0
+
+	//sad
+	animation63.interval,never
+	animation63.pattern0,stop,62
+	animation63.pattern1,overlay,1163,0,0,0
+
+	//huh
+	animation64.interval,runonce
+	animation64.pattern0,stop,62
+	animation64.pattern1,overlay,1164,0,0,0
+}
+
+// think kero
+surface18
+{
+	element0,overlay,surface1100.png,0,0
+
+	//--eyebrows
+	//neutral
+	animation60.interval,never
+	animation60.pattern0,stop,64
+	animation60.pattern1,overlay,1160,0,0,0
+
+	//surprise
+	animation61.interval,never
+	animation61.pattern0,stop,64
+	animation61.pattern1,overlay,1161,0,0,0
+
+	//anger
+	animation62.interval,never
+	animation62.pattern0,stop,64
+	animation62.pattern1,overlay,1162,0,0,0
+
+	//sad
+	animation63.interval,never
+	animation63.pattern0,stop,64
+	animation63.pattern1,overlay,1163,0,0,0
+
+	//huh
+	animation64.interval,runonce
+	animation64.pattern0,overlay,1164,0,0,0
+}
+
+// bored kero
+surface19
+{
+	element0,overlay,surface1100.png,0,0
+}
+
+//—————————————————————————————— APPEND SECTION ——————————————————————————————
+
+//—————————————————————————————— SAKURA APPENDS
+
+//first im gonna put surfaces 20-21 here
+// sakura neutral + leg idles
+surface20
+{
+	element0,overlay,surface100.png,0,0
+}
+
+// sakura smile + leg idles
+surface21
+{
+	element0,overlay,surface100.png,0,0
+}
+
+//--front legs
+
+//20-21 leg idles
+surface.append20-21
+{
+	//out
+	animation15.interval,runonce
+	animation15.pattern0,overlay,115,0,0,0
+
+	//mid
+	animation16.interval,never
+	animation16.pattern0,parallelstop,(15,119)
+	animation16.pattern1,overlay,116,0,0,0
+
+	//back
+	animation17.interval,never
+	animation17.pattern0,parallelstop,(15,119)
+	animation17.pattern1,overlay,117,0,0,0
+
+	//idle anim
+	animation18.interval,runonce
+	animation18.pattern0,stop,19
+
+	animation19.interval,never
+	animation19.pattern0,overlay,116,0,0,0
+	animation19.pattern1,overlay,-1,500,0,0
+	animation19.pattern2,overlay,117,0,0,0
+	animation19.pattern3,overlay,-1,500,0,0
+	animation19.pattern4,overlay,116,0,0,0
+	animation19.pattern5,overlay,-1,500,0,0
+	animation19.pattern6,overlay,115,0,0,0
+	animation19.pattern7,overlay,-1,500,0,0
+	animation19.pattern8,alternativestart,(19,15)
+
+	animation19.option,shared-index
+
+	animation119.interval,random,5
+	animation119.pattern0,parallelstop,(15,18)
+	animation119.pattern1,start,19
+}
+
+//front out leg
+surface.append0-2,5,8
+{
+	//out
+	animation15.interval,runonce
+	animation15.pattern0,overlay,115,0,0,0
+
+	//mid
+	animation16.interval,never
+	animation16.pattern0,stop,15
+	animation16.pattern1,overlay,116,0,0,0
+
+	//back
+	animation17.interval,never
+	animation17.pattern0,stop,15
+	animation17.pattern1,overlay,117,0,0,0
+
+	//swing animation
+	//activate by using \i[119]!
+	//search up swing animation to see more stuff related to it
+
+	animation19.interval,always
+	animation19.pattern0,overlay,116,0,0,0
+	animation19.pattern1,overlay,-1,500,0,0
+	animation19.pattern2,overlay,117,0,0,0
+	animation19.pattern3,overlay,-1,500,0,0
+	animation19.pattern4,overlay,116,0,0,0
+	animation19.pattern5,overlay,-1,500,0,0
+	animation19.pattern6,overlay,115,0,0,0
+	animation19.pattern7,overlay,-1,500,0,0
+
+	animation19.option,shared-index
+}
+
+//front mid leg
+surface.append6-7, 9
+{
+	//out
+	animation15.interval,never
+	animation15.pattern0,stop,16
+	animation15.pattern1,overlay,115,0,0,0
+
+	//mid
+	animation16.interval,runonce
+	animation16.pattern0,overlay,116,0,0,0
+
+	//back
+	animation17.interval,never
+	animation17.pattern0,stop,16
+	animation17.pattern1,overlay,117,0,0,0
+
+	//swing animation
+
+	animation19.interval,always
+	animation19.pattern0,overlay,117,0,0,0
+	animation19.pattern1,overlay,-1,500,0,0
+	animation19.pattern2,overlay,116,0,0,0
+	animation19.pattern3,overlay,-1,500,0,0
+	animation19.pattern4,overlay,115,0,0,0
+	animation19.pattern5,overlay,-1,500,0,0
+	animation19.pattern6,overlay,116,0,0,0
+	animation19.pattern7,overlay,-1,500,0,0
+
+	animation19.option,shared-index
+}
+
+//front back leg
+surface.append3-4
+{
+	//out
+	animation15.interval,never
+	animation15.pattern0,stop,17
+	animation15.pattern1,overlay,115,0,0,0
+
+	//mid
+	animation16.interval,never
+	animation16.pattern0,stop,17
+	animation16.pattern1,overlay,116,0,0,0
+
+	//back
+	animation17.interval,runonce
+	animation17.pattern0,overlay,117,0,0,0
+
+	//swing animation
+
+	animation19.interval,always
+	animation19.pattern0,overlay,117,0,0,0
+	animation19.pattern1,overlay,-1,500,0,0
+	animation19.pattern2,overlay,116,0,0,0
+	animation19.pattern3,overlay,-1,500,0,0
+	animation19.pattern4,overlay,115,0,0,0
+	animation19.pattern5,overlay,-1,500,0,0
+	animation19.pattern6,overlay,116,0,0,0
+	animation19.pattern7,overlay,-1,500,0,0
+
+	animation19.option,shared-index
+}
+
+//--mouths
+
+//normal mouth + talk
+surface.append0-9, !5-6, 20
+{
+	//:<
+	animation20.interval,runonce
+	animation20.pattern0,overlay,120,0,0,0
+
+	//:0
+	animation21.interval,never
+	animation21.pattern0,parallelstop,(20,24)
+	animation21.pattern1,overlay,121,0,0,0
+
+	//:)
+	animation22.interval,never
+	animation22.pattern0,parallelstop,(20,24)
+	animation22.pattern1,overlay,122,0,0,0
+
+	//:D
+	animation23.interval,never
+	animation23.pattern0,parallelstop,(20,24)
+	animation23.pattern1,overlay,123,0,0,0
+
+	//:< talk
+	animation24.interval,talk,3
+	animation24.pattern0,stop,20
+	animation24.pattern1,overlay,121,0,0,0
+	animation24.pattern2,overlay,-1,250-300,0,0
+	animation24.pattern3,start,20
+}
+
+//smile mouth + talk
+surface.append5-6, 21
+{
+	//:<
+	animation20.interval,never
+	animation20.pattern0,parallelstop,(22,24)
+	animation20.pattern1,overlay,120,0,0,0
+
+	//:0
+	animation21.interval,never
+	animation21.pattern0,parallelstop,(22,24)
+	animation21.pattern1,overlay,121,0,0,0
+
+	//:)
+	animation22.interval,runonce
+	animation22.pattern0,overlay,122,0,0,0
+
+	//:D
+	animation23.interval,never
+	animation23.pattern0,parallelstop,(22,24)
+	animation23.pattern1,overlay,123,0,0,0
+
+	//:) talk
+	animation24.interval,talk,3
+	animation24.pattern0,stop,22
+	animation24.pattern1,overlay,123,0,0,0
+	animation24.pattern2,overlay,-1,250-300,0,0
+	animation24.pattern3,start,22
+}
+
+//--eyes
+
+//normal eye + blink
+surface.append0,2,5,20-21
+{
+	//normal
+	animation25.interval,runonce
+	animation25.pattern0,overlay,125,0,0,0
+
+	//look
+	animation26.interval,never
+	animation26.pattern0,parallelstop,(25,34)
+	animation26.pattern1,overlay,126,0,0,0
+
+	//normal lid
+	animation27.interval,never
+	animation27.pattern0,parallelstop,(25,34)
+	animation27.pattern1,overlay,127,0,0,0
+
+	//look lid
+	animation28.interval,never
+	animation28.pattern0,parallelstop,(25,34)
+	animation28.pattern1,overlay,128,0,0,0
+
+	//u_u
+	animation29.interval,never
+	animation29.pattern0,parallelstop,(25,34)
+	animation29.pattern1,overlay,129,0,0,0
+
+	//^_^
+	animation30.interval,never
+	animation30.pattern0,parallelstop,(25,34)
+	animation30.pattern1,overlay,130,0,0,0
+
+	//blink
+	animation34.interval,random,4
+	animation34.pattern0,stop,25
+	animation34.pattern1,overlay,127,0,0,0
+	animation34.pattern2,overlay,-1,120,0,0
+	animation34.pattern3,overlay,129,0,0,0
+	animation34.pattern4,overlay,-1,250-300,0,0
+	animation34.pattern5,overlay,127,0,0,0
+	animation34.pattern6,overlay,-1,150,0,0
+	animation34.pattern7,start,25
+}
+
+//look eye + blink
+surface.append3,8
+{
+	//normal
+	animation25.interval,never
+	animation25.pattern0,parallelstop,(26,34)
+	animation25.pattern1,overlay,125,0,0,0
+
+	//look
+	animation26.interval,runonce
+	animation26.pattern0,overlay,126,0,0,0
+
+	//normal lid
+	animation27.interval,never
+	animation27.pattern0,parallelstop,(26,34)
+	animation27.pattern1,overlay,127,0,0,0
+
+	//look lid
+	animation28.interval,never
+	animation28.pattern0,parallelstop,(26,34)
+	animation28.pattern1,overlay,128,0,0,0
+
+	//u_u
+	animation29.interval,never
+	animation29.pattern0,parallelstop,(26,34)
+	animation29.pattern1,overlay,129,0,0,0
+
+	//^_^
+	animation30.interval,never
+	animation30.pattern0,parallelstop,(26,34)
+	animation30.pattern1,overlay,130,0,0,0
+
+	//blink
+	animation34.interval,random,4
+	animation34.pattern0,stop,26
+	animation34.pattern1,overlay,128,0,0,0
+	animation34.pattern2,overlay,-1,120,0,0
+	animation34.pattern3,overlay,129,0,0,0
+	animation34.pattern4,overlay,-1,250-300,0,0
+	animation34.pattern5,overlay,128,0,0,0
+	animation34.pattern6,overlay,-1,150,0,0
+	animation34.pattern7,start,26
+}
+
+//look lid eye + blink
+//(theres no need to create an append for normal lid because only 7 has it as default)
+surface.append,1,4,9
+{
+	//normal
+	animation25.interval,never
+	animation25.pattern0,parallelstop,(28,34)
+	animation25.pattern1,overlay,125,0,0,0
+
+	//look
+	animation26.interval,never
+	animation26.pattern0,parallelstop,(28,34)
+	animation26.pattern1,overlay,126,0,0,0
+
+	//normal lid
+	animation27.interval,never
+	animation27.pattern0,parallelstop,(28,34)
+	animation27.pattern1,overlay,127,0,0,0
+
+	//look lid
+	animation28.interval,runonce
+	animation28.pattern0,overlay,128,0,0,0
+
+	//u_u
+	animation29.interval,never
+	animation29.pattern0,parallelstop,(28,34)
+	animation29.pattern1,overlay,129,0,0,0
+
+	//^_^
+	animation30.interval,never
+	animation30.pattern0,parallelstop,(28,34)
+	animation30.pattern1,overlay,130,0,0,0
+
+	//blink
+	animation34.interval,random,4
+	animation34.pattern0,stop,28
+	animation34.pattern1,overlay,129,0,0,0
+	animation34.pattern2,overlay,-1,250-300,0,0
+	animation34.pattern3,start,28
+}
+
+//--eyebrows
+
+//neutral eyebrows
+surface.append0,5,9,20-21
+{
+	//neutral
+	animation35.interval,runonce
+	animation35.pattern0,overlay,135,0,0,0
+
+	//surprise
+	animation36.interval,never
+	animation36.pattern0,stop,35
+	animation36.pattern1,overlay,136,0,0,0
+
+	//anger
+	animation37.interval,never
+	animation37.pattern0,stop,35
+	animation37.pattern1,overlay,137,0,0,0
+
+	//sad
+	animation38.interval,never
+	animation38.pattern0,stop,35
+	animation38.pattern1,overlay,138,0,0,0
+
+	//huh
+	animation39.interval,never
+	animation39.pattern0,stop,35
+	animation39.pattern1,overlay,139,0,0,0
+}
+
+//surprise eyebrows
+surface.append2,6
+{
+	//neutral
+	animation35.interval,never
+	animation35.pattern0,stop,36
+	animation35.pattern1,overlay,135,0,0,0
+
+	//surprise
+	animation36.interval,runonce
+	animation36.pattern0,overlay,136,0,0,0
+
+	//anger
+	animation37.interval,never
+	animation37.pattern0,stop,36
+	animation37.pattern1,overlay,137,0,0,0
+
+	//sad
+	animation38.interval,never
+	animation38.pattern0,stop,36
+	animation38.pattern1,overlay,138,0,0,0
+
+	//huh
+	animation39.interval,never
+	animation39.pattern0,stop,36
+	animation39.pattern1,overlay,139,0,0,0
+}
+
+//sad eyebrows
+surface.append3,4
+{
+	//neutral
+	animation35.interval,never
+	animation35.pattern0,stop,38
+	animation35.pattern1,overlay,135,0,0,0
+
+	//surprise
+	animation36.interval,never
+	animation36.pattern0,stop,38
+	animation36.pattern1,overlay,136,0,0,0
+
+	//anger
+	animation37.interval,never
+	animation37.pattern0,stop,38
+	animation37.pattern1,overlay,137,0,0,0
+
+	//sad
+	animation38.interval,runonce
+	animation38.pattern0,overlay,138,0,0,0
+
+	//huh
+	animation39.interval,never
+	animation39.pattern0,stop,38
+	animation39.pattern1,overlay,139,0,0,0
+}
+
+//---back arms
+
+//recline arm
+surface.append0-9, !1-2, !4, !8, 20-21
+{
+	//recline
+	animation40.interval,runonce
+	animation40.pattern0,interpolate,140,0,0,0
+
+	//hmm...
+	animation41.interval,never
+	animation41.pattern0,stop,40
+	animation41.pattern1,overlay,141,0,0,0
+}
+//hmm arm
+surface.append1-2, 4, 8
+{
+	//recline
+	animation40.interval,never
+	animation40.pattern0,stop,41
+	animation40.pattern1,interpolate,140,0,0,0
+
+	//hmm...
+	animation41.interval,runonce
+	animation41.pattern0,overlay,141,0,0,0
+}
+
+//---extras
+
+//blush append 
+surface.append0-9, !1, 20-21
+{
+	animation90.interval,never
+	animation90.pattern0,overlay,190,0,0,0
+}
+
+//append all sans leg idles
+surface.append0-9
+{
+	//--front leg
+	//stop swing animation in normal use
+	animation18.interval,runonce
+	animation18.pattern0,stop,19
+	
+	//start leg swing animation
+	animation119.interval,never
+	animation119.pattern0,parallelstop,(15,16,17,18)
+	animation119.pattern1,start,19
 }
 
 //append all
-surface.append0-9
+surface.append0-9, 20-21
 {
 	collisionex0,pet,regions,collision_skra.png,255,0,0
 	collisionex1,face,regions,collision_skra.png,0,0,255
 	collisionex2,hair,regions,collision_skra.png,0,255,0
+
+	//--back hair
+	animation5.interval,runonce
+	animation5.pattern0,interpolate,105,0,0,0
+
+	//i kind of hate the back hair, let alone the back hair animation.
+	//beware flickering with these always animations. i have a low end laptop so it flickers kinda bad on my device ^_^;;
+	//thus, the animation has been commented. there are three varieties:
+	
+	//--the ALWAYS (constant idle)
+	//	if you uncomment this, make sure to comment all of animation5.
+	
+	//animation9.interval,always
+	//animation9.pattern0,interpolate,105,0,0,0
+	//animation9.pattern1,overlay,-1,1000,0,0
+	//animation9.pattern2,interpolate,106,0,0,0
+	//animation9.pattern3,overlay,-1,1000,0,0
+
+	//animation9.option,shared-index
+	
+	//--
+
+	//--the ALWAYS, except you can call it using \i[8]
+	//	DON'T comment all of animation5 if you use this. 
+	//	you'll need to manually call the animation using \i[8]. useful in certain cases!
+
+	//animation7.interval,runonce
+	//animation7.pattern0,stop,9
+
+	//animation8.interval,never
+	//animation8.pattern0,parallelstop,(5,7)
+	//animation8.pattern1,start,9
+
+	//animation9.interval,always
+	//animation9.pattern0,interpolate,106,0,0,0
+	//animation9.pattern1,overlay,-1,1000,0,0
+	//animation9.pattern2,interpolate,105,0,0,0
+	//animation9.pattern3,overlay,-1,1000,0,0
+
+	//animation9.option,shared-index
+
+	//--
+
+	//--the RANDOM
+	//	don't comment animation5!
+	//	anim happens at random intervals, has random length when it animates!
+	//	you can change the rate/probability by changing the # next to the random.
+	//	default value is 5, which is a 1/5 chance. (idk probability, if this is wrong pls tell me)
+
+	//animation8.interval,random,5
+	//animation8.pattern0,stop,5
+	//animation8.pattern1,start,9
+
+	//animation9.interval,never
+	//animation9.pattern0,interpolate,106,0,0,0
+	//animation9.pattern1,overlay,-1,1000,0,0
+	//animation9.pattern2,interpolate,105,0,0,0
+	//animation9.pattern3,overlay,-1,1000,0,0
+	//animation9.pattern4,alternativestart,(9,5)
+
+	//animation9.option,shared-index
+
+	//--
+
+	//--back leg
+	//out
+	animation10.interval,runonce
+	animation10.pattern0,overlay,110,0,0,0
+
+	//--front arms
+	//recline
+	animation70.interval,runonce
+	animation70.pattern0,overlay,170,0,0,0
 }
 
-//—————————————————————————————— kero ——————————————————————————————
+//—————————————————————————————— KERO APPENDS
 
-//
-surface10
+//tail twitch idle anim!
+surface25
 {
-	element0,overlay,surface10.png,0,0
+	element0,overlay,surface1100.png,0,0
+
+	//--tail anim
+	animation38.interval,random,5
+	animation38.pattern0,stop,20
+	animation38.pattern1,start,39
+
+	animation39.interval,never
+	animation39.pattern0,interpolate,1121,0,0,0
+	animation39.pattern1,overlay,-1,800-2000,0,0
+	animation39.pattern2,interpolate,1120,0,0,0
+	animation39.pattern3,overlay,-1,800-2000,0,0
+	animation39.pattern4,alternativestart,(39,20)
 }
 
-//
-surface11
+//--eyes
+//neutral eyes
+surface.append10,12,25
 {
-	element0,overlay,surface11.png,0,0
+	//neutral
+	animation40.interval,runonce
+	animation40.pattern0,overlay,1140,0,0,0
+
+	//look
+	animation41.interval,never
+	animation41.pattern0,parallelstop,(40,59)
+	animation41.pattern1,overlay,1141,0,0,0
+
+	//neutral lid
+	animation42.interval,never
+	animation42.pattern0,parallelstop,(40,59)
+	animation42.pattern1,overlay,1142,0,0,0
+
+	//look lid
+	animation43.interval,never
+	animation43.pattern0,parallelstop,(40,59)
+	animation43.pattern1,overlay,1143,0,0,0
+
+	//u_u
+	animation44.interval,never
+	animation44.pattern0,parallelstop,(40,59)
+	animation44.pattern1,overlay,1144,0,0,0
+
+	//^_^
+	animation45.interval,never
+	animation45.pattern0,parallelstop,(40,59)
+	animation45.pattern1,overlay,1145,0,0,0
+
+	//blinkblink
+	animation59.interval,random,4
+	animation59.pattern0,stop,40
+	animation59.pattern1,overlay,1142,0,0,0
+	animation59.pattern2,overlay,-1,120,0,0
+	animation59.pattern3,overlay,1144,0,0,0
+	animation59.pattern4,overlay,-1,250-300,0,0
+	animation59.pattern5,overlay,1142,0,0,0
+	animation59.pattern6,overlay,-1,150,0,0
+	animation59.pattern7,start,40
 }
 
-//
-surface12
+//look eyes
+surface.append13,18
 {
-	element0,overlay,surface12.png,0,0
+	//neutral
+	animation40.interval,never
+	animation40.pattern0,parallelstop,(41,59)
+	animation40.pattern1,overlay,1140,0,0,0
+
+	//look
+	animation41.interval,runonce
+	animation41.pattern0,overlay,1141,0,0,0
+
+	//neutral lid
+	animation42.interval,never
+	animation42.pattern0,parallelstop,(41,59)
+	animation42.pattern1,overlay,1142,0,0,0
+
+	//look lid
+	animation43.interval,never
+	animation43.pattern0,parallelstop,(41,59)
+	animation43.pattern1,overlay,1143,0,0,0
+
+	//u_u
+	animation44.interval,never
+	animation44.pattern0,parallelstop,(41,59)
+	animation44.pattern1,overlay,1144,0,0,0
+
+	//^_^
+	animation45.interval,never
+	animation45.pattern0,parallelstop,(41,59)
+	animation45.pattern1,overlay,1145,0,0,0
+
+	//blinkblink
+	animation59.interval,random,4
+	animation59.pattern0,stop,41
+	animation59.pattern1,overlay,1143,0,0,0
+	animation59.pattern2,overlay,-1,120,0,0
+	animation59.pattern3,overlay,1144,0,0,0
+	animation59.pattern4,overlay,-1,250-300,0,0
+	animation59.pattern5,overlay,1143,0,0,0
+	animation59.pattern6,overlay,-1,150,0,0
+	animation59.pattern7,start,41
 }
 
-//
-surface13
+//lid eyes 
+surface.append17,19
 {
-	element0,overlay,surface13.png,0,0
+	//neutral
+	animation40.interval,never
+	animation40.pattern0,parallelstop,(42,59)
+	animation40.pattern1,overlay,1140,0,0,0
+
+	//look
+	animation41.interval,never
+	animation41.pattern0,parallelstop,(42,59)
+	animation41.pattern1,overlay,1142,0,0,0
+
+	//neutral lid
+	animation42.interval,runonce
+	animation42.pattern0,overlay,1142,0,0,0
+
+	//look lid
+	animation43.interval,never
+	animation43.pattern0,parallelstop,(42,59)
+	animation43.pattern1,overlay,1143,0,0,0
+
+	//u_u
+	animation44.interval,never
+	animation44.pattern0,parallelstop,(42,59)
+	animation44.pattern1,overlay,1144,0,0,0
+
+	//^_^
+	animation45.interval,never
+	animation45.pattern0,parallelstop,(42,59)
+	animation45.pattern1,overlay,1145,0,0,0
+
+	//blinkblink
+	animation59.interval,random,4
+	animation59.pattern0,stop,42
+	animation59.pattern1,overlay,1144,0,0,0
+	animation59.pattern2,overlay,-1,250-300,0,0
+	animation59.pattern3,start,42
 }
 
-//
-surface14
+//lid look eyes 
+surface.append11,14
 {
-	element0,overlay,surface14.png,0,0
+	//neutral
+	animation40.interval,never
+	animation40.pattern0,parallelstop,(43,59)
+	animation40.pattern1,overlay,1140,0,0,0
+
+	//look
+	animation41.interval,never
+	animation41.pattern0,parallelstop,(43,59)
+	animation41.pattern1,overlay,1142,0,0,0
+
+	//neutral lid
+	animation42.interval,never
+	animation42.pattern0,parallelstop,(43,59)
+	animation42.pattern1,overlay,1142,0,0,0
+
+	//look lid
+	animation43.interval,runonce
+	animation43.pattern0,overlay,1143,0,0,0
+
+	//u_u
+	animation44.interval,never
+	animation44.pattern0,parallelstop,(43,59)
+	animation44.pattern1,overlay,1144,0,0,0
+
+	//^_^
+	animation45.interval,never
+	animation45.pattern0,parallelstop,(43,59)
+	animation45.pattern1,overlay,1145,0,0,0
+
+	//blinkblink
+	animation59.interval,random,4
+	animation59.pattern0,stop,43
+	animation59.pattern1,overlay,1144,0,0,0
+	animation59.pattern2,overlay,-1,250-300,0,0
+	animation59.pattern3,start,43
 }
 
-//
-surface15
+//--eyebrows
+
+//neutral eyebrows
+surface.append10-11,19,25
 {
-	element0,overlay,surface15.png,0,0
+	//neutral
+	animation60.interval,runonce
+	animation60.pattern0,overlay,1160,0,0,0
+
+	//surprise
+	animation61.interval,never
+	animation61.pattern0,stop,60
+	animation61.pattern1,overlay,1161,0,0,0
+
+	//anger
+	animation62.interval,never
+	animation62.pattern0,stop,60
+	animation62.pattern1,overlay,1162,0,0,0
+
+	//sad
+	animation63.interval,never
+	animation63.pattern0,stop,60
+	animation63.pattern1,overlay,1163,0,0,0
+
+	//huh
+	animation64.interval,never
+	animation64.pattern0,stop,60
+	animation64.pattern1,overlay,1164,0,0,0
 }
 
-//
-surface16
+//surprise eyebrows
+surface.append12,15-16
 {
-	element0,overlay,surface16.png,0,0
+	//neutral
+	animation60.interval,never
+	animation60.pattern0,stop,61
+	animation60.pattern1,overlay,1160,0,0,0
+
+	//surprise
+	animation61.interval,runonce
+	animation61.pattern0,overlay,1161,0,0,0
+
+	//anger
+	animation62.interval,never
+	animation62.pattern0,stop,61
+	animation62.pattern1,overlay,1162,0,0,0
+
+	//sad
+	animation63.interval,never
+	animation63.pattern0,stop,61
+	animation63.pattern1,overlay,1163,0,0,0
+
+	//huh
+	animation64.interval,never
+	animation64.pattern0,stop,61
+	animation64.pattern1,overlay,1164,0,0,0
 }
 
-//
-surface17
+//sad eyebrows
+surface.append13,14
 {
-	element0,overlay,surface17.png,0,0
+	//neutral
+	animation60.interval,never
+	animation60.pattern0,stop,63
+	animation60.pattern1,overlay,1160,0,0,0
+
+	//surprise
+	animation61.interval,never
+	animation61.pattern0,stop,63
+	animation61.pattern1,overlay,1161,0,0,0
+
+	//anger
+	animation62.interval,never
+	animation62.pattern0,stop,63
+	animation62.pattern1,overlay,1162,0,0,0
+
+	//sad
+	animation63.interval,runonce
+	animation63.pattern0,overlay,1163,0,0,0
+
+	//huh
+	animation64.interval,never
+	animation64.pattern0,stop,63
+	animation64.pattern1,overlay,1164,0,0,0
 }
 
-//
-surface18
+//--extras
+
+//blush append 
+surface.append10-19, !11, 25
 {
-	element0,overlay,surface18.png,0,0
+	animation80.interval,never
+	animation80.pattern0,overlay,1180,0,0,0
 }
 
-//
-surface19
+//append all sans idle anim
+surface.append10-19
 {
-	element0,overlay,surface19.png,0,0
+	//--tail anim
+	animation37.interval,runonce
+	animation37.pattern0,stop,39
+
+	animation38.interval,never
+	animation38.pattern0,parallelstop,(20,21)
+	animation38.pattern1,start,39
+
+	animation39.interval,always
+	animation39.pattern0,interpolate,1121,0,0,0
+	animation39.pattern1,overlay,-1,800-2000,0,0
+	animation39.pattern2,interpolate,1120,0,0,0
+	animation39.pattern3,overlay,-1,800-2000,0,0
 }
 
 //append all
-surface.append10-19
+surface.append10-19, 25
 {
 	collisionex0,pet,regions,collision_kero.png,255,0,0
 	collisionex1,face,regions,collision_kero.png,0,0,255
+
+	//--tail
+	//1
+	animation20.interval,runonce
+	animation20.pattern0,interpolate,1120,0,0,0
+
+	//2
+	animation21.interval,never
+	animation21.pattern0,stop,20
+	animation21.pattern1,interpolate,1121,0,0,0
+	
 }
