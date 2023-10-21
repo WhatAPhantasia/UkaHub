@@ -2,13 +2,6 @@ charset,UTF-8
 version,1
 option,DisableNoDefineSurfaces
 
-group,__disabled
-{
-	12000,__parts
-}
-//remember to change this to disable any animations.....
-
-
 group,Skra
 {
 	scope,0
@@ -23,6 +16,9 @@ group,Skra
 	7,angry
 	8,think
 	9,bored
+
+	20,:<
+	21,:)
 }
 
 group,Kero
@@ -39,4 +35,6 @@ group,Kero
 	17,angry
 	18,think
 	19,bored
+
+	25,tail twitch
 }
