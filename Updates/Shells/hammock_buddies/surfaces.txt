@@ -373,7 +373,7 @@ surface17
 	animation63.pattern1,overlay,1163,0,0,0
 
 	//huh
-	animation64.interval,runonce
+	animation64.interval,never
 	animation64.pattern0,stop,62
 	animation64.pattern1,overlay,1164,0,0,0
 }
