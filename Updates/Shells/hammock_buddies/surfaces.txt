@@ -823,7 +823,7 @@ surface.append2,6
 }
 
 //sad eyebrows
-surface.append3,4
+surface.append1,3,4
 {
 	//neutral
 	animation35.interval,never
