@@ -1,8 +1,17 @@
 OnAiTalk
 {
+	_today = "%(month)/%(day)"
+
 	if CHAIN.IDName == ""
 	{
-		LastTalk = RandomTalk
+		if Flag("E.FaiBDay")
+		{LastTalk = FaiBDayTalk}
+		elseif Flag("E.TamBDay")
+		{LastTalk = TamBDayTalk}
+		else
+		{
+			LastTalk = RandomTalk
+		}
 	}
 	else
 	{
@@ -13,7 +22,7 @@ OnAiTalk
 
 
 //in hindsight it probably would have been better if i made myself some organization for this. like, separated dialogues by topic or whatever. i am too lazy to do that now YOU CANT STOP ME RAAAAAAAAAAAAAA
-//tbh i gotta make some shorter dialogues.... idk i just hate small talk but. maybe they need some idk
+//tbh i gotta make some shorter dialogues.... i hate small talk but. maybe they need some idk
 
 
 RandomTalk : nonoverlap_pool
@@ -31,7 +40,6 @@ RandomTalk : nonoverlap_pool
 	"\![anim,stop,32]\i[33]...Okay, \w8I'll bite. \w8\w8\s[16]\i[61]What's gotten you like this, Fai?\w8\w8\0\n\n[half]"
 	random:{
 		"Nothing muuuch..! \w8I'm just remembering this one time NAMII-NAMII called me pretty, and it's REALLY doing wonders for my self esteem~~\w8\w8\1\n\n[half]\s[11]\i[32]They complimented you..? \w8\w6\s[14]That's rare...\w8\w8\0\n\n[half]Exaaactly!!\e"
-		"I just bought something really nice~~ \w8A brand new thing to add spice to my next Resonance machine~~~\w8\w8\1\n\n[half]\s[11]\i[32]\i[62]...Fai. \w8No. \w8Whatever you're planning, don't.\w8\w8\0\n\n[half]\s[6]No no no, I promise it's something that'll work this time! \w4I'm triple checking and everything! \w4I mean, it's only a ResoDestabilizer...\w8\w8\1\n\n[half]A WHAT.\w2\0\n\n[half]\s[5](ACK..!)\e"
 	}}
 
 	all:{"\1\s[11]\i[32]\0\s[1]\i[14]"
@@ -62,7 +70,7 @@ RandomTalk : nonoverlap_pool
 	all:{"\1\s[11]\0\s[3]"
 	"Hey %(user[1]), have you gotten any good fooood lately~?\w8\w8\1\i[33]"
 	"Please don't tell me you're going to beg %(them) for food, Fai...\w8\w8\0\n\n[half]\s[1]\i[32]\i[62]"
-	"I'm nooot! \w6We have our own money, anyway! \w8I just wanna know if they've stopped by any cool restaurants is all!\w8\w8\1\n\n[half]"
+	"I'm nooot! \w6We have our own money, anyway! \w8I just wanna know if %(they)'%(p('ve','s')) stopped by any cool restaurants is all!\w8\w8\1\n\n[half]"
 	"\![anim,stop,33]\i[34]"
 	"Mhmm... \w8\s[14]\i[1]...Actually, now that she brings it up, \w2do you have recommendations? \w8It's been a bit since we've stopped by for good food...\e"}
 
@@ -112,15 +120,6 @@ RandomTalk : nonoverlap_pool
 	"Hehe! \w8Aren't we some busy buns?\w8\w8\1\n\n[half]"
 	"That's the explorer lifestyle we signed up for, yes...\e"}
 
-	all:{"\1\s[11]\i[32]\0\s[3]" //IM SORRY IVE BEEN WATCHING A LOT OF LEGO NINJAGO LATELY HELP HELP HELP
-	"AHH, you guys GOTTA watch this show I've been super obsessed with lately..!!\w8\w8\1"
-	"\![anim,stop,32]\i[33]\i[13]...Are you referring to the one with the AEGOs?\w8\w8\0\n\n[half]"
-	"Yeah!! \w8\1\![anim,stop,13]\i[12]\0I KNOW it's a kid's show but the characters are so cool!! ESPECIALLY the ice robot... \w8He's sooooo pretty! \w8OH! Tahir, I BET you'd like the bramble pika!! \w8And %(user[1]), maybe you'd like the "
-	if userinfo[2] == "none" || userinfo[2][0] == "grayscale"; "mechanic rabbit! \w8She's AWESOME!"
-	else; "%(Capitalize(r.elem(userinfo[2][0]))) agent..?!"
-	"\w8\w8\1\n\n[half]"
-	"\![anim,stop,33]\i[34]Okay, if you can catch me and sit me down with you next to the TV, I'll try and catch up on it...\e"}
-
 	all:{"\1\s[11]\i[32]\0\s[4]"
 	"Hey %(user[1]), can you play any instruments or anything? \w8\s[1]\i[35]Just a normal question with no ulterior motives at all!\w8\w8\1"
 	"\s[11]\i[13]\i[33]\i[62]...Fai, did you even ask Sylvie if you could recruit people for her band?\w8\w8\0\n\n[half]"
@@ -137,92 +136,271 @@ RandomTalk : nonoverlap_pool
 	"\![anim,stop,13]\i[14]Gasp! \w8Hydration check point, then!! \w8\1\s[11]\i[32]\0\s[1]\i[1]\i[35]\i[61]Everyone go get some water!! \w8\w8\s[5]\i[31](...Because VALA knows I need it! I haven't done that at ALL today..!)\w8\w8\1\n\n[half]"
 	"\s[11]\i[13]\i[33]\i[62](Yeah, I always have to remind you...)\e"}
 
+	all:{"\1\s[11]\i[32]\0\s[1]\i[14]"
+	"%(Capitalize(user[1])), do you wanna go to a concert with me? \w8I kinda need a buddy to come with, y'know?\w8\w8\1"
+	"Oh, what kind of concert?\w8\w8\0\n\n[half]"
+	random:{"\s[3]\![anim,stop,0]\![anim,stop,90]Hehehe... Not telling you! \w8This is a me-and-%(user[1]) secret!\w8\w8\1\n\n[half]Ah, \w4I see.\e"
+			"\s[3]\![anim,stop,90]One of Sylvie's!!\w8\w8\1\n\n[half]Ah, didn't know she was doing another so soon... \w8\i[12]It'll be nice to stop by.\e"
+			"\s[1]\i[14]\i[32]Oh, uh. \w8\s[1]\i[35]\i[62]It's the girl you don't really like, \w2s\w2o\w2o\w2o\w2.\w2.\w2.\w8\w8\1\n\n[half]\s[16]\i[61]Huh? \w8\s[16]I don't DISLIKE Cel, I just... \w8\w6\i[32]\i[61]Oh, \w6nevermind.\e%(ANY(':chain=celeste1',':chain=celeste2'))"}}
+
+	all:{"\0\s[1]\i[32]\1\s[14]"
+	"...Should get some %(ANY('ink','letter wax','wax stamps','embossed envelopes')) soon...\w8\w8\0\i[14]"
+	random:{"Oh, sending a letter?\w8\w8\1\n\n[half]\s[11]\i[32]Ah, yes. \w8\0\![anim,stop,14]\i[13]\1\i[13]\![anim,stop,32]\i[33]It's more of an important ordeal than I'd rather deal with, really.\e"
+			"Oooh, stationery? \w8\s[1]\i[35]Making anything fun, maybe?\w8\w8\w4\1\n\n[half]\s[16]\i[61]Eh. \w8Businessy, actually.\w8\w8\w2\0\n\n[half]\i[62]Aw. \w8Good luck, though!\e"
+			"Ooh, a rare Tahir letter...\w8\w8\1\n\n[half]\s[11]\i[13]\i[33]...Is it that interesting?\w8\w8\w4\0\n\n[half]\s[1]\i[35]Hmmm~ \w8Is it bad to be interested?\w8\w8\1\n\n[half]\s[11]\i[34]No, \w6I just find it a little silly. \w8\w4\i[90]Um, \w4in a good way.\e"}}
+
+	all:{"\0\s[1]\i[13]\i[32]\1\s[11]\i[32]"
+	"...Hey, \w2Fai, \w2my %(ANY('gauntlet','cloak')) isn't \w2\i[62]fraying, \w4is it?\w8\w8\0"
+	"\s[5]\![anim,stop,91]\i[31]\i[61]Oh, give me a sec... \w8\w8\w8\s[1]\i[35]No, \w2you're good!\w8\w8\1\n\n[half]"
+	random:{"\s[11]\i[13]\i[34]\i[62]Thanks. \w8\s[11]\i[33]\i[62]Sorry, I just got a little--\w8\0\n\n[half]\s[1]\i[32]\i[62]Hey, what did I say about apologizing about this? \w8\w2\s[1]\i[35]It's okay!\w8\w8\1\n\n[half]\s[11]\i[13]\i[34]\i[62]Ah, yes, right.\e"
+			"\s[11]\i[13]\i[34]\i[62]Thank you...\w8\w2\0\n\n[half]'Course!\e"}}
+
+	//there needs to be some shorter dialogue yeah
+	all:{"\1\s[11]\i[32]\0\s[1]\i[34]"
+	"Bwomp bwomp.\w8\w8\1"
+	random:{"\![anim,stop,32]\i[34]Bwomp bwomp indeed.\w8\w8\0\n\n[half]\s[3]\![anim,stop,0]\![anim,stop,90](PFFT...)\e"
+			"...I see.\w8\w2\0\s[1]\i[35]\e"}}
+
+	all:{"\1\s[11]\i[32]\0\s[4]"
+	"I kinda want to get a disco ball.\w8\w8\1"
+	"Wha-- \w8\s[16]\i[61]Uh. \w8\w8I mean, sure, but where would you \w8keep it?\w8\w8\0\n\n[half]"
+	"\s[1]\i[12]\i[35]Y'know!\w8\w8\1\n\n[half]"
+	"\s[11]\i[13]\i[33]\i[62]...I do not. \w6\w8\![anim,stop,33]\i[34]But \w8\s[11]\i[13]\i[33]have fun with that, Fai.\e"}
+
+	all:{"\0\s[1]\i[13]\i[32]\1\s[14]\i[2]"
+	"Hm... \w8I can't get that super bad case of knot weed we saw out of my head.\w8\w8\0"
+	"\![anim,stop,13]\i[14]Wait, you're still thinking about that lady from Razen? \w8\w4\s[4]Right, her yard was pretty bad...\w8\w8\1\n\n[half]"
+	"\s[11]\i[32]I was wondering how it looks now. \w8\w2\s[11]\i[13]\i[34]\i[62]I'm not sure if what we did was enough.\w8\w8\0\n\n[half]"
+	"\s[1]\i[33]...You also just want to look at her garden, right?\w8\w8\w6\1\n\n[half]"
+	"\![anim,stop,34]\i[33]...Yes.\e"}
+
+	all:{"\0\s[1]\i[13]\i[32]\1\s[11]\i[32]"
+	"Fai, how do you think Bonnie's doing? \w8\s[14]I mean, last time we saw eachother...\w8\w8\0\n\n[half]"
+	random:{"\s[1]\i[35]\i[62]Hey, I'm sure she's fine! \w8She's like, one of the MOST capable people I've known, her managers can't ge tthe best of her! \w8\w4We'll definitely check in with her soon, though.\e"
+			"\s[1]\i[35]\i[62]Oh, don't worry, she sent me a letter a bit ago!! \w8She gushed a LOT about Sylvie, which is good.\e"
+			"\s[1]\i[35]\i[62]Oh, don't worry, she sent me a letter a bit ago!! \w8\s[1]\i[32]She says she'll have more info on the Caretaker's Daycares when we get back.\e"}}
+
+	all:{"\0\s[1]\i[32]\1\s[11]"
+	"Hey, can you guys tell me if you happen across %(ANY('poprose','sunscore','sunburst')) seeds? \w8"
+	random:{"\i[35]\i[61]I've been wanting to plant some and can't find any, for some reason."
+			"\i[32]I need a restock for this season's cycle."}
+	"\w8\w8\0\![anim,stop,32]\i[35]Oh, totally! \w8\i[61]My eyes will be SCANNING for 'em, don't worry!\w8\w8\1\n\n[half]"
+	"\s[11]\i[13]\i[33]..You don't need to look THAT hard.\e"}
+
+	all:{"\1\s[11]\0\s[5]\![anim,stop,91]\i[32]"
+	"Tahirr... \w8\![anim,stop,32]\i[31]I still REALLY wanna see you in more Valarian fashion. \w8\w4\s[1]\i[1]\i[35]Like, maybe %(ANY('a fur undercoat','rolled up bell bottom jeans!'))? \w8Pleaaase?\w8\w8\1"
+	random:{"\s[13]Linn, you're still on this? \w8I'm flattered you care about my wardrobe so much, Fai.\w8\w8\0\n\n[half]\s[3]Hehe~\e"
+			"\s[16]\i[61]This again? \w8\i[32]Okay, I will, but we're going to have to get you more cloaks in your Fenara closet.\w8\w8\0\n\n[half]\s[3]Deal!!\e"}}
+
+	all:{"\1\s[11]\i[32]\0\s[5]\![anim,stop,91]\i[61]"
+	"Hey... \w8Would you guys wear matching hairpins if I got them for you?\w8\w8\1"
+	"Oh? \w8\s[16]\i[32]\i[61]I mean, I probably won't wear it consistently, but... \w8\![anim,stop,32]\i[30]I wouldn't be opposed to it, I guess.\w8\w8\0\n\n[half]"
+	"\s[1]\i[35]Pff-- \w8You said yes in such a roundabout way! \w8\w4\1\i[31]\i[90]\0\s[3]Okay, got it~\e"}
+
+	all:{"\0\s[1]\i[13]\i[32]\1\s[11]"
+	"We passed by a Resonance Jeweler a while ago... \w8\w4\i[32]I don't really need anything, but do you need anything for your studies, Fai?"
+	random:{"\![anim,stop,13]\i[14]Ooh, waiiit! \w8\s[1]\i[35]I was looking for a concentrated gem for this report... \w8I'll check later to see if the price is good.\e"
+			"\![anim,stop,13]\i[14]Ooh, waiiit! \w8\s[1]\i[35]I wanted to see if I could improve my staff's concentration... \w8I gotta remember to check back there!!\e"}}
+
 	//---------------USER ENVIRONMENT VARIABLE DIALOGUE
+
+	//USER STAT DEPENDENT
+
+	//i just dont like this dialogue anymore
+	/*
+	all:{"\1\s[11]\i[32]\0\s[3]"
+	"AHH, you guys GOTTA watch this show I've been super obsessed with lately..!!\w8\w8\1"
+	"\![anim,stop,32]\i[33]\i[13]...Are you referring to the one with the AEGOs?\w8\w8\0\n\n[half]"
+	"Yeah!! \w8\1\![anim,stop,13]\i[12]\0I KNOW it's a kid's show but the characters are so cool!! ESPECIALLY the ice robot... \w8He's sooooo pretty! \w8OH! Tahir, I BET you'd like the bramble pika!! \w8And %(user[1]), maybe you'd like the "
+	if userinfo[2] == "none" || userinfo[2][0] == "grayscale"; "mechanic rabbit! \w8She's AWESOME!"
+	else; "%(Capitalize(r.elem(userinfo[2][0]))) agent..?!"
+	"\w8\w8\1\n\n[half]"
+	"\![anim,stop,33]\i[34]Okay, if you can catch me and sit me down with you next to the TV, I'll try and catch up on it...\e"}
+	*/
+
+	//resonance
+
+	all:{"\1\s[11]\i[32]\0\s[3]\![anim,stop,90]"
+	"Do you guys ever think about how COOL colors are?! \w8Hehe, just like how we associate blues n stuff with coolness 'cause those Resonances feel all cool and stuff when you manifest it... \w8\w8SO cool!\w8\w8\1"
+	"\s[13]\![anim,stop,90]Ha. \w8Then should I say colors are warm, in my case?\w8\w8\0\n\n[half]"
+	"HAHAHA, yes!! \w8\w4"
+	if r.coolwarm(userinfo[2][0]) == "warm"; "That's something %(user[1]) can say too!! \w8Warm gang!!\e"
+	elseif r.coolwarm(userinfo[2][0]) == "cool"; "Cool still rolls off the tongue better, though!! \w8You get it, right %(user[1])?\e"
+	else; "\s[4]Then I guess %(user[1]) thinks colors are... \w8\s[3]\![anim,stop,90]Fine!! \w8\w4Yeah!!\e"}
+
+	if r.coolwarm(userinfo[2][0]) == "warm"
+	{
+		all:{"\1\s[11]\i[32]\0\s[1]\i[13]\i[32]\i[62]"
+		"I'm thinking about that one case of overdrive we saw in Melody Mine... \w8\w4\s[5]\i[31]I can't imagine how warm Resos feel, it's like burning, right? \w8\w4\![anim,stop,31]\i[30]Yikes, have you ever gone through that, %(user[1])..?? \w8\s[1]\i[14]Can you tell me how it feels???\w8\w8\1"
+		"\s[11]\i[13]\i[33]\i[62]...Is that something you just ask someone?\w8\w8\0\n\n[half]"
+		"\s[5]OH, you're right, sorry! \w8\s[1]\i[35]\i[62]Um, if you're curious about cool Resos, I'm TOTALLY available to be asked, though!!\e"}
+
+		all:{"\0\s[1]\i[13]\i[32]\1\s[16]\i[32]\i[61]"
+		"The Sun's never really been my thing. \w8\![anim,stop,32]\i[31]I don't know if you'd get it, %(user[2]), but since we have the same Resonance lean... \w8\w4\s[11]\i[13]\i[62]Just thought I'd complain for a second.\e:chain=tamwarmcomplain"}
+	}
+	elseif r.coolwarm(userinfo[2][0]) == "cool"
+	{
+		all:{"\0\s[1]\i[14]\i[32]\1\s[14]\i[1]"
+		"I can't imagine the connection people say cool Resos have to the cold and all. \w8\0\s[1]\i[32]\1\s[14]Even hanging around Faeia, it's been hard for me to grasp. \w8\w8\s[11]\i[13]\i[24]\i[62]Guess I'm just thinking out loud, looking at your Resonance Gem...\e"}
+
+		all:{"\1\s[11]\0\s[1]\i[35]"
+		"It's fun having another person with a cool Resonance around! \w8\s[3]Hey hey, do you have a favorite Moons spell?!\w4\1\s[11]\i[12]\i[33]\e"}
+	}
+	else
+	{
+		all:{"\0\s[1]\i[13]\i[32]\1\s[11]\i[31]"
+		"...You'd think that after all these years, the Fenara government wouldn't be so stuffy about Ambivalent Resonances. \w8\s[16]\i[31]\i[61]You get this, right %(user[2])?\w8\w8\0"
+		"\s[1]\i[35]\i[62]I mean, you'd think BOTH governments would be less stuffy about LITERALLY EVERYTHING, but here we are. \w8\w4\s[4]\i[31]Uh, \w8did anything happen to bring this up?\w8\w8\1\n\n[half]"
+		"\![anim,stop,31]\i[32]No, not really... \w8\w8\s[11]\i[32]%(Capitalize(user[2]))'s Resonance just reminded me of something.\e"}
+
+		all:{"\1\s[11]\i[32]\0\s[1]\i[14]"
+		"Hey %(user[1]), I'm kinda curious... \w8\w8\s[4]Warm Resos feel warm, cool Resos are cool, yeah, but Ambi Resonances seem to be different for everyone. \w8\w8\s[1]"
+		random:{"\i[1]\i[14]One of my friends, Sylvie, has a violet one and she says it feels all tense when she-- \w8\s[5]\![anim,stop,91]Ah, \w4wait, \w4no, \w8that's because of her... \w8\w8\s[1]\i[35]\i[61]AH, whatever! \w8Not the point!"
+				"\i[13]NAMII has a white Resonance, and they say theirs just feels numb."}
+		" \w8\w4\s[1]\i[14]I was wondering what yours is like...\e"}
+	}
 
 	//TIME SLOTS
 
 	if daytime {
+		all:{"\0\s[1]\i[32]\1\s[11]\i[34]"
+		"Mmm... \w8\i[12]Nice to be up and at 'em.\w8\w8\0"
+		"\![anim,stop,34]\i[35]Pfft, where's this coming from? \w8Just enjoying the day while the sun's up?\w8\w8\1\n\n[half]"
+		"\![anim,stop,34]\i[33]Yes, exactly that.\e"}
 
+		all:{"\0\s[1]\i[13]\i[32]\1\s[14]\i[2]"
+		"...When I was a kid, I was really stupid.\w8\w8\0"
+		"\s[5]\![anim,stop,91]\i[31]LMAO?? \w8Continue???\w8\w8\1\n\n[half]"
+		"Okay, I don't know if I've told you guys this yet-- \w8\s[11]\i[31]I had this habit of staring into flashlights. \w8\w4\![anim,stop,31]\i[33]And also the Sun.\w8\w8\0\n\n[half]"
+		"\s[1]\i[35]\i[62]Oh my gosh NOO let's not do this again!! \w8Do NOT look at the sky right now your eyesight can't take it!!!\w8\w4\1\n\n[half]"
+		"\s[11]\i[13]\i[34]\i[62]\i[90](Yeah...)\e"}
 	}
 	else {
+		all:{"\1\s[11]\i[32]\0\s[1]\i[32]"
+		"Hey, Tahir, \w4\s[1]%(user[1])! \w8\i[1]\i[35]Which moon do you like better tonight?\w8\w8\1"
+		"\s[14]Ah, we're doing this again. \w8\i[2]Hmm... \w8\w8\w4\0\s[1]\i[32]\1"
+		random:{"\s[16]\i[61]Needle's fully facing the Bramblebrush. \w8\i[32]Looks nice, might overlap the north star soon.\w8\w8\0\n\n[half]\s[1]\i[35]Ooh, good choice!\e"
+				"\s[16]\i[61]Thread's pretty bright. \w8\i[32]Also kind of blueish-pink, very pretty.\w8\w8\0\n\n[half]\s[1]\i[35]Ooh, you're right! \w8I was gonna say Needle, but you made me change my mind.\e"
+				"\s[16]\i[61]Don't we have a stitch tonight? \w8Would you kill me if I said both?\w8\w8\0\n\n[half]\s[3]PFFT, no, of course not!! \w8\s[1]\i[35]I was actually gonna agree with you!\e"}}
 
+		all:{"\1\s[11]\i[32]\0\s[5]\![anim,stop,91]\i[31]\i[61]"
+		"It's nights like these that we should set up camp somewhere we can see the stars, Tahir!\w8\w8\1"
+		if season == "Winter"; "\s[11]\i[13]\i[33]\i[62]...It'll be pretty cold out, Fai. \w8\s[11]\i[12]\i[34]I am willing to make the sacrifice for pretty stars.\w8\w8\0\n\n[half]\s[3]Yaaay!!\e"
+		else {
+			random:{"Ah... \w8\i[12]Now that you say that, I'm up for it.\w8\w8\0\n\n[half]\s[3]Yaaay!!\e"
+					"\![anim,stop,32]\i[13]\i[33]Alright, you can do that, but I'm not feeling outdoorsy, oddly. \w8\s[13]Remember to come back inside before you fall asleep.\w8\w8\0\n\n[half]\s[1]\i[35]\i[62]Awww, okayy.\e"}
+		}}
+
+		all:{"\1\s[11]\i[32]\0\s[1]\i[12]\i[34]"
+		"Hehe... \w8It's gotten darker. \w8\w4\s[3]Reminds me of the time we stayed WAYY too long in an art gallery during Valaria's Moon Festival. \w8\w8\s[1]\i[14]The curator was SO nice. \w8\s[1]\i[1]\i[35]You should visit, %(user[1])!\w8\w8\1"
+		"Oh, yes. \w8\s[14]\i[32]If I recall correctly, it was one of my first times really going to a place like that. \w8\w4\s[11]\i[12]It was nice, especially with company.\w8\w8\0\n\n[half]"
+		"\s[3](Aww...)\e"}
 	}
 
 	case timeslot {
 		when "earlymorning" {
-				all:{"\1\s[11]\i[32]\0\s[3]"
-				"Hehehe... Good morrrnniinnggg! \w8What a great day! \w8Let's do our best!!\w8\w8\1"
-				random:{"\s[11]\i[13]\i[34]Ah... \w8She's as pumped as ever...\w8\w8\0\n\n[half]\s[1]\i[1]\i[35]Hey, SOMEONE'S gotta do the motivating around here!"
-						"\s[11]\i[34]Won't let you down, Fai.\w8\w8\0\n\n[half]You could NEVER do that, Tamtam! \w8Neither can you, %(user[1])!!"}
-				"\e"}
+				parallel Pool_Breakfast
+
+				if up_hours <= 3 //no one will ever see this omfg
+				{
+					all:{"\0\s[1]\i[32]\1\s[11]\i[12]\i[34]"
+					"Ah. \w8Freshly washed clothes smell amazing, don't they?\w8\w8\0"
+					"\![anim,stop,32]\i[35]Hehe, yeah! \w8I can't stop smelling my sleeves...\e"}
+				}
 			}
-			when "morning" {
-				
-			}
-			when "lunch" {
-				all:{"\0\s[1]\i[13]\i[32]\1\s[14]"
-				"Have you decided on what we should get for lunch, Fai?\w8\w8\0"
-				"\s[5]\i[31]Uwa... \w8Tahir, there's WAY too many choices...\w8\w8\1\n\n[half]"
-				"\i[2]Well, I can always cook us something up.\w8\w6\0\n\n[half]"
-				"\s[3]GASP! YES, please, my savior! \w8Do you need me to get anything?! What can you make with %(ANY('two chillshrooms and a head of lettice','the chocolate bars I have in my bag'))?!\w8\w8\1\n\n[half]"
-				"\s[11]\i[13]\i[33]\i[62]...I'll see what I can do.\e"}
+		when "morning" {
+				parallel Pool_Breakfast
 
 				all:{"\1\s[11]\i[32]\0\s[4]"
-				"Dang, I'm remembering this REALLY BANGING sandwich I had once...\w8\w8\1"
-				random:{"\s[14]I guess it IS lunch time..."
-						"\s[13]Pfft. \w8Maybe I can make it for you."
-						"\s[16]\i[61]HOW ""banging?"""}
-				"\w8 What was in it?\w8\w8\0\n\n[half]"
-				"\s[3]OKAY okay okay SO. \w6Imagine salami, pepperoni, roast beef, pickles, sunmatoes, butter lettice, brazmim cheese, red wine vinegar... \w8AH, it was the best!!\e"} //add more randomness to this... and also maybe tahir's response
+				"Around now is when we seem to get the most work done, I think. \w8\s[1]\i[35]Something about mornings just feel so productive!\w8\w8\1"
+				"\s[11]\i[34]Ah, and there's so much left of the day, too... \w8\s[11]\i[13]\i[33]That probably contributes to the feeling.\e"}
 			}
-			when "afternoon" {
-				
+		when "lunch" {
+				parallel Pool_Lunch
+
+				all:{"\1\s[11]\i[32]\0\s[5]\i[1]\i[31]"
+				"Maan... \w8Middle of the day. \w8\w8Thankfully we don't have two SUNS, like the moons... \w8Imagine the heat..!\w8\w8\1"
+				"\s[11]\i[13]\i[34]\i[62]Ugh, yeah, I'm agreeing with you.\e"}
+				}
+		when "afternoon" {
+				parallel Pool_Lunch
 			}
-			when "evening" {
-				
+		when "evening" {
+				parallel Pool_Dinner
+
+				all:{"\1\s[11]\i[32]\0\s[1]\i[14]\i[32]"
+				"Ooh, getting dark, isn't it?\w8\w8\1"
+				random:{"Yes. \w8\s[11]\i[12]\i[34]It's nice.\w8\w8\0\n\n[half]\s[3]Yeah yeah, I agree! \w8Heeello, little stars! \w2Good morning! \w8\s[4]Or is it night?\w8\w8\w8\1\n\n[half]\s[11]\i[13]\i[34]\i[62]\i[90](...Oh, Linn, help me...)\e"
+						"Hm... \w8\![anim,stop,32]\i[34]A strange feeling. \w8Day's passing so quickly.\w8\w8\0\n\n[half]\s[1]\i[35]Weelll, 's nice that we're spending the last of it all hanging out~\w8\w8\w8\1\n\n[half]\s[13]\![anim,stop,90]...Yes, \w8of course.\e"}}
+
+				all:{"\0\s[1]\i[13]\i[32]\1\s[11]\i[34]"
+				"...Feeling nostalgic. \w8For what, I don't know.\w8\w8\0"
+				random:{"\s[1]\i[35]Want me to go buy you some agar jelly?\w8\w8\1\n\n[half]\s[11]\i[32]\i[90]...A-Ah. \w8\![anim,stop,32]\i[33]If you're sure.\e"
+						"\s[1]\i[35]Rose shaved ice?\w8\w8\1\n\n[half]\s[11]\i[32]\i[90]...A-Ah. \w8\![anim,stop,32]\i[33]If you want. \w8It could help.\e"}}
 			}
-			when "latenight" {
-				
+		when "latenight" {
+				parallel Pool_Dinner
 			}
-			when "midnight" {
+		when "midnight" {
+				parallel Pool_Dinner
+
 				all:{"\1\s[11]\i[32]\0\s[4]"
 				"It's still so weird for me to see people around at midnight.....\w8\w8\1"
 				"\s[16]\i[61]It really isn't that weird. \w8People have things to do.\w8\w8\0\n\n[half]"
 				"\s[5]Well, YEAH, but I usually don't! \w6I have a strict bedtime, you know! \w8I think it's weird that I'm not cozied up in bed...\w8\w8\1\n\n[half]"
 				"\i[32]Mmm... \w8Constant questing doesn't really let you do that as much.\w8\w8\0\n\n[half]"
 				"\s[1]\i[35]\i[62]Siiiiiighhhh... I know... \w8Still, it's all kinda fascinating...\e"}
+
+				all:{"\0\s[1]\i[13]\i[32]\1\s[11]\i[12]\i[34]"
+				"Hm hmm...\w8\w8\0"
+				"Hm?\w8\w8\1\n\n[half]"
+				"\s[11]\i[32]\i[90]Oh, \w8I'm just thinking... \w8\w8\s[13]\i[1]This is the freest I've been in my entire life. \w8\s[13]I'm really grateful to be here, with you.\w8\w8\0\n\n[half]"
+				"\s[1]\i[14]\i[32]\i[90]O-Oh! \w8\s[1]\i[35]\i[90]Oh, \w8that's good! \w8\w4I get it... \w8\s[1]\i[34]Being up past midnight and all, having no expectations...\w8\w8\1\n\n[half]"
+				"\i[32]Yeah.\e"}
 			}
 	}
 
 	if month == 1
 	{
+		all:{"\0\s[1]\i[32]\1\s[13]\![anim,stop,90]\i[1]\i[32]"
+		"Mm... \w8Jahan is so refreshing, the start of the year and all... \w8\w8I like blank slates like that.\w8\w8\0"
+		"\s[1]\i[35]Oooh, I totally get it! \w8\s[3]BUT ALSO... \w8Don't you like it cause it's my birthmonth, too?!\w8\w8\1\n\n[half]"
+		"\s[13]Yes, I like it because of that, too.\e"}
+
 		if day < 23
 		{
 			all:{"\1\s[16]\i[61]\0\s[1]\i[32]\i[13]"
 			"... \w8\![anim,stop,13]\i[14]Why are you looking at me like that?\w8\w8\1"
 			"Huh? \w8\s[11]\i[32]Oh, well. \w8\![anim,stop,32]\i[34]Thinking about what you like.\w8\w8\0\n\n[half]"
-			"\s[2]Gasp..! \w8Are you getting me something for..?!\w8\1\n\n[half]"
+			"\s[2]Gasp..! \w8Are you getting me something for my..?!\w8\1\n\n[half]"
 			"\s[16]\i[32]\i[61]No. \w8Now shush.\w8\w8\0\n\n[half]"
 			"\s[3](Hehehehe...)\e"}
 
 			if day >= 10
 			{
-			all:{"\0\s[1]\i[13]\i[32]\1\s[11]"
-			"...Hey, %(user[2]). \w8Try to catch us on the 23rd. \w8\i[34]I have a feeling Fai would...\w8\s[11]\0"
-			"\s[3]\![anim,stop,90]\![anim,stop,0]Heyy, what are you whispering to %(user[1]) over there..?! \w8Come on, tell me!\w8\w8\1\n\n[half]"}
-			"\s[16]\i[32]\i[61]Secret.\w8\w8\0"
-			"\s[5]\![anim,stop,91]\i[32]Aw...\e"}
+				all:{"\0\s[1]\i[13]\i[32]\1\s[11]"
+				"...Hey, %(user[2]). \w8Try to catch us on the 23rd. \w8\i[34]I have a feeling Fai would...\w8\s[11]\0"
+				"\s[3]\![anim,stop,90]\![anim,stop,0]Heyy, what are you whispering to %(user[1]) over there..?! \w8Come on, tell me!\w8\w8\1\n\n[half]"
+				"\s[16]\i[32]\i[61]Secret.\w8\w8\0\n\n[half]"
+				"\s[5]\![anim,stop,91]\i[32]Aw...\e"}
+
+				all:{"\0\s[1]\i[13]\i[32]\1\s[16]\i[31]"
+				"\f[size,-1](...%(Capitalize(user[2])), I... \w8\![anim,stop,31]\i[32]I still feel weird about doing something special for Faeia on her birthday. \w8\w8I'm trying to get better with this but it feels so personal and... AFFECTIONATE. \w8\s[11]\i[13]\i[62]But I think I'll have something figured out, soon.)\w8\w8\0\f[size,default]"
+				"..?\e"}
+			}
 		}
 		elseif day == 23
 		{
-
+			all:{"\1\s[11]\i[32]\0\s[1]"
+			"Hey %(user[1])! \w8\1\s[11]\i[12]\0\i[35]It was nice seeing you today!! \w8\s[5]I basically just blabbered at you about how my day went, so... \w8\1\i[35]\i[62]\0\s[3]Thanks for sticking around for that, LMAO.\e"}
 		}
 		else
 		{
-
+			all:{"\1\s[11]\i[32]\i\0"
+			"Maaaan... \w8I love my friends. \w8This month has been the beeeest.\w8\1\s[11]\i[12]\i[33]\i[62]\e"}
 		}
 	}
-	if month == 7
+	elseif month == 7
 	{
 		if day < 20
 		{
@@ -239,18 +417,8 @@ RandomTalk : nonoverlap_pool
 		}
 		elseif day == 20
 		{
-			all:{"\1\s[11]\i[32]\0\s[3]"
-			"OH! \w8Tahir, tell %(them) about what I got you today!!\w8\w8\1"
-			random:{"\s[11]\i[33]\i[13]Can't you do that yourself..??\w8\w8\0\n\n[half]Well, YEAH, but I like it when you talk about things I do~"
-					"\s[11]\i[33]\i[13]...Do you just want to hear me compliment it again?\w8\w8\0\n\n[half]Aww, you caught me~"}
-			"\w8\w8\s[1]\i[32]\i[90]\1\n\n[half]\s[11]\i[12]\i[34]"
-			"...Well, she got me a really nice pie from her hometown, for one. \w8I can always appreciate food from there. \w8\![anim,stop,34]\i[33]\![anim,stop,12]\i[13]But she also got me some new seeds I had no idea she got her paws on... \w8Seriously, how DID you get a packet of %(ANY('crystalikes','bramblerose','spider lily'))..?\w8\w8\0\n\n[half]"
-			"\s[3]A girl gets the BEST for her bestie on his special day!!\w8\w8\1\n\n[half]"
-			"\s[16]\i[31]\i[61]\i[90]...Alright, \w2still haven't gotten an answer for that...\e"}
-
-			all:{"\0\s[1]\i[14]\i[32]\1\s[11]"
-			"I've never done much for my birthday, \w4\i[34]'specially since I don't remember exactly when I was born and all... \w8\s[13]\![anim,stop,90]\i[32]But it's definitely been much nicer with friends around.\w8\w8\0"
-			"\s[3]Hehe, awwww, you feel that way?? \w8Yaaay!\e"}
+			all:{"\0\s[1]\i[32]\1\s[11]\i[14]"
+			"...I don't know if this was a coincidence or not, but thanks for seeing us on my birthday anyway, %(user[2]). \w8\0\s[1]\i[35]\1\i[13]\i[35]\i[62]I never really celebrated it when I was younger, so it's taken a bit of getting used to...\e"}
 		}
 		else
 		{
@@ -259,14 +427,156 @@ RandomTalk : nonoverlap_pool
 			"\s[3](Hehe~~ He likes my giifftt~~)\e"}
 		}
 	}
+	elseif month == 10
+	{
+		all:{"\1\s[11]\i[32]\0\s[4]"
+		"I'm craving something popumpkinny... \w8\w4Like, \w6I could just eat an entire one raw \w8\s[1]\i[35]\i[61]right now.\w8\w8\1"
+		"\i[13]\![anim,stop,32]\i[33]Dear Linn, you've never HAD popumpkin raw. \w8It's more bitter than you think, you know. \w8\w4\![anim,stop,33]\i[34]\i[62]And poppy.\w8\w8\0\n\n[half]"
+		"\s[6]\![anim,stop,91]\i[90]Whaat?! \w8HEY, I bet I could handle it! \w8\s[3]I'm REALLY in the Octae spirit right now!!\w8\w8\1\n\n[half]"
+		"\s[13]Pfft... \w8Okay, I WILL take you up on this the next time we can find a popumpkin.\e"}
+	}
+	elseif month == 11
+	{
+
+	}
+	elseif month == 12
+	{
+
+	}
 }
+
+
+//-----------Pools-----------
+
+Pool_Breakfast : array
+{
+	//not food related but i still want it in this pool
+	all:{"\1\s[11]\i[32]\0\s[3]"
+	"Hehehe... Good morrrnniinnggg! \w8What a great day! \w8Let's do our best!!\w8\w8\1"
+	random:{"\s[11]\i[13]\i[34]Ah... \w8She's as pumped as ever...\w8\w8\0\n\n[half]\s[1]\i[1]\i[35]Hey, SOMEONE'S gotta do the motivating around here!\e"
+			"\s[11]\i[34]Won't let you down, Fai.\w8\w8\0\n\n[half]You could NEVER do that, Tamtam! \w8Neither can you, %(user[1])!!\e"}}
+
+	all:{"\1\s[11]\i[32]\0\s[1]\i[34]\i[62]"
+	"Kinda just craving a nice crispy toast right now... \w8\s[3]Can you imagine it, Tamtam?! \w8\w4Nice, melted butter...\w8\w8\1"
+	"\s[11]\i[34]\i[62]Fenr, stop. \w8I can't do this this morning...\w8\w8\0\n\n[half]"
+	"\s[1]\i[12]\i[35]PFFT, okay, I'll try to stop. \w8I just want you to feel this with me!!\e"}
+
+	all:{"\1\s[11]\i[32]\0\s[5]\![anim,stop,91]\i[32]"
+	"Gwuh... \w8I need some carrot juice to pick me up this morning...\w8\w8\1"
+	"\s[16]\i[32]Oh, Fenr, you're going to make me crave some too... \w8\s[11]\i[13]\i[33]\i[62]Let's stop this train of thought.\e"}
+}
+
+Pool_Lunch : array
+{
+	all:{"\0\s[1]\i[13]\i[32]\1\s[14]"
+	"Have you decided on what we should get for lunch, Fai?\w8\w8\0"
+	"\s[5]\i[31]Uwa... \w8Tahir, there's WAY too many choices...\w8\w8\1\n\n[half]"
+	"\i[2]Well, I can always cook us something up.\w8\w6\0\n\n[half]"
+	"\s[3]GASP! YES, please, my savior! \w8Do you need me to get anything?! What can you make with %(ANY('two chillshrooms and a head of lettice','the chocolate bars I have in my bag'))?!\w8\w8\1\n\n[half]"
+	"\s[11]\i[13]\i[33]\i[62]...I'll see what I can do.\e"}
+
+	all:{"\1\s[11]\i[32]\0\s[4]"
+	"Dang, I'm remembering this REALLY BANGING sandwich I had once...\w8\w8\1"
+	random:{"\s[14]I guess it IS lunch time..."
+			"\s[13]Pfft. \w8Maybe I can make it for you."
+			"\s[16]\i[61]HOW ""banging?"""}
+	"\w8 What was in it?\w8\w8\0\n\n[half]"
+	"\s[5]\i[31]\![anim,stop,91]Oh, uh... \w8I don't think you have %(ANY('darkdew syrup','moondragon meat')) on hand, so...\w8\w8\1\n\n[half]"
+	"\s[11]\i[13]\i[33]\i[62]...Wait, what kind of sandwich is this..?\e"}
+
+	all:{"\0\s[1]\i[32]\1\s[11]\i[33]"
+	"...Fai. \w8I saw you buy that %(ANY('orange creamsicle chocolate brand you like','sour bomb candy','endless layer lava cake')).\w8\w8\0"
+	"\s[5]Huh????? \w8I... \w8\i[31]Have NO idea what you're talking about...\w8\w8\1\n\n[half]"
+	"\s[16]\i[32]\i[61]Ha... \w8\![anim,stop,32]\i[30]"
+	random:{"I'm not letting you eat that alone after the cheesecake incident. \w8We are sharing it.\e"
+			"At least remember to brush your teeth properly after this.\e"}}
+}
+
+Pool_Dinner : array
+{
+	all:{"\1\s[11]\i[32]\0\s[1]\i[34]\i[62]"
+	"Ahhh, after today, I'm craving a BIG steak.\w8\w8\1"
+	"\s[11]\i[13]\i[33]\i[62]Fai, you are one of the few people I know who actively LIKE meat. \w8Everytime you say something like that I have to take a second.\w8\w8\0\n\n[half]"
+	"\s[1]\i[12]\i[35]Hehe~\e"}
+}
+
+//-----------Chains-----------
+
+//Chain dialogues will play in order each time the ghost talks until it reaches :chain=end.
+
+//add expressions
+celeste1
+{{CHAIN
+	all:{"\0\s[1]\i[13]\i[32]\1\s[16]\i[31]"
+	"...I just don't like that the government is so blatantly using her, you know?\w8\w8\0"
+	"Wha-- \w8\![anim,stop,13]\i[14]Celeste? \w8\w2\s[5]\![anim,stop,91]\i[11]\i[31]\i[61]Right, you told me this before... \w8\![anim,stop,61]\i[60]I wish there was some way I could get more of my money I spent from tickets to her directly.\w8\w8\1\n\n[half]"
+	"\s[14]\i[2]Hm. \w8Sneak backstage?\w8\w8\0\n\n[half]"
+	"\s[1]\i[35]Oh, YES! \w8Easy, I can do that at a national concert!\e:chain=end"}
+}}CHAIN
+celeste2
+{{CHAIN
+	all:{"\0\s[1]\i[13]\i[32]\1\s[16]\i[61]"
+	"Uh, \w4how'd you manage to get tickets to one of Celeste's concerts?\w8\w8\0"
+	"\s[1]\i[35]Hmmm..? \w8Why are you interested, Tahir?\w8\w8\1\n\n[half]"
+	"\i[31]No, it's just... \w8\![anim,stop,31]\i[30]They sell out fast, don't they? \w8I didn't think you were a dedicated fan or anything...\w8\w8\0\n\n[half]"
+	"\s[3]\![anim,stop,0]\![anim,stop,90]Got em through a raffle! \w8I mean, since I have them, might as well go see her, right?\e:chain=end"}
+}}
+tamwarmcomplain
+{{CHAIN
+	all:{"\0\s[1]\i[32]\1\s[11]\i[31]\i[13]"
+	"...Okay, I'm gonna complain some more. \w8\w8\0\![anim,stop,32]\i[35]\1\s[11]\i[34]Heat sucks and I'd rather not be around it. \w8This is part of the many reasons I don't use my Resonance much. \w8\w4\s[11]\i[31]\i[13]Thank you for listening.\e:chain=end"}
+}}
+
+//-----------Events----------
+
+
+
+FaiBDayTalk : sequential
+{
+	all:{"\1\s[11]\i[32]\0\s[1]"
+	"%(Capitalize(user[1])), y'know, I always make a habit of visiting home on my birthdays, \i[34]and guess what?\w8\w8\1\![anim,stop,32]\i[33]\w8"
+	"\i[13]\i[62]...Wait, you actually want %(them) to guess?\w8\w8\0\n\n[half]"
+	"\s[3]Whaaat~? \w8It'll be fun!! \w8\s[4]Okay, wait, let me think of something to tell %(them)...\w8\w8\1\n\n[half]"
+	"\![anim,stop,33]\i[34](...You didn't have something prepared to tell %(them)..?)\e"}
+
+	all:{"\1\s[11]\i[32]\0\s[1]\i[35]"
+	"Ah, I've got it! \w8\s[5]\![anim,stop,91]\i[90]Have I told you how CHEESY my dads are when it comes to my birthday?? \w8\w8They've SUPER outdone themselves this year, like- \w8\s[1]\i[35]\i[61]How did Pa get his paws on darkdew syrup for the cake???\w8\w8\1"
+	"\s[12]FENR, you didn't tell me this, what?? \w8\s[11]\i[13]\i[33]...Though I guess I wouldn't put it above the both of them, now that I think about it.\e"}
+
+	all:{"\1\s[11]\i[32]\0\s[1]"
+	"Oh! \w8\s[3]Also, when I went back home, Lopei was ACTUALLY at vis shop!!\w8\w8\1"
+	"Wow, rare. \w8\s[13]\![anim,stop,90]Was ve doing that for your birthday also?\w8\w8\0\n\n[half]"
+	"YEAH, apparently!! \w8It was so sweet!! \w8LOOK AT THIS %(ANY('STAMINA','RESO','AETHER','MOON')) POTION THEY MADE ME...\e"}
+
+	all:{"\1\s[11]\i[32]\0\s[1]\i[14]"
+	"%(Capitalize(user[1]))... \w8\s[1]\i[34]\i[62]Tahir is a SUPER sweet guy.\w8\1"
+	"\s[15]\i[31]F-Fai??? \w8You said you wouldn't tell anyone about what we did today????\w8\0\n\n[half]"
+	"\s[5]\![anim,stop,91]\i[31]Relax, relax, I'm not! \w8\s[3]I just wanna VAGUELY gush about how cool you are!! \w8You do so much for me and I gotta let everyone know!!\w8\w8\1\n\n[half]"
+	"\![anim,stop,31]\i[30]\i[90](Ha...)\![raise,OnDialogueVars,E.FaiBDay]\e"}
+}
+
+TamBDayTalk : sequential
+{
+	all:{"\1\s[11]\i[32]\0\s[3]"
+	"OH! \w8Tahir, tell %(them) about what I got you today!!\w8\w8\1"
+	random:{"\s[11]\i[33]\i[13]Can't you do that yourself..??\w8\w8\0\n\n[half]Well, YEAH, but I like it when you talk about things I do~"
+			"\s[11]\i[33]\i[13]...Do you just want to hear me compliment it again?\w8\w8\0\n\n[half]Aww, you caught me~"}
+	"\w8\w8\s[1]\i[32]\i[90]\1\n\n[half]\s[11]\i[12]\i[34]"
+	"...Well, she got me a really nice pie from her hometown, for one. \w8I can always appreciate food from there. \w8\![anim,stop,34]\i[33]\![anim,stop,12]\i[13]But she also got me some new seeds I had no idea she got her paws on... \w8Seriously, how DID you get a packet of %(ANY('crystalikes','bramblerose','spider lily'))..?\w8\w8\0\n\n[half]"
+	"\s[3]A girl gets the BEST for her bestie on his special day!!\w8\w8\1\n\n[half]"
+	"\s[16]\i[31]\i[61]\i[90]...Alright, \w2still haven't gotten an answer for that...\e"}
+
+	all:{"\0\s[1]\i[14]\i[32]\1\s[11]"
+	"I've never done much for my birthday, \w4\i[34]'specially since I don't remember exactly when I was born and all... \w8\s[13]\![anim,stop,90]\i[32]But it's definitely been much nicer with friends around.\w8\w8\0"
+	"\s[3]Hehe, awwww, you feel that way?? \w8Yaaay!\![raise,OnDialogueVars,E.TamBDay]\e"}
+}
+
+//-----------
 
 //putting this here bc its what im most used to :Vc
 
 OnMinuteChange
 {
-	if hour == 0 && minute == 0; AutoUpdates[1] = 0 //Resetting auto updates
-	
 	//i hope this doesn't break anything!
 	if up_mins % 60 == 0
 	{
@@ -283,21 +593,21 @@ OnMinuteChange
 	{
 		if hour == 0 && day == 0 && month == 0 //New year's
 		{
-			"\0\s[0]\_q%(vera)\_q gasp!! \w8\w6\n\s[3]\i[19]\_q%(vera)\_q happy new year!!!\e"
+			"\0\s[0]gasp!! \w8happy new year!!!\e"
 		}
 		elseif HourNotifs
 		{
 			if hour == 0
 			{
-				"\0\i[35](It's midnight.)\e"
+				"\0(It's midnight.)\e"
 			}
 			elseif hour == 12
 			{
-				"\0\i[35](It's noon.)\e"
+				"\0(It's noon.)\e"
 			}
 			else
 			{
-				"\0\i[35](It's %(hour12) o'clock.)\e"
+				"\0(It's %(hour12) o'clock.)\e"
 			}
 		}
 	}
@@ -308,7 +618,7 @@ OnMinuteChange
 
 OnOverlap
 {
-	if ("0-1" _in_ reference0 || "1-0" _in_ reference0) && RAND(100) < 3
+	if ("0-1" _in_ reference0 || "1-0" _in_ reference0) && RAND(50) < 3 && !BalloonIsOpen
 	{
 		"\1\s[11]\i[32]\i[90]\f[size,-2]O-Oh...\e"
 		/* commented out bc tbh i dont want faeia to move. movement weird
@@ -318,4 +628,13 @@ OnOverlap
 		else; "R-Right, yes, thank you...\e"
 		*/
 	}
+}
+
+//parallel Pool("Pool_Example","%(example == 'True')")
+//parallel Pool("Pool_Example",example == 'True')
+//i don't even use this function anywhere. it's here for moral support. thank you zi
+
+Pool
+{
+    if TOINT(_argv[1]); EVAL("%(_argv[0])")
 }

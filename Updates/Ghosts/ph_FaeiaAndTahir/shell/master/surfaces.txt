@@ -376,6 +376,10 @@ surface4
 	collisionex4,resonance,regions,hotspot30.png,0,255,255
 
 	element0,overlay,surface300.png,0,0,0
+
+	//look away
+	animation31.interval,never
+	animation31.pattern0,replace,301,0,0,0
 }
 
 //worry faeia

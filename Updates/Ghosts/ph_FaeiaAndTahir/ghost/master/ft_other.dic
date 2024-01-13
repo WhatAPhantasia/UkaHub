@@ -53,6 +53,8 @@ OnAnchorSelect
 				--
 				"23-year old rabbit mage. Grew up in Valaria, in a small rabbit-pika town called Stoneveil, in the rocky base of a snowy mountain. She thinks of herself as an optimist and a go-getter, and CONSTANTLY looks for adventure and the attainment of knowledge. She thinks the feud between the two main Caretakers is dumb, and is currently on an adventure around the Bramblebrush to take quests, help people, and unravel the mystery about shifting Resonance and growing national tensions."
 				--
+				"\n\n\![*]\q[Replay 1st Intro,OnPlayIntro.FF,replay]"
+				--
 				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			when "AFQ.Tahir"
@@ -61,17 +63,27 @@ OnAnchorSelect
 				--
 				"One of Faeia's best friends, and her main travelling companion. He's a mid-20-something rabbit-hare rogue, who grew up wandering around Fenara. They met when Faeia was in her first year at the Valarian Elevated Academy of Resonance: He was cornered in the Academy town, and she helped him!! As her real first look into Fenara life, she loved sticking around and bothering him, and they just became friends :)"
 				--
+				"\n\n\![*]\q[Replay 1st Intro,OnPlayIntro.FT,replay]"
+				--
 				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			when "AFQ.People"
 			{
 				"\0\b2\_q\![set,autoscroll,disable]"
 				--
-				"\f[bold,1]NAMII:\f[bold,default] Half-rabbit half-mystery with a white Resonance, and a weird anti-hero in Faeia and Tahir's quest. Confused and mad about their place in the world, and hates The Caretakers to an almost personal degree. Seems to know about why Resonance is fluctuating more intensely recently.\n"
+				"\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]\n\n"
 				--
-				"\f[bold,1]LOPEI:\f[bold,default] Faeia's dormmate at the academy, friendly and good at potions.\n"
+				"\f[bold,1]NAMII:\f[bold,default] Half-rabbit half-mystery with a white Resonance, and a weird anti-hero in Faeia and Tahir's quest. Confused and mad about their place in the world, and hates The Caretakers to an almost personal degree. Seems to know about why Resonance is fluctuating more intensely recently.\n\n[half]"
 				--
-				"\f[bold,1]UHIR:\f[bold,default] Older pika in Stoneveil, runs the resident bakery."
+				"\f[bold,1]LOPEI:\f[bold,default] Faeia's dormmate and childhood friend, friendly and good at potions.\n\n[half]"
+				--
+				"\f[bold,1]UHIR:\f[bold,default] Older pika in Stoneveil, runs the resident bakery.\n\n[half]"
+				--
+				"\f[bold,1]SYLVIE:\f[bold,default] Valarian idol. Faeia played drums for it at the academy.\n\n[half]"
+				--
+				"\f[bold,1]BONNIE:\f[bold,default] Archivist working in the Valarian capitol. Academy friend.\n\n[half]"
+				--
+				"\f[bold,1]KARI:\f[bold,default] Straight laced postal worker. Played keyboard with Faeia at the academy."
 				--
 				"\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 			}
@@ -135,6 +147,8 @@ OnAnchorSelect
 				--
 				"Mid-20s wandering rabbit-hare rogue from Fenara. Known at least a little across the Bramblebrush, and his outward seriousness betrays his shy nature. He mostly acts for his own gain, looking for new experiences and doing quests to make ends meet. He mostly tags along with Faeia because he acts as a guide to her, as well as the fact that he enjoys her company and has a few loose ends to tie up on her quest."
 				--
+				"\n\n\![*]\q[Replay 1st Intro,OnPlayIntro.TT,replay]"
+				--
 				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			when "ATQ.Faeia"
@@ -143,13 +157,19 @@ OnAnchorSelect
 				--
 				"A close companion to Tahir. Met Faeia during her first year at her academy, when she saved him from some ""thugs."" First irked by her constant insistence on talking to him and frightening ability of finding him, but grew to admire her tenacity and knowledge."
 				--
+				"\n\n\![*]\q[Replay 1st Intro,OnPlayIntro.TF,replay]"
+				--
 				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 			}
 			when "ATQ.People"
 			{
 				"\1\b2\_q\![set,autoscroll,disable]"
 				--
-				"\f[bold,1]NAMII:\f[bold,default] Half-rabbit half-mystery with a white Resonance, and a weird anti-hero in Faeia and Tahir's quest. Confused and mad about their place in the world, and hates The Caretakers to an almost personal degree. Seems to know about why Resonance is fluctuating more intensely recently.\n"
+				"\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]\n\n"
+				--
+				"\f[bold,1]NAMII:\f[bold,default] Half-rabbit half-mystery with a white Resonance, and a weird anti-hero in Faeia and Tahir's quest. Confused and mad about their place in the world, and hates The Caretakers to an almost personal degree. Seems to know about why Resonance is fluctuating more intensely recently.\n\n[half]"
+				--
+				"\f[bold,1]CELESTE:\f[bold,default] Fenara's most popular idol and messenger of Fenr. Mousegirl. Tahir doesn't seem to like her(??)"
 				--
 				"\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 			}
@@ -209,12 +229,56 @@ OnAnchorSelect
 	}
 }
 
+introqend
+{"\w4\_q\n\n\![*]\q[Back,%(_yeah)]  \![*]\q[Close,blank]"}
+
+//remember to uh.. update these if i change the first introduction... please...
+OnPlayIntro.FF : all
+{
+	_yeah = "OnFQuestionMenu"
+	if reference0 == "replay"; _yeah = "OnAnchorSelect,AFQ.Faeia"
+
+	"\0\b2\s[1]\i[14]Oh! \w8\s[1]\i[35]\i[62]Yeah, I guess I haven't really introduced you to ME yet... \w8\s[1]I'm Faeia! \w8From Stoneveil, in Valaria!! \w8\w8\i[34]I'm a mage, and I'm mostly just going around the Bramblebrush for more experience outside of my home, you know? \w8Taking quests and all that? \w8\w8\s[5]\![anim,stop,91]\i[31]But also... \w8Tensions between Valarians and Fenaras are getting kinda bad, and there's something weird going on with the Resonance around the Bramblebrush. \w8\s[5]\![anim,stop,91]Since I'm already out here, I figured I should try to sort some of that out as well, you know..?\w8\w8\1\s[11]\i[34]Mm. \w8A lofty goal, but we've made progress on it.\w8\w8\0\n\n[half]\s[1]\i[35]Mhmm! \w8\w4\s[3]\![anim,stop,90]But other than that, I'm just here to experience more stuff~!"
+
+	"%(introqend)"
+}
+OnPlayIntro.FT : all
+{
+	_yeah = "OnFQuestionMenu"
+	if reference0 == "replay"; _yeah = "OnAnchorSelect,AFQ.Tahir"
+
+	"\0\b2\s[1]\i[14]Hm? \w8Oh, Tahir? \w8\w8\s[1]\i[34]Yeah, he's Fenara, and a rogue. \w8\s[6]And YES, we're friends!! \w6If you have an issue with that, I'm bonking you with my staff!\w8\w8\1\s[16]\i[61]%(Capitalize(user[2])) is fine with it, obviously. \w8\i[32]They would've reacted MUCH earlier if they weren't...\w8\w8\0\n\n[half]I know, but I have to be sure!! \w8There are TONS of jerks out there! \w8\w4\s[1]ANYWAYS, I met him in my first year at the academy. \w8He ended up in the academy town in disguise and got some thugs on his trail, \w2and I just helped him out! \w8\s[3]We're besties now~"
+
+	"%(introqend)"
+}
+OnPlayIntro.TT : all
+{
+	_yeah = "OnTQuestionMenu"
+	if reference0 == "replay"; _yeah = "OnAnchorSelect,ATQ.Tahir"
+
+	"\0\s[1]\1\b2\s[11]Me? \w8\w4\s[14]I guess I haven't introduced myself yet... \w8\s[11]My name is Tahir. \w8\i[33]I'm mostly just tagging along with Faeia because she has absolutely no idea where she's going, while I do.\w8\w8\0\s[6]Hey!! \w2I know what I'm doing, kind of!! \w8Also, that's not true! \w8We're friends! \w4You have things you want to do on this journey, too!\w8\w8\1\n\n[half]\s[13]Pfft... \w8Sorry. I was teasing you. \w8\i[1]\![anim,stop,90]Fai's right, \w8but you don't need to know the details. \w8\s[11]\i[13]\i[34]I'm just here to explore.\w8\w8\0\n\n[half]\s[1]\i[35]\i[62]Awww, staying mysterious..."
+
+	"%(introqend)"
+}
+OnPlayIntro.TF : all
+{
+	_yeah = "OnTQuestionMenu"
+	if reference0 == "replay"; _yeah = "OnAnchorSelect,ATQ.Faeia"
+
+	//the way that he has more to say about faeia than himself :thinking:
+	//ok im gonna clarify right here, whether they are friends or lovers is VERY NEBULOUS. it could go either or tbh. they dont take it too seriously, and neither do i LOL its wtv
+	"\0\s[1]\i[13]\i[32]\1\b2\s[11]\i[33]Hm. \w8Fai is... \w8\s[16]\i[61]Very interesting, \w4if that's the word I'm looking for.\w8\w8\0\s[1]\i[35]\i[61](...?!)\w8\1\n\n[half]\i[32]...In a good way. \w8I suppose I'm somewhat indebted to her when she first saved me from those... \w8\![anim,stop,32]\i[31]Thieves, \w8\s[16]\i[61]but she kept pestering me after the fact because she wanted to know more about Fenara...\w8\w8\0\n\n[half]\s[6]Tahir, stop pretending like you don't like me..!!\w8\w8\1\n\n[half]\s[11]\i[12]\i[32]\i[62]Ah, \w2sorry. \w8I really don't mean to sound too harsh when I recount when we met... \w8\w8\0\s[1]\i[13]\i[32]\1\s[16]\i[61]I'm not annoyed by her now. \w8She's very smart and I admire her tenacity... \w8\s[11]\i[12]\i[34]Which is part of why I'm tagging along with her now.\w8\w8\0\n\n[half]\s[3](Hehehe~)"
+
+	"%(introqend)"
+}
+
 //Hotkeys
 OnKeyPress
 {
 	if reference0 == "f1"; "\![open,readme]"
 	elseif reference0 == "t"; OnAiTalk
 	elseif reference0 == "r"; OnLastTalk
+	elseif reference0 == "f5" && SHIORI3FW.DebugMode; "\![reload,ghost]"
 }
 
 //Happens about 30 seconds after a script ends, by default, to bring them back to normal poses
@@ -304,8 +368,8 @@ themself	{"%(pronouns[4])"}
 //You can change the name of this function if you want! I kept it short so it's fast to type
 p
 {
-	if pronouns[5] == 1; _argv[1] //they are
-	else; _argv[0] //he is/she is
+	if pronouns[5]; _argv[0] //they are
+	else; _argv[1] //he is/she is
 }
 
 //using input cancel for firstboot, from x. template

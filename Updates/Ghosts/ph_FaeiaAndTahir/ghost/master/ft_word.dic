@@ -47,6 +47,7 @@ tidle
 
 //utility envelopes
 
+//userinfo[2][0]
 //colors: cyan, blue, violet, red, orange, yellow, lime, green
 
 r.green 		{if SHIORI3FW.BalloonName != "Stitched Together" || Flag("NoResoColor"); ""
@@ -99,5 +100,15 @@ r.elem
 		when "yellow"; "bramble"
 		when "lime"; "bramble-aether"
 		when "gray", "grey", "grayscale", "greyscale"; "none"
+	}
+}
+
+r.coolwarm
+{
+	case _argv[0]
+	{
+		when "cyan", "blue", "green"; "cool"
+		when "red", "orange", "yellow"; "warm"
+		others; "ambi"
 	}
 }

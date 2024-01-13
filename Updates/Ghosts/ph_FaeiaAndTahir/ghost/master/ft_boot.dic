@@ -192,6 +192,7 @@ OnInitialize
 	if !ISVAR("tf_touch"); tf_touch = (0,0,0,0,0); rf_touch = (0,0,0,0,0)
 	if !ISVAR("tt_touch"); tt_touch = (0,0,0,0,0,0); rt_touch = (0,0,0,0,0,0)
 	if ARRAYSIZE(battlewins) == 3; battlewins = (0,0,0,0)
+	//v1.0.2
 }
 
 OnBoot
@@ -204,19 +205,26 @@ OnBoot
 	
 	"\1\s[11]\0\s[1]"
 	--
-	if _today == _user_birthday
+	if _today == "1/23" || _today == "7/20" //idrk if you reload and these dialogues pop up again. only change it if ppl complain LOL
 	{
+		if day == "23" //faeia's birthday
+		{AddFlag("E.FaiBDay")
+		"\t\s[2]Gassp! \w4No way! \w4It's %(user[1])!! \w8\w8\s[3]This is the greatest coincidence ever!! EEEEE!!\w8\w8\w8\1\s[13]\i[31]Pff- \w8\w8\s[13]What Fai means to say is that it's her birthday today. \w8\w8\s[16]\i[32]\i[61]She would NOT stop talking about wanting to see you today, and now she got what she wanted!\w8\w8\w8\0\n\n[half]Hehe! \w2Yes I did~~ \w8Heyy, %(user[1]), are you gonna get me anything coooool this Jahan 23rd~~~??\w8\w8\w8\1\n\n[half]Aaand there she goes.\w8\w8\w8\0\n\n[half]\s[1]\i[35]\i[61]Hey, what's that supposed to mean..?!"}
+		else //tahir's birthday
+		{AddFlag("E.TamBDay")
+		"\t\1\i[90]Ah- \w8H-Hello, %(user[0]).\w8\w8\0\i[35]\i[61]PFFT, what was that?! \w8Weren't you JUST saying how cool it would be to see them today?!\w8\w8\1\n\n[half]\i[32]H-Huh? \w4I never said anything like-\w4\0\n\n[half]\s[3]%(Capitalize(user[1]))~! \w6It's Augin 20th! \w6Which is Tahir's birthday!! Happy birthday Tahir!!!\w8\w8\1\n\n[half]\s[15]\i[90]Agh, yes, yeah, it's my birthday. \w8\w8\s[11]\i[12]\i[90]G-Good to see you today, %(user[2])..."}
+		--
+		if _today == _user_birthday
+		"\1\s[11]\0\s[1]\i[14]\x...Waaaaait. \w8\w8\1\i[32]\i[13]\0\s[3]IT'S YOUR BIRTHDAY TOO!! \w8\w8Oh my GOSH, birthday twins!! \w8We gotta celebrate together!!!\w8\w8\1\s[13]Pfft, calm down, Fai. \w8\i[31]Happy birthday to you too, %(user[2])."
+		--
+		"\e"
+	}
+	elseif _today == _user_birthday
+	{
+		//LMAO yes tahir and faeia's birthdays are priority over the user's. sorry AUGHEAIGWJF just dont have a birthday on the day of THEIR birthdays. easy /j
 		"\1\s[-1]\0\s[2]Woah woah woah, waiit!! \w8%(Capitalize(user[1]))!!! \w8Is that you?! \w8\w8\s[3]Hey! Isn't it your birthday today?! \w2%(nowmonth) %(day), right?!\w8\w8\w8\1\s[16]Faeia, what are you- \w8\w8\s[11]Oh.\w8\w8\w8\i[32]\0\n\n[half]\s[1]\i[1]\i[34]Shshshh no time to talk.. \w8\w8\s[3]It's time to celebrate!!!! \w8\w8Happy birthday, %(user[0])~!\w8\w8\w8\1\n\n[half]\![anim,stop,32]\i[34]Ah, I see. \w8\w8\s[13]\![anim,stop,90]\i[31]Happy birthday as well, %(user[0]). \w8May the Caretakers smile upon you.\w8\w8\w8\0\n\n[half]Pfft, what? \w8\w8\s[1]\i[32]I've never heard you say that before! \w8\![anim,stop,32]\i[35]He's just trying to stick to formalities.\w8\w8\w8\1\n\n[half]\s[11]\i[32]\i[90]Ah- \w8\s[15]\![anim,stop,91]\i[90]Y-Yeah, \w4you're right. \w8\w4Sorry, \w2I%(br)don't really say stuff like this often... \w8\w8\i[31]Um, my sentiments are real, though...\w8\w8\w8\0\n\n[half](Hehe~!)\e"
 	}
-	elseif _today == "1/23" //faeia's birthday
-	{
-		"\s[2]Gassp! \w4No way! \w4It's %(user[1])!! \w8\w8\s[3]This is the greatest coincidence ever!! EEEEE!!\w8\w8\w8\1\s[13]\i[31]Pff- \w8\w8\s[13]What Fai means to say is that it's her birthday today. \w8\w8\s[16]\i[32]\i[61]She would NOT stop talking about wanting to see you today, and now she got what she wanted!\w8\w8\w8\0\n\n[half]Hehe! \w2Yes I did~~ \w8Heyy, %(user[1]), are you gonna get me anything coooool this Jahan 23rd~~~??\w8\w8\w8\1\n\n[half]Aaand there she goes.\w8\w8\w8\0\n\n[half]\s[1]\i[35]\i[61]Hey, what's that supposed to mean..?!\e"
-	}
-	elseif _today == "7/20" //tahir's birthday
-	{
-		"\1\i[90]Ah- \w8H-Hello, %(user[0]).\w8\w8\0\i[35]\i[61]PFFT, what was that?! \w8Weren't you JUST saying how cool it would be to see them today?!\w8\w8\1\n\n[half]\i[32]H-Huh? \w4I never said anything like-\w4\0\n\n[half]\s[3]%(Capitalize(user[1]))~! \w6It's Augin 20th! \w6Which is Tahir's birthday!! Happy birthday Tahir!!!\w8\w8\1\n\n[half]\s[15]\i[90]Agh, yes, yeah, it's my birthday. \w8\w8\s[11]\i[12]\i[90]G-Good to see you today, %(user[2])...\e"
-	}
-	elseif _timesince >= 365 //hrm. what's a good timeframe to use? a year? 6 months? not sure :Vc
+	elseif _timesince >= 182 //hrm. what's a good timeframe to use? a year? 6 months? not sure :Vc
 	{
 		"\1\i[32]\0\i[14]...WOAH, \w2no way! \w8\s[3]I think that's %(user[2])..!!\w8\w8\1\s[11]%(Capitalize(user[1]))? \w6Really? \w8Ah, it's been a while... \w8\s[13]\i[31]Good to see you again. \w8How've you been?\e"
 	}
@@ -270,10 +278,43 @@ OnBoot
 	}
 }
 
+OnGhostChanging //im adding this because I DONT WANT TO RESET VARIABLES WHEN RELOADING.... hope this doesnt break anything!!!!!
+{
+	_path = REPLACE(SHIORI3FW.Path,"\","/")
+	_path = REPLACE(_path,"ghost/master/","")
+
+	if reference3 == _path //If reloading.
+	{
+		"\0\_q(Reloading...)\w8\w8\e"
+	}
+	else
+	{
+		OnClose
+	}
+}
+
+OnGhostChanged 
+{
+	_path = REPLACE(SHIORI3FW.Path,"\","/")
+	_path = REPLACE(_path,"ghost/master/","")
+
+	if reference3 == _path //Finished reloading.
+	{
+		"\0\_q(They're back!)\e"
+	}
+	else
+	{
+		OnBoot
+	}
+}
+
 OnClose
 {
 	lastclosed = ("%(year)","%(month)","%(day)","%(hour)","%(minute)","%(second)") //This tracks the last time the ghost was closed.
 	up_all = up_total
+		
+		RemoveFlag("E.FaiBDay")
+		RemoveFlag("E.TamBDay")
 
 	{"\1\s[11]\0\s[1]\i[35]Aww, you're going?\w8\w8\1\i[32]It's about time we get going as well, Fai. \w8"
 	--
@@ -290,11 +331,11 @@ OnClose
 
 	"\1\s[11]\0\s[1]Oh, yeah! \w6You've got things to do, don't you %(user[0])?\w8\w8\1Mhmm. \w6Farewell. \w8I wish you luck, where ever you're going."
 	"\1\s[11]\0\s[1]Oh, of course! \w8See you around then, %(user[1])!\w8\w8\1Yes, goodbye. \w6I hope we'll see eachother again soon. \w6\i[34]You're pleasant company.\w8\w8\0\n\n[half]\s[3]Hehe, awww~ \w8Tahirr~~\w8\w8\1\n\n[half]\s[11]\i[33]\i[90]W-What? \w8\w4I-It's true..."
-	"\0\s[1]\i[13]\i[32]\1\s[14]...Huh, \w2I feel like I'm forgetting-- \w8Oh! \w8\w8\s[11]\i[32]Fai, I have a \w4package \w4to drop off in Fenr...\w8\w8\0\![anim,stop,13]\i[14]Eh?! \w6We're pretty far... \w8\s[1]\i[35]Looks like we gotta get going, then. \w8Seeya, %(user[1])..!"
+	"\0\s[1]\i[13]\i[32]\1\s[14]...Huh, \w2I feel like I'm forgetting-- \w8Oh! \w8\w8\s[11]\i[32]Fai, I have a \w4package \w4to drop off in Fenr...\w8\w8\0\![anim,stop,13]\i[14]Eh?! \w6We're pretty far... \w8\s[1]\i[35]Looks like we gotta get going, then. \w8Seeya, %(user[1])!"
 
 	//--user environment!
-
-	//uh... eventually, anyway.
+	if up_mins <= 5
+	{"\1\s[11]\0\s[1]Ooh, getting going already? \w8\i[35]Was nice to catch up with you for a bit!\w8\w8\1Mm. \w8\i[12]See you around, %(user[2])."}
 	--
 	"\w8\w8\-" //This is what makes the ghost close (after a short pause), do not remove the \- , and MAKE SURE you don't use a \e before this point or it won't work
 }

@@ -1,6 +1,5 @@
 //Separate from the menus because you could put other interactions here, like poking or booping or punching or asking about various hotspots
 
-//Separate from the menus because you could put other interactions here, like poking or booping or punching or asking about various hotspots
 OnMouseDoubleClick
 {
 	if reference5 == 0 //reference5 is the mouse button being clicked, in this case a left click
@@ -86,6 +85,11 @@ FPet : nonoverlap_pool
 	{
 		//they have no negative route so i can just have them being happy and silly!!! LETS GOOOOOOO
 
+		if month == 1 && day == 23
+		{
+			"\1\s[11]\i[32]\0\s[1]\i[14]Could this be... \w8\s[3]Birthday pats?!?! \w8\w8Very appreciated, %(user[1])~!\e"
+		}
+
 		"\1\s[11]\i[32]\0\s[1]\i[34]\i[29](She seems to appreciate the gesture.)\e"
 		"\1\s[11]\i[33]\0\s[1]\i[12]\i[34](She leans into your hand, looking very smug.)\e"
 		"\1\s[11]\i[32]\0\s[1]\i[34]\i[29](She sighs contentedly.)\e"
@@ -115,12 +119,9 @@ FPet : nonoverlap_pool
 			"\1\s[11]\i[12]\i[35]\i[62]\0\s[1]\i[35]\i[62]WOW, %(user[1]), do you EVER get tired of doing this..?!\e"
 			}
 		}
-		elseif rf_touch[0] >= 50 || tf_touch[0] >= 100
+		elseif (rf_touch[0] >= 50 || tf_touch[0] >= 100) && !Flag("TPetJealous") 
 		{
-			if !Flag("TPetJealous") 
-			{
-				"\t\0\s[1]\i[34]\1\s[16]\i[31]...Fai, \w6you're really okay with this..?\w8\w8\0\s[1]\i[13]\i[33]...Tahir. \w8\![anim,stop,13]\i[14]If you want to pet me too... \w8\1\i[90]\0\s[1]\i[35]\i[62]\![anim,stop,91]Stop being so awkward about it! \w8It's not like we're little bunnies anymore!!\w8\w8\w8\1\n\n[half]\![anim,stop,31]\i[30]....Mgnh. \w8Okay. \w8\w8...In front of %(user[2])..??\w8\w8\0\n\n[half]\s[3]PFFT, oh my VALA. \w8Dude it's fine!! \w8Look, you totally have the Faeia seal of approval to pet me whenever you want from now on~~\w8\w8\1\n\n[half]\s[15]\i[90]\![anim,stop,91]OKAY, okay, okay, okay, got it, thank you, let's stop discussing this now.\w8\w8\0\n\n[half](HAHAHAHAHA OKAY...)\![raise,OnDialogueVars,TPetJealous]\e"
-			}
+			"\t\0\s[1]\i[34]\1\s[16]\i[31]...Fai, \w6you're really okay with this..?\w8\w8\0\s[1]\i[13]\i[33]...Tahir. \w8\![anim,stop,13]\i[14]If you want to pet me too... \w8\1\i[90]\0\s[1]\i[35]\i[62]\![anim,stop,91]Stop being so awkward about it! \w8It's not like we're little bunnies anymore!!\w8\w8\w8\1\n\n[half]\![anim,stop,31]\i[30]....Mgnh. \w8Okay. \w8\w8...In front of %(user[2])..??\w8\w8\0\n\n[half]\s[3]PFFT, oh my VALA. \w8Dude it's fine!! \w8Look, you totally have the Faeia seal of approval to pet me whenever you want from now on~~\w8\w8\1\n\n[half]\s[15]\i[90]\![anim,stop,91]OKAY, okay, okay, okay, got it, thank you, let's stop discussing this now.\w8\w8\0\n\n[half](HAHAHAHAHA OKAY...)\![raise,OnDialogueVars,TPetJealous]\e"
 		}
 	}
 }
@@ -229,12 +230,15 @@ TPet : nonoverlap_pool
 
 		if rt_touch[0] <= 5
 		{
+			if month == 7 && day == 20
+			{"\0\s[1]\i[32]\1\s[11]\i[90]'S this for my birthday..? \w8\w8\i[33]Uh, \w8thank you, \w8I suppose... \w8\w8I-I mean that.\e"}
+			else
+			{"\0\s[1]\i[32]\1\s[11]\i[33]\i[90]Oh...\e"
+			"\0\s[1]\i[32]\1\s[11]\i[33]\i[90]...\e"}
+
 			"\0\s[1]\i[32]\1\s[11]\i[34]\i[90]\i[29](He's fidgeting with his hands.)\e"
 			"\0\s[1]\i[32]\1\s[11]\i[33]\i[90]\i[29](Looks like he's not sure how to respond.)\e"
 			"\0\s[1]\i[35]\1\s[11]\i[32]\i[90]\i[29](...His face blushes very easily.)\e"
-
-			"\0\s[1]\i[32]\1\s[11]\i[33]\i[90]Oh...\e"
-			"\0\s[1]\i[32]\1\s[11]\i[33]\i[90]...\e"
 
 			if tt_touch[0] >= 30
 			{
