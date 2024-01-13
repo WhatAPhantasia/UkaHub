@@ -92,7 +92,7 @@ OnNickname : all
 {
 	if reference0 == 0 //Faeia
 	{
-		"\0\_q(What would you like Faeia to nickname you?)\n(She likes cutesy spins on names, like ""Linny"" for Linn. She also likes puns!)"
+		"\0\_q(What would you like Faeia to nickname you?)\n(She likes cutesy spins on names, like ""Tamtam"" for Tahir. She also likes puns!)"
 		"\![set,balloontimeout,-1]\![open,inputbox,OnNicknameTeach,-1,--reference=0]"
 		"\n\n\![*]\q[Back,OnSakuraSettings]  \![*]\q[Nevermind,blank]"
 	}
@@ -216,6 +216,8 @@ OnCustomPronouns : all
 	{"\![raise,OnPronouns,custom,%(reference2)]"}
 	else
 	all:{
+		pronouns = IARRAY
+		pronouns = SPLIT(reference0,"/")
 		pronouns ,= 0
 		
 		"\0\t\*\_q"
@@ -602,11 +604,11 @@ OnResoTeach : all
 
 		if reference0 != "grayscale"
 		{
-			"\![*]\q[Bright and Saturated,OnResoTeach,%(reference1),confirm,%(reference0),strong]%(newline)\f[align,right]"
+			"\![*]\q[Bright/Saturated,OnResoTeach,%(reference1),confirm,%(reference0),strong]%(newline)\f[align,right]"
 			"Strong (Easy)\n\f[align,default]"
-			"\![*]\q[Normal and Mild,OnResoTeach,%(reference1),confirm,%(reference0),normal]%(newline)\f[align,right]"
+			"\![*]\q[Normal/Mild,OnResoTeach,%(reference1),confirm,%(reference0),normal]%(newline)\f[align,right]"
 			"Medium (Normal)\n\f[align,default]"
-			"\![*]\q[Dark and Pale,OnResoTeach,%(reference1),confirm,%(reference0),weak]%(newline)\f[align,right]"
+			"\![*]\q[Dark/Pale,OnResoTeach,%(reference1),confirm,%(reference0),weak]%(newline)\f[align,right]"
 			"Weak (Hard)\n\f[align,default]"
 		}
 		else
@@ -772,31 +774,31 @@ OnCareTeach : all
 		//------------
 
 		"\1\s[11]\0\s[1]\i[14]"
-		if userinfo[2][0] != "grayscale"
+		if userinfo[2][0] == "grayscale" && RAND(2)
+		{
+			"You're still committing to the Caretakers, even when..? \w8\w8\s[5]\i[31]WAIT, wait, that's none of my business!! \w8"
+			"RIGHT, %(Capitalize(reference1))"
+			if STRLEN(reference2) > 0; " and %(Capitalize(reference2))"
+			"...\w8\w8"
+		}
+		else
 		{
 			"Oh, %(Capitalize(reference1))"
 			if STRLEN(reference2) > 0; " and %(Capitalize(reference2))"
 			", huh?\w8\w8"
-		}
-		else
-		{
-			"You're still committing to the Caretakers, even with your..? \w8\w8\s[5]\i[31]WAIT, wait, that's none of my business!! \w8"
-			"RIGHT, %(Capitalize(reference1))"
-			if STRLEN(reference2) > 0; " and %(Capitalize(reference2))"
-			"...\w8\w8"
 		}
 
 		//------------
 
 		if ASEARCH("vala",_term) != -1
 		{
-			"\n\n[half]\s[1]\i[31]Hehe, I'm gonna admit to you, %(user[1]), I personally only follow Vala cause... \w8\s[3]Xe has the best stories in all the old manuscripts! \w8TOTAL girlboss, if you ignore all the petty stuff!"
+			if ASEARCH("fenr",_term) != -1; "\n\n[half]\s[1]\i[35]\i[62]...Wow, saying that out loud is REALLY weird. \w8\w4\s[1]\i[14]I\i[32] mean, you already know how both the Fenara and Valarian government feel about people who commit to the both of them, so I won't talk about it, but... \w8\w4\s[1]\i[35]I haven't actually met someone who does! \w8\w4Cool to know, %(user[1])!\w8\w8\1\s[11]\i[34]Yeah. \w8\i[12]If both of their teachings work for you somehow, that's good." //TODO: Expressions, formatting, and testing required
+			else; "\n\n[half]\s[1]\i[31]Hehe, I'm gonna admit to you, %(user[1]), I personally only follow Vala cause... \w8\s[3]Xe has the best stories in all the old manuscripts! \w8TOTAL girlboss, if you ignore all the petty stuff!"
 		}
 		if ASEARCH("fenr",_term) != -1
 		{
-			"\1"
-			if ASEARCH("vala",_term) != -1; "\w8\w8\s[13]Pfft. \w8\0\s[1]\1\![anim,stop,90]\i[1]\i[32]...Really, though, following Fenr, too? \w8\w8That seems extremely... \w8\s[14]\i[1]Not very compatible? \w8\w8\s[14]They hate each other and their ideals don't match at all, but. \w8\s[11]\i[12]If it \w2works for you, good for you."
-			else; "\i[13]\i[33]\0\s[1]\i[35]\1...Don't look at me. \w8\w8\0\s[1]\1\s[11]\i[13]\i[62]It's not my place to talk about \w8my opinons \w8on Fenr here. \w8\s[13]\i[32]\![anim,stop,90]Only thing I can say is that ve has the funniest personality in the old manuscripts."
+			if ASEARCH("vala",_term) != -1; "" 
+			else; "\1\i[13]\i[33]\0\s[1]\i[35]\1...Don't look at me. \w8\w8\0\s[1]\1\s[11]\i[13]\i[62]It's not my place to talk about \w8my opinons \w8on Fenr here. \w8\s[13]\i[32]\![anim,stop,90]Only thing I can say is that ve has the funniest personality in the old manuscripts."
 		}
 		if ASEARCH("linn",_term) != -1
 		{
@@ -809,7 +811,7 @@ OnCareTeach : all
 		{
 			if STRLEN(reference2) > 0; "\w8\w8"
 			"\1\s[11]\i[34]\0\s[1]\i[35]\i[62]\n\n[half]"
-			"...Ah, wait, we barely know anything about Pont, no one from the Bramblebrush really TALKS about them. \w8All up in the Aetherbrush and staying away from the Bramblebrush and all. \w8\1\s[11]\0\s[1]Still, cool to know!"
+			"...Ah, wait, we barely know anything about Pont, no one from the Bramblebrush really TALKS about it. \w8All up in the Aetherbrush and staying away from the Bramblebrush and all. \w8\1\s[11]\0\s[1]Still, cool to know!"
 		}
 	}
 

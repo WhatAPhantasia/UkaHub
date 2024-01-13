@@ -481,7 +481,8 @@ OnDialogueVars
 		}
 		others
 		{
-			AddFlag("%(reference0)")
+			if !Flag(reference0); AddFlag("%(reference0)")
+			else; RemoveFlag("%(reference0)")
 		}
 	}
 }

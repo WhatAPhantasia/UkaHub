@@ -306,13 +306,16 @@ OnFQuestionMenu : all
 OnFQ.Faeia : nonoverlap_pool
 {
 	if !Flag("FQFaeia")
-	{AddFlag("FQFaeia")
-	"\0\b2\s[1]\i[14]Oh! \w8\s[1]\i[35]\i[62]Yeah, I guess I haven't really introduced you to ME yet... \w8\s[1]I'm Faeia! \w8From Stoneveil, in Valaria!! \w8\w8\i[34]I'm a mage, and I'm mostly just going around the Bramblebrush for more experience outside of my home, you know? \w8Taking quests and all that? \w8\w8\s[5]\![anim,stop,91]\i[31]But also... \w8Tensions between Valarians and Fenaras are getting kinda bad, and there's something weird going on with the Resonance around the Bramblebrush. \w8\s[5]\![anim,stop,91]Since I'm already out here, I figured I should try to sort some of that out as well, you know..?\w8\w8\1\s[11]\i[34]Mm. \w8A lofty goal, but we've made progress on it.\w8\w8\0\n\n[half]\s[1]\i[35]Mhmm! \w8\w4\s[3]\![anim,stop,90]But other than that, I'm just here to experience more stuff~!"}
+	{
+		AddFlag("FQFaeia")
+		OnPlayIntro.FF
+	}
 	else 
 	{
 		"\0\s[4]Hmmm... \w8I actually just graduated with a Silver Degree from the Valarian Academy of Resonance, like, a few months ago, and I got tons of certificates for Resonance use... \w8\s[3]\![anim,stop,90]It was fun, and I learned a lot! \w8\w8I figure once I've done all I wanted to out here, maybe I can go back and get a higher degree..."
 		"\0\s[4]I love pastries... \w6Especially if they're sweet!! \w8\w8\s[1]\i[31]Hehehe, maybe you can buy me some..?!?!\w8\w8\1\s[11]\i[33]Fai, we're not extorting %(user[2])."
 		"\0\s[1]\i[14]My hair isn't naturally white... \w8\s[1]\i[33]Um, obviously. \w8\w8\s[1]\i[35]\i[62]Big Resonance accident happened. \w8I kinda miss my black hair, but I mean, I'm not against the white... \w8Free hair dye! \w6Yay!"
+		"\0\s[3]Juuuust gonna let you know, %(user[1]), I SUPER love carrot cake...\w8\w8\1\s[11]\i[13]\i[33]\i[62]Fai, everyone likes carrot cake.\w8\w8\0\n\n[half]\s[1]\i[12]\i[35]\i[61]TAMTAM, you KNOW that's not what I mean when I say this!!! \w8\1\s[11]\i[12]\i[33]\0\s[3]I \w2LOVE\w2 carrot cake. \w8\w4Just know that..."
 	}
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
@@ -321,8 +324,10 @@ OnFQ.Faeia : nonoverlap_pool
 OnFQ.Tahir : nonoverlap_pool
 {
 	if !Flag("FQTahir")
-	{AddFlag("FQTahir")
-	"\0\b2\s[1]\i[14]Hm? \w8Oh, Tahir? \w8\w8\s[1]\i[34]Yeah, he's a Fenara, and a rogue. \w8\s[6]And YES, we're friends!! \w6If you have an issue with that, I'm bonking you with my staff!\w8\w8\1\s[16]\i[61]%(Capitalize(user[2])) is fine with it, obviously. \w8\i[32]They would've reacted MUCH earlier if they weren't...\w8\w8\0\n\n[half]I know, but I have to be sure!! \w8There are TONS of jerks out there! \w8\w4\s[1]ANYWAYS, I met him in my first year at the academy. \w8He ended up in the academy town in disguise and got some thugs on his trail, \w2and I just helped him out! \w8\s[3]We're besties now~"}
+	{
+		AddFlag("FQTahir")
+		OnPlayIntro.FT
+	}
 	else 
 	{
 		"\0\s[3]Tahir is the coolest~! \w8Best travelling companion I could ask for! \w8SOOO strong!!\w8\w8\1\s[11]\i[33]\i[90]...Um, thank you..? \w8I don't think that was what %(user[2]) was asking, though..."
@@ -336,15 +341,30 @@ OnFQ.Tahir : nonoverlap_pool
 
 OnFQ.People
 {
-	//yeah sorry this redirects to the anchor bc i don't have. any ideas atm
 	"\![raise,OnAnchorSelect,AFQ.People]"
-	//--
-	//"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+
+	//nvm i dont want the menus to be big. oops
+	/*
+	"\0\b2\_q\![set,autoscroll,disable]"
+	"\f[align,center]\f[bold,1]-- PEOPLE! --\n\n\f[bold,default]\f[align,default]"
+
+	"\_a[AFQ.NAMII]\![*]\_a\q[NAMII,OnFQ.NAMII]\n"
+	"\_a[AFQ.Parents]\![*]\_a\q[Parents,OnFQ.Parents]\n"
+	"\_a[AFQ.Uhir]\![*]\_a\q[Uhir,OnFQ.Uhir]\n"
+	"\_a[AFQ.Lopei]\![*]\_a\q[Lopei,OnFQ.Lopei]\n"
+	"\_a[AFQ.Sylvie]\![*]\_a\q[Sylvie,OnFQ.Sylvie]\n"
+	"\_a[AFQ.Bonnie]\![*]\_a\q[Bonnie,OnFQ.Bonnie]\n"
+	"\_a[AFQ.Kari]\![*]\_a\q[Kari,OnFQ.Kari]\n"
+
+	"\_q\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
+	*/
 }
 
 OnFQ.Vala : nonoverlap_pool
 {
 	"\0\s[1]I like adventuring around, but at the end of the day, Valaria's where I'm most comfortable... \w8\i[34]\i[62]All the crunchy snow and soft lantern lights~~ \w8The familiar stone architecture~~ \w8\s[3]No place like home, y'know?"
+	"\0\s[1]I like talking about Stoneveil. \w8\w4\i[35]It's the perfect balance of stability and change in my life. \w8\s[3]Allll the shops from my childhood are still there, and my childhood friend Lopei set up their shop in town after we graduated! \w8It's nice, you should visit!"
+	"\0\s[1]\i[12]\i[61]I'm gonna talk about my childhood house because I want to and I can!! \w8\s[1]\i[1]\i[35]OKAY so like, my dads have done this bit ever since I went to the academy, where they shift around the furniture in the house every few times I visit?? \w8\w8\s[3]It's really disorientating \w4and SUPER funny. \w8I think it's cool how a familiar place can change and still give you the same feelings, you know?"
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }
@@ -353,6 +373,8 @@ OnFQ.Gods : nonoverlap_pool
 {
 	"\0\s[4]You probably already know this, but \s[1]\i[35]\i[61]YEAH, I think the feud between Vala and Fenr is STUPID!! \w8\w8\i[1]Like, why'd you make people to fight your battles FOR you? \w8Manage your own problems! \w8Sheesh! \w8\w4\s[5]\i[1]\i[31]\![anim,stop,91]Sucks even more cause people between Valaria and Fenara just hate each other for no reason now..."
 	"\0\s[1]\i[1]Vala's fashion in all the old manuscripts of her... \w8\i[35]I hope those manuscripts are accurate, because WOW are they COOL!! \w8\s[3]\![anim,stop,0]I totally don't model anything after them or anything..."
+	"\0\s[1]\i[35]\i[62]Like, sure, I think the Vala Fenr feud is dumb, but I still REALLY like Vala and I wanna BE like her, you know?! \w8She's just so... \w8\s[3]\![anim,stop,90]\![anim,stop,0]Cunning! \w8\w8\s[5]\![anim,stop,91]I can be cunning whenever I want, yeah, but sometimes I get too excited and talk before I think..."
+	"\0\s[1]\i[14]A lot of my friend group at the academy followed Pont. \w8\w2\s[1]\i[35]\i[62]I personally don't really get Pont, like... \w8A lot of what it stands for is super contradictory to me. \w8\w2\s[4]I've kinda been wanting to understand it better while I'm out adventuring like this..."
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }
@@ -370,7 +392,8 @@ OnFQ.Magic : nonoverlap_pool
 	"\0\s[1]\i[35]I'm GOOD at making runes~~!! \w8I don't really like Alnoth's system, so I break away from it a lot, but I wasn't top of my class for nothing!"
 	"\0\s[1]\i[1]My cyan Resonance makes it so I'm just more naturally inclined towards the Aether and Moons, \i[35]but that doesn't mean I can't do any Bramble or Sun Runes! \w8\i[62]It just takes a little more outta me, haha..."
 	"\0\s[1]\i[13]\i[33]...I guess I was lucky for being made with such a vivid Resonance. \w8\s[6]\![anim,stop,91]Really, though, I'd like to imagine much of my proficiency comes from me putting so much effort into studying this stuff!"
-	"\0\s[1]\i[34]\i[62]Having a Resonance Point on my chest kinda sucks when I overdrive my Resonance, cause I get REALLY painful chest aches... \w8\s[5]\i[31]Doesn't happen too often anymore cause the academy did wonders for my capacity for it, but it feels like I'm DYING when it does..!"
+	"\0\s[1]\i[34]\i[62]Having a Resonance Point on my chest kinda sucks when I overdrive my Resonance, cause I get REALLY painful chest aches and chills... \w8\s[5]\i[31]Doesn't happen too often anymore cause the academy did wonders for my capacity for it, but it feels like I'm DYING when it does..!"
+	"\0\s[1]\i[13]\i[34]The big freeze that cool Resos feel when overdriving is... \w8\s[1]\i[14]Really indescribable. \w8\w4\s[5]\![anim,stop,91]\i[1]\i[11]\i[32]\i[61]It's been a while since I've felt it, but I still know how it feels, my heart stopping and runninh a chill through my blood..."
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }
@@ -379,6 +402,7 @@ OnFQ.Battle : nonoverlap_pool
 {
 	"\0\s[1]\i[14]\i[34]\i[62]I'm gonna be honest, I'm not too great at close range attacks, when it comes to Resonance... \w8\s[4]If I were to use a rune, I'd use an explosion one... \w8\w2\s[1]\i[1]\i[35]But also, it's way easier to just hit people with my staff!! \w8\w8\s[9]The blade is made from SOLID eucanium! \w8\s[1]\i[2]\i[35]Of course I'm gonna use it!!!"
 	"\0\s[1]\i[1]\i[34]Hehe... \w8My favorite monster is DEFINITELY water slimes. \w8\s[3]There's just so many variations of them, and they're sooo cute and squishy!! \w8There's so much research into the benefits of every one of their byproducts... \w8It's just so interesting~~"
+	"\0\s[6]\![anim,stop,91]I don't know why so many people are surprised when they see my arms, or whenever I deck some jerk with my fists. \w8Vala forbid a girl work out!! \w8\w8\s[1]\i[35]\i[62]...I guess the puffy sleeves don't help, though."
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"
 }

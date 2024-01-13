@@ -84,11 +84,14 @@ OnTQuestionMenu : all
 OnTQ.Tahir : nonoverlap_pool
 {
 	if !Flag("TQTahir")
-	{AddFlag("TQTahir")
-	"\0\s[1]\1\b2\s[11]Me? \w8\w4\s[14]I guess I haven't introduced myself yet... \w8\s[11]My name is Tahir. \w8\i[33]I'm mostly just tagging along with Faeia because she has absolutely no idea where she's going, while I do.\w8\w8\0\s[6]Hey!! \w2I know what I'm doing, kind of!! \w8Also, that's not true! \w8We're friends! \w4You have things you want to do on this journey, too!\w8\w8\1\n\n[half]\s[13]Pfft... \w8Sorry. I was teasing you. \w8\i[1]\![anim,stop,90]Fai's right, \w8but you don't need to know the details. \w8\s[11]\i[13]\i[34]I'm just here to explore.\w8\w8\0\n\n[half]\s[1]\i[35]\i[62]Awww, staying mysterious..."}
+	{
+		AddFlag("TQTahir")
+		OnPlayIntro.TT
+	}
 	else 
 	{
 		"\1\s[11]I've spent a lot of time going inbetween Fenara and Valaria, even when I was younger. \w8\i[34]I doubt I'd be able to wander as freely as I have been if not for this tenuous peace..."
+		"\1\s[11]Uh. \w8\i[13]\i[33]I don't have much to say about myself, really. \w8\w4\s[11]\i[12]\i[34]I like experiencing new things. \w8That's about it."
 	}
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
@@ -97,14 +100,15 @@ OnTQ.Tahir : nonoverlap_pool
 OnTQ.Faeia : nonoverlap_pool
 {
 	if !Flag("TQFaeia")
-	{AddFlag("TQFaeia")
-	//the way that he has more to say about faeia than himself :thinking:
-	//ok im gonna clarify right here, whether they are friends or lovers is VERY NEBULOUS. it could go either or tbh. they dont take it too seriously, and neither do i LOL its wtv
-	"\0\s[1]\i[13]\i[32]\1\b2\s[11]\i[33]Hm. \w8Fai is... \w8\s[16]\i[61]Very interesting, \w4if that's the word I'm looking for.\w8\w8\0\s[1]\i[35]\i[61](...?!)\w8\1\n\n[half]\i[32]...In a good way. \w8I suppose I'm somewhat indebted to her when she first saved me from those... \w8\![anim,stop,32]\i[31]Eh, \w8, \w8\s[16]\i[61]but she kept pestering me after the fact because she wanted to know more about Fenara...\w8\w8\0\n\n[half]\s[6]Tahir, stop pretending like you don't like me..!!\w8\w8\1\n\n[half]\s[11]\i[12]\i[32]\i[62]Ah, \w2sorry. \w8I really don't mean to sound too harsh when I recount when we met... \w8\w8\0\s[1]\i[13]\i[32]\1\s[16]\i[61]I'm not annoyed by her now. \w8She's very smart and I admire her tenacity... \w8\s[11]\i[12]\i[34]Which is part of why I'm tagging along with her now.\w8\w8\0\n\n[half]\s[3](Hehehe~)"}
+	{
+		AddFlag("TQFaeia")
+		OnPlayIntro.TF
+	}
 	else 
 	{
 		"\1\s[11]\i[33](...It's hard for me to tell her how I feel about her without being mean about it. \w8\s[16]\i[31]I don't want to be that honest about \w8enjoying being around someone, \w8let alone her. \w8\w8\![anim,stop,31]\i[30]I still feel so immature about this...)"
 		"\1\s[11]She means well, even if she can't word her intentions the best at times. \w8\w6\i[34]...Not an excuse for any missteps she makes, \w2but please be mindful."
+		"\1\s[13]\i[1]\![anim,stop,90]I am \w4honestly \w4amazed at how she does her hair every morning. \w8\i[32]I never really had a knack at braiding hair, or knowing what all those hair products do."
 	}
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
@@ -120,6 +124,7 @@ OnTQ.People
 OnTQ.Fenr : nonoverlap_pool
 {
 	"\1\s[14]I've been all over Fenara, \w2and it all makes it hard for me to choose a favorite place. \w8\s[11]\i[34]I do consider it my home, though."
+	"\1\s[11]\i[34]Something about the smell of smoke reminds me of home. \w8\w4\![anim,stop,34]\i[31]I hate smoke. \w8\w4\s[14]\i[2]And the capitol is really pristine and clean, no thick air or anything. \w8\w8\s[11]\i[13]\i[33]\i[62]I think that's part of why it feels so weird to be in the capitol."
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
@@ -128,6 +133,8 @@ OnTQ.Gods : nonoverlap_pool
 {
 	"\1\s[11]I partially devoted myself to Linn because xe played a big part in my life when I was younger... \w8\s[16]\i[32]\i[61]And I suppose, since my resonance is so weak, I should be closer to the Caretaker that's more devoted to me..."
 	"\1\s[11]\i[33]I'll be honest, \w2Fenr hasn't done much for me... \w8\![anim,stop,33]\i[31]I'm only really close to them because I like Fenara, but other than that, they've been counteractive in my life so far."
+	"\1\s[16]\i[32]\i[61]...People tell me I dress like Fenr. \w8\s[16]\i[31]I guess they're kind of right, but I wish they weren't. \w4It kinda annoys me. \w4\s[16]\i[32]My clothes mean a lot to me, you know?"
+	"\1\s[11]\i[33]I worry that I... \w8\s[16]\i[31]\i[61]Idolize \w8Linn too much? \w8\w4\![anim,stop,31]\i[32]That's a common worry, I think. \w8\w4\![anim,stop,61]\i[60]'Specially knowing how I feel about what Fenr and Vala have done... \w8\w8\s[11]\i[13]\i[33]\i[62]I'm rambling at this point."
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
@@ -151,6 +158,7 @@ OnTQ.Magic : nonoverlap_pool
 OnTQ.Battle : nonoverlap_pool
 {
 	"\1\s[14]I have a few weapons up my sleeve... \w8\i[1]Mostly just small throwing knives and poisons and things, other than my scythe. \w8\s[11]\i[13]\i[34]\i[62]I don't think I could handle a bigger weapon, really..."
+	"\1\s[11]Poison is really useful. \w8\i[12]It was part of what got me more interested in gardening, actually. \w8\s[11]\i[13]\i[33]Of course, you have to be careful using salves and things around other people..."
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnTQuestionMenu]  \![*]\q[Close,blank]"
 }
