@@ -381,7 +381,7 @@ OnFQ.Gods : nonoverlap_pool
 
 OnFQ.World : nonoverlap_pool
 {
-	"\1\s[11]\i[32]\0\s[1]\i[1]\i[32]Ooh, one of my favorite places we've gone is definitely Melody Mine City! \w8\![anim,stop,32]\i[34]It's on the Fenara coast, and the vibes are just so... \w8\i[62]Ahh, what's the word? \w8Beachy? \w2Vacationy? \w8\s[4]It's sooo cool! \w8They're even more lenient on Valarian presence there~\w8\w8\1I enjoy visiting it as well... \w4Just didn't expect you to like it so much. \w8\i[34]\i[13]It's nice.\0"
+	"\1\s[11]\i[32]\0\s[1]\i[1]\i[32]Ooh, one of my favorite places we've gone is definitely Melody Mine City! \w8\![anim,stop,32]\i[34]It's on the Fenara coast, and the vibes are just so... \w8\i[62]Ahh, what's the word? \w8Beachy? \w2Vacationy? \w8\s[4]It's sooo cool! \w8They're even more lenient on Valarian presence there~\w8\w8\1I enjoy visiting it as well... \w4Just didn't expect you to like it so much. \w8\s[11]\i[34]\i[13]It's nice.\0"
 	"\0\s[1]\i[1]The place we found you was in The Aetherbrush, which is what the lands in the clouds above the surface of the Bramblebrush is called. \w8\i[34]Patchwork mountain is the point most people ascend to get there, cause it's also the one pathway to The Caretaker's domain... \w8\w8\s[5]\i[31]Ooph, it's always a pain to go up, though..."
 	--
 	"\w4\_q\n\n\![*]\q[Back,OnFQuestionMenu]  \![*]\q[Close,blank]"

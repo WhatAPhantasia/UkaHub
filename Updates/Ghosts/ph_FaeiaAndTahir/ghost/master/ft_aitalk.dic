@@ -175,7 +175,7 @@ RandomTalk : nonoverlap_pool
 	"\![anim,stop,34]\i[33]...Yes.\e"}
 
 	all:{"\0\s[1]\i[13]\i[32]\1\s[11]\i[32]"
-	"Fai, how do you think Bonnie's doing? \w8\s[14]I mean, last time we saw eachother...\w8\w8\0\n\n[half]"
+	"Fai, how do you think Bonnie's doing? \w8\s[14]I mean, last time we saw eachother...\w8\w8\0"
 	random:{"\s[1]\i[35]\i[62]Hey, I'm sure she's fine! \w8She's like, one of the MOST capable people I've known, her managers can't ge tthe best of her! \w8\w4We'll definitely check in with her soon, though.\e"
 			"\s[1]\i[35]\i[62]Oh, don't worry, she sent me a letter a bit ago!! \w8She gushed a LOT about Sylvie, which is good.\e"
 			"\s[1]\i[35]\i[62]Oh, don't worry, she sent me a letter a bit ago!! \w8\s[1]\i[32]She says she'll have more info on the Caretaker's Daycares when we get back.\e"}}
@@ -198,7 +198,7 @@ RandomTalk : nonoverlap_pool
 	"\s[1]\i[35]Pff-- \w8You said yes in such a roundabout way! \w8\w4\1\i[31]\i[90]\0\s[3]Okay, got it~\e"}
 
 	all:{"\0\s[1]\i[13]\i[32]\1\s[11]"
-	"We passed by a Resonance Jeweler a while ago... \w8\w4\i[32]I don't really need anything, but do you need anything for your studies, Fai?"
+	"We passed by a Resonance Jeweler a while ago... \w8\w4\i[32]I don't really need anything, but do you need anything for your studies, Fai?\w8\w8\0"
 	random:{"\![anim,stop,13]\i[14]Ooh, waiiit! \w8\s[1]\i[35]I was looking for a concentrated gem for this report... \w8I'll check later to see if the price is good.\e"
 			"\![anim,stop,13]\i[14]Ooh, waiiit! \w8\s[1]\i[35]I wanted to see if I could improve my staff's concentration... \w8I gotta remember to check back there!!\e"}}
 
