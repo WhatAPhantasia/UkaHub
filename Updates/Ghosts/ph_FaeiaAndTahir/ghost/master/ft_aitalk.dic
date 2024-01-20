@@ -202,6 +202,11 @@ RandomTalk : nonoverlap_pool
 	random:{"\![anim,stop,13]\i[14]Ooh, waiiit! \w8\s[1]\i[35]I was looking for a concentrated gem for this report... \w8I'll check later to see if the price is good.\e"
 			"\![anim,stop,13]\i[14]Ooh, waiiit! \w8\s[1]\i[35]I wanted to see if I could improve my staff's concentration... \w8I gotta remember to check back there!!\e"}}
 
+	all:{"\1\s[11]\i[32]\0\s[5]\i[32]"
+	"It's a pity Kari never liked the feeling of earrings... \w8You and Sylvie look so pretty with them, I wanted to recommend them a cool one...\w8\w8\1"
+	random:{"\s[13]Hm? \w8What about you? \w8I can get you some Resonance stud clip-ons you'd like.\w8\w8\0\n\n[half]\s[1]\i[35]\i[62]Aww, but those always slip off of my ears no matter what I do!! \w8\s[5]\![anim,stop,91]\i[32]\i[61]\i[90]Your flattery does nothing to make me buy any right now!!\e"
+			"\i[13]\i[62]\i[90]You're comparing me and Sylvie? \w8She has... \w8So many. \w8\w8\![anim,stop,32]\i[34]I wish I could do all that.\e"}}
+
 	//---------------USER ENVIRONMENT VARIABLE DIALOGUE
 
 	//USER STAT DEPENDENT
@@ -265,7 +270,7 @@ RandomTalk : nonoverlap_pool
 	if daytime {
 		all:{"\0\s[1]\i[32]\1\s[11]\i[34]"
 		"Mmm... \w8\i[12]Nice to be up and at 'em.\w8\w8\0"
-		"\![anim,stop,34]\i[35]Pfft, where's this coming from? \w8Just enjoying the day while the sun's up?\w8\w8\1\n\n[half]"
+		"\![anim,stop,32]\i[35]Pfft, where's this coming from? \w8Just enjoying the day while the sun's up?\w8\w8\1\n\n[half]"
 		"\![anim,stop,34]\i[33]Yes, exactly that.\e"}
 
 		all:{"\0\s[1]\i[13]\i[32]\1\s[14]\i[2]"
@@ -274,6 +279,11 @@ RandomTalk : nonoverlap_pool
 		"Okay, I don't know if I've told you guys this yet-- \w8\s[11]\i[31]I had this habit of staring into flashlights. \w8\w4\![anim,stop,31]\i[33]And also the Sun.\w8\w8\0\n\n[half]"
 		"\s[1]\i[35]\i[62]Oh my gosh NOO let's not do this again!! \w8Do NOT look at the sky right now your eyesight can't take it!!!\w8\w4\1\n\n[half]"
 		"\s[11]\i[13]\i[34]\i[62]\i[90](Yeah...)\e"}
+
+		all:{"\1\s[11]\i[32]\0\s[1]\i[14]\i[32]"
+		"It was so weird when I visited Fenara for the first time... \w8\s[1]\i[35]\i[62]It was during the day, and I didn't think all that cloud cover was gonna be, like, a regular thing?? \w8\w8\s[1]\i[14]The sun always manages to peek through the sky in Valaria, have you noticed that?\w8\w8\1"
+		"Yeah, it's because of the different precipitation rates.\w8\w8\0"
+		"\s[6]\![anim,stop,91]\i[90]I know that! \w8\w8I just never experienced weather like that before...\e"}
 	}
 	else {
 		all:{"\1\s[11]\i[32]\0\s[1]\i[32]"
