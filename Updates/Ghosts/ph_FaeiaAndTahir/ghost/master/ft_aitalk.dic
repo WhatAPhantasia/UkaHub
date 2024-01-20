@@ -282,7 +282,7 @@ RandomTalk : nonoverlap_pool
 
 		all:{"\1\s[11]\i[32]\0\s[1]\i[14]\i[32]"
 		"It was so weird when I visited Fenara for the first time... \w8\s[1]\i[35]\i[62]It was during the day, and I didn't think all that cloud cover was gonna be, like, a regular thing?? \w8\w8\s[1]\i[14]The sun always manages to peek through the sky in Valaria, have you noticed that?\w8\w8\1"
-		"Yeah, it's because of the different precipitation rates.\w8\w8\0"
+		"Yeah, it's because of the different precipitation rates.\w8\w8\0\n\n[half]"
 		"\s[6]\![anim,stop,91]\i[90]I know that! \w8\w8I just never experienced weather like that before...\e"}
 	}
 	else {
@@ -406,7 +406,7 @@ RandomTalk : nonoverlap_pool
 		}
 		else
 		{
-			all:{"\1\s[11]\i[32]\i\0"
+			all:{"\1\s[11]\i[32]\i\0\s[1]\i[35]"
 			"Maaaan... \w8I love my friends. \w8This month has been the beeeest.\w8\1\s[11]\i[12]\i[33]\i[62]\e"}
 		}
 	}
