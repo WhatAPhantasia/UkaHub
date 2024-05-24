@@ -29,3 +29,14 @@ surface2
 	collisionex1,bow,regions,hotspot2.png,255,0,0
 	collisionex2,hair,regions,hotspot2.png,0,0,255
 }
+
+surface0-2
+{
+	animation999.interval,never
+	animation999.pattern0,overlayfast,999,0,0,0
+}
+
+surface999
+{
+	element0,overlay,flashbang.png,0,0
+}

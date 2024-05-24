@@ -3,6 +3,8 @@ OnMouseDoubleClick
 {
 	if reference5 == 0 //reference5 is the mouse button being clicked, in this case a left click
 	{
+        "\0\s[0]"
+        --
 		if reference4 == "bow"
         {
             totaltouch[2]++
@@ -31,7 +33,7 @@ OnMouseDoubleClick
         }
         else
         {
-            if RAND(50) > 3
+            if RAND(4) >= 1
             {OnNo}
             else
             {OnTalk}
@@ -55,7 +57,7 @@ OnSakuraMouse : nonoverlap_pool
 	if reference4 == "pet"
 	{
 		stroke++
-		
+
 		if stroke >= _argv[0]
 		{
 			stroke = 0
@@ -65,6 +67,9 @@ OnSakuraMouse : nonoverlap_pool
             if Flag("plspet")
             {
                 RemoveFlag('plspet')
+                
+                "\0\s[0]"
+                --
                 "yaaaaaaay see i no bitey :3 im so nice see"
                 "YIPPEEEEE!!!!!! no biteys see"
                 "yaaaaaaaaaaaaay see :3"
@@ -72,6 +77,8 @@ OnSakuraMouse : nonoverlap_pool
             }
 			else
             {
+                "\0\s[0]"
+                --
                 "pet"
                 "pet pet"
                 "peeeeeeet"
@@ -103,6 +110,8 @@ OnSakuraMouse : nonoverlap_pool
             totaltouch[1]++
             recenttouch[1]++
 
+            "\0\s[0]"
+            --
             "brush"
             "brush brush"
             "bruuuuuush"

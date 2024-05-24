@@ -53,6 +53,7 @@ eepygeneral
     "ooooh what a comfy cozy little bedzzzzzzzzzzmmimimimirrr"
     "sooooooo coooozyyyyyyyyyyyyy zzzzzzzzzzzzzzzzzzzzmmmmmimimimimimi"
     "oh hello %(_name)........ zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
+    "cozy %(_name) material... my FAVORITE"
 }
 
 OnSheEepy
@@ -62,11 +63,12 @@ OnSheEepy
 
     //dang this is really roundabout :Vc optimize later
     //at least it makes the probability higher so \_(O_O)_/
-    if RAND(10) <= 5 {
+    if RAND(10) <= 8 {
         case _name {
             when "phanta" {
                 "the coziest place to sleep is always yourself"
-                "haiiiiiii myself :3 zzzzzzzzzz"}
+                "haiiiiiii myself :3 zzzzzzzzzz"
+                "woah................ phantaception"}
             when "squish", "slime" {
                 "hehehe... slime time... zzzz"
                 "squish squish slime zzzz"
@@ -90,12 +92,27 @@ OnSheEepy
                 "ahhhhhhhh oh noooooo ouchie youchiessssss zzzzzzzz"
                 "no YOU poke poke zzzzzzzzzzzz"}
             when "balloons" {
-                "float float zzzzzzzzzz"}
+                "float float zzzzzzzzzz"
+                "rubber is such a weird teckture to sleep on zzzzzz"}
             when "hydrate" {
                 "drinks all the water then climbs inside. zzzzzz"
-                "i always love a midnight water drinke. zzzzzzz"}
+                "i always love a midnight water drinke. zzzzzzz"
+                "ooooooooooooh how hydrating zzzzzzzzzz"}
             when "skrunkly" {
-                "hello fellow skrunkltky. zzzzzzzz"}
+                "hello fellow skrunkltky. zzzzzzzz"
+                "skrunkles the skrunkcly zzzzzzzzzz"}
+            when "spine" {
+                if reference1 == 0
+                {"crushes all of spines bones as i sleep on them"
+                "softly lays on spine zzzzzzzzzzz"
+                "spine time zzzzzzzzzzzz"}
+                elseif reference1 == 1
+                {"BIRD zzzzzzzzzzzzz"
+                "CAW CAW zzzzzzzzzzzzzzz"}
+                else
+                {"WOAH big bird..... so cozy 🥺🥺🥺"
+                "WOAH big moss!!!! i love you moss! zzz"}
+            }
             others {eepygeneral}
         }
     }
