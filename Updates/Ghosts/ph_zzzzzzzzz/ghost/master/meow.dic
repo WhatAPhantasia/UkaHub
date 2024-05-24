@@ -1,7 +1,7 @@
 OnAiTalk
 {
     //i love you needle.
-    aitalkinterval = (RAND(65) + 1) * 10
+    aitalkinterval = (RAND(9) + 1) * 10
 
 	if CHAIN.IDName == ""
 	{
@@ -51,7 +51,7 @@ RandomTalk
     "let people enjoy things. also let people be little haters. like me >:3"
     "beware the jesters priviledge of the salient"
     "soundcore life q10 %(ANY('not playing sound laptop','buzzes when playing audio help'))"
-    "the delusions are invadin gmy brain (LIKE INVADER ZIM?!!!?)"
+    "the worms are invadin gmy brain (LIKE INVADER ZIM?!!!?)"
     "when the teeth skin go sheowmp shwomp"
     "奇mer"
     "its my first day at neurotypical high school i hope they don't realize im autistic"
@@ -82,8 +82,6 @@ RandomTalk
     "its quite cool how 100 gecs invented music. i like music"
     "seeya, i'm off to the morning market"
     "thanks, keep the change <3"
-    "i'm home! :D (sigh i wish)"
-    "i wanna go  hoooooooooome"
     "to all those wishing i would have longer dialogue: no i simply do not have that much brain space. how dare you demand tha tmuch of me. shushies."
     "bold words from an eyeball. you have no authority here you silly goose"
     "woe! there another goes into the crusher. rookie mistake......."
@@ -98,6 +96,35 @@ RandomTalk
     "be careful with your wireless bass boosting headphones. make sure to thank them every once in a while for their hard work or else it might stop connecting to your devices for you, or stop playing your favorite dubstep track at full volume :("
     "make sure to go a little crazy every once in a while. growl at the postperson. do it before its too late"
     "mrep :3"
+    "what a nice day outside :) idc what time it is ahhh what a nice day"
+    "i love my friends so much :') \w8ur my friend too, silly! youre included!!"
+    "gwuuuuumnle im so tired and eepy 😭 give me a nice cozy bed to sleep on PLEAAAAAAAASEEEE"
+    "maaaaaaaaan i got my spine stolen again ://///// it takes AGGGGESSS to find another good one this SUCKKSS"
+    "im soooooooooooo cute :3 right :3 im cutesies :33"
+    "bro be fr right now..."
+    "its time to LOCK TF IN!!!!!!!!!!!!!! \w8i believe in u friend!!!!!!!"
+    "\i[999]we outta lightbulbs"
+    "in the end, is it all just a dream? \w8would it still be worth it? \w8what's the difference between the control we have in our dreams and the control we have when we're awake? \w8i can't tell the difference."
+    "there are so many cozy things you can sleep on... i must investigate this further...... hmm........."
+    "bro i'll be honest i could not yap that much (contrary to popular belief)"
+    "yk friend i headed into this endeavor intending to be a hater but \w8\s[1]tbh\w8\w8\s[0] i could not muster that today. i would rather spread love and peace and joyousness ^_^"
+    "alright buddy that's enough out of YOU today"
+    "i went outside and saw a butterfly today\e:chain=butterfly"
+    "oh man my wrists hurt from coding... remember to take breaks, ok? i love you!"
+    "idk why but making word envelopes SUCKKSSS cant do it nope no thanksies!"
+    "*i raise a cue card that says %(ANY('laughter','hysteria','cry','scream','panic','crisis','sleep','fall')) on it*\e:chain=cuecards"
+
+    //conversations (anchors)
+    "are you okay down there....? it looks... \w8\w8it looks \_a[convo.dark]dark.\_a"
+
+    //lore
+    "i'm home! :D (sigh i wish)"
+    "i wanna go  hoooooooooome"
+    "i kinda miss . \w8uhhhhhh actually um. \w8damn what was i gonna say\e:chain=misshome"
+    "they call me the spine doctor :3 \w8for assisting my dear friend \_a[spine]spine\_a"
+    "bones hurt from being dropped into \_a[portals]the portal room\_a again :( \w8its ok tho cuz im a ghost so its not all that bad :3"
+    "stop trying to eat me waaaaaaaahhhh!! \w8im not \_a[cake]cake!!!\_a"
+    "\_a[kitkat]she\_a doesn't like it when i go inside her \_a[greenhouse]greenhouse\_a when shes... \w8like that. \w8it's just hard because i can't TELL when she's like that.\e"
 
     parallel Pool("Pool_motion",Flag('nomotion') == 0)
 
@@ -107,11 +134,15 @@ RandomTalk
     "frog on the floor\e:chain=gecfrog"
     "can we pretend that airpl"
     "bfdi ost: ballers playing on repeat in my brainy brain"
-    "reheating gourmet hot chocolate from the soda fountain. blueberry muffins taste better in the morning"
+    "reheating gourmet hot chocolate from the soda fountain. \w8blueberry muffins taste better in the morning"
     "old thoughts floating above a new horizon. something ill never doubt: i know im rotten"
     "memories i've felt before. again and again, those blind my sight\n\n(hold my hand even if i cry: i need to feel like i'm human through you)"
     "do u wanna party malibu barbie are u gonna pack that shit up when it all comes tumbling down"
     "im going crazy little tiny hollywood baby"
+    "i don't want to waste another day away from loving you! \w8got these feelings taking over like the rabbits on the moon!"
+    "oh your heart! \w8aortic work of art!"
+    "obscure the parts within your heart, an apostolic work of art: \w8you know that its the only way to run away."
+    "there's a ghost! \w8in my home! \w8but its better than being alone!!"
     //some of my favorite malay proverbs (also just me and my choppy malay lol)
     "ada udang di sebalik batu"
     "bagai bulan jatuh ke riba... :0"
@@ -125,13 +156,14 @@ RandomTalk
     "mulut tempayan boleh ditutup... mulut manusia bagaimana menetupnya"
     "ikan busuk mula dari kepalanya."
     "merajuk pada yang sudi"
-    "tidak akan gunung lari dikejar. ingat tak?"
+    "tidak akan lari gunung dikejar..."
     "dimana bumi dipijak disitu langit dijunjung."
 }
 
 Pool_motion
 {
-    "%(LoopImage('img\fiji',68,2,1,,,1,,1))\nstay hydrated"
+    "%(LoopImage('img\fiji',68,2,1,,,1,,1))\w4\nstay hydrated"
+    "%(LoopImage('img\fiji',68,2,1,,,1,,1))\w4\nwater tastes SO FUCKING GOOD !!!"
 }
 
 OnBPetPls {AddFlag("plspet")}
@@ -149,6 +181,18 @@ sleepytired
 {{CHAIN
     "zzzzzzzzzz honk mimimimir:e:chain=end"
 }}CHAIN
+misshome
+{{CHAIN
+    "oh... i remember now. \w8i miss \_a[mom]my mom.\_a \w8my home. \w8\w8...it's best that i don't remember these things. \w8sorry.\e:chain=end"
+CHAIN}}
+butterfly
+{{CHAIN
+    "LMAOOOOOOOOO as if! \w8there's nothing outside. \w8not anymore.\e:chain=end"
+CHAIN}}
+cuecards
+{{CHAIN
+    "come on, dude, hop to it. \w8didnt you see the cue card? you are RUINING this shot\e:chain=end"
+CHAIN}}
 
 //parallel Pool("Pool_Example","%(example == 'True')")
 //parallel Pool("Pool_Example",example == 'True')

@@ -155,6 +155,35 @@ OnTranslate
 OnAnchorSelect
 {
 	if "http://" _in_ reference0 || "https://" _in_ reference0; "\j[""%(reference0)""]"
+    else {
+        case reference0 
+        {
+            //backstory
+            when "mom"
+            {AddFlag("know.mom")
+            "i... \w8...\w8\w8\n\n[half]i don't remember X3 \w8what were we talking abt"}
+            when "cake"
+            {AddFlag("know.cake")
+            "DON'T BELIEVE THE LIES... \w8eating me will not result in scrumptious cake! \w8i am not the yummy kind of cake! \w8living cake does not taste good!!!"}
+            //twc setting
+            when "greenhouse"
+            {AddFlag("know.greenhouse")
+            "oh! yes! the pretty glass house with the plants! nice mushroom cat takes care of it :3 everybody else just messes around in there :3"}
+            when "portals"
+            {AddFlag("know.portals")
+            "yes! \w8the portal room! \w8its in the basement of the house! \w8all of the universes that my friends come from are there!"}
+            //twc people
+            when "spine"
+            {AddFlag("know.spine")
+            "spine! \w8my friend! \w8to all my irls u can boot up the spine ghost and we can have a little party :3"}
+            when "kitkat"
+            {AddFlag("know.kitkat")
+            "kitkat! nice mushroom cat lady! so nice to me and spine!\w8\w8\n\n[half]but she's been scaring me lately. more mushroom than cat now."}
+            //conversations
+            when "convo.dark"
+            {"i mean... \w8not to say that the dark isn't cozy. \w8he just reminds me of something. \w8scary. \w8\w8please be careful, friend."}
+        }
+    }
 }
 
 OnKeyPress
@@ -221,11 +250,18 @@ OnNo
     "never!!"
     "horrible suggestion"
     "bite bite btie"
+    "NO THANKS BUDDY!!"
+    "gang how do we feel about this. BOOOOOO"
+    "LMAOOOOOOO nope"
+    "bro thinks im gonna say yes"
+    "gwumble (that means no)"
+    "that sounds horrible... sorry..."
+    "nope"
 }
 
 OnTalk
 {
-    "sigh fine"
+    "fine okay"
     "ugh ok i talk"
     "ok u've convinced me i will talk :3"
     "ok"
@@ -234,6 +270,8 @@ OnTalk
     "why can't you be patient. fine"
     "i will grant you the ability to talk to me"
     "got it chief. i'll talk"
+    "i feel like talking now."
+    "lets chat!"
     --
     "\x\![raise,OnAiTalk]"
 }
@@ -493,6 +531,10 @@ OnInstallComplete
     elseif reference1 == "Needle" || reference1 == "Radio Nowhere" || reference1 == "Paper" || reference1 == "Hydrate" || reference1 == "Balloons" || reference1 == "Pet Rock" || reference1 == "Plushie Base" || reference1 == "Skrunkly" || reference1 == "Noodle"
     {
         "ohmygosh it is a fellow silly friend :3 hai %(TOLOWER(reference1)) :3"
+    }
+    elseif reference1 == "spine fetus ghost"
+    {
+        "YOOOOOOOOOOOO SPINE WASSUP!!!!!! \w8call spine IMMEDIATELY we need to PARTYYYYYYYY"
     }
     else
     {
