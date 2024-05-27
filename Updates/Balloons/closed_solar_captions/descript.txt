@@ -1,0 +1,111 @@
+charset,UTF-8
+type,balloon
+use_self_alpha,1
+use_input_alpha,1
+overlay_outside_balloon,1
+
+
+//——— Basic information ———
+name,Closed Solar Captions
+craftman,WhatAPhantasia
+craftmanw,WhatAPhantasia
+craftmanurl,https://whataphantasia.github.io/projects/ukagaka/
+homeurl,https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/master/Updates/Balloons/closed_solar_captions/
+
+//MAKE SURE TO DO THESE
+windowposition.x,bottom
+windowposition.y,-150
+
+//——— Display area ———
+origin.x,42
+origin.y,48
+
+validrect.left,40
+validrect.top,44
+validrect.right,-40
+validrect.bottom,-46
+
+wordwrappoint.x,-35
+
+
+//——— Font ———
+font.name,Consolas
+font.height,14
+
+font.color.r,255
+font.color.g,255
+font.color.b,255
+
+font.shadowcolor.r,0
+font.shadowcolor.g,0
+font.shadowcolor.b,0
+font.shadowstyle,outline
+
+anchor.font.color.r,255
+anchor.font.color.g,153
+anchor.font.color.b,153
+
+cursor.font.color.r,255
+cursor.font.color.g,204
+cursor.font.color.b,204
+
+cursor.style,underline
+
+disable.font.color.r,150
+disable.font.color.g,150
+disable.font.color.b,150
+
+
+//——— Arrows ———
+arrow0.x,-30
+arrow0.y,46
+
+arrow1.x,-30
+arrow1.y,-58
+
+
+//——— Online marker ———
+onlinemarker.x,2
+onlinemarker.y,5
+
+//onlinemarker.interval,175
+
+
+//——— SSTP ———
+sstpmarker.x,30
+sstpmarker.y,-40
+
+sstpmessage.font.name,Calibri
+sstpmessage.font.height,11
+
+sstpmessage.x,40
+sstpmessage.xr,320
+sstpmessage.y,-39
+
+sstpmessage.font.color.r,137
+sstpmessage.font.color.g,154
+sstpmessage.font.color.b,168
+
+
+//——— Number ———
+number.font.name,Calibri
+number.font.height,11
+
+number.xr,-30
+number.y,-39
+
+number.font.color.r,137
+number.font.color.g,154
+number.font.color.b,168
+
+
+//——— Input box ———
+communicatebox.x,12
+communicatebox.y,8
+
+communicatebox.font.color.r,0
+communicatebox.font.color.g,0
+communicatebox.font.color.b,0
+
+communicatebox.width,328
+communicatebox.height,20
