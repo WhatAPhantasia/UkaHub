@@ -1,0 +1,99 @@
+charset,UTF-8
+type,balloon
+use_self_alpha,1
+use_input_alpha,1
+overlay_outside_balloon,1
+
+
+//——— Basic information ———
+name,Connected Stars
+craftman,WhatAPhantasia
+craftmanw,WhatAPhantasia
+craftmanurl,https://whataphantasia.github.io
+homeurl,https://raw.githubusercontent.com/WhatAPhantasia/UkaHub/master/Updates/Balloons/connected_stars/
+
+
+//——— Display area ———
+origin.x,48
+origin.y,42
+
+validrect.left,2
+validrect.top,50
+validrect.right,-50
+validrect.bottom,-52
+
+wordwrappoint.x,-50
+
+
+//——— Font ———
+font.name,Callibri
+font.height,12
+
+font.color.r,0
+font.color.g,0
+font.color.b,0
+
+anchor.font.color.r,153
+anchor.font.color.g,92
+anchor.font.color.b,0
+
+cursor.font.color.r,102
+cursor.font.color.g,61
+cursor.font.color.b,0
+
+cursor.style,underline
+
+disable.font.color.r,146
+disable.font.color.g,135
+disable.font.color.b,178
+
+
+//——— Arrows ———
+arrow0.x,126
+arrow0.y,30
+
+arrow1.x,126
+arrow1.y,-52
+
+
+//——— Online marker ———
+onlinemarker.x,11
+onlinemarker.y,19
+
+onlinemarker.interval,150
+
+
+//——— SSTP ———
+sstpmarker.x,18
+sstpmarker.y,-18
+
+sstpmessage.font.name,Calibri
+sstpmessage.font.height,10
+
+sstpmessage.x,31
+sstpmessage.xr,-20
+sstpmessage.y,-17
+
+sstpmessage.font.color.r,137
+sstpmessage.font.color.g,154
+sstpmessage.font.color.b,168
+
+
+//——— Number ———
+number.font.name,Calibri
+number.font.height,11
+
+number.xr,-20
+number.y,-17
+
+number.font.color.r,137
+number.font.color.g,154
+number.font.color.b,168
+
+
+//——— Input box ———
+communicatebox.x,13
+communicatebox.y,20
+
+communicatebox.width,234
+communicatebox.height,18
