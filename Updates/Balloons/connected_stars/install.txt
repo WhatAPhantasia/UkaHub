@@ -1,0 +1,4 @@
+charset,UTF-8
+type,balloon
+name,Connected Stars
+directory,connected_stars
