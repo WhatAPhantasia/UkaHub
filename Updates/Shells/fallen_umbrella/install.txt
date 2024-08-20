@@ -1,0 +1,4 @@
+Charset,UTF-8
+type,shell
+name,fallen umbrella
+directory,fallen_umbrella
