@@ -2,14 +2,20 @@ OnAiTalk
 {
 	if CHAIN.IDName == ""
 	{
-		if !Flag("Event.BeCasual")
+		//zone of chaos and spaghetti
+
+		if !Flag("Event.BeCasual") 
 		{
 			//insert conditional event where they start to be more casual around you
-			LastTalk = FormalTalk
+			if ARRAYADD(servicesused) >= 3
+			{OnEventBeCasual}
+			else
+			{LastTalk = FormalTalk}
 		}
 		else
 		{if RAND(2); LastTalk = RandomTalk
 		else; LastTalk = FormalTalk}
+	
 	}
 	else
 	{
@@ -22,20 +28,74 @@ OnAiTalk
 FormalTalk : nonoverlap_pool
 {
 	all:{"\1\s[12]\i[31]\i[50]\0\s[1]\i[1]\i[33]\b4"
-		"We've got some neat tricks up our joined four sleeves! \w8\![anim,stop,33]\i[31]You \w4DID \w4bring the cards, right Mirror?\w8\w8\1\b4"
-		"\s[12]\i[1]\i[34]...Uhm, \w6I'll have to check back with you on that, Lady Tea...\e"}
+	"We've got some neat tricks up our joined four sleeves! \w8\![anim,stop,33]\i[31]You \w4DID \w4bring the cards, right Mirror?\w8\w8\1\b4"
+	"\s[12]\i[1]\i[34]...Uhm, \w6I'll have to check back with you on that, Lady Tea...\e"}
 
-	all:{"\0\s[2]\i[31]\1\b4\s[12]\i[1]\i[31]"
-		"...How are our funds looking, Lady Tea?\w8\w8\0\b4"
-		"You're asking this right now..?! \w8Uh, \w4whisper whisper whisper...\w8\w8\1"
-		random:{"...Oh dear.\e"
-				"...That \w4IS \w4alarming...\e"
-				"Oh, \w8thank goodness...\e"
-				"Ah, okay, that's good to know...\e"}}
+	all:{"\0\s[2]\i[31]\1\b4\s[12]\i[1]\i[31]\i[50]"
+	"Out of curiousity, how are our funds looking, Lady Tea?\w8\w8\0\b4"
+	"You're asking this right now..?! \w8Uh, \w4\s[2]\i[1]\i[32]whisper whisper whisper...\w8\w8\1\n\n[half]"
+	random:{"\![anim,stop,50]\i[52]...Oh dear.\e"
+			"\![anim,stop,50]\i[52]...That \w4IS \w4alarming...\e"
+			"\s[11]\i[33]Oh, \w8thank goodness...\e"
+			"\s[11]\i[33]Ah, \w8okay, \w8that's good to know...\e"}}
 
 	all:{"\0\s[1]\i[1]\1\s[12]\i[4]\i[50]"
-		"Please remember, %(pername), if you have any complaints, please don't hesitate to send them through me \w8"
-		"\i[32]\0\i[33]\1so I can actually get it across to Tea.\e"}
+	"Please remember, %(pername), if you have any complaints, please don't hesitate to send them through me... \w8"
+	"\i[32]\0\i[33]\1so I can actually get the message across to Tea.\e"}
+
+	all:{"\1\s[12]\i[1]\i[31]\i[50]\0\s[1]\i[4]\i[31]\b4"
+	"Mirror, \w6do you think we should get into the fortune \w4BENDING\w4 biz?!\w8\w8\1\b4"
+	"\s[12]\i[1]\i[32]...Tea, \w8you've already done that. \w8\w4"
+	random:{"\0\s[2]\i[4]\i[11]\i[31]\1\![anim,stop,1]\i[2]It was the day \w2that I met you.\w8\w8\w8\0\n\n[half]Really?! \w8\w2\s[3]\i[31]\i[52]W-Wait, \w6I don't recall doing anything regarding business, \w8what are we referring to?\w8\w8\w8\w4\1\n\n[half]\s[12]\i[34]...Uh. \w8Nevermind.\e"
+			"\s[12]\i[31]\i[45]It didn't go well, remember?\w8\w8\w6\0\n\n[half]...\w8\s[4]Ah, \w8right, \w8the mausoleum incident.\e"
+			"\s[12]\i[31]\i[45]That customer got \w4REALLY\w4 mad at us.\w8\w8\0\n\n[half]\s[2]\i[31]Oh... \w8\i[53]The baker? \w8\w8\w2\s[3]\i[52]Right. \w8\w2\1\s[12]\i[32]\i[50]\0Bad idea, let's scratch that!\e"}}
+
+	all:{"\1\s[12]\i[50]\0\s[1]\i[2]\i[32]\b4"
+	"We don't do discounts often... \w8\w8"
+	if Flag("Birthday.Recent"); "\s[1]\i[1]\i[33]But your birthday is a special occasion! \w8Isn't our business the best?\e"
+	elseif Flag("Event.FBNegative"); "\s[1]\i[1]\i[33]You're lucky we gave you one for free when we first met! \w8Maybe that makes you want to spend even more..?!"
+	else; "\s[1]\i[1]\i[33]Maybe if you spend more money, we might give you a loyalty deal?!"
+	"\w8\w8\1\b4\i[31]\i[45]Tea, please.\e"}
+
+	all:{"\1\s[12]\i[50]\0\s[1]\i[1]\b4"
+	"This here biz is a reputable establishment! \w8Happy customers all across the board! \w8\s[1]\i[4]\i[33]And yaknow you can trust me, \w6cuz you're hearing it right from the source!\w8\w8\1\b4"
+	"\s[12]\i[31]\i[45](...That's absolutely not how it works.)\e"}
+
+	all:{"\1\s[12]\i[31]\i[50]\0\s[1]\i[i]\i[31]\b4"
+	"It's good to have a nice, closed selection of services, \w6right?\w8\w8\1\b4"
+	"Yes. \w8\w4\![anim,stop,31]\i[32]\i[1]Overwhelming a respectable customer with choices wouldn't be good at all.\w8\w8\0\n\n[half]"
+	random:{"\s[4]\i[31].\w2.\w2.\w2Overwhelm \w2with \w2choices, \w4huh? \w8\w8\s[5]Mirror, you're a genius--\w2\1\n\n[half]\![anim,stop,32]\i[31]\i[45]Don't.\e"
+			"\![anim,stop,31]\i[33]Totally! \w8\w4\s[3]\i[32]You know how it makes my head spin when people ask me too many things, right Mirror?\w8\w8\1\n\n[half]Uh-huh.\e"}}
+
+	all:{"\1\s[12]\i[31]\i[50]\0\s[1]\i[1]\i[31]\b4"
+	"The real dream is expanding this biz, right Mirror? \w8\![anim,stop,31]\i[33]Not that it ain't already glitzy!\w8\w8\1\b4"
+	"\s[11]\i[1]\i[33]Of course! \w8\![anim,stop,33]\i[31]Imagine how far we could travel, Lady Tea!\w8\w8\0\n\n[half]"
+	random:{"Yes! \w8\s[3]We'll go to all the places you want to first, okay?\w8\w8\1\n\n[half]A-Ah, but! \w8We shouldn't get ahead of ourselves!\w8\w8\0\n\n[half]Aww, come on, a little exitement isn't bad!\e"
+			"Yes! \w8The Isles are so small, aren't they?\w8\w8\1\n\n[half]Much too small, yes.\w8\w8\0\n\n[half]Imagine all the different customers we'd get!!\w8\w8\1\n\n[half]Ahaha, yes, that too!\e"}}
+
+	all:{"\1\0\b4"
+	"We've got a \w4STRICT\w4 ""No sleight-of-hand trickery"" policy here!\w8\w8\1\b4"
+	random:{"Is that so..?\w8\w8\0\n\n[half]Hey, don't look at me! \w8I haven't the SLIGHTEST what you're implying here, mister!\e"
+			"Oh, yes. \w8Especially with our usual clientele.\w8\w8\0\n\n[half]In-\w4DEED! \w8Look, %(pername), do \w4NOT\w4 think all cups are like me! \w8Some \w4REAL\w4 HOOLIGANS\w4 are out there!\e"}}
+
+	all:{"\0\1\b4"
+	"We offer complimentary snacks on Fridays.\w8\w8\0\b4"
+	"To loyal paying customers \w4ONLY,\w4 of course! \w8\w8And only when I feel like it.\w8\w8\1\n\n[half]"
+	"Isn't that just so compelling?\e"}
+
+	all:{"\0\1\b4"
+	""}
+
+
+	if !Flag("Event.BeCasual")
+	{
+		all:{""
+			""}
+	}
+	else
+	{
+
+	}
 }
 
 RandomTalk : nonoverlap_pool
@@ -43,9 +103,38 @@ RandomTalk : nonoverlap_pool
 
 	//--food
 	all:{"\1\s[12]\i[31]\i[50]\0\s[2]\i[1]\i[32]\i[52]\b4"
-		"Geez, what's a girl gotta do to get a good cream soda around here?\w8\w8\1\b4"
-		"\i[1]You could start paying the shops, for one.\w8\w8\0\n\n[half]"
-		"\![anim,stop,52]\i[51]Hmph! \w8Maybe I would, \w4if any of them let me in!\e"}
+	"Geez, what's a girl gotta do to get a good cream soda around here?\w8\w8\1\b4"
+	"\i[1]You could start paying the shops, for one.\w8\w8\0\n\n[half]"
+	"\![anim,stop,52]\i[51]Hmph! \w8Maybe I would, \w4if any of them would let me in!\e"}
+
+	all:{"\0\1"
+	"You think you'll ever get back into cooking, Tea?\w8\w8\0\n\b4"
+	"Oh? \w8What's this? \w8Does Master Mirror miss my cooking?!\w8\w8\1\n\n[half]"
+	""}
+}
+
+OnOverlap
+{
+	if "0-1" _in_ reference0 && !BalloonIsOpen //only when dragging tea over mirror
+	{
+		if RAND(2)
+		{
+			all:{"\1\s[-1]\0\b4\s[20]"
+			"%(ANY('Gotcha','Hug','Hehehe'))!\w8\1\b4"
+			"O-Oh! \w8Good to see you too, Lady Tea!\w8\0\x"
+			random:{"\0\s[3]\i[31]\1\b4\s[11]\i[3]\i[33]But we are at work! \w8Hugs can wait!\w8\w8\0\b4\![anim,stop,31]\i[33]\i[52]Aww, but showing a good duo relationship makes sales skyrocket..!"
+					"\0\s[3]\i[31]\1\b4\s[11]\i[3]\i[33]O-Ok, enough of that...\w8\w8\0\b4\![anim,stop,31]\i[32]Fiine...\e"}}
+		}
+	}
+}
+
+//----------- EVENTS
+//I'll have to split this up into multiple parts so sakurascooper doesn't crash my weak little laptop
+
+//for if you interrupt their services... no they won't give you a refund.
+OnBalloonBreak
+{
+
 }
 
 OnDressupChanged
@@ -65,17 +154,12 @@ OnDressupChanged
 	}
 }
 
-OnOverlap
+OnEventBeCasual : all
 {
-	if "0-1" _in_ reference0 && !BalloonIsOpen //only when dragging tea over mirror
-	{
-		if RAND(2)
-		{
-			all:{"\1\s[-1]\0\b4\s[20]"
-				"%(ANY('Gotcha','Hug','Hehehe'))!\w8\1\b4"
-				"O-Oh! \w8Good to see you too, Lady Tea!\w8\0\x"
-			random:{"\0\s[3]\i[31]\1\b4\s[11]\i[3]\i[33]But we are at work! \w8Hugs can wait!\w8\w8\0\b4\![anim,stop,31]\i[33]\i[52]Aww, but showing a good duo relationship makes sales skyrocket..!"
-					"\0\s[3]\i[31]\1\b4\s[11]\i[3]\i[33]O-Ok, enough of that...\w8\w8\0\b4\![anim,stop,31]\i[32]Fiine...\e"}}
-		}
-	}
+	"\t\*"
+}
+
+OnEventBeCasual2 : all
+{
+	"\t\*"
 }

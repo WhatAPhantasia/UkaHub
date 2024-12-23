@@ -14,7 +14,7 @@ OnKeroMenu : all
 	"\![*]\q[LET'S PLAY EIGHTS!,OnEightsMenu]\n\n\f[color,default]"
 
 	"\![*]"
-	if bankinfo[0] = "Devil's Discount" || (Flag("Event.FBNegative") && !Flag("NoMoreDiscount"))
+	if bankinfo[0] == "Devil's Discount" || (Flag("Event.FBNegative") && ARRAYADD(servicesused) < 1)
 	{"($0) "}
 	else
 	{"($1) "}

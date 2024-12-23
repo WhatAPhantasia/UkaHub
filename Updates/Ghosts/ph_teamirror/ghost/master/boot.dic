@@ -23,7 +23,7 @@ OnFirstBootOne : all
 OnFirstBootTwo : all
 {
 	"\t\*\1\s[11]"
-	"\0\b2\s[1]\i[1]\i[33]Nice to meet you, %(pername)! \w8I'm the lovely Lady Tea, \w4and my associate here is Master Mirror! \w8\s[1]\i[4]I betcha have \w4TONS \w4of cash to spend, \w4%(br)'specially when it comes to your DESTINY!\w8\w4\_q"
+	"\0\b2\s[1]\i[1]\i[33]Nice to meet you, %(pername)! \w8I'm the lovely Lady Tea, \w4and my associate here is Master Mirror! \w8\s[1]\i[4]I betcha have \w4TONS \w4of cash to spend, \w4%(br)'specially when it comes to your D\w2E\w2S\w2T\w2I\w2N\w2Y\w2!\w8\w4\_q"
 	"\n\n"
 	"\![*]\q[I'M CURIOUS...,OnFirstBootThree,curious]\n"
 	"\![*]\q[ABSOLUTELY NOT,OnFirstBootThree,nope]"
@@ -41,12 +41,12 @@ OnFirstBootThree : all
 	elseif reference0 == "nope"
 	{
 		AddFlag("Event.FBNegative")
-		//this flag will give you an actual discount in addition to other dialogue lolololol
+		//this flag will give you an actual discount in addition to other dialogue
 
 		"\1\s[11]\i[33]\0\s[7]\i[33]"
 		"Oh, don't be like that! \w8We have a hundred percent accuracy rating, guaranteeed to forsee your future \w4AND \w4tell you exactly how to avoid certain peril!\x"
 		"\1\s[11]\i[31]\0\s[1]\i[1]"
-		"Hey hey, just for you, your first 3 services are free! \w8How about that?! \w8"
+		"Hey hey, just for you, your first purchase is free! \w8How about that?! \w8"
 	}
 
 	"\1\s[11]\0\s[1]\i[3]\i[32]"
@@ -156,7 +156,7 @@ OnBoot
 	
 	if _today == _user_birthday
 	{
-		"\1\s[11]\0\s[1]Happy birthday, %(pername)! \w8Hm? \w8Yes, of course I know when your birthday is! \w8This is crucial information to know about a customer! \w8ANYWAY, \w4today's great because you get a special birthday discount!\w8\w8\1...How oddly generous of you, Tea. \w8Ah! \w8I wish you happy birthday as well, %(pername)..!\e"
+		"\1\s[11]\0\s[1]Happy birthday, %(pername)! \w8Hm? \w8Yes, of course I know when your birthday is! \w8This is crucial information to know about a customer! \w8ANYWAY, \w4today's great because you get a special birthday discount!\w8\w8\1...How oddly generous of you, Tea. \w8--But still! \w8I wish you happy birthday as well, %(pername)!\e"
 	}
 	else //Normal boot
 	{

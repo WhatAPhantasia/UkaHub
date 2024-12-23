@@ -313,7 +313,7 @@ Onabtluce : nonoverlap_pool
 	}
 	else //not negative route, not friendly enough yet
 	{
-		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q ...oh, \w2um, \w6yeah\w8\w8\n\s[5]\![anim,stop,25]\i[1]\i[80]\_q%(vera)\_q he's fine."
+		"\0\s[1]\i[1]\i[80]\_q%(vera)\_q oh, \w2um, \w6yeah\w8\w8\n\s[5]\![anim,stop,25]\i[1]\i[80]\_q%(vera)\_q he's fine."
 	}
 	--
 	" \n\n\f[color,default]\![*]\q[Ask something else,OnPeopleMenu]\n\![*]\q[I'm done,CANCEL]\e"
@@ -977,24 +977,11 @@ OnTarot : all
 		_arcana ,= _yourfate[_f][1]
 		_indexpos ,= ASEARCH(_yourfate[_f],TarotDeck('all'))
 	}
-	/*
-	//super inefficient code below lol
-	while ARRAYSIZE(_yourfate) < 3; {_yourfate ,= TarotDeck('rand')}
-	while _yourfate[1] == _yourfate[0] || _yourfate[1] == _yourfate[2]; {_yourfate[1] = TarotDeck('rand')}
-	while _yourfate[2] == _yourfate[0] || _yourfate[2] == _yourfate[1]; {_yourfate[2] = TarotDeck('rand')}
-	//yes i know while and for loops have the same use, i just think for loops are more useful for card and arcana (and i prefer while formatting 4 the above)
-	for _c = 0; _c < 3; _c++ {_card ,= _yourfate[_c][0]}
-	//these variables are for the "interpreting your cards" section.
-	for _a = 0; _a < 3; _a++ {_arcana ,= _yourfate[_a][1]}
-	for _i = 0; _i < 3; _i++ {_indexpos ,= ASEARCH(_yourfate[_i],TarotDeck('all'))}
-	*/
-	
-	//ughhh gotta change this whenever i add images. ewwwwwww ok yeah its fine. sighhhhh
+
 	for _c = 0; _c < ARRAYSIZE(_card); _c++
 	{
-		_dis1 += "\_b[img\cardback.png,inline,--option=use_self_alpha]"
-		if _c == 0; _dis2 += "- %(_card[_c]) -"
-		else; _dis2 += " %(_card[_c]) -"
+		_dis1 += "\_b[img\TarotBack.png,inline,--option=use_self_alpha]"
+		_dis2 += "\_b[img\Tarot%(_indexpos[_c]).png,inline,--option=use_self_alpha]"
 	}
 	
 	//-----------------------------
@@ -1094,10 +1081,11 @@ OnTarot : all
 			"\_q%(vera)\_q The Sun\w8\w8\n"
 			"\_q%(vera)\_q Judgement\w8\w8\n"
 			"\_q%(vera)\_q The World\w8\w8\n"
-			"\_q%(vera)\_q Knight of Wands\w8\w8\n"
 			"\_q%(vera)\_q King of Wands\w8\w8\n"
 			"\_q%(vera)\_q Queen of Wands\w8\w8\n"
+			"\_q%(vera)\_q Knight of Wands\w8\w8\n"
 			"\_q%(vera)\_q Page of Wands\w8\w8\n"
+			"\_q%(vera)\_q Ace of Wands\w8\w8\n"
 			"\_q%(vera)\_q 2 of Wands\w8\w8\n"
 			"\_q%(vera)\_q 3 of Wands\w8\w8\n"
 			"\_q%(vera)\_q 4 of Wands\w8\w8\n"
@@ -1107,11 +1095,11 @@ OnTarot : all
 			"\_q%(vera)\_q 8 of Wands\w8\w8\n"
 			"\_q%(vera)\_q 9 of Wands\w8\w8\n"
 			"\_q%(vera)\_q 10 of Wands\w8\w8\n"
-			"\_q%(vera)\_q Ace of Wands\w8\w8\n"
-			"\_q%(vera)\_q Knight of Cups\w8\w8\n"
 			"\_q%(vera)\_q King of Cups\w8\w8\n"
 			"\_q%(vera)\_q Queen of Cups\w8\w8\n"
+			"\_q%(vera)\_q Knight of Cups\w8\w8\n"
 			"\_q%(vera)\_q Page of Cups\w8\w8\n"
+			"\_q%(vera)\_q Ace of Cups\w8\w8\n"
 			"\_q%(vera)\_q 2 of Cups\w8\w8\n"
 			"\_q%(vera)\_q 3 of Cups\w8\w8\n"
 			"\_q%(vera)\_q 4 of Cups\w8\w8\n"
@@ -1121,11 +1109,11 @@ OnTarot : all
 			"\_q%(vera)\_q 8 of Cups\w8\w8\n"
 			"\_q%(vera)\_q 9 of Cups\w8\w8\n"
 			"\_q%(vera)\_q 10 of Cups\w8\w8\n"
-			"\_q%(vera)\_q Ace of Cups\w8\w8\n"
-			"\_q%(vera)\_q Knight of Swords\w8\w8\n"
 			"\_q%(vera)\_q King of Swords\w8\w8\n"
 			"\_q%(vera)\_q Queen of Swords\w8\w8\n"
+			"\_q%(vera)\_q Knight of Swords\w8\w8\n"
 			"\_q%(vera)\_q Page of Swords\w8\w8\n"
+			"\_q%(vera)\_q Ace of Swords\w8\w8\n"
 			"\_q%(vera)\_q 2 of Swords\w8\w8\n"
 			"\_q%(vera)\_q 3 of Swords\w8\w8\n"
 			"\_q%(vera)\_q 4 of Swords\w8\w8\n"
@@ -1135,11 +1123,11 @@ OnTarot : all
 			"\_q%(vera)\_q 8 of Swords\w8\w8\n"
 			"\_q%(vera)\_q 9 of Swords\w8\w8\n"
 			"\_q%(vera)\_q 10 of Swords\w8\w8\n"
-			"\_q%(vera)\_q Ace of Swords\w8\w8\n"
 			"\_q%(vera)\_q Knight of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q King of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q Queen of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q Page of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q Ace of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q 2 of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q 3 of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q 4 of Pentacles\w8\w8\n"
@@ -1149,7 +1137,6 @@ OnTarot : all
 			"\_q%(vera)\_q 8 of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q 9 of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q 10 of Pentacles\w8\w8\n"
-			"\_q%(vera)\_q Ace of Pentacles\w8\w8\n"
 		}
 		
 		//brb im watching the owl house
@@ -1181,10 +1168,11 @@ OnTarot : all
 			"\_q%(vera)\_q The Sun\w8\w8\n"
 			"\_q%(vera)\_q Judgement\w8\w8\n"
 			"\_q%(vera)\_q The World\w8\w8\n"
-			"\_q%(vera)\_q Knight of Wands\w8\w8\n"
 			"\_q%(vera)\_q King of Wands\w8\w8\n"
 			"\_q%(vera)\_q Queen of Wands\w8\w8\n"
+			"\_q%(vera)\_q Knight of Wands\w8\w8\n"
 			"\_q%(vera)\_q Page of Wands\w8\w8\n"
+			"\_q%(vera)\_q Ace of Wands\w8\w8\n"
 			"\_q%(vera)\_q 2 of Wands\w8\w8\n"
 			"\_q%(vera)\_q 3 of Wands\w8\w8\n"
 			"\_q%(vera)\_q 4 of Wands\w8\w8\n"
@@ -1194,11 +1182,11 @@ OnTarot : all
 			"\_q%(vera)\_q 8 of Wands\w8\w8\n"
 			"\_q%(vera)\_q 9 of Wands\w8\w8\n"
 			"\_q%(vera)\_q 10 of Wands\w8\w8\n"
-			"\_q%(vera)\_q Ace of Wands\w8\w8\n"
-			"\_q%(vera)\_q Knight of Cups\w8\w8\n"
 			"\_q%(vera)\_q King of Cups\w8\w8\n"
 			"\_q%(vera)\_q Queen of Cups\w8\w8\n"
+			"\_q%(vera)\_q Knight of Cups\w8\w8\n"
 			"\_q%(vera)\_q Page of Cups\w8\w8\n"
+			"\_q%(vera)\_q Ace of Cups\w8\w8\n"
 			"\_q%(vera)\_q 2 of Cups\w8\w8\n"
 			"\_q%(vera)\_q 3 of Cups\w8\w8\n"
 			"\_q%(vera)\_q 4 of Cups\w8\w8\n"
@@ -1208,11 +1196,11 @@ OnTarot : all
 			"\_q%(vera)\_q 8 of Cups\w8\w8\n"
 			"\_q%(vera)\_q 9 of Cups\w8\w8\n"
 			"\_q%(vera)\_q 10 of Cups\w8\w8\n"
-			"\_q%(vera)\_q Ace of Cups\w8\w8\n"
-			"\_q%(vera)\_q Knight of Swords\w8\w8\n"
 			"\_q%(vera)\_q King of Swords\w8\w8\n"
 			"\_q%(vera)\_q Queen of Swords\w8\w8\n"
+			"\_q%(vera)\_q Knight of Swords\w8\w8\n"
 			"\_q%(vera)\_q Page of Swords\w8\w8\n"
+			"\_q%(vera)\_q Ace of Swords\w8\w8\n"
 			"\_q%(vera)\_q 2 of Swords\w8\w8\n"
 			"\_q%(vera)\_q 3 of Swords\w8\w8\n"
 			"\_q%(vera)\_q 4 of Swords\w8\w8\n"
@@ -1222,11 +1210,11 @@ OnTarot : all
 			"\_q%(vera)\_q 8 of Swords\w8\w8\n"
 			"\_q%(vera)\_q 9 of Swords\w8\w8\n"
 			"\_q%(vera)\_q 10 of Swords\w8\w8\n"
-			"\_q%(vera)\_q Ace of Swords\w8\w8\n"
 			"\_q%(vera)\_q Knight of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q King of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q Queen of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q Page of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q Ace of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q 2 of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q 3 of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q 4 of Pentacles\w8\w8\n"
@@ -1236,7 +1224,6 @@ OnTarot : all
 			"\_q%(vera)\_q 8 of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q 9 of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q 10 of Pentacles\w8\w8\n"
-			"\_q%(vera)\_q Ace of Pentacles\w8\w8\n"
 		}
 		//--DOING--
 		switch _indexpos[2]
@@ -1263,10 +1250,11 @@ OnTarot : all
 			"\_q%(vera)\_q The Sun\w8\w8\n"
 			"\_q%(vera)\_q Judgement\w8\w8\n"
 			"\_q%(vera)\_q The World\w8\w8\n"
-			"\_q%(vera)\_q Knight of Wands\w8\w8\n"
 			"\_q%(vera)\_q King of Wands\w8\w8\n"
 			"\_q%(vera)\_q Queen of Wands\w8\w8\n"
+			"\_q%(vera)\_q Knight of Wands\w8\w8\n"
 			"\_q%(vera)\_q Page of Wands\w8\w8\n"
+			"\_q%(vera)\_q Ace of Wands\w8\w8\n"
 			"\_q%(vera)\_q 2 of Wands\w8\w8\n"
 			"\_q%(vera)\_q 3 of Wands\w8\w8\n"
 			"\_q%(vera)\_q 4 of Wands\w8\w8\n"
@@ -1276,11 +1264,11 @@ OnTarot : all
 			"\_q%(vera)\_q 8 of Wands\w8\w8\n"
 			"\_q%(vera)\_q 9 of Wands\w8\w8\n"
 			"\_q%(vera)\_q 10 of Wands\w8\w8\n"
-			"\_q%(vera)\_q Ace of Wands\w8\w8\n"
-			"\_q%(vera)\_q Knight of Cups\w8\w8\n"
 			"\_q%(vera)\_q King of Cups\w8\w8\n"
 			"\_q%(vera)\_q Queen of Cups\w8\w8\n"
+			"\_q%(vera)\_q Knight of Cups\w8\w8\n"
 			"\_q%(vera)\_q Page of Cups\w8\w8\n"
+			"\_q%(vera)\_q Ace of Cups\w8\w8\n"
 			"\_q%(vera)\_q 2 of Cups\w8\w8\n"
 			"\_q%(vera)\_q 3 of Cups\w8\w8\n"
 			"\_q%(vera)\_q 4 of Cups\w8\w8\n"
@@ -1290,11 +1278,11 @@ OnTarot : all
 			"\_q%(vera)\_q 8 of Cups\w8\w8\n"
 			"\_q%(vera)\_q 9 of Cups\w8\w8\n"
 			"\_q%(vera)\_q 10 of Cups\w8\w8\n"
-			"\_q%(vera)\_q Ace of Cups\w8\w8\n"
-			"\_q%(vera)\_q Knight of Swords\w8\w8\n"
 			"\_q%(vera)\_q King of Swords\w8\w8\n"
 			"\_q%(vera)\_q Queen of Swords\w8\w8\n"
+			"\_q%(vera)\_q Knight of Swords\w8\w8\n"
 			"\_q%(vera)\_q Page of Swords\w8\w8\n"
+			"\_q%(vera)\_q Ace of Swords\w8\w8\n"
 			"\_q%(vera)\_q 2 of Swords\w8\w8\n"
 			"\_q%(vera)\_q 3 of Swords\w8\w8\n"
 			"\_q%(vera)\_q 4 of Swords\w8\w8\n"
@@ -1304,11 +1292,11 @@ OnTarot : all
 			"\_q%(vera)\_q 8 of Swords\w8\w8\n"
 			"\_q%(vera)\_q 9 of Swords\w8\w8\n"
 			"\_q%(vera)\_q 10 of Swords\w8\w8\n"
-			"\_q%(vera)\_q Ace of Swords\w8\w8\n"
 			"\_q%(vera)\_q Knight of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q King of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q Queen of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q Page of Pentacles\w8\w8\n"
+			"\_q%(vera)\_q Ace of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q 2 of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q 3 of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q 4 of Pentacles\w8\w8\n"
@@ -1318,7 +1306,6 @@ OnTarot : all
 			"\_q%(vera)\_q 8 of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q 9 of Pentacles\w8\w8\n"
 			"\_q%(vera)\_q 10 of Pentacles\w8\w8\n"
-			"\_q%(vera)\_q Ace of Pentacles\w8\w8\n"
 		}
 	}
 	//this just lists general card symbolism, no interpretation whatsoever
@@ -1351,10 +1338,11 @@ OnTarot : all
 				"\_q%(vera)\_q the sun represents joy, success, celebration, and the truth.\w8\w8\n"
 				"\_q%(vera)\_q judgement represents reflection, the reckoning, and awakening.\w8\w8\n"
 				"\_q%(vera)\_q the world represents fulfillment, harmony, and completion.\w8\w8\n"
-				"\_q%(vera)\_q the knight of wands represents action, adventure, and fearlessness.\w8\w8\n"
 				"\_q%(vera)\_q the king of wands represents leadership, as well as overcoming challenges and seeing the bigger picture.\w8\w8\n"
 				"\_q%(vera)\_q the queen of wands represents courage, determination, and joy.\w8\w8\n"
+				"\_q%(vera)\_q the knight of wands represents action, adventure, and fearlessness.\w8\w8\n"
 				"\_q%(vera)\_q the page of wands represents exploration, excitement, and freedom.\w8\w8\n"
+				"\_q%(vera)\_q the ace of wands represents creation, new desire, energy, and inspiration.\w8\w8\n"
 				"\_q%(vera)\_q the 2 of wands represents planning, making decisions, and leaving home.\w8\w8\n"
 				"\_q%(vera)\_q the 3 of wands represents expanding, looking ahead, and quick growth.\w8\w8\n"
 				"\_q%(vera)\_q the 4 of wands represents community, support, home, and celebration.\w8\w8\n"
@@ -1364,11 +1352,11 @@ OnTarot : all
 				"\_q%(vera)\_q the 8 of wands represents quick actions and decisions- \w2or sometimes sudden changes.\w8\w8\n"
 				"\_q%(vera)\_q the 9 of wands represents resilience and grit- \w2like a last stand close to victory.\w8\w8\n"
 				"\_q%(vera)\_q the 10 of wands represents accomplishment, as well as the responsibility and burdens of it.\w8\w8\n"
-				"\_q%(vera)\_q the ace of wands represents creation, new desire, energy, and inspiration.\w8\w8\n"
-				"\_q%(vera)\_q the knight of cups represents idealism and romanticism- \w2to follow your own heart.\w8\w8\n"
 				"\_q%(vera)\_q the king of cups represents wisdom, compassion, and balanced control (especially between the head and the heart.)\w8\w8\n"
 				"\_q%(vera)\_q the queen of cups represents compassion, calm, and comfort- like a counsellor, almost.\w8\w8\n"
+				"\_q%(vera)\_q the knight of cups represents idealism and romanticism- \w2to follow your own heart.\w8\w8\n"
 				"\_q%(vera)\_q the page of cups represents dreams and sensitivity- the unexpected that comes to us from the unconscious.\w8\w8\n"
+				"\_q%(vera)\_q the ace of cups represents new feelings, spirituality, and intuition.\w8\w8\n"
 				"\_q%(vera)\_q the 2 of cups represents unity, partnership, and mutual respect.\w8\w8\n"
 				"\_q%(vera)\_q the 3 of cups represents friendship, community, and happiness.\w8\w8\n"
 				"\_q%(vera)\_q the 4 of cups represents apathy, disconnection, and contemplation.\w8\w8\n"
@@ -1378,11 +1366,11 @@ OnTarot : all
 				"\_q%(vera)\_q the 8 of cups represents disillusionment and leaving things behind.\w8\w8\n"
 				"\_q%(vera)\_q the 9 of cups represents satisfaction, emotional stability, and luxury.\w8\w8\n"
 				"\_q%(vera)\_q the 10 of cups represents inner happiness and fulfilled dreams.\w8\w8\n"
-				"\_q%(vera)\_q the ace of cups represents new feelings, spirituality, and intuition.\w8\w8\n"
-				"\_q%(vera)\_q the knight of swords represents action, impulsiveness, and defending your beliefs.\w8\w8\n"
 				"\_q%(vera)\_q the king of swords represents placing logic over emotions: it shows discipline and truth.\w8\w8\n"
 				"\_q%(vera)\_q the queen of swords represents complexity, perceptiveness, and having a clear mind.\w8\w8\n"
 				"\_q%(vera)\_q the page of swords represents curiousity, restlessness, and mental energy.\w8\w8\n"
+				"\_q%(vera)\_q the knight of swords represents action, impulsiveness, and defending your beliefs.\w8\w8\n"
+				"\_q%(vera)\_q the ace of swords represents breakthroughs and the clarity of mind that comes with it.\w8\w8\n"
 				"\_q%(vera)\_q the 2 of swords represents difficult choices, indecision, and stalemates.\w8\w8\n"
 				"\_q%(vera)\_q the 3 of swords represents heartbreak, suffering, and grief.\w8\w8\n"
 				"\_q%(vera)\_q the 4 of swords represents rest, recuperation, and contemplation- especially after grief.\w8\w8\n"
@@ -1392,11 +1380,11 @@ OnTarot : all
 				"\_q%(vera)\_q the 8 of swords represents imprisonment and self-victimization.\w8\w8\n"
 				"\_q%(vera)\_q the 9 of swords represents anxiety, hopelessness, nightmares, and isolation.\w8\w8\n"
 				"\_q%(vera)\_q the 10 of swords represents failure, collapse, and defeat- sometimes even betrayal.\w8\w8\n"
-				"\_q%(vera)\_q the ace of swords represents breakthroughs and the clarity of mind that comes with it.\w8\w8\n"
-				"\_q%(vera)\_q the knight of pentacles represents efficiency, hard work, and responsibility.\w8\w8\n"
 				"\_q%(vera)\_q the king of pentacles represents abundance, prosperity, and material sense.w8\w8\n"
 				"\_q%(vera)\_q the queen of pentacles represents practicality, financial security, and the comforts that come with it.\w8\w8\n"
+				"\_q%(vera)\_q the knight of pentacles represents efficiency, hard work, and responsibility.\w8\w8\n"
 				"\_q%(vera)\_q the page of pentacles represents goals, grounded ambition, and diligence.\w8\w8\n"
+				"\_q%(vera)\_q the ace of pentacles represents opportunities, prosperity, and new ventures.\w8\w8\n"
 				"\_q%(vera)\_q the 2 of pentacles represents balancing decisions, priorities, and adapting to change.\w8\w8\n"
 				"\_q%(vera)\_q the 3 of pentacles represents teamwork, collaboration, and the success that comes from it.\w8\w8\n"
 				"\_q%(vera)\_q the 4 of pentacles represents conservation, frugality, and security.\w8\w8\n"
@@ -1406,7 +1394,6 @@ OnTarot : all
 				"\_q%(vera)\_q the 8 of pentacles represents apprenticeship and craftsmanship- like skill, mastery, passion, and dedication!\w2a\w8\w8\n"
 				"\_q%(vera)\_q the 9 of pentacles represents luxury, achievement, leisure, and self-sufficency.\w8\w8\n"
 				"\_q%(vera)\_q the 10 of pentacles represents legacy, culmination, privilege, and inheritance.\w8\w8\n"
-				"\_q%(vera)\_q the ace of pentacles represents opportunities, prosperity, and new ventures.\w8\w8\n"
 			}
 		}
 	}

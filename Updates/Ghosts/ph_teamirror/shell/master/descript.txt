@@ -38,5 +38,5 @@ menu.foreground.alignment,righttop + repeat-x
 menu.sidebar.alignment,bottom
 
 sakura.bindgroup90.name,Accessories,Gold Spoon
-sakura.bindgroup90.default,1
+sakura.bindgroup90.default,0
 sakura.menuitem0,90

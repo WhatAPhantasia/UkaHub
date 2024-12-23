@@ -1,3 +1,6 @@
+//mess file, see more mess in utility.dic
+//in comparison to utility.dic, this file has things that i edit more often
+
 OnTranslate
 {
 	_talk = reference0
@@ -74,7 +77,7 @@ OnTranslate
 	_talk
 }
 
-Please note that scripts with many tags in them may cause some lag. Use wisely.
+Please note that scripts with many tags in them (100+) may cause some lag. Use wisely.
 */
 SakuraScooper
 {
@@ -257,31 +260,38 @@ OnKeyPress
 	elseif reference0 == "f5" && SHIORI3FW.DebugMode; "\![reload,ghost]"
 }
 
+//Written by Zichqec https://ukagaka.zichqec.com/
+//This code can be used to easily make your ghost change poses randomly between dialogues. This works even if dialogues are turned off entirely.
+//OnSurfaceRestore only happens once after each dialogue, so most ghosts will be static between their dialogues, and stand completely still if you turn dialogues off. This code seeks to alleviate that.
+
+//This works by calling OnSurfaceRestore, so you can simply add whatever random poses you want to OnSurfaceRestore. If that won't work for your setup, you could make a separate function with a pool of poses for it to call.
+//By default, this has a chance to make the ghost run OnSurfaceRestore every 15 seconds, so long as 15 seconds have passed since the last dialogue (and the balloon is not currently open). You can adjust this timing, and adjust the chance to change poses, if you like. I made it not change every time because I think it feels more organic that way.
+
+OnSecondChange
+{
+	//This gets the time since the last dialogue ended, in seconds. SHIORI3FW.TalkEndTime is a variable that comes with YAYA as SHIORI
+	_since = GETSECCOUNT - SHIORI3FW.TalkEndTime
+	
+	if _since % 15 == 0 && !BalloonIsOpen
+	{
+		//Higher numbers mean a lower chance for the pose to change.
+		if RAND(5) == 0; OnSurfaceRestore
+	}
+}
+
 //Happens about 30 seconds after a script ends, by default, to bring them back to normal poses
 OnSurfaceRestore
 {
-	"\1\s[11]\0\s[1]"
+	//formal 1
+	"\1\s[11]\0\s[1]%(ANY('\s[1]',''))"
+	//tea looks at mirror smiling... :3
+	"\1%(ANY('\s[11]','\s[12]'))\0\s[1]"
 }
 
-//Happens when the ghost is unminimized. You *can* include dialogue, but you don't *have* to. I have included this event because if you don't, it defaults to \0\s[0]\1\s[10], which you don't want in some cases, such as if your ghost uses different surfaces or has a different number of characters.
+//change as needed, might need playtesting
 OnWindowStateRestore
 {
-	"\1\s[11]\0\s[1]"
-}
-
-On_installedplugin
-{
-    pluginlist = IARRAY
-    foreach reference; _ref
-    {
-        pluginlist ,= _ref[0]
-    }
-}
-
-UnyuInstalled
-{
-    if RE_ASEARCH("Wallet of Unyu",pluginlist) != -1; 1
-    else; 0
+	OnSurfaceRestore
 }
 
 //Network update url. Make sure you have a / on the end of the url or it will give a warning every time users try to update! If you don't plan to use network updates you can remove this
@@ -376,7 +386,7 @@ sg //gendered choices based on system set gender
 //"card name,arcana"
 //make a function to identify suit by going if _TarotSuit[1] in card or whatever idk how to code /j
 TarotDeck {
-	_deck = ("The Fool,Major","The Magician,Major","The High Priestess,Major","The Empress,Major","The Emperor,Major","The Hierophant,Major","The Lovers,Major","The Chariot,Major","Strength,Major","The Hermit,Major","The Wheel of Fortune,Major","Justice,Major","The Hanged Man,Major","Death,Major","Temperance,Major","The Devil,Major","The Tower,Major","The Star,Major","The Moon,Major","The Sun,Major","Judgement,Major","The World,Major","Knight of Wands,Minor","King of Wands,Minor","Queen of Wands,Minor","Page of Wands,Minor","2 of Wands,Minor","3 of Wands,Minor","4 of Wands,Minor","5 of Wands,Minor","6 of Wands,Minor","7 of Wands,Minor","8 of Wands,Minor","9 of Wands,Minor","10 of Wands,Minor","Ace of Wands,Minor","Knight of Cups,Minor","King of Cups,Minor","Queen of Cups,Minor","Page of Cups,Minor","2 of Cups,Minor","3 of Cups,Minor","4 of Cups,Minor","5 of Cups,Minor","6 of Cups,Minor","7 of Cups,Minor","8 of Cups,Minor","9 of Cups,Minor","10 of Cups,Minor","Ace of Cups,Minor","Knight of Swords,Minor","King of Swords,Minor","Queen of Swords,Minor","Page of Swords,Minor","2 of Swords,Minor","3 of Swords,Minor","4 of Swords,Minor","5 of Swords,Minor","6 of Swords,Minor","7 of Swords,Minor","8 of Swords,Minor","9 of Swords,Minor","10 of Swords,Minor","Ace of Swords,Minor","Knight of Pentacles,Minor","King of Pentacles,Minor","Queen of Pentacles,Minor","Page of Pentacles,Minor","2 of Pentacles,Minor","3 of Pentacles,Minor","4 of Pentacles,Minor","5 of Pentacles,Minor","6 of Pentacles,Minor","7 of Pentacles,Minor","8 of Pentacles,Minor","9 of Pentacles,Minor","10 of Pentacles,Minor","Ace of Pentacles,Minor")
+	_deck = ("The Fool,Major","The Magician,Major","The High Priestess,Major","The Empress,Major","The Emperor,Major","The Hierophant,Major","The Lovers,Major","The Chariot,Major","Strength,Major","The Hermit,Major","The Wheel of Fortune,Major","Justice,Major","The Hanged Man,Major","Death,Major","Temperance,Major","The Devil,Major","The Tower,Major","The Star,Major","The Moon,Major","The Sun,Major","Judgement,Major","The World,Major","Ace of Wands,Minor","2 of Wands,Minor","3 of Wands,Minor","4 of Wands,Minor","5 of Wands,Minor","6 of Wands,Minor","7 of Wands,Minor","8 of Wands,Minor","9 of Wands,Minor","10 of Wands,Minor","Page of Wands,Minor","Knight of Wands,Minor","Queen of Wands,Minor","King of Wands,Minor","Ace of Cups,Minor","2 of Cups,Minor","3 of Cups,Minor","4 of Cups,Minor","5 of Cups,Minor","6 of Cups,Minor","7 of Cups,Minor","8 of Cups,Minor","9 of Cups,Minor","10 of Cups,Minor","Page of Cups,Minor","Knight of Cups,Minor","Queen of Cups,Minor","King of Cups,Minor","Ace of Swords,Minor","2 of Swords,Minor","3 of Swords,Minor","4 of Swords,Minor","5 of Swords,Minor","6 of Swords,Minor","7 of Swords,Minor","8 of Swords,Minor","9 of Swords,Minor","10 of Swords,Minor","Page of Swords,Minor","Knight of Swords,Minor","Queen of Swords,Minor","King of Swords,Minor","Ace of Pentacles,Minor","2 of Pentacles,Minor","3 of Pentacles,Minor","4 of Pentacles,Minor","5 of Pentacles,Minor","6 of Pentacles,Minor","7 of Pentacles,Minor","8 of Pentacles,Minor","9 of Pentacles,Minor","10 of Pentacles,Minor","Page of Pentacles,Minor","Knight of Pentacles,Minor","Queen of Pentacles,Minor","King of Pentacles,Minor")
 	//_deck = TOSTR(_deck)
 	_rand = IARRAY
 	_out = IARRAY
@@ -404,11 +414,15 @@ RandCard
 }
 //im TRYING to make it go _deck[desired number] RAGHHHHHHHHHH
 //this will call any item like "The Empress,Major" and you can do _card = "\![raise,OnTarotDeck,3]" then _card[1] or whatever
-//these lines of code are super uneccessary but i cant figure out how to make it work otherwise??? its a load bearing pillar i dont know how to replace
+//i think this is necessary because i cant figure out how to make this work in CardDeck if there's no value for argv? i think? i cant really remember
 PickCard
 {
 	_out = _argv
 	_out
+}
+LeafSymbols
+{
+	_index = "wheel,dashes,mountain,heart,fish,spiral,anchor,lines,up arrow,down arrow,chain,scissors,knots,sun,apple,owl,tree,pear,cat,umbrella,squares,hammer,horseshoe,star,house,crescent moon,full moon"
 }
 
 //—————————————————————————————— Other stuff... ——————————————————————————————
@@ -434,6 +448,8 @@ menuprefix		{if Flag("No Formality")
 				else 
 				{"%(title)"} 
 				}
+//not sure if ill do this yet... it determines whether or not mirror adds lady before tea's name
+//pertea			{if !Flag("Event.BeCasual")}
 
 //--- array maninpulation
 

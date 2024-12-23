@@ -23,6 +23,7 @@ descript
 //---- MIRROR
 //1100: base 
 //	he doesnt really have any other surfaces atm
+//1300: shock
 //----ETC
 //2000: together :D<
 //3000: extra effects
@@ -325,6 +326,11 @@ surface.append1-2, 7
 	animation33.pattern0,parallelstop,(30,49)
 	animation33.pattern1,overlay,133,0,0,0
 
+	//lid overlay 1
+	animation45.interval,never
+	animation45.pattern0,stop,49
+	animation45.pattern1,overlay,145,0,0,0
+
 	//blink blink
 	animation49.interval,random,5
 	animation49.pattern0,stop,30
@@ -475,6 +481,11 @@ surface.append11-12
 	animation34.interval,never
 	animation34.pattern0,parallelstop,(30,49)
 	animation34.pattern1,overlay,1131,0,0,0
+	
+	//lid overlay 1
+	animation45.interval,never
+	animation45.pattern0,stop,49
+	animation45.pattern1,overlay,1145,0,0,0
 
 	//blink blink
 	animation49.interval,random,5
@@ -508,6 +519,10 @@ surface.append11-12
 surface15
 {
 	element0,overlay,surface1300.png,0,0
+
+	//effect!
+	animation80.interval,runonce
+	animation80.pattern0,overlay,1348,0,0,0
 }
 
 //append all (just the basepos rly)
@@ -557,5 +572,12 @@ surface21
 	animation90.interval,bind
 	animation90.pattern0,add,2005,0,0,0
 
+	point.basepos.y,309
+}
+
+surface22
+{
+	element0,overlay,surface2020.png,0,0
+	
 	point.basepos.y,309
 }

@@ -90,7 +90,7 @@ MainTalk : nonoverlap_pool
 	{"\0\s[2]\i[1]\i[80]\_q%(vera)\_q kinda random, but i wish i still had the money to have annual health checkups.\w8\w8\n"
 	--
 	"\s[4]\i[1]\i[80]\i[19]\i[27]\_q%(vera)\_q OKAY because hear me out... \w8i REALLY liked the weird arm squishy things. \w6\![anim,stop,19]\![anim,stop,27]\i[17]\i[25]uhhh the ones that check your blood pressure? \w6\s[3]\i[1]\i[80]those! \w8\i[18]gosh those made me laugh every time they did it,,,\e"
-	"\s[4]\i[1]\i[80]\i[17]\_q%(vera)\_q i mean like. other than the fact that i'd just have constant healthcare haha. \w8\![anim,stop,17]\i[18]the building is nice, i dunno.\e"}
+	"\s[4]\i[1]\i[80]\i[17]\_q%(vera)\_q i mean like. other than the fact that i'd just have constant healthcare haha. \w8\![anim,stop,17]\i[18]i like the waiting room, i dunno.\e"}
 
 	"\0\s[5]\_q%(vera)\_q ....oh boy. \w8\s[4]\i[26]i hope those %(ANY('grackles','crows','birds')) don't start messing with us......\w8\w8\n\i[19]\_q%(vera)\_q i get scared when they circle the roofs like this cause it pretty much means they're up to somethin...!\e"
 
@@ -99,6 +99,8 @@ MainTalk : nonoverlap_pool
 	"\0\s[2]\i[41]\_q%(vera)\_q hmm... \w8i should buy more hair wash.\w8\w8\n\s[3]\_q%(vera)\_q %(pername)! \w6do you know any cheap brands of all-in-one soap that \w8are still good?\w8\w8\n\i[19]\_q%(vera)\_q EVEN better if it doubles as body wash!\e"
 
 	"\0\s[3]\i[1]\i[80]\i[18]\_q%(vera)\_q oh, i should do the dishes when i get home...\w8\w8\n\![anim,stop,18]\i[15]\_q%(vera)\_q i really like washing them because i like squishing the sponge and watching it get all bubbly. \w8\i[19]pop pop!\e"
+
+	"\0\s[2]\_q%(vera)\_q sneep snorp...\e"
 	
 	
 	//User Environment Ifs
@@ -113,6 +115,8 @@ MainTalk : nonoverlap_pool
 		"\e"}
 		
 		"\0\s[2]\i[1]\i[80]\_q%(vera)\_q you don't think i'm annoying or anything \w2if you're choosing to be near me \w2when you hang out on the roof, \w2right..?\w8\w8\n\s[5]\i[1]\i[80]\![anim,stop,25]\_q%(vera)\_q ...sorry, sorry, \w2i get into self-deprecating talk when i want to rationalize this to myself...\e"
+
+		if negfeel < 5; "\0\s[1]\i[43]\_q%(vera)\_q s'it weird that i'm being so friendly to you when all we do is talk up here sometimes?\w8\w8\n\s[3]\i[19]\i[43]\_q%(vera)\_q or i dunno, \w8maybe YOU'RE the weird one? \w8\s[4]\i[26]\i[41]or am i being weird by saying this. \w8oh no.\e"
 	}
 	if posfeel >= 50
 	{
@@ -122,6 +126,8 @@ MainTalk : nonoverlap_pool
 		"that smell on a hot summer day, \w2where you can smell the grass and sweat and smoke and burning rubber...\w8\w8\n\i[18]\_q%(vera)\_q the city smells like that on really hot days.\w8\w8\n\s[3]\i[17]\_q%(vera)\_q ah, the smell's even better when you have the buzzing of air conditioning in the background...\e"
 		"all those spices and stuff you smell when you enter an indian market.\w8\w8\n\s[1]\_q%(vera)\_q @dad brought me to a lot of those. \w8\i[18]not sure what it is about the smell.\w8\w8\n\![anim,stop,18]\i[15]\_q%(vera)\_q i think it's the memories i have associated with it... \w6\s[4]\i[17]and also \w2\![anim,stop,17]\i[18]it makes me want to eat kheer again...\e"
 		"the thick smell of many mismatched burning candles... \w8\s[4]\i[17]\i[41]i think i end up smelling that one way too often.\w8\w8\n\s[3]\i[26]\_q%(vera)\_q like, sometimes i find that i have tons of candles i've made \w4but never used \w4cause i always wanted to wait for a special occasion to do so...\w8\w8\n\i[19]\_q%(vera)\_q and knowing that special occasions never happen to me, i end up using them all at the same time...\e"}
+
+
 	}
 	//---Timeslots---
 	if daytime
@@ -161,7 +167,12 @@ MainTalk : nonoverlap_pool
 	}
 	if timeslot == "lunch" //12pm - 2pm
 	{
-		if season != "Winter"; "\0\s[2]\_q%(vera)\_q woah... \w8\i[19]\i[27]around now is when it gets REALLY hot...\w8\w8\n\_q%(vera)\_q like... \w8the suns all the way up in the sky n stuff.\w8\w8\n\s[1]\i[26]\_q%(vera)\_q don't get sunburnt, \w2okay?\e"
+		if season != "Winter" 
+		{
+			"\0\s[2]\_q%(vera)\_q woah... \w8\i[19]\i[27]around now is when it gets REALLY hot...\w8\w8\n\_q%(vera)\_q like... \w8the suns all the way up in the sky n stuff.\w8\w8\n\s[1]\i[26]\_q%(vera)\_q don't get sunburnt, \w2okay?\e"
+		}
+
+		"\0\s[1]\i[1]\i[18]\i[43]\_q%(vera)\_q haaa... \w8smoke smell's thicker now...\e"
 
 		"\0\s[4]\i[1]\i[18]\_q%(vera)\_q mmm... \w8%(ANY('marmalade','strawberry','blackberry','lychee')) jam...\w8\w8\n\_q%(vera)\_q bread is super cheap to get and i like it, but i'm craving something extra right now,, \w8\![anim,stop,18]\i[17]maybe cause it's lunch time.\e"
 	}
@@ -189,7 +200,11 @@ MainTalk : nonoverlap_pool
 	}
 	if wd == "Mon"
 	{
-		
+		//add expressions
+		{"\0\s[1]\_q%(vera)\_q ...sigh.\w8\w8\n\_q%(vera)\_q i hate mondays.\w8\w8"
+		--
+		"\n\_q%(vera)\_q ...this really isn't a NEW opinion, is it.\w8\w8\n\_q%(vera)\_q but i do mean it when i say this.\e"
+		"\n\_q%(vera)\_q i know that sounds stereotypical, \w4but like,\w8\w8\n\_q%(vera)\_q i've had way too many bleak mondays for 14 years.\e"}
 	}
 	if wd == "Tue"
 	{
@@ -285,7 +300,10 @@ MainTalk : nonoverlap_pool
 	{
 		"\0\s[1]\i[19]\i[26]\_q%(vera)\_q ough, \w2summer makes the city heat spells even worse..!\w8\w8\n\s[4]\i[18]\_q%(vera)\_q it's fun to watch the horizon wobble due to the heat, though...\e"
 		
-		if daytime; "\0\s[2]\_q%(vera)\_q ah, \w4the sky's even redder than usual...\w8\w8\n\s[3]\i[19]\i[26]\_q%(vera)\_q the spiraling clouds towards the SUPER BRIGHT sun make me dizzy when i watch em with my eyes...\e"
+		if daytime 
+		{
+			"\0\s[2]\_q%(vera)\_q ah, \w4the sky's even redder than usual...\w8\w8\n\s[3]\i[19]\i[26]\_q%(vera)\_q the spiraling clouds towards the SUPER BRIGHT sun make me dizzy when i watch em with my eyes...\e"
+		}
 	}
 	if season == "Autumn"
 	{
@@ -396,10 +414,10 @@ HollerfeedTalk : nonoverlap_pool
 	//---Relationship---
 	if posfeel < 25
 	{
-		{"\0\s[6]\i[26]\_q%(instantiator)\_q ,,,guys i don't really know about this\w8\w8\w8\w8\n"
-		"\_q%(ruminator) About what, dear?\w8\w8\w8\n"
-		"%(instantiator)\_q like,, i'm not really good at talking to people in person. and %(pername) is cool you know?"
-		}
+		all:{"\0\s[6]\i[26]\_q%(instantiator)\_q ,,,guys i don't really know about this\w8\w8\w8\w8\n"
+			"\_q%(ruminator) About what, dear?\w8\w8\w8\n"
+			"%(instantiator)\_q like,, i'm not really good at talking to people in person. and %(pername) is cool you know?"
+			}
 	}
 }
 

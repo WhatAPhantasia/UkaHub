@@ -1,0 +1,1 @@
+hey if you're going to make a shell for these guys (THANK YOU SO MUCH IF U DO OMG?) do NOT exclude the gold spoon dressup!! and make sure the default setting for the dressup in descript.txt is 0!! the ghost will be broken otherwise LOL

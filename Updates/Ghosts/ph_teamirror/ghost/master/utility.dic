@@ -485,3 +485,20 @@ OnDialogueVars
 		}
 	}
 }
+
+//-- Plugin stuff
+
+On_installedplugin
+{
+    pluginlist = IARRAY
+    foreach reference; _ref
+    {
+        pluginlist ,= _ref[0]
+    }
+}
+
+UnyuInstalled
+{
+    if RE_ASEARCH("Wallet of Unyu",pluginlist) != -1; 1
+    else; 0
+}

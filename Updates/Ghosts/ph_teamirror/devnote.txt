@@ -1,0 +1,50 @@
+> progression done entirely through flags
+    > with some help like servicesused and timepassed etc
+
+events in... reasonable order?
+> start off really formal.
+    > urging you to buy services 
+    > won't answer personal questions / answers are really surface level 
+    > basically stuck on formaltalk
+> have an event called becasual that triggers once you use three services, ish?
+    > maybe can also be triggered if you pester them about personal details enough. or something
+    > or maybe if youve just loitered around them enough.......
+    > "oh my gosh, tea, no one's stuck around this long..."
+    > opens up becasual dialogue. of course
+> NEW IDEA. first time you do tarot you get a set reading. 
+    > maybe the fool, the lovers, and the wheel of fortune? ALL major arcana cards at least!
+    > opens up a [ NEW! ] button next to the ask menu, where you ask them who the people on the cards are? opens up the tarot menu!! 
+        (done through a ARRAYSIZE(QuestionFlags) > 0 thing)
+> i think i had an idea where you had to give tea her spoon back to do tea leaf readings but idk... seems kinda extra
+    > actually nvm i really like that :Vc
+    > would basically be broken if you dont have the base shell + the shell youre using doesnt have the spoon dressup. thats not my problem!! /silly
+
+> i rly cant think of ideas beyond this
+    > i think most progression beyond becasual is behind asking them questions though
+    > and you get special dialogue for certain amount of services used or questions asked and such
+
+
+dialogue ideas.
+* note: their continuity is a mix of my personal hc of the games, comics, and cartoon
+> tea complaining about/making fun of king dice
+> tea and mirror have had bad experiences with saltbaker, because they predicted a future he didn't like. this is before his redemption arc.
+> they know about cup and mug, idk at what point their relationship is though because they last saw them before last course
+    > thus they still think chalice is a ghost
+> dissing the devil because he's dumb
+
+
+features
+> tarot reading
+    > pull any random card and say meaning
+    > basic 3 card daily reading
+    > she has all custom cards, so there should be a menu where you can look through all of them and ask her about the symbolism behind it
+> tea leaf reading
+    > array of symbols and their meanings. pretty silly and simple
+    > maybe you get to choose the kind of blend lol
+> mirror scrying
+    > pretty similar to tea leaf reading but with mirror's perspective
+> eights
+    > a little game of eights. mirror likes having fun away from his job come on
+    > his ai is pretty nice, he makes a lot of comments thru the game
+    > maybe a later update can have his Serious Mode
+    > and maybe you can have tea play (she's terrible at it)

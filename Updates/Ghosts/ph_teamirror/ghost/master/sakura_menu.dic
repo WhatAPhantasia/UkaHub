@@ -20,20 +20,31 @@ OnSakuraMenu : all
 	{"\![*]\f[color,disable]REPEAT THAT?\f[color,default]"}
 	"\n\n"
 	
+
 	"\![*]"
 	"\q[I'VE GOT QUESTIONS!,OnQuestionMenuT]\n"
 	"\![*]"
-	if bankinfo[0] = "Devil's Discount" || (Flag("Event.FBNegative") && !Flag("NoMoreDiscount"))
+	if bankinfo[0] == "Devil's Discount" || (Flag("Event.FBNegative") && ARRAYADD(servicesused) < 1)
 	{"($0) "}
 	else
 	{"($1) "}
-	"\q[TAROT READING!,OnTarotInit]\n"
+	if servicesused[0] == 0
+	{"\q[TAROT READING!,OnTarotFirst]\n"}
+	else
+	{"\q[TAROT READING!,OnTarotInit]\n"}
+
 	"\![*]"
-	if bankinfo[0] = "Devil's Discount" || (Flag("Event.FBNegative") && !Flag("NoMoreDiscount"))
+	if bankinfo[0] == "Devil's Discount" || (Flag("Event.FBNegative") && ARRAYADD(servicesused) < 1)
 	{"($0) "}
 	else
 	{"($1) "}
-	"\q[TEA READING?,OnTealeafInit]\n\n"
+	if !Flag("Event.FirstSpoon")
+	{"\q[TEA READING?,OnTealeafFirst]\n"}
+	else
+	{"\q[TEA READING?,OnTealeafInit]\n"}
+
+	"\n"
+
 
 	"\![*]\q[SETTINGS,OnSettingsMenu,0]\n\n"
 	
@@ -48,15 +59,13 @@ OnLastTalk
 	LastTalk
 }
 
+OnTarotFirst
+{
+	OnTarotInit
+}
+
 OnSettingsMenu : all
 {
-	_talkrate = "Off"
-	if aitalkinterval == 30; _talkrate = "30 seconds"
-	elseif aitalkinterval == 60; _talkrate = "1 minute"
-	elseif aitalkinterval == 180; _talkrate = "3 minutes"
-	elseif aitalkinterval == 300; _talkrate = "5 minutes"
-	elseif aitalkinterval == 600; _talkrate = "10 minutes"
-
 	_yeah = "OnKeroMenu"
 	if reference0 {"\1"}
 	else {_yeah = "OnSakuraMenu"; "\0"}
@@ -65,10 +74,24 @@ OnSettingsMenu : all
 	
 	"\![*]Name: \_a[OnChangeTitle,%(reference0)]%(title)\_a \_a[OnChangeName,%(reference0)]%(user)\_a\n"
 	"\![*]Pronouns: \_a[OnChangePronoun,%(reference0)]%(they) %(them)\_a\n"
+
+	"\n"
 	
-	"\![*]Talk rate: \_a[OnTalkRateMenu,%(reference0)]%(_talkrate)\_a\n"
 	"\![*]Font: \_a[OnChangeFont,%(reference0)]%(fontinfo[0])\_a\n"
 	"\![*]Bank: \_a[OnChangeMoney,%(reference0)]%(bankinfo[0])\_a\n"
+	
+	"\n"
+
+	"\![*]Talk rate:\n"
+	_rates = (1,3,5,10,15)
+	foreach _rates; _rate
+	{
+		_time = TOINT(_rate * 60)
+		_tag = ""
+		if aitalkinterval == _time; _tag = "\_a"
+		else; _tag = "\__q"
+		_tag + "[OnTalkRateChange,%(_time),%(reference0)]%(_rate)m" + _tag + " "
+	}
 	
 	"\n\f[align,right]\q[BACK,%(_yeah)] \![*]"
 
@@ -88,27 +111,142 @@ OnChangeFont
 	"\![raise,OnSettingsMenu,%(reference0)]"
 }
 
-OnTalkRateMenu : all
-{	
-	if reference0; "\1"
-	else; "\0"
-
-	"\b2\![set,autoscroll,disable]\_q"
-
-	"\![*]\q[OFF,OnTalkRateChange,0]\n"
-	"\![*]\q[30 SECONDS,OnTalkRateChange,30]\n"
-	"\![*]\q[1 MINUTE,OnTalkRateChange,60]\n"
-	"\![*]\q[3 MINUTES,OnTalkRateChange,180]\n"
-	"\![*]\q[5 MINUTES,OnTalkRateChange,300]\n"
-	"\![*]\q[10 MINUTES,OnTalkRateChange,600]\n"
-	"\n"
-	"\f[align,right]\![*]\q[BACK,OnSettingsMenu,%(reference0)]\n\![*]\q[NEVERMIND,blank]"
-}
-
 OnTalkRateChange
 {
 	aitalkinterval = TOINT(reference0)
+	"\![raise,OnSettingsMenu,%(reference1)]"
 }
+
+//---------------------- Question me!!!!!!!!!!
+
+OnQuestionMenuT : all
+{
+	"\0\b2\_q\![nocaps]"
+	"\f[align,center]ASK AWAY!\n\n\f[align,default]"
+
+
+	"\![*]\q[HERSELF,OnTQTea]\n"
+
+	"\![*]\q[MIRROR,OnTQMirror]\n"
+
+	"\![*]\q[OTHER PEOPLE,OnTQPeople]\n"
+
+	"\![*]\q[YOURSELF,OnTQUser]\n"
+
+	"\![*]\q[DIVINATION,OnTQDivination]\n"
+
+
+	"\n\f[align,right]"
+	"\![*]\q[BACK,OnSakuraMenu]  \![*]\q[CLOSE,blank]\e"
+}
+
+rootquestiontea
+{"\n\n\f[align,right]\![*]\q[BACK,OnQuestionMenuT]  \![*]\q[CLOSE,blank]\e"}
+
+OnTQTea
+{
+	if !Flag("Event.BeCasual")
+	{
+
+	}
+	else
+	{
+
+	}
+	--
+	"%(rootquestiontea)"
+}
+
+OnTQMirror
+{
+	if !Flag("Event.BeCasual")
+	{
+
+	}
+	else
+	{
+		
+	}
+	--
+	"%(rootquestiontea)"
+}
+
+OnTQPeople : all
+{
+	if !Flag("Event.BeCasual")
+	{
+
+		--
+		"%(rootquestiontea)"
+	}
+	else
+	{
+
+	}
+}
+
+rootpeopletea
+{"\n\n\f[align,right]\![*]\q[BACK,OnTQPeople]  \![*]\q[CLOSE,blank]\e"}
+
+OnTQPDice
+{
+
+	--
+	"%(rootpeopletea)"
+}
+
+OnTQPDevil
+{
+
+	--
+	"%(rootpeopletea)"
+}
+
+OnTQPBrats //cup and mug lol
+{
+
+	--
+	"%(rootpeopletea)"
+}
+
+OnTQPChalice
+{
+
+	--
+	"%(rootpeopletea)"
+}
+
+
+//----
+
+OnTQUser
+{
+	if !Flag("Event.BeCasual")
+	{
+
+	}
+	else
+	{
+		
+	}
+	--
+	"%(rootquestiontea)"
+}
+
+OnTQDivination
+{
+	if !Flag("Event.BeCasual")
+	{
+
+	}
+	else
+	{
+		
+	}
+	--
+	"%(rootquestiontea)"
+}
+
 
 //---------------------- OK HERE IS. THE MINIGAMES
 
@@ -117,38 +255,39 @@ OnTalkRateChange
 
 //-------- TAROT
 
-Ontarotinit : all
+OnTarotInit : all
 {
 	if reference0 == "redo"
-	{"\0\s[1]i can do another! \w6you sure?"}
+	{"\0\s[1]Another?! \w8Of course! \w8That'll be another dollar!"} //change if discount is active?
 	elseif reference0 == "explain"
-	{"\0\b2\s[1]oh!\w8\n\s[2]\i[41]um, my basic 3 card readings pull 3 cards, \w2obviously, \w2and from what we get, the cards gauge what you're thinking, feeling, and doing.\w8\nfrom that, you can get a better idea of yourself and what you should do...\w8\n\i[18]i can also just pull some cards and tell you what they represent, vaguely.\w8\w4\n\s[3]\i[26]i don't take it too seriously, but it's fun!\w8\w4\n\s[1]oh, and i don't do reversals. \w6\s[3]\i[19]\i[26]i'm not good enough at reading tarot to do that..."}
+	{"\0\b2"}
 	else
-	{"\0\s[1]oh! \w6wanna do a basic reading \w2or just have me pull some cards?"}
+	{random:{"\0\s[1]Of course! \w8Will it be the three card spread, or something else?"
+			"\0\s[1]Of course! \w8Looking for my signature card spread, or something else?"}
+	}
+
+	"\w8\w4\_q"
 	
-	"\n\n\f[color,default]\![*]\q[BASIC READING,OnTarot]\n"
+	"\n\n\f[color,default]\![*]\q[NORMAL READING,OnTarot]\n"
 	"\![*]\q[PULL SOME CARDS...,OnTarotCustom]\n"
-	if reference0 != "explain"; "\![*]\q[EXPLAIN,Ontarotinit,explain]\n"
-	"\![*]\q[BACK,OnSylladex]\n"
-	"\![*]\q[CLOSE,blank]\e"
+	if reference0 != "explain"; "\![*]\q[EXPLAIN,Ontarotinit,explain]  "
+	"\![*]\q[BACK,OnSakuraMenu]  \![*]\q[CLOSE,blank]"
+	""
 }
 
 OnTarotCustom : all
 {
-	"\0\s[3]\i[19]\i[87]\_q%(vera) ok! \w8how many cards do you want me to pull?"
+	"\0ok! \w8how many cards do you want me to pull?"
 	"\![open,sliderinput,OnTarot,-1,1,1,10,--reference=custom]"
 	"\n\n"
 	
-	"\f[color,default]"
-	"\![*]\q[BACK,OnSylladex]\n"
-	"\![*]\q[CLOSE,Oncloseinputpls]\e"
+	"\f[color,default]\f[align,right]"
+	"\![*]\q[BACK,OnTarotInit]  \![*]\q[CLOSE,Oncloseinputpls]\e"
 }
 //god why'd i create an entirely new thing for this. cant do an eval or whatever and i dont want to add a conditional to my cancel statement so. yeah
 Oncloseinputpls
 {"\![close,inputbox,__SYSTEM_ALL_INPUT__]"}
 
-//my need to keep everything to local variables will be the death of me
-//add reversals in the future? lol (absolute hell that would double the amount of shit i have to write
 OnTarot : all
 {
 	_istg = TarotDeck('all')
@@ -176,28 +315,39 @@ OnTarot : all
 	}
 	
 	//i yoinked this code straight from vera..... should i include card images? i dont wanna draw cards i hope theres some official cuphead deck....
-	//ok obviously there ISN'T. and im not about to draw, like, 78 cards.
+	//ok obviously there ISN'T. and im not about to draw, like, 78 cards. what do i even do bros?!
+	//so. i ended up drawing 78 cards. LOL
 	for _c = 0; _c < ARRAYSIZE(_card); _c++
 	{
-		_dis1 += "\_b[img\cardback.png,inline,--option=use_self_alpha]"
+		_dis1 += "\_b[img\tarot_back.png,inline,--option=use_self_alpha]"
+		_dis2 += "\_b[img\tarot_%(_indexpos[_c]).png,inline,--option=use_self_alpha]"
+		
+		//to handle the pesky balloon wrapping...
+		if SHIORI3FW.BalloonName == "Comic Curio" && (!((_c + 1) % 3) && ARRAYSIZE(_card) != 3)
+		{
+			_dis1 += "\n"
+			_dis2 += "\n"
+		}
+
+		//for accessibility's sake? if i don't state the card name in her interpretation? ill think about it.
+		/*
 		if _c == 0; _dis2 += "- %(_card[_c]) -"
 		else; _dis2 += " %(_card[_c]) -"
+		*/
 	}
 	
 	//-----------------------------
 	
-	"\0\*\s[1]\i[18]\i[87]\i[35](Setting intention... \w4\s[14]Shuffling in progress...)\w8\w8\w8\w8\n\x"
+	"\0\*\s[1](Setting intention... \w4Shuffling in progress...)\w8\w8\w8\n\x"
 	
 	
-	"\_q\b2\s[2]\i[86]"
+	"\_q\b2"
 	"\f[align,center]%(_dis1)"
 	"\n\n(Click to reveal!)\x"
 	
-	//TODO: draw and implement images.
 	"\b2\f[align,center]%(_dis2)\_q\w8\w8\w4\n\f[align,default]"
 	
-	//load bearing pillar. do not remove under any circumstances
-	//(jk you can move it around just make sure its not separate from the != "custom" pool because it messes up w the switch function)
+	//mew :3 this doesnt really work the best anymore with the current reference setup but i dont want to remove it
 	if reference0 == "debug"
 	{"debug: %(_yourfate)\n%(_card)\n%(_arcana)\n%(_indexpos)\n"}
 	//"debug: %(reference0), %(reference1), %(reference2)"
@@ -205,50 +355,49 @@ OnTarot : all
 	"\n"
 	if ARRAYSIZE(_card) > 2 {
 	if ASEARCH("Minor",_arcana) == -1
-	{"wow, all major arcana cards... \w8\s[1]\i[86]are you going through a big change right now?\w8\w8\n"}
+	{"wow, all major arcana cards... \w8are you going through a big change right now?\w8\w8\n"}
 	
 	//suit
-	//THANK FUCKING GOD. idek what re_asearchex does but it works /j
 	//having it need to equal the array size of the cards makes this impossible to show up on custom pulls over like 6 unless u have uber super ultra luck or something LOL.
 	if ARRAYSIZE(RE_ASEARCHEX("Wands",_card)) == ARRAYSIZE(_card)
-	{"\s[2]\i[86]all wands? \w8\s[1]\i[86]feeling big shifts in your energy and ambitions lately..?\w8\w8\n"}
+	{"all wands? \w8feeling big shifts in your energy and ambitions lately..?\w8\w8\n"}
 	if ARRAYSIZE(RE_ASEARCHEX("Cups",_card)) == ARRAYSIZE(_card)
-	{"\s[2]\i[86]all cups? \w8\s[1]\i[86]that usually means this is a big emotional period for you, \w2or your inspirations and relationships are shifting...\w8\w8\n"}
+	{"all cups? \w8that usually means this is a big emotional period for you, \w2or your inspirations and relationships are shifting...\w8\w8\n"}
 	if ARRAYSIZE(RE_ASEARCHEX("Swords",_card)) == ARRAYSIZE(_card)
-	{"\s[2]\i[86]all swords? \w8\s[1]\i[86]your sense of logic must be changing a lot...\w8\w8\n"}
+	{"all swords? \w8your sense of logic must be changing a lot...\w8\w8\n"}
 	if ARRAYSIZE(RE_ASEARCHEX("Pentacles",_card)) == ARRAYSIZE(_card)
-	{"\s[2]\i[86]all pentacles? \w8\s[1]\i[86]has your sense of stability or your possessions changed a bunch?\w8\w8\n"}
+	{"all pentacles? \w8has your sense of stability or your possessions changed a bunch?\w8\w8\n"}
 	
 	//rank
 	/*
 	if ARRAYSIZE(RE_ASEARCHEX("Ace",_card)) == ARRAYSIZE(_card)
-	{"\s[2]\i[86]ah, all aces! \w8that usually means \w8\w8\n"}
+	{"Ah, all aces! \w8that usually means \w8\w8\n"}
 	elseif ARRAYSIZE(RE_ASEARCHEX("Knight",_card)) == ARRAYSIZE(_card)
-	{"\s[2]\i[86]ah, all knights! \w8that \w8\w8\n"}
+	{"Ah, all knights! \w8that \w8\w8\n"}
 	elseif ARRAYSIZE(RE_ASEARCHEX("Queen",_card)) == ARRAYSIZE(_card)
-	{"\s[2]\i[86]ah, all queens! \w8that \w8\w8\n"}
+	{"Ah, all queens! \w8that \w8\w8\n"}
 	elseif ARRAYSIZE(RE_ASEARCHEX("King",_card)) == ARRAYSIZE(_card)
-	{"\s[2]\i[86]ah, all kings! \w8that usually means \w8\w8\n"}
+	{"Ah, all kings! \w8that usually means \w8\w8\n"}
 	elseif ARRAYSIZE(RE_ASEARCHEX("Page",_card)) == ARRAYSIZE(_card)
-	{"\s[2]\i[86]ah, all pages! \w8that \w8\w8\n"}
+	{"Ah, all pages! \w8that \w8\w8\n"}
 	elseif ARRAYSIZE(RE_ASEARCHEX("2",_card)) == ARRAYSIZE(_card)
-	{"\s[2]\i[86]ah, all twos! \w8that usually means \w8\w8\n"}
+	{"Ah, all twos! \w8that usually means \w8\w8\n"}
 	elseif ARRAYSIZE(RE_ASEARCHEX("3",_card)) == ARRAYSIZE(_card)
-	{"\s[2]\i[86]ah, all threes! \w8that usually means \w8\w8\n"}
+	{"Ah, all threes! \w8that usually means \w8\w8\n"}
 	elseif ARRAYSIZE(RE_ASEARCHEX("4",_card)) == ARRAYSIZE(_card)
-	{"\s[2]\i[86]ah, all fours! \w8that usually means \w8\w8\n"}
+	{"Ah, all fours! \w8that usually means \w8\w8\n"}
 	elseif ARRAYSIZE(RE_ASEARCHEX("5",_card)) == ARRAYSIZE(_card)
-	{"\s[2]\i[86]ah, all fives! \w8that usually means \w8\w8\n"}
+	{"Ah, all fives! \w8that usually means \w8\w8\n"}
 	elseif ARRAYSIZE(RE_ASEARCHEX("6",_card)) == ARRAYSIZE(_card)
-	{"\s[2]\i[86]ah, all sixes! \w8that usually means \w8\w8\n"}
+	{"Ah, all sixes! \w8that usually means \w8\w8\n"}
 	elseif ARRAYSIZE(RE_ASEARCHEX("7",_card)) == ARRAYSIZE(_card)
-	{"\s[2]\i[86]ah, all sevens! \w8that usually means \w8\w8\n"}
+	{"Ah, all sevens! \w8that usually means \w8\w8\n"}
 	elseif ARRAYSIZE(RE_ASEARCHEX("8",_card)) == ARRAYSIZE(_card)
-	{"\s[2]\i[86]ah, all eights! \w8that usually means \w8\w8\n"}
+	{"Ah, all eights! \w8that usually means \w8\w8\n"}
 	elseif ARRAYSIZE(RE_ASEARCHEX("9",_card)) == ARRAYSIZE(_card)
-	{"\s[2]\i[86]ah, all nines! \w8that usually means \w8\w8\n"}
+	{"Ah, all nines! \w8that usually means \w8\w8\n"}
 	elseif ARRAYSIZE(RE_ASEARCHEX("10",_card)) == ARRAYSIZE(_card)
-	{"\s[2]\i[86]ah, all tens! \w8that usually means \w8\w8\n"}
+	{"Ah, all tens! \w8that usually means \w8\w8\n"}
 	*/
 	}
 	
@@ -259,16 +408,16 @@ OnTarot : all
 		//--THINKING--
 		switch _indexpos[0]
 		{
-			"\s[2]\i[86]hm, \w2i think the fool shows that you're on a completely new slate- or you SHOULD start anew- on how you're thinking.\w8\n\s[1]\i[86]it might be that new circumstances call for it, or maybe it's just to get you out of a logical rut? \w2\s[1]\i[86]could also mean there's more to think about ahead, but i wouldn't worry about it...\w8\w8\n"
-			"\s[2]\i[86]the magician shows that you're really focused on creation, or thinking about what you can make... \w6\s[1]\i[86]but you're not working on it!\w8\i[18]\nthat's not a bad thing- ideas are the root of creation! \w2\s[3]\i[86]it's up to you to recognize your ideas and do anything with them.\w8\w8\n"
-			"\s[2]\i[86]the high priestess shows that your mind has been- or is- full of intuitive thoughts, \w2for better or for worse.\w8\n\s[2]\i[86]it's up to you to recognize if that unconscious voice is one to follow or not.\w8\w8\n"
-			"the empress\w8\w8\n"
-			"the emperor\w8\w8\n"
-			"the heirophant\w8\w8\n"
-			"the lovers\w8\w8\n"
-			"the chariot\w8\w8\n"
-			"strength\w8\w8\n"
-			"the hermit\w8\w8\n"
+			"The Fool\w8\w8\n"
+			"The Magician\w8\w8\n"
+			"The High Priestess\w8\w8\n"
+			"The Empress\w8\w8\n"
+			"The Emperor\w8\w8\n"
+			"The Heirophant\w8\w8\n"
+			"The Lovers\w8\w8\n"
+			"The Chariot\w8\w8\n"
+			"Strength\w8\w8\n"
+			"The Hermit\w8\w8\n"
 			"The Wheel of Fortune\w8\w8\n"
 			"Justice\w8\w8\n"
 			"The Hanged Man\w8\w8\n"
@@ -281,10 +430,7 @@ OnTarot : all
 			"The Sun\w8\w8\n"
 			"Judgement\w8\w8\n"
 			"The World\w8\w8\n"
-			"Knight of Wands\w8\w8\n"
-			"King of Wands\w8\w8\n"
-			"Queen of Wands\w8\w8\n"
-			"Page of Wands\w8\w8\n"
+			"Ace of Wands\w8\w8\n"
 			"2 of Wands\w8\w8\n"
 			"3 of Wands\w8\w8\n"
 			"4 of Wands\w8\w8\n"
@@ -294,11 +440,11 @@ OnTarot : all
 			"8 of Wands\w8\w8\n"
 			"9 of Wands\w8\w8\n"
 			"10 of Wands\w8\w8\n"
-			"Ace of Wands\w8\w8\n"
-			"Knight of Cups\w8\w8\n"
-			"King of Cups\w8\w8\n"
-			"Queen of Cups\w8\w8\n"
-			"Page of Cups\w8\w8\n"
+			"Page of Wands\w8\w8\n"
+			"Knight of Wands\w8\w8\n"
+			"Queen of Wands\w8\w8\n"
+			"King of Wands\w8\w8\n"
+			"Ace of Cups\w8\w8\n"
 			"2 of Cups\w8\w8\n"
 			"3 of Cups\w8\w8\n"
 			"4 of Cups\w8\w8\n"
@@ -308,11 +454,11 @@ OnTarot : all
 			"8 of Cups\w8\w8\n"
 			"9 of Cups\w8\w8\n"
 			"10 of Cups\w8\w8\n"
-			"Ace of Cups\w8\w8\n"
-			"Knight of Swords\w8\w8\n"
-			"King of Swords\w8\w8\n"
-			"Queen of Swords\w8\w8\n"
-			"Page of Swords\w8\w8\n"
+			"Page of Cups\w8\w8\n"
+			"Knight of Cups\w8\w8\n"
+			"Queen of Cups\w8\w8\n"
+			"King of Cups\w8\w8\n"
+			"Ace of Swords\w8\w8\n"
 			"2 of Swords\w8\w8\n"
 			"3 of Swords\w8\w8\n"
 			"4 of Swords\w8\w8\n"
@@ -322,11 +468,11 @@ OnTarot : all
 			"8 of Swords\w8\w8\n"
 			"9 of Swords\w8\w8\n"
 			"10 of Swords\w8\w8\n"
-			"Ace of Swords\w8\w8\n"
-			"Knight of Pentacles\w8\w8\n"
-			"King of Pentacles\w8\w8\n"
-			"Queen of Pentacles\w8\w8\n"
-			"Page of Pentacles\w8\w8\n"
+			"Page of Swords\w8\w8\n"
+			"Knight of Swords\w8\w8\n"
+			"Queen of Swords\w8\w8\n"
+			"King of Swords\w8\w8\n"
+			"Ace of Pentacles\w8\w8\n"
 			"2 of Pentacles\w8\w8\n"
 			"3 of Pentacles\w8\w8\n"
 			"4 of Pentacles\w8\w8\n"
@@ -336,26 +482,24 @@ OnTarot : all
 			"8 of Pentacles\w8\w8\n"
 			"9 of Pentacles\w8\w8\n"
 			"10 of Pentacles\w8\w8\n"
-			"Ace of Pentacles\w8\w8\n"
+			"Page of Pentacles\w8\w8\n"
+			"Knight of Pentacles\w8\w8\n"
+			"Queen of Pentacles\w8\w8\n"
+			"King of Pentacles\w8\w8\n"
 		}
-		
-		//brb im watching the owl house
-		//THE WORLD TREMBLES WHEN A HE/THEY LOSES HIS TEMPER :scream:
-		//YOOOO WATCHING AND DREAMING WAS SO GOOOOOOOOD i love toh.
-		
 		//--FEELING--
 		switch _indexpos[1]
 		{
-			"\s[2]\i[86]the fool for how you're feeling shows that you have- or should- start your feelings anew...\w8\n\s[1]\i[86]that's a good thing! you need a blank slate so your feelings stop weighing on you! \w5\s[3]\i[19]\i[86]relax! \w6\![anim,stop,19]\i[15]\i[26]just don't lose sight of your responsibilites for too long, ok?\w8\w8\n"
-			"\s[3]\i[86]the magician means you're feeling concentrated and your willpower is at all all-time high! \w8\i[19]perfect for making or doing- \w2\i[26]no idea if you have anything to do, though. \w8\![anim,stop,19]\![anim,stop,26]\i[15]\i[25]make use of it if you can, even if it's small!\w8\w8\n"
-			"the high priestess means a lot of your feelings are coming from your subconscious... is there something you've \w8\w8\n"
-			"the empress\w8\w8\n"
-			"the emperor\w8\w8\n"
-			"the heirophant\w8\w8\n"
-			"the lovers\w8\w8\n"
-			"the chariot\w8\w8\n"
-			"strength\w8\w8\n"
-			"the hermit\w8\w8\n"
+			"The Fool\w8\w8\n"
+			"The Magician\w8\w8\n"
+			"The High Priestess\w8\w8\n"
+			"The Empress\w8\w8\n"
+			"The Emperor\w8\w8\n"
+			"The Heirophant\w8\w8\n"
+			"The Lovers\w8\w8\n"
+			"The Chariot\w8\w8\n"
+			"Strength\w8\w8\n"
+			"The Hermit\w8\w8\n"
 			"The Wheel of Fortune\w8\w8\n"
 			"Justice\w8\w8\n"
 			"The Hanged Man\w8\w8\n"
@@ -368,10 +512,7 @@ OnTarot : all
 			"The Sun\w8\w8\n"
 			"Judgement\w8\w8\n"
 			"The World\w8\w8\n"
-			"Knight of Wands\w8\w8\n"
-			"King of Wands\w8\w8\n"
-			"Queen of Wands\w8\w8\n"
-			"Page of Wands\w8\w8\n"
+			"Ace of Wands\w8\w8\n"
 			"2 of Wands\w8\w8\n"
 			"3 of Wands\w8\w8\n"
 			"4 of Wands\w8\w8\n"
@@ -381,11 +522,11 @@ OnTarot : all
 			"8 of Wands\w8\w8\n"
 			"9 of Wands\w8\w8\n"
 			"10 of Wands\w8\w8\n"
-			"Ace of Wands\w8\w8\n"
-			"Knight of Cups\w8\w8\n"
-			"King of Cups\w8\w8\n"
-			"Queen of Cups\w8\w8\n"
-			"Page of Cups\w8\w8\n"
+			"Page of Wands\w8\w8\n"
+			"Knight of Wands\w8\w8\n"
+			"Queen of Wands\w8\w8\n"
+			"King of Wands\w8\w8\n"
+			"Ace of Cups\w8\w8\n"
 			"2 of Cups\w8\w8\n"
 			"3 of Cups\w8\w8\n"
 			"4 of Cups\w8\w8\n"
@@ -395,11 +536,11 @@ OnTarot : all
 			"8 of Cups\w8\w8\n"
 			"9 of Cups\w8\w8\n"
 			"10 of Cups\w8\w8\n"
-			"Ace of Cups\w8\w8\n"
-			"Knight of Swords\w8\w8\n"
-			"King of Swords\w8\w8\n"
-			"Queen of Swords\w8\w8\n"
-			"Page of Swords\w8\w8\n"
+			"Page of Cups\w8\w8\n"
+			"Knight of Cups\w8\w8\n"
+			"Queen of Cups\w8\w8\n"
+			"King of Cups\w8\w8\n"
+			"Ace of Swords\w8\w8\n"
 			"2 of Swords\w8\w8\n"
 			"3 of Swords\w8\w8\n"
 			"4 of Swords\w8\w8\n"
@@ -409,11 +550,11 @@ OnTarot : all
 			"8 of Swords\w8\w8\n"
 			"9 of Swords\w8\w8\n"
 			"10 of Swords\w8\w8\n"
-			"Ace of Swords\w8\w8\n"
-			"Knight of Pentacles\w8\w8\n"
-			"King of Pentacles\w8\w8\n"
-			"Queen of Pentacles\w8\w8\n"
-			"Page of Pentacles\w8\w8\n"
+			"Page of Swords\w8\w8\n"
+			"Knight of Swords\w8\w8\n"
+			"Queen of Swords\w8\w8\n"
+			"King of Swords\w8\w8\n"
+			"Ace of Pentacles\w8\w8\n"
 			"2 of Pentacles\w8\w8\n"
 			"3 of Pentacles\w8\w8\n"
 			"4 of Pentacles\w8\w8\n"
@@ -423,21 +564,24 @@ OnTarot : all
 			"8 of Pentacles\w8\w8\n"
 			"9 of Pentacles\w8\w8\n"
 			"10 of Pentacles\w8\w8\n"
-			"Ace of Pentacles\w8\w8\n"
+			"Page of Pentacles\w8\w8\n"
+			"Knight of Pentacles\w8\w8\n"
+			"Queen of Pentacles\w8\w8\n"
+			"King of Pentacles\w8\w8\n"
 		}
 		//--DOING--
 		switch _indexpos[2]
 		{
-			"\s[2]\i[86]for doing, maybe you're starting a new project or phase in your life! \w6\s[3]\i[86]it's still in those hopeful early stages, and that's great!\w8\n\i[26]i'd watch out for taking off more than you can chew, though. \w4you can't maintain a big change in your life with dreams alone, you know?\w8\w8\n"
-			"\s[2]\i[86]the magician is perfect for doing, cause it represents pure willpower! \w4\s[1]\i[86]it's a card telling you to take action! \w2your current activity or choice is a big one- keep going with it if it makes you safe and happy!\w8\w8\n"
-			"the high priestess\w8\w8\n"
-			"the empress\w8\w8\n"
-			"the emperor\w8\w8\n"
-			"the heirophant\w8\w8\n"
-			"the lovers\w8\w8\n"
-			"the chariot\w8\w8\n"
-			"strength\w8\w8\n"
-			"the hermit\w8\w8\n"
+			"The Fool\w8\w8\n"
+			"The Magician\w8\w8\n"
+			"The High Priestess\w8\w8\n"
+			"The Empress\w8\w8\n"
+			"The Emperor\w8\w8\n"
+			"The Heirophant\w8\w8\n"
+			"The Lovers\w8\w8\n"
+			"The Chariot\w8\w8\n"
+			"Strength\w8\w8\n"
+			"The Hermit\w8\w8\n"
 			"The Wheel of Fortune\w8\w8\n"
 			"Justice\w8\w8\n"
 			"The Hanged Man\w8\w8\n"
@@ -450,10 +594,7 @@ OnTarot : all
 			"The Sun\w8\w8\n"
 			"Judgement\w8\w8\n"
 			"The World\w8\w8\n"
-			"Knight of Wands\w8\w8\n"
-			"King of Wands\w8\w8\n"
-			"Queen of Wands\w8\w8\n"
-			"Page of Wands\w8\w8\n"
+			"Ace of Wands\w8\w8\n"
 			"2 of Wands\w8\w8\n"
 			"3 of Wands\w8\w8\n"
 			"4 of Wands\w8\w8\n"
@@ -463,11 +604,11 @@ OnTarot : all
 			"8 of Wands\w8\w8\n"
 			"9 of Wands\w8\w8\n"
 			"10 of Wands\w8\w8\n"
-			"Ace of Wands\w8\w8\n"
-			"Knight of Cups\w8\w8\n"
-			"King of Cups\w8\w8\n"
-			"Queen of Cups\w8\w8\n"
-			"Page of Cups\w8\w8\n"
+			"Page of Wands\w8\w8\n"
+			"Knight of Wands\w8\w8\n"
+			"Queen of Wands\w8\w8\n"
+			"King of Wands\w8\w8\n"
+			"Ace of Cups\w8\w8\n"
 			"2 of Cups\w8\w8\n"
 			"3 of Cups\w8\w8\n"
 			"4 of Cups\w8\w8\n"
@@ -477,11 +618,11 @@ OnTarot : all
 			"8 of Cups\w8\w8\n"
 			"9 of Cups\w8\w8\n"
 			"10 of Cups\w8\w8\n"
-			"Ace of Cups\w8\w8\n"
-			"Knight of Swords\w8\w8\n"
-			"King of Swords\w8\w8\n"
-			"Queen of Swords\w8\w8\n"
-			"Page of Swords\w8\w8\n"
+			"Page of Cups\w8\w8\n"
+			"Knight of Cups\w8\w8\n"
+			"Queen of Cups\w8\w8\n"
+			"King of Cups\w8\w8\n"
+			"Ace of Swords\w8\w8\n"
 			"2 of Swords\w8\w8\n"
 			"3 of Swords\w8\w8\n"
 			"4 of Swords\w8\w8\n"
@@ -491,11 +632,11 @@ OnTarot : all
 			"8 of Swords\w8\w8\n"
 			"9 of Swords\w8\w8\n"
 			"10 of Swords\w8\w8\n"
-			"Ace of Swords\w8\w8\n"
-			"Knight of Pentacles\w8\w8\n"
-			"King of Pentacles\w8\w8\n"
-			"Queen of Pentacles\w8\w8\n"
-			"Page of Pentacles\w8\w8\n"
+			"Page of Swords\w8\w8\n"
+			"Knight of Swords\w8\w8\n"
+			"Queen of Swords\w8\w8\n"
+			"King of Swords\w8\w8\n"
+			"Ace of Pentacles\w8\w8\n"
 			"2 of Pentacles\w8\w8\n"
 			"3 of Pentacles\w8\w8\n"
 			"4 of Pentacles\w8\w8\n"
@@ -505,7 +646,10 @@ OnTarot : all
 			"8 of Pentacles\w8\w8\n"
 			"9 of Pentacles\w8\w8\n"
 			"10 of Pentacles\w8\w8\n"
-			"Ace of Pentacles\w8\w8\n"
+			"Page of Pentacles\w8\w8\n"
+			"Knight of Pentacles\w8\w8\n"
+			"Queen of Pentacles\w8\w8\n"
+			"King of Pentacles\w8\w8\n"
 		}
 	}
 	//this just lists general card symbolism, no interpretation whatsoever
@@ -516,87 +660,87 @@ OnTarot : all
 		{
 			switch _i
 			{
-				"the fool represents new beginnings and innocence.\w8\w8\n"
-				"the magician represents willpower and the desire to create.\w8\w8\n"
-				"the high priestess represents intuition and the unconscious inner voice.\w8\w8\n"
-				"the empress represents ""motherhood and femininity"", like nature and love and all that.\w8\w8\n"
-				"the emperor represents authority, structure, and control.\w8\w8\n"
-				"the heirophant represents tradition, conformity, and morality.\w8\w8\n"
-				"the lovers represent union and duality, or sometimes choices.\w8\w8\n"
-				"the chariot represents direction, control, and self-discipline.\w8\w8\n"
-				"strength represents... \w2STRENGTH, \w2and also bravery, compassion, and inner power.\w8\w8\n"
-				"the hermit represents contemplation, the search for truth, and inner guidance.\w8\w8\n"
-				"the wheel of fortune represents changes, especially in regards to cycles and fate.\w8\w8\n"
-				"justice represnets cause and effect, as well as the clarity and truth that come from it.\w8\w8\n"
-				"the hanged man represents martyrdom and sacrifice... as well as contemplation and uncertainty.\w8\w8\n"
-				"death represents the end of a cycle and big change, or it might mean letting go of something.\w8\w8\n"
-				"temperance represents the middle path, patience, and finding meaning.\w8\w8\n"
-				"the devil represents materialism, play, and addiction.\w8\w8\n"
-				"the tower represents disaster, indicating a sudden upheaval and general destruction.\w8\w8\n"
-				"the star- my favorite card- represents hope, faith, and healing.\w8\w8\n"
-				"the moon represents the unconscious and intuition, as well as illusions and hidden complexity.\w8\w8\n"
-				"the sun represents joy, success, celebration, and the truth.\w8\w8\n"
-				"judgement represents reflection, the reckoning, and awakening.\w8\w8\n"
-				"the world represents fulfillment, harmony, and completion.\w8\w8\n"
-				"the knight of wands represents action, adventure, and fearlessness.\w8\w8\n"
-				"the king of wands represents leadership, as well as overcoming challenges and seeing the bigger picture.\w8\w8\n"
-				"the queen of wands represents courage, determination, and joy.\w8\w8\n"
-				"the page of wands represents exploration, excitement, and freedom.\w8\w8\n"
-				"the 2 of wands represents planning, making decisions, and leaving home.\w8\w8\n"
-				"the 3 of wands represents expanding, looking ahead, and quick growth.\w8\w8\n"
-				"the 4 of wands represents community, support, home, and celebration.\w8\w8\n"
-				"the 5 of wands represents competition, rivalry, and conflict.\w8\w8\n"
-				"the 6 of wands represents victory, success, reward, and recognition.\w8\w8\n"
-				"the 7 of wands represents protection, perserverence, and maintaining control.\w8\w8\n"
-				"the 8 of wands represents quick actions and decisions- \w2or sometimes sudden changes.\w8\w8\n"
-				"the 9 of wands represents resilience and grit- \w2like a last stand close to victory.\w8\w8\n"
-				"the 10 of wands represents accomplishment, as well as the responsibility and burdens of it.\w8\w8\n"
-				"the ace of wands represents creation, new desire, energy, and inspiration.\w8\w8\n"
-				"the knight of cups represents idealism and romanticism- \w2to follow your own heart.\w8\w8\n"
-				"the king of cups represents wisdom, compassion, and balanced control (especially between the head and the heart.)\w8\w8\n"
-				"the queen of cups represents compassion, calm, and comfort- like a counsellor, almost.\w8\w8\n"
-				"the page of cups represents dreams and sensitivity- the unexpected that comes to us from the unconscious.\w8\w8\n"
-				"the 2 of cups represents unity, partnership, and mutual respect.\w8\w8\n"
-				"the 3 of cups represents friendship, community, and happiness.\w8\w8\n"
-				"the 4 of cups represents apathy, disconnection, and contemplation.\w8\w8\n"
-				"the 5 of cups represents loss, grief, and self-pity.\w8\w8\n"
-				"the 6 of cups represents familiarity, happy memories, and healing.\w8\w8\n"
-				"the 7 of cups represents daydreaming, choices, and searching for purpose.\w8\w8\n"
-				"the 8 of cups represents disillusionment and leaving things behind.\w8\w8\n"
-				"the 9 of cups represents satisfaction, emotional stability, and luxury.\w8\w8\n"
-				"the 10 of cups represents inner happiness and fulfilled dreams.\w8\w8\n"
-				"the ace of cups represents new feelings, spirituality, and intuition.\w8\w8\n"
-				"the knight of swords represents action, impulsiveness, and defending your beliefs.\w8\w8\n"
-				"the king of swords represents placing logic over emotions: it shows discipline and truth.\w8\w8\n"
-				"the queen of swords represents complexity, perceptiveness, and having a clear mind.\w8\w8\n"
-				"the page of swords represents curiousity, restlessness, and mental energy.\w8\w8\n"
-				"the 2 of swords represents difficult choices, indecision, and stalemates.\w8\w8\n"
-				"the 3 of swords represents heartbreak, suffering, and grief.\w8\w8\n"
-				"the 4 of swords represents rest, recuperation, and contemplation- especially after grief.\w8\w8\n"
-				"the 5 of swords represents pure ambition to succeed at any cost, often resulting in conflict, hostility, and stress.\w8\w8\n"
-				"the 6 of swords represents transition, leaving things behind, and moving on... like accepting something.\w8\w8\n"
-				"the 7 of swords represents deception, trickery, tactics, and strategy.\w8\w8\n"
-				"the 8 of swords represents imprisonment and self-victimization.\w8\w8\n"
-				"the 9 of swords represents anxiety, hopelessness, nightmares, and isolation.\w8\w8\n"
-				"the 10 of swords represents failure, collapse, and defeat- sometimes even betrayal.\w8\w8\n"
-				"the ace of swords represents breakthroughs and the clarity of mind that comes with it.\w8\w8\n"
-				"the knight of pentacles represents efficiency, hard work, and responsibility.\w8\w8\n"
-				"the king of pentacles represents abundance, prosperity, and material sense.w8\w8\n"
-				"the queen of pentacles represents practicality, financial security, and the comforts that come with it.\w8\w8\n"
-				"the page of pentacles represents goals, grounded ambition, and diligence.\w8\w8\n"
-				"the 2 of pentacles represents balancing decisions, priorities, and adapting to change.\w8\w8\n"
-				"the 3 of pentacles represents teamwork, collaboration, and the success that comes from it.\w8\w8\n"
-				"the 4 of pentacles represents conservation, frugality, and security.\w8\w8\n"
-				"the 5 of pentacles represents need, poverty, and insecurity.\w8\w8\n"
-				"the 6 of pentacles represents charity, generosity, and sharing.\w8\w8\n"
-				"the 7 of pentacles represents perserverence, hard work, patuence, and progress: as well as the rewards that come from it!\w8\w8\n"
-				"the 8 of pentacles represents apprenticeship and craftsmanship- like skill, mastery, passion, and dedication!\w2a\w8\w8\n"
-				"the 9 of pentacles represents luxury, achievement, leisure, and self-sufficency.\w8\w8\n"
-				"the 10 of pentacles represents legacy, culmination, privilege, and inheritance.\w8\w8\n"
-				"the ace of pentacles represents opportunities, prosperity, and new ventures.\w8\w8\n"
+			"The Fool\w8\w8\n"
+			"The Magician\w8\w8\n"
+			"The High Priestess\w8\w8\n"
+			"The Empress\w8\w8\n"
+			"The Emperor\w8\w8\n"
+			"The Heirophant\w8\w8\n"
+			"The Lovers\w8\w8\n"
+			"The Chariot\w8\w8\n"
+			"Strength\w8\w8\n"
+			"The Hermit\w8\w8\n"
+			"The Wheel of Fortune\w8\w8\n"
+			"Justice\w8\w8\n"
+			"The Hanged Man\w8\w8\n"
+			"Death\w8\w8\n"
+			"Temperance\w8\w8\n"
+			"The Devil\w8\w8\n"
+			"The Tower\w8\w8\n"
+			"The Star\w8\w8\n"
+			"The Moon\w8\w8\n"
+			"The Sun\w8\w8\n"
+			"Judgement\w8\w8\n"
+			"The World\w8\w8\n"
+			"Ace of Wands\w8\w8\n"
+			"2 of Wands\w8\w8\n"
+			"3 of Wands\w8\w8\n"
+			"4 of Wands\w8\w8\n"
+			"5 of Wands\w8\w8\n"
+			"6 of Wands\w8\w8\n"
+			"7 of Wands\w8\w8\n"
+			"8 of Wands\w8\w8\n"
+			"9 of Wands\w8\w8\n"
+			"10 of Wands\w8\w8\n"
+			"Page of Wands\w8\w8\n"
+			"Knight of Wands\w8\w8\n"
+			"Queen of Wands\w8\w8\n"
+			"King of Wands\w8\w8\n"
+			"Ace of Cups\w8\w8\n"
+			"2 of Cups\w8\w8\n"
+			"3 of Cups\w8\w8\n"
+			"4 of Cups\w8\w8\n"
+			"5 of Cups\w8\w8\n"
+			"6 of Cups\w8\w8\n"
+			"7 of Cups\w8\w8\n"
+			"8 of Cups\w8\w8\n"
+			"9 of Cups\w8\w8\n"
+			"10 of Cups\w8\w8\n"
+			"Page of Cups\w8\w8\n"
+			"Knight of Cups\w8\w8\n"
+			"Queen of Cups\w8\w8\n"
+			"King of Cups\w8\w8\n"
+			"Ace of Swords\w8\w8\n"
+			"2 of Swords\w8\w8\n"
+			"3 of Swords\w8\w8\n"
+			"4 of Swords\w8\w8\n"
+			"5 of Swords\w8\w8\n"
+			"6 of Swords\w8\w8\n"
+			"7 of Swords\w8\w8\n"
+			"8 of Swords\w8\w8\n"
+			"9 of Swords\w8\w8\n"
+			"10 of Swords\w8\w8\n"
+			"Page of Swords\w8\w8\n"
+			"Knight of Swords\w8\w8\n"
+			"Queen of Swords\w8\w8\n"
+			"King of Swords\w8\w8\n"
+			"Ace of Pentacles\w8\w8\n"
+			"2 of Pentacles\w8\w8\n"
+			"3 of Pentacles\w8\w8\n"
+			"4 of Pentacles\w8\w8\n"
+			"5 of Pentacles\w8\w8\n"
+			"6 of Pentacles\w8\w8\n"
+			"7 of Pentacles\w8\w8\n"
+			"8 of Pentacles\w8\w8\n"
+			"9 of Pentacles\w8\w8\n"
+			"10 of Pentacles\w8\w8\n"
+			"Page of Pentacles\w8\w8\n"
+			"Knight of Pentacles\w8\w8\n"
+			"Queen of Pentacles\w8\w8\n"
+			"King of Pentacles\w8\w8\n"
 			}
 		}
 	}
 	
-	"\n\f[color,default]\![*]\q[Again!,Ontarotinit,redo]\n\![*]\q[Back to Sylladex,OnSylladex]\n\![*]\q[Close,CANCEL]\e"
+	"\n\f[color,default]\![*]\q[AGAIN!,OnTarotInit,redo]\n\![*]\q[BACK,OnSakuraMenu]  \![*]\q[CLOSE,CANCEL]\e"
 }
