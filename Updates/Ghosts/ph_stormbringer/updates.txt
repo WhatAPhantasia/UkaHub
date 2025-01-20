@@ -3,8 +3,8 @@ file,ghost/master/descript.txtb1619f8df376be0a9e49c3bb004b0006size=254date=20
 file,ghost/master/emerg.dicc7cb6eacd3262003fef909c382a6fefesize=351date=2023-04-14T13:45:50
 file,ghost/master/lumi_menu.dice302137f6d0a3b8f6346bad7096cce17size=33188date=2025-01-19T18:32:20
 file,ghost/master/saori/time_check.dll07b7dabf0de6b5ea0a23178efc4d1c4fsize=105472date=2003-10-02T15:53:32
-file,ghost/master/sl_aitalk.dic10db0f65cdf5a272cb23e3e90cbeb409size=30255date=2025-01-19T19:24:33
-file,ghost/master/sl_boot.dic19d464a9b4ed3247cc1dd416008238f2size=15346date=2025-01-19T18:22:35
+file,ghost/master/sl_aitalk.dic9921931f205b4d89926964d9d898725dsize=30255date=2025-01-19T19:32:46
+file,ghost/master/sl_boot.dica626f49ec1493d8811c5ed010784e7fcsize=15340date=2025-01-19T19:34:26
 file,ghost/master/sl_meta.dic6359a3173e30d0ab070aceb3df5485ccsize=3792date=2023-05-13T13:51:59
 file,ghost/master/sl_mouse.dic3710e1a54353ae41fa8b3901c8103c86size=3086date=2025-01-19T17:25:48
 file,ghost/master/sl_other.dic287690dc487f1aae2ff72cee5afa67a1size=17330date=2025-01-19T14:04:02
