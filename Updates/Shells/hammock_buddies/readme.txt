@@ -5,13 +5,13 @@ TERMS:
 - do NOT use for commercial work, please!
 - do NOT claim as your own work. please keep the credit below in the readme.
 
-Hammock Buddies v1.0.0, by WhatAPhantasia
+Hammock Buddies v1.0.2, by WhatAPhantasia
 https://whataphantasia.github.io/projects/ukagaka
 
 NOTE:
 - kero SHOULD snap into place, at top of sakura's hips. (if kero is not already there)
     - i like putting the kero on top of the sakura's head ^_^
-- zorder and positioning are weird, pls keep it in mind... should be fixable on your end just by moving them around a bit
+- z-order is set up shell descript side, but sticky-window is not. feel free to add that in your own projects!
 - don't be afraid to contact me to tell me abt bugs or whatnot ^^
 
 --------
