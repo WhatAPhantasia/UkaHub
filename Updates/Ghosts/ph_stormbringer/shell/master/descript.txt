@@ -10,6 +10,10 @@ craftmanurl,https://phantasiaukahub.carrd.co
 seriko.alignmenttodesktop,bottom
 seriko.use_self_alpha,1
 
+
+sakura.balloon.offsetx,125
+sakura.balloon.offsety,275
+
 menu.background.font.color.r,230
 menu.background.font.color.g,230
 menu.background.font.color.b,230
@@ -38,3 +42,5 @@ menu.foreground.bitmap.filename,m_foreground.png
 menu.sidebar.bitmap.filename,m_sidebar.png
 
 //what
+
+sakura.bindgroup0.name,Idle Motion,On/Off

@@ -67,10 +67,6 @@ OnInitialize
 	//If you want some variables to reset on boot, put them here. This event will happen even if you add other events like OnGhostChanged
 	//OnInitialize is a NOTIFY event! That means it cannot return scripts. This event is only meant for things like variable changes. See this page on Ukadoc for more info: https://ukagakadreamteam.github.io/ukadoc/manual/spec_shiori3.html
 	
-	//If you add new variables in updates, I recommend initializing them like so:
-	//if !ISVAR("NewVariable"); NewVariable = 0
-	//This means that it will only set the new variable if the user doesn't already have it, so that their variables don't get overwritten
-	
 	if reference0 != "reload" //For things you want to reset EXCEPT when just reloading; a convenience for you the dev, basically
 	{
 		LastTalk = ""
@@ -90,9 +86,21 @@ OnInitialize
 		ucustompronouns ,= upronouns[1]
 		upronouns = ucustompronouns
 		ERASEVAR("ucustompronouns")}
-	if ISVAR("lcustompronouns") //YEAH this does onlsetgender again SORRY idk i just want to be safe
-		{ERASEVAR("lcustompronouns")
-		OnLSetGender}
+	if ISVAR("lcustompronouns") 
+		{ERASEVAR("lcustompronouns")}
+
+	//v1.0.2
+	if Flag("NoMotion")
+		{RemoveFlag("NoMotion")
+		OnUpdate.IdleMotionDressup}
+}
+
+lumiver
+{"v1.0.2"}
+
+OnUpdate.IdleMotionDressup
+{
+	"\![bind,Idle Motion,On/Off,1]"
 }
 
 //putting this here because its most relevant here
@@ -248,7 +256,7 @@ OnGhostChanging //im adding this because I DONT WANT TO RESET THE LASTCLOSE VARI
 
 	if reference3 == _path //If reloading.
 	{
-		"\1\s[-1]\0\s[1]\_q(Reloading...)\w8\w8\e"
+		"\1\s[-1]\0\s[1]\_q(Maybe if you go in and out of your apartment for a sec, \w8%(they(1))'ll go away.)\w8\w8\w8\w8\w8\e"
 	}
 	else
 	{
@@ -263,7 +271,7 @@ OnGhostChanged
 
 	if reference3 == _path //Finished reloading.
 	{
-		"\1\s[-1]\0\s[1]\_q(%(Capitalize(they(1)))'%(lp('re','s')) back!)\e"
+		"\1\s[-1]\0\s[1]\_q(Nevermind. \w8%(Capitalize(they(1)))'%(lp('re','s')) still here.)\e"
 	}
 	else
 	{

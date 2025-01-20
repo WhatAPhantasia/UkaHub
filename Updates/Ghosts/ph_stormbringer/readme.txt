@@ -11,7 +11,7 @@ i wanna brag abt their features cause where else am i gonna do that?! they have 
 
 i do NOT endorse some of the villainous stuff they say btw. they are a villain theyre supposed to be a little evil <3
 
-sNO - STORMBRINGER v1.0.1
+sNO - STORMBRINGER v1.0.2
 
 Simplicity Template v1.0.3, using YAYATc571-5. (thanks zi and all!!)
 https://github.com/Zichqec/simplicity_template

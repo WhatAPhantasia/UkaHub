@@ -35,7 +35,7 @@ OnSakuraMenu : all
 	"\n\![*]\q[Goodbye,OnClose,bye]"
 	
 	"\n\n\f[align,center]"
-	"Runtime: %(runtime) || Version v1.0.1"
+	"Runtime: %(runtime) || Version %(lumiver)"
 }
 
 OnLastTalk
@@ -54,15 +54,18 @@ OnPlasmaegisInfo : all
 	"A quick Toogle Search says:\n"
 	
 	//add more of these....
-	nonoverlap:{
-		"tHE BEST SUPERVILLAIN EVER!!! AWESOME WEATHER POWERS AND CAUSES THE BEST DESTRUCTION (Plasmaegis Fan Club)"
-		"Made it specifically storm for three days at my house because I annoyed %(them(1)). 10/10 experience (Meowler Post)"
-		"Hard to make articles on because rain and thunder surrounds %(them(1)) and it messes up my papers. We make do here at HeartRadar for all %(their(1)) fans! (Anon Journalist)"
-		"please stop terrorizing people at the second central park i actually kinda wanna see what it's like when its NOT a complete mess (Gumblr Post)"
-		"%(TOUPPER(they(1)))'%(lp('RE','S')) 16??????? DUDE I THOUGHT %(TOUPPER(they(1))) %(lp('WERE','WAS')) LIKE. 12 (Gumblr Post)"
-		if Flag("PandoraFight")
-		{
-			"hey aren't the weather gods... super secretive? what %(lp('are','is')) %(they(1)) doing here..? (???)"
+	if Flag("PandoraFight") && !Flag("AskWeatherGods")
+	{
+		"hey aren't the weather gods... super secretive? what %(lp('are','is')) %(they(1)) doing here..? (???)"
+	}
+	else
+	{
+		nonoverlap:{
+			"tHE BEST SUPERVILLAIN EVER!!! AWESOME WEATHER POWERS AND CAUSES THE BEST DESTRUCTION (Plasmaegis Fan Club)"
+			"Made it specifically storm for three days at my house because I annoyed %(them(1)). 10/10 experience (Meowler Post)"
+			"Hard to make articles on because rain and thunder surrounds %(them(1)) and it messes up my papers. We make do here at HeartRadar for all %(their(1)) fans! (Anon Journalist)"
+			"please stop terrorizing people at the second central park i actually kinda wanna see what it's like when its NOT a complete mess (Gumblr Post)"
+			"%(TOUPPER(they(1)))'%(lp('RE','S')) 16??????? DUDE I THOUGHT %(TOUPPER(they(1))) %(lp('WERE','WAS')) LIKE. 12 (Gumblr Post)"
 		}
 	}
 	"\n\n"
@@ -151,7 +154,7 @@ OnPandoraFight : all
 		"But... Yeah. \w8I should apologize, I just \w8Can't.\w6\n\n"
 		
 		//i'd like to add more choices to this event but... eh...
-		"\![*]\q[I'll help,OnPandoraFight1]"
+		"\![*]\q[I'm listening,OnPandoraFight1]"
 		//"\![*]\q[]"
 	}
 	else
@@ -230,12 +233,10 @@ OnWeatherMenu : all
 		else; "(OFF)"
 		"\n\n\f[align,default]"
 		
-		//"\n\![*]\q[DEBUG,OnWeatherPrint]\n"
+		if SHIORI3FW.Debug; "\n\![*]\q[DEBUG,OnWeatherPrint]\n"
 		if WeatherStationInstalled; "\![*]\q[Open Weather Station,OnWSOpen]"
 		
 		"\n\n\![*]\q[Back,OnSakuraMenu]   \![*]\q[Close,blank]"
-		
-		"\n\n\f[size,-2]\f[align,center](I recommend changing the API key for the plugin in its main.dic if you haven't already!)"
 }
 
 //ALL OTHER WEATHER STUFF IS IN sl_other.dic.
@@ -488,7 +489,7 @@ OnName
 	{
 		user = SHIORI3FW.EscapeAllTags(_tempname)
 		if ISVAR("olduser"); ERASEVAR("olduser")
-		"\s[3]\i[61]\i[75]Huh... \w8Eugh, \w4don't like that feeling of deja vu, \w8\i[52]but never mind that! \w8%(Capitalize(user)) it is!"
+		"\s[3]\i[61]\i[75]Huh... \w8Eugh, \w4weird feeling of deja vu, \w8\i[52]but never mind that! \w8%(Capitalize(user)) it is!"
 	}
 	//----------------------------------
 	elseif _name == "kadin" || _name == "kadinblaire"
@@ -496,29 +497,39 @@ OnName
 		user = SHIORI3FW.EscapeAllTags(_tempname)
 		"\s[1]\_q(For some reason, this name seems just right.)\w8\w2"
 	}
-	elseif VillainNames _in_ _name
+	elseif ASEARCH(_name,VillainNames) != -1
 	{
-		"\s[1]\_q(Please pick a different name!! Don't wanna make lore confusing you know??)\w8\w2"
+		"\s[1]\_q(You don't think even Lumi would find that to be flattering. %(Capitalize(they(1)))'%(lp('re','s')) too prideful.)\w8\w2"
 		--
 		"\n\n\![*]\q[Cancel,OnConfigMenu,OnSettingsMenu]\![open,inputbox,OnName,-1]\e"
 	}
-	elseif HeroNames _in_ _name
+	elseif ASEARCH(_name,HeroNames) != -1
 	{
-		"\s[1]\_q(Please pick a different name!! Don't wanna make lore confusing you know??)\w8\w2"
+		"\s[1]\_q(Doesn't seem like Lumi would like that. %(Capitalize(they(1)))'%(lp('ve','s')) got a real specific tie with that person.)\w8\w2"
 		--
 		"\n\n\![*]\q[Cancel,OnConfigMenu,OnSettingsMenu]\![open,inputbox,OnName,-1]\e"
 	}
-	elseif NeutralNames _in_ _name
+	elseif _name == "juniper"
 	{
-		"\s[1]\_q(Please pick a different name!! Don't wanna make lore confusing you know??)\w8\w2"
+		"\s[1]\_q(No. Not that name.)\w8\w2"
 		--
 		"\n\n\![*]\q[Cancel,OnConfigMenu,OnSettingsMenu]\![open,inputbox,OnName,-1]\e"
 	}
 	//----------------------------------
+	elseif ASEARCH(_name,NeutralNames) != -1
+	{
+		user = SHIORI3FW.EscapeAllTags(_tempname) 
+		"\s[1]Hmmm? \w8\i[53]Ohh, \w6i\w2n\w2t\w2e\w2r\w2e\w2s\w2t\w2i\w2n\w2g\w2! \w8\w4\i[12]\i[72]I know someone with that name, \w4that's cool!\w8\w2"
+	}
 	elseif _name == "phantasia" || _name == "whataphantasia" || _name == "eshal"
 	{
 		user = SHIORI3FW.EscapeAllTags(_tempname) 
 		"\s[1]\i[51]Yeah, yeah, okayy. \w8If you're Phantasia, maybe actually finish coding me!\w8\w2\_q"
+	}
+	elseif _name == "mortal"
+	{
+		user = SHIORI3FW.EscapeAllTags(_tempname) 
+		"\s[1]\i[53]Wahahaha! \w8Yeah, \w4mortal just feels RIGHT, \w4huh?\w8\w2\_q"
 	}
 	else //normal name response.
 	{
@@ -526,7 +537,7 @@ OnName
 		"\s[1]\i[53]Got it~!!\w8\w2\_q"
 	}
 	--
-	"\n\![*]\q[Back,OnSettingsMenu]   \![*]\q[Close,blank]"
+	"\n\n\![*]\q[Back,OnSettingsMenu]   \![*]\q[Close,blank]"
 }
 
 OnChangePronouns : all
@@ -626,8 +637,7 @@ OnTalkRateChange
 
 OnToggleMotion
 {
-	if !Flag("NoMotion"); AddFlag("NoMotion")
-	else; RemoveFlag("NoMotion")
-	
+	"\![bind,Idle Motion,On/Off]"
+	--
 	"%(smileidle)\![raise,OnSettingsMenu]"
 }

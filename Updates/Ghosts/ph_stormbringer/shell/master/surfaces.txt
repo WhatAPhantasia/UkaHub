@@ -142,7 +142,7 @@ surface.append1-4
 {
 	element0,overlay,surface50.png,0,0
 	
-	animation0.interval,always
+	animation0.interval,bind+always
 	animation0.pattern0,replace,51,1000,0,0
 	animation0.pattern1,replace,50,1000,0,0
 	

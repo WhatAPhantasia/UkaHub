@@ -67,12 +67,12 @@ OnSakuraMouse : nonoverlap_pool
 				}
 				else
 				{
-					"\_q%(neutralidle)(Your hand passes right through the clouds. The hair underneath is damp...)\e"
-					"\_q%(neutralidle)(The cartoons were wrong. Clouds don't really feel like anything.)\e"
-					"\_q%(neutralidle)(It's like brushing through wet hair.)\e"
-					"\_q%(neutralidle)(You try to catch a stray wisp of cloud, but it just passes through your hand...)\e"
-					"\_q%(neutralidle)(Pat pat, brush brush.)\e"
-					"\_q%(neutralidle)(Damp hair and cloud mist. A questionable texture.)\e"
+					"\_q%(stopalleyes)\i[52](Your hand passes right through the clouds. The hair underneath is damp...)\e"
+					"\_q%(stopalleyes)\i[52](The cartoons were wrong. Clouds don't really feel like anything.)\e"
+					"\_q%(stopalleyes)\i[52](It's like brushing through wet hair.)\e"
+					"\_q%(stopalleyes)\i[52](You try to catch a stray wisp of cloud, but it just passes through your hand...)\e"
+					"\_q%(stopalleyes)\i[52](Pat pat, brush brush.)\e"
+					"\_q%(stopalleyes)\i[52](Damp hair and cloud mist. A questionable texture.)\e"
 
 					"\s[1]\i[53]Hmmm, impressed by my hair? \w8Only someone with the amount of magic finesse and power like ME can maintain a form like this constantly! \w8Aren't I so cool??\e"
 				}

@@ -26,16 +26,6 @@ OnTranslate
 	
 	//---------------shell modes
 	
-	//PURPOSE: turn off motion for surfaces that have motion.
-	_motions = "\s[1],\s[2],\s[3],\s[4]"
-	if Flag("NoMotion")
-	{
-		foreach _motions; _s
-		{
-			_talk = REPLACE(_talk, "%(_s)", "%(_s)\![anim,pause,0]")
-		}
-	}
-	
 	//PURPOSE: change villain surfaces to raincoat human surfaces
 	//hrm hrm.. get index position...
 	_raincoats = "\s[5],\s[6],\s[7],\s[8]"
@@ -569,4 +559,25 @@ RemoveFlag
 			MiscFlags[_current] = IARRAY
 		}
 	}
+}
+
+//---------
+//notify info!
+
+//Character ID, category name, part name, option (comma delimited if multiple), valid / invalid 0, thumbnail path
+OnNotifyDressupInfo
+{
+    availabledressups = IARRAY //This one is to display the dressup menu
+    currentdressups = IARRAY //This one is so we can display which dressups are currently in use
+    
+    //Has to be reference.raw because parts of this are delimited with C_BYTE1
+    foreach reference.raw; _dressup
+    {
+        _dressup = SPLIT(_dressup,C_BYTE1)
+        
+        _toadd = _dressup[0] + "|" + _dressup[1] + "|" + _dressup[2]
+        if _dressup[4] == 1; currentdressups ,= _toadd
+        
+        availabledressups ,= _toadd
+    }
 }

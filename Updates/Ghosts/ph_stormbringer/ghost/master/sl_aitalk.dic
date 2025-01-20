@@ -65,6 +65,16 @@ RandomTalk : nonoverlap_pool
 	if Flag("FBKnow"); "\![anim,stop,52]\i[51]\i[61]Really, it must be an honor for me to be here, riiight?\e"
 	else; "\w8\s[3]\i[51]\i[75]\n...So CLEARLY, \w2you've been living under a rock if you had to ask who I was...\e"}
 
+	"\0\s[3]\i[52]\i[75]I thought I'd like Spirefell City, but everyone there sees us as a JOKE... \w8\![anim,stop,52]\i[50]What do you MEAN I'm ""trivializing what villains do??"" \w8I'm sorry your villains aren't as cool as Cyber Lights! \w8\s[3]\i[12]\i[72]Gosh!!\e"
+
+	"\0\s[3]\i[52]\i[75]A $7500 plushie set or $50 groceries.... \w8\w8\s[1]\i[53]THE PLUSHIES. \w8\w4Instantly! \w8\w4Over everything else!!\e"
+
+	"\0\s[1]\i[11]There are some really cool plant terrace-rooftops to crash around here, you know. \w8\i[53]And it's the rich guys and corpos that own em, so it's like talking to ANOTHER me! \w8\w8\s[1]\i[51]...I mean, \w8once they get past the running and cheering and screaming phase. \w8\w8\s[3]\i[51]\i[75]And even then they're all SUPER stuffy.\e"
+
+	"\0\s[3]\i[61]\i[75]Arcades are fun, but cloud hands really aren't the most responsive when you're playing with a touchscreen. \w8\i[52]Now, if only I remembered to bring my gloves...\e"
+
+	"\0\s[3]\i[61]Should I sew more pockets into my suit? \w8\w6\s[2]\i[52]I love my pockets, \w4they're so convenient, \w8\s[3]\i[52]but I can never hold enough of what I want... \w8\w8\i[12]\i[62]\i[72]Tis a shame, \w4%(user), \w4surely you must understand...\e"
+
 
 	//--- weather related but not related to CURRENT weather
 	
@@ -76,6 +86,8 @@ RandomTalk : nonoverlap_pool
 
 	"\0\s[3]\i[52]\i[75]Hmph... \w8%(Capitalize(user)), no one truly appreciates how hard it is to be the resident weather demigod around here. \w8\s[1]\i[52]\i[75]So YES, I'm going to CONTINUE telling you about %(ANY('coastal wind patterns','the formation of tornadoes','the effect city terrain has on wind'))! \w8SOMEONE needs to get this!\e"
 
+	"\0\s[1]Cyber Light City has been consistently rated for Best Sights, and \i[53]I WILL have to say my effect on the weather has A TON to do with that! \w8\s[1]\i[71]Like, have you SEEN the cloud patterns and sun cover?! \w8\i[53]That's ALL ME!!\e"
+
 
 	//----- GENDER THOUGHTS
 	case lgender
@@ -83,30 +95,48 @@ RandomTalk : nonoverlap_pool
 		when "girl"
 		{
 			"\0\s[3]\i[52]\i[61]\i[75]I don't feel girly most days, but today's %(dn('','been '))a nice day~ \w8Just wish I could let down my hair...\e"
+
+			"\0\s[3]\i[52]\i[75]I try my best to be a girls girl, %(user), but Pandora makes it so! \w8HARD!! \w8\w4She's sooo annoying!! \w8\![anim,stop,52]\i[51]These trips to your balcony are SO needed, you know...\e"
 		}
 		when "boy"
 		{
 			"\0\s[4]\i[52]\i[75]Hmmph, when I say ""boys will be boys,"" I'm referring to my right to be STUPID!! \w6Not any of that toxic stuff! \w8\w2\s[3]\i[52]\i[62]\i[12]\i[72]Sighh, \w2no one gets it, %(user)...\e"
+
+			{"\0\s[3]\i[52]\i[61]\i[71]New boy activity: "
+			random:{"Trotting out into the pastures next to the city to eat grass and be free!\e"
+					"Going down to the beach to bury myself in a sand castle for 3 hours! \w8\w8Or until I get bored!\e"
+					"Raiding Calamity's fridge and gobbling down as many uncooked sausages I can!\e"
+					"Scattering sprinkles on the floor of my room before sweeping it up into a neat little pile!\e"}}
 		}
 		when "creature"
 		{
 			"\0\s[1]\i[53]Wehehehehe~~~ \w8What's a gender?! \w8\i[12]\i[72]Never heard of her!! \w8I wanted to say that out loud because I feel GREAT to%(dn('day','night'))!!!!!\e"
+
+			"\0When I'm in this mood, \w5I feel like skittering around the floor... \w8\w4Unfortunately, \w2after the incident with the static electricity in the streets, \w2I can't do it in public anymore. \w8\w8...Or maybe I CAN..?\e"
 		}
 		when "cloud"
 		{
 			"\0\s[2]\i[52]\i[61]Feeling floaty to%(dn('day','night'))~~ \w8What a nice feeling~~\e"
+
+			"\0\s[3]\i[52]\i[61]I feel like I've had clouds to fall back on as long as I can remember. \w8\i[75]It's a feeling close to my chest, really... \w8\s[1]\i[12]\i[53]\i[72]Cuz my arms are made of em!\e"
 		}
 		when "lightning"
 		{
 			"\0\s[1]\i[43]\i[53]Ehehehehe~ \w8I just wanna zap around to%(dn('day','night'))... \w8Maybe later...\e"
+
+			"\0\s[1]\i[52]\i[75]Lightning in my veins... \w8\s[1]\i[12]\i[53]\i[72]\i[112]\i[142]It's electrifying, exciting, invigorating! \w8\w8\![anim,stop,53]\i[51]\i[112]\i[142]Do you wanna feel, \w8%(user)? \w8\w8\s[1]\i[53]PFFTT, \w8I'm just kidding!\e"
 		}
 		when "zephyr"
 		{
 			"\0\s[1]\i[52]\i[61]\i[75]Feeling just like the wind... \w8This is the freest and strongest I've ever been...\e"
+
+			"\0\s[3]\i[52]\i[61]\i[75]It always feels like there's something coming with the wind. \w8\s[3]\i[61]\i[75]And something usually always is. \w8\w8\s[3]\i[52]\i[61]\i[71]That's the nature of a zephyr, you know?\e"
 		}
 		when "weatherfluid"
 		{
 			"\0\s[3]\i[52]\i[61]\i[75]...Not sure anyone could understand the connection I feel to the air, the weather... \w8But I think it's kinda nice, having an experience all to myself...\e"
+
+			"\0\s[3]\i[52]\i[61]The weather can shift so suddenly, and I feel it so deeply. \w8\s[1]\i[53]Of course it's my gender!\e"
 		}
 	}
 
@@ -140,9 +170,12 @@ RandomTalk : nonoverlap_pool
 		all:{"\0\s[1]\i[12]\i[72]Hey, %(user)! \w4Do you want a cloud-in-a-jar? \w8\i[53]I can make one really quickly if you give me a mason jar~ \w8"
 		random:{"I could put thunderclouds in it! \w8It'll be fun to watch the lightning flash, right?\e"
 				"\![anim,stop,53]\i[52]I could even put a little drainage system in it to let all the rain out...\e"}}
-
-		//moved this one to here...
+		
 		"\0\s[3]\i[51]\i[75]Ehhh, \w6lately I've been thinking that my uniform is just so... \w8\w8\![anim,stop,51]\i[52]drab..? \w8\w8\w4\s[2]\i[62]\i[75]I hate saying that, cause I made it myself based off of Calamity's whole suit, \w4and it's like we match, \w4yeah? \w8\w8\w4\![anim,stop,62]\i[61]\i[52]Still... \w4I'll workshop it!\e"
+
+		"\0\s[1]I'm as cool as Calamity, right? \w8\i[12]\i[53]\i[72]I mean, we're a duo! \w8\![anim,stop,53]\i[52]Earthquakes and thunderstorms, landslides and tsunamis... \w8\w8\s[2]\i[52]\i[75]Yeah. \w8\w8\![anim,stop,52]\i[53]Yeah! \w8\w8I AM as cool as him!\e"
+
+		"\0\s[3]\i[52]\i[75]The windpower around the city is cool and all, but \s[4]\i[71]DON'T BELIEVE THE LIES. \w8\i[52]I do nothing to help the windpower at all!! \w8\s[4]\i[52]\i[75]I'm a villain, and making the blades spin isn't super duper mega fun AT ALL!!\e"
 
 		/*
 		if !Flag("YeStorm") || !Flag("NoStorm") {
@@ -162,7 +195,7 @@ RandomTalk : nonoverlap_pool
 				{
 					"\0\s[3]\i[61]\i[75]Oh dang, didn't expect to stay here 'til the sun peeks over the horizon again...\e"
 
-					"\0\s[3]\i[52]\i[61]\i[75]...I've had a lot of nights like this.\e"
+					"\0\s[3]\i[52]\i[61]\i[75]...I've had a lot of nights like this. \w8You know.\e"
 				}
 
 				parallel Pool_Breakfast
@@ -191,6 +224,8 @@ RandomTalk : nonoverlap_pool
 			}
 			when "latenight" {
 				parallel Pool_Dinner
+
+				"\0\s[3]\i[61]\i[75]This is a weird time to be hanging out here, you know? \w8Usually I'm at the base, \w4or scheming with Calamity... \w8\w8\s[1]\i[53]There's just SOMETHING about the hours ticking down to midnight, yeah?\e"
 			}
 			when "midnight" {
 				parallel Pool_Dinner

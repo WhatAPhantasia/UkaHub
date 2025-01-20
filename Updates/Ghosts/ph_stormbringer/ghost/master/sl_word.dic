@@ -22,6 +22,9 @@ neutralidle
 	"\s[3]\i[%(ANY(50,50,52))]\i[61]\i[75]"
 }
 
+stopalleyes
+{"\![anim,clear,50]\![anim,clear,51]\![anim,clear,52]\![anim,clear,53]\![anim,clear,54]\![anim,clear,55]\![anim,clear,56]"}
+
 phoneidle
 {
 	phonehap
@@ -83,11 +86,10 @@ rarecloud
 
 //ARRAYS OF STUFF IG
 
-VillainNames {"Plasmaegis","Stormbringer","Lumi","Calamity","Wesley","Pandora","Gomi"}
-
-HeroNames {"Neo","Nathaniel","Aspin","Heartattack","Ronnie","Seishi"}
-
-NeutralNames{"Juniper","Cindy","Candy","Corey"}
+VillainNames {"plasmaegis","stormbringer","lumi","calamity","wesley","pandora","gomi"}
+HeroNames {"neo","aspin","heartattack","seishi"}
+HeroRealNames {"nathaniel","aspin","ronnie","seishi"}
+NeutralNames {"juniper","cindy","candy","corey"}
 
 //UTILITY STUFF
 
