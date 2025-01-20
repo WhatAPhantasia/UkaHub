@@ -256,7 +256,7 @@ OnGhostChanging //im adding this because I DONT WANT TO RESET THE LASTCLOSE VARI
 
 	if reference3 == _path //If reloading.
 	{
-		"\1\s[-1]\0\s[1]\_q(Maybe if you go in and out of your apartment for a sec, \w8%(they(1))'ll go away.)\w8\w8\w8\w8\w8\e"
+		"\1\s[-1]\0\s[1]\_q(Maybe if you go in and out of your apartment for a sec, %(they(1))'ll go away.)\w8\w8\w8\w8\w8\e"
 	}
 	else
 	{
@@ -271,7 +271,7 @@ OnGhostChanged
 
 	if reference3 == _path //Finished reloading.
 	{
-		"\1\s[-1]\0\s[1]\_q(Nevermind. \w8%(Capitalize(they(1)))'%(lp('re','s')) still here.)\e"
+		"\1\s[-1]\0\s[1]\_q(Nevermind. %(Capitalize(they(1)))'%(lp('re','s')) still here.)\e"
 	}
 	else
 	{

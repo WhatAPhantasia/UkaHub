@@ -50,7 +50,7 @@ RandomTalk : nonoverlap_pool
 
 	"\0\s[3]\i[52]\i[75]Y'know, %(user), it used to be so hard to find good, DIVERSE fashion for people without arms in CLC. \w6Which was a surprise, really. \w6\![anim,stop,52]\i[50]Thought there'd be more people like me before I came here, right? \w8\s[1]\i[52]\i[75]Of course, the moment I started getting popular, I started getting WAY more clothing options... \w8\w2\s[1]\i[12]\i[53]\i[72]My influence and fame knows no bounds!\e"
 
-	"\0\s[2]\i[75]Oh, to be a little froggy %(ANY('in a fancy little teapot','on a silly little scooter'))...\w8\w8\n\_q(...%(Capitalize(lp('is','are'))) %(they(1)) muttering that to %(themself(1))?)"
+	"\0\s[2]\i[75]Oh, to be a little froggy %(ANY('in a fancy little teapot','on a silly little scooter'))...\w8\w8\n\_q(...%(Capitalize(lp('are','is'))) %(they(1)) muttering that to %(themself(1))?)"
 
 	"\0\s[3]\i[52]\i[61]\i[75]...Aut viam inveniam \w4aut faciam.\e"
 
