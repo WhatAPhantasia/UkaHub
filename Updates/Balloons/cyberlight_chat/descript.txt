@@ -86,6 +86,7 @@ arrow1.y,-23
 
 onlinemarker.x,0
 onlinemarker.y,0
+onlinemarker.interval,100
 
 sstpmarker.x,24
 sstpmarker.y,-14
