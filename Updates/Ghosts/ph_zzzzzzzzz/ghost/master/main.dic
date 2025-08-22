@@ -40,7 +40,7 @@ OnBoot
 	}
 	elseif _timesince >= 365 //a year. how dare you leave her for that long. you should feel ashamed.
 	{
-		"friend..... why hyoou leave me......... why you hurt little ol me..... your best firned...... is ok tho i forgive you bc u are silly and ily. silly silly silly"
+		"friend..... why hyoou leave me for more than a year......... why you hurt little ol me..... your best firned...... is ok tho i forgive you bc u are silly and ily. silly silly silly"
 	}
     elseif _today == "6/8"
     {
@@ -91,6 +91,7 @@ OnClose
     "this silliness is too much. too much to the point that you leave your best friend. i see how it is"
     "baaaaaaaaai X33 i'll miss you baaaaaaaaaaaai"
     "zzzzzzzzzzzzzzzzzzzz"
+	"explain to me the cruelty in your heart"
     --
     "\w8\w8\-"
 }
@@ -234,7 +235,7 @@ OnNo
     "absolutely not"
     "terrible idea"
     "NOOOO not gonna"
-    "i dont have a menu. you're demanding too much from me" //doesnt make sense out of context but it works
+    "i dont have a menu. you're demanding too much from me"
     "🤨 no thanks"
     "and the crowd says no thanks 🔥🔥🔥🔥🔥"
     "grrrr! no"

@@ -1,7 +1,7 @@
 //she does not have a true commu. she just pretends to sleep on people when overlapping them LOL
 
 //this is taken STRAIGHT from needle. i claim no property over it at all
-//this has issues when overlapping two or more ghosts :Vc zi seems to have fixed this but hasnt updated needle yet so :oc
+//this has issues when overlapping two or more ghosts :Vc
 OnOtherOverlap : all
 {
 	_overlap = SPLIT(reference.raw[0],C_BYTE1)
@@ -54,12 +54,21 @@ eepygeneral
     "sooooooo coooozyyyyyyyyyyyyy zzzzzzzzzzzzzzzzzzzzmmmmmimimimimimi"
     "oh hello %(_name)........ zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
     "cozy %(_name) material... my FAVORITE"
+	"turns you into a bed"
+	"sleepover time zzzzzzzzzzzzzzzzzzzzzzzzzz"
+	"fluffs you like a pillow zzzzzzzzzzzzzzzzzzzz"
+	"amimir"
+	"dormir"
+	"zzzzzzzzzzzzzzzzzzzzzzzzzzamnyamnyamnyam"
+	"chews on you zzzzzzzzzzzzzzzzzzzzzzzzzzzzz"
 }
 
 OnSheEepy
 {
     _name = "friend"
     if reference0 != ""; _name = TOLOWER(reference0)
+	//for reference, this gets the sakura name in descript.txt.
+	//reference1 takes the character scope
 
     //dang this is really roundabout :Vc optimize later
     //at least it makes the probability higher so \_(O_O)_/
@@ -113,6 +122,24 @@ OnSheEepy
                 {"WOAH big bird..... so cozy 🥺🥺🥺"
                 "WOAH big moss!!!! i love you moss! zzz"}
             }
+			when "lorem" {
+				"hello lobo :3 awww dont be like that you like mee"
+				"AWOOOOOOOOOOOOOOOOOOOOOOOOzzzzzzzzzzzzzzzzzzzzz"
+				"dogy :3"
+				"lobo fur nice and planar. ideal bedding"}
+			when "angel" {
+				"HEHEHEH SLEEPOVERRRR YAYAYAYA zzzzzzzzzz"
+				"angel feathers... soft...."
+				"chews on your nice soft angel hair"
+				"floats on your halo"
+				if reference1 == 1
+				{"strange cat pilot thang you fascinate me"
+				"youre so soffttt why nottt zzzzzzzzzzzzzzz"}}
+			when "mica" {
+				"bubbles as you sink below the shinies"
+				"shiny shiny hoard! so pretty... zzzzzzzzzzz"
+				"shiny things nice and pleasant to chew on :)"
+				"hides among the seafronds"}
             others {eepygeneral}
         }
     }

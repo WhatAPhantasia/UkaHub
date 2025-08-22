@@ -113,6 +113,20 @@ RandomTalk
     "oh man my wrists hurt from coding... remember to take breaks, ok? i love you!"
     "idk why but making word envelopes SUCKKSSS cant do it nope no thanksies!"
     "*i raise a cue card that says %(ANY('laughter','hysteria','cry','scream','panic','crisis','sleep','fall')) on it*\e:chain=cuecards"
+	"sometimes ill roll around and end up somewhere completely new. new fascinating places to sleep, never the muscle memory to find them again..."
+	"i want the smell of %(drink)... it never fails to put me to sleep!"
+	"rolls you up like a ball of yarn and then plays with it like a cat. meowww moewwwwww\e:chain=yarn"
+	"bats at you with my hands"
+	"brother put me in front of an ipad and i will be LOCKED TF IN. the strawberry bounces around fasinatingly you should watch it with me"
+	{"have you tried keeping a dream journal? "
+	--
+	"i used to, when i was little. i don't keep up with it much anymore, despite getting sleepier these days"
+	"its so strange looking back on what you used to write when you first dreamt something. those feelings feel both so foreign, yet so surreal and vivid, like it was yesterday"
+	"its a nice writing exercise everytime i wake up. its not beholden to any quality in particular, only for the sake of remembering a fleeting experience you deemed significant enough for that priviledge. its so nice..."
+	"its like rotating an apple in your mind but like 10 times cooler"
+	"i'm a dream journal, in a way. i'm a timeline of fleeting thoughts, across a multitude of years, evoking feelings only i remember. fascinating, right?"}
+	"i think aliens must have swooped down and scrambled my brain sometime along the line. not for any weird reason or anything i just think it'd be really fucking cool"
+	"hard work is what makes sleep all the more sweeter. which is why i take the effort to sleep on everyone i come across. its a very important job"
 
     //conversations (anchors)
     "are you okay down there....? it looks... \w8\w8it looks \_a[convo.dark]dark.\_a"
@@ -143,6 +157,8 @@ RandomTalk
     "oh your heart! \w8aortic work of art!"
     "obscure the parts within your heart, an apostolic work of art: \w8you know that its the only way to run away."
     "there's a ghost! \w8in my home! \w8but its better than being alone!!"
+	"non-rem sleep, rem sleep! non-rem sleep, rem sleep!"
+	"aiming for a good nights sleep, earning a good nights sleep"
     //some of my favorite malay proverbs (also just me and my choppy malay lol)
     "ada udang di sebalik batu"
     "bagai bulan jatuh ke riba... :0"
@@ -192,6 +208,10 @@ CHAIN}}
 cuecards
 {{CHAIN
     "come on, dude, hop to it. \w8didnt you see the cue card? you are RUINING this shot\e:chain=end"
+CHAIN}}
+yarn
+{{CHAIN
+	"""meoww"" grown ass man"
 CHAIN}}
 
 //parallel Pool("Pool_Example","%(example == 'True')")
